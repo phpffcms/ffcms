@@ -1,0 +1,6 @@
+{
+  "require": {
+    "php": ">=5.4",
+    "phpffcms/ffcms-core": "dev-master"
+  }
+}
