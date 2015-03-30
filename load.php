@@ -3,25 +3,23 @@
 // load ffcms-core
 $loader = require root . '/vendor/autoload.php';
 $loader->add('Ffcms\\', root . '/vendor/phpffcms/ffcms-core/src/');
+$loader->add("Model\\", root);
+$loader->add("Core", root);
 
-require_once(root . "/Core/App.php");
+
 /**
- * Class App
- * Simple street magic ;)
+ * Alias for fast access
  */
 class App extends \Core\App {}
 
-class load {
-    public static function _init() {
-        ini_set('unserialize_callback_func', 'spl_autoload_call');
-        spl_autoload_register(array(new self, 'autoload'));
-    }
-    protected static function autoload($class) {
-        $pathname = root . '/';
-        $pathname .= str_replace("\\", "/", $class);
-        $pathname .= ".class.php";
-        if(is_readable($pathname))
-            require_once($pathname);
-    }
+\App::build();
+
+/**
+ * Use internalization for text with(in/out) params
+ * @param string $text
+ * @param array $params
+ * @return string
+ */
+function __($text, $params = []) {
+    return \App::$Translate->translate($text, $params);
 }
-load::_init();

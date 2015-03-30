@@ -1,12 +1,11 @@
 AddDefaultCharset utf-8
 Options -Indexes
-
+Options +FollowSymLinks
 DirectoryIndex index.php
+
+
 RewriteEngine On
 RewriteRule ^.htaccess$ - [F]
-
-RewriteCond %{REQUEST_URI} !\.(ico|css|js|txt|jpg|png|bmp|jpeg|eot|svg|ttf|woff)$ [NC]
-RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^(.*)$ index.php [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

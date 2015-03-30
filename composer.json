@@ -1,6 +1,42 @@
 {
+  "name": "phpffcms/ffcms",
+  "description": "FFCMS 3 version based on MVC core ffcms-core.",
+  "keywords": [
+    "php",
+    "cms",
+    "mvc",
+    "framework",
+    "php5",
+    "pdo",
+    "ffcms"
+  ],
+  "type": "project",
+  "homepage": "http://ffcms.org",
+  "license": "MIT",
+  "minimum-stability": "dev",
   "require": {
     "php": ">=5.4",
-    "phpffcms/ffcms-core": "dev-master"
+    "phpffcms/ffcms-core": "dev-master",
+    "maximebf/debugbar": "1.*",
+    "ezyang/htmlpurifier": "4.6.*",
+    "bower-asset/jquery": "2.1.*@stable | 1.11.*@stable",
+    "bower-asset/jquery.inputmask": "3.1.*",
+    "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
+    "bower-asset/jquery-ui": "1.11.*@stable",
+    "bower-asset/components-font-awesome": "4.*@stable"
+  },
+  "authors": [
+    {
+      "name": "Mihail Pyatinskyi",
+      "email": "zenn1989@gmail.com",
+      "homepage": "http://ffcms.ru",
+      "role": "Developer"
+    }
+  ],
+  "extra": {
+    "asset-installer-paths": {
+      "npm-asset-library": "vendor/npm",
+      "bower-asset-library": "vendor/bower"
+    }
   }
 }
