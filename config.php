@@ -7,5 +7,6 @@ return [
     'singleLanguage' => 'en',
     'multiLanguage' => true,
     'baseLanguage' => 'en', // do not rewrite it!
-    'languages' => ['en', 'ru']
+    'languages' => ['en', 'ru'],
+    'siteIndex' => 'Main::actionIndex'
 ];

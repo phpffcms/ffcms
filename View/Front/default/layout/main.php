@@ -1,3 +1,6 @@
+<?php
+    use Core\Helper\Url;
+?>
 <html>
 <head>
     <?php echo \App::$Debug->render->renderHead() ?>
@@ -18,12 +21,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo \App::$Alias->baseUrl; ?>">Главная</a>
+            <a class="navbar-brand" href="<?php echo Url::to('/') ?>">Главная</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="<?php echo \App::$Alias->baseUrl; ?>news/"> Новости</a></li>
-                <li><a href="<?php echo \App::$Alias->baseUrl; ?>static/about.html">О сайте</a></li>
+                <li><?php echo Url::link(Url::to('news/index'), 'Новости', ['class' => 'active', 'style' => 'color: red;']); ?></li>
+                <li><?php echo Url::link(Url::to('page/read', 'about'), 'О сайте'); ?></li>
                 <li><a href="<?php echo \App::$Alias->baseUrl; ?>user"> Пользователи</a></li>
                 <li><a href="<?php echo \App::$Alias->baseUrl; ?>feedback/">Обратная связь</a></li>
                 <!--<li><a href="http://demo.ffcms.ru/en/"><img class="flag flag-en"
