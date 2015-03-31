@@ -9,10 +9,10 @@
 <br />
 <?php echo \Core\Helper\HTML\Listing::display([
     'type' => 'ul',
-    'ul' => [],
-    'li' => [],
+    'ul' => ['id' => 'primary'],
     'items' => [
-        'Text1', 'text2', 'text3',
-        'main/index' => 'Text4'
+        ['type' => 'text', 'text' => 'Awesome text', 'property' => ['class' => 'text-text'], 'html' => false],
+        ['type' => 'link', 'link' => ['main/index', 5, 2], 'text' => 'My link!', 'property' => ['class' => 'text-text'], 'html' => false, 'activeClass' => 'active'],
+        ['type' => 'link', 'link' => ['main/read', null, null, ['a' => 'f', 'd' => 'test']], 'text' => 'My other link', 'html' => false, 'linkProperty' => ['id' => 'link1', 'class' => 'btn btn-info']]
     ]
 ]); ?>
