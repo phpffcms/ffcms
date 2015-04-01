@@ -2,7 +2,7 @@
 
 // load ffcms-core
 $loader = require root . '/vendor/autoload.php';
-$loader->add('Ffcms\\', root . '/vendor/phpffcms/ffcms-core/src/');
+//$loader->add('Ffcms\\', root . '/vendor/phpffcms/ffcms-core/src/'); // preload via PSR-0 standard from composer loader
 $loader->add("Model\\", root);
 $loader->add("Core", root);
 

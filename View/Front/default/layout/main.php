@@ -3,13 +3,13 @@
 ?>
 <html>
 <head>
-    <?php echo \App::$Debug->render->renderHead() ?>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->vendor['css']['bootstrap']; ?>"/>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->vendor['css']['fa']; ?>"/>
+    <link rel="stylesheet" href="<?php echo \App::$Alias->vendor['css']['bootstrap']['url']; ?>"/>
+    <link rel="stylesheet" href="<?php echo \App::$Alias->vendor['css']['fa']['url']; ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
     <title><?php echo \App::$Security->escapeQuotes($global->title) ?></title>
     <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($global->keywords); ?>"/>
     <meta name="description" content="<?php echo \App::$Security->escapeQuotes($global->description); ?>"/>
+    <?php echo \App::$Debug->render->renderHead() ?>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -25,7 +25,7 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><?php echo Url::link(Url::to('news/index'), 'Новости', ['class' => 'active', 'style' => 'color: red;']); ?></li>
+                <li><?php echo Url::link(Url::to('news/index'), 'Новости'); ?></li>
                 <li><?php echo Url::link(Url::to('page/read', 'about'), 'О сайте'); ?></li>
                 <li><a href="<?php echo \App::$Alias->baseUrl; ?>user"> Пользователи</a></li>
                 <li><a href="<?php echo \App::$Alias->baseUrl; ?>feedback/">Обратная связь</a></li>
@@ -145,8 +145,8 @@
         </div>
     </div>
 </div>
-<script src="<?php echo \App::$Alias->vendor['js']['jquery']; ?>"></script>
-<script src="<?php echo \App::$Alias->vendor['js']['bootstrap']; ?>"></script>
+<script src="<?php echo \App::$Alias->vendor['js']['jquery']['url']; ?>"></script>
+<script src="<?php echo \App::$Alias->vendor['js']['bootstrap']['url']; ?>"></script>
 <?php echo \App::$Debug->render->render() ?>
 </body>
 </html>
