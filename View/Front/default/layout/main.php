@@ -25,8 +25,8 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><?php echo Url::link(Url::to('news/index'), 'Новости'); ?></li>
-                <li><?php echo Url::link(Url::to('page/read', 'about'), 'О сайте'); ?></li>
+                <li><?php echo Url::link('news/index', 'Новости'); ?></li>
+                <li><?php echo Url::link(['page/read', '1'], 'О сайте'); ?></li>
                 <li><a href="<?php echo \App::$Alias->baseUrl; ?>user"> Пользователи</a></li>
                 <li><a href="<?php echo \App::$Alias->baseUrl; ?>feedback/">Обратная связь</a></li>
                 <!--<li><a href="http://demo.ffcms.ru/en/"><img class="flag flag-en"

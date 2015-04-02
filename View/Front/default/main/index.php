@@ -19,33 +19,28 @@
 
 <br />
 
-    <div role="tabpanel">
-
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">...</div>
-            <div role="tabpanel" class="tab-pane" id="profile">...</div>
-            <div role="tabpanel" class="tab-pane" id="messages">...</div>
-            <div role="tabpanel" class="tab-pane" id="settings">...</div>
-        </div>
-
-    </div>
-
 
 <?php echo \Core\Helper\HTML\Bootstrap\Nav::display([
     'ul' => 'nav-tabs',
     'tabAnchor' => 'n',
     'items' => [
-        ['type' => 'link', 'text' => 'Welcome to hell', 'link' => ['main/ful']],
+        ['type' => 'link', 'text' => 'Welcome to hell', 'link' => 'main/other'],
         ['type' => 'tab', 'text' => 'Tabbed item', 'content' => 'This is a full content of current tab!'],
         ['type' => 'tab', 'text' => 'Other tab', 'content' => 'This is an other content of other tab!']
+    ]
+]); ?>
+
+<br />
+
+<? echo \Core\Helper\HTML\Bootstrap\Navbar::display([
+    'nav' => ['class' => 'navbar-default'],
+    'ul' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
+    'brand' => ['link' => 'main/to', 'text' => 'FFCMS'],
+    'collapseId' => 'collapse-object',
+    'items' => [
+        ['link' => ['main/index'], 'text' => 'Link 1', 'property' => ['class' => 'test1'], 'position' => 'left'],
+        ['link' => 'main/other', 'text' => 'Link 2', 'position' => 'left'],
+        ['link' => 'main/read', 'text' => 'Link 7', 'position' => 'right'],
+        '<form class="navbar-form navbar-left" role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search"></div><button type="submit" class="btn btn-default">Submit</button></form>'
     ]
 ]); ?>
