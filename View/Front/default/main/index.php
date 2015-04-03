@@ -32,7 +32,7 @@
 
 <br />
 
-<? echo \Core\Helper\HTML\Bootstrap\Navbar::display([
+<?php echo \Core\Helper\HTML\Bootstrap\Navbar::display([
     'nav' => ['class' => 'navbar-default'],
     'ul' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
     'brand' => ['link' => 'main/to', 'text' => 'FFCMS'],
@@ -42,5 +42,27 @@
         ['link' => 'main/other', 'text' => 'Link 2', 'position' => 'left'],
         ['link' => 'main/read', 'text' => 'Link 7', 'position' => 'right'],
         '<form class="navbar-form navbar-left" role="search"><div class="form-group"><input type="text" class="form-control" placeholder="Search"></div><button type="submit" class="btn btn-default">Submit</button></form>'
+    ]
+]); ?>
+
+
+<br />
+
+<?php echo \Core\Helper\HTML\Table::display([
+    'table' => ['class' => 'table table-bordered'],
+    'thead' => [
+        'titles' => [
+            ['text' => 'id'],
+            ['text' => 'name <i class="fa fa-at"></i>', 'html' => true],
+            ['text' => 'family']
+        ],
+        'property' => ['id' => 'thead_main']
+    ],
+    'tbody' => [
+        'property' => ['id' => 'tbodym'],
+        'items' => [
+            [0 => ['text' => '0', 'property' => ['class' => 'test-td']], 1 => ['text' => 'Ivan'], 2 => ['text' => 'Putin'], 'property' => ['class' => 'g-class']],
+            [['text' => '1'], ['text' => '<b>Petr^</b>', 'html' => true], ['text' => 'Groznyi']]
+        ]
     ]
 ]); ?>
