@@ -2,4 +2,4 @@
 
 namespace Core\Arch;
 
-class Model extends \Ffcms\Core\Arch\Model {}
+abstract class Model extends \Ffcms\Core\Arch\Model {}

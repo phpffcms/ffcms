@@ -12,37 +12,22 @@
     <?php echo \App::$Debug->render->renderHead() ?>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="<?php echo Url::to('/') ?>">Главная</a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><?php echo Url::link('news/index', 'Новости'); ?></li>
-                <li><?php echo Url::link(['page/read', '1'], 'О сайте'); ?></li>
-                <li><a href="<?php echo \App::$Alias->baseUrl; ?>user"> Пользователи</a></li>
-                <li><a href="<?php echo \App::$Alias->baseUrl; ?>feedback/">Обратная связь</a></li>
-                <!--<li><a href="http://demo.ffcms.ru/en/"><img class="flag flag-en"
-                                                            src="http://demo.ffcms.ru/resource/flags/blank.gif"/></a>
-                </li>
-                <li><a href="http://demo.ffcms.ru/ru/"><img class="flag flag-ru"
-                                                            src="http://demo.ffcms.ru/resource/flags/blank.gif"/></a>
-                </li>-->
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php echo \App::$Alias->baseUrl; ?>user/register.html">Регистрация</a></li>
-                <li><a href="<?php echo \App::$Alias->baseUrl; ?>user/login.html">Войти</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+
+<?php echo \Core\Helper\HTML\Bootstrap\Navbar::display([
+    'nav' => ['class' => 'navbar-inverse navbar-fixed-top'],
+    'container' => 'container',
+    'ul' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
+    'brand' => ['link' => '/', 'text' => 'Home'],
+    'collapseId' => 'collapse-object',
+    'items' => [
+        ['link' => ['news/index'], 'text' => 'News'],
+        ['link' => ['page/read', 'about'], 'text' => 'About'],
+        ['link' => ['user/index'], 'text' => 'Users'],
+        ['link' => ['feedback/index'], 'text' => 'Feedback'],
+        ['link' => ['user/register'], 'text' => 'SignUp', 'position' => 'right'],
+        ['link' => ['user/login'], 'text' => 'LogIn', 'position' => 'right'],
+    ]
+]); ?>
 <div class="container">
     <div class="row">
         <div class="col-md-9">
@@ -79,21 +64,15 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>Навигация</h4>
-                    <ul class="side-links" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-                        <li><a href="http://demo.ffcms.ru/ru/" itemprop="url"><span itemprop="name">Главная</span></a>
-                        </li>
-                        <li><a href="http://demo.ffcms.ru/ru/static/about.html" itemprop="url"><span itemprop="name">О сайте</span></a>
-                        </li>
-                        <li><a href="http://ffcms.ru" itemprop="url"><span itemprop="name">Проект FFCMS</span></a><span
-                                class="toggle-children"></span>
-                            <ul>
-                                <li><a href="http://ffcms.ru/en/forum/" itemprop="url"><span
-                                            itemprop="name">Форум</span></a></li>
-                            </ul>
-                        </li>
-                        <li><a href="http://demo.ffcms.ru/ru/news/" itemprop="url"><span
-                                    itemprop="name">Новости сайта</span></a></li>
-                    </ul>
+                    <?php echo \Core\Helper\HTML\Listing::display([
+                        'type' => 'ul',
+                        'ul' => ['class' => 'side-links', 'itemscope' => 'itemscope', 'itemtype' => 'http://schema.org/SiteNavigationElement'],
+                        'items' => [
+                            ['type' => 'link', 'text' => 'Главная', 'link' => '/'],
+                            ['type' => 'link', 'text' => 'Новости', 'link' => ['news/index']],
+                            ['type' => 'link', 'text' => 'FFCMS', 'link' => 'http://ffcms.org', 'linkProperty' => ['target' => '_blank']],
+                        ]
+                    ]) ?>
                 </div>
             </div>
             <div class="panel panel-default">

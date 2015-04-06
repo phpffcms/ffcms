@@ -9,6 +9,7 @@ class User extends Model
 {
     public $name;
     public $role;
+    public $isJoined = false;
 
     public function setLabels()
     {
