@@ -1,6 +1,6 @@
 <?php
 // global environment
-define('root', dirname(__FILE__));
+define('root', __DIR__);
 define('workground', 'Front');
 
 error_reporting(E_ERROR);

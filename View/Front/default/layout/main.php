@@ -70,7 +70,7 @@
                         'items' => [
                             ['type' => 'link', 'text' => 'Главная', 'link' => '/'],
                             ['type' => 'link', 'text' => 'Новости', 'link' => ['news/index']],
-                            ['type' => 'link', 'text' => 'FFCMS', 'link' => 'http://ffcms.org', 'linkProperty' => ['target' => '_blank']],
+                            ['type' => 'link', 'text' => 'FFCMS', 'link' => 'http://ffcms.org', 'linkProperty' => ['target' => '_blank']]
                         ]
                     ]) ?>
                 </div>

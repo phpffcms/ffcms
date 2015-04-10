@@ -23,10 +23,12 @@ class Main extends Controller {
         $view = new View('index', 'Main');
 
         $model = new User();
-        $model->name = "<a href='#' onclick='javascript::alert(1)'><b>Mihail</b></a><script>alert('1')</script>";
+        $model->name = "Petr";
         $model->role = "user";
 
         $model->make();
+
+        $model->test();
 
         $this->response = $view->out(['model' => $model->export()]);
         //$this->response = \App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);

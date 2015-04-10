@@ -3,13 +3,16 @@
 
 namespace Model\Front;
 
-use \Ffcms\Core\Arch\Model;
+use Core\App;
+use \Core\Arch\Model;
+use \Model\ActiveRecord\Test;
+
 
 class User extends Model
 {
     public $name;
     public $role;
-    public $isJoined = false;
+    public $isJoined = true;
 
     public function setLabels()
     {
@@ -24,13 +27,22 @@ class User extends Model
         return [
             ['name', 'length_min', '1'],
             ['name', 'length_max', '12'],
+            ['isJoined', 'boolean'],
+            ['name', 'Core\Security::password_hash'],
+            ['role', 'in', ['user', 'admin']]
         ];
     }
 
     public function make()
     {
-        if($this->validateRules()) {
+        if (App::$Request->post('submit') && $this->validateRules()) {
 
         }
+    }
+
+    public function test()
+    {
+        $query = Test::find(1);
+        //var_dump($query->text);
     }
 }

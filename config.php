@@ -8,5 +8,8 @@ return [
     'multiLanguage' => true,
     'baseLanguage' => 'en', // do not rewrite it!
     'languages' => ['en', 'ru'],
-    'siteIndex' => 'Main::actionIndex'
+    'siteIndex' => 'main::index',
+    'database' => [
+        'main' => 'mysql://mysql:mysql@127.0.0.1/ffcms' // mysql://username:password@localhost/development
+    ]
 ];
