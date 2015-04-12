@@ -126,6 +126,10 @@
 </div>
 <script src="<?php echo \App::$Alias->vendor['js']['jquery']['url']; ?>"></script>
 <script src="<?php echo \App::$Alias->vendor['js']['bootstrap']['url']; ?>"></script>
+<?php
+    echo \App::$View->showCustomJS();
+    echo \App::$View->showAfterBody();
+?>
 <?php echo \App::$Debug->render->render() ?>
 </body>
 </html>

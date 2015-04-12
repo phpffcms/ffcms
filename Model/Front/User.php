@@ -4,14 +4,14 @@
 namespace Model\Front;
 
 use Core\App;
-use \Core\Arch\Model;
-use \Model\ActiveRecord\Test;
+use Core\Arch\Model;
 
 
 class User extends Model
 {
     public $name;
     public $role;
+    public $email;
     public $isJoined = true;
 
     public function setLabels()
@@ -25,10 +25,12 @@ class User extends Model
     public function setRules()
     {
         return [
+            [['name', 'role', 'email'], 'required'],
             ['name', 'length_min', '1'],
             ['name', 'length_max', '12'],
             ['isJoined', 'boolean'],
-            ['name', 'Core\Security::password_hash'],
+            ['email', 'email'],
+            //['name', 'Core\Helper\String::contains'],
             ['role', 'in', ['user', 'admin']]
         ];
     }
@@ -36,13 +38,13 @@ class User extends Model
     public function make()
     {
         if (App::$Request->post('submit') && $this->validateRules()) {
-
+            echo "VALIDATED";
         }
     }
 
     public function test()
     {
-        $query = Test::find(1);
+        //$query = Test::find(1);
         //var_dump($query->text);
     }
 }
