@@ -1,10 +1,17 @@
 <?php
 
+if(!defined('workground')) {
+    exit('Workground is not defined');
+}
+if (!defined('root')) {
+    exit('Root path is not defined');
+}
+
 // load ffcms-core
 $loader = require root . '/vendor/autoload.php';
 //$loader->add('Ffcms\\', root . '/vendor/phpffcms/ffcms-core/src/'); // preload via PSR-0 standard from composer loader
-$loader->add("Model\\", root);
-$loader->add("Core", root);
+$loader->add('Model\\', root);
+$loader->add('Core', root);
 
 
 /**
@@ -20,6 +27,6 @@ class App extends \Core\App {}
  * @param array $params
  * @return string
  */
-function __($text, $params = []) {
+function __($text, array $params = []) {
     return \App::$Translate->translate($text, $params);
 }

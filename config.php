@@ -2,7 +2,11 @@
 
 return [
     'basePath' => '/',
-    'theme' => 'default',
+    'theme' => [
+        'Front' => 'default',
+        'Admin' => 'default',
+        'Api' => 'default'
+    ],
     'password_salt' => '$2a$10$1o81mUjA4NhQp8nSeaFmN8',
     'singleLanguage' => 'en',
     'multiLanguage' => true,
