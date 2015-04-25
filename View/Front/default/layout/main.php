@@ -1,5 +1,5 @@
 <?php
-    use Core\Helper\Url;
+    /** @var $global Object */
 ?>
 <html>
 <head>
@@ -10,6 +10,8 @@
     <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($global->keywords); ?>"/>
     <meta name="description" content="<?php echo \App::$Security->escapeQuotes($global->description); ?>"/>
     <?php echo \App::$Debug->render->renderHead() ?>
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token" content="RUhPdTBDS0EXITcgCCABEQksPkxpdg0wCSB7IFgWCnQpPgIxARZ4Gw==">
 </head>
 <body>
 

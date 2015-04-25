@@ -20,7 +20,7 @@ class Main extends Controller {
         //$this->setGlobalVar('wtf', 'test global variable set');
 
 
-        $view = new View('index', 'Main');
+        $view = new View('Main', 'index');
 
         $model = new User();
         $model->name = "Petr";
