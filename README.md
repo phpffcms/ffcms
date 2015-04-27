@@ -1,6 +1,6 @@
 # FFCMS 3
-FFCMS 3 version prototype used ffcms-core project and extend it on HMVC architecture.
+FFCMS 3 version full-done CMS used ffcms-core project, ffcms-console and other packages. 
 
 Project in development state. 
 
-Stage: [1/10] Architecture research.
+Stage: [8/10] Architecture research.
