@@ -44,7 +44,7 @@ class User extends Model
 
     public function test()
     {
-        //$query = \Model\ActiveRecord\Test::find(1);
-        //var_dump($query->text);
+        $query = \Model\ActiveRecord\Test::find(1);
+        var_dump($query->text);
     }
 }

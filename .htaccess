@@ -6,6 +6,17 @@ DirectoryIndex index.php
 
 RewriteEngine On
 RewriteRule ^.htaccess$ - [F]
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.php [L]
+# do not rewrite statics, vendor, uploads and other ;)
+RewriteRule ^vendor - [L,NC]
+RewriteRule ^View - [L,NC]
+# admin interface
+RewriteRule ^admin/(.*)$ Public/Admin/$1 [L]
+# API interface
+RewriteRule ^api/(.*)$ Public/Api/$1 [L]
+# front main interface
+RewriteRule ^(.*)$ Public/Front/$1 [L]
+
+<Files ~ "(.json|.lock|.git)">
+Order allow,deny
+Deny from all
+</Files>

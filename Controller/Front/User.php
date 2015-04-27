@@ -4,8 +4,8 @@ namespace Controller\Front;
 
 use Core\Arch\Controller;
 use Core\App;
-use Core\Arch\View;
 use Core\Exception\ErrorException;
+use Model\Front\LoginForm;
 
 class User extends Controller
 {
@@ -18,12 +18,17 @@ class User extends Controller
         if (App::$User->isAuth()) {
             return new ErrorException('You are always log in');
         }
-        $this->response = App::$View->render('login', [
 
+        $loginForm = new LoginForm();
+
+        if (App::$Request->post('submit') && $loginForm->validateRules()) {
+            if ($loginForm->checkData()) {
+
+            }
+        }
+
+        $this->response = App::$View->render('login', [
+            'model' => $loginForm
         ]);
-        //$this->response = (new View('test', 'fuck'))->out([
-        //    'a' => 'b'
-        //]);
-        //$this->response = 'Welcome to login form';
     }
 }

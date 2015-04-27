@@ -18,7 +18,6 @@ class User extends \Ffcms\Core\Identify\User
     public function isAuth()
     {
         // TODO: Implement isAuth() method.
-        return false;
     }
 
     public function isExist($id)

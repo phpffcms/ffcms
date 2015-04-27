@@ -14,6 +14,13 @@ return [
     'languages' => ['en', 'ru'],
     'siteIndex' => 'main::index',
     'database' => [
-        'main' => 'mysql://mysql:mysql@127.0.0.1/ffcms' // mysql://username:password@localhost/development
+        'driver'    => 'mysql',
+        'host'      => '127.0.0.1',
+        'database'  => 'ffcms',
+        'username'  => 'mysql',
+        'password'  => 'mysql',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_unicode_ci',
+        'prefix'    => 'ffcms_'
     ]
 ];

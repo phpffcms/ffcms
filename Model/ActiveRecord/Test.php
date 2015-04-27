@@ -2,8 +2,9 @@
 
 namespace Model\ActiveRecord;
 
+use Core\Arch\ActiveModel;
 
-class Test extends \ActiveRecord\Model
+class Test extends ActiveModel
 {
-    public static $table_name = 'test';
+    protected $table = 'test';
 }
