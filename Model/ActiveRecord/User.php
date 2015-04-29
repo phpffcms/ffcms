@@ -2,7 +2,9 @@
 
 namespace Model\ActiveRecord;
 
-class User extends \ActiveRecord\Model
+use Core\Arch\ActiveModel;
+
+class User extends ActiveModel
 {
-    public static $table_name = 'user';
+    
 }

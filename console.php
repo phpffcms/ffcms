@@ -1,7 +1,10 @@
 <?php
 define('root', __DIR__);
 
-// check is started from console
+require_once(root . '/Public/Console/index.php');
+
+
+/** // check is started from console
 if(PHP_SAPI !== 'cli') {
     die();
 }
@@ -27,4 +30,4 @@ if ($argv[1] === 'install') {
     if (readIN() === 'mysql') {
         echo "WELCOME MYSQL!";
     }
-}
+} */

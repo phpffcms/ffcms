@@ -17,6 +17,7 @@
   "require": {
     "php": ">=5.4",
     "phpffcms/ffcms-core": "dev-master",
+    "phpffcms/ffcms-console": "dev-master",
     "maximebf/debugbar": "1.*",
     "ezyang/htmlpurifier": "4.6.*",
     "illuminate/database": "5.*",
