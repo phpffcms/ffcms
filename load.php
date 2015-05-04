@@ -9,15 +9,16 @@ if (!defined('root')) {
 
 // load ffcms-core
 $loader = require root . '/vendor/autoload.php';
-//$loader->add('Ffcms\\', root . '/vendor/phpffcms/ffcms-core/src/'); // preload via PSR-0 standard from composer loader
-$loader->add('Model\\', root);
-$loader->add('Core', root);
+// load app's model's
+$loader->add('Apps\\Model\\', root);
+// load core extending
+$loader->add('Extend\\Core\\', root);
 
 
 /**
  * Alias for fast access
  */
-class App extends \Core\App {}
+class App extends Extend\Core\App {}
 
 \App::build();
 

@@ -8,13 +8,14 @@ RewriteEngine On
 RewriteRule ^.htaccess$ - [F]
 # do not rewrite statics, vendor, uploads and other ;)
 RewriteRule ^vendor - [L,NC]
-RewriteRule ^View - [L,NC]
+RewriteRule ^Apps/View - [L,NC]
+RewriteRule ^(.*).php - [L,NC]
 # admin interface
-RewriteRule ^admin/(.*)$ Public/Admin/$1 [L]
+RewriteRule ^admin/(.*)$ Loader/Admin/$1 [L]
 # API interface
-RewriteRule ^api/(.*)$ Public/Api/$1 [L]
+RewriteRule ^api/(.*)$ Loader/Api/$1 [L]
 # front main interface
-RewriteRule ^(.*)$ Public/Front/$1 [L]
+RewriteRule ^(.*)$ Loader/Front/$1 [L]
 
 <Files ~ "(.json|.lock|.git)">
 Order allow,deny
