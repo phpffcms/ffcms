@@ -1,0 +1,38 @@
+<?php
+
+namespace %namespace%;
+
+use Ffcms\Core\Arch\Model;
+
+class %name% extends Model
+{
+    public $test;
+
+    /**
+    * Magic method before example
+    */
+    public function before()
+    {
+        $this->test = 'Example of usage class property';
+    }
+
+    /**
+    * Example of usage magic labels for future form helper usage
+    */
+    public function setLabels()
+    {
+        return [
+            'test' => 'Label for test'
+        ];
+    }
+
+    /**
+    * Example of usage magic rules for future usage in condition $model->validateRules()
+    */
+    public function setRules()
+    {
+        return [
+            ['test', 'required']
+        ];
+    }
+}

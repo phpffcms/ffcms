@@ -1,0 +1,13 @@
+<?php
+
+namespace %namespace%;
+
+use Ffcms\Core\Arch\Controller;
+
+class %name% extends Controller
+{
+    public function actionIndex()
+    {
+        $this->response = 'Welcome index demo action of %name%';
+    }
+}

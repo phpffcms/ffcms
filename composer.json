@@ -1,5 +1,6 @@
 {
   "name": "phpffcms/ffcms",
+  "version" : "3.0.0",
   "description": "FFCMS 3 version based on MVC core ffcms-core.",
   "keywords": [
     "php",
