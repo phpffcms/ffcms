@@ -1,5 +1,5 @@
 <?php
-    /** @var $model \Model\Front\LoginForm */
+    /** @var $model \Apps\Model\Front\LoginForm */
     /** @var $this \Ffcms\Core\Arch\View */
     $this->title = __('Log In');
 ?>
@@ -8,10 +8,17 @@
 
 <br />
 
+<?php
+    $notify = \App::$Message->getGroup('user/login');
+    if ($notify !== null) {
+        echo $this->show('macro/notify', ['object' => $notify]);
+    }
+?>
+
 <?php $form = new \Ffcms\Core\Helper\HTML\Form([
     'model' => $model,
     'property' => ['class' => 'form-horizontal', 'method' => 'post', 'action' => ''],
-    'name' => 'main-form',
+    'name' => 'login-form',
     'structure' => '<div class="form-group"><label for="%name%" class="col-md-3 control-label">%label%</label><div class="col-md-9">%item% <p class="help-block">%help%</p></div></div>'
 ]); ?>
 

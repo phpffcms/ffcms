@@ -28,7 +28,7 @@
         ['link' => ['page/read', 'about'], 'text' => 'About'],
         ['link' => ['user/index'], 'text' => 'Users'],
         ['link' => ['feedback/index'], 'text' => 'Feedback'],
-        ['link' => ['user/register'], 'text' => 'SignUp', 'position' => 'right'],
+        ['link' => ['user/signup'], 'text' => 'SignUp', 'position' => 'right'],
         ['link' => ['user/login'], 'text' => 'LogIn', 'position' => 'right']
     ]
 ]); ?>

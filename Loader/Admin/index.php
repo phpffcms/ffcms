@@ -7,6 +7,6 @@ define('type', 'web');
 
 error_reporting(E_ERROR);
 
-require_once(root . '/load.php');
+require_once(root . '/Loader/WebLoader.php');
 
 \App::display();

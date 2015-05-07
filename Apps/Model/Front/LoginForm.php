@@ -2,7 +2,10 @@
 
 namespace Apps\Model\Front;
 
+use Extend\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\String;
 
 class LoginForm extends Model
 {
@@ -28,9 +31,53 @@ class LoginForm extends Model
         ];
     }
 
-    public function checkData()
+    /**
+     * Try user auth after form validate
+     * @return bool
+     */
+    public function tryAuth()
     {
+        $password = App::$Security->password_hash($this->password);
+        $search = App::$User
+            ->where('password', '=', $password)
+            ->where(function($query){
+                $query->where('login', '=', $this->login)
+                    ->orWhere('email', '=', $this->login);
+            });
+
+
+        if ($search->count() === 1) {
+            $uData = $search->first();
+            return $this->openSession($uData->id);
+        }
 
         return false;
+    }
+
+    /**
+     * Open session and store data token to db
+     * @param int $userId
+     * @return bool
+     */
+    public function openSession($userId)
+    {
+        if (!Object::isInt($userId) || $userId < 1) {
+            return false;
+        }
+
+        $token = String::randomLatin(rand(128, 255));
+
+
+        $user = App::$User->find($userId);
+        if ($user->count() !== 1) {
+            return false;
+        }
+
+        $_SESSION['ff_user_id'] = $userId;
+        $_SESSION['ff_user_token'] = $token;
+
+        $user->token_data = $token;
+        $user->save();
+        return true;
     }
 }

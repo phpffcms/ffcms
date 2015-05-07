@@ -41,10 +41,4 @@ class User extends Model
             echo "VALIDATED";
         }
     }
-
-    public function test()
-    {
-        $query = \Apps\Model\ActiveRecord\Test::find(1);
-        var_dump($query->text);
-    }
 }

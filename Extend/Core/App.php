@@ -2,12 +2,12 @@
 
 namespace Extend\Core;
 
-
 use Ffcms\Core\Exception\NativeException;
 
 class App extends \Ffcms\Core\App
 {
 
+    /** @var  \Apps\Model\Basic\User */
     public static $User;
 
     /** @var \Ffcms\Core\Session\DefaultSession */

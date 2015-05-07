@@ -28,8 +28,6 @@ class Main extends Controller {
 
         $model->make();
 
-        $model->test();
-
         $this->response = $view->out(['model' => $model->export()]);
         //$this->response = \App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);
     }

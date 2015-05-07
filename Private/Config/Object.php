@@ -12,7 +12,7 @@ $capsule->bootEloquent(); // allow active record model's
 
 return [
     'Session' => new Ffcms\Core\Session\DefaultSession([
-        'lifetime' => 3600,
+        'lifetime' => 604800, // 1 week
         'path' => root . '/Private/Sessions'
     ]),
     'User' => new Apps\Model\Basic\User()
