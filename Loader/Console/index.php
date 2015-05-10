@@ -1,5 +1,5 @@
 <?php
-define('workground', 'console');
+define('env_name', 'Console');
 define('type', 'cli');
 
 

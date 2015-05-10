@@ -12,7 +12,7 @@ return [
     'multiLanguage' => true,
     'baseLanguage' => 'en', // do not rewrite it!
     'languages' => ['en', 'ru'],
-    'siteIndex' => 'main::index',
+    'siteIndex' => 'Main::Index',
     'database' => [
         'driver'    => 'mysql',
         'host'      => '127.0.0.1',

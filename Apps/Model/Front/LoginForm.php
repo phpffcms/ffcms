@@ -66,18 +66,21 @@ class LoginForm extends Model
         }
 
         $token = String::randomLatin(rand(128, 255));
-
-
         $user = App::$User->find($userId);
+
         if ($user->count() !== 1) {
             return false;
         }
 
-        $_SESSION['ff_user_id'] = $userId;
-        $_SESSION['ff_user_token'] = $token;
+        // write session data
+        App::$Session->start();
+        App::$Session->set('ff_user_id', $userId);
+        App::$Session->set('ff_user_token', $token);
 
+        // write token to db
         $user->token_data = $token;
         $user->save();
+
         return true;
     }
 }

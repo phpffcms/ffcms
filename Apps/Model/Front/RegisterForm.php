@@ -21,7 +21,7 @@ class RegisterForm extends Model
             ['login', 'length_min', '2'],
             ['password', 'length_min', '3'],
             ['email', 'email'],
-            ['repassword', 'equal', App::$Request->post('password')]
+            ['repassword', 'equal', App::$Request->get('password')]
         ];
     }
 
@@ -52,9 +52,9 @@ class RegisterForm extends Model
         $user->email = $this->email;
         $user->password = $password;
         $user->save();
-        // open session
-        App::$Session->start();
 
+        $loginModel = new LoginForm();
+        $loginModel->openSession($user->id);
 
         return true;
     }

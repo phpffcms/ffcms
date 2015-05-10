@@ -50,7 +50,8 @@ class User extends ARecordUser implements iUser
             if (!$this->isAuth()) {
                 return false;
             } else {
-                return self::find($_SESSION['ff_user_id']);
+                App::$Session->start();
+                return self::find(App::$Session->get('ff_user_id'));
             }
         } elseif (Object::isInt($custom_id) && $custom_id > 0) {
             return self::find($custom_id);
@@ -66,8 +67,8 @@ class User extends ARecordUser implements iUser
     public function isAuth()
     {
         App::$Session->start();
-        $session_token = $_SESSION['ff_user_token'];
-        $session_id = $_SESSION['ff_user_id'];
+        $session_token = App::$Session->get('ff_user_token', null);
+        $session_id = App::$Session->get('ff_user_id', 0);
         if (null === $session_token || !Object::isInt($session_id) || $session_id < 1 || String::length($session_token) < 64) {
             return false;
         }

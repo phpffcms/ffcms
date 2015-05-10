@@ -37,7 +37,7 @@ class User extends Model
 
     public function make()
     {
-        if (App::$Request->post('submit') && $this->validateRules()) {
+        if (App::$Request->get('submit', false) && $this->validateRules()) {
             echo "VALIDATED";
         }
     }

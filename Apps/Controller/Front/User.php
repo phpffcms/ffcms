@@ -23,7 +23,7 @@ class User extends Controller
 
         $loginForm = new LoginForm();
 
-        if (App::$Request->post('submit') && $loginForm->validateRules()) {
+        if (App::$Request->get('submit', false) && $loginForm->validateRules()) {
             if ($loginForm->tryAuth()) {
                 App::$Response->redirect(String::replace('::', '/', App::$Property->get('siteIndex'))); // void header change & exit()
             }
@@ -43,7 +43,7 @@ class User extends Controller
 
         $registerForm = new RegisterForm();
 
-        if (App::$Request->post('submit') && $registerForm->validateRules()) {
+        if (App::$Request->get('submit', false) && $registerForm->validateRules()) {
             if ($registerForm->tryRegister()) {
                 App::$Message->set('user/signup', 'success', __('Your account is successful registered!'));
             } else {

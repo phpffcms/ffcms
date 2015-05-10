@@ -10,7 +10,7 @@ class App extends \Ffcms\Core\App
     /** @var  \Apps\Model\Basic\User */
     public static $User;
 
-    /** @var \Ffcms\Core\Session\DefaultSession */
+    /** @var \Symfony\Component\HttpFoundation\Session\Session */
     public static $Session;
 
 
