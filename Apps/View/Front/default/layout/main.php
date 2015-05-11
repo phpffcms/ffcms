@@ -1,7 +1,8 @@
 <?php
-    /** @var $global Object */
-    use Ffcms\Core\Helper\HTML\Bootstrap\Navbar as BootstrapNav;
-    use \Ffcms\Core\Helper\HTML\Listing as Listing;
+/** @var $global Object */
+use Ffcms\Core\Helper\HTML\Bootstrap\Navbar as BootstrapNav;
+use \Ffcms\Core\Helper\HTML\Listing as Listing;
+
 ?>
 <html>
 <head>
@@ -12,8 +13,6 @@
     <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($global->keywords); ?>"/>
     <meta name="description" content="<?php echo \App::$Security->escapeQuotes($global->description); ?>"/>
     <?php echo \App::$Debug->render->renderHead() ?>
-    <meta name="csrf-param" content="_csrf">
-    <meta name="csrf-token" content="RUhPdTBDS0EXITcgCCABEQksPkxpdg0wCSB7IFgWCnQpPgIxARZ4Gw==">
 </head>
 <body>
 
@@ -35,7 +34,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <a href="<?php echo \App::$Alias->baseUrl; ?>"><img src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/img/logo.png"/></a>
+            <a href="<?php echo \App::$Alias->baseUrl; ?>"><img
+                    src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/img/logo.png"/></a>
         </div>
         <div class="col-md-3">
             <div class="row">
@@ -123,7 +123,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-offset-3 col-md-9">
-                <p>Copyright FFCMS тест &copy; 2015. Powered by <a href="http://ffcms.ru" target="_blank">ffcms.ru</a></p>
+                <p>Copyright FFCMS тест &copy; 2015. Powered by <a href="http://ffcms.ru" target="_blank">ffcms.ru</a>
+                </p>
             </div>
         </div>
     </div>
@@ -131,8 +132,8 @@
 <script src="<?php echo \App::$Alias->vendor['js']['jquery']['url']; ?>"></script>
 <script src="<?php echo \App::$Alias->vendor['js']['bootstrap']['url']; ?>"></script>
 <?php
-    echo \App::$View->showCustomJS();
-    echo \App::$View->showAfterBody();
+echo \App::$View->showCustomJS();
+echo \App::$View->showAfterBody();
 ?>
 <?php echo \App::$Debug->render->render() ?>
 </body>

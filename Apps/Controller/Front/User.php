@@ -13,21 +13,23 @@ class User extends Controller
 {
 
     /**
-     * View login form
+     * View login form and process submit action
      */
     public function actionLogin()
     {
         if (App::$User->isAuth()) {
+            $this->title = __('Forbidden!');
             return new ErrorException('You are always log in');
         }
 
         $loginForm = new LoginForm();
 
-        if (App::$Request->get('submit', false) && $loginForm->validateRules()) {
+        if ($loginForm->isPostSubmit() && $loginForm->validateRules()) {
             if ($loginForm->tryAuth()) {
-                App::$Response->redirect(String::replace('::', '/', App::$Property->get('siteIndex'))); // void header change & exit()
+                App::$Response->redirect('/'); // void header change & exit()
             }
-            App::$Message->set('user/login', 'error', __('User is never exist or password is incorrect!'));
+            App::$Session->start();
+            App::$Session->getFlashBag()->add('error', __('User is never exist or password is incorrect!'));
         }
 
         $this->response = App::$View->render('login', [
@@ -35,19 +37,24 @@ class User extends Controller
         ]);
     }
 
+    /**
+     * View register form and process submit action
+     */
     public function actionSignup()
     {
         if (App::$User->isAuth()) {
+            $this->title = __('Forbidden!');
             return new ErrorException('You are always log in');
         }
 
         $registerForm = new RegisterForm();
 
-        if (App::$Request->get('submit', false) && $registerForm->validateRules()) {
+        if ($registerForm->isPostSubmit() && $registerForm->validateRules()) {
+            App::$Session->start();
             if ($registerForm->tryRegister()) {
-                App::$Message->set('user/signup', 'success', __('Your account is successful registered!'));
+                App::$Session->getFlashBag()->add('success', __('Your account is successful registered!'));
             } else {
-                App::$Message->set('user/signup', 'error', __('Login or email is always used on website'));
+                App::$Session->getFlashBag()->add('error', __('Login or email is always used on website'));
             }
         }
 

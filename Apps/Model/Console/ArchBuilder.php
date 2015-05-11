@@ -37,7 +37,7 @@ class ArchBuilder
 
             $subName = false;
             if (count($split) > 0) { // some sub-namespace / folder path
-                foreach($split as $part) {
+                foreach ($split as $part) {
                     if (String::length($part) > 0) {
                         $subName[] = ucfirst(strtolower($part));
                     }

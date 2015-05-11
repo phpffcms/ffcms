@@ -7,7 +7,8 @@ use Ffcms\Core\Arch\View;
 use Apps\Model\Front\User;
 
 
-class Main extends Controller {
+class Main extends Controller
+{
 
     public function before()
     {

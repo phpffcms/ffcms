@@ -39,7 +39,7 @@ class Main
         $composerInfo = File::read('/composer.lock');
         if (false !== $composerInfo) {
             $jsonInfo = json_decode($composerInfo);
-            foreach($jsonInfo->packages as $item) {
+            foreach ($jsonInfo->packages as $item) {
                 $text .= "\t Package: " . $item->name . ' => ' . $item->version . "\n";
             }
         } else {

@@ -4,7 +4,7 @@ use Ffcms\Core\Helper\Object;
 function type2html($type)
 {
     $htmlType = 'alert-info';
-    switch($type) {
+    switch ($type) {
         case 'error':
             $htmlType = 'alert-danger';
             break;

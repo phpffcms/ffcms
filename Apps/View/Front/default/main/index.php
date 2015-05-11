@@ -1,12 +1,13 @@
 <?php
-    /** @var $model \Model\Front\User */
-    /** @var $this \Ffcms\Core\Arch\View */
-    echo $this->show('main/other', ['model' => $model]);
-    $this->title = 'Welcome to web-site';
+/** @var $model \Apps\Model\Front\User */
+/** @var $this \Ffcms\Core\Arch\View */
+echo $this->show('main/other', ['model' => $model]);
+$this->title = 'Welcome to web-site';
 ?>
-<p>Welcome, <?php echo $model->getLabel('name'); ?>: <?php echo $model->name; ?>. We know you like a <?php echo $model->role; ?></p>
+    <p>Welcome, <?php echo $model->getLabel('name'); ?>: <?php echo $model->name; ?>. We know you like
+        a <?php echo $model->role; ?></p>
 <?php echo __('Test text %a% var', ['a' => 'success']); ?>
-<br />
+    <br/>
 <?php echo \Ffcms\Core\Helper\HTML\Listing::display([
     'type' => 'ul',
     'ul' => ['id' => 'primary'],
@@ -17,7 +18,7 @@
     ]
 ]); ?>
 
-<br />
+    <br/>
 
 
 <?php echo \Ffcms\Core\Helper\HTML\Bootstrap\Nav::display([
@@ -30,7 +31,7 @@
     ]
 ]); ?>
 
-<br />
+    <br/>
 
 <?php echo \Ffcms\Core\Helper\HTML\Bootstrap\Navbar::display([
     'nav' => ['class' => 'navbar-default'],
@@ -46,7 +47,7 @@
 ]); ?>
 
 
-<br />
+    <br/>
 
 <?php echo \Ffcms\Core\Helper\HTML\Table::display([
     'table' => ['class' => 'table table-bordered'],
@@ -67,14 +68,9 @@
     ]
 ]); ?>
 
-<br />
+    <br/>
 
-<?php $form = new \Ffcms\Core\Helper\HTML\Form([
-    'model' => $model,
-    'property' => ['class' => 'form-horizontal', 'method' => 'post', 'action' => ''],
-    'name' => 'main-form',
-    'structure' => '<div class="form-group"><label for="%name%" class="col-md-3 control-label">%label%</label><div class="col-md-9">%item% <p class="help-block">%help%</p></div></div>',
-]); ?>
+<?php $form = new \Ffcms\Core\Helper\HTML\Form($model, ['class' => 'form-horizontal', 'method' => 'POST']); ?>
 <?php echo $form->field('name', 'inputText', ['class' => 'form-control'], __('Helper block for current param')); ?>
 <?php echo $form->field('email', 'inputEmail', ['class' => 'form-control'], __('Enter your email')); ?>
 <?php echo $form->field('role', 'select', ['class' => 'form-control', 'options' => ['admin', 'guest', 'user']]); ?>

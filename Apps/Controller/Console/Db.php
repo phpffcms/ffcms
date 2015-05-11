@@ -9,7 +9,7 @@ class Db
     public function actionImport($activeRecord)
     {
         $importFile = root . '/Private/Database/Tables/' . ucfirst(strtolower($activeRecord)) . '.php';
-        if(!File::exist($importFile)) {
+        if (!File::exist($importFile)) {
             return 'Database model table not founded: ' . $activeRecord;
         }
 
