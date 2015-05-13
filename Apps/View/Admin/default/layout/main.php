@@ -4,12 +4,17 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FFCMS Admin - main</title>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->vendor['css']['bootstrap']['url']; ?>"/>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->vendor['css']['fa']['url']; ?>"/>
+    <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
+    <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/css/site.css" rel="stylesheet">
-    <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/plugins/metisMenu/metisMenu.min.css"
-          rel="stylesheet">
+    <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/css/sb-admin-2.css" rel="stylesheet">
+    <?php echo \App::$View->showCodeLink('css'); ?>
+    <?php
+    $customCssCode = \App::$View->showPlainCode('css');
+    if ($customCssCode !== null) {
+        echo '<style>' . $customCssCode . '</style>';
+    } ?>
 </head>
 <body>
 
@@ -183,14 +188,16 @@
     <!-- /#page-wrapper -->
 
 </div>
-<script src="<?php echo \App::$Alias->vendor['js']['jquery']['url']; ?>"></script>
-<script src="<?php echo \App::$Alias->vendor['js']['bootstrap']['url']; ?>"></script>
-<script src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/js/plugins/metisMenu/metisMenu.min.js"></script>
+<script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
+<script src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
+<script src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/js/metisMenu.min.js"></script>
 <script src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/js/sb-admin-2.js"></script>
-<script src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/js/ffcms.js"></script>
+<?php echo \App::$View->showCodeLink('js'); ?>
 <?php
-echo \App::$View->showCustomJS();
-echo \App::$View->showAfterBody();
+$customJsCode = \App::$View->showPlainCode('js');
+if ($customJsCode !== null) {
+    echo '<script>' . $customJsCode . '</script>';
+}
 ?>
 <?php echo \App::$Debug->render->render() ?>
 </body>

@@ -5,6 +5,7 @@ namespace Apps\Controller\Front;
 use Apps\Model\Front\RegisterForm;
 use Ffcms\Core\Arch\Controller;
 use Extend\Core\App;
+use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ErrorException;
 use Apps\Model\Front\LoginForm;
 use Ffcms\Core\Helper\String;
@@ -32,8 +33,10 @@ class User extends Controller
             App::$Session->getFlashBag()->add('error', __('User is never exist or password is incorrect!'));
         }
 
+
         $this->response = App::$View->render('login', [
-            'model' => $loginForm
+            'model' => $loginForm,
+            'notify' => App::$Session->getFlashBag()->all()
         ]);
     }
 
@@ -59,7 +62,8 @@ class User extends Controller
         }
 
         $this->response = App::$View->render('signup', [
-            'model' => $registerForm
+            'model' => $registerForm,
+            'notify' => App::$Session->getFlashBag()->all()
         ]);
     }
 }

@@ -21,7 +21,7 @@ class RegisterForm extends Model
             ['login', 'length_min', '2'],
             ['password', 'length_min', '3'],
             ['email', 'email'],
-            ['repassword', 'equal', App::$Request->get('password')]
+            ['repassword', 'equal', $this->getInput('password')]
         ];
     }
 

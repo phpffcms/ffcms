@@ -6,12 +6,18 @@ use \Ffcms\Core\Helper\HTML\Listing as Listing;
 ?>
 <html>
 <head>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->vendor['css']['bootstrap']['url']; ?>"/>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->vendor['css']['fa']['url']; ?>"/>
+    <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
+    <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
+    <?php echo \App::$View->showCodeLink('css'); ?>
     <title><?php echo \App::$Security->escapeQuotes($global->title) ?></title>
     <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($global->keywords); ?>"/>
     <meta name="description" content="<?php echo \App::$Security->escapeQuotes($global->description); ?>"/>
+    <?php
+    $customCssCode = \App::$View->showPlainCode('css');
+    if ($customCssCode !== null) {
+        echo '<style>' . $customCssCode . '</style>';
+    } ?>
     <?php echo \App::$Debug->render->renderHead() ?>
 </head>
 <body>
@@ -113,7 +119,13 @@ use \Ffcms\Core\Helper\HTML\Listing as Listing;
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <?php echo $body; ?>
+                    <?php
+                    if (null == $body) { // approximately could be string "", boolean false or null ...
+                        \App::$Response->setStatusCode(404);
+                    } else {
+                        echo $body;
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -129,11 +141,14 @@ use \Ffcms\Core\Helper\HTML\Listing as Listing;
         </div>
     </div>
 </div>
-<script src="<?php echo \App::$Alias->vendor['js']['jquery']['url']; ?>"></script>
-<script src="<?php echo \App::$Alias->vendor['js']['bootstrap']['url']; ?>"></script>
+<script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
+<script src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
+<?php echo \App::$View->showCodeLink('js'); ?>
 <?php
-echo \App::$View->showCustomJS();
-echo \App::$View->showAfterBody();
+$customJsCode = \App::$View->showPlainCode('js');
+if ($customJsCode !== null) {
+    echo '<script>' . $customJsCode . '</script>';
+}
 ?>
 <?php echo \App::$Debug->render->render() ?>
 </body>

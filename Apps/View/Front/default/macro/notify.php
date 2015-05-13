@@ -1,9 +1,15 @@
 <?php
+/** @var $notify array */
+
 use Ffcms\Core\Helper\Object;
 
+/**
+ * Get html css class from notify response type
+ * @param string $type
+ * @return string
+ */
 function type2html($type)
 {
-    $htmlType = 'alert-info';
     switch ($type) {
         case 'error':
             $htmlType = 'alert-danger';
@@ -14,18 +20,17 @@ function type2html($type)
         case 'warning':
             $htmlType = 'alert-warning';
             break;
+        default:
+            $htmlType = 'alert-info';
+            break;
     }
     return $htmlType;
 }
 
-if (($type === null || $text === null)) {
-    if (!Object::isArray($object)) {
-        echo '<p>Variable $type or $message is undefined and $object not resended!</p>';
-    } else {
-        foreach ($object as $row) {
-            echo '<p class="alert ' . type2html($row['type']) . '">' . \App::$Security->strip_tags($row['text']) . '</p>';
+if (Object::isArray($notify) && count($notify) > 0) {
+    foreach ($notify as $type => $messages) {
+        foreach ($messages as $message) {
+            echo '<p class="alert ' . type2html($type) . '">' . \Ffcms\Core\App::$Security->strip_tags($message) . '</p>';
         }
     }
-} else {
-    echo '<p class="alert ' . type2html($type) . '">' . \App::$Security->strip_tags($text) . '</p>';
 }

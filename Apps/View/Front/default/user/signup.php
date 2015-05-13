@@ -1,4 +1,7 @@
 <?php
+use Ffcms\Core\Helper\Object;
+
+/** @var $notify array */
 /** @var $model \Apps\Model\Front\RegisterForm */
 /** @var $this \Ffcms\Core\Arch\View */
 $this->title = __('Sign up');
@@ -10,12 +13,18 @@ $this->title = __('Sign up');
 <br/>
 
 <?php
-/**$notify = \App::$Message->getGroup(['user/signup', 'global']);
+// show notification if exist
+if (Object::isArray($notify) && count($notify) > 0) {
+    echo $this->show('macro/notify', ['notify' => $notify]);
+}
 
-if ($notify !== null) {
-    echo $this->show('macro/notify', ['object' => $notify]);
-}*/
-
+// mark form elements if it wrong
+if (Object::isArray($model->getWrongFields()) && count($model->getWrongFields()) > 0) {
+    foreach ($model->getWrongFields() as $fieldName) {
+        $fieldId = $model->getFormName() . '-' . $fieldName;
+        \App::$Alias->addPlainCode('js', '$("#' . $fieldId . '").parent().parent(".form-group").addClass("has-error");');
+    }
+}
 ?>
 
 
