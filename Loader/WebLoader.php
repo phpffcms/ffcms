@@ -1,6 +1,6 @@
 <?php
 
-if(!defined('env_name')) {
+if (!defined('env_name')) {
     exit('Environment (env_name) is not defined');
 }
 if (!defined('root')) {

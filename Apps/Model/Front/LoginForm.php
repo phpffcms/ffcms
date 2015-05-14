@@ -40,7 +40,7 @@ class LoginForm extends Model
         $password = App::$Security->password_hash($this->password);
         $search = App::$User
             ->where('password', '=', $password)
-            ->where(function ($query) {
+            ->where(function($query) {
                 $query->where('login', '=', $this->login)
                     ->orWhere('email', '=', $this->login);
             });

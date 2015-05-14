@@ -3,7 +3,7 @@ define('env_name', 'Console');
 define('type', 'cli');
 
 
-if(PHP_SAPI !== 'cli' || !defined('root')) {
+if (PHP_SAPI !== 'cli' || !defined('root')) {
     die();
 }
 
