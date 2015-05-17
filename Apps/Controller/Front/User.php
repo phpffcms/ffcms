@@ -8,7 +8,6 @@ use Extend\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ErrorException;
 use Apps\Model\Front\LoginForm;
-use Ffcms\Core\Helper\String;
 
 class User extends Controller
 {
