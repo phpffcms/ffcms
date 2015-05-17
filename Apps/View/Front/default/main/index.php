@@ -22,7 +22,7 @@ $this->title = 'Welcome to web-site';
 
 
 <?php echo \Ffcms\Core\Helper\HTML\Bootstrap\Nav::display([
-    'ul' => 'nav-tabs',
+    'property' => ['class' => 'nav-tabs'],
     'tabAnchor' => 'n',
     'items' => [
         ['type' => 'link', 'text' => 'Welcome to hell', 'link' => 'main/other'],
@@ -35,7 +35,7 @@ $this->title = 'Welcome to web-site';
 
 <?php echo \Ffcms\Core\Helper\HTML\Bootstrap\Navbar::display([
     'nav' => ['class' => 'navbar-default'],
-    'ul' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
+    'property' => ['id' => 'headmenu', 'class' => 'navbar-nav'], // todo: fix me!!
     'brand' => ['link' => 'main/to', 'text' => 'FFCMS'],
     'collapseId' => 'collapse-object',
     'items' => [

@@ -1,6 +1,6 @@
 <?php
 echo \Ffcms\Core\Helper\HTML\Bootstrap\Nav::display([
-    'ul' => 'nav-tabs',
+    'property' => ['class' => 'nav-tabs'],
     'tabAnchor' => 'login-form',
     'items' => [
         ['type' => 'link', 'link' => 'user/login', 'text' => __('Log In')],

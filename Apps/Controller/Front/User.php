@@ -66,4 +66,17 @@ class User extends Controller
             'notify' => App::$Session->getFlashBag()->all()
         ]);
     }
+
+    public function actionLogout()
+    {
+        if (!App::$User->isAuth()) {
+            $this->title = __('Forbidden!');
+            return new ErrorException('You never make sign IN');
+        }
+
+        App::$Session->clear();
+
+        App::$Response->redirect('/');
+        return null;
+    }
 }

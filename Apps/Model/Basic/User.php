@@ -27,16 +27,17 @@ class User extends ARecordUser implements iUser
      * Get user param
      * @param string $param
      * @param null|int $custom_id
+     * @param null|string $defaultValue
      * @return mixed|null
      */
-    public function get($param, $custom_id = null)
+    public function get($param, $custom_id = null, $defaultValue = null)
     {
         $object = $this->getPerson($custom_id);
         if (false === $object) {
             return null;
         }
 
-        return $object->param;
+        return $object->param === null ? $defaultValue : $object->param;
     }
 
     /**

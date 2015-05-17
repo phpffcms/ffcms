@@ -16,7 +16,8 @@ return [
     'Session' => new Session(new NativeSessionStorage(
         [
             'cookie_lifetime' => 604800,
-            'gc_maxlifetime' => 604800
+            'gc_maxlifetime' => 604800,
+            'cookie_httponly' => '1'
         ],
         new NativeFileSessionHandler(root . '/Private/Sessions')
     )),

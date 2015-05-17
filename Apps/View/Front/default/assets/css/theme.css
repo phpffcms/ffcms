@@ -1,174 +1,152 @@
-/*
- * Globals
- */
-
+/** Default ffcms theme.
+** Developed by zenn, Pyatinskyi Mihail, 2015 &copy;
+**/
 body {
-  font-family: Georgia, "Times New Roman", Times, serif;
-  color: #555;
-  padding-top: 70px;
-  background-color: #fff;
-  background-image: url(../img/grid-bg.png);
-  background-repeat: repeat-x;
-  background-position: 0 40px;
+    background: #f3f5f8;
+    height: 100%;
+    word-wrap: break-word;
+    font: 13px/1.5 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
 }
 
-.container-content {
-	padding-top: 5px;
-	padding-bottom: 30px;
-	min-height: 500px;
+div.account-container {
+    margin-top: 5px;
 }
 
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
-  margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  color: #333;
+ul.account-list > li {
+    padding-right: 0;
+    padding-left: 0;
 }
 
-/* Nav links */
-.blog-nav-item {
-  position: relative;
-  display: inline-block;
-  padding: 10px;
-  font-weight: 500;
-  color: #cdddeb;
-}
-.blog-nav-item:hover,
-.blog-nav-item:focus {
-  color: #fff;
-  text-decoration: none;
-}
-
-.blog-nav .active {
-    color: #fff;
-}
-.blog-nav .active:after {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 0;
-    margin-left: -5px;
-    vertical-align: middle;
-    content: " ";
-    border-right:  5px solid transparent;
-    border-bottom: 5px solid;
-    border-left:   5px solid transparent;
-}
-
-/* Pagination */
-.pager {
-  margin-bottom: 60px;
-  text-align: left;
-}
-.pager > li > a {
-  width: 140px;
-  padding: 10px 20px;
-  text-align: center;
-  border-radius: 30px;
-}
-
-.content-footer {
-  padding: 40px 0;
-  color: #999;
-  text-align: center;
-  background-color: #f9f9f9;
-  border-top: 1px solid #e5e5e5;
-}
-
-.article-item {margin:0 0 40px 0; padding:0 0 40px 0; border-bottom:1px solid #eee}
-.article-item img {max-width:100%; border-radius:3px; margin:0 0 20px 0}
-.article-item .meta {padding:10px 10px; margin:0 0 15px 0;border-bottom:1px solid #eee;border-top:1px solid #eee; }
-.article-item .meta i {margin:0 10px 0 0}
-.article-item .meta span {margin:0 20px 0 0;}
-.article-item .meta a {color:#999}
-.article-item .continue {display:inline-block; margin:0;}
-.article-item h1 a, .article-item h2 a, .article-item h3 a {color:#323740;}
-
-.image_poster {
-    float: left;
-    padding-right: 10px;
-}
-
-hr.commenttype {
-    margin-top: 5px!important;
-    margin-bottom: 5px!important;
-}
-
-ul.side-links {
-    margin: 0;
-    list-style: none;
-    padding: 0;
-}
-
-ul.side-links > li {
-    border-bottom: 1px solid #eeeeee;
-}
-
-ul.side-links > li i {
-    margin: 0 10px 0 0;
-}
-
-ul.side-links > li > a {
-    color: #666666;
-    line-height: 40px;
-    padding: 0 0 0 20px;
-    background: url("../img/arrow1.png") no-repeat 5px center;
-}
-
-ul.side-links > li > ul {
-    display: none;
-    list-style: none outside none;
-    margin: 0;
-    padding: 0;
-}
-
-ul.side-links > li > ul > li > a {
-    background: #F7F7F7;
-    border-bottom: 1px dotted #CCCCCC;
-    color: #666666;
-    display: block;
-    line-height: 35px;
-    padding: 0 20px;
-    font-size: 0.9em;
-}
-
-ul.side-links > li > ul > li:last-child > a {
-    border: medium none;
-}
-
-ul.side-links > li > .toggle-children {
-    background: #FBFBFB;
-    color: #888;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    display: block;
-    float: right;
-    font-family: Arial;
+ul.account-list > li > a {
     font-size: 16px;
-    font-weight: normal;
-    line-height: 20px;
-    margin: 10px 0 0 0;
-    text-align: center;
-    width: 20px;
+    color: #999;
+    padding: 10px;
 }
 
-ul.side-links > li > .toggle-children:hover {
-    background: #eeeeee;
+ul.account-list > li.active > a {
+    background: #1bbc9b;
+    color: #ffffff;
 }
 
-ul.side-links > li > .toggle-children:before {
-    content: "+";
+ul.account-list > li > a:hover {
+    color: #000000;
+    background: #DDDDDD;
 }
 
-ul.side-links > li > .toggle-children.open:before {
-    content: "-";
+div.body-container {
+    background: #fff;
+    padding-bottom: 25px;
 }
-.wysibb {
-    font-size: 14px !important;
+
+div.header-block {
+    padding-top: 10px;
+}
+
+div.site-name {
+    font-size: 36px;
+}
+
+.on-h1-use {
+    padding-top: 10px;
+}
+
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+div.content-container {
+    padding-left: 25px;
+}
+
+/** Custom h1-h6 tag size */
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 21px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+h5,h6 {
+    font-size: 16px;
+}
+
+/** Footer */
+footer {
+    padding-top: 20px;
+    color: #aaaaaa;
+}
+
+
+
+
+/** Custom menu style */
+
+.navbar {
+    min-height: 40px !important;
+}
+
+.navbar-brand {
+    height: 40px !important;
+    padding: 10px !important;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+
+.navbar-nav > li > a {
+    padding: 10px !important; /** bottom - 10, upper - 10, a:text = 20 == 40 */
+}
+
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand {
+    color: #ffffff;
+    background: #31668d;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-brand:hover {
+    background: #a2a2a2;
+    color: #000000;
+}
+
+.navbar-default .navbar-nav > li.active > a {
+    color: #ffffff;
+    background: #1bbc9b;
+}
+
+.navbar-default {
+    background-color: #31668d;
+    border-color: #e7e7e7;
+}
+
+/** Custom panel style's */
+
+.panel {
+    border: 0 !important;
+}
+
+.panel-primary {
+    border-color: #31668d;
+}
+
+.panel-primary>.panel-heading {
+    border-color: #31668d;
+    background-color: #31668d;
+}
+
+
+/** Some media screen adaptive */
+
+@media (min-width:768px) {
+    div.body-container {
+        min-height: 500px;
+    }
 }

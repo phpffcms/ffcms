@@ -1,11 +1,14 @@
 <?php
 /** @var $global Object */
+/** @var $body string */
 use Ffcms\Core\Helper\HTML\Bootstrap\Navbar as BootstrapNav;
 use \Ffcms\Core\Helper\HTML\Listing as Listing;
+use \Ffcms\Core\Helper\Url;
 
 ?>
 <html>
 <head>
+    <meta charset="utf-8" />
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
@@ -21,126 +24,110 @@ use \Ffcms\Core\Helper\HTML\Listing as Listing;
     <?php echo \App::$Debug->render->renderHead() ?>
 </head>
 <body>
+<div class="container account-container">
+    <div class="text-right">
+        <?php
 
-<?php echo BootstrapNav::display([
-    'nav' => ['class' => 'navbar-inverse navbar-fixed-top'],
-    'container' => 'container',
-    'ul' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
-    'brand' => ['link' => '/', 'text' => 'Home'],
-    'collapseId' => 'collapse-object',
-    'items' => [
-        ['link' => ['news/index'], 'text' => 'News'],
-        ['link' => ['page/read', 'about'], 'text' => 'About'],
-        ['link' => ['user/index'], 'text' => 'Users'],
-        ['link' => ['feedback/index'], 'text' => 'Feedback'],
-        ['link' => ['user/signup'], 'text' => 'SignUp', 'position' => 'right'],
-        ['link' => ['user/login'], 'text' => 'LogIn', 'position' => 'right']
-    ]
-]); ?>
-<div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            <a href="<?php echo \App::$Alias->baseUrl; ?>"><img
-                    src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/img/logo.png"/></a>
+        $accountPanel = [];
+        if (\App::$User->isAuth()) {
+            $userId = \App::$User->get('id');
+            $accountPanel = [
+                ['type' => 'link', 'link' => ['user/profile', $userId], 'text' => \App::$User->get('nick', null, 'Profile')],
+                ['type' => 'link', 'link' => ['user/messagelist', $userId], 'text' => __('Messages')],
+                ['type' => 'link', 'link' => ['user/logout', $userId], 'text' => __('Logout')]
+            ];
+        } else {
+            $accountPanel = [
+                ['type' => 'link', 'link' => ['user/login'], 'text' => '<i class="fa fa-sign-in"></i> Login', 'html' => true],
+                ['type' => 'link', 'link' => ['user/signup'], 'text' => '<i class="fa fa-check-square-o"></i> Signup', 'html' => true]
+            ];
+        }
+
+        echo Listing::display([
+            'type' => 'ul',
+            'id' => 'account-list',
+            'property' => ['class' => 'list-inline account-list'],
+            'items' => $accountPanel
+        ]);
+
+        ?>
+    </div>
+</div>
+
+<div class="container body-container">
+
+    <!-- head logo and search panel -->
+    <div class="row header-block">
+        <!-- Image logo -->
+        <div class="col-md-1">
+            <img alt="Website logo" src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/img/logo.png" class="img-responsive" style="padding-top: 5px;">
         </div>
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <form id="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="search-term" placeholder="query...">
+        <!-- text logo -->
+        <div class="col-md-7">
+            <div class="site-name"><a href="<?php echo \App::$Alias->baseUrl; ?>">My Website!</a></div>
+            <p>Some website short description there!</p>
+        </div>
+        <!-- Search panel -->
+        <div class="col-md-4">
+            <form method="get" action="http://ffcms.local/ru/search/find/" style="padding-top: 20px;">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="query..." name="query">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" id="search-submit" type="submit">Найти</button>
+                                    <button class="btn btn-default" id="search-submit" type="submit">Find</button>
                                 </span>
-                        </div>
-                    </form>
-                    <script>
-                        $(function () {
-                            $('#search-submit').click(function (e) {
-                                var input_text = $('#search-term').val();
-                                if (input_text.length > 0) {
-                                    window.location.replace("http://demo.ffcms.ru/ru/search/" + input_text);
-                                }
-                                return false;
-                            });
-                        });
-                    </script>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-    <div class="row container-content">
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>Навигация</h4>
-                    <?php echo Listing::display([
-                        'type' => 'ul',
-                        'ul' => ['class' => 'side-links', 'itemscope' => 'itemscope', 'itemtype' => 'http://schema.org/SiteNavigationElement'],
-                        'items' => [
-                            ['type' => 'link', 'text' => 'Главная', 'link' => '/'],
-                            ['type' => 'link', 'text' => 'Новости', 'link' => ['news/index']],
-                            ['type' => 'link', 'text' => 'FFCMS', 'link' => 'http://ffcms.org', 'linkProperty' => ['target' => '_blank']]
-                        ]
-                    ]) ?>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>Последние комментарии</h4>
-                    <a href="http://demo.ffcms.ru/ru/user/id1">admin</a>
-                    <i class="fa fa-pencil"></i>
-                    &laquo;<a href="http://demo.ffcms.ru/ru/news/demo-ffcms.html#comment_list">Demo comment </a>&raquo;,
-                    12.08.2014
-                    <hr class="commenttype"/>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4 class="centered">Облако тегов</h4>
 
-                    <p>
-                        <a href="http://demo.ffcms.ru/ru/news/tag/ fast.html" class="label label-default"
-                           title="Совпадений: 1"> fast</a>
-                        <a href="http://demo.ffcms.ru/ru/news/tag/ffcms.html" class="label label-default"
-                           title="Совпадений: 1">ffcms</a>
-                        <a href="http://demo.ffcms.ru/ru/news/tag/ flexibility.html" class="label label-default"
-                           title="Совпадений: 1"> flexibility</a>
-                        <a href="http://demo.ffcms.ru/ru/news/tag/ cms.html" class="label label-default"
-                           title="Совпадений: 1"> cms</a>
-                        <a href="http://demo.ffcms.ru/ru/news/tag/ free.html" class="label label-default"
-                           title="Совпадений: 1"> free</a>
-                        <a href="http://demo.ffcms.ru/ru/news/tag/ php.html" class="label label-default"
-                           title="Совпадений: 1"> php</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <?php
-                    if (null == $body) { // approximately could be string "", boolean false or null ...
-                        \App::$Response->setStatusCode(404);
-                    } else {
+    <!-- Main menu -->
+    <?php echo \Ffcms\Core\Helper\HTML\Bootstrap\Navbar::display([
+        'nav' => ['class' => 'navbar-default'],
+        'property' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
+        'brand' => ['link' => '/', 'text' => 'Home'],
+        'collapseId' => 'collapse-mainmenu',
+        'items' => [
+            ['link' => ['content/news'], 'text' => 'News', 'position' => 'left'],
+            ['link' => ['content/page', 'about.html'], 'text' => 'About', 'position' => 'left'],
+            ['link' => ['feedback/create'], 'text' => 'Feedback', 'position' => 'left'],
+            ['link' => ['user/index'], 'text' => 'Users', 'position' => 'right']
+        ]
+    ]); ?>
+
+    <div class="row">
+        <div class="col-md-9 content-container">
+            <article>
+                <?php
+                    if ($body != null) {
                         echo $body;
+                    } else {
+                        \App::$Response->setStatusCode(404);
+                        echo '<p>Page is not founded!</p>';
                     }
-                    ?>
+                ?>
+            </article>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Title</div>
+                <div class="panel-body">
+                    Some content
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="content-footer">
+
+
+<footer>
     <div class="container">
         <div class="row">
-            <div class="col-md-offset-3 col-md-9">
-                <p>Copyright FFCMS тест &copy; 2015. Powered by <a href="http://ffcms.ru" target="_blank">ffcms.ru</a>
-                </p>
+            <div class="col-md-12">
+                <p>Copyright &copy 2015. Powered on <a href="https://ffcms.org" target="_blank">ffcms</a>.</p>
             </div>
         </div>
     </div>
-</div>
+</footer>
 <script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
 <script src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
 <?php echo \App::$View->showCodeLink('js'); ?>
