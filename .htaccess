@@ -7,8 +7,9 @@ DirectoryIndex index.php
 RewriteEngine On
 RewriteRule ^.htaccess$ - [F]
 # do not rewrite statics, vendor, uploads and other ;)
-RewriteRule ^vendor - [L,NC]
-RewriteRule ^Apps/View - [L,NC]
+RewriteRule ^vendor/ - [L,NC]
+RewriteRule ^upload/ - [L,NC]
+RewriteRule ^Apps/View/ - [L,NC]
 RewriteRule ^(.*).php - [L,NC]
 # admin interface
 RewriteRule ^admin/(.*)$ Loader/Admin/$1 [L]

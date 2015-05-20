@@ -2,7 +2,7 @@
 
 namespace Apps\Model\Front;
 
-use Extend\Core\App;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 
 class RegisterForm extends Model
@@ -54,7 +54,8 @@ class RegisterForm extends Model
         $user->save();
 
         $loginModel = new LoginForm();
-        $loginModel->openSession($user->id);
+        $loginModel->openSession($user);
+        App::$Response->redirect('/'); // session is opened, refresh page
 
         return true;
     }

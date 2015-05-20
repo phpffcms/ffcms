@@ -21,5 +21,6 @@ return [
         ],
         new NativeFileSessionHandler(root . '/Private/Sessions')
     )),
-    'User' => new Apps\Model\Basic\User()
+    'User' => new Apps\Model\Basic\User(),
+    'Database' => $capsule
 ];

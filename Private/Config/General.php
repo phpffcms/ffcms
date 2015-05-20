@@ -13,6 +13,10 @@ return [
     'baseLanguage' => 'en', // do not rewrite it!
     'languages' => ['en', 'ru'],
     'siteIndex' => 'Main::Index',
+    'debug' => [ // debug information. Owner = only admin, all = for all(use only on dev stage)
+        'owner' => true,
+        'all' => false
+    ],
     'database' => [
         'driver'    => 'mysql',
         'host'      => '127.0.0.1',

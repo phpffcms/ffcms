@@ -1,9 +1,7 @@
 <?php
 /** @var $global Object */
 /** @var $body string */
-use Ffcms\Core\Helper\HTML\Bootstrap\Navbar as BootstrapNav;
 use \Ffcms\Core\Helper\HTML\Listing as Listing;
-use \Ffcms\Core\Helper\Url;
 
 ?>
 <html>
@@ -21,7 +19,6 @@ use \Ffcms\Core\Helper\Url;
     if ($customCssCode !== null) {
         echo '<style>' . $customCssCode . '</style>';
     } ?>
-    <?php echo \App::$Debug->render->renderHead() ?>
 </head>
 <body>
 <div class="container account-container">
@@ -32,14 +29,14 @@ use \Ffcms\Core\Helper\Url;
         if (\App::$User->isAuth()) {
             $userId = \App::$User->get('id');
             $accountPanel = [
-                ['type' => 'link', 'link' => ['user/profile', $userId], 'text' => \App::$User->get('nick', null, 'Profile')],
-                ['type' => 'link', 'link' => ['user/messagelist', $userId], 'text' => __('Messages')],
+                ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => __('Profile')],
+                ['type' => 'link', 'link' => ['profile/messagelist', $userId], 'text' => __('Messages')],
                 ['type' => 'link', 'link' => ['user/logout', $userId], 'text' => __('Logout')]
             ];
         } else {
             $accountPanel = [
-                ['type' => 'link', 'link' => ['user/login'], 'text' => '<i class="fa fa-sign-in"></i> Login', 'html' => true],
-                ['type' => 'link', 'link' => ['user/signup'], 'text' => '<i class="fa fa-check-square-o"></i> Signup', 'html' => true]
+                ['type' => 'link', 'link' => ['user/login'], 'text' => '<i class="fa fa-sign-in"></i> ' . __('Sign in'), 'html' => true],
+                ['type' => 'link', 'link' => ['user/signup'], 'text' => '<i class="fa fa-check-square-o"></i> ' . __('Sign up'), 'html' => true]
             ];
         }
 
@@ -64,16 +61,16 @@ use \Ffcms\Core\Helper\Url;
         </div>
         <!-- text logo -->
         <div class="col-md-7">
-            <div class="site-name"><a href="<?php echo \App::$Alias->baseUrl; ?>">My Website!</a></div>
+            <div class="site-name"><a href="<?php echo \App::$Alias->baseUrl; ?>">Website title</a></div>
             <p>Some website short description there!</p>
         </div>
         <!-- Search panel -->
         <div class="col-md-4">
             <form method="get" action="http://ffcms.local/ru/search/find/" style="padding-top: 20px;">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="query..." name="query">
+                    <input type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" id="search-submit" type="submit">Find</button>
+                                    <button class="btn btn-default" id="search-submit" type="submit"><?php echo __('Find'); ?></button>
                                 </span>
                 </div>
             </form>
@@ -84,13 +81,13 @@ use \Ffcms\Core\Helper\Url;
     <?php echo \Ffcms\Core\Helper\HTML\Bootstrap\Navbar::display([
         'nav' => ['class' => 'navbar-default'],
         'property' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
-        'brand' => ['link' => '/', 'text' => 'Home'],
+        'brand' => ['link' => '/', 'text' => __('Home')],
         'collapseId' => 'collapse-mainmenu',
         'items' => [
-            ['link' => ['content/news'], 'text' => 'News', 'position' => 'left'],
-            ['link' => ['content/page', 'about.html'], 'text' => 'About', 'position' => 'left'],
-            ['link' => ['feedback/create'], 'text' => 'Feedback', 'position' => 'left'],
-            ['link' => ['user/index'], 'text' => 'Users', 'position' => 'right']
+            ['link' => ['content/news'], 'text' => __('News'), 'position' => 'left'],
+            ['link' => ['content/page', 'about.html'], 'text' => __('About'), 'position' => 'left'],
+            ['link' => ['feedback/create'], 'text' => __('Feedback'), 'position' => 'left'],
+            ['link' => ['user/index'], 'text' => __('Users'), 'position' => 'right']
         ]
     ]); ?>
 
@@ -137,6 +134,5 @@ if ($customJsCode !== null) {
     echo '<script>' . $customJsCode . '</script>';
 }
 ?>
-<?php echo \App::$Debug->render->render() ?>
 </body>
 </html>

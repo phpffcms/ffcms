@@ -3,7 +3,7 @@
 
 namespace Apps\Model\Front;
 
-use Extend\Core\App;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 
 

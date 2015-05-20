@@ -4,11 +4,15 @@ namespace Apps\Controller\Front;
 
 use Apps\Model\Front\RegisterForm;
 use Ffcms\Core\Arch\Controller;
-use Extend\Core\App;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ErrorException;
 use Apps\Model\Front\LoginForm;
 
+/**
+ * Class User - standard user controller: login/signup/logout/etc
+ * @package Apps\Controller\Front
+ */
 class User extends Controller
 {
 
@@ -66,6 +70,9 @@ class User extends Controller
         ]);
     }
 
+    /**
+     * Make logout if user is signIn
+     */
     public function actionLogout()
     {
         if (!App::$User->isAuth()) {
@@ -73,9 +80,8 @@ class User extends Controller
             return new ErrorException('You never make sign IN');
         }
 
-        App::$Session->clear();
+        App::$Session->invalidate();
 
         App::$Response->redirect('/');
-        return null;
     }
 }

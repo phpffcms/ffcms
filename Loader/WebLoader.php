@@ -18,7 +18,7 @@ $loader->add('Extend\\Core\\', root);
 /**
  * Alias for fast access
  */
-class App extends Extend\Core\App {}
+class App extends Ffcms\Core\App {}
 
 \App::build();
 

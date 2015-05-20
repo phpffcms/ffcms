@@ -199,6 +199,5 @@ if ($customJsCode !== null) {
     echo '<script>' . $customJsCode . '</script>';
 }
 ?>
-<?php echo \App::$Debug->render->render() ?>
 </body>
 </html>
