@@ -10,6 +10,8 @@ return [
     'Password' => 'Пароль',
     'Do Login' => 'Войти',
     'Login' => 'Логин',
+    'Input you login or email' => 'Введите ваш логин или почтовый адрес',
+    'Input you password' => 'Введите ваш пароль',
     'Email' => 'Почта',
     'Repeat password' => 'Повторите пароль',
     'Enter your username for future use on the site' => 'Укажите логин, который вы будете в дальнейшем использовать на сайте',

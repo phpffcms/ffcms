@@ -11,6 +11,8 @@ if (!defined('root')) {
 $loader = require root . '/vendor/autoload.php';
 // load app's model's
 $loader->add('Apps\\Model\\', root);
+// load app's active records
+$loader->add('Apps\\ActiveRecord\\', root);
 // load core extending
 $loader->add('Extend\\Core\\', root);
 

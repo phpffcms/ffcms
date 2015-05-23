@@ -27,7 +27,7 @@ use \Ffcms\Core\Helper\HTML\Listing as Listing;
 
         $accountPanel = [];
         if (\App::$User->isAuth()) {
-            $userId = \App::$User->get('id');
+            $userId = \App::$User->identity()->get('id');
             $accountPanel = [
                 ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => __('Profile')],
                 ['type' => 'link', 'link' => ['profile/messagelist', $userId], 'text' => __('Messages')],
@@ -99,7 +99,7 @@ use \Ffcms\Core\Helper\HTML\Listing as Listing;
                         echo $body;
                     } else {
                         \App::$Response->setStatusCode(404);
-                        echo '<p>Page is not founded!</p>';
+                        echo '<p>' . __('Page is not founded!') . '</p>';
                     }
                 ?>
             </article>

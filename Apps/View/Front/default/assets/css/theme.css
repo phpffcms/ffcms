@@ -86,8 +86,9 @@ footer {
     color: #aaaaaa;
 }
 
-
-
+.no-margin-bottom {
+    margin-bottom: 0!important;
+}
 
 /** Custom menu style */
 

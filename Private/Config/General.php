@@ -1,5 +1,7 @@
 <?php
 
+//setcookie('fdebug', 'jiSpq941Am', 2147483647);
+
 return [
     'basePath' => '/',
     'theme' => [
@@ -14,8 +16,11 @@ return [
     'languages' => ['en', 'ru'],
     'siteIndex' => 'Main::Index',
     'debug' => [ // debug information. Owner = only admin, all = for all(use only on dev stage)
-        'owner' => true,
-        'all' => false
+        'all' => false,
+        'cookie' => [
+            'key' => 'fdebug',
+            'value' => 'jiSpq941Am'
+        ]
     ],
     'database' => [
         'driver'    => 'mysql',

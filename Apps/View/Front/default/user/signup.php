@@ -8,7 +8,7 @@ $this->title = __('Sign up');
 ?>
 
 <h1 class="text-center"><?php echo __('Sign up'); ?></h1>
-<?php echo $this->show('user/_tabs'); ?>
+<?= $this->show('user/_tabs'); ?>
 
 <br/>
 
@@ -41,4 +41,4 @@ echo $form->field('repassword', 'inputPassword', ['class' => 'form-control'], __
 <div class="col-md-9 col-md-offset-3"><?php echo $form->submitButton(__('Register!'), ['class' => 'btn btn-default']); ?></div>
 
 
-<?php $form->finish(); ?>
+<?= $form->finish(); ?>

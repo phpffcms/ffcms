@@ -460,12 +460,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "764f58e07273f9c723022d1279c0a30954eabc01"
+                "reference": "daec427cc04da43d50bbc5386c15aae0c33c4761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/764f58e07273f9c723022d1279c0a30954eabc01",
-                "reference": "764f58e07273f9c723022d1279c0a30954eabc01",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/daec427cc04da43d50bbc5386c15aae0c33c4761",
+                "reference": "daec427cc04da43d50bbc5386c15aae0c33c4761",
                 "shasum": ""
             },
             "require": {
@@ -510,7 +510,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-05-11 01:55:35"
+            "time": "2015-05-19 02:06:21"
         },
         {
             "name": "illuminate/support",
@@ -518,12 +518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "d450dbabd3fe217809dca4ce72b8dd5cdde4a08f"
+                "reference": "a610e57ac204879ef582c4080faed9c75a0eea35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/d450dbabd3fe217809dca4ce72b8dd5cdde4a08f",
-                "reference": "d450dbabd3fe217809dca4ce72b8dd5cdde4a08f",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/a610e57ac204879ef582c4080faed9c75a0eea35",
+                "reference": "a610e57ac204879ef582c4080faed9c75a0eea35",
                 "shasum": ""
             },
             "require": {
@@ -534,7 +534,8 @@
                 "php": ">=5.4.0"
             },
             "suggest": {
-                "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0)."
+                "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0).",
+                "symfony/var-dumper": "Required to use the dd function (2.7.*)."
             },
             "type": "library",
             "extra": {
@@ -562,7 +563,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-05-06 21:47:54"
+            "time": "2015-05-19 02:06:21"
         },
         {
             "name": "maximebf/debugbar",
@@ -673,12 +674,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-console.git",
-                "reference": "73f82bf2becb5804f798f41e914f18331803e448"
+                "reference": "a5e36d0f3213431a7e5a6b61f51adea74e04438d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/73f82bf2becb5804f798f41e914f18331803e448",
-                "reference": "73f82bf2becb5804f798f41e914f18331803e448",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/a5e36d0f3213431a7e5a6b61f51adea74e04438d",
+                "reference": "a5e36d0f3213431a7e5a6b61f51adea74e04438d",
                 "shasum": ""
             },
             "require": {
@@ -709,7 +710,7 @@
                 "ffcms",
                 "php"
             ],
-            "time": "2015-05-04 12:06:44"
+            "time": "2015-05-20 14:29:39"
         },
         {
             "name": "phpffcms/ffcms-core",
@@ -717,16 +718,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "6f842f2af23a2249f5aa9102a28115b5481124b6"
+                "reference": "b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/6f842f2af23a2249f5aa9102a28115b5481124b6",
-                "reference": "6f842f2af23a2249f5aa9102a28115b5481124b6",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1",
+                "reference": "b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4"
+                "ezyang/htmlpurifier": "4.6.*",
+                "illuminate/database": "5.*",
+                "maximebf/debugbar": "1.*",
+                "php": ">=5.4",
+                "symfony/http-foundation": "2.6.6"
             },
             "type": "library",
             "autoload": {
@@ -752,7 +757,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2015-05-11 11:51:06"
+            "time": "2015-05-20 08:18:58"
         },
         {
             "name": "psr/log",
@@ -857,12 +862,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "ddb3b55f1a7d1bc67d94d01400d32be02936f086"
+                "reference": "a0735db452c5e592cb742333a32c6634a6d1ece1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/ddb3b55f1a7d1bc67d94d01400d32be02936f086",
-                "reference": "ddb3b55f1a7d1bc67d94d01400d32be02936f086",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/a0735db452c5e592cb742333a32c6634a6d1ece1",
+                "reference": "a0735db452c5e592cb742333a32c6634a6d1ece1",
                 "shasum": ""
             },
             "require": {
@@ -900,17 +905,17 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony Translation Component",
-            "homepage": "http://symfony.com",
-            "time": "2015-05-06 09:17:03"
+            "homepage": "https://symfony.com",
+            "time": "2015-05-15 14:11:12"
         },
         {
             "name": "symfony/var-dumper",
@@ -918,12 +923,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "2bb458cc26efc9fa6ae88bcbcbd0525d4ecf6672"
+                "reference": "5b0473622df3e313509b8771356eefa8b29bdc74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/2bb458cc26efc9fa6ae88bcbcbd0525d4ecf6672",
-                "reference": "2bb458cc26efc9fa6ae88bcbcbd0525d4ecf6672",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/5b0473622df3e313509b8771356eefa8b29bdc74",
+                "reference": "5b0473622df3e313509b8771356eefa8b29bdc74",
                 "shasum": ""
             },
             "require": {
@@ -955,21 +960,21 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Nicolas Grekas",
                     "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony mechanism for exploring and dumping PHP variables",
-            "homepage": "http://symfony.com",
+            "homepage": "https://symfony.com",
             "keywords": [
                 "debug",
                 "dump"
             ],
-            "time": "2015-04-24 07:03:44"
+            "time": "2015-05-12 15:16:46"
         }
     ],
     "packages-dev": [],

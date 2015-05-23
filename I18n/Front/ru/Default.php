@@ -2,6 +2,7 @@
 
 return [
     'Not founded: 404' => 'Страница не найдена: 404',
+    'Page is not founded!' => 'Страница не найдена!',
     'Field %field% was completed incorrectly' => 'Поле %field% заполнено не корректно',
     'Forbidden!' => 'Запрещено!',
     'Sign in' => 'Войти',
@@ -16,5 +17,6 @@ return [
     'Profile #%id%' => 'Профиль #%id%',
     'Profile' => 'Профиль',
     'Messages' => 'Сообщения',
-    'Logout' => 'Выйти'
+    'Logout' => 'Выйти',
+    'Send' => 'Отправить'
 ];

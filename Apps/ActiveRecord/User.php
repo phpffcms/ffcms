@@ -1,6 +1,6 @@
 <?php
 
-namespace Apps\Model\ActiveRecord;
+namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
 

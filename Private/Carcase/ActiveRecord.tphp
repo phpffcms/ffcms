@@ -1,0 +1,10 @@
+<?php
+
+namespace %namespace%;
+
+use Ffcms\Core\Arch\ActiveModel;
+
+class %name% extends ActiveModel
+{
+
+}

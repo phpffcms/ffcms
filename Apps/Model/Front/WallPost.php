@@ -2,27 +2,23 @@
 
 namespace Apps\Model\Front;
 
+use Apps\ActiveRecord\Wall;
+use Ffcms\Core\App;
+use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Date;
 
 class WallPost extends Model
 {
     const MAX_MESSAGE_LENGTH = 500; // 500 symbols
+    const POST_GLOBAL_DELAY = 30; // delay between 2 posts from 1 user in seconds
 
     public $message;
 
     /**
-    * Example of usage magic labels for future form helper usage
-    */
-    public function setLabels()
-    {
-        return [
-            'message' => null
-        ];
-    }
-
-    /**
-    * Example of usage magic rules for future usage in condition $model->validateRules()
-    */
+     * Validate rules for message field
+     * @return array
+     */
     public function setRules()
     {
         return [
@@ -32,9 +28,37 @@ class WallPost extends Model
         ];
     }
 
-    public function post($fromUser, $toUserWall)
+    /**
+     * Make post to user wall from $viewer to $target instance of iUser interface objects
+     * @param iUser $target
+     * @param iUser $viewer
+     * @return bool
+     */
+    public function makePost(iUser $target, iUser $viewer)
     {
+        if ($target === null || $viewer === null) {
+            return false;
+        }
 
+        $find = Wall::where('sender_id', '=', $viewer->id)->orderBy('updated_at', 'desc')->first();
+        if ($find !== null) {
+            $lastPostTime = Date::convertToTimestamp($find->updated_at);
+            if (time() - $lastPostTime < static::POST_GLOBAL_DELAY) { // past time was less then default delay
+                return false;
+            }
+        }
+
+        // save new post to db
+        $record = new Wall();
+        $record->target_id = $target->id;
+        $record->sender_id = $viewer->id;
+        $record->message = App::$Security->strip_tags($this->message);
+        $record->save();
+
+        // cleanup message
+        $this->message = null;
+
+        return true;
     }
 
 
