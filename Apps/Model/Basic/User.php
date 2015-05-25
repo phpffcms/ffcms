@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Basic;
 
+use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User as ARecordUser;
 use Ffcms\Core\App;
 use Ffcms\Core\Helper\Arr;
@@ -18,7 +19,7 @@ class User extends ARecordUser implements iUser
     /**
      * Get user object relation. If $user_id is null - get current session user
      * @param int|null $user_id
-     * @return null|static
+     * @return self|null
      */
     public static function identity($user_id = null)
     {
@@ -194,5 +195,14 @@ class User extends ARecordUser implements iUser
     public function getWall()
     {
         return $this->hasMany('Apps\\ActiveRecord\\Wall', 'target_id');
+    }
+
+    /**
+     * Get user role object
+     * @return \Apps\ActiveRecord\Role|null
+     */
+    public function getRole()
+    {
+        return (new Role())->get($this->role_id);
     }
 }

@@ -3,6 +3,7 @@
 return [
     'Not founded: 404' => 'Страница не найдена: 404',
     'Page is not founded!' => 'Страница не найдена!',
+    'Unable to find this URL' => 'Данная страница не найдена на сайте',
     'Field %field% was completed incorrectly' => 'Поле %field% заполнено не корректно',
     'Forbidden!' => 'Запрещено!',
     'Sign in' => 'Войти',

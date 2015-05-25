@@ -10,7 +10,7 @@ $this->title = 'Welcome to web-site';
     <br/>
 <?php echo \Ffcms\Core\Helper\HTML\Listing::display([
     'type' => 'ul',
-    'ul' => ['id' => 'primary'],
+    'property' => ['id' => 'primary'],
     'items' => [
         ['type' => 'text', 'text' => 'Awesome text', 'property' => ['class' => 'text-text'], 'html' => false],
         ['type' => 'link', 'link' => ['main/index', 5, 2], 'text' => 'My link!', 'property' => ['class' => 'text-text'], 'html' => false, 'activeClass' => 'active'],

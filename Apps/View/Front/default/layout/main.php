@@ -1,7 +1,8 @@
 <?php
 /** @var $global Object */
 /** @var $body string */
-use \Ffcms\Core\Helper\HTML\Listing as Listing;
+use Ffcms\Core\Helper\HTML\Listing;
+use Ffcms\Core\Helper\Object;
 
 ?>
 <html>
@@ -93,6 +94,21 @@ use \Ffcms\Core\Helper\HTML\Listing as Listing;
 
     <div class="row">
         <div class="col-md-9 content-container">
+            <?php if ($this->breadcrumbs !== null && Object::isArray($this->breadcrumbs)) : ?>
+            <ol class="breadcrumb">
+                <?php foreach ($this->breadcrumbs as $bUrl => $bText): ?>
+                    <?php if (Object::isLikeInt($bUrl)): // only text ?>
+                    <li class="active"><?= \App::$Security->strip_tags($bText) ?></li>
+                    <?php else: ?>
+                    <li>
+                        <a href="<?= \App::$Security->strip_tags($bUrl) ?>">
+                            <?= \App::$Security->strip_tags($bText) ?>
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ol>
+            <?php endif; ?>
             <article>
                 <?php
                     if ($body != null) {
@@ -108,7 +124,9 @@ use \Ffcms\Core\Helper\HTML\Listing as Listing;
             <div class="panel panel-primary">
                 <div class="panel-heading">Title</div>
                 <div class="panel-body">
-                    Some content
+                    <?= \Ffcms\Core\Helper\HTML\Bootstrap\Nav::display([
+
+                    ]) ?>
                 </div>
             </div>
         </div>

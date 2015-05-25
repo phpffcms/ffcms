@@ -14,7 +14,7 @@ class Role extends ActiveModel
      * @param int $role_id
      * @return object|null
      */
-    public function get($role_id)
+    public static function get($role_id)
     {
         $role = App::$Memory->get('user.role.cache.' . $role_id);
 
@@ -29,36 +29,23 @@ class Role extends ActiveModel
     /**
      * Check if user role contains permission
      * @param string $permission
-     * @param int|null $user_id
      * @return bool
      */
-    public function can($permission, $user_id = null)
+    public function can($permission)
     {
-        $persone = App::$User->identity($user_id);
 
-        // not founded or not auth
-        if ($persone === null || $persone->id < 1) {
-            return false;
-        }
-
-        $roleObject = $this->get($persone->role_id);
-        if ($roleObject === null) {
-            return false;
-        }
-
-        // no permissions? in any way false
-        $permissions = $roleObject->permissions;
-        if ($permissions === null || String::length($permissions) < 1) {
+        // Role::get(id) is not initialized
+        if ($this->permissions === null) {
             return false;
         }
 
         // global admin
-        if (String::contains('global/all', $permissions)) {
+        if (String::contains('global/all', $this->permissions)) {
             return true;
         }
 
         // check if current permission in permissions list for this role
-        if (String::contains($permission, $permissions)) {
+        if (String::contains($permission, $this->permissions)) {
             return true;
         }
 

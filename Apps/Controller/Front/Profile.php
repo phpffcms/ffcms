@@ -2,8 +2,6 @@
 
 namespace Apps\Controller\Front;
 
-use Apps\ActiveRecord\Role;
-use Apps\ActiveRecord\Wall;
 use Apps\Model\Front\WallPost;
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\App;
@@ -19,12 +17,17 @@ class Profile extends Controller
 {
     public $_self = false;
 
+    /**
+     * Show user profile: data, wall posts, other features
+     * @param int $userId
+     * @return ErrorException
+     */
     public function actionShow($userId)
     {
         // check if target exist
         if (!App::$User->isExist($userId)) {
             $this->title = __('Forbidden!');
-            return new ErrorException('This profile is never exist');
+            return new ErrorException('This profile is not exist');
         }
 
         $targetPersone = App::$User->identity($userId); // target user object instance of Apps\Model\Basic\User
@@ -34,9 +37,8 @@ class Profile extends Controller
         $this->_self = ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id);
 
         $wallModel = null;
-        $roles = new Role();
         // if current user is auth - allow to post messages in wall current user
-        if (App::$User->isAuth() && $roles->can('global/write')) {
+        if (App::$User->isAuth() && $viewerPersone->getRole()->can('global/write')) {
             $wallModel = new WallPost();
             // check if request post is done and rules validated
             if ($wallModel->isPostSubmit() && $wallModel->validateRules()) {
@@ -49,18 +51,15 @@ class Profile extends Controller
             }
         }
 
-        //$wallRecords = Wall::where('target_id', '=', $targetPersone->id)->orderBy('id', 'desc')->skip(5)->take(5)->get();
-
-
         $query = $targetPersone->getWall(); // relation hasMany from users to walls
         // pagination and query params
-        $wallPage = (int)App::$Request->get('page');
+        $wallPage = (int)App::$Request->query->get('page');
         $wallItems = 5;
         $wallOffset = $wallPage * $wallItems;
 
         // build pagination
         $wallPagination = new SimplePagination([
-            'url' => ['profile/show', $userId],
+            'url' => ['profile/show', $userId, null],
             'page' => $wallPage,
             'step' => 5,
             'total' => $query->count()
@@ -75,7 +74,26 @@ class Profile extends Controller
             'wall' => $wallModel,
             'notify' => App::$Session->getFlashBag()->all(),
             'wallRecords' => $wallRecords,
-            'pagination' => $wallPagination->display()
+            'pagination' => $wallPagination
+        ]);
+    }
+
+    /**
+     * User avatar management
+     * @return ErrorException
+     */
+    public function actionAvatar()
+    {
+        // target is always self object, just check if auth done
+        if (!App::$User->isAuth()) {
+            $this->title = __('Forbidden!');
+            return new ErrorException('This action is forbidden');
+        }
+
+        $user = App::$User->identity();
+
+        $this->response = App::$View->render('avatar', [
+            'user' => $user
         ]);
     }
 }

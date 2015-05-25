@@ -1,5 +1,6 @@
 <?php
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Object;
 use Ffcms\Core\Helper\String;
 use Ffcms\Core\Helper\Url;
@@ -8,6 +9,8 @@ use Ffcms\Core\Helper\Url;
 /** @var $wall Apps\Model\Front\WallPost|null */
 /** @var $notify array|null */
 /** @var $wallRecords object */
+/** @var $pagination Ffcms\Core\Helper\HTML\SimplePagination */
+/** @var $isSelf bool */
 
 // $user is a target profile depended object(not current user!!!)
 
@@ -18,6 +21,11 @@ if ($name == null || String::length($name) < 1) {
 }
 
 $this->title = __('Profile') . ': ' . $name;
+
+$this->breadcrumbs = [
+    Url::to('/') => __('Home'),
+    $this->title
+];
 ?>
 <div class="row">
     <div class="col-md-12">
@@ -27,11 +35,26 @@ $this->title = __('Profile') . ': ' . $name;
 <hr/>
 <div class="row">
     <div class="col-md-4">
-        <img src="<?= $user->getAvatarUrl('big') ?>" class="img-responsive" />
-        <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#">Settings</a></li>
-            <li><a href="#">Billing</a></li>
-        </ul>
+        <div class="text-centered"><img src="<?= $user->getAvatarUrl('big') ?>" class="img-responsive" /></div>
+        <?php
+        $userMenu = null;
+        if (true === $isSelf) {
+            $userMenu = [
+                ['type' => 'link', 'link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Avatar'), 'html' => true],
+                ['type' => 'link', 'link' => ['profile/messagelist'], 'text' => '<i class="fa fa-envelope"> ' . __('Messages'), 'html' => true],
+                ['type' => 'link', 'link' => ['profile/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]
+            ];
+        } else {
+            $userMenu = [
+                ['type' => 'link', 'link' => ['profile/messagewrite', $user->id], 'text' => '<i class="fa fa-pencil-square-o"></i> ' . __('Write message'), 'html' => true]
+            ];
+        }
+        ?>
+        <?= Listing::display([
+            'type' => 'ul',
+            'property' => ['class' => 'nav nav-pills nav-stacked'],
+            'items' => $userMenu
+        ]) ?>
     </div>
     <div class="col-md-8">
         <h2><?php echo __('Profile data'); ?></h2>
@@ -92,7 +115,7 @@ $this->title = __('Profile') . ': ' . $name;
                 <?php endif; ?>
             </table>
         </div>
-        <h2>Wall</h2>
+        <h2><?= __('Wall') ?></h2>
         <?php if ($wall !== null): ?>
             <?php
             // show notification if exist
@@ -142,5 +165,8 @@ $this->title = __('Profile') . ': ' . $name;
             endforeach;
         endif;
         ?>
+        <div class="text-center">
+            <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>
+        </div>
     </div>
 </div>

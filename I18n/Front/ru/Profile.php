@@ -14,5 +14,11 @@ return [
     'Visit' => 'Посетить',
     'Interests' => 'Интересы',
     'The message was successful posted!' => 'Сообщение успешно отправлено!',
-    'Posting message was failed! You need to wait some time...' => 'Сообщение не отправлено - подождите...'
+    'Posting message was failed! You need to wait some time...' => 'Сообщение не отправлено - подождите...',
+    'Wall' => 'Стена',
+    'Avatar' => 'Аватар',
+    'Settings' => 'Настройки',
+    'Write message' => 'Написать сообщение',
+    'This profile is not exist' => 'Такого пользователя не существует',
+    'This action is forbidden' => 'Действие запрещено'
 ];

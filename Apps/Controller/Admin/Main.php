@@ -2,15 +2,15 @@
 
 namespace Apps\Controller\Admin;
 
-use Ffcms\Core\Arch\Controller;
-use Ffcms\Core\Arch\View;
+use Extend\Core\Arch\AdminController;
+use Ffcms\Core\App;
 
-class Main extends Controller
+class Main extends AdminController
 {
 
     public function actionIndex()
     {
-        $this->response = (new View('Main', 'index'))->out([
+        $this->response = App::$View->render('index', [
 
         ]);
     }

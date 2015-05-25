@@ -174,7 +174,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="site-index">
-                    <?php echo $body; ?>
+                    <?= $body; ?>
                 </div>
             </div>
             <!-- /.col-md-12 -->
