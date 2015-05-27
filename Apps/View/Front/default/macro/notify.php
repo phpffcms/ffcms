@@ -30,7 +30,9 @@ function type2html($type)
 if (Object::isArray($notify) && count($notify) > 0) {
     foreach ($notify as $type => $messages) {
         foreach ($messages as $message) {
-            echo '<p class="alert ' . type2html($type) . '">' . \Ffcms\Core\App::$Security->strip_tags($message) . '</p>';
+            echo '<p class="alert ' . type2html($type) . '">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+                . \Ffcms\Core\App::$Security->strip_tags($message) . '</p>';
         }
     }
 }

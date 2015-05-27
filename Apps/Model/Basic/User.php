@@ -120,7 +120,7 @@ class User extends ARecordUser implements iUser
 
         $route = '/upload/user/avatar/' . $type . '/' . $this->id . '.jpg';
         if (File::exist($route)) {
-            return App::$Alias->scriptUrl . $route;
+            return App::$Alias->scriptUrl . $route . '?mtime=' . File::mTime($route);
         }
 
         return App::$Alias->scriptUrl . $default;

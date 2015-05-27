@@ -112,6 +112,12 @@ use Ffcms\Core\Helper\Object;
             <article>
                 <?php
                     if ($body != null) {
+                        // display notify if not used in views
+                        $notify = \App::$Session->getFlashBag()->all();
+                        if (Object::isArray($notify) && count($notify) > 0) {
+                            echo \App::$View->show('macro/notify', ['notify' => $notify]);
+                        }
+
                         echo $body;
                     } else {
                         \App::$Response->setStatusCode(404);

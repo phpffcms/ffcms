@@ -20,5 +20,12 @@ return [
     'Settings' => 'Настройки',
     'Write message' => 'Написать сообщение',
     'This profile is not exist' => 'Такого пользователя не существует',
-    'This action is forbidden' => 'Действие запрещено'
+    'This action is forbidden' => 'Действие запрещено',
+    'Avatar change' => 'Изменение аватара',
+    'Avatar settings' => 'Настройки аватара',
+    'Select avatar' => 'Выберите изображение',
+    'Select jpg, png or gif avatar' => 'Выберите файл jpg, png или gif в качестве аватара',
+    'Change' => 'Изменить',
+    'File upload is failed!' => 'Загрузка файла не удалась',
+    'Avatar is successful changed' => 'Аватар успешно изменен'
 ];

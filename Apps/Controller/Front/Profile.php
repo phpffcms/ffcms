@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Front;
 
+use Apps\Model\Front\AvatarUpload;
 use Apps\Model\Front\WallPost;
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\App;
@@ -90,10 +91,23 @@ class Profile extends Controller
             return new ErrorException('This action is forbidden');
         }
 
+        // get user identity and model object
         $user = App::$User->identity();
+        $model = new AvatarUpload();
+
+        // validate model post data
+        if ($model->isPostSubmit()) {
+            if ($model->validateRules()) {
+                $model->copyFile($user);
+                App::$Session->getFlashBag()->add('success', __('Avatar is successful changed'));
+            } else {
+                App::$Session->getFlashBag()->add('error', __('File upload is failed!'));
+            }
+        }
 
         $this->response = App::$View->render('avatar', [
-            'user' => $user
+            'user' => $user,
+            'model' => $model
         ]);
     }
 }

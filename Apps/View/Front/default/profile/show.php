@@ -35,7 +35,7 @@ $this->breadcrumbs = [
 <hr/>
 <div class="row">
     <div class="col-md-4">
-        <div class="text-centered"><img src="<?= $user->getAvatarUrl('big') ?>" class="img-responsive" /></div>
+        <img src="<?= $user->getAvatarUrl('big') ?>" class="img-responsive center-block" />
         <?php
         $userMenu = null;
         if (true === $isSelf) {
@@ -145,10 +145,12 @@ $this->breadcrumbs = [
                 <div class="row" style="padding-top: 10px">
                     <div class="col-md-12">
                         <div class="media" style="border: solid 1px #dbdbdb;padding: 10px;">
-                            <a class="pull-left" href="http://ffcms.ru/ru/user/id1">
-                                <img class="media-object img-responsive"
-                                     src="<?= $referObject->getAvatarUrl('small') ?>" style="width:64px;height:64px;">
-                            </a>
+                            <div class="pull-left" style="width: 64px; height: 64px">
+                                <a href="http://ffcms.ru/ru/user/id1">
+                                    <img class="media-object img-responsive center-block"
+                                         src="<?= $referObject->getAvatarUrl('small') ?>" style="max-width: 64px;max-height: 64px;">
+                                </a>
+                            </div>
 
                             <div class="media-body">
                                 <h5 class="media-heading">

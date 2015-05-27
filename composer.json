@@ -12,7 +12,7 @@
     "ffcms"
   ],
   "type": "project",
-  "homepage": "http://ffcms.org",
+  "homepage": "https://ffcms.org",
   "license": "MIT",
   "minimum-stability": "dev",
   "require": {
@@ -23,6 +23,7 @@
     "symfony/http-foundation": "2.6.6",
     "maximebf/debugbar": "1.*",
     "ezyang/htmlpurifier": "4.6.*",
+    "gregwar/image": "2.*",
     "bower-asset/jquery": "2.1.*@stable | 1.11.*@stable",
     "bower-asset/jquery-validation": "1.*@stable",
     "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
