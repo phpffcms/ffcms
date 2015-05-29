@@ -8,6 +8,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ErrorException;
 use Apps\Model\Front\LoginForm;
+use Ffcms\Core\Exception\ForbiddenException;
 
 /**
  * Class User - standard user controller: login/signup/logout/etc
@@ -21,9 +22,8 @@ class User extends Controller
      */
     public function actionLogin()
     {
-        if (App::$User->isAuth()) {
-            $this->title = __('Forbidden!');
-            return new ErrorException('You are always log in');
+        if (App::$User->isAuth()) { // always auth? get the f*ck out
+            throw new ForbiddenException();
         }
 
         $loginForm = new LoginForm();
@@ -48,9 +48,8 @@ class User extends Controller
      */
     public function actionSignup()
     {
-        if (App::$User->isAuth()) {
-            $this->title = __('Forbidden!');
-            return new ErrorException('You are always log in');
+        if (App::$User->isAuth()) { // always auth? prevent any actions
+            throw new ForbiddenException();
         }
 
         $registerForm = new RegisterForm();
@@ -75,9 +74,8 @@ class User extends Controller
      */
     public function actionLogout()
     {
-        if (!App::$User->isAuth()) {
-            $this->title = __('Forbidden!');
-            return new ErrorException('You never make sign IN');
+        if (!App::$User->isAuth()) { // not auth? what you wanna?
+            throw new ForbiddenException();
         }
 
         App::$Session->invalidate();

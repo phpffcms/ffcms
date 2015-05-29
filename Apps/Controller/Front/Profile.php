@@ -4,9 +4,11 @@ namespace Apps\Controller\Front;
 
 use Apps\Model\Front\AvatarUpload;
 use Apps\Model\Front\WallPost;
-use Ffcms\Core\Arch\Controller;
+use Extend\Core\Arch\FrontController;
 use Ffcms\Core\App;
-use Ffcms\Core\Exception\ErrorException;
+use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NativeException;
+use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 
 
@@ -14,21 +16,20 @@ use Ffcms\Core\Helper\HTML\SimplePagination;
  * Class Profile - user profiles interaction
  * @package Apps\Controller\Front
  */
-class Profile extends Controller
+class Profile extends FrontController
 {
     public $_self = false;
 
     /**
      * Show user profile: data, wall posts, other features
      * @param int $userId
-     * @return ErrorException
+     * @throws NotFoundException
      */
     public function actionShow($userId)
     {
         // check if target exist
         if (!App::$User->isExist($userId)) {
-            $this->title = __('Forbidden!');
-            return new ErrorException('This profile is not exist');
+            throw new NotFoundException('This profile is not exist');
         }
 
         $targetPersone = App::$User->identity($userId); // target user object instance of Apps\Model\Basic\User
@@ -81,14 +82,11 @@ class Profile extends Controller
 
     /**
      * User avatar management
-     * @return ErrorException
      */
     public function actionAvatar()
     {
-        // target is always self object, just check if auth done
         if (!App::$User->isAuth()) {
-            $this->title = __('Forbidden!');
-            return new ErrorException('This action is forbidden');
+            throw new ForbiddenException('You must be authorized user!');
         }
 
         // get user identity and model object

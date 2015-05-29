@@ -30,10 +30,14 @@ use Ffcms\Core\Helper\Object;
         if (\App::$User->isAuth()) {
             $userId = \App::$User->identity()->get('id');
             $accountPanel = [
-                ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => __('Profile')],
-                ['type' => 'link', 'link' => ['profile/messagelist', $userId], 'text' => __('Messages')],
-                ['type' => 'link', 'link' => ['user/logout', $userId], 'text' => __('Logout')]
+                ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => '<i class="fa fa-user"></i> ' . __('Profile'), 'html' => true],
+                ['type' => 'link', 'link' => ['profile/messagelist', $userId], 'text' => '<i class="fa fa-envelope"> ' . __('Messages'), 'html' => true],
+                ['type' => 'link', 'link' => ['user/logout', $userId], 'text' => '<i class="fa fa-user-secret"></i> ' . __('Logout'), 'html' => true]
             ];
+
+            if (\App::$User->identity()->getRole()->can('Admin/Main/Index')) {
+                $accountPanel[] = ['type' => 'link', 'link' => \App::$Alias->scriptUrl . '/admin/', 'text' => '<i class="fa fa-cogs"></i> Admin', 'html' => true];
+            }
         } else {
             $accountPanel = [
                 ['type' => 'link', 'link' => ['user/login'], 'text' => '<i class="fa fa-sign-in"></i> ' . __('Sign in'), 'html' => true],

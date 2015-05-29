@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Helper\Arr;
 use Ffcms\Core\Helper\String;
 
 class Role extends ActiveModel
@@ -40,12 +41,19 @@ class Role extends ActiveModel
         }
 
         // global admin
-        if (String::contains('global/all', $this->permissions)) {
+        $permArray = explode(';', $this->permissions);
+
+        if (count($permArray) < 1) {
+            return false;
+        }
+
+        // admin can all :)
+        if (Arr::in('global/all', $permArray)) {
             return true;
         }
 
-        // check if current permission in permissions list for this role
-        if (String::contains($permission, $this->permissions)) {
+        // check if current permission in user permission role
+        if (Arr::in($permission, $permArray)) {
             return true;
         }
 
