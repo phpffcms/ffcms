@@ -6,6 +6,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 
+// define timezone
+date_default_timezone_set('Europe/Moscow');
+
 // establish database link in laravel Active Record
 $capsule = new Capsule;
 $capsule->addConnection(App::$Property->get('database'));

@@ -6,13 +6,14 @@ use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\Cache\MemoryObject;
+use Ffcms\Core\Exception\ForbiddenException;
 
 class FrontController extends Controller
 {
     public function __construct()
     {
         if (!$this->isEnabled()) {
-            //throw new \Exception('Fail');
+            throw new ForbiddenException('This application is disabled or not installed!');
         }
         parent::__construct();
     }
@@ -23,9 +24,20 @@ class FrontController extends Controller
         // check if this controller is enabled
         $data = MemoryObject::instance()->get('cache.apps.' . $appName);
         if ($data === null) {
-            $data = AppRecord::where('sys_name', '=', $appName)->first();
-            //var_dump($data);
+            $data = AppRecord::where('type', '=', 'app')
+                ->where('sys_name', '=', $appName)
+                ->first();
+            if ($data !== null) {
+                MemoryObject::instance()->set('cache.apps.' . $appName, $data);
+            }
         }
-        return false;
+
+        // not exist? false
+        if ($data === null) {
+            return false;
+        }
+
+        // check if disabled (0 = enabled, anything else = on)
+        return $data->disabled === 0;
     }
 }

@@ -8,8 +8,21 @@ use Ffcms\Core\App;
 class AdminController extends Controller
 {
 
+    public $applications;
+
     // make check's
     public function __construct()
+    {
+        $this->checkAccess();
+        $this->buildApps();
+
+        parent::__construct();
+    }
+
+    /**
+     * Check if current user can access to admin controllers
+     */
+    private function checkAccess()
     {
         $user = App::$User->identity();
         // user is not authed ?
@@ -30,7 +43,13 @@ class AdminController extends Controller
             App::$Response->redirect($redirectUrl, true);
             exit();
         }
+    }
 
-        parent::__construct();
+    /**
+     * Build application list to memory object
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
+    private function buildApps() {
+        $this->applications = \Apps\ActiveRecord\App::getAll();
     }
 }

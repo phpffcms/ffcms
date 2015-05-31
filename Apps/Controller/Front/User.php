@@ -3,10 +3,8 @@
 namespace Apps\Controller\Front;
 
 use Apps\Model\Front\RegisterForm;
-use Ffcms\Core\Arch\Controller;
+use Extend\Core\Arch\FrontController;
 use Ffcms\Core\App;
-use Ffcms\Core\Arch\View;
-use Ffcms\Core\Exception\ErrorException;
 use Apps\Model\Front\LoginForm;
 use Ffcms\Core\Exception\ForbiddenException;
 
@@ -14,7 +12,7 @@ use Ffcms\Core\Exception\ForbiddenException;
  * Class User - standard user controller: login/signup/logout/etc
  * @package Apps\Controller\Front
  */
-class User extends Controller
+class User extends FrontController
 {
 
     /**

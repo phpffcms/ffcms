@@ -7,7 +7,6 @@ use Apps\Model\Front\WallPost;
 use Extend\Core\Arch\FrontController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 

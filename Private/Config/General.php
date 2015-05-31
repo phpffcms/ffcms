@@ -1,15 +1,12 @@
 <?php
 
-//setcookie('fdebug', 'jiSpq941Am', 2147483647);
-
 return [
     'basePath' => '/',
     'theme' => [
         'Front' => 'default',
-        'Admin' => 'default',
-        'Api' => 'default'
+        'Admin' => 'default'
     ],
-    'password_salt' => '$2a$10$1o81mUjA4NhQp8nSeaFmN8',
+    'passwordSalt' => '$2a$10$1o81mUjA4NhQp8nSeaFmN8',
     'singleLanguage' => 'en',
     'multiLanguage' => true,
     'baseLanguage' => 'en', // do not rewrite it!

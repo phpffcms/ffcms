@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FFCMS Admin - main</title>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
+    <title><?= App::$Security->strip_tags($this->title) ?></title>
+    <link rel="stylesheet" href="<?php use Ffcms\Core\Helper\Arr;
+    use Ffcms\Core\Helper\HTML\Listing;
+    use Ffcms\Core\Helper\Object;
+    use Ffcms\Core\Helper\Url;
+
+    echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/css/site.css" rel="stylesheet">
     <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -33,7 +38,7 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i> Fast Access <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-bell fa-fw"></i> <?= __('Fast Access') ?> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
                         <li>
@@ -96,70 +101,60 @@
                 <!-- /.dropdown -->
                 <li><a href="<?php echo \App::$Alias->scriptUrl; ?>" target="_blank">
                         <i class="fa fa-arrow-right"></i>
-                        View site </a>
+                        <?= __('Open site') ?> </a>
                 </li>
-                <li><a href="/admin/ru/site/logout" data-method="post"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                <li><a href="<?= \App::$Alias->scriptUrl ?>/user/logout" data-method="post"><i class="fa fa-sign-out"></i> <?= __('Logout') ?></a></li>
             </ul>
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li><a href="/admin/ru/" class="active">
-                                <i class="fa fa-home fa-fw"></i> Главная</a>
+                        <li><a href="<?= Url::to('main/index'); ?>">
+                                <i class="fa fa-home fa-fw"></i> <?= __('Main') ?></a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fire fa-fw"></i> Система<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/admin/ru/site/settings">
-                                        <i class="fa fa-cogs"></i> Настройки </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/ru/site/filemanager">
-                                        <i class="fa fa-file-o"></i> Менеджер файлов </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/ru/site/antivirus">
-                                        <i class="fa fa-shield"></i> Антивирус </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/ru/gii">
-                                        <i class="fa fa-code"></i> Генератор кода </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/ru/site/updates">
-                                        <i class="fa fa-gavel"></i> Обновления</a>
-                                </li>
-                            </ul>
+                        <li<?= (\App::$Request->getController() === 'Main' && \App::$Request->getAction() !== 'Index') ? ' class="active"' : null ?>>
+                            <a href="#"><i class="fa fa-fire fa-fw"></i> <?= __('System') ?><span class="fa arrow"></span></a>
+                            <?php echo Listing::display([
+                                'type' => 'ul',
+                                'property' => ['class' => 'nav nav-second-level'],
+                                'items' => [
+                                    ['type' => 'link', 'link' => ['main/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true],
+                                    ['type' => 'link', 'link' => ['main/files'], 'text' => '<i class="fa fa-file-o"></i> ' . __('Files'), 'html' => true],
+                                    ['type' => 'link', 'link' => ['main/antivirus'], 'text' => '<i class="fa fa-shield"></i> ' . __('Antivirus'), 'html' => true],
+                                    ['type' => 'link', 'link' => ['main/codex'], 'text' => '<i class="fa fa-code"></i> ' . __('CodeX'), 'html' => true],
+                                    ['type' => 'link', 'link' => ['main/updates'], 'text' => '<i class="fa fa-gavel"></i> ' . __('Updates'), 'html' => true]
+                                ]
+                            ]) ?>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <?php
+                        $appMenuItems = null;
+                        $appControllers = [];
+                        foreach ($this->applications as $app) {
+                            if ($app->type !== 'app') {
+                                continue;
+                            }
+                            $appControllers[] = $app->sys_name;
+                            $appMenuItems[] = ['type' => 'link', 'link' => [$app->sys_name . '/index'], 'text' => $app->getLocaleName()];
+                        }
+                        $appMenuItems[] = ['type' => 'link', 'link' => ['application/index'], 'text' => __('All apps') . '...'];
+                        $appControllers[] = 'Application';
+                        ?>
+                        <li<?= Arr::in(\App::$Request->getController(), $appControllers) ? ' class="active"' : null ?>>
+                            <a href="#"><i class="fa fa-plug fa-fw"></i> <?= __('Applications') ?><span class="fa arrow"></span></a>
+                            <?php
+
+                            echo Listing::display([
+                                'type' => 'ul',
+                                'property' => ['class' => 'nav nav-second-level'],
+                                'items' => $appMenuItems
+                            ]) ?>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-plug fa-fw"></i> Приложения<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-table fa-fw"></i> <?= __('Widgets') ?><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/admin/ru/app/page">
-                                        page </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/ru/app/user">
-                                        user </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/ru/app/news">
-                                        news </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/ru/app/feedback">
-                                        feedback </a>
-                                </li>
-                                <li><a href="#">Просмотреть все</a></li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i> Виджеты<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li><a href="#">Просмотреть все</a></li>
+                                <li><a href="#">All widgets...</a></li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -174,7 +169,37 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="site-index">
-                    <?= $body; ?>
+                    <?php if ($this->breadcrumbs !== null && Object::isArray($this->breadcrumbs)) : ?>
+                        <ol class="breadcrumb">
+                            <?php foreach ($this->breadcrumbs as $bUrl => $bText): ?>
+                                <?php if (Object::isLikeInt($bUrl)): // only text ?>
+                                    <li class="active"><?= \App::$Security->strip_tags($bText) ?></li>
+                                <?php else: ?>
+                                    <li>
+                                        <a href="<?= \App::$Security->strip_tags($bUrl) ?>">
+                                            <?= \App::$Security->strip_tags($bText) ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ol>
+                    <?php endif; ?>
+                    <article>
+                        <?php
+                        if ($body != null) {
+                            // display notify if not used in views
+                            $notify = \App::$Session->getFlashBag()->all();
+                            if (Object::isArray($notify) && count($notify) > 0) {
+                                echo \App::$View->show('macro/notify', ['notify' => $notify]);
+                            }
+
+                            echo $body;
+                        } else {
+                            \App::$Response->setStatusCode(404);
+                            echo '<p>' . __('Page is not founded!') . '</p>';
+                        }
+                        ?>
+                    </article>
                 </div>
             </div>
             <!-- /.col-md-12 -->
@@ -182,7 +207,7 @@
         <!-- /.row -->
         <div class="row" style="padding-top: 20px;">
             <p class="text-center"><a href="#" onclick="window.history.back();return false;"><span
-                        class="label label-primary"><i class="fa fa-arrow-left"></i> Назад</span></a></p>
+                        class="label label-primary"><i class="fa fa-arrow-left"></i></span></a></p>
         </div>
     </div>
     <!-- /#page-wrapper -->

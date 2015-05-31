@@ -128,6 +128,10 @@ body {
     padding-left: 37px;
 }
 
+.sidebar .nav-second-level > li.active {
+    background-color: #e4e4e4;
+}
+
 .sidebar .nav-third-level li a {
     padding-left: 52px;
 }
