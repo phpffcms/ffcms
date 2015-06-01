@@ -23,6 +23,14 @@ class Main extends AdminController
     {
         $model = new SettingsForm();
 
+        if ($model->isPostSubmit()) {
+            if ($model->validateRules()) {
+                $model->makeSave();
+            } else {
+                App::$Session->getFlashBag()->add('error', 'Validation of form data is failed!');
+            }
+        }
+
         $this->response = App::$View->render('settings', [
             'model' => $model
         ]);

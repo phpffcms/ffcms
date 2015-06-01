@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f1ea2bddf654a392e77a85fb5a307215",
+    "hash": "8c94f9192dd25e8e7ddfc75c352689a8",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -259,6 +259,60 @@
             "time": "2015-02-10 06:19:18"
         },
         {
+            "name": "dflydev/dot-access-data",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dflydev/dflydev-dot-access-data.git",
+                "reference": "e66b3b0d06e204af9e2ff1e06d228f0a527855e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dflydev/dflydev-dot-access-data/zipball/e66b3b0d06e204af9e2ff1e06d228f0a527855e7",
+                "reference": "e66b3b0d06e204af9e2ff1e06d228f0a527855e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Dflydev\\DotAccessData": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dragonfly Development Inc.",
+                    "email": "info@dflydev.com",
+                    "homepage": "http://dflydev.com"
+                },
+                {
+                    "name": "Beau Simensen",
+                    "email": "beau@dflydev.com",
+                    "homepage": "http://beausimensen.com"
+                }
+            ],
+            "description": "Given a deep data structure, access data by dot notation.",
+            "homepage": "https://github.com/dflydev/dflydev-dot-access-data",
+            "keywords": [
+                "access",
+                "data",
+                "dot",
+                "notation"
+            ],
+            "time": "2015-03-17 13:52:51"
+        },
+        {
             "name": "doctrine/inflector",
             "version": "dev-master",
             "source": {
@@ -470,7 +524,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/9eee7b74485cdc98562906f9cbffbb994a11cf7a",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/2d18b7779b8e03e63831a0726ee3ab5ee0628c7a",
                 "reference": "a31c198e297c652c00a3122bfccb4e43d53aa4de",
                 "shasum": ""
             },
@@ -513,7 +567,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/3b9e0115998886f84cca0ab39ecd55f069828965",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/1d10bc966e513154e2483d6ac56a39e4febb8421",
                 "reference": "80d2f5efe43cbee810e48c6c2c7249fc670bd5c6",
                 "shasum": ""
             },
@@ -555,7 +609,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/491d58b5cc4149fa73cf93d499efb292cd11c88d",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/c10d055e771ccdf6ab242285a204bb08c288b208",
                 "reference": "daec427cc04da43d50bbc5386c15aae0c33c4761",
                 "shasum": ""
             },
@@ -769,7 +823,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/a5e36d0f3213431a7e5a6b61f51adea74e04438d",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/4332ac385fe6230498be707dab31bac850f15e71",
                 "reference": "a5e36d0f3213431a7e5a6b61f51adea74e04438d",
                 "shasum": ""
             },
@@ -813,7 +867,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/8a01ed98b7cee3a78b7579e58242b00f79e25e2e",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/f8131dc9a036d27d25f005fa1dc13ec468750855",
                 "reference": "b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1",
                 "shasum": ""
             },

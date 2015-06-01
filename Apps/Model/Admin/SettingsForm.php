@@ -11,15 +11,21 @@ use Ffcms\Core\Helper\String;
 
 class SettingsForm extends Model
 {
+
     public $basePath;
-    public $theme_Front;
-    public $theme_Admin;
     public $siteIndex;
-    public $baseLanguage = 'en';
     public $passwordSalt;
     public $debug_all = false;
-    public $debug_cookie_key;
-    public $debug_cookie_value;
+
+    public $debug;
+    public $theme;
+    public $database;
+
+    // lang cfgs
+    public $baseLanguage = 'en';
+    public $multiLanguage;
+    public $singleLanguage;
+    public $languages;
 
     /**
     * Magic method before example
@@ -28,19 +34,7 @@ class SettingsForm extends Model
     {
         // set default values
         foreach (App::$Property->getAll() as $key => $value) {
-            if (Object::isArray($value)) {
-                foreach ($value as $key2 => $value2) {
-                    if (Object::isArray($value2)) {
-                        foreach ($value2 as $key3 => $value3) {
-                            $this->{$key . '_' . $key2 . '_' . $key3} = $value3;
-                        }
-                    } else {
-                        $this->{$key . '_' . $key2} = $value2;
-                    }
-                }
-            } else {
-                $this->{$key} = $value;
-            }
+            $this->{$key} = $value;
         }
     }
 
@@ -50,7 +44,15 @@ class SettingsForm extends Model
     public function setLabels()
     {
         return [
-            'basePath' => 'Base path'
+            'basePath' => 'Base path',
+            'siteIndex' => 'Main callback',
+            'passwordSalt' => 'Hashing salt',
+            'debug.all' => 'Debug for all',
+            'singleLanguage' => 'Default language',
+            'languages' => 'Available languages',
+            'multiLanguage' => 'Multi-languages',
+            'theme.Front' => 'User theme',
+            'theme.Admin' => 'Admin theme'
         ];
     }
 
@@ -60,10 +62,19 @@ class SettingsForm extends Model
     public function setRules()
     {
         return [
-            ['basePath', 'required']
+            [['basePath', 'siteIndex', 'passwordSalt', 'singleLanguage'], 'required'],
+            [['debug.all', 'debug.cookie.key', 'debug.cookie.value'], 'required'],
+            [['theme.Front', 'theme.Admin'], 'required'],
+            [['database.driver', 'database.database'], 'required'],
+            ['passwordSalt', 'length_min', 20]
         ];
     }
 
+    /**
+     * Get available themes for environment
+     * @param $env_name
+     * @return array
+     */
     public function getAvailableThemes($env_name)
     {
         $path = root . '/Apps/View/' . $env_name . '/';
@@ -79,5 +90,10 @@ class SettingsForm extends Model
         }
 
         return $response;
+    }
+
+    public function makeSave()
+    {
+        $post_data = App::$Request->request->all();
     }
 }
