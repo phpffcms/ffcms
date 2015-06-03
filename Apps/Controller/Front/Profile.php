@@ -72,7 +72,7 @@ class Profile extends FrontController
         $this->response = App::$View->render('show', [
             'user' => $targetPersone,
             'isSelf' => $this->_self,
-            'wall' => $wallModel,
+            'wall' => $wallModel->export(),
             'notify' => App::$Session->getFlashBag()->all(),
             'wallRecords' => $wallRecords,
             'pagination' => $wallPagination
@@ -104,7 +104,7 @@ class Profile extends FrontController
 
         $this->response = App::$View->render('avatar', [
             'user' => $user,
-            'model' => $model
+            'model' => $model->export()
         ]);
     }
 }

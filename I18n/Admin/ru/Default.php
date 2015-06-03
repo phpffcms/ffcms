@@ -2,6 +2,7 @@
 
 return [
     'FFCMS 3 Dashboard' => 'Панель управления FFCMS 3',
+    'Field "%field%" is incorrect' => 'Поле "%field%" заполнено не верно!',
     'Main' => 'Главная',
     'Applications' => 'Приложения',
     'Apps' => 'Приложения',
@@ -13,5 +14,6 @@ return [
     'All apps' => 'Все приложения',
     'Widgets' => 'Виджеты',
     'Logout' => 'Выйти',
-    'Settings' => 'Настройки'
+    'Settings' => 'Настройки',
+    'Save' => 'Сохранить'
 ];

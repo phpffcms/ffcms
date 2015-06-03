@@ -143,6 +143,10 @@ footer {
     background-color: #31668d;
 }
 
+label.error {
+    color: #a94442;
+}
+
 
 /** Some media screen adaptive */
 

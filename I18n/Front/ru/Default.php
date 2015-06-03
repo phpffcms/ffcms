@@ -2,6 +2,7 @@
 
 return [
     'Page is not founded!' => 'Страница не найдена!',
+    'Field "%field%" is incorrect' => 'Поле "%field%" заполнено не верно!',
     'Unable to find this URL' => 'Данная страница не найдена на сайте',
     'Field %field% was completed incorrectly' => 'Поле %field% заполнено не корректно',
     'Access to this page is forbidden' => 'Доступ к этой странице запрещен',

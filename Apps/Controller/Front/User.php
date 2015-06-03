@@ -36,7 +36,7 @@ class User extends FrontController
 
 
         $this->response = App::$View->render('login', [
-            'model' => $loginForm,
+            'model' => $loginForm->export(),
             'notify' => App::$Session->getFlashBag()->all()
         ]);
     }
@@ -62,7 +62,7 @@ class User extends FrontController
         }
 
         $this->response = App::$View->render('signup', [
-            'model' => $registerForm,
+            'model' => $registerForm->export(),
             'notify' => App::$Session->getFlashBag()->all()
         ]);
     }

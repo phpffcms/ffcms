@@ -25,14 +25,20 @@ class Main extends AdminController
 
         if ($model->isPostSubmit()) {
             if ($model->validateRules()) {
-                $model->makeSave();
+                if ($model->makeSave()) {
+                    // show message about successful save and take system some time ;)
+                    $this->response = App::$View->render('settings_save');
+                    return;
+                } else {
+                    App::$Session->getFlashBag()->add('error', __('Configuration file is not writable! Check /Private/Config/ dir and files'));
+                }
             } else {
-                App::$Session->getFlashBag()->add('error', 'Validation of form data is failed!');
+                App::$Session->getFlashBag()->add('error', __('Validation of form data is failed!'));
             }
         }
 
         $this->response = App::$View->render('settings', [
-            'model' => $model
+            'model' => $model // no $model->export() there
         ]);
     }
 }

@@ -6,8 +6,6 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Directory;
 use Ffcms\Core\Helper\File;
-use Ffcms\Core\Helper\Object;
-use Ffcms\Core\Helper\String;
 
 class SettingsForm extends Model
 {
@@ -15,7 +13,6 @@ class SettingsForm extends Model
     public $basePath;
     public $siteIndex;
     public $passwordSalt;
-    public $debug_all = false;
 
     public $debug;
     public $theme;
@@ -26,6 +23,8 @@ class SettingsForm extends Model
     public $multiLanguage;
     public $singleLanguage;
     public $languages;
+
+    public $languageDomainAlias;
 
     /**
     * Magic method before example
@@ -44,15 +43,24 @@ class SettingsForm extends Model
     public function setLabels()
     {
         return [
-            'basePath' => 'Base path',
-            'siteIndex' => 'Main callback',
-            'passwordSalt' => 'Hashing salt',
-            'debug.all' => 'Debug for all',
-            'singleLanguage' => 'Default language',
-            'languages' => 'Available languages',
-            'multiLanguage' => 'Multi-languages',
-            'theme.Front' => 'User theme',
-            'theme.Admin' => 'Admin theme'
+            'basePath' => __('Base path'),
+            'siteIndex' => __('Main page'),
+            'debug.all' => __('Debug for all'),
+            'singleLanguage' => __('Default language'),
+            'languages' => __('Available languages'),
+            'multiLanguage' => __('Multi-languages'),
+            'theme.Front' => __('User theme'),
+            'theme.Admin' => __('Admin theme'),
+            'database.driver' => __('Database driver'),
+            'database.host' => __('Database host'),
+            'database.database' => __('Database name'),
+            'database.username' => __('Database user'),
+            'database.password' => __('Database user pass'),
+            'database.charset' => __('Charset'),
+            'database.collation' => __('Collation'),
+            'database.prefix' => __('Tables prefix'),
+            'debug.cookie.key' => __('Debug cookie key'),
+            'debug.cookie.value' => __('Debug cookie value')
         ];
     }
 
@@ -62,11 +70,11 @@ class SettingsForm extends Model
     public function setRules()
     {
         return [
-            [['basePath', 'siteIndex', 'passwordSalt', 'singleLanguage'], 'required'],
-            [['debug.all', 'debug.cookie.key', 'debug.cookie.value'], 'required'],
+            [['debug.all', 'multiLanguage'], 'used'],
+            [['basePath', 'siteIndex', 'singleLanguage'], 'required'],
+            [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
-            [['database.driver', 'database.database'], 'required'],
-            ['passwordSalt', 'length_min', 20]
+            [['database.driver', 'database.database'], 'required']
         ];
     }
 
@@ -94,6 +102,15 @@ class SettingsForm extends Model
 
     public function makeSave()
     {
-        $post_data = App::$Request->request->all();
+        $toSave = App::$Security->strip_php_tags($this->getAllProperties());
+        $stringSave = '<?php return ' . App::$Security->var_export54($toSave, null, true) . ';';
+
+        $cfgPath = '/Private/Config/General.php';
+        if (File::exist($cfgPath) && File::writable($cfgPath)) {
+            File::write($cfgPath, $stringSave);
+            return true;
+        }
+
+        return false;
     }
 }

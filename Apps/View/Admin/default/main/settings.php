@@ -19,20 +19,17 @@ $this->title = __('Settings');
 <?php
 
 $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '', 'enctype' => 'multipart/form-data']);
-$baseTab = $form->field('basePath', 'inputText', ['class' => 'form-control'], __('FFCMS installation path to DOCUMENT_ROOT. Used if installed not in root. Example: /subdir/'));
+$baseTab = $form->field('basePath', 'inputText', ['class' => 'form-control'], __('FFCMS installation sub-directory, used if installed not in root. Example: /subdir/'));
 $baseTab .= $form->field('siteIndex', 'inputText', ['class' => 'form-control'], __('Define controller::action to display on main page in position $body'));
-$baseTab .= $form->field('passwordSalt', 'inputText', ['class' => 'form-control', 'disabled' => null], __('Password crypt security salt. Do not change this value'));
 $baseTab .= $form->field('debug.all', 'checkbox', null, __('Enable debug bar panel for all visitors? Recommended only on development environment'));
 
 $themeTab = $form->field('theme.Front', 'select', ['class' => 'form-control', 'options' => $model->getAvailableThemes('Front')]);
 $themeTab .= $form->field('theme.Admin', 'select', ['class' => 'form-control', 'options' => $model->getAvailableThemes('Admin')]);
 
-$debugTab = $form->field('debug.cookie.key', 'inputText', ['class' => 'form-control'], __('Set cookie name(key) for enable debug bar panel'));
+$debugTab = '<p>' . __('The key-value of cookie to enable debugging on website') . '. ' . __('If user got this cookie he can see debug bar') . '. ' .
+    Url::link(['main/debugcookie'], __('Set cookie for me')) . '</p>';
+$debugTab .= $form->field('debug.cookie.key', 'inputText', ['class' => 'form-control'], __('Set cookie name(key) for enable debug bar panel'));
 $debugTab .= $form->field('debug.cookie.value', 'inputText', ['class' => 'form-control'], __('Set cookie value for enable debug bar panel'));
-
-$debugTab .= '<div class="col-md-12"><div class="pull-right">
-' . Url::link(['main/debugcookie'], 'Set cookie for me') . '
-</div></div>';
 
 $langTab = $form->field('singleLanguage', 'select', ['class' => 'form-control', 'options' => \App::$Translate->getAvailableLangs()], __('Default language of website'));
 $langTab .= $form->field('multiLanguage', 'checkbox', null, __('Must we use multi language system in site pathway'));
@@ -57,12 +54,12 @@ $databaseTab .= $form->field('database.prefix', 'inputText', ['class' => 'form-c
     'property' => ['class' => 'nav-tabs'],
     'tabAnchor' => 'obj-settings',
     'items' => [
-        ['type' => 'tab', 'text' => 'Base', 'content' => $baseTab, 'html' => true, '!secure' => true],
-        ['type' => 'tab', 'text' => 'Themes', 'content' => $themeTab, 'html' => true, '!secure' => true],
-        ['type' => 'tab', 'text' => 'Languages', 'content' => $langTab, 'html' => true, '!secure' => true],
-        ['type' => 'tab', 'text' => 'Database', 'content' => $databaseTab, 'html' => true, '!secure' => true],
-        ['type' => 'tab', 'text' => 'Debug', 'content' => $debugTab, 'html' => true, '!secure' => true],
-        ['type' => 'tab', 'text' => 'Other', 'content' => 'This is an other content of other tab!']
+        ['type' => 'tab', 'text' => __('Base'), 'content' => $baseTab, 'html' => true, '!secure' => true],
+        ['type' => 'tab', 'text' => __('Themes'), 'content' => $themeTab, 'html' => true, '!secure' => true],
+        ['type' => 'tab', 'text' => __('Localization'), 'content' => $langTab, 'html' => true, '!secure' => true],
+        ['type' => 'tab', 'text' => __('Database'), 'content' => $databaseTab, 'html' => true, '!secure' => true],
+        ['type' => 'tab', 'text' => __('Debug'), 'content' => $debugTab, 'html' => true, '!secure' => true],
+        ['type' => 'tab', 'text' => __('Other'), 'content' => 'This is an other content of other tab!']
     ]
 ]); ?>
 
