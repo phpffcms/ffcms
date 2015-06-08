@@ -1,5 +1,4 @@
 <?php
-/** @var $global Object */
 /** @var $body string */
 use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Object;
@@ -12,9 +11,9 @@ use Ffcms\Core\Helper\Object;
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
     <?php echo \App::$View->showCodeLink('css'); ?>
-    <title><?php echo \App::$Security->escapeQuotes($global->title) ?></title>
-    <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($global->keywords); ?>"/>
-    <meta name="description" content="<?php echo \App::$Security->escapeQuotes($global->description); ?>"/>
+    <title><?php echo \App::$Security->escapeQuotes($this->title) ?></title>
+    <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($this->keywords); ?>"/>
+    <meta name="description" content="<?php echo \App::$Security->escapeQuotes($this->description); ?>"/>
     <?php
     $customCssCode = \App::$View->showPlainCode('css');
     if ($customCssCode !== null) {

@@ -45,5 +45,20 @@ return [
     'Localization' => 'Локализация',
     'Database' => 'База данных',
     'Debug' => 'Отладка',
-    'Other' => 'Прочие'
+    'Other' => 'Прочие',
+    'Congratulations!' => 'Поздравляем!',
+    'Settings are successful saved! Wait 5 second to update configurations' => 'Настройки успешно сохранены! Подождите 5 секунд для обновления',
+    'Reload' => 'Перезагрузить',
+    'Settings are saved' => 'Настройки сохранены',
+    'File management' => 'Управление файлами',
+    'Antivirus scan' => 'Антивирусное сканирование',
+    'FFCMS 3 provide a simple signature-based antivirus software' => 'FFCMS предоставляет простой алгоритм сигнатурного антивирусного анализа',
+    'Remember! This is just an advisory algorithm!' => 'Помните! Это лишь рекомендации, а не призыв к действию!',
+    'Files left' => 'Осталось файлов',
+    'Detected issues' => 'Обнаружено проблем',
+    'Start scan' => 'Начать сканирование',
+    'File' => 'Файл',
+    'Issues' => 'Проблемы',
+    'Descriptions of issues' => 'Описание проблем',
+    'Update results' => 'Обновить результаты'
 ];

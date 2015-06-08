@@ -25,6 +25,7 @@
     "ezyang/htmlpurifier": "4.6.*",
     "gregwar/image": "2.*",
     "dflydev/dot-access-data": "1.0.*",
+    "phpffcms/ffcms-elfinder": "*",
     "bower-asset/jquery": "2.1.*@stable | 1.11.*@stable",
     "bower-asset/jquery-validation": "1.*@stable",
     "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",

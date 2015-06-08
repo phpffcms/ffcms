@@ -2,12 +2,12 @@
 
 namespace Apps\Controller\Front;
 
-use Ffcms\Core\Arch\Controller;
+use Extend\Core\Arch\FrontController;
 use Ffcms\Core\Arch\View;
 use Apps\Model\Front\User;
 
 
-class Main extends Controller
+class Main extends FrontController
 {
 
     public function before()

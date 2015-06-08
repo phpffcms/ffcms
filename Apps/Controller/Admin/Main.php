@@ -19,6 +19,9 @@ class Main extends AdminController
         ]);
     }
 
+    /**
+     * Manage settings in web
+     */
     public function actionSettings()
     {
         $model = new SettingsForm();
@@ -39,6 +42,23 @@ class Main extends AdminController
 
         $this->response = App::$View->render('settings', [
             'model' => $model // no $model->export() there
+        ]);
+    }
+
+    /**
+     * Manage files via elFinder
+     */
+    public function actionFiles()
+    {
+        $this->response = App::$View->render('files', [
+            'connector' => App::$Alias->scriptUrl . '/api/main/files?lang=' . App::$Request->getLanguage()
+        ]);
+    }
+
+    public function actionAntivirus()
+    {
+        $this->response = App::$View->render('antivirus', [
+
         ]);
     }
 }

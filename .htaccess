@@ -3,7 +3,6 @@ Options -Indexes
 Options +FollowSymLinks
 DirectoryIndex index.php
 
-
 RewriteEngine On
 RewriteRule ^.htaccess$ - [F]
 # do not rewrite statics, vendor, uploads and other ;)
@@ -19,6 +18,6 @@ RewriteRule ^api/(.*)$ Loader/Api/$1 [L]
 RewriteRule ^(.*)$ Loader/Front/$1 [L]
 
 <Files ~ "(.json|.lock|.git)">
-Order allow,deny
-Deny from all
+    Order allow,deny
+    Deny from all
 </Files>

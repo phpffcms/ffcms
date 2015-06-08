@@ -1,25 +1,29 @@
+<?php
+use Ffcms\Core\Helper\Arr;
+use Ffcms\Core\Helper\HTML\Listing;
+use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Url;
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= App::$Security->strip_tags($this->title) ?></title>
-    <link rel="stylesheet" href="<?php use Ffcms\Core\Helper\Arr;
-    use Ffcms\Core\Helper\HTML\Listing;
-    use Ffcms\Core\Helper\Object;
-    use Ffcms\Core\Helper\Url;
-
-    echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
-    <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/css/site.css" rel="stylesheet">
-    <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <link href="<?php echo \App::$Alias->currentViewUrl; ?>/assets/css/sb-admin-2.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
+    <link rel="stylesheet" href="<?= \App::$Alias->getVendor('css', 'fa'); ?>"/>
+    <link href="<?= \App::$Alias->currentViewUrl; ?>/assets/css/site.css" rel="stylesheet">
+    <link href="<?= \App::$Alias->currentViewUrl; ?>/assets/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<?= \App::$Alias->currentViewUrl; ?>/assets/css/sb-admin-2.css" rel="stylesheet">
     <?php echo \App::$View->showCodeLink('css'); ?>
     <?php
     $customCssCode = \App::$View->showPlainCode('css');
     if ($customCssCode !== null) {
         echo '<style>' . $customCssCode . '</style>';
     } ?>
+    <script>
+        window.jQ = [];
+    </script>
 </head>
 <body>
 
@@ -218,6 +222,11 @@
 <script src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/js/metisMenu.min.js"></script>
 <script src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/js/sb-admin-2.js"></script>
 <?php echo \App::$View->showCodeLink('js'); ?>
+<script>
+    $.each(window.jQ, function(index, fn) {
+        fn();
+    });
+</script>
 <?php
 $customJsCode = \App::$View->showPlainCode('js');
 if ($customJsCode !== null) {

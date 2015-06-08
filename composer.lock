@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8c94f9192dd25e8e7ddfc75c352689a8",
+    "hash": "5219196c1a1a3cf18262e063ea79e0e8",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -516,21 +516,21 @@
         },
         {
             "name": "illuminate/container",
-            "version": "dev-master",
+            "version": "5.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "a31c198e297c652c00a3122bfccb4e43d53aa4de"
+                "reference": "112db26a92fcca35b9699743a738361bb7dfde3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/2d18b7779b8e03e63831a0726ee3ab5ee0628c7a",
-                "reference": "a31c198e297c652c00a3122bfccb4e43d53aa4de",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/112db26a92fcca35b9699743a738361bb7dfde3e",
+                "reference": "112db26a92fcca35b9699743a738361bb7dfde3e",
                 "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "5.1.*",
-                "php": ">=5.4.0"
+                "php": ">=5.5.9"
             },
             "type": "library",
             "extra": {
@@ -555,24 +555,24 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-03-26 15:22:18"
+            "time": "2015-06-04 16:52:35"
         },
         {
             "name": "illuminate/contracts",
-            "version": "dev-master",
+            "version": "5.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "80d2f5efe43cbee810e48c6c2c7249fc670bd5c6"
+                "reference": "a0955f959d65e055bcf428cfe8b9815e8628b656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/1d10bc966e513154e2483d6ac56a39e4febb8421",
-                "reference": "80d2f5efe43cbee810e48c6c2c7249fc670bd5c6",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/a0955f959d65e055bcf428cfe8b9815e8628b656",
+                "reference": "a0955f959d65e055bcf428cfe8b9815e8628b656",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.5.9"
             },
             "type": "library",
             "extra": {
@@ -597,31 +597,32 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-04-28 19:05:58"
+            "time": "2015-06-04 16:52:35"
         },
         {
             "name": "illuminate/database",
-            "version": "dev-master",
+            "version": "5.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "daec427cc04da43d50bbc5386c15aae0c33c4761"
+                "reference": "d8d848426407820cd7a6c3d420825ab0fdc466d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/c10d055e771ccdf6ab242285a204bb08c288b208",
-                "reference": "daec427cc04da43d50bbc5386c15aae0c33c4761",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/d8d848426407820cd7a6c3d420825ab0fdc466d0",
+                "reference": "d8d848426407820cd7a6c3d420825ab0fdc466d0",
                 "shasum": ""
             },
             "require": {
                 "illuminate/container": "5.1.*",
                 "illuminate/contracts": "5.1.*",
                 "illuminate/support": "5.1.*",
-                "nesbot/carbon": "~1.0",
-                "php": ">=5.4.0"
+                "nesbot/carbon": "~1.19",
+                "php": ">=5.5.9"
             },
             "suggest": {
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (~2.4).",
+                "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4).",
                 "illuminate/console": "Required to use the database commands (5.1.*).",
                 "illuminate/events": "Required to use the observers with Eloquent (5.1.*).",
                 "illuminate/filesystem": "Required to use the migrations (5.1.*)."
@@ -655,20 +656,20 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-05-19 02:06:21"
+            "time": "2015-06-06 02:00:53"
         },
         {
             "name": "illuminate/support",
-            "version": "dev-master",
+            "version": "5.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "a610e57ac204879ef582c4080faed9c75a0eea35"
+                "reference": "2b39cbe0d8edc052211f9c577acf4dede08f665d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/777bffe5acefd881004c61af8bb77f104664a26a",
-                "reference": "a610e57ac204879ef582c4080faed9c75a0eea35",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/2b39cbe0d8edc052211f9c577acf4dede08f665d",
+                "reference": "2b39cbe0d8edc052211f9c577acf4dede08f665d",
                 "shasum": ""
             },
             "require": {
@@ -676,7 +677,7 @@
                 "doctrine/inflector": "~1.0",
                 "ext-mbstring": "*",
                 "illuminate/contracts": "5.1.*",
-                "php": ">=5.4.0"
+                "php": ">=5.5.9"
             },
             "suggest": {
                 "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0).",
@@ -708,7 +709,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-05-19 02:06:21"
+            "time": "2015-06-05 13:06:26"
         },
         {
             "name": "maximebf/debugbar",
@@ -720,7 +721,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/0d1fcdd087843cf1eba9927295254bc707eab7dc",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/8a3f05819458fb42a52be9144b1886cf77e41787",
                 "reference": "0d1fcdd087843cf1eba9927295254bc707eab7dc",
                 "shasum": ""
             },
@@ -867,7 +868,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/f8131dc9a036d27d25f005fa1dc13ec468750855",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/da16505f5f2d20bccbe9abd0500a5115aff17d9e",
                 "reference": "b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1",
                 "shasum": ""
             },
@@ -905,6 +906,39 @@
             "time": "2015-05-20 08:18:58"
         },
         {
+            "name": "phpffcms/ffcms-elfinder",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpffcms/ffcms-elfinder.git",
+                "reference": "b08c3f69dcdbc14d498249de12c3ce901fbce253"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-elfinder/zipball/b08c3f69dcdbc14d498249de12c3ce901fbce253",
+                "reference": "b08c3f69dcdbc14d498249de12c3ce901fbce253",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Builder versions of elfinder for ffcms 3",
+            "keywords": [
+                "JS",
+                "ffcms",
+                "file",
+                "manager"
+            ],
+            "time": "2015-06-06 17:24:35"
+        },
+        {
             "name": "psr/log",
             "version": "dev-master",
             "source": {
@@ -914,7 +948,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/bf2c13de4300e227d7b2fd08027673a79c519987",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/9e45edca52cc9c954680072c93e621f8b71fab26",
                 "reference": "bf2c13de4300e227d7b2fd08027673a79c519987",
                 "shasum": ""
             },
@@ -1011,7 +1045,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/ae980a18f73b88b3394510e07ed0f343f252ca4f",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/fa1c9e185b7addf06571be1ffcbaa27afea7fe9a",
                 "reference": "a0735db452c5e592cb742333a32c6634a6d1ece1",
                 "shasum": ""
             },
@@ -1072,7 +1106,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/5b0473622df3e313509b8771356eefa8b29bdc74",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/e36bb1114f11741b2ca7b8b479175674646b33f8",
                 "reference": "5b0473622df3e313509b8771356eefa8b29bdc74",
                 "shasum": ""
             },

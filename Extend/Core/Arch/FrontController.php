@@ -10,6 +10,7 @@ use Ffcms\Core\Exception\ForbiddenException;
 
 class FrontController extends Controller
 {
+
     public function __construct()
     {
         if (!$this->isEnabled()) {
