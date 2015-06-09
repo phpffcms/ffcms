@@ -35,7 +35,7 @@ class AdminController extends Controller
         $permission = env_name . '/' . App::$Request->getController() . '/' . App::$Request->getAction();
 
         // doesn't have permission? get the f*ck out
-        if (!$user->getRole()->can($permission) && !$user->getRole()->can('global/all')) {
+        if (!$user->getRole()->can($permission)) {
             App::$Session->start();
             App::$Session->invalidate();
 

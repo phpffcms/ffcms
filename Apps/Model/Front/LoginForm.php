@@ -14,7 +14,7 @@ class LoginForm extends Model
     public $password;
     public $captcha;
 
-    public function setRules()
+    public function rules()
     {
         return [
             [['login', 'password'], 'required'],
@@ -23,7 +23,7 @@ class LoginForm extends Model
         ];
     }
 
-    public function setLabels()
+    public function labels()
     {
         return [
             'login' => __('Login or email'),

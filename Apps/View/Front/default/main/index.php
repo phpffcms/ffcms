@@ -35,7 +35,7 @@ $this->title = 'Welcome to web-site';
 
 <?php echo \Ffcms\Core\Helper\HTML\Bootstrap\Navbar::display([
     'nav' => ['class' => 'navbar-default'],
-    'property' => ['id' => 'headmenu', 'class' => 'navbar-nav'], // todo: fix me!!
+    'property' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
     'brand' => ['link' => 'main/to', 'text' => 'FFCMS'],
     'collapseId' => 'collapse-object',
     'items' => [

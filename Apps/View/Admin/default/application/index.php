@@ -6,6 +6,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
 use Ffcms\Core\Helper\Url;
 
+$this->title = __('Applications');
 $this->breadcrumbs = [
     Url::to(['main/index']) => __('Main'),
     __('Applications')

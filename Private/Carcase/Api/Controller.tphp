@@ -1,0 +1,14 @@
+<?php
+
+namespace %namespace%;
+
+use Extend\Core\Arch\ApiController;
+
+class %name% extends ApiController
+{
+    public function actionIndex()
+    {
+        $this->setJsonHeader();
+        $this->response = json_encode(['status' => 'ok']);
+    }
+}

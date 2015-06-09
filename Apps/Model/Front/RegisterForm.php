@@ -14,7 +14,7 @@ class RegisterForm extends Model
     public $repassword;
 
 
-    public function setRules()
+    public function rules()
     {
         return [
             [['login', 'password', 'repassword', 'email'], 'required'],
@@ -25,7 +25,7 @@ class RegisterForm extends Model
         ];
     }
 
-    public function setLabels()
+    public function labels()
     {
         return [
             'login' => __('Login'),

@@ -18,7 +18,7 @@ class AvatarUpload extends Model
     /**
     * Example of usage magic labels for future form helper usage
     */
-    public function setLabels()
+    public function labels()
     {
         return [
             'file' => __('Select avatar')
@@ -26,9 +26,9 @@ class AvatarUpload extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validateRules()
+    * Example of usage magic rules for future usage in condition $model->validate()
     */
-    public function setRules()
+    public function rules()
     {
         return [
             ['file', 'required'],
@@ -81,7 +81,10 @@ class AvatarUpload extends Model
             return null;
         }
 
-        Image::open($original->getPathname())
+        $image = new Image();
+        $image->setCacheDir(root . '/Private/Cache/images');
+
+        $image->open($original->getPathname())
             ->cropResize($sizeConvert[$size][0], $sizeConvert[$size][1])
             ->save(root . '/upload/user/avatar/' . $size . '/' . $user_id . '.jpg', 'jpg', static::COMPRESS_QUALITY);
 

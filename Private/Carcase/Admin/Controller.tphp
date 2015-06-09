@@ -1,0 +1,13 @@
+<?php
+
+namespace %namespace%;
+
+use Extend\Core\Arch\AdminController;
+
+class %name% extends AdminController
+{
+    public function actionIndex()
+    {
+        $this->response = 'Welcome index demo action of %name%';
+    }
+}

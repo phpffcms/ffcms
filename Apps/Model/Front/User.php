@@ -14,7 +14,7 @@ class User extends Model
     public $email;
     public $isJoined = true;
 
-    public function setLabels()
+    public function labels()
     {
         return [
             'name' => 'User name',
@@ -22,7 +22,7 @@ class User extends Model
         ];
     }
 
-    public function setRules()
+    public function rules()
     {
         return [
             [['name', 'role', 'email'], 'required'],
@@ -37,7 +37,7 @@ class User extends Model
 
     public function make()
     {
-        if (App::$Request->get('submit', false) && $this->validateRules()) {
+        if (App::$Request->get('submit', false) && $this->validate()) {
             echo "VALIDATED";
         }
     }

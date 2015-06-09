@@ -30,7 +30,7 @@ class Application extends AdminController
 
         $model = new AppTurnForm();
 
-        if ($model->isPostSubmit()) {
+        if ($model->send()) {
             $model->updateApp($search);
             App::$Session->getFlashBag()->add('success', 'Application status was changed');
         }

@@ -26,7 +26,7 @@ class User extends FrontController
 
         $loginForm = new LoginForm();
 
-        if ($loginForm->isPostSubmit() && $loginForm->validateRules()) {
+        if ($loginForm->send() && $loginForm->validate()) {
             if ($loginForm->tryAuth()) {
                 App::$Response->redirect('/'); // void header change & exit()
             }
@@ -52,7 +52,7 @@ class User extends FrontController
 
         $registerForm = new RegisterForm();
 
-        if ($registerForm->isPostSubmit() && $registerForm->validateRules()) {
+        if ($registerForm->send() && $registerForm->validate()) {
             App::$Session->start();
             if ($registerForm->tryRegister()) {
                 App::$Session->getFlashBag()->add('success', __('Your account is successful registered!'));

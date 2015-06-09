@@ -1,0 +1,13 @@
+<?php
+
+namespace %namespace%;
+
+use Extend\Core\Arch\FrontController;
+
+class %name% extends FrontController
+{
+    public function actionIndex()
+    {
+        $this->response = 'Welcome index demo action of %name%';
+    }
+}

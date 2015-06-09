@@ -19,9 +19,10 @@ class Profile extends FrontController
 {
     public $_self = false;
 
+
     /**
      * Show user profile: data, wall posts, other features
-     * @param int $userId
+     * @param $userId
      * @throws NotFoundException
      */
     public function actionShow($userId)
@@ -42,7 +43,7 @@ class Profile extends FrontController
         if (App::$User->isAuth() && $viewerPersone->getRole()->can('global/write')) {
             $wallModel = new WallPost();
             // check if request post is done and rules validated
-            if ($wallModel->isPostSubmit() && $wallModel->validateRules()) {
+            if ($wallModel->send() && $wallModel->validate()) {
                 // check if message added
                 if ($wallModel->makePost($targetPersone, $viewerPersone)) {
                     App::$Session->getFlashBag()->add('success', __('The message was successful posted!'));
@@ -93,8 +94,8 @@ class Profile extends FrontController
         $model = new AvatarUpload();
 
         // validate model post data
-        if ($model->isPostSubmit()) {
-            if ($model->validateRules()) {
+        if ($model->send()) {
+            if ($model->validate()) {
                 $model->copyFile($user);
                 App::$Session->getFlashBag()->add('success', __('Avatar is successful changed'));
             } else {

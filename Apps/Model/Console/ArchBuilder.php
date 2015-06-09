@@ -26,6 +26,8 @@ class ArchBuilder
         $objectNamespace = null;
         $objectName = null;
 
+        $objectTemplate = null;
+
         if ($singleName) {
             $objectDirPath = root . '/Apps/' . $type . '/';
             $objectNamespace = 'Apps\\' . $type;
@@ -50,6 +52,12 @@ class ArchBuilder
                 $objectDirPath .= '/' . implode('/', $subName);
                 $objectNamespace .= '\\' . implode('\\', $subName);
             }
+
+
+            // try to find workground-based controller
+            if (File::exist('/Private/Carcase/' . $workground . '/' . $type . '.tphp')) {
+                $objectTemplate = File::read('/Private/Carcase/' . $workground . '/' . $type . '.tphp');
+            }
         }
 
         if (!File::exist($objectDirPath) && !Directory::create($objectDirPath)) {
@@ -57,11 +65,14 @@ class ArchBuilder
             return false;
         }
 
-        $objectTemplate = File::read('/Private/Carcase/' . $type . '.tphp');
-        if (false === $objectTemplate) {
-            $this->message = 'Php template file is not founded: /Private/Carcase/' . $type . '.tphp';
-            return false;
+        if ($objectTemplate === null) {
+            $objectTemplate = File::read('/Private/Carcase/' . $type . '.tphp');
+            if (false === $objectTemplate) {
+                $this->message = 'Php template file is not founded: /Private/Carcase/' . $type . '.tphp';
+                return false;
+            }
         }
+
         $objectContent = String::replace(['%namespace%', '%name%'], [$objectNamespace, $objectName], $objectTemplate);
         $objectFullPath = $objectDirPath . '/' . $objectName . '.php';
         if (File::exist($objectFullPath)) {

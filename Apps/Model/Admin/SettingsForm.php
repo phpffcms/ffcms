@@ -40,7 +40,7 @@ class SettingsForm extends Model
     /**
     * Example of usage magic labels for future form helper usage
     */
-    public function setLabels()
+    public function labels()
     {
         return [
             'basePath' => __('Base path'),
@@ -65,9 +65,9 @@ class SettingsForm extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validateRules()
+    * Example of usage magic rules for future usage in condition $model->validate()
     */
-    public function setRules()
+    public function rules()
     {
         return [
             [['debug.all', 'multiLanguage'], 'used'],

@@ -19,7 +19,7 @@ class WallPost extends Model
      * Validate rules for message field
      * @return array
      */
-    public function setRules()
+    public function rules()
     {
         return [
             ['message', 'required'],

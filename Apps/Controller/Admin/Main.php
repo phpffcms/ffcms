@@ -26,8 +26,8 @@ class Main extends AdminController
     {
         $model = new SettingsForm();
 
-        if ($model->isPostSubmit()) {
-            if ($model->validateRules()) {
+        if ($model->send()) {
+            if ($model->validate()) {
                 if ($model->makeSave()) {
                     // show message about successful save and take system some time ;)
                     $this->response = App::$View->render('settings_save');
@@ -55,10 +55,11 @@ class Main extends AdminController
         ]);
     }
 
+    /**
+     * Show antivirus
+     */
     public function actionAntivirus()
     {
-        $this->response = App::$View->render('antivirus', [
-
-        ]);
+        $this->response = App::$View->render('antivirus');
     }
 }
