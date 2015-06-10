@@ -10,6 +10,6 @@ Illuminate\Database\Capsule\Manager::schema()->create('users', function($table) 
     $table->tinyInteger('is_aproved')->default(0);
     $table->string('token_data')->nullable();
     $table->string('token_ip')->nullable();
-    $table->binary('custom_data')->nullable();
+    $table->text('custom_data')->nullable();
     $table->timestamps();
 });

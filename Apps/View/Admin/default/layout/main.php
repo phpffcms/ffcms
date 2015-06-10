@@ -151,6 +151,7 @@ use Ffcms\Core\Helper\Url;
                             echo Listing::display([
                                 'type' => 'ul',
                                 'property' => ['class' => 'nav nav-second-level'],
+                                'activeOrder' => 'controller',
                                 'items' => $appMenuItems
                             ]) ?>
                             <!-- /.nav-second-level -->

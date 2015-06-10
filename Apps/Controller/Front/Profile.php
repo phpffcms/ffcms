@@ -9,6 +9,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Object;
 
 
 /**
@@ -73,7 +74,7 @@ class Profile extends FrontController
         $this->response = App::$View->render('show', [
             'user' => $targetPersone,
             'isSelf' => $this->_self,
-            'wall' => $wallModel->export(),
+            'wall' => !Object::isObject($wallModel) ? null : $wallModel->export(),
             'notify' => App::$Session->getFlashBag()->all(),
             'wallRecords' => $wallRecords,
             'pagination' => $wallPagination

@@ -19,7 +19,7 @@ $this->breadcrumbs = [
 
 <?= $this->show('user/_tabs') ?>
 
-<h1>User list</h1>
+<h1><?= __('User list') ?></h1>
 <hr />
 <?php
     $items = [];
@@ -43,12 +43,12 @@ $this->breadcrumbs = [
     'thead' => [
         'titles' => [
             ['text' => 'id'],
-            ['text' => 'Email'],
-            ['text' => 'Login'],
-            ['text' => 'Nickname'],
-            ['text' => 'Role'],
-            ['text' => 'Register date'],
-            ['text' => 'Actions']
+            ['text' => __('Email')],
+            ['text' => __('Login')],
+            ['text' => __('Nickname')],
+            ['text' => __('Role')],
+            ['text' => __('Register date')],
+            ['text' => __('Actions')]
         ],
         'property' => ['id' => 'thead_main']
     ],

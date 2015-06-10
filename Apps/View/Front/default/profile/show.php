@@ -105,8 +105,8 @@ $this->breadcrumbs = [
                         $hobbyArray = explode(',', $user->getCustomParam('hobby'));
                         foreach ($hobbyArray as $item) {
                             $item = \App::$Security->strip_tags($item);
-                            if ($item !== null && \Ffcms\Core\Helper\String::length($item) > 1) {
-                                echo \Ffcms\Core\Helper\Url::link(['profile/hobbylist', $item], $item) . ' ';
+                            if ($item !== null && String::length($item) > 1) {
+                                echo '<span class="label label-success">' . $item . '</span> ';
                             }
                         }
                         ?>

@@ -3,7 +3,11 @@
 namespace Apps\Controller\Console;
 
 use Ffcms\Console\App;
+use Ffcms\Console\Transfer\Output;
+use Ffcms\Core\Helper\Arr;
 use Ffcms\Core\Helper\File;
+use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\String;
 
 class Main
 {
@@ -20,6 +24,7 @@ class Main
         $text .= "\t main/info - show info about CMS\n";
         $text .= "\t main/install - install FFCMS from console line.\n";
         $text .= "\t main/update - update package to current minor version if available.\n";
+        $text .= "\t main/buildperms - build and update permissions map for applications. \n";
         $text .= "\t create/model workground/modelName - create model carcase default.\n";
         $text .= "\t create/ar activeRecordName - create active record table and model.\n";
         $text .= "\t create/controller workground/controllerName - create default controller carcase.\n";
@@ -47,5 +52,43 @@ class Main
         }
 
         return $text;
+    }
+
+    /**
+     * Scan available permissions and write to cfg file
+     * @return string
+     */
+    public function actionBuildperms()
+    {
+        // default permissions
+        $permissions = [
+            'global/write',
+            'global/modify',
+            'global/all'
+        ];
+
+        // admin controllers
+        $adminControllers = '/Apps/Controller/Admin/';
+
+        // scan directory
+        $scan = File::listFiles($adminControllers, ['.php']);
+
+        foreach ($scan as $file) {
+            $className = String::firstIn(String::lastIn($file, DIRECTORY_SEPARATOR, true), '.');
+            // read as plain text
+            $byte = File::read($file);
+            preg_match_all('/public function action(\w*?)\(/', $byte, $matches); // matches[0] contains all methods ;)
+            if (Object::isArray($matches[1]) && count($matches[1]) > 0) {
+                foreach ($matches[1] as $perm) {
+                    $permissions[] = 'Admin/' . $className . '/' . $perm;
+                }
+            }
+        }
+
+        // prepare save string
+        $stringSave = "<?php \n\nreturn " . var_export($permissions, true) . ';';
+        File::write('/Private/Config/PermissionMap.php', $stringSave);
+
+        return App::$Output->write('Permission mas is successful updated! Finded permissions: ' . count($permissions));
     }
 }

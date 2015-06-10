@@ -28,6 +28,37 @@ class Role extends ActiveModel
     }
 
     /**
+     * Get all roles as object
+     * @return static
+     */
+    public static function getAll()
+    {
+        $list = App::$Memory->get('user.roleall.cache');
+
+        if ($list === null) {
+            $list = self::all();
+            App::$Memory->set('user.roleall.cache', $list);
+        }
+
+        return $list;
+    }
+
+    /**
+     * Get all roles as array [id=>name]
+     * @return null|array
+     */
+    public static function getIdNameAll()
+    {
+        $all = self::getAll();
+
+        $output = null;
+        foreach ($all as $row) {
+            $output[$row->id] = $row->name;
+        }
+        return $output;
+    }
+
+    /**
      * Check if user role contains permission
      * @param string $permission
      * @return bool

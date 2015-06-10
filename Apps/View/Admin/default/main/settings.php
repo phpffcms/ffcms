@@ -18,7 +18,7 @@ $this->title = __('Settings');
 
 <?php
 
-$form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '', 'enctype' => 'multipart/form-data']);
+$form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']);
 $baseTab = $form->field('basePath', 'inputText', ['class' => 'form-control'], __('FFCMS installation sub-directory, used if installed not in root. Example: /subdir/'));
 $baseTab .= $form->field('siteIndex', 'inputText', ['class' => 'form-control'], __('Define controller::action to display on main page in position $body'));
 $baseTab .= $form->field('debug.all', 'checkbox', null, __('Enable debug bar panel for all visitors? Recommended only on development environment'));
