@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5219196c1a1a3cf18262e063ea79e0e8",
+    "hash": "70f79f98e9f554a7d418a7670aea314e",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -467,6 +467,54 @@
             "time": "2014-09-24 11:23:30"
         },
         {
+            "name": "gregwar/captcha",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gregwar/Captcha.git",
+                "reference": "9caea9eb001a809ab8734b201ae07ebe4179238d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gregwar/Captcha/zipball/9caea9eb001a809ab8734b201ae07ebe4179238d",
+                "reference": "9caea9eb001a809ab8734b201ae07ebe4179238d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "captcha",
+            "autoload": {
+                "psr-4": {
+                    "Gregwar\\Captcha\\": "/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grégoire Passault",
+                    "email": "g.passault@gmail.com",
+                    "homepage": "http://www.gregwar.com/"
+                },
+                {
+                    "name": "Jeremy Livingston",
+                    "email": "jeremy.j.livingston@gmail.com"
+                }
+            ],
+            "description": "Captcha generator",
+            "homepage": "https://github.com/Gregwar/Captcha",
+            "keywords": [
+                "bot",
+                "captcha",
+                "spam"
+            ],
+            "time": "2015-05-13 06:34:33"
+        },
+        {
             "name": "gregwar/image",
             "version": "v2.0.19",
             "target-dir": "Gregwar/Image",
@@ -563,12 +611,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "a0955f959d65e055bcf428cfe8b9815e8628b656"
+                "reference": "c086e4da4c2e4914e421b37f4ed4643abdc1d024"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/a0955f959d65e055bcf428cfe8b9815e8628b656",
-                "reference": "a0955f959d65e055bcf428cfe8b9815e8628b656",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/c086e4da4c2e4914e421b37f4ed4643abdc1d024",
+                "reference": "c086e4da4c2e4914e421b37f4ed4643abdc1d024",
                 "shasum": ""
             },
             "require": {
@@ -597,7 +645,7 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-06-04 16:52:35"
+            "time": "2015-06-08 18:13:21"
         },
         {
             "name": "illuminate/database",
@@ -605,12 +653,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "d8d848426407820cd7a6c3d420825ab0fdc466d0"
+                "reference": "d0c4e1726c3228438f3bb5071f4757d35ebd1de7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/d8d848426407820cd7a6c3d420825ab0fdc466d0",
-                "reference": "d8d848426407820cd7a6c3d420825ab0fdc466d0",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/18caa83b91407c6957aa7f3808c8e307ab55040d",
+                "reference": "d0c4e1726c3228438f3bb5071f4757d35ebd1de7",
                 "shasum": ""
             },
             "require": {
@@ -656,7 +704,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-06-06 02:00:53"
+            "time": "2015-06-10 20:17:12"
         },
         {
             "name": "illuminate/support",
@@ -664,12 +712,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "2b39cbe0d8edc052211f9c577acf4dede08f665d"
+                "reference": "2d690ec790500bafdcd10f8db35e18b3a1cf957d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/2b39cbe0d8edc052211f9c577acf4dede08f665d",
-                "reference": "2b39cbe0d8edc052211f9c577acf4dede08f665d",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/ae1919aa7aff7c5f0c8634e4c1f758bc596fa3b6",
+                "reference": "2d690ec790500bafdcd10f8db35e18b3a1cf957d",
                 "shasum": ""
             },
             "require": {
@@ -709,7 +757,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-06-05 13:06:26"
+            "time": "2015-06-08 19:12:16"
         },
         {
             "name": "maximebf/debugbar",
@@ -721,7 +769,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/8a3f05819458fb42a52be9144b1886cf77e41787",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/e5d9c677175d147b72a05087b916dfd103e1df74",
                 "reference": "0d1fcdd087843cf1eba9927295254bc707eab7dc",
                 "shasum": ""
             },
@@ -868,7 +916,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/da16505f5f2d20bccbe9abd0500a5115aff17d9e",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/24c2a6f34322bb6e4e67f59e0e4cc5e6d007d5fb",
                 "reference": "b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1",
                 "shasum": ""
             },
@@ -982,6 +1030,59 @@
             "time": "2015-03-26 14:39:45"
         },
         {
+            "name": "swiftmailer/swiftmailer",
+            "version": "v5.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swiftmailer/swiftmailer.git",
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.1,<0.9.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.4-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "lib/swift_required.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Corbyn"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Swiftmailer, free feature-rich PHP mailer",
+            "homepage": "http://swiftmailer.org",
+            "keywords": [
+                "email",
+                "mail",
+                "mailer"
+            ],
+            "time": "2015-06-06 14:19:39"
+        },
+        {
             "name": "symfony/http-foundation",
             "version": "v2.6.6",
             "target-dir": "Symfony/Component/HttpFoundation",
@@ -1045,7 +1146,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/fa1c9e185b7addf06571be1ffcbaa27afea7fe9a",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/95f9b028555f55b78b465a2488f1a38442acc412",
                 "reference": "a0735db452c5e592cb742333a32c6634a6d1ece1",
                 "shasum": ""
             },
@@ -1106,7 +1207,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/e36bb1114f11741b2ca7b8b479175674646b33f8",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/2b0fab44308c0c5c6b4f28f114332a82263a6d01",
                 "reference": "5b0473622df3e313509b8771356eefa8b29bdc74",
                 "shasum": ""
             },

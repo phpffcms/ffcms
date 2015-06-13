@@ -39,6 +39,7 @@ return [
     'Validation of form data is failed!' => 'Проверка данных формы завершилась с ошибкой',
     'The key-value of cookie to enable debugging on website' => 'Параметры cookie для включения отладки на сайте',
     'If user got this cookie he can see debug bar' => 'Если у пользователя установлена данная cookie он сможет видеть отладочную панель',
+    'Define administrator email. Used in mailing functions. Other mail settings in /Private/Config/Object.php' => 'Укажите почтовый ящик администрации, используемый при рассылке почты. Тонкая настройка почты: /Private/Config/Object.php',
     'Set cookie for me' => 'Установить cookie для меня',
     'Base' => 'Основное',
     'Themes' => 'Шаблоны',

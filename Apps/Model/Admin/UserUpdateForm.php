@@ -5,6 +5,7 @@ namespace Apps\Model\Admin;
 use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Object;
 use Ffcms\Core\Helper\String;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\App;
@@ -17,7 +18,9 @@ class UserUpdateForm extends Model
     public $password;
     public $newpassword;
     public $role_id;
-    public $is_aproved;
+    public $approve_token;
+
+    private $_approve_tmp;
 
     // constructor link to user identity
     public $_user;
@@ -42,6 +45,11 @@ class UserUpdateForm extends Model
                 $this->$property = $property === 'custom_data' ? unserialize($this->_user->$property) : $this->_user->$property;
             }
         }
+        $this->_approve_tmp = $this->approve_token;
+        if ($this->approve_token == '0') {
+            $this->approve_token = 1;
+        }
+
     }
 
 
@@ -53,7 +61,7 @@ class UserUpdateForm extends Model
             'nick' => __('Nickname'),
             'newpassword' => __('New password'),
             'role_id' => __('Role'),
-            'is_aproved' => __('Approved')
+            'approve_token' => __('Approved')
         ];
     }
 
@@ -63,7 +71,7 @@ class UserUpdateForm extends Model
     public function rules()
     {
         return [
-            [['email', 'login', 'role_id', 'is_aproved'], 'required'],
+            [['email', 'login', 'role_id', 'approve_token'], 'required'],
             [['nick', 'newpassword', 'custom_data'], 'used'],
             ['email', 'email'],
             ['login', 'length_min', 3],
@@ -92,6 +100,15 @@ class UserUpdateForm extends Model
                 if ($this->newpassword !== null && String::length($this->newpassword) >= 3) {
                     $this->_user->password = App::$Security->password_hash($this->newpassword);
                 }
+            } elseif($property === 'approve_token') {
+                if ($value == "1") {
+                    $this->_user->approve_token = '0';
+                } else {
+                    if ($this->_approve_tmp === '0') {
+                        $this->_approve_tmp = String::randomLatinNumeric(rand(32, 128));
+                    }
+                    $this->_user->approve_token = $this->_approve_tmp;
+                }
             } else {
                 $this->_user->$property = $value;
             }
@@ -103,26 +120,34 @@ class UserUpdateForm extends Model
     /**
      * Check if new email is always exist
      * @param string $email
-     * @param int $userId
+     * @param int|null $userId
      * @return bool
      */
-    public static function isUniqueEmail($email, $userId)
+    public static function isUniqueEmail($email, $userId = null)
     {
-        $find = User::where('email', '=', $email)->where('id', '!=', $userId)->count();
+        $find = User::where('email', '=', $email);
 
-        return $find === 0;
+        if ($userId !== null && Object::isLikeInt($userId)) {
+            $find->where('id', '!=', $userId);
+        }
+
+        return $find->count() === 0;
     }
 
     /**
      * Check if new login is always exist
      * @param string $login
-     * @param int $userId
+     * @param int|null $userId
      * @return bool
      */
-    public static function isUniqueLogin($login, $userId)
+    public static function isUniqueLogin($login, $userId = null)
     {
-        $find = User::where('login', '=', $login)->where('id', '!=', $userId)->count();
+        $find = User::where('login', '=', $login);
 
-        return $find === 0;
+        if ($userId !== null && Object::isLikeInt($userId)) {
+            $find->where('id', '!=', $userId);
+        }
+
+        return $find->count() === 0;
     }
 }

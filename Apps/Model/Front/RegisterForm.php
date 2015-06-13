@@ -2,41 +2,71 @@
 
 namespace Apps\Model\Front;
 
+use Apps\Model\Basic\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\String;
 
 class RegisterForm extends Model
 {
-
     public $email;
     public $login;
     public $password;
     public $repassword;
+    public $captcha;
+
+    private $_captcha = false;
+
+    public function __construct($captcha = false)
+    {
+        parent::__construct();
+        $this->_captcha = $captcha;
+    }
 
 
+    /**
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
-        return [
+        $rules = [
             [['login', 'password', 'repassword', 'email'], 'required'],
             ['login', 'length_min', '2'],
             ['password', 'length_min', '3'],
             ['email', 'email'],
-            ['repassword', 'equal', $this->getInput('password')]
+            ['repassword', 'equal', $this->getInput('password')],
+            ['captcha', 'used']
         ];
+
+        if (true === $this->_captcha) {
+            $rules[] = ['captcha', 'App::$Captcha::validate'];
+        }
+
+        return $rules;
     }
 
+    /**
+     * Labels for form items
+     * @return array
+     */
     public function labels()
     {
         return [
             'login' => __('Login'),
             'password' => __('Password'),
             'repassword' => __('Repeat password'),
-            'email' => __('Email')
+            'email' => __('Email'),
+            'captcha' => __('Captcha')
         ];
     }
 
-    // after validation
-    public function tryRegister()
+    /**
+     * Try to insert user data in database
+     * @param bool $activation
+     * @return bool
+     */
+    public function tryRegister($activation = false)
     {
         $check = App::$User->where('login', '=', $this->login)
             ->orWhere('email', '=', $this->email)
@@ -47,15 +77,39 @@ class RegisterForm extends Model
 
         $password = App::$Security->password_hash($this->password);
         // create row
-        $user = App::$User;
+        $user = new User();
         $user->login = $this->login;
         $user->email = $this->email;
         $user->password = $password;
+        // if need to be approved - make random token and send email
+        if (true === $activation) {
+            $user->approve_token = String::randomLatinNumeric(rand(32, 128)); // random token for validation url
+            // send email
+            $template = App::$View->show('user/_approveMail', [
+                'token' => $user->approve_token,
+                'email' => $user->email,
+                'login' => $user->login
+            ]);
+
+            $sender = App::$Property->get('adminEmail');
+
+            // format SWIFTMailer format
+            $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Default', 'Registration approve', []))
+                ->setFrom([$sender])
+                ->setTo([$this->email])
+                ->setBody($template);
+            // send message
+            App::$Mailer->send($mailMessage);
+        }
+        // save row
         $user->save();
 
-        $loginModel = new LoginForm();
-        $loginModel->openSession($user);
-        App::$Response->redirect('/'); // session is opened, refresh page
+        // just make auth and redirect ;)
+        if (false === $activation) {
+            $loginModel = new LoginForm();
+            $loginModel->openSession($user);
+            App::$Response->redirect('/'); // session is opened, refresh page
+        }
 
         return true;
     }

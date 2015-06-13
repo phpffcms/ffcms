@@ -3,16 +3,19 @@
 namespace Apps\Controller\Admin;
 
 use Apps\ActiveRecord\Role;
+use Apps\Model\Admin\SendInviteForm;
 use Apps\Model\Admin\UserDeleteForm;
+use Apps\Model\Admin\UserGroupUpdateForm;
+use Apps\Model\Admin\UserSettings;
 use Apps\Model\Admin\UserUpdateForm;
-use Extend\Core\Arch\AdminController;
+use Extend\Core\Arch\AdminAppController;
 use Apps\Model\Basic\User as UserRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 
 
-class User extends AdminController
+class User extends AdminAppController
 {
     const ITEM_PER_PAGE = 10;
 
@@ -47,12 +50,10 @@ class User extends AdminController
     // edit user profiles
     public function actionUpdate($id)
     {
-        if ($id < 1 || !App::$User->isExist($id)) {
-            throw new NotFoundException('User is not founded');
-        }
+        $user = \Apps\Model\Basic\User::findOrNew($id);
 
         // find user identify object
-        $user = App::$User->identity($id);
+        //$user = App::$User->identity($id);
         // generate model data based on user object
         $model = new UserUpdateForm($user);
 
@@ -105,6 +106,7 @@ class User extends AdminController
      */
     public function actionGrouplist()
     {
+        // get all roles
         $roles = Role::getAll();
 
         $this->response = App::$View->render('group_list', [
@@ -112,8 +114,77 @@ class User extends AdminController
         ]);
     }
 
-    public function actionGroupEdit($id)
+    /**
+     * Edit and add groups
+     * @param $id
+     */
+    public function actionGroupUpdate($id)
     {
-        $this->response = 'Test';
+        // find role or create new object
+        $role = Role::findOrNew($id);
+
+        $model = new UserGroupUpdateForm($role);
+        if ($model->send()) { // work with post request
+            if ($model->validate()) {
+                $model->save();
+                App::$Session->getFlashBag()->add('success', __('Data was successful updated'));
+            } else {
+                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
+            }
+        }
+
+        // render view
+        $this->response = App::$View->render('group_update', [
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * User identity settings
+     */
+    public function actionSettings()
+    {
+        // load model and pass property's as argument
+        $model = new UserSettings($this->getConfigs());
+
+        if ($model->send()) {
+            if ($model->validate()) {
+                $this->setConfigs($model->getAllProperties());
+                App::$Response->redirect('user/index');
+            } else {
+                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
+            }
+        }
+
+        // render view
+        $this->response = App::$View->render('settings', [
+            'model' => $model->export()
+        ]);
+    }
+
+    /**
+     * Send invite to users
+     */
+    public function actionInvite()
+    {
+        // init model
+        $model = new SendInviteForm();
+
+        if ($model->send()) {
+            if ($model->validate()) {
+                if ($model->make()) {
+                    App::$Session->getFlashBag()->add('success', __('Invite was successful send!'));
+                } else {
+                    App::$Session->getFlashBag()->add('error', __('Mail server connection is failed!'));
+                }
+            } else {
+                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
+            }
+        }
+
+        // render view
+        $this->response = App::$View->render('invite', [
+            'model' => $model
+        ]);
     }
 }

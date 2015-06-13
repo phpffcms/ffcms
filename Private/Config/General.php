@@ -23,6 +23,7 @@
 		'collation' => 'utf8_unicode_ci',
 		'prefix' => 'ffcms_'
 	],
+	'adminEmail' => 'noreplay@ffcms.org',
 	'baseLanguage' => 'en',
 	'multiLanguage' => true,
 	'singleLanguage' => 'en',

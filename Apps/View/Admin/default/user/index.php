@@ -25,7 +25,7 @@ $this->breadcrumbs = [
     $items = [];
     foreach ($records as $user) {
         $items[] = [
-            ['text' => $user->id],
+            ['text' => $user->id . ($user->approve_token != '0' ? ' <strong class="text-danger">*</strong>' : null), 'html' => true],
             ['text' => $user->email],
             ['text' => $user->login],
             ['text' => $user->nick],
@@ -37,6 +37,10 @@ $this->breadcrumbs = [
     }
 ?>
 
+<div class="pull-right">
+    <?= Url::link(['user/invite'], __('Send invite'), ['class' => 'btn btn-primary']) ?>
+    <?= Url::link(['user/update', '0'], __('Add user'), ['class' => 'btn btn-primary']) ?>
+</div>
 
 <?=  Table::display([
     'table' => ['class' => 'table table-bordered'],
@@ -57,6 +61,10 @@ $this->breadcrumbs = [
         'items' => $items
     ]
 ])?>
+
+<div>
+    <strong class="text-danger">*</strong> - <?= __('User is not approved via email') ?>
+</div>
 
 <div class="text-center">
     <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>

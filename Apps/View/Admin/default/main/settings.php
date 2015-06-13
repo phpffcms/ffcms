@@ -21,6 +21,7 @@ $this->title = __('Settings');
 $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']);
 $baseTab = $form->field('basePath', 'inputText', ['class' => 'form-control'], __('FFCMS installation sub-directory, used if installed not in root. Example: /subdir/'));
 $baseTab .= $form->field('siteIndex', 'inputText', ['class' => 'form-control'], __('Define controller::action to display on main page in position $body'));
+$baseTab .= $form->field('adminEmail', 'inputEmail', ['class' => 'form-control'], __('Define administrator email. Used in mailing functions. Other mail settings in /Private/Config/Object.php'));
 $baseTab .= $form->field('debug.all', 'checkbox', null, __('Enable debug bar panel for all visitors? Recommended only on development environment'));
 
 $themeTab = $form->field('theme.Front', 'select', ['class' => 'form-control', 'options' => $model->getAvailableThemes('Front')]);
@@ -45,8 +46,6 @@ $databaseTab .= $form->field('database.password', 'inputText', ['class' => 'form
 $databaseTab .= $form->field('database.charset', 'inputText', ['class' => 'form-control']);
 $databaseTab .= $form->field('database.collation', 'inputText', ['class' => 'form-control']);
 $databaseTab .= $form->field('database.prefix', 'inputText', ['class' => 'form-control'], __('Database tables prefix'));
-
-
 
 ?>
 

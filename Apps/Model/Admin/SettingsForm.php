@@ -17,6 +17,7 @@ class SettingsForm extends Model
     public $debug;
     public $theme;
     public $database;
+    public $adminEmail;
 
     // lang cfgs
     public $baseLanguage = 'en';
@@ -71,10 +72,11 @@ class SettingsForm extends Model
     {
         return [
             [['debug.all', 'multiLanguage'], 'used'],
-            [['basePath', 'siteIndex', 'singleLanguage'], 'required'],
+            [['basePath', 'siteIndex', 'singleLanguage', 'adminEmail'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
-            [['database.driver', 'database.database'], 'required']
+            [['database.driver', 'database.database'], 'required'],
+            ['adminEmail', 'email']
         ];
     }
 

@@ -3,10 +3,10 @@
 namespace Apps\Controller\Admin;
 
 use Apps\Model\Admin\SettingsForm;
-use Extend\Core\Arch\AdminController;
+use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
 
-class Main extends AdminController
+class Main extends AdminAppController
 {
 
     /**

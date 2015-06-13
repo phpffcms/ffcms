@@ -4,7 +4,7 @@ namespace Apps\Controller\Front;
 
 use Apps\Model\Front\AvatarUpload;
 use Apps\Model\Front\WallPost;
-use Extend\Core\Arch\FrontController;
+use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
@@ -16,7 +16,7 @@ use Ffcms\Core\Helper\Object;
  * Class Profile - user profiles interaction
  * @package Apps\Controller\Front
  */
-class Profile extends FrontController
+class Profile extends FrontAppController
 {
     public $_self = false;
 

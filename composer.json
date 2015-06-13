@@ -26,6 +26,8 @@
     "gregwar/image": "2.*",
     "dflydev/dot-access-data": "1.0.*",
     "phpffcms/ffcms-elfinder": "*",
+    "swiftmailer/swiftmailer": "5.4.*",
+    "gregwar/captcha": "1.*",
     "bower-asset/jquery": "2.1.*@stable | 1.11.*@stable",
     "bower-asset/jquery-validation": "1.*@stable",
     "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",

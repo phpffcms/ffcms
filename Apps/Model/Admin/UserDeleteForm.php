@@ -9,7 +9,8 @@ use Ffcms\Core\Interfaces\iUser;
 
 class UserDeleteForm extends Model
 {
-    public $email, $login;
+    public $email;
+    public $login;
 
     private $_user;
 

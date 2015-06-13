@@ -15,6 +15,9 @@ $capsule->addConnection(App::$Property->get('database'));
 $capsule->setAsGlobal(); // available from any places
 $capsule->bootEloquent(); // allow active record model's
 
+// establish swift mailer
+$swiftTransport = Swift_MailTransport::newInstance();
+
 return [
     'Session' => new Session(new NativeSessionStorage(
         [
@@ -25,5 +28,8 @@ return [
         new NativeFileSessionHandler(root . '/Private/Sessions')
     )),
     'User' => new Apps\Model\Basic\User(),
-    'Database' => $capsule
+    'Database' => $capsule,
+    'Mailer' => Swift_Mailer::newInstance($swiftTransport),
+    'Captcha' => new Extend\Core\Captcha\Gregwar()
+    //'Captcha' => new Extend\Core\Captcha\Recaptcha('siteKey', 'secret')
 ];

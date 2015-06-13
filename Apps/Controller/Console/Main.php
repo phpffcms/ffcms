@@ -68,10 +68,10 @@ class Main
         ];
 
         // admin controllers
-        $adminControllers = '/Apps/Controller/Admin/';
+        $AdminAppControllers = '/Apps/Controller/Admin/';
 
         // scan directory
-        $scan = File::listFiles($adminControllers, ['.php']);
+        $scan = File::listFiles($AdminAppControllers, ['.php']);
 
         foreach ($scan as $file) {
             $className = String::firstIn(String::lastIn($file, DIRECTORY_SEPARATOR, true), '.');

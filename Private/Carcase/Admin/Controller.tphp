@@ -2,9 +2,9 @@
 
 namespace %namespace%;
 
-use Extend\Core\Arch\AdminController;
+use Extend\Core\Arch\AdminAppController;
 
-class %name% extends AdminController
+class %name% extends AdminAppController
 {
     public function actionIndex()
     {

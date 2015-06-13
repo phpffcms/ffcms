@@ -89,7 +89,6 @@ class User extends ARecordUser implements iUser
      */
     public static function isAuth()
     {
-        App::$Session->start();
         $session_token = App::$Session->get('ff_user_token', null);
         $session_id = App::$Session->get('ff_user_id', 0);
 

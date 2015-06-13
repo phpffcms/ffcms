@@ -16,8 +16,9 @@ $configs = new stdClass();
 $names = new stdClass();
 
 $configs->user = serialize([
-    'register_type' => 1, // 0 = invites, 1 = full-open, 2 = mail-validation
-    'login_captcha' => 0
+    'registrationType' => 1, // 0 = invites, 1 = validation via email, 2 = full open without validation
+    'captchaOnLogin' => 0,
+    'captchaOnRegister' => 1
 ]);
 
 $configs->profile = serialize([]);

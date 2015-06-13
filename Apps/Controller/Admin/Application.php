@@ -3,11 +3,11 @@
 namespace Apps\Controller\Admin;
 
 use Apps\Model\Admin\AppTurnForm;
-use Extend\Core\Arch\AdminController;
+use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 
-class Application extends AdminController
+class Application extends AdminAppController
 {
     // list of applications
     public function actionIndex()

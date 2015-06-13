@@ -2,9 +2,9 @@
 
 namespace %namespace%;
 
-use Extend\Core\Arch\FrontController;
+use Extend\Core\Arch\FrontAppController;
 
-class %name% extends FrontController
+class %name% extends FrontAppController
 {
     public function actionIndex()
     {

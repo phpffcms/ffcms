@@ -42,11 +42,13 @@ foreach($records as $role) {
         ['text' => $role->id],
         ['text' => $role->name],
         ['text' => $permissionsLabel, 'html' => true],
-        ['text' => Url::link(['user/groupedit', $role->id], '<i class="fa fa-pencil"></i>'), 'property' => ['class' => 'text-center'], 'html' => true]
+        ['text' => Url::link(['user/groupupdate', $role->id], '<i class="fa fa-pencil"></i>'), 'property' => ['class' => 'text-center'], 'html' => true]
     ];
 }
 
 ?>
+
+<div class="pull-right"><?= Url::link(['user/groupupdate', '0'], __('Add group'), ['class' => 'btn btn-primary']) ?></div>
 
 <?=  Table::display([
     'table' => ['class' => 'table table-bordered'],
