@@ -27,7 +27,7 @@ use Ffcms\Core\Helper\Object;
 
         $accountPanel = [];
         if (\App::$User->isAuth()) {
-            $userId = \App::$User->identity()->get('id');
+            $userId = \App::$User->identity()->getParam('id');
             $accountPanel = [
                 ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => '<i class="fa fa-user"></i> ' . __('Profile'), 'html' => true],
                 ['type' => 'link', 'link' => ['profile/messagelist', $userId], 'text' => '<i class="fa fa-envelope"> ' . __('Messages'), 'html' => true],
@@ -47,6 +47,7 @@ use Ffcms\Core\Helper\Object;
         echo Listing::display([
             'type' => 'ul',
             'id' => 'account-list',
+            'activeOrder' => 'action',
             'property' => ['class' => 'list-inline account-list'],
             'items' => $accountPanel
         ]);
@@ -87,11 +88,12 @@ use Ffcms\Core\Helper\Object;
         'property' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
         'brand' => ['link' => '/', 'text' => __('Home')],
         'collapseId' => 'collapse-mainmenu',
+        'activeOrder' => 'action',
         'items' => [
             ['link' => ['content/news'], 'text' => __('News'), 'position' => 'left'],
             ['link' => ['content/page', 'about.html'], 'text' => __('About'), 'position' => 'left'],
             ['link' => ['feedback/create'], 'text' => __('Feedback'), 'position' => 'left'],
-            ['link' => ['user/index'], 'text' => __('Users'), 'position' => 'right']
+            ['link' => ['profile/index/all'], 'text' => __('Users'), 'position' => 'right']
         ]
     ]); ?>
 

@@ -27,5 +27,13 @@ return [
     'Select jpg, png or gif avatar' => 'Выберите файл jpg, png или gif в качестве аватара',
     'Change' => 'Изменить',
     'File upload is failed!' => 'Загрузка файла не удалась',
-    'Avatar is successful changed' => 'Аватар успешно изменен'
+    'Avatar is successful changed' => 'Аватар успешно изменен',
+    'User list' => 'Список пользователей',
+    'Users are not founded!' => 'Пользователи не найдены!',
+    'All' => 'Все',
+    'Rating' => 'Рейтинг',
+    'Search' => 'Поиск',
+    'City' => 'Город',
+    'Hobby' => 'Хобби',
+    'Registered' => 'Зарегистрирован'
 ];

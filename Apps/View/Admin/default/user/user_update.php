@@ -22,10 +22,21 @@ $this->breadcrumbs = [
 
 <?= $form->field('email', 'inputEmail', ['class' => 'form-control'], __('Specify user email')) ?>
 <?= $form->field('login', 'inputText', ['class' => 'form-control'], __('Specify user login')) ?>
-<?= $form->field('nick', 'inputText', ['class' => 'form-control'], __('Specify user nickname')) ?>
 <?= $form->field('newpassword', 'inputText', ['class' => 'form-control'], __('Specify new user password if you want to change it! Less empty field to save current')) ?>
 <?= $form->field('role_id', 'select', ['class' => 'form-control', 'options' => $model->getRoleList(), 'optionsKey' => true]) ?>
 <?= $form->field('approve_token', 'checkbox', null, __('Set if user is approved or not')) ?>
+
+<?php if ($model->_user->getId() !== null): ?>
+<div class="row">
+    <div class="col-md-3">
+        <div class="text-right"><strong><?= __('Profile data') ?></strong></div>
+    </div>
+    <div class="col-md-9">
+        <?= Url::link(['profile/update', $model->_user->getProfile()->id], __('Edit profile data')); ?>
+    </div>
+</div>
+<br />
+<?php endif; ?>
 
 <div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?></div>
 

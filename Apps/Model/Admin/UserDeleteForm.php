@@ -25,8 +25,8 @@ class UserDeleteForm extends Model
     */
     public function before()
     {
-        $this->email = $this->_user->get('email');
-        $this->login = $this->_user->get('login');
+        $this->email = $this->_user->getParam('email');
+        $this->login = $this->_user->getParam('login');
     }
 
     /**
@@ -47,14 +47,15 @@ class UserDeleteForm extends Model
     public function delete()
     {
         // delete wall records
-        Wall::where('target_id', '=', $this->_user->get('id'))
-            ->orwhere('sender_id', '=', $this->_user->get('id'))
+        Wall::where('target_id', '=', $this->_user->getParam('id'))
+            ->orwhere('sender_id', '=', $this->_user->getParam('id'))
             ->delete();
         // delete avatars
-        File::remove('/upload/user/avatar/big/' . $this->_user->get('id') . '.jpg');
-        File::remove('/upload/user/avatar/medium/' . $this->_user->get('id') . '.jpg');
-        File::remove('/upload/user/avatar/small/' . $this->_user->get('id') . '.jpg');
-        // delete user row
+        File::remove('/upload/user/avatar/big/' . $this->_user->getParam('id') . '.jpg');
+        File::remove('/upload/user/avatar/medium/' . $this->_user->getParam('id') . '.jpg');
+        File::remove('/upload/user/avatar/small/' . $this->_user->getParam('id') . '.jpg');
+        // delete user profile and auth data
+        $this->_user->getProfile()->delete();
         $this->_user->delete();
     }
 

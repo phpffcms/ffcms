@@ -5,7 +5,7 @@ use Ffcms\Core\Helper\Object;
 use Ffcms\Core\Helper\String;
 use Ffcms\Core\Helper\Url;
 
-/** @var $user object */
+/** @var $user Apps\Model\Basic\User */
 /** @var $wall Apps\Model\Front\WallPost|null */
 /** @var $notify array|null */
 /** @var $wallRecords object */
@@ -14,7 +14,7 @@ use Ffcms\Core\Helper\Url;
 
 // $user is a target profile depended object(not current user!!!)
 
-$name = \App::$Security->strip_tags($user->nick);
+$name = \App::$Security->strip_tags($user->getProfile()->nick);
 
 if ($name == null || String::length($name) < 1) {
     $name = __('No name');
@@ -26,16 +26,17 @@ $this->breadcrumbs = [
     Url::to('/') => __('Home'),
     $this->title
 ];
+
 ?>
 <div class="row">
     <div class="col-md-12">
-        <h1><?= $name ?> <sup><small>id: <?php echo $user->id; ?></small></sup></h1>
+        <h1><?= $name ?> <sup><small>id: <?= $user->id; ?></small></sup></h1>
     </div>
 </div>
 <hr/>
 <div class="row">
     <div class="col-md-4">
-        <img src="<?= $user->getAvatarUrl('big') ?>" class="img-responsive center-block" />
+        <img src="<?= $user->getProfile()->getAvatarUrl('big') ?>" class="img-responsive center-block" />
         <?php
         $userMenu = null;
         if (true === $isSelf) {
@@ -57,22 +58,27 @@ $this->breadcrumbs = [
         ]) ?>
     </div>
     <div class="col-md-8">
-        <h2><?php echo __('Profile data'); ?></h2>
+        <h2><?= __('Profile data'); ?></h2>
         <div class="table-responsive">
             <table class="table table-striped">
                 <tr>
-                    <td><?php echo __('Join date'); ?></td>
-                    <td><?php echo Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY); ?></td>
+                    <td><?= __('Join date'); ?></td>
+                    <td><?= Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY); ?></td>
                 </tr>
-                <?php if ($user->getCustomParam('birthday') !== null): ?>
+                <?php if ($user->getProfile()->birthday !== null && !String::startsWith('0000-', $user->getProfile()->birthday)): ?>
                 <tr>
-                    <td><?php echo __('Birthday'); ?></td>
-                    <td><?php echo Date::convertToDatetime($user->getCustomParam('birthday'), Date::FORMAT_TO_DAY) ?></td>
+                    <td><?= __('Birthday'); ?></td>
+                    <td>
+                        <?= Url::link(
+                            ['profile/index', 'born', Date::convertToDatetime($user->getProfile()->birthday, 'Y')],
+                            Date::convertToDatetime($user->getProfile()->birthday, Date::FORMAT_TO_DAY)
+                            ) ?>
+                    </td>
                 </tr>
                 <?php endif; ?>
-                <?php $sex = $user->getCustomParam('sex'); ?>
+                <?php $sex = $user->getProfile()->sex ?>
                 <tr>
-                    <td><?php echo __('Sex'); ?></td>
+                    <td><?= __('Sex'); ?></td>
                     <td>
                         <?php
                             if ($sex == 1) { // could be string(1) "1" or int(1) 1
@@ -85,28 +91,38 @@ $this->breadcrumbs = [
                         ?>
                     </td>
                 </tr>
-                <?php if ($user->getCustomParam('phone') !== null): ?>
+                <?php if ($user->getProfile()->phone !== null && String::length($user->getProfile()->phone) > 0): ?>
                 <tr>
-                    <td><?php echo __('Phone'); ?></td>
-                    <td><?php echo \App::$Security->strip_tags($user->getCustomParam('phone')); ?></td>
+                    <td><?= __('Phone'); ?></td>
+                    <td><?= \App::$Security->strip_tags($user->getProfile()->phone); ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getCustomParam('weburl') !== null): ?>
+                <?php if ($user->getProfile()->url !== null): ?>
                 <tr>
-                    <td><?php echo __('Website'); ?></td>
-                    <td><a rel="nofollow" href="<?php echo \App::$Security->strip_tags($user->getCustomParam('weburl')); ?>"><?php echo __('Visit'); ?></a></td>
+                    <td><?= __('Website'); ?></td>
+                    <td>
+                        <a rel="nofollow" target="_blank" href="<?= \App::$Security->strip_tags($user->getProfile()->url); ?>"><?= __('Visit'); ?></a>
+                    </td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getCustomParam('hobby') !== null): ?>
+                <?php if ($user->getProfile()->city !== null):
+                    $city = \App::$Security->strip_tags($user->getProfile()->city);
+                ?>
                 <tr>
-                    <td><?php echo __('Interests'); ?></td>
+                    <td><?= __('City') ?></td>
+                    <td><?= Url::link(['profile/index', 'city', trim($city, ' ')], $city) ?></td>
+                </tr>
+                <?php endif; ?>
+                <?php if ($user->getProfile()->hobby !== null): ?>
+                <tr>
+                    <td><?= __('Interests'); ?></td>
                     <td>
                         <?php
-                        $hobbyArray = explode(',', $user->getCustomParam('hobby'));
+                        $hobbyArray = explode(',', $user->getProfile()->hobby);
                         foreach ($hobbyArray as $item) {
                             $item = \App::$Security->strip_tags($item);
                             if ($item !== null && String::length($item) > 1) {
-                                echo '<span class="label label-success">' . $item . '</span> ';
+                                echo Url::link(['profile/index', 'hobby', trim($item, ' ')], $item, ['class' => 'label label-success']) . ' ';
                             }
                         }
                         ?>
@@ -141,24 +157,24 @@ $this->breadcrumbs = [
                 if ($referObject === null) { // caster not founded? skip ...
                     continue;
                 }
+                $referNickname = ($referObject->getProfile()->nick == null ? __('No name') : \App::$Security->strip_tags($referObject->getProfile()->nick));
                 ?>
                 <div class="row" style="padding-top: 10px">
                     <div class="col-md-12">
                         <div class="media" style="border: solid 1px #dbdbdb;padding: 10px;">
                             <div class="pull-left" style="width: 64px; height: 64px">
-                                <a href="http://ffcms.ru/ru/user/id1">
-                                    <img class="media-object img-responsive center-block"
-                                         src="<?= $referObject->getAvatarUrl('small') ?>" style="max-width: 64px;max-height: 64px;">
-                                </a>
+                                <img class="media-object img-responsive center-block" alt="Avatar of <?= $referNickname ?>"
+                                     src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>"
+                                     style="max-width: 64px;max-height: 64px;">
+
                             </div>
 
                             <div class="media-body">
                                 <h5 class="media-heading">
-                                    <?= Url::link(['profile/show', $post->sender_id],
-                                        $referObject->get('nick', __('No name'))); ?>,
+                                    <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>,
                                     <?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?>
                                 </h5>
-                                <?php echo \App::$Security->strip_tags($post->message); ?>
+                                <?= \App::$Security->strip_tags($post->message); ?>
                             </div>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ return [
     'Actions' => 'Действия',
     'Manage user' => 'Управление пользователем',
     'Approved' => 'Подтвержден',
+    'New password' => 'Новый пароль',
     'Specify user email' => 'Укажите почтовый ящик пользователя',
     'Specify user login' => 'Укажите логин пользователя',
     'Specify user nickname' => 'Укажите псевдоним пользователя',
@@ -47,5 +48,7 @@ return [
     'Show captcha on registration form?' => 'Показывать защитное изображение при регистрации?',
     'Only invite' => 'По приглашениям',
     'Email approve' => 'Подтверждение по почте',
-    'Full opened' => 'Открытая, без подтверждений'
+    'Full opened' => 'Открытая, без подтверждений',
+    'Profile data' => 'Данные профиля',
+    'Edit profile data' => 'Редактировать данные профиля'
 ];

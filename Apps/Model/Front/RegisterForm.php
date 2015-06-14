@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Front;
 
+use Apps\ActiveRecord\Profile;
 use Apps\Model\Basic\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
@@ -17,6 +18,10 @@ class RegisterForm extends Model
 
     private $_captcha = false;
 
+    /**
+     * Build model and set maker if captcha is enabled
+     * @param bool $captcha
+     */
     public function __construct($captcha = false)
     {
         parent::__construct();
@@ -103,6 +108,11 @@ class RegisterForm extends Model
         }
         // save row
         $user->save();
+        // create profile
+        $profile = new Profile();
+        $profile->user_id = $user->id;
+        // save profile
+        $profile->save();
 
         // just make auth and redirect ;)
         if (false === $activation) {

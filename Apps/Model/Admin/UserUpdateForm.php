@@ -14,7 +14,6 @@ class UserUpdateForm extends Model
 {
     public $email;
     public $login;
-    public $nick;
     public $password;
     public $newpassword;
     public $role_id;
@@ -42,7 +41,7 @@ class UserUpdateForm extends Model
     {
         foreach ($this->getAllProperties() as $property => $old_data) {
             if (null !== $this->_user->$property) {
-                $this->$property = $property === 'custom_data' ? unserialize($this->_user->$property) : $this->_user->$property;
+                $this->$property = $this->_user->$property;
             }
         }
         $this->_approve_tmp = $this->approve_token;
@@ -58,7 +57,6 @@ class UserUpdateForm extends Model
         return [
             'email' => __('Email'),
             'login' => __('Login'),
-            'nick' => __('Nickname'),
             'newpassword' => __('New password'),
             'role_id' => __('Role'),
             'approve_token' => __('Approved')
@@ -72,11 +70,11 @@ class UserUpdateForm extends Model
     {
         return [
             [['email', 'login', 'role_id', 'approve_token'], 'required'],
-            [['nick', 'newpassword', 'custom_data'], 'used'],
+            [['newpassword'], 'used'],
             ['email', 'email'],
             ['login', 'length_min', 3],
-            ['email', 'Apps\Model\Admin\UserUpdateForm::isUniqueEmail', $this->_user->get('id')],
-            ['login', 'Apps\Model\Admin\UserUpdateForm::isUniqueLogin', $this->_user->get('id')]
+            ['email', 'Apps\Model\Admin\UserUpdateForm::isUniqueEmail', $this->_user->getParam('id')],
+            ['login', 'Apps\Model\Admin\UserUpdateForm::isUniqueLogin', $this->_user->getParam('id')]
         ];
     }
 

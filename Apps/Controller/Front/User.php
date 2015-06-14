@@ -16,7 +16,6 @@ use Ffcms\Core\Helper\String;
  */
 class User extends FrontAppController
 {
-
     /**
      * View login form and process submit action
      * @throws ForbiddenException
@@ -124,6 +123,12 @@ class User extends FrontAppController
         App::$Response->redirect('/');
     }
 
+    /**
+     * Approve user profile via $email and $token params
+     * @param $email
+     * @param $token
+     * @throws ForbiddenException
+     */
     public function actionApprove($email, $token)
     {
         // sounds like a not valid token

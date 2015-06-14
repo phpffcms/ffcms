@@ -2,19 +2,16 @@
 
 namespace Apps\Model\Basic;
 
+use Apps\Model\Basic\Profile;
 use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User as ARecordUser;
 use Ffcms\Core\App;
-use Ffcms\Core\Helper\Arr;
-use Ffcms\Core\Helper\File;
 use Ffcms\Core\Helper\Object;
 use Ffcms\Core\Helper\String;
 use Ffcms\Core\Interfaces\iUser;
 
 class User extends ARecordUser implements iUser
 {
-
-    public static $instance;
 
     /**
      * Get user object relation. If $user_id is null - get current session user
@@ -33,16 +30,18 @@ class User extends ARecordUser implements iUser
 
         // check in memory cache object
         if (App::$Memory->get('user.object.cache.' . $user_id) !== null) {
-            self::$instance[$user_id] = App::$Memory->get('user.object.cache.' . $user_id);
-        } else {
-            $user = self::find($user_id);
-            if ($user !== false && $user !== null && $user->id > 0) {
-                App::$Memory->set('user.object.cache.' . $user->id, $user);
-                self::$instance[$user_id] = $user;
-            }
+            return App::$Memory->get('user.object.cache.' . $user_id);
+        }
+        // not founded in memory? lets make query
+        $user = self::find($user_id);
+        // no rows? lets end this shit ;)
+        if (false === $user || null === $user || $user->id < 1) {
+            return null;
         }
 
-        return self::$instance[$user_id];
+        // store cache and return object
+        App::$Memory->set('user.object.cache.' . $user->id, $user);
+        return $user;
     }
 
 
@@ -62,25 +61,9 @@ class User extends ARecordUser implements iUser
      * @param null|string $defaultValue
      * @return string|int|null
      */
-    public function get($param, $defaultValue = null)
+    public function getParam($param, $defaultValue = null)
     {
         return $this->{$param} === null ? $defaultValue : $this->{$param};
-    }
-
-    /**
-     * @param $param
-     * @param null|string $defaultValue
-     * @return string|null
-     */
-    public function getCustomParam($param, $defaultValue = null)
-    {
-        $all = $this->custom_data;
-        if ($all === null || String::length($all) < 2) { // must be a json-based type. Minimum: {}
-            return null;
-        }
-
-        $customData = json_decode($all);
-        return $customData->{$param} === null ? $defaultValue : $customData->{$param};
     }
 
     /**
@@ -103,26 +86,6 @@ class User extends ARecordUser implements iUser
         }
 
         return $find->token_data === $session_token;
-    }
-
-    /**
-     * Get user avatar full url
-     * @param string $type
-     * @return string
-     */
-    public function getAvatarUrl($type = 'small')
-    {
-        $default = '/upload/user/avatar/' . $type . '/default.jpg';
-        if (!Arr::in($type, ['small', 'big', 'medium'])) {
-            return App::$Alias->scriptUrl . $default;
-        }
-
-        $route = '/upload/user/avatar/' . $type . '/' . $this->id . '.jpg';
-        if (File::exist($route)) {
-            return App::$Alias->scriptUrl . $route . '?mtime=' . File::mTime($route);
-        }
-
-        return App::$Alias->scriptUrl . $default;
     }
 
     /**
@@ -202,6 +165,24 @@ class User extends ARecordUser implements iUser
      */
     public function getRole()
     {
-        return (new Role())->get($this->role_id);
+        return Role::get($this->role_id);
+    }
+
+    /**
+     * Get user profile data as relation of user table. Ex: User::find(1)->getProfile()->nick
+     * @return \Apps\Model\Basic\Profile
+     */
+    public function getProfile()
+    {
+        // lets find profile identity via current user id
+        $object = Profile::identity($this->getId());
+        // is not exist? Hmmm, lets create it!
+        if ($object === null) {
+            $object = new Profile();
+            $object->user_id = $this->getId();
+            $object->save();
+        }
+        // return result ;)
+        return $object;
     }
 }

@@ -28,7 +28,6 @@ $this->breadcrumbs = [
             ['text' => $user->id . ($user->approve_token != '0' ? ' <strong class="text-danger">*</strong>' : null), 'html' => true],
             ['text' => $user->email],
             ['text' => $user->login],
-            ['text' => $user->nick],
             ['text' => $user->getRole()->name],
             ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
             ['text' => \App::$View->show('macro/crud_actions', ['controller' => 'user', 'update' => true, 'id' => $user->id, 'delete' => true]),
@@ -49,15 +48,12 @@ $this->breadcrumbs = [
             ['text' => 'id'],
             ['text' => __('Email')],
             ['text' => __('Login')],
-            ['text' => __('Nickname')],
             ['text' => __('Role')],
             ['text' => __('Register date')],
             ['text' => __('Actions')]
-        ],
-        'property' => ['id' => 'thead_main']
+        ]
     ],
     'tbody' => [
-        'property' => ['id' => 'tbodym'],
         'items' => $items
     ]
 ])?>

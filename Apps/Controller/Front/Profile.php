@@ -10,6 +10,8 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\String;
+use Apps\Model\Basic\Profile as ProfileRecords;
 
 
 /**
@@ -20,6 +22,61 @@ class Profile extends FrontAppController
 {
     public $_self = false;
 
+    const ITEM_PER_PAGE = 10;
+
+    public function actionIndex($filter_name, $filter_value)
+    {
+        $records = null;
+
+        // set current page and offset
+        $page = (int)App::$Request->query->get('page');
+        $offset = $page * self::ITEM_PER_PAGE;
+
+        switch ($filter_name) {
+            case 'rating': // rating list, order by rating DESC
+                $records = (new ProfileRecords())->orderBy('rating', 'DESC');
+                break;
+            case 'hobby': // search by hobby
+                if ($filter_value === null || String::length($filter_value) < 1) {
+                    throw new NotFoundException();
+                }
+                $records = (new ProfileRecords())->where('hobby', 'like', '%' . $filter_value . '%');
+                break;
+            case 'city':
+                if ($filter_value === null || String::length($filter_value) < 1) {
+                    throw new NotFoundException();
+                }
+                $records = (new ProfileRecords())->where('city', '=', $filter_value);
+                break;
+            case 'born':
+                if ($filter_value === null || !Object::isLikeInt($filter_value)) {
+                    throw new NotFoundException();
+                }
+                $records = (new ProfileRecords())->where('birthday', 'like', $filter_value . '-%');
+                break;
+            case 'all':
+                $records = (new ProfileRecords())->orderBy('id', 'DESC');
+                break;
+            default:
+                App::$Response->redirect('profile/index/all');
+                break;
+        }
+
+        // build pagination
+        $pagination = new SimplePagination([
+            'url' => ['profile/index', $filter_name, $filter_value],
+            'page' => $page,
+            'step' => self::ITEM_PER_PAGE,
+            'total' => $records->count()
+        ]);
+
+        $this->response = App::$View->render('index', [
+            'records' => $records->skip($offset)->take(self::ITEM_PER_PAGE)->get(),
+            'pagination' => $pagination,
+            'id' => $filter_name,
+            'add' => $filter_value
+        ]);
+    }
 
     /**
      * Show user profile: data, wall posts, other features
@@ -28,7 +85,7 @@ class Profile extends FrontAppController
      */
     public function actionShow($userId)
     {
-        // check if target exist
+        // check if target exists
         if (!App::$User->isExist($userId)) {
             throw new NotFoundException('This profile is not exist');
         }
@@ -40,7 +97,7 @@ class Profile extends FrontAppController
         $this->_self = ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id);
 
         $wallModel = null;
-        // if current user is auth - allow to post messages in wall current user
+        // if current user is auth - allow to post messages on wall current user
         if (App::$User->isAuth() && $viewerPersone->getRole()->can('global/write')) {
             $wallModel = new WallPost();
             // check if request post is done and rules validated
