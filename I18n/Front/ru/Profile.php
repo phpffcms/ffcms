@@ -35,5 +35,12 @@ return [
     'Search' => 'Поиск',
     'City' => 'Город',
     'Hobby' => 'Хобби',
-    'Registered' => 'Зарегистрирован'
+    'Registered' => 'Зарегистрирован',
+    'Write comment' => 'Напишите комментарий',
+    'Comment send was failed! Wait few moments' => 'Отправка сообщения не удалась! Подождите немного',
+    'Answers' => 'Ответы',
+    'Delete' => 'Удалить',
+    'Delete wall post' => 'Удаление записи на стене',
+    'Delete post' => 'Удаление сообщения',
+    'Are you sure to delete this post? No more attention will be displayed!' => 'Вы уверены что хотите удалить данное сообщение? Больше предупреждений не будет!'
 ];

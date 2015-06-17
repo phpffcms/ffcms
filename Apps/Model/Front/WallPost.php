@@ -2,7 +2,7 @@
 
 namespace Apps\Model\Front;
 
-use Apps\ActiveRecord\Wall;
+use Apps\ActiveRecord\WallPost as WallRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\Arch\Model;
@@ -40,7 +40,7 @@ class WallPost extends Model
             return false;
         }
 
-        $find = Wall::where('sender_id', '=', $viewer->id)->orderBy('updated_at', 'desc')->first();
+        $find = WallRecords::where('sender_id', '=', $viewer->id)->orderBy('updated_at', 'desc')->first();
         if ($find !== null) {
             $lastPostTime = Date::convertToTimestamp($find->updated_at);
             if (time() - $lastPostTime < static::POST_GLOBAL_DELAY) { // past time was less then default delay
@@ -49,7 +49,7 @@ class WallPost extends Model
         }
 
         // save new post to db
-        $record = new Wall();
+        $record = new WallRecords();
         $record->target_id = $target->id;
         $record->sender_id = $viewer->id;
         $record->message = App::$Security->strip_tags($this->message);

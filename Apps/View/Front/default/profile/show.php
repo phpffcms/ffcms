@@ -6,6 +6,7 @@ use Ffcms\Core\Helper\String;
 use Ffcms\Core\Helper\Url;
 
 /** @var $user Apps\Model\Basic\User */
+/** @var $viewer Apps\Model\Basic\User */
 /** @var $wall Apps\Model\Front\WallPost|null */
 /** @var $notify array|null */
 /** @var $wallRecords object */
@@ -28,7 +29,7 @@ $this->breadcrumbs = [
 ];
 
 ?>
-<div class="row">
+<div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="col-md-12">
         <h1><?= $name ?> <sup><small>id: <?= $user->id; ?></small></sup></h1>
     </div>
@@ -36,7 +37,7 @@ $this->breadcrumbs = [
 <hr/>
 <div class="row">
     <div class="col-md-4">
-        <img src="<?= $user->getProfile()->getAvatarUrl('big') ?>" class="img-responsive center-block" />
+        <img src="<?= $user->getProfile()->getAvatarUrl('big') ?>" class="img-responsive center-block img-rounded" />
         <?php
         $userMenu = null;
         if (true === $isSelf) {
@@ -159,24 +160,30 @@ $this->breadcrumbs = [
                 }
                 $referNickname = ($referObject->getProfile()->nick == null ? __('No name') : \App::$Security->strip_tags($referObject->getProfile()->nick));
                 ?>
-                <div class="row" style="padding-top: 10px">
-                    <div class="col-md-12">
-                        <div class="media" style="border: solid 1px #dbdbdb;padding: 10px;">
-                            <div class="pull-left" style="width: 64px; height: 64px">
-                                <img class="media-object img-responsive center-block" alt="Avatar of <?= $referNickname ?>"
-                                     src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>"
-                                     style="max-width: 64px;max-height: 64px;">
-
-                            </div>
-
-                            <div class="media-body">
-                                <h5 class="media-heading">
-                                    <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>,
-                                    <?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?>
-                                </h5>
-                                <?= \App::$Security->strip_tags($post->message); ?>
-                            </div>
+                <div class="row wall-post" id="wall-post-<?= $post->id ?>">
+                    <div class="col-md-2">
+                        <div class="text-center"><img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>"
+                             src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
                         </div>
+                    </div>
+                    <div class="col-md-10">
+                        <h5 style="margin-top: 0;">
+                            <i class="fa fa-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
+                            <small class="pull-right"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
+                        </h5>
+                        <div class="wall-post-text">
+                            <?= \App::$Security->strip_tags($post->message); ?>
+                        </div>
+                        <hr style="margin: 5px;" />
+                        <div><i class="fa fa-comment-o"></i>
+                            <a href="#wall-post-<?= $post->id ?>" id="wall-post-response-<?= $post->id ?>" class="show-wall-response">
+                                <?= __('Answers') ?> (<span id="wall-post-response-count-<?= $post->id ?>">0</span>)
+                            </a>
+                            <?php if ($post->target_id === $viewer->id || $post->sender_id === $viewer->id): ?>
+                                <?= Url::link(['profile/walldelete', $post->id], __('Delete'), ['class' => 'pull-right']) ?>
+                            <?php endif; ?>
+                        </div>
+                        <div id="wall-answer-dom-<?= $post->id; ?>" class="hidden"></div>
                     </div>
                 </div>
             <?php
@@ -188,3 +195,130 @@ $this->breadcrumbs = [
         </div>
     </div>
 </div>
+<script>
+    var hideAnswers = [];
+    window.jQ.push(function(){
+        $(function(){
+            var elements = $('.wall-post');
+            var viewer_id = 0;
+            var is_self_profile = <?= $isSelf === true ? 'true' : 'false' ?>;
+            <?php if (\App::$User->isAuth()): ?>
+            viewer_id = <?= $viewer->getId() ?>;
+            <?php endif; ?>
+            var postIds = [];
+            $.each(elements, function(key, val) {
+                postIds.push(val.id.replace('wall-post-', ''));
+            });
+            if (postIds.length < 1) {
+                return null;
+            }
+
+            // load info about answers
+            $.getJSON(script_url+'/api/profile/wallanswercount/' + postIds.join(',') + '?lang='+script_lang, function (json) {
+                // data is successful loaded, pharse
+                if (json.status === 1) {
+                    $.each(json.data, function(key, val){
+                        $('#wall-post-response-count-'+key).text(val);
+                    });
+                }
+            });
+
+            $.fn.loadAnswers = function(postId) {
+                $.getJSON(script_url+'/api/profile/showwallanswers/' + postId +'?lang='+script_lang, function (json) {
+                    if (json.status !== 1) {
+                        return null;
+                    }
+                    var htmlAnswer = '<hr style="margin: 5px;" />';
+                    htmlAnswer += '<div class="well">';
+                    htmlAnswer += '<div id="send-wall-object-'+postId+'"></div>';
+                    htmlAnswer += '<input type="text" id="make-answer-'+postId+'" placeHolder="<?= __('Write comment') ?>" class="form-control wall-answer-text" maxlength="200" />';
+                    htmlAnswer += '<a style="margin-top: 5px;" href="#wall-post-'+postId+'" class="send-wall-answer btn btn-primary btn-sm" id="send-wall-'+postId+'"><?= __('Send') ?></a>';
+                    htmlAnswer += '<span class="pull-right" id="answer-counter-'+postId+'">200</span>';
+                    htmlAnswer += "</div>";
+                    $.each(json.data, function(idx, row){
+                        htmlAnswer += '<div class="row wall-answer">';
+                        htmlAnswer += '<div class="col-md-2"><img src="'+row.user_avatar+'" alt="avatar" class="img-responsive img-rounded" /></div>';
+                        htmlAnswer += '<div class="col-md-10">';
+                        htmlAnswer += '<div class="answer-header">';
+                        htmlAnswer += '<a href="<?= \App::$Alias->baseUrl ?>/profile/show/'+row.user_id+'">'+row.user_nick+'</a>';
+                        htmlAnswer += '<small class="pull-right">'+row.answer_date;
+                        if (is_self_profile || row.user_id === viewer_id) {
+                            htmlAnswer += '<a href="#send-wall-object-' + postId + '" class="delete-answer" id="delete-answer-' + row.answer_id + '-' + postId +'"><i class="fa fa-lg fa-times"></i></a>';
+                        }
+                        htmlAnswer += '</small>';
+                        htmlAnswer += '</div>';
+                        htmlAnswer += '<div>' + row.answer_message + '</div>';
+                        htmlAnswer += '</div></div>';
+                    });
+                    $('#wall-answer-dom-'+postId).html(htmlAnswer);
+                })
+            };
+
+            $.fn.addAnswer = function(postId, message) {
+                $.post(script_url+'/api/profile/sendwallanswer/'+postId+'?lang='+script_lang, {message: message}, function(response){
+                    if (response.status === 1) {
+                        $.fn.loadAnswers(postId);
+                    }
+                }, 'json').done(function() {
+                    return true;
+                });
+                return false;
+            };
+
+
+            // if clicked on "Answers" - show it and send form
+            $('.show-wall-response').on('click', function(){
+                var postId = this.id.replace('wall-post-response-', '');
+                // control hide-display on clicking to "Answers" link
+                if (hideAnswers[postId] === true) {
+                    hideAnswers[postId] = false;
+                    $('#wall-answer-dom-'+postId).addClass('hidden');
+                    return null;
+                } else {
+                    hideAnswers[postId] = true;
+                    $('#wall-answer-dom-'+postId).removeClass('hidden');
+                }
+                // load data and set html
+                $.fn.loadAnswers(postId);
+            });
+
+            // calc entered symbols
+            $(document).on('keyup', '.wall-answer-text', function() {
+                var postId = this.id.replace('make-answer-', '');
+                var msglimit = 200;
+                var msglength = $(this).val().length;
+
+                var limitObject = $('#answer-counter-' + postId);
+
+                if (msglength >= msglimit) {
+                    limitObject.html('<span class="label label-danger">0</span>');
+                } else {
+                    limitObject.text(msglimit-msglength);
+                }
+            });
+
+            $(document).on('click', '.delete-answer', function(){
+                var answerIdPostId = this.id.replace('delete-answer-', '').split('-');
+                $.getJSON(script_url+'/api/profile/deleteanswerowner/'+answerIdPostId[0]+'?lang='+script_lang, function(response){
+                    $.fn.loadAnswers(answerIdPostId[1]);
+                });
+            });
+
+            // delegate live event simple for add-ed dom element
+            $(document).on('click', '.send-wall-answer', function(){
+                var answerToId = this.id.replace('send-wall-', '');
+                var message = $('#make-answer-'+answerToId).val();
+                if (message == null || message.length < 3) {
+                    alert('Message is too short');
+                    return null;
+                }
+
+                var result = $.fn.addAnswer(answerToId, message);
+                // sending going wrong !
+                if (false === result) {
+                    $('#send-wall-object-'+answerToId).html('<p class="alert alert-warning"><?= __('Comment send was failed! Wait few moments') ?></p>');
+                }
+            });
+        });
+    });
+</script>

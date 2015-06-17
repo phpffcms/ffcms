@@ -3,6 +3,7 @@
 namespace Apps\Controller\Front;
 
 use Apps\Model\Front\AvatarUpload;
+use Apps\Model\Front\FormWallPostDelete;
 use Apps\Model\Front\WallPost;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
@@ -12,6 +13,7 @@ use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Object;
 use Ffcms\Core\Helper\String;
 use Apps\Model\Basic\Profile as ProfileRecords;
+use Ffcms\Core\Helper\Url;
 
 
 /**
@@ -130,6 +132,7 @@ class Profile extends FrontAppController
 
         $this->response = App::$View->render('show', [
             'user' => $targetPersone,
+            'viewer' => $viewerPersone,
             'isSelf' => $this->_self,
             'wall' => !Object::isObject($wallModel) ? null : $wallModel->export(),
             'notify' => App::$Session->getFlashBag()->all(),
@@ -164,6 +167,43 @@ class Profile extends FrontAppController
         $this->response = App::$View->render('avatar', [
             'user' => $user,
             'model' => $model->export()
+        ]);
+    }
+
+    public function actionWalldelete($postId)
+    {
+        // is user auth?
+        if (!App::$User->isAuth()) {
+            throw new ForbiddenException();
+        }
+
+        // is postId is integer?
+        if (!Object::isLikeInt($postId) || $postId < 1) {
+            throw new NotFoundException();
+        }
+
+        // try to find the wall post
+        $wallPost = \Apps\ActiveRecord\WallPost::find($postId);
+        if (null === $wallPost || false === $wallPost) {
+            throw new NotFoundException();
+        }
+
+        // get user and check if he can delete this post
+        $user = App::$User->identity();
+        if ($wallPost->sender_id !== $user->id && $wallPost->target_id !== $user->id) {
+            throw new ForbiddenException();
+        }
+
+        // check if submit sended
+        $wallModel = new FormWallPostDelete($wallPost);
+        if ($wallModel->send() && $wallModel->validate()) {
+            $wallModel->make();
+            App::$Response->redirect('profile/show/' . $wallPost->target_id);
+        }
+
+        $this->response = App::$View->render('wall_delete', [
+            'post' => $wallPost,
+            'model' => $wallModel
         ]);
     }
 }

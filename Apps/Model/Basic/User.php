@@ -156,7 +156,7 @@ class User extends ARecordUser implements iUser
      */
     public function getWall()
     {
-        return $this->hasMany('Apps\\ActiveRecord\\Wall', 'target_id');
+        return $this->hasMany('Apps\\ActiveRecord\\WallPost', 'target_id');
     }
 
     /**

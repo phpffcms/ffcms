@@ -2,7 +2,7 @@
 
 namespace Apps\Model\Admin;
 
-use Apps\ActiveRecord\Wall;
+use Apps\ActiveRecord\WallPost;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\File;
 use Ffcms\Core\Interfaces\iUser;
@@ -47,7 +47,7 @@ class UserDeleteForm extends Model
     public function delete()
     {
         // delete wall records
-        Wall::where('target_id', '=', $this->_user->getParam('id'))
+        WallPost::where('target_id', '=', $this->_user->getParam('id'))
             ->orwhere('sender_id', '=', $this->_user->getParam('id'))
             ->delete();
         // delete avatars

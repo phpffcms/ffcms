@@ -147,11 +147,28 @@ label.error {
     color: #a94442;
 }
 
+.wall-post {
+    border: 1px solid #eee;
+    border-radius:5px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.wall-answer {
+    border: 1px solid #eee;
+    border-radius:5px;
+    padding: 5px;
+    margin-top: 3px;
+}
 
 /** Some media screen adaptive */
 
 @media (min-width:768px) {
     div.body-container {
         min-height: 500px;
+    }
+
+    .wall-post-text {
+        min-height: 40px;
     }
 }

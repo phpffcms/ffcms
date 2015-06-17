@@ -19,6 +19,11 @@ use Ffcms\Core\Helper\Object;
     if ($customCssCode !== null) {
         echo '<style>' . $customCssCode . '</style>';
     } ?>
+    <script>
+        window.jQ = [];
+        var script_url = '<?= \App::$Alias->scriptUrl ?>';
+        var script_lang = '<?= \App::$Request->getLanguage() ?>';
+    </script>
 </head>
 <body>
 <div class="container account-container">
@@ -157,6 +162,11 @@ use Ffcms\Core\Helper\Object;
 <script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
 <script src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
 <?php echo \App::$View->showCodeLink('js'); ?>
+<script>
+    $.each(window.jQ, function(index, fn) {
+        fn();
+    });
+</script>
 <?php
 $customJsCode = \App::$View->showPlainCode('js');
 if ($customJsCode !== null) {
