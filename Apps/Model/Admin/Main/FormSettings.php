@@ -1,13 +1,13 @@
 <?php
 
-namespace Apps\Model\Admin;
+namespace Apps\Model\Admin\Main;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Directory;
 use Ffcms\Core\Helper\File;
 
-class SettingsForm extends Model
+class FormSettings extends Model
 {
 
     public $basePath;

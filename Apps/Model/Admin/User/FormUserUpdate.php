@@ -1,6 +1,6 @@
 <?php
 
-namespace Apps\Model\Admin;
+namespace Apps\Model\Admin\User;
 
 use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
@@ -10,7 +10,7 @@ use Ffcms\Core\Helper\String;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\App;
 
-class UserUpdateForm extends Model
+class FormUserUpdate extends Model
 {
     public $email;
     public $login;
@@ -73,8 +73,8 @@ class UserUpdateForm extends Model
             [['newpassword'], 'used'],
             ['email', 'email'],
             ['login', 'length_min', 3],
-            ['email', 'Apps\Model\Admin\UserUpdateForm::isUniqueEmail', $this->_user->getParam('id')],
-            ['login', 'Apps\Model\Admin\UserUpdateForm::isUniqueLogin', $this->_user->getParam('id')]
+            ['email', 'Apps\Model\Admin\User\FormUserUpdate::isUniqueEmail', $this->_user->getParam('id')],
+            ['login', 'Apps\Model\Admin\User\FormUserUpdate::isUniqueLogin', $this->_user->getParam('id')]
         ];
     }
 

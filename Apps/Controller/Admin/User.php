@@ -3,11 +3,11 @@
 namespace Apps\Controller\Admin;
 
 use Apps\ActiveRecord\Role;
-use Apps\Model\Admin\SendInviteForm;
-use Apps\Model\Admin\UserDeleteForm;
-use Apps\Model\Admin\UserGroupUpdateForm;
-use Apps\Model\Admin\UserSettings;
-use Apps\Model\Admin\UserUpdateForm;
+use Apps\Model\Admin\User\FormInviteSend;
+use Apps\Model\Admin\User\FormUserDelete;
+use Apps\Model\Admin\User\FormUserGroupUpdate;
+use Apps\Model\Admin\User\FormUserSettings;
+use Apps\Model\Admin\User\FormUserUpdate;
 use Extend\Core\Arch\AdminAppController;
 use Apps\Model\Basic\User as UserRecords;
 use Ffcms\Core\App;
@@ -55,7 +55,7 @@ class User extends AdminAppController
         // find user identify object
         //$user = App::$User->identity($id);
         // generate model data based on user object
-        $model = new UserUpdateForm($user);
+        $model = new FormUserUpdate($user);
 
         // check is form is sended
         if ($model->send()) {
@@ -86,7 +86,7 @@ class User extends AdminAppController
 
         // get user object and load model
         $user = App::$User->identity($id);
-        $model = new UserDeleteForm($user);
+        $model = new FormUserDelete($user);
 
         if ($model->send()) {
             $model->delete();
@@ -123,7 +123,7 @@ class User extends AdminAppController
         // find role or create new object
         $role = Role::findOrNew($id);
 
-        $model = new UserGroupUpdateForm($role);
+        $model = new FormUserGroupUpdate($role);
         if ($model->send()) { // work with post request
             if ($model->validate()) {
                 $model->save();
@@ -145,7 +145,7 @@ class User extends AdminAppController
     public function actionSettings()
     {
         // load model and pass property's as argument
-        $model = new UserSettings($this->getConfigs());
+        $model = new FormUserSettings($this->getConfigs());
 
         if ($model->send()) {
             if ($model->validate()) {
@@ -168,7 +168,7 @@ class User extends AdminAppController
     public function actionInvite()
     {
         // init model
-        $model = new SendInviteForm();
+        $model = new FormInviteSend();
 
         if ($model->send()) {
             if ($model->validate()) {

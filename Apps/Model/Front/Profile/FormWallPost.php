@@ -1,6 +1,6 @@
 <?php
 
-namespace Apps\Model\Front;
+namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\WallPost as WallRecords;
 use Ffcms\Core\App;
@@ -8,7 +8,7 @@ use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 
-class WallPost extends Model
+class FormWallPost extends Model
 {
     const MAX_MESSAGE_LENGTH = 500; // 500 symbols
     const POST_GLOBAL_DELAY = 30; // delay between 2 posts from 1 user in seconds

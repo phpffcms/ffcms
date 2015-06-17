@@ -3,10 +3,10 @@
 namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\Invite;
-use Apps\Model\Front\RegisterForm;
+use Apps\Model\Front\User\FormRegister;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
-use Apps\Model\Front\LoginForm;
+use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\String;
 
@@ -28,7 +28,7 @@ class User extends FrontAppController
 
         $configs = $this->getConfigs();
         // load login model
-        $loginForm = new LoginForm($configs['captchaOnLogin'] === 1);
+        $loginForm = new FormLogin($configs['captchaOnLogin'] === 1);
 
         // check if data is send and valid
         if ($loginForm->send() && $loginForm->validate()) {
@@ -59,7 +59,7 @@ class User extends FrontAppController
         $configs = $this->getConfigs();
 
         // init register model
-        $registerForm = new RegisterForm($configs['captchaOnRegister'] === 1);
+        $registerForm = new FormRegister($configs['captchaOnRegister'] === 1);
 
         // registration based on invite. Check conditions.
         if ($configs['registrationType'] === 0) {
@@ -150,7 +150,7 @@ class User extends FrontAppController
         $user->save();
 
         // open session and redirect to main
-        $loginModel = new LoginForm();
+        $loginModel = new FormLogin();
         $loginModel->openSession($user);
         App::$Response->redirect('/'); // session is opened, refresh page
     }

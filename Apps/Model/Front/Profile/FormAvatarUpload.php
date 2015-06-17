@@ -1,13 +1,13 @@
 <?php
 
-namespace Apps\Model\Front;
+namespace Apps\Model\Front\Profile;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Interfaces\iUser;
 use Gregwar\Image\Image;
 
-class AvatarUpload extends Model
+class FormAvatarUpload extends Model
 {
     /** @var \Symfony\Component\HttpFoundation\File\UploadedFile */
     public $file;

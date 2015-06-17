@@ -1,13 +1,13 @@
 <?php
 
-namespace Apps\Model\Admin;
+namespace Apps\Model\Admin\User;
 
 use Apps\ActiveRecord\Invite;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\String;
 
-class SendInviteForm extends Model
+class FormInviteSend extends Model
 {
     public $email;
 
@@ -36,7 +36,7 @@ class SendInviteForm extends Model
         return [
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'Apps\Model\Admin\UserUpdateForm::isUniqueEmail', null]
+            ['email', 'Apps\Model\Admin\User\FormUserUpdate::isUniqueEmail', null]
         ];
     }
 

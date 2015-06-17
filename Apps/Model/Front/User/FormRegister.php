@@ -1,14 +1,15 @@
 <?php
 
-namespace Apps\Model\Front;
+namespace Apps\Model\Front\User;
 
 use Apps\ActiveRecord\Profile;
 use Apps\Model\Basic\User;
+use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\String;
 
-class RegisterForm extends Model
+class FormRegister extends Model
 {
     public $email;
     public $login;
@@ -116,7 +117,7 @@ class RegisterForm extends Model
 
         // just make auth and redirect ;)
         if (false === $activation) {
-            $loginModel = new LoginForm();
+            $loginModel = new FormLogin();
             $loginModel->openSession($user);
             App::$Response->redirect('/'); // session is opened, refresh page
         }

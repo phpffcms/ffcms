@@ -1,6 +1,6 @@
 <?php
 
-namespace Apps\Model\Front;
+namespace Apps\Model\Front\User;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
@@ -8,7 +8,7 @@ use Ffcms\Core\Helper\Object;
 use Ffcms\Core\Helper\String;
 use Ffcms\Core\Interfaces\iUser;
 
-class LoginForm extends Model
+class FormLogin extends Model
 {
 
     public $login;

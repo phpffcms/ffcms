@@ -2,9 +2,9 @@
 
 namespace Apps\Controller\Front;
 
-use Apps\Model\Front\AvatarUpload;
-use Apps\Model\Front\FormWallPostDelete;
-use Apps\Model\Front\WallPost;
+use Apps\Model\Front\Profile\FormAvatarUpload;
+use Apps\Model\Front\Profile\FormWallPostDelete;
+use Apps\Model\Front\Profile\FormWallPost;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -101,7 +101,7 @@ class Profile extends FrontAppController
         $wallModel = null;
         // if current user is auth - allow to post messages on wall current user
         if (App::$User->isAuth() && $viewerPersone->getRole()->can('global/write')) {
-            $wallModel = new WallPost();
+            $wallModel = new FormWallPost();
             // check if request post is done and rules validated
             if ($wallModel->send() && $wallModel->validate()) {
                 // check if message added
@@ -152,7 +152,7 @@ class Profile extends FrontAppController
 
         // get user identity and model object
         $user = App::$User->identity();
-        $model = new AvatarUpload();
+        $model = new FormAvatarUpload();
 
         // validate model post data
         if ($model->send()) {

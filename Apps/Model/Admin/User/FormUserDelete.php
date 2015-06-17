@@ -1,13 +1,13 @@
 <?php
 
-namespace Apps\Model\Admin;
+namespace Apps\Model\Admin\User;
 
 use Apps\ActiveRecord\WallPost;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\File;
 use Ffcms\Core\Interfaces\iUser;
 
-class UserDeleteForm extends Model
+class FormUserDelete extends Model
 {
     public $email;
     public $login;

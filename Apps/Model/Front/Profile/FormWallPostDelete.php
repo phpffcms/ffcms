@@ -1,6 +1,6 @@
 <?php
 
-namespace Apps\Model\Front;
+namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\WallPost;
 use Ffcms\Core\Arch\Model;

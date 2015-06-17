@@ -2,7 +2,7 @@
 
 namespace Apps\Controller\Admin;
 
-use Apps\Model\Admin\AppTurnForm;
+use Apps\Model\Admin\Application\FormAppTurn;
 use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -29,7 +29,7 @@ class Application extends AdminAppController
             throw new ForbiddenException();
         }
 
-        $model = new AppTurnForm();
+        $model = new FormAppTurn();
 
         if ($model->send()) {
             $model->updateApp($search);

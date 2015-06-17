@@ -1,10 +1,10 @@
 <?php
 
-namespace Apps\Model\Admin;
+namespace Apps\Model\Admin\User;
 
 use Ffcms\Core\Arch\Model;
 
-class UserSettings extends Model
+class FormUserSettings extends Model
 {
     public $registrationType;
     public $captchaOnLogin;

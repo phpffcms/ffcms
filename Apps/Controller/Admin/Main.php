@@ -2,7 +2,7 @@
 
 namespace Apps\Controller\Admin;
 
-use Apps\Model\Admin\SettingsForm;
+use Apps\Model\Admin\Main\FormSettings;
 use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
 
@@ -24,7 +24,7 @@ class Main extends AdminAppController
      */
     public function actionSettings()
     {
-        $model = new SettingsForm();
+        $model = new FormSettings();
 
         if ($model->send()) {
             if ($model->validate()) {

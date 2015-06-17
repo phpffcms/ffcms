@@ -1,13 +1,13 @@
 <?php
 
-namespace Apps\Model\Admin;
+namespace Apps\Model\Admin\User;
 
 use Apps\ActiveRecord\Role;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\File;
 
-class UserGroupUpdateForm extends Model
+class FormUserGroupUpdate extends Model
 {
     public $name;
     public $permissions;
