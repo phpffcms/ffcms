@@ -7,7 +7,7 @@ use Ffcms\Core\Helper\Url;
 
 /** @var $user Apps\Model\Basic\User */
 /** @var $viewer Apps\Model\Basic\User */
-/** @var $wall Apps\Model\Front\WallPost|null */
+/** @var $wall Apps\ActiveRecord\WallPost|null */
 /** @var $notify array|null */
 /** @var $wallRecords object */
 /** @var $pagination Ffcms\Core\Helper\HTML\SimplePagination */
@@ -43,12 +43,12 @@ $this->breadcrumbs = [
         if (true === $isSelf) {
             $userMenu = [
                 ['type' => 'link', 'link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Avatar'), 'html' => true],
-                ['type' => 'link', 'link' => ['profile/messagelist'], 'text' => '<i class="fa fa-envelope"> ' . __('Messages'), 'html' => true],
+                ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
                 ['type' => 'link', 'link' => ['profile/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]
             ];
-        } else {
+        } elseif (\App::$User->isAuth()) {
             $userMenu = [
-                ['type' => 'link', 'link' => ['profile/messagewrite', $user->id], 'text' => '<i class="fa fa-pencil-square-o"></i> ' . __('Write message'), 'html' => true]
+                ['type' => 'link', 'link' => Url::to('profile/messages', null, null, ['newdialog' => $user->id]), 'text' => '<i class="fa fa-pencil-square-o"></i> ' . __('Write message'), 'html' => true]
             ];
         }
         ?>

@@ -6,7 +6,7 @@ Illuminate\Database\Capsule\Manager::schema()->create('apps', function($table) {
     $table->string('sys_name');
     $table->text('name');
     $table->binary('configs')->nullable();
-    $table->tinyInteger('disabled')->default(0);
+    $table->boolean('disabled')->default(false);
     $table->timestamps();
 });
 

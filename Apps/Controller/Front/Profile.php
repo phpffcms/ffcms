@@ -170,6 +170,12 @@ class Profile extends FrontAppController
         ]);
     }
 
+    /**
+     * Allow post owners and targets delete
+     * @param int $postId
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     */
     public function actionWalldelete($postId)
     {
         // is user auth?
@@ -204,6 +210,14 @@ class Profile extends FrontAppController
         $this->response = App::$View->render('wall_delete', [
             'post' => $wallPost,
             'model' => $wallModel
+        ]);
+    }
+
+    public function actionMessages()
+    {
+
+        $this->response = App::$View->render('messages', [
+
         ]);
     }
 }

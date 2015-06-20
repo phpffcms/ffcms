@@ -161,6 +161,49 @@ label.error {
     margin-top: 3px;
 }
 
+.well-light {
+    background-color: #ecf0f1;
+    padding: 5px;
+}
+
+/** Message list styling */
+.media-person {
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 5px;
+}
+
+.media-person-selected {
+    background-color: #27ae60;
+    color: #FFFFFF;
+}
+
+.media-person-uname {
+    font-size: 16px;
+    color: #696969;
+}
+
+.media-person-selected .media-person-uname {
+    color: #FFFFFF;
+}
+
+.message-scroll-body {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.message-text {
+    background-color: #d1ddec;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.message-text-remote {
+    background-color: #eeeeee;
+}
+
+
 /** Some media screen adaptive */
 
 @media (min-width:768px) {

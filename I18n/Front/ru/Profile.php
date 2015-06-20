@@ -42,5 +42,12 @@ return [
     'Delete' => 'Удалить',
     'Delete wall post' => 'Удаление записи на стене',
     'Delete post' => 'Удаление сообщения',
-    'Are you sure to delete this post? No more attention will be displayed!' => 'Вы уверены что хотите удалить данное сообщение? Больше предупреждений не будет!'
+    'Are you sure to delete this post? No more attention will be displayed!' => 'Вы уверены что хотите удалить данное сообщение? Больше предупреждений не будет!',
+    'My messages' => 'Мои сообщения',
+    'My dialogs' => 'Мои диалоги',
+    'No data' => 'Нет данных',
+    'Load previous' => 'Загрузить прошлые',
+    'Send message' => 'Отправить сообщение',
+    'Show more' => 'Показать еще',
+    'No dialog founded' => 'Диалоги не найдены'
 ];

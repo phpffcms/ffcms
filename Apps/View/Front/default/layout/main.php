@@ -32,11 +32,11 @@ use Ffcms\Core\Helper\Object;
 
         $accountPanel = [];
         if (\App::$User->isAuth()) {
-            $userId = \App::$User->identity()->getParam('id');
+            $userId = \App::$User->identity()->getID();
             $accountPanel = [
                 ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => '<i class="fa fa-user"></i> ' . __('Profile'), 'html' => true],
-                ['type' => 'link', 'link' => ['profile/messagelist', $userId], 'text' => '<i class="fa fa-envelope"> ' . __('Messages'), 'html' => true],
-                ['type' => 'link', 'link' => ['user/logout', $userId], 'text' => '<i class="fa fa-user-secret"></i> ' . __('Logout'), 'html' => true]
+                ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
+                ['type' => 'link', 'link' => ['user/logout'], 'text' => '<i class="fa fa-user-secret"></i> ' . __('Logout'), 'html' => true]
             ];
 
             if (\App::$User->identity()->getRole()->can('Admin/Main/Index')) {
@@ -140,9 +140,7 @@ use Ffcms\Core\Helper\Object;
             <div class="panel panel-primary">
                 <div class="panel-heading">Title</div>
                 <div class="panel-body">
-                    <?= \Ffcms\Core\Helper\HTML\Bootstrap\Nav::display([
-
-                    ]) ?>
+                    Some block body
                 </div>
             </div>
         </div>
@@ -165,6 +163,17 @@ use Ffcms\Core\Helper\Object;
 <script>
     $.each(window.jQ, function(index, fn) {
         fn();
+    });
+</script>
+<script>
+    $(function(){
+        $.getJSON(script_url+'/api/profile/messagesnewcount?lang='+script_lang, function(resp){
+            if (resp.status === 1) {
+                if (resp.count > 0) {
+                    $('.pm-count-block').html(resp.count).addClass('alert-danger', 1000);
+                }
+            }
+        });
     });
 </script>
 <?php
