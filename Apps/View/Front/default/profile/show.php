@@ -1,23 +1,26 @@
 <?php
+use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\String;
 use Ffcms\Core\Helper\Url;
 
-/** @var $user Apps\Model\Basic\User */
-/** @var $viewer Apps\Model\Basic\User */
+/** @var $user Apps\ActiveRecord\User */
+/** @var $viewer Apps\ActiveRecord\User */
 /** @var $wall Apps\ActiveRecord\WallPost|null */
 /** @var $notify array|null */
 /** @var $wallRecords object */
 /** @var $pagination Ffcms\Core\Helper\HTML\SimplePagination */
 /** @var $isSelf bool */
+/** @var $ratingOn bool */
 
 // $user is a target profile depended object(not current user!!!)
 
 $name = \App::$Security->strip_tags($user->getProfile()->nick);
 
-if ($name == null || String::length($name) < 1) {
+if (String::likeEmpty($name)) {
     $name = __('No name');
 }
 
@@ -29,7 +32,7 @@ $this->breadcrumbs = [
 ];
 
 ?>
-<div class="row" xmlns="http://www.w3.org/1999/html">
+<div class="row">
     <div class="col-md-12">
         <h1><?= $name ?> <sup><small>id: <?= $user->id; ?></small></sup></h1>
     </div>
@@ -38,6 +41,43 @@ $this->breadcrumbs = [
 <div class="row">
     <div class="col-md-4">
         <img src="<?= $user->getProfile()->getAvatarUrl('big') ?>" class="img-responsive center-block img-rounded" />
+        <?php
+        if ($ratingOn):
+            $rateClass = 'btn-default';
+            $rateValue = (int)$user->getProfile()->rating;
+            if ($user->getProfile()->rating > 0) {
+                $rateClass = 'btn-info';
+            } elseif ($user->getProfile()->rating < 0) {
+                $rateClass = 'btn-warning';
+            }
+        ?>
+        <?php if ($isSelf): ?>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="javascript:void(0);" class="btn btn-block <?= $rateClass ?>">
+                    <?= __('Rating') ?>: <span class="badge"><?= $rateValue ?></span>
+                </a>
+            </div>
+        </div>
+        <?php else: ?>
+        <div class="row">
+            <div class="col-md-8" style="padding-right: 0;">
+                <a href="javascript:void(0);" class="btn btn-block <?= $rateClass ?>">
+                    <?= __('Rating') ?>:
+                    <span class="badge"><?= $rateValue > 0 ? '+' : null ?>
+                        <span id="ratingValue"><?= $rateValue ?></span>
+                    </span>
+                </a>
+            </div>
+            <div class="col-md-2" style="padding-left: 1px;padding-right: 0;">
+                <a href="javascript:void(0);" class="btn btn-block btn-success" id="addRating">+</a>
+            </div>
+            <div class="col-md-2" style="padding-left: 1px; padding-right: 0;">
+                <a href="javascript:void(0);" class="btn btn-block btn-danger" id="reduceRating">-</a>
+            </div>
+        </div>
+        <?php endif; ?>
+        <?php endif; ?>
         <?php
         $userMenu = null;
         if (true === $isSelf) {
@@ -48,7 +88,14 @@ $this->breadcrumbs = [
             ];
         } elseif (\App::$User->isAuth()) {
             $userMenu = [
-                ['type' => 'link', 'link' => Url::to('profile/messages', null, null, ['newdialog' => $user->id]), 'text' => '<i class="fa fa-pencil-square-o"></i> ' . __('Write message'), 'html' => true]
+                [
+                    'type' => 'link', 'link' => Url::to('profile/messages', null, null, ['newdialog' => $user->id]),
+                    'text' => '<i class="fa fa-pencil-square-o"></i> ' . __('Write message'), 'html' => true
+                ],
+                [
+                    'type' => 'link', 'link' => Url::to('profile/ignore', null, null, ['id' => $user->id]),
+                    'text' => '<i class="fa fa-user-times"></i> ' . __('Block'), 'html' => true, 'property' => ['class' => 'alert-danger']
+                ]
             ];
         }
         ?>
@@ -98,7 +145,7 @@ $this->breadcrumbs = [
                     <td><?= \App::$Security->strip_tags($user->getProfile()->phone); ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->url !== null): ?>
+                <?php if ($user->getProfile()->url !== null && String::length($user->getProfile()->url) > 0): ?>
                 <tr>
                     <td><?= __('Website'); ?></td>
                     <td>
@@ -106,7 +153,7 @@ $this->breadcrumbs = [
                     </td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->city !== null):
+                <?php if ($user->getProfile()->city !== null && String::length($user->getProfile()->city) > 0):
                     $city = \App::$Security->strip_tags($user->getProfile()->city);
                 ?>
                 <tr>
@@ -114,7 +161,7 @@ $this->breadcrumbs = [
                     <td><?= Url::link(['profile/index', 'city', trim($city, ' ')], $city) ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->hobby !== null): ?>
+                <?php if ($user->getProfile()->hobby !== null && String::length($user->getProfile()->hobby) > 0): ?>
                 <tr>
                     <td><?= __('Interests'); ?></td>
                     <td>
@@ -129,6 +176,26 @@ $this->breadcrumbs = [
                         ?>
                     </td>
                 </tr>
+                <?php endif; ?>
+                <?php
+                $custom_fields = $user->getProfile()->custom_data;
+                if ($custom_fields !== null && count(Serialize::decode($custom_fields)) > 0): ?>
+                    <?php foreach (Serialize::decode($custom_fields) as $cid => $value): ?>
+                        <?php if (!String::likeEmpty($value)): ?>
+                            <tr>
+                                <td><?= ProfileField::getNameById($cid) ?></td>
+                                <td>
+                                    <?php
+                                    if (ProfileField::getTypeById($cid) === 'link') {
+                                        echo Url::link($value, String::substr($value, 30));
+                                    } else {
+                                        echo \App::$Security->strip_tags($value);
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 <?php endif; ?>
             </table>
         </div>
@@ -201,10 +268,12 @@ $this->breadcrumbs = [
         $(function(){
             var elements = $('.wall-post');
             var viewer_id = 0;
+            var target_id = 0;
             var is_self_profile = <?= $isSelf === true ? 'true' : 'false' ?>;
             <?php if (\App::$User->isAuth()): ?>
             viewer_id = <?= $viewer->getId() ?>;
             <?php endif; ?>
+            target_id = <?= $user->getId() ?>;
             var postIds = [];
             $.each(elements, function(key, val) {
                 postIds.push(val.id.replace('wall-post-', ''));
@@ -213,7 +282,7 @@ $this->breadcrumbs = [
                 return null;
             }
 
-            // load info about answers
+            // load answers count via JSON
             $.getJSON(script_url+'/api/profile/wallanswercount/' + postIds.join(',') + '?lang='+script_lang, function (json) {
                 // data is successful loaded, pharse
                 if (json.status === 1) {
@@ -223,6 +292,7 @@ $this->breadcrumbs = [
                 }
             });
 
+            // load answers via JSON and add to current DOM
             $.fn.loadAnswers = function(postId) {
                 $.getJSON(script_url+'/api/profile/showwallanswers/' + postId +'?lang='+script_lang, function (json) {
                     if (json.status !== 1) {
@@ -318,6 +388,37 @@ $this->breadcrumbs = [
                 if (false === result) {
                     $('#send-wall-object-'+answerToId).html('<p class="alert alert-warning"><?= __('Comment send was failed! Wait few moments') ?></p>');
                 }
+            });
+
+            // work with + and - rating clicks
+            $.fn.changeRating = function(type) {
+                // prevent some shits
+                if (is_self_profile || viewer_id == 0) {
+                    return false;
+                }
+
+                $.post(script_url+'/api/profile/changerating?lang='+script_lang, {type: type, target: target_id}, function(resp){
+                    if (resp.status === 1) {
+                        var rV = parseInt($('#ratingValue').text());
+                        if (type == '+') {
+                            $('#ratingValue').text(rV+1);
+                        } else {
+                            $('#ratingValue').text(rV-1);
+                        }
+                        alert('<?= __('Rating was successful changed') ?>');
+                    } else {
+                        alert('<?= __('Rating cannot be changed') ?>');
+                    }
+                    $('#addRating').addClass('disabled');
+                    $('#reduceRating').addClass('disabled');
+                }, 'json');
+            };
+
+            $('#addRating').on('click', function(){
+                $.fn.changeRating('+');
+            });
+            $('#reduceRating').on('click', function(){
+                $.fn.changeRating('-');
             });
         });
     });

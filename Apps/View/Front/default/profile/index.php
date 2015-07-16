@@ -1,13 +1,14 @@
 <?php
 
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
+use Ffcms\Core\Helper\String;
 use Ffcms\Core\Helper\Url;
 
 /** @var $add string|null */
 /** @var $this object */
 /** @var $records object */
 /** @var $pagination object */
+/** @var $ratingOn int */
 
 $this->title = __('User list');
 
@@ -29,7 +30,7 @@ $this->breadcrumbs = [
 ?>
 
 <h1><?= $this->title ?></h1>
-<?= $this->show('profile/_listTab') ?>
+<?= $this->show('profile/_listTab', ['rating' => $ratingOn]) ?>
 
 <?php
     if ($records === null || $records->count() < 1) {
@@ -45,7 +46,7 @@ $this->breadcrumbs = [
         </div>
         <div class="col-md-8">
             <h3>
-                <?= Url::link(['profile/show', $profile->user_id], $profile->nick === null ? __('No name') : $profile->nick) ?>
+                <?= Url::link(['profile/show', $profile->user_id], String::likeEmpty($profile->nick) ? __('No name') : $profile->nick) ?>
             </h3>
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>
         </div>

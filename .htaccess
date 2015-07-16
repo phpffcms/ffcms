@@ -9,7 +9,7 @@ RewriteRule ^.htaccess$ - [F]
 RewriteRule ^vendor/ - [L,NC]
 RewriteRule ^upload/ - [L,NC]
 RewriteRule ^Apps/View/ - [L,NC]
-RewriteRule ^(.*).php - [L,NC]
+RewriteRule ^(.*)\.php - [L,NC] # allow direct access to php scripts anywhere
 # admin interface
 RewriteRule ^admin/(.*)$ Loader/Admin/$1 [L]
 # API interface

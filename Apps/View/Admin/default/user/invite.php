@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model Apps\Model\Admin\SendInviteForm */
+/** @var $model Apps\Model\Admin\User\FormInviteSend */
 /** @var $this object */
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
@@ -20,7 +20,7 @@ $this->breadcrumbs = [
     <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
-<?= $form->field('email', 'inputEmail', ['class' => 'form-control'], __('Specify user email')) ?>
+<?= $form->field('email', 'email', ['class' => 'form-control'], __('Specify user email')) ?>
 
     <div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Send'), ['class' => 'btn btn-primary']) ?></div>
 

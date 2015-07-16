@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Front\Profile;
 
+use Apps\ActiveRecord\Blacklist;
 use Apps\ActiveRecord\WallPost as WallRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Interfaces\iUser;
@@ -24,7 +25,7 @@ class FormWallPost extends Model
         return [
             ['message', 'required'],
             ['message', 'length_min', 5],
-            ['message', 'length_max', static::MAX_MESSAGE_LENGTH]
+            ['message', 'length_max', self::MAX_MESSAGE_LENGTH]
         ];
     }
 
@@ -32,9 +33,10 @@ class FormWallPost extends Model
      * Make post to user wall from $viewer to $target instance of iUser interface objects
      * @param iUser $target
      * @param iUser $viewer
+     * @param int $delay
      * @return bool
      */
-    public function makePost(iUser $target, iUser $viewer)
+    public function makePost(iUser $target, iUser $viewer, $delay = 60)
     {
         if ($target === null || $viewer === null) {
             return false;

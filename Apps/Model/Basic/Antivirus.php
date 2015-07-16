@@ -107,7 +107,6 @@ class Antivirus
             $attrSever = $attr->getNamedItem('sever')->nodeValue;
 
             switch ($attrFormat) {
-
                 case 're':
                     if ((preg_match('#(' . $sigContent . ')#smi', $content, $found, PREG_OFFSET_CAPTURE)) ||
                         (preg_match('#(' . $sigContent . ')#smi', $normalized, $found, PREG_OFFSET_CAPTURE))
@@ -121,13 +120,12 @@ class Antivirus
                             'sever' => $attrSever,
                             'title' => $attrTitle
                         ];
-                        continue;
                     }
 
                     break;
                 case 'const':
-                    if ((($pos = strpos($content, $sigContent)) !== FALSE) ||
-                        (($pos = strpos($normalized, $sigContent)) !== FALSE)
+                    if ((($pos = strpos($content, $sigContent)) !== false) ||
+                        (($pos = strpos($normalized, $sigContent)) !== false)
                     ) {
                         $this->infected[$path][] = [
                             'pos' => (int)$pos,
@@ -137,7 +135,6 @@ class Antivirus
                             'title' => $attrTitle
                         ];
                         $detected = true;
-                        continue;
                     }
 
                     break;

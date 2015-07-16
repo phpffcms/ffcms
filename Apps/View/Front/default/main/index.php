@@ -71,8 +71,8 @@ $this->title = 'Welcome to web-site';
     <br/>
 
 <?php $form = new \Ffcms\Core\Helper\HTML\Form($model, ['class' => 'form-horizontal', 'method' => 'POST']); ?>
-<?= $form->field('name', 'inputText', ['class' => 'form-control'], __('Helper block for current param')); ?>
-<?= $form->field('email', 'inputEmail', ['class' => 'form-control'], __('Enter your email')); ?>
+<?= $form->field('name', 'text', ['class' => 'form-control'], __('Helper block for current param')); ?>
+<?= $form->field('email', 'email', ['class' => 'form-control'], __('Enter your email')); ?>
 <?= $form->field('role', 'select', ['class' => 'form-control', 'options' => ['admin', 'guest', 'user']]); ?>
 <?= $form->field('isJoined', 'checkbox'); ?>
 <?= $form->submitButton('Submit it', ['class' => 'btn btn-success']); ?>

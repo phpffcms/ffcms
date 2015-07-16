@@ -31,7 +31,8 @@ foreach ($records as $profile) {
         ['text' => $profile->nick],
         ['text' => String::startsWith('0000-', $profile->birthday) ? __('None') : Date::convertToDatetime($profile->birthday)],
         ['text' => ($profile->rating > 0 ? '+' : null) . $profile->rating],
-        ['text' => \App::$View->show('macro/crud_actions', ['controller' => 'profile', 'update' => true, 'id' => $profile->id, 'delete' => true]),
+        ['text' => Url::link(['profile/update', $profile->id], '<i class="fa fa-pencil fa-lg"></i> ') .
+            Url::link(['user/delete', $profile->User()->id], '<i class="fa fa-trash-o fa-lg"></i>'),
             'html' => true, 'property' => ['class' => 'text-center']]
     ];
 }

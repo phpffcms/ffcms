@@ -5,6 +5,7 @@ namespace Apps\Controller\Admin;
 use Apps\Model\Admin\Main\FormSettings;
 use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
+use Ffcms\Core\Helper\Integer;
 
 class Main extends AdminAppController
 {
@@ -61,5 +62,13 @@ class Main extends AdminAppController
     public function actionAntivirus()
     {
         $this->response = App::$View->render('antivirus');
+    }
+
+    public function actionDebugcookie()
+    {
+        $cookieProperty = App::$Property->get('debug');
+        //App::$Request->cookies->add([$cookieProperty['cookie']['key'] => $cookieProperty['cookie']['value']]); todo: fix me
+        setcookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], Integer::MAX, '/', null, null, true);
+        App::$Response->redirect('/');
     }
 }

@@ -27,11 +27,16 @@ foreach ($apps as $app) {
 
     $route = $app->sys_name . '/index';
     $actions = \App::$View->show('macro/app_actions', ['controller' => $app->sys_name]);
+    $icoStatus = null;
+    if ($app->disabled === 0) {
+        $icoStatus = ' <spal class="label label-success"><i class="fa fa-play"></i></span>';
+    } else {
+        $icoStatus = ' <span class="label label-danger"><i class="fa fa-pause"></i></span>';
+    }
+
     $appTableItems[] = [
-        ['text' => $app->id],
-        ['text' => ($app->disabled === 0 ? '<i class="fa fa-play"></i> ' : ' <i class="fa fa-pause"></i> ') .
-            Url::link([$route], $app->getLocaleName()), 'html' => true, 'property' => ['class' => $app->disabled === 0 ? 'alert-success' : 'alert-danger']],
-        ['text' => $app->disabled === 0 ? 'On' : 'Off'],
+        ['text' => $app->id . $icoStatus, 'html' => true, '!secure' => true],
+        ['text' => Url::link([$route], $app->getLocaleName()), 'html' => true],
         ['text' => '<a target="_blank" href="' . \App::$Alias->scriptUrl . '/' . String::lowerCase($route) . '">' . $route . '</a>', 'html' => true],
         ['text' => Date::convertToDatetime($app->updated_at, Date::FORMAT_TO_HOUR)],
         ['text' => $actions, 'property' => ['class' => 'text-center'], 'html' => true]
@@ -47,7 +52,6 @@ foreach ($apps as $app) {
         'titles' => [
             ['text' => '#'],
             ['text' => __('Application')],
-            ['text' => __('Status')],
             ['text' => __('User interface')],
             ['text' => __('Activity')],
             ['text' => __('Actions')]

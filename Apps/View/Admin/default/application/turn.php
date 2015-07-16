@@ -15,7 +15,7 @@ $this->breadcrumbs = [
 ];
 ?>
 
-<h1>Application turn on/off</h1>
+<h1><?= __('Application turn on/off') ?></h1>
 <hr />
 
 <?= Table::display([

@@ -49,11 +49,13 @@ $this->breadcrumbs = [
             <div id="messages-before"></div>
             <div id="messages-now"></div>
             <div id="messages-after"></div>
+            <div id="messages-blocked-user" class="hidden alert alert-danger"><?= __('This user are in your black list or you are in blacklist!') ?></div>
         </div>
         <div class="message-add-container hidden" style="padding-top: 10px;">
             <textarea class="form-control" id="msg-text" maxlength="1000" required></textarea>
             <a href="javascript:void(0);" class="btn btn-primary" id="send-new-message"><?= __('Send message') ?></a>
         </div>
+    </div>
 </div>
 
 <script>
@@ -83,12 +85,21 @@ $this->breadcrumbs = [
                             if (row.user_id == active_dialog_id) {
                                 itemClass += ' media-person-selected';
                             }
+                            if (row.user_block == true) {
+                                itemClass += ' media-person-blocked';
+                            }
                             userMap += '<div class="'+itemClass+'" id="msg-user-'+row.user_id+'" >'; // if current add class media-person-selected
                             userMap += '<div class="row">';
                             userMap += '<div class="col-md-12">';
                             userMap += '<img src="'+row.user_avatar+'" class="pull-left img-responsive img-circle" style="max-height: 50px;padding-right: 5px;" />';
                             userMap += '<div style="padding-top: 12px;">';
-                            userMap += '<span class="media-person-uname">'+row.user_nick+'</span>';
+                            userMap += '<span class="media-person-uname">';
+                            if (row.user_block == true) {
+                                userMap += '<s>'+row.user_nick+'</s>';
+                            } else {
+                                userMap += row.user_nick;
+                            }
+                            userMap += '</span>';
                             if (row.message_new === true) {
                                 userMap += ' <i class="fa fa-envelope"></i>';
                             }
@@ -138,6 +149,14 @@ $this->breadcrumbs = [
                 $.getJSON(msg_query, function(resp){
                     if (resp.status !== 1) {
                         return false;
+                    }
+
+                    if (resp.blocked == true) {
+                        $('#messages-blocked-user').removeClass('hidden');
+                        $('#send-new-message').addClass('disabled');
+                    } else {
+                        $('#send-new-message').removeClass('disabled');
+                        $('#messages-blocked-user').addClass('hidden');
                     }
 
                     var msgBody = '';
@@ -199,8 +218,10 @@ $this->breadcrumbs = [
                 $('.message-scroll-body').removeClass('hidden');
                 // set message streak title
                 var current_user = user_object[selected_dialog_id];
+                var profile_link = '<?= Url::to('profile/show') ?>';
                 $('#dialog-user-streak').html('<img src="'+current_user.user_avatar+'" class="pull-right img-responsive img-circle" style="max-height: 50px;" />'+
-                '<div class="pull-right" style="padding-top: 12px;padding-right: 5px;"><span class="media-person-uname">'+current_user.user_nick+'</span></div>');
+                '<div class="pull-right" style="padding-top: 12px;padding-right: 5px;">' +
+                '<a href="'+profile_link+'/'+current_user.user_id+'" target="_blank"><span class="media-person-uname">'+current_user.user_nick+'</span></a></div>');
                 // load 'now' dialog messages
                 $.fn.loadMessageDialog('now');
                 $('.message-add-container').removeClass('hidden');

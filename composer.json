@@ -19,6 +19,7 @@
     "php": ">=5.4",
     "phpffcms/ffcms-core": "dev-master",
     "phpffcms/ffcms-console": "dev-master",
+    "phpffcms/ffcms-ckeditor": "dev-master",
     "illuminate/database": "5.*",
     "symfony/http-foundation": "2.6.6",
     "maximebf/debugbar": "1.*",

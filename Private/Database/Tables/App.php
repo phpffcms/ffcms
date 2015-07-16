@@ -21,7 +21,14 @@ $configs->user = serialize([
     'captchaOnRegister' => 1
 ]);
 
-$configs->profile = serialize([]);
+$configs->profile = serialize([
+    'guestView' => 1,
+    'wallPostOnPage' => 5,
+    'delayBetweenPost' => 30,
+    'rating' => 1,
+    'ratingDelay' => 60 * 60 * 24,
+    'usersOnPage' => 10
+]);
 
 $names->user = serialize([
     'en' => 'User identity',
@@ -33,8 +40,24 @@ $names->profile = serialize([
     'ru' => 'Профили пользователей'
 ]);
 
+$names->content = serialize([
+    'en' => 'Content',
+    'ru' => 'Контент'
+]);
+
+$configs->content = serialize([
+    'itemPerCategory' => 10,
+    'userAdd' => 0,
+    'multiCategories' => 1,
+    'keywordsAsTags' => 1,
+    'galleryResize' => 150,
+    'rss' => 1,
+    'rssFull' => 0
+]);
+
 
 Illuminate\Database\Capsule\Manager::connection()->table('apps')->insert([
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'created_at' => $now, 'updated_at' => $now]
+    ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'created_at' => $now, 'updated_at' => $now]
 ]);

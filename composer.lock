@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70f79f98e9f554a7d418a7670aea314e",
+    "hash": "2cb51e59e7c6b6ca4693a364d9526473",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -322,7 +322,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/b0b2feffb47906a03b570777c07044c529d1d124",
                 "reference": "e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d",
                 "shasum": ""
             },
@@ -568,12 +568,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "112db26a92fcca35b9699743a738361bb7dfde3e"
+                "reference": "cfec9b4a49b0c4be1fb34d6ed948245ea36a1f32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/112db26a92fcca35b9699743a738361bb7dfde3e",
-                "reference": "112db26a92fcca35b9699743a738361bb7dfde3e",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/cfec9b4a49b0c4be1fb34d6ed948245ea36a1f32",
+                "reference": "cfec9b4a49b0c4be1fb34d6ed948245ea36a1f32",
                 "shasum": ""
             },
             "require": {
@@ -603,7 +603,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-06-04 16:52:35"
+            "time": "2015-06-13 00:40:15"
         },
         {
             "name": "illuminate/contracts",
@@ -611,12 +611,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "c086e4da4c2e4914e421b37f4ed4643abdc1d024"
+                "reference": "5db115793201700886f60c895f4024d34188deee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/c086e4da4c2e4914e421b37f4ed4643abdc1d024",
-                "reference": "c086e4da4c2e4914e421b37f4ed4643abdc1d024",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/5db115793201700886f60c895f4024d34188deee",
+                "reference": "5db115793201700886f60c895f4024d34188deee",
                 "shasum": ""
             },
             "require": {
@@ -645,7 +645,7 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-06-08 18:13:21"
+            "time": "2015-07-14 01:36:14"
         },
         {
             "name": "illuminate/database",
@@ -653,12 +653,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "d0c4e1726c3228438f3bb5071f4757d35ebd1de7"
+                "reference": "f75a43cc91fca617274d00ad3aa8c1fda46c25bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/18caa83b91407c6957aa7f3808c8e307ab55040d",
-                "reference": "d0c4e1726c3228438f3bb5071f4757d35ebd1de7",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/f75a43cc91fca617274d00ad3aa8c1fda46c25bd",
+                "reference": "f75a43cc91fca617274d00ad3aa8c1fda46c25bd",
                 "shasum": ""
             },
             "require": {
@@ -704,7 +704,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-06-10 20:17:12"
+            "time": "2015-07-11 13:40:37"
         },
         {
             "name": "illuminate/support",
@@ -712,12 +712,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "2d690ec790500bafdcd10f8db35e18b3a1cf957d"
+                "reference": "2db917fa627b529a5023367cca68731b1ce50f46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/ae1919aa7aff7c5f0c8634e4c1f758bc596fa3b6",
-                "reference": "2d690ec790500bafdcd10f8db35e18b3a1cf957d",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/2db917fa627b529a5023367cca68731b1ce50f46",
+                "reference": "2db917fa627b529a5023367cca68731b1ce50f46",
                 "shasum": ""
             },
             "require": {
@@ -757,7 +757,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-06-08 19:12:16"
+            "time": "2015-07-11 12:16:43"
         },
         {
             "name": "maximebf/debugbar",
@@ -769,7 +769,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/e5d9c677175d147b72a05087b916dfd103e1df74",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/ab12b6f57dd33b1fffa875046fd17c34d88388b9",
                 "reference": "0d1fcdd087843cf1eba9927295254bc707eab7dc",
                 "shasum": ""
             },
@@ -863,6 +863,50 @@
             "time": "2015-05-09 03:23:44"
         },
         {
+            "name": "phpffcms/ffcms-ckeditor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpffcms/ffcms-ckeditor.git",
+                "reference": "8f43683bb1fab5e2718ba75ca2b3bb08ade0473c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/8f43683bb1fab5e2718ba75ca2b3bb08ade0473c",
+                "reference": "8f43683bb1fab5e2718ba75ca2b3bb08ade0473c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ffcms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pyatinskyi M.M.",
+                    "email": "zenn1989@gmail.com",
+                    "homepage": "http://ffcms.ru"
+                }
+            ],
+            "description": "Ckeditor build for FFCMS 3 package",
+            "homepage": "http://ffcms.org",
+            "keywords": [
+                "css",
+                "html",
+                "php",
+                "wysiwyg"
+            ],
+            "time": "2015-07-14 18:21:10"
+        },
+        {
             "name": "phpffcms/ffcms-console",
             "version": "dev-master",
             "source": {
@@ -916,7 +960,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/24c2a6f34322bb6e4e67f59e0e4cc5e6d007d5fb",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/5c2adfa29cd163fab199b7204ed7167ad49c1dd3",
                 "reference": "b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1",
                 "shasum": ""
             },
@@ -1146,7 +1190,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/95f9b028555f55b78b465a2488f1a38442acc412",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/f58e63092a312d76beebc633e4a6c63b3e63be5b",
                 "reference": "a0735db452c5e592cb742333a32c6634a6d1ece1",
                 "shasum": ""
             },
@@ -1207,7 +1251,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/2b0fab44308c0c5c6b4f28f114332a82263a6d01",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/35d27bf5a71abd8f57f15ac4101492494ee0fb11",
                 "reference": "5b0473622df3e313509b8771356eefa8b29bdc74",
                 "shasum": ""
             },
@@ -1263,6 +1307,7 @@
     "stability-flags": {
         "phpffcms/ffcms-core": 20,
         "phpffcms/ffcms-console": 20,
+        "phpffcms/ffcms-ckeditor": 20,
         "bower-asset/jquery-validation": 0,
         "bower-asset/jquery-ui": 0,
         "bower-asset/components-font-awesome": 0

@@ -9,7 +9,7 @@ use Apps\Model\Admin\User\FormUserGroupUpdate;
 use Apps\Model\Admin\User\FormUserSettings;
 use Apps\Model\Admin\User\FormUserUpdate;
 use Extend\Core\Arch\AdminAppController;
-use Apps\Model\Basic\User as UserRecords;
+use Apps\ActiveRecord\User as UserRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
@@ -50,7 +50,7 @@ class User extends AdminAppController
     // edit user profiles
     public function actionUpdate($id)
     {
-        $user = \Apps\Model\Basic\User::findOrNew($id);
+        $user = UserRecords::findOrNew($id);
 
         // find user identify object
         //$user = App::$User->identity($id);

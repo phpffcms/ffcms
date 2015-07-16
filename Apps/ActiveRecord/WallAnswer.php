@@ -2,7 +2,6 @@
 
 namespace Apps\ActiveRecord;
 
-use Apps\Model\Basic\User;
 use Ffcms\Core\Arch\ActiveModel;
 
 class WallAnswer extends ActiveModel

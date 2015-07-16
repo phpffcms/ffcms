@@ -14,7 +14,7 @@ class Main
     // php console.php main/index
     public function actionIndex($id = null)
     {
-        return 'Hello, console! Id: ' . $id;
+        return 'Hello, console! ' . $id;
     }
 
     public function actionHelp()
@@ -64,6 +64,7 @@ class Main
         $permissions = [
             'global/write',
             'global/modify',
+            'global/file',
             'global/all'
         ];
 

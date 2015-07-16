@@ -7,7 +7,7 @@ if (!defined('root')) {
     exit('Root path is not defined');
 }
 
-// load ffcms-core
+// load composer packages
 $loader = require root . '/vendor/autoload.php';
 // load app's model's
 $loader->add('Apps\\Model\\', root);
@@ -15,6 +15,8 @@ $loader->add('Apps\\Model\\', root);
 $loader->add('Apps\\ActiveRecord\\', root);
 // load core extending
 $loader->add('Extend\\Core\\', root);
+// load widgets
+$loader->add('Widgets\\', root);
 
 
 /**

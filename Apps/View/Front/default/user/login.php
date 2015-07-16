@@ -1,7 +1,7 @@
 <?php
 /** @var $useCaptcha bool */
 /** @var $notify array */
-/** @var $model \Apps\Model\Front\LoginForm */
+/** @var $model \Apps\Model\Front\User\FormLogin */
 
 /** @var $this \Ffcms\Core\Arch\View */
 $this->title = __('Log In');
@@ -13,8 +13,8 @@ $this->title = __('Log In');
 
 <?php $form = new \Ffcms\Core\Helper\HTML\Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
-<?= $form->field('login', 'inputText', ['class' => 'form-control'], __('Input you login or email')); ?>
-<?= $form->field('password', 'inputPassword', ['class' => 'form-control'], __('Input you password')); ?>
+<?= $form->field('login', 'text', ['class' => 'form-control'], __('Input you login or email')); ?>
+<?= $form->field('password', 'password', ['class' => 'form-control'], __('Input you password')); ?>
 
 <?php
 if (true === $useCaptcha) {

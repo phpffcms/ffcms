@@ -65,7 +65,12 @@ class FormLogin extends Model
             });
 
         if ($search->count() === 1) {
-            return $this->openSession($search->first());
+            $object = $search->first();
+            // check if accounts is approved
+            if ($object->approve_token !== '0' && String::length($object->approve_token) > 0) {
+                return false;
+            }
+            return $this->openSession($object);
         }
 
         return false;
@@ -82,7 +87,7 @@ class FormLogin extends Model
             return false;
         }
 
-        $token = String::randomLatin(rand(128, 255));
+        $token = String::randomLatin(mt_rand(128, 255));
 
         // write session data
         App::$Session->set('ff_user_id', $userObject->id);

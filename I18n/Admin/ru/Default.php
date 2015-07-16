@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Lang' => 'Язык',
     'FFCMS 3 Dashboard' => 'Панель управления FFCMS 3',
     'Field "%field%" is incorrect' => 'Поле "%field%" заполнено не верно!',
     'Main' => 'Главная',

@@ -37,6 +37,9 @@ class Gregwar implements iCaptcha
     public static function validate($data = null)
     {
         $captchaValue = App::$Session->get('captcha');
+        // unset session value to prevent duplication. Security fix.
+        App::$Session->remove('captcha');
+        // check if session has value
         if ($captchaValue === null || String::length($captchaValue) < 1) {
             return false;
         }

@@ -3,7 +3,7 @@ use Ffcms\Core\Helper\Object;
 
 /** @var $notify array */
 /** @var $useCaptcha bool */
-/** @var $model \Apps\Model\Front\RegisterForm */
+/** @var $model \Apps\Model\Front\User\FormRegister */
 /** @var $this \Ffcms\Core\Arch\View */
 $this->title = __('Sign up');
 ?>
@@ -27,10 +27,10 @@ if (Object::isArray($model->getWrongFields()) && count($model->getWrongFields())
 <?php $form = new \Ffcms\Core\Helper\HTML\Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
 <?php
-echo $form->field('login', 'inputText', ['class' => 'form-control'], __('Enter your username for future use on the site'));
-echo $form->field('email', 'inputText', ['class' => 'form-control'], __('Enter your e-mail for an account'));
-echo $form->field('password', 'inputPassword', ['class' => 'form-control'], __('Enter a password for your account. It should be longer than 3 characters'));
-echo $form->field('repassword', 'inputPassword', ['class' => 'form-control'], __('Repeat your password to be sure it correct'));
+echo $form->field('login', 'text', ['class' => 'form-control'], __('Enter your username for future use on the site'));
+echo $form->field('email', 'text', ['class' => 'form-control'], __('Enter your e-mail for an account'));
+echo $form->field('password', 'password', ['class' => 'form-control'], __('Enter a password for your account. It should be longer than 3 characters'));
+echo $form->field('repassword', 'password', ['class' => 'form-control'], __('Repeat your password to be sure it correct'));
 if (true === $useCaptcha) {
     if (\App::$Captcha->isFull()) {
         echo '<div class="col-md-offset-3 col-md-9">' . \App::$Captcha->get() . '</div>';

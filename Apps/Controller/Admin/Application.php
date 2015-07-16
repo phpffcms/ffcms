@@ -33,7 +33,7 @@ class Application extends AdminAppController
 
         if ($model->send()) {
             $model->updateApp($search);
-            App::$Session->getFlashBag()->add('success', 'Application status was changed');
+            App::$Session->getFlashBag()->add('success', __('Application status was changed'));
         }
 
         $this->response = App::$View->render('turn', [

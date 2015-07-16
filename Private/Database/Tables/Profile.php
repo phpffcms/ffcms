@@ -5,7 +5,7 @@ Illuminate\Database\Capsule\Manager::schema()->create('profiles', function($tabl
     $table->integer('user_id')->unsigned()->unique();
     $table->string('nick')->nullable();
     $table->tinyInteger('sex')->default(0);
-    $table->timestamp('birthday');
+    $table->date('birthday')->nullable();
     $table->string('city')->nullable();
     $table->string('hobby')->nullable();
     $table->integer('rating')->default(0);

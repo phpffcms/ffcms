@@ -23,6 +23,8 @@ use Ffcms\Core\Helper\Url;
     } ?>
     <script>
         window.jQ = [];
+        var script_url = '<?= \App::$Alias->scriptUrl ?>';
+        var script_lang = '<?= \App::$Request->getLanguage() ?>';
     </script>
 </head>
 <body>
@@ -218,10 +220,11 @@ use Ffcms\Core\Helper\Url;
     <!-- /#page-wrapper -->
 
 </div>
-<script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
-<script src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
-<script src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/js/metisMenu.min.js"></script>
-<script src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/js/sb-admin-2.js"></script>
+<script src="<?= \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
+<script src="<?= \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
+<script src="<?= \App::$Alias->currentViewUrl; ?>/assets/js/plugins/metisMenu.min.js"></script>
+<script src="<?= \App::$Alias->currentViewUrl; ?>/assets/js/sb-admin-2.js"></script>
+<script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/ffcms.js"></script>
 <?php echo \App::$View->showCodeLink('js'); ?>
 <script>
     $.each(window.jQ, function(index, fn) {

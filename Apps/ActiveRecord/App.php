@@ -5,6 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\Serialize;
 
 class App extends ActiveModel
 {
@@ -28,6 +29,24 @@ class App extends ActiveModel
         }
 
         return $object;
+    }
+
+    /**
+     * Get application configs
+     * @param string $type
+     * @param string $name
+     * @return array|null|string
+     * @throws SyntaxException
+     */
+    public static function getConfigs($type, $name)
+    {
+        foreach (self::getAll() as $row) {
+            if ($row->type === $type && $row->sys_name === $name) {
+                return Serialize::decode($row->configs);
+            }
+        }
+
+        return null;
     }
 
     /**

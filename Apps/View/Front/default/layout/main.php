@@ -32,7 +32,7 @@ use Ffcms\Core\Helper\Object;
 
         $accountPanel = [];
         if (\App::$User->isAuth()) {
-            $userId = \App::$User->identity()->getID();
+            $userId = \App::$User->identity()->getId();
             $accountPanel = [
                 ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => '<i class="fa fa-user"></i> ' . __('Profile'), 'html' => true],
                 ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
@@ -119,28 +119,29 @@ use Ffcms\Core\Helper\Object;
                 <?php endforeach; ?>
             </ol>
             <?php endif; ?>
-            <article>
-                <?php
-                    if ($body != null) {
-                        // display notify if not used in views
-                        $notify = \App::$Session->getFlashBag()->all();
-                        if (Object::isArray($notify) && count($notify) > 0) {
-                            echo \App::$View->show('macro/notify', ['notify' => $notify]);
-                        }
+            <?php
+            if ($body != null) {
+                // display notify if not used in views
+                $notify = \App::$Session->getFlashBag()->all();
+                if (Object::isArray($notify) && count($notify) > 0) {
+                    echo \App::$View->show('macro/notify', ['notify' => $notify]);
+                }
 
-                        echo $body;
-                    } else {
-                        \App::$Response->setStatusCode(404);
-                        echo '<p>' . __('Page is not founded!') . '</p>';
-                    }
-                ?>
-            </article>
+                echo $body;
+            } else {
+                \App::$Response->setStatusCode(404);
+                echo '<p>' . __('Page is not founded!') . '</p>';
+            }
+            ?>
         </div>
         <div class="col-md-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">Title</div>
                 <div class="panel-body">
-                    Some block body
+                    Some block body <br />
+                    <?php
+                    echo Ffcms\Widgets\Ckeditor\Widget::widget();
+                    ?>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model Apps\Model\Admin\UserGroupUpdateForm */
+/** @var $model Apps\Model\Admin\User\FormUserGroupUpdate */
 /** @var $this object */
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
@@ -20,7 +20,7 @@ $this->breadcrumbs = [
     <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
-<?= $form->field('name', 'inputText', ['class' => 'form-control'], __('Set the name of the group')) ?>
+<?= $form->field('name', 'text', ['class' => 'form-control'], __('Set the name of the group')) ?>
 <?= $form->field('permissions', 'checkboxes', ['options' => $model->getAllPermissions()]) ?>
 
 <div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?></div>

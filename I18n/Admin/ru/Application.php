@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Application turn on/off' => 'Смена состояния приложения',
     'List of applications' => 'Список приложений',
     'Turn on/off' => 'Включить/Выключить',
     'Status' => 'Статус',
@@ -12,5 +13,6 @@ return [
     'Switch' => 'Переключить',
     'Name' => 'Название',
     'System name' => 'Системное имя',
-    'Last update' => 'Последнее обновление'
+    'Last update' => 'Последнее обновление',
+    'Application status was changed' => 'Состояние приложения изменено'
 ];

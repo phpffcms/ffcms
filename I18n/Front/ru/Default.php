@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'Lang' => 'Язык',
     'Page is not founded!' => 'Страница не найдена!',
     'Field "%field%" is incorrect' => 'Поле "%field%" заполнено не верно!',
     'Unable to find this URL' => 'Данная страница не найдена на сайте',
@@ -19,5 +20,7 @@ return [
     'Profile' => 'Профиль',
     'Messages' => 'Сообщения',
     'Logout' => 'Выйти',
-    'Send' => 'Отправить'
+    'Send' => 'Отправить',
+    'Contents' => 'Материалы',
+    'Content' => 'Материал'
 ];

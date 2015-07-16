@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model Apps\Model\Admin\UserDeleteForm */
+/** @var $model Apps\Model\Admin\User\FormUserDelete */
 /** @var $this object */
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
@@ -22,8 +22,8 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
-<?= $form->field('email', 'inputText', ['class' => 'form-control', 'disabled' => null]) ?>
-<?= $form->field('login', 'inputText', ['class' => 'form-control', 'disabled' => null]) ?>
+<?= $form->field('email', 'text', ['class' => 'form-control', 'disabled' => null]) ?>
+<?= $form->field('login', 'text', ['class' => 'form-control', 'disabled' => null]) ?>
 
 <div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Delete'), ['class' => 'btn btn-danger']) ?></div>
 

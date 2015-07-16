@@ -1,6 +1,6 @@
 <?php
 
-/** @var $model Apps\Model\Admin\UserUpdateForm */
+/** @var $model Apps\Model\Admin\User\FormUserUpdate */
 /** @var $this object */
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
@@ -20,9 +20,9 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
-<?= $form->field('email', 'inputEmail', ['class' => 'form-control'], __('Specify user email')) ?>
-<?= $form->field('login', 'inputText', ['class' => 'form-control'], __('Specify user login')) ?>
-<?= $form->field('newpassword', 'inputText', ['class' => 'form-control'], __('Specify new user password if you want to change it! Less empty field to save current')) ?>
+<?= $form->field('email', 'email', ['class' => 'form-control'], __('Specify user email')) ?>
+<?= $form->field('login', 'text', ['class' => 'form-control'], __('Specify user login')) ?>
+<?= $form->field('newpassword', 'text', ['class' => 'form-control'], __('Specify new user password if you want to change it! Less empty field to save current')) ?>
 <?= $form->field('role_id', 'select', ['class' => 'form-control', 'options' => $model->getRoleList(), 'optionsKey' => true]) ?>
 <?= $form->field('approve_token', 'checkbox', null, __('Set if user is approved or not')) ?>
 

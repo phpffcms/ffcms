@@ -3,11 +3,15 @@
 namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\Invite;
+use Apps\ActiveRecord\UserRecovery;
+use Apps\Model\Front\User\FormRecovery;
 use Apps\Model\Front\User\FormRegister;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Helper\Object;
 use Ffcms\Core\Helper\String;
 
 /**
@@ -103,6 +107,70 @@ class User extends FrontAppController
             'model' => $registerForm->export(),
             'config' => $configs,
             'useCaptcha' => $configs['captchaOnRegister'] === 1
+        ]);
+    }
+
+    /**
+     * Recovery form and recovery submit action
+     * @param int|null $id
+     * @param string|null $token
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
+    public function actionRecovery($id = null, $token = null)
+    {
+        if (App::$User->isAuth()) { // always auth? prevent any actions
+            throw new ForbiddenException();
+        }
+
+        // is recovery submit?
+        if (Object::isLikeInt($id) && String::length($token) >= 64) {
+            $rObject = UserRecovery::where('id', '=', $id)
+                ->where('token', '=', $token)
+                ->where('archive', '=', false);
+            // check if recovery row exist
+            if ($rObject->count() !== 1) {
+                throw new NotFoundException('This recovery data is not found');
+            }
+
+            $rData = $rObject->first();
+            // check if user with this "user_id" in recovery row exist
+            $rUser = App::$User->identity($rData->user_id);
+            if ($rUser === null) {
+                throw new NotFoundException('User is not found');
+            }
+
+            // all is ok, lets set new pwd
+            $rUser->password = $rData->password;
+            $rUser->save();
+
+            $rData->archive = true;
+            $rData->save();
+
+            // add notification
+            App::$Session->getFlashBag()->add('success', __('Your account are successful recovered. We recommend you change password'));
+
+            // lets open user session with recovered data
+            $loginModel = new FormLogin();
+            $loginModel->openSession($rUser);
+            App::$Response->redirect('/'); // session is opened, refresh page
+        }
+
+        // lets work with recovery form data
+        $model = new FormRecovery();
+        if ($model->send()) {
+            if ($model->validate()) {
+                $model->make();
+                App::$Session->getFlashBag()->add('success', __('We send to you email with instruction to recovery your account'));
+            } else {
+                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
+            }
+        }
+
+        // render visual form content
+        $this->response = App::$View->render('recovery', [
+            'model' => $model
         ]);
     }
 

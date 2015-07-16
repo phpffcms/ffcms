@@ -2,7 +2,9 @@
 
 namespace Apps\Controller\Api;
 
+use Apps\ActiveRecord\Blacklist;
 use Apps\ActiveRecord\Message;
+use Apps\ActiveRecord\ProfileRating;
 use Apps\ActiveRecord\WallAnswer;
 use Apps\ActiveRecord\WallPost;
 use Extend\Core\Arch\ApiController;
@@ -116,16 +118,26 @@ class Profile extends ApiController
             throw new JsonException('Wrong input data');
         }
 
+        $viewer = App::$User->identity();
+
         // get message from post and validate minlength
         $message = App::$Request->get('message');
+        $message = App::$Security->strip_tags($message);
         if (!Object::isString($message) || String::length($message) < 3) {
             throw new JsonException('Wrong input data');
         }
 
         // try to find this post
-        $wallCount = WallPost::where('id', '=', $postId)->count();
-        if ($wallCount < 1) {
+        $wallPost = WallPost::where('id', '=', $postId);
+        if ($wallPost->count() < 1) {
             throw new JsonException('Wrong input data');
+        }
+
+        $wallRow = $wallPost->first();
+        $target_id = $wallRow->target_id;
+        // check if in blacklist
+        if (!Blacklist::check($viewer->id, $target_id)) {
+            throw new JsonException('User is blocked!');
         }
 
         // check delay between user last post and current
@@ -133,8 +145,9 @@ class Profile extends ApiController
         if (null !== $lastAnswer && false !== $lastAnswer) {
             $now = time();
             $answerTime = Date::convertToTimestamp($lastAnswer->created_at);
+            $cfgs = \Apps\ActiveRecord\App::getConfigs('app', 'Profile');
             // hmm, maybe past less then delay required?
-            if ($now - self::ANSWER_DELAY < $answerTime) {
+            if ($now - (int)$cfgs['delayBetweenPost'] < $answerTime) {
                 throw new JsonException('Delay between answers not pass');
             }
         }
@@ -143,7 +156,7 @@ class Profile extends ApiController
         $answers = new WallAnswer();
         $answers->post_id = $postId;
         $answers->user_id = App::$User->identity()->getId();
-        $answers->message = App::$Security->strip_tags($message);
+        $answers->message = $message;
         $answers->save();
 
         // send "ok" response
@@ -262,7 +275,8 @@ class Profile extends ApiController
                 'user_nick' => $identity->getProfile()->nick === null ? App::$Translate->get('Profile', 'No name') :
                     App::$Security->strip_tags($identity->getProfile()->nick),
                 'user_avatar' => $identity->getProfile()->getAvatarUrl('small'),
-                'message_new' => Arr::in($user_id, $unreadList)
+                'message_new' => Arr::in($user_id, $unreadList),
+                'user_block' => !Blacklist::check($user->id, $identity->id)
             ];
         }
 
@@ -387,7 +401,11 @@ class Profile extends ApiController
             }
         }
 
-        $this->response = json_encode(['status' => 1, 'data' => array_reverse($response)]);
+        $this->response = json_encode([
+            'status' => 1,
+            'data' => array_reverse($response),
+            'blocked' => !Blacklist::check($user->id, $cor_id)
+        ]);
     }
 
     /**
@@ -402,6 +420,13 @@ class Profile extends ApiController
             throw new JsonException('Auth required');
         }
 
+        // get current user object
+        $user = App::$User->identity();
+
+        if (!Blacklist::check($user->id, $target_id)) {
+            throw new JsonException('In blacklist');
+        }
+
         // check input params
         $msg = App::$Security->strip_tags(App::$Request->get('message'));
         if (!Object::isLikeInt($target_id) || $target_id < 1 || String::length($msg) < 1) {
@@ -409,8 +434,6 @@ class Profile extends ApiController
         }
 
         $this->setJsonHeader();
-        // get current user object
-        $user = App::$User->identity();
 
         // try to save message
         $message = new Message();
@@ -420,5 +443,72 @@ class Profile extends ApiController
         $message->save();
 
         $this->response = json_encode(['status' => 1]);
+    }
+
+    public function actionChangerating()
+    {
+        if (!App::$User->isAuth()) {
+            throw new JsonException('Auth required');
+        }
+
+        $this->setJsonHeader();
+
+        // get operation type and target user id
+        $target_id = (int)App::$Request->get('target');
+        $type = App::$Request->get('type');
+
+        // check type of query
+        if ($type !== '+' && $type !== '-') {
+            throw new JsonException('Wrong data');
+        }
+
+        // check if passed user id is exist
+        if (!Object::isLikeInt($target_id) || $target_id < 1 || !App::$User->isExist($target_id)) {
+            throw new JsonException('Wrong user info');
+        }
+
+        $cfg = \Apps\ActiveRecord\App::getConfigs('app', 'Profile');
+        // check if rating is enabled for website
+        if ((int)$cfg['rating'] !== 1) {
+            throw new JsonException('Rating is disabled');
+        }
+
+        // get target and sender objects
+        $target = App::$User->identity($target_id);
+        $sender = App::$User->identity();
+
+        // disable self-based changes ;)
+        if ($target->getId() === $sender->getId()) {
+            throw new JsonException('Self change prevented');
+        }
+
+        // check delay
+        $diff = Date::convertToTimestamp(time() - $cfg['ratingDelay'], Date::FORMAT_SQL_TIMESTAMP);
+
+        $query = ProfileRating::where('target_id', '=', $target->getId())
+            ->where('sender_id', '=', $sender->getId())
+            ->where('created_at', '>=', $diff)
+            ->orderBy('id', 'DESC');
+        if ($query !== null && $query->count() > 0) {
+            throw new JsonException('Delay required');
+        }
+
+        // delay is ok, lets insert a row
+        $record = new ProfileRating();
+        $record->target_id = $target->getId();
+        $record->sender_id = $sender->getId();
+        $record->type = $type;
+        $record->save();
+
+        // update target profile
+        $profile = $target->getProfile();
+        if ($type === '+') {
+            $profile->rating += 1;
+        } else {
+            $profile->rating -= 1;
+        }
+        $profile->save();
+
+        $this->response = json_encode(['status' => 1, 'data' => 'ok']);
     }
 }

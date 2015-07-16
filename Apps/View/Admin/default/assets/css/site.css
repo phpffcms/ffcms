@@ -93,3 +93,9 @@ a.desc:after {
 label.error {
     color: #a94442;
 }
+
+.nav-locale-block {
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+}

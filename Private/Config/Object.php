@@ -27,7 +27,7 @@ return [
         ],
         new NativeFileSessionHandler(root . '/Private/Sessions')
     )),
-    'User' => new Apps\Model\Basic\User(),
+    'User' => new Apps\ActiveRecord\User(),
     'Database' => $capsule,
     'Mailer' => Swift_Mailer::newInstance($swiftTransport),
     'Captcha' => new Extend\Core\Captcha\Gregwar()

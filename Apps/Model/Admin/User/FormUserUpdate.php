@@ -103,7 +103,7 @@ class FormUserUpdate extends Model
                     $this->_user->approve_token = '0';
                 } else {
                     if ($this->_approve_tmp === '0') {
-                        $this->_approve_tmp = String::randomLatinNumeric(rand(32, 128));
+                        $this->_approve_tmp = String::randomLatinNumeric(mt_rand(32, 128));
                     }
                     $this->_user->approve_token = $this->_approve_tmp;
                 }

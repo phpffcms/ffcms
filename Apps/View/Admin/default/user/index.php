@@ -30,7 +30,8 @@ $this->breadcrumbs = [
             ['text' => $user->login],
             ['text' => $user->getRole()->name],
             ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
-            ['text' => \App::$View->show('macro/crud_actions', ['controller' => 'user', 'update' => true, 'id' => $user->id, 'delete' => true]),
+            ['text' => Url::link(['user/update', $user->id], '<i class="fa fa-pencil fa-lg"></i>') .
+                Url::link(['user/delete', $user->id], ' <i class="fa fa-trash-o fa-lg"></i>'),
                 'html' => true, 'property' => ['class' => 'text-center']]
         ];
     }
