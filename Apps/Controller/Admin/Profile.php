@@ -12,7 +12,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 
 class Profile extends AdminAppController
 {

@@ -4,20 +4,221 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2cb51e59e7c6b6ca4693a364d9526473",
+    "hash": "ea9dfd69b8e5232e1701e8835f4b3362",
     "packages": [
         {
-            "name": "bower-asset/bootstrap",
-            "version": "v3.3.4",
+            "name": "bower-asset/blueimp-canvas-to-blob",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f"
+                "url": "https://github.com/blueimp/JavaScript-Canvas-to-Blob.git",
+                "reference": "c5101864d275b3403eceb66c771166549d49cfb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f",
-                "reference": "a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f",
+                "url": "https://api.github.com/repos/blueimp/JavaScript-Canvas-to-Blob/zipball/c5101864d275b3403eceb66c771166549d49cfb4",
+                "reference": "c5101864d275b3403eceb66c771166549d49cfb4",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "js/canvas-to-blob.js",
+                "bower-asset-ignore": [
+                    "/*.*",
+                    "test"
+                ],
+                "branch-alias": {
+                    "dev-master": "2.1.2-dev"
+                }
+            },
+            "description": "JavaScript Canvas to Blob is a function to convert canvas elements into Blob objects.",
+            "keywords": [
+                "blob",
+                "canvas",
+                "conversion",
+                "convert",
+                "javascript"
+            ],
+            "time": "2015-04-24 10:13:51"
+        },
+        {
+            "name": "bower-asset/blueimp-file-upload",
+            "version": "9.10.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blueimp/jQuery-File-Upload.git",
+                "reference": "f94f744a3d07d45e571151f09975edc2d9c6339f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/f94f744a3d07d45e571151f09975edc2d9c6339f",
+                "reference": "f94f744a3d07d45e571151f09975edc2d9c6339f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/blueimp-canvas-to-blob": ">=2.1.1",
+                "bower-asset/blueimp-load-image": ">=1.13.0",
+                "bower-asset/blueimp-tmpl": ">=2.5.4",
+                "bower-asset/jquery": ">=1.6"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "css/jquery.fileupload.css",
+                    "css/jquery.fileupload-ui.css",
+                    "css/jquery.fileupload-noscript.css",
+                    "css/jquery.fileupload-ui-noscript.css",
+                    "js/cors/jquery.postmessage-transport.js",
+                    "js/cors/jquery.xdr-transport.js",
+                    "js/vendor/jquery.ui.widget.js",
+                    "js/jquery.fileupload.js",
+                    "js/jquery.fileupload-process.js",
+                    "js/jquery.fileupload-validate.js",
+                    "js/jquery.fileupload-image.js",
+                    "js/jquery.fileupload-audio.js",
+                    "js/jquery.fileupload-video.js",
+                    "js/jquery.fileupload-ui.js",
+                    "js/jquery.fileupload-jquery-ui.js",
+                    "js/jquery.fileupload-angular.js",
+                    "js/jquery.iframe-transport.js"
+                ],
+                "bower-asset-ignore": [
+                    "/*.*",
+                    "/cors",
+                    "css/demo-ie8.css",
+                    "css/demo.css",
+                    "css/style.css",
+                    "js/app.js",
+                    "js/main.js",
+                    "server",
+                    "test"
+                ]
+            },
+            "description": "File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads. Works with any server-side platform (Google App Engine, PHP, Python, Ruby on Rails, Java, etc.) that supports standard HTML form file uploads.",
+            "keywords": [
+                "bootstrap",
+                "chunk",
+                "cross-domain",
+                "cross-site",
+                "drag",
+                "drop",
+                "file",
+                "gae",
+                "go",
+                "jquery",
+                "multiple",
+                "php",
+                "preview",
+                "progress",
+                "python",
+                "resume",
+                "selection",
+                "upload",
+                "widget"
+            ]
+        },
+        {
+            "name": "bower-asset/blueimp-load-image",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blueimp/JavaScript-Load-Image.git",
+                "reference": "3ddac4fd7e69fa2651bc37658e4fe6c826af5157"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blueimp/JavaScript-Load-Image/zipball/3ddac4fd7e69fa2651bc37658e4fe6c826af5157",
+                "reference": "3ddac4fd7e69fa2651bc37658e4fe6c826af5157",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "js/load-image.js",
+                    "js/load-image-ios.js",
+                    "js/load-image-orientation.js",
+                    "js/load-image-meta.js",
+                    "js/load-image-exif.js",
+                    "js/load-image-exif-map.js"
+                ],
+                "bower-asset-ignore": [
+                    "/*.*",
+                    "css",
+                    "js/vendor",
+                    "js/demo.js",
+                    "test"
+                ],
+                "branch-alias": {
+                    "dev-master": "1.13.0-dev"
+                }
+            },
+            "description": "JavaScript Load Image is a library to load images provided as File or Blob objects or via URL. It returns an optionally scaled and/or cropped HTML img or canvas element. It also provides a method to parse image meta data to extract Exif tags and thumbnails and to restore the complete image header after resizing.",
+            "keywords": [
+                "blob",
+                "canvas",
+                "crop",
+                "exif",
+                "file",
+                "image",
+                "img",
+                "javascript",
+                "load",
+                "loading",
+                "meta",
+                "resizing",
+                "scale",
+                "thumbnail",
+                "url"
+            ],
+            "time": "2014-09-14 21:21:32"
+        },
+        {
+            "name": "bower-asset/blueimp-tmpl",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blueimp/JavaScript-Templates.git",
+                "reference": "587fd7c683e5df40597a19bf162abd8081abdcb4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blueimp/JavaScript-Templates/zipball/587fd7c683e5df40597a19bf162abd8081abdcb4",
+                "reference": "587fd7c683e5df40597a19bf162abd8081abdcb4",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "js/tmpl.js",
+                "bower-asset-ignore": [
+                    "/*.*",
+                    "css",
+                    "js/demo.js",
+                    "test"
+                ],
+                "branch-alias": {
+                    "dev-master": "2.5.4-dev"
+                }
+            },
+            "description": "< 1KB lightweight, fast & powerful JavaScript templating engine with zero dependencies. Compatible with server-side environments like node.js, module loaders like RequireJS and all web browsers.",
+            "keywords": [
+                "javascript",
+                "templates",
+                "templating"
+            ],
+            "time": "2014-09-14 21:58:41"
+        },
+        {
+            "name": "bower-asset/bootstrap",
+            "version": "v3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16b48259a62f576e52c903c476bd42b90ab22482",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482",
                 "shasum": ""
             },
             "require": {
@@ -27,13 +228,7 @@
             "extra": {
                 "bower-asset-main": [
                     "less/bootstrap.less",
-                    "dist/css/bootstrap.css",
-                    "dist/js/bootstrap.js",
-                    "dist/fonts/glyphicons-halflings-regular.eot",
-                    "dist/fonts/glyphicons-halflings-regular.svg",
-                    "dist/fonts/glyphicons-halflings-regular.ttf",
-                    "dist/fonts/glyphicons-halflings-regular.woff",
-                    "dist/fonts/glyphicons-halflings-regular.woff2"
+                    "dist/js/bootstrap.js"
                 ],
                 "bower-asset-ignore": [
                     "/.*",
@@ -46,6 +241,9 @@
                     "test-infra"
                 ]
             },
+            "license": [
+                "MIT"
+            ],
             "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
             "keywords": [
                 "css",
@@ -165,20 +363,20 @@
         },
         {
             "name": "bower-asset/jquery-validation",
-            "version": "1.13.1",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jzaefferer/jquery-validation.git",
-                "reference": "91f9b8a8597ae8f8164671aadf5a8ed7eefcf4e4"
+                "reference": "c1343fb9823392aa9acbe1c3ffd337b8c92fed48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jzaefferer/jquery-validation/zipball/91f9b8a8597ae8f8164671aadf5a8ed7eefcf4e4",
-                "reference": "91f9b8a8597ae8f8164671aadf5a8ed7eefcf4e4",
+                "url": "https://api.github.com/repos/jzaefferer/jquery-validation/zipball/c1343fb9823392aa9acbe1c3ffd337b8c92fed48",
+                "reference": "c1343fb9823392aa9acbe1c3ffd337b8c92fed48",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/jquery": ">=1.6.4"
+                "bower-asset/jquery": ">=1.7.2"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -318,12 +516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d"
+                "reference": "b0b2feffb47906a03b570777c07044c529d1d124"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/inflector/zipball/b0b2feffb47906a03b570777c07044c529d1d124",
-                "reference": "e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d",
+                "reference": "b0b2feffb47906a03b570777c07044c529d1d124",
                 "shasum": ""
             },
             "require": {
@@ -377,7 +575,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-01-01 18:34:57"
+            "time": "2015-07-07 15:32:45"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -516,17 +714,17 @@
         },
         {
             "name": "gregwar/image",
-            "version": "v2.0.19",
+            "version": "v2.0.20",
             "target-dir": "Gregwar/Image",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gregwar/Image.git",
-                "reference": "8faeedfc211162bef5cddc93bea58700c32e06f6"
+                "reference": "2c6bf2fb3b0eb844f0568d6ee55eeb86fc799414"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/Image/zipball/8faeedfc211162bef5cddc93bea58700c32e06f6",
-                "reference": "8faeedfc211162bef5cddc93bea58700c32e06f6",
+                "url": "https://api.github.com/repos/Gregwar/Image/zipball/2c6bf2fb3b0eb844f0568d6ee55eeb86fc799414",
+                "reference": "2c6bf2fb3b0eb844f0568d6ee55eeb86fc799414",
                 "shasum": ""
             },
             "require": {
@@ -560,30 +758,30 @@
                 "gd",
                 "image"
             ],
-            "time": "2015-02-03 16:44:33"
+            "time": "2015-05-30 19:24:37"
         },
         {
             "name": "illuminate/container",
-            "version": "5.1.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "cfec9b4a49b0c4be1fb34d6ed948245ea36a1f32"
+                "reference": "9c27569a4e639e6ffbab1f56b4c862f23890a4de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/cfec9b4a49b0c4be1fb34d6ed948245ea36a1f32",
-                "reference": "cfec9b4a49b0c4be1fb34d6ed948245ea36a1f32",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/9c27569a4e639e6ffbab1f56b4c862f23890a4de",
+                "reference": "9c27569a4e639e6ffbab1f56b4c862f23890a4de",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "5.1.*",
+                "illuminate/contracts": "5.2.*",
                 "php": ">=5.5.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1-dev"
+                    "dev-master": "5.2-dev"
                 }
             },
             "autoload": {
@@ -603,20 +801,20 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-06-13 00:40:15"
+            "time": "2015-06-13 22:48:28"
         },
         {
             "name": "illuminate/contracts",
-            "version": "5.1.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "5db115793201700886f60c895f4024d34188deee"
+                "reference": "0bf2ac25a73c40b2d401fc7db58f6b0788ccc312"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/5db115793201700886f60c895f4024d34188deee",
-                "reference": "5db115793201700886f60c895f4024d34188deee",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/0bf2ac25a73c40b2d401fc7db58f6b0788ccc312",
+                "reference": "0bf2ac25a73c40b2d401fc7db58f6b0788ccc312",
                 "shasum": ""
             },
             "require": {
@@ -625,7 +823,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1-dev"
+                    "dev-master": "5.2-dev"
                 }
             },
             "autoload": {
@@ -645,40 +843,40 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-07-14 01:36:14"
+            "time": "2015-07-17 14:40:14"
         },
         {
             "name": "illuminate/database",
-            "version": "5.1.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "f75a43cc91fca617274d00ad3aa8c1fda46c25bd"
+                "reference": "450be49866ffb855c1de3f7e01a76b3529907003"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/f75a43cc91fca617274d00ad3aa8c1fda46c25bd",
-                "reference": "f75a43cc91fca617274d00ad3aa8c1fda46c25bd",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/450be49866ffb855c1de3f7e01a76b3529907003",
+                "reference": "450be49866ffb855c1de3f7e01a76b3529907003",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "5.1.*",
-                "illuminate/contracts": "5.1.*",
-                "illuminate/support": "5.1.*",
-                "nesbot/carbon": "~1.19",
+                "illuminate/container": "5.2.*",
+                "illuminate/contracts": "5.2.*",
+                "illuminate/support": "5.2.*",
+                "nesbot/carbon": "~1.20",
                 "php": ">=5.5.9"
             },
             "suggest": {
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (~2.4).",
                 "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4).",
-                "illuminate/console": "Required to use the database commands (5.1.*).",
-                "illuminate/events": "Required to use the observers with Eloquent (5.1.*).",
-                "illuminate/filesystem": "Required to use the migrations (5.1.*)."
+                "illuminate/console": "Required to use the database commands (5.2.*).",
+                "illuminate/events": "Required to use the observers with Eloquent (5.2.*).",
+                "illuminate/filesystem": "Required to use the migrations (5.2.*)."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1-dev"
+                    "dev-master": "5.2-dev"
                 }
             },
             "autoload": {
@@ -704,37 +902,37 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-07-11 13:40:37"
+            "time": "2015-07-17 19:35:52"
         },
         {
             "name": "illuminate/support",
-            "version": "5.1.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "2db917fa627b529a5023367cca68731b1ce50f46"
+                "reference": "0caf4c9216b00aa1172b07f67a92ff42421d8630"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/2db917fa627b529a5023367cca68731b1ce50f46",
-                "reference": "2db917fa627b529a5023367cca68731b1ce50f46",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/0caf4c9216b00aa1172b07f67a92ff42421d8630",
+                "reference": "0caf4c9216b00aa1172b07f67a92ff42421d8630",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "~1.8",
                 "doctrine/inflector": "~1.0",
                 "ext-mbstring": "*",
-                "illuminate/contracts": "5.1.*",
+                "illuminate/contracts": "5.2.*",
                 "php": ">=5.5.9"
             },
             "suggest": {
                 "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0).",
-                "symfony/var-dumper": "Required to use the dd function (2.7.*)."
+                "symfony/var-dumper": "Required to use the dd function (3.0.*)."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1-dev"
+                    "dev-master": "5.2-dev"
                 }
             },
             "autoload": {
@@ -757,7 +955,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-07-11 12:16:43"
+            "time": "2015-07-18 02:58:46"
         },
         {
             "name": "maximebf/debugbar",
@@ -765,12 +963,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "0d1fcdd087843cf1eba9927295254bc707eab7dc"
+                "reference": "ab12b6f57dd33b1fffa875046fd17c34d88388b9"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/ab12b6f57dd33b1fffa875046fd17c34d88388b9",
-                "reference": "0d1fcdd087843cf1eba9927295254bc707eab7dc",
+                "reference": "ab12b6f57dd33b1fffa875046fd17c34d88388b9",
                 "shasum": ""
             },
             "require": {
@@ -813,25 +1011,25 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2015-04-21 11:06:08"
+            "time": "2015-07-09 18:15:09"
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.19.0",
+            "version": "1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "68868e0b02d2d803d0052a59d4e5003cccf87320"
+                "reference": "bfd3eaba109c9a2405c92174c8e17f20c2b9caf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/68868e0b02d2d803d0052a59d4e5003cccf87320",
-                "reference": "68868e0b02d2d803d0052a59d4e5003cccf87320",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bfd3eaba109c9a2405c92174c8e17f20c2b9caf3",
+                "reference": "bfd3eaba109c9a2405c92174c8e17f20c2b9caf3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "symfony/translation": "~2.6"
+                "symfony/translation": "~2.6|~3.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0"
@@ -860,7 +1058,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2015-05-09 03:23:44"
+            "time": "2015-06-25 04:19:39"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -868,12 +1066,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-ckeditor.git",
-                "reference": "8f43683bb1fab5e2718ba75ca2b3bb08ade0473c"
+                "reference": "1298475c08f4473b49dad1f00a5cac50c03eedac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/8f43683bb1fab5e2718ba75ca2b3bb08ade0473c",
-                "reference": "8f43683bb1fab5e2718ba75ca2b3bb08ade0473c",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/1298475c08f4473b49dad1f00a5cac50c03eedac",
+                "reference": "1298475c08f4473b49dad1f00a5cac50c03eedac",
                 "shasum": ""
             },
             "require": {
@@ -904,7 +1102,7 @@
                 "php",
                 "wysiwyg"
             ],
-            "time": "2015-07-14 18:21:10"
+            "time": "2015-07-16 10:53:26"
         },
         {
             "name": "phpffcms/ffcms-console",
@@ -912,12 +1110,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-console.git",
-                "reference": "a5e36d0f3213431a7e5a6b61f51adea74e04438d"
+                "reference": "1f628072de28e7032700a41b7debb0835dca271a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/4332ac385fe6230498be707dab31bac850f15e71",
-                "reference": "a5e36d0f3213431a7e5a6b61f51adea74e04438d",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/1f628072de28e7032700a41b7debb0835dca271a",
+                "reference": "1f628072de28e7032700a41b7debb0835dca271a",
                 "shasum": ""
             },
             "require": {
@@ -948,7 +1146,7 @@
                 "ffcms",
                 "php"
             ],
-            "time": "2015-05-20 14:29:39"
+            "time": "2015-07-18 15:33:12"
         },
         {
             "name": "phpffcms/ffcms-core",
@@ -956,19 +1154,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1"
+                "reference": "9630169662d042541e5f8d9a6781160636a20c6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/5c2adfa29cd163fab199b7204ed7167ad49c1dd3",
-                "reference": "b89fb8153869b3a55e0ee1fb99f3ecdb9e8cbed1",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/9630169662d042541e5f8d9a6781160636a20c6b",
+                "reference": "9630169662d042541e5f8d9a6781160636a20c6b",
                 "shasum": ""
             },
             "require": {
+                "dflydev/dot-access-data": "1.0.*",
                 "ezyang/htmlpurifier": "4.6.*",
+                "gregwar/captcha": "1.*",
                 "illuminate/database": "5.*",
                 "maximebf/debugbar": "1.*",
                 "php": ">=5.4",
+                "swiftmailer/swiftmailer": "5.4.*",
                 "symfony/http-foundation": "2.6.6"
             },
             "type": "library",
@@ -995,7 +1196,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2015-05-20 08:18:58"
+            "time": "2015-07-18 15:29:59"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1036,13 +1237,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "bf2c13de4300e227d7b2fd08027673a79c519987"
+                "reference": "9e45edca52cc9c954680072c93e621f8b71fab26"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/log/zipball/9e45edca52cc9c954680072c93e621f8b71fab26",
-                "reference": "bf2c13de4300e227d7b2fd08027673a79c519987",
+                "reference": "9e45edca52cc9c954680072c93e621f8b71fab26",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
             },
             "type": "library",
             "extra": {
@@ -1071,7 +1275,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2015-03-26 14:39:45"
+            "time": "2015-06-02 13:48:41"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1182,30 +1386,30 @@
         },
         {
             "name": "symfony/translation",
-            "version": "2.8.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "a0735db452c5e592cb742333a32c6634a6d1ece1"
+                "reference": "d049b8bb7085f2d8b413be00336acba3ceceadd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/f58e63092a312d76beebc633e4a6c63b3e63be5b",
-                "reference": "a0735db452c5e592cb742333a32c6634a6d1ece1",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/d049b8bb7085f2d8b413be00336acba3ceceadd4",
+                "reference": "d049b8bb7085f2d8b413be00336acba3ceceadd4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.5.9"
             },
             "conflict": {
-                "symfony/config": "<2.7"
+                "symfony/config": "<2.8"
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~2.7",
-                "symfony/intl": "~2.3|~3.0.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0.0",
-                "symfony/yaml": "~2.2|~3.0.0"
+                "symfony/config": "~2.8|~3.0",
+                "symfony/intl": "~2.8|~3.0",
+                "symfony/phpunit-bridge": "~2.8|~3.0",
+                "symfony/yaml": "~2.8|~3.0"
             },
             "suggest": {
                 "psr/log": "To use logging capability in translator",
@@ -1215,7 +1419,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -1239,7 +1443,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-15 14:11:12"
+            "time": "2015-07-10 04:29:01"
         },
         {
             "name": "symfony/var-dumper",
@@ -1247,12 +1451,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "5b0473622df3e313509b8771356eefa8b29bdc74"
+                "reference": "35d27bf5a71abd8f57f15ac4101492494ee0fb11"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/var-dumper/zipball/35d27bf5a71abd8f57f15ac4101492494ee0fb11",
-                "reference": "5b0473622df3e313509b8771356eefa8b29bdc74",
+                "reference": "35d27bf5a71abd8f57f15ac4101492494ee0fb11",
                 "shasum": ""
             },
             "require": {
@@ -1298,7 +1502,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-05-12 15:16:46"
+            "time": "2015-07-02 14:25:26"
         }
     ],
     "packages-dev": [],
@@ -1310,7 +1514,8 @@
         "phpffcms/ffcms-ckeditor": 20,
         "bower-asset/jquery-validation": 0,
         "bower-asset/jquery-ui": 0,
-        "bower-asset/components-font-awesome": 0
+        "bower-asset/components-font-awesome": 0,
+        "bower-asset/blueimp-file-upload": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,

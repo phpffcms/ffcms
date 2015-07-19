@@ -7,7 +7,7 @@
 $this->title = __('Log In');
 ?>
 <h1 class="text-center"><?php echo $this->title; ?></h1>
-<?= $this->show('user/_tabs'); ?>
+<?= $this->render('user/_tabs'); ?>
 
 <br/>
 

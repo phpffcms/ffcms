@@ -5,7 +5,7 @@
 
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
 
@@ -22,7 +22,7 @@ echo Ffcms\Widgets\Ckeditor\Widget::widget(['targetClass' => 'wysiwyg']);
 
 ?>
 
-<?= $this->show('content/_tabs') ?>
+<?= $this->render('content/_tabs') ?>
 
 <h1><?= __('Content manage') ?></h1>
 <hr />
@@ -53,10 +53,12 @@ foreach (\App::$Property->get('languages') as $lang) {
     $propertiesItems[] = [
         'type' => 'tab',
         'text' => __('Lang') . ': ' . String::upperCase($lang),
-        'content' => $form->field('keywords.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param keywords for this content, separated by comma. Example: home, door, dog')) .
+        'content' => $form->field('metaTitle.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param title for page title. Recoomended: 50-70 characters')) .
+            $form->field('keywords.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param keywords for this content, separated by comma. Example: home, door, dog')) .
             $form->field('description.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param description for this content. Recommended is 100-150 characters')),
         'html' => true,
-        '!secure' => true
+        '!secure' => true,
+        'active' => $lang === \App::$Request->getLanguage()
     ];
 }
 

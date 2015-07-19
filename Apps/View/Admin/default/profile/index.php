@@ -5,7 +5,7 @@
 /** @var $this object */
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Profile list');
@@ -18,7 +18,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('profile/_tabs') ?>
+<?= $this->render('profile/_tabs') ?>
 
 <h1><?= __('Profile list') ?></h1>
 <hr />

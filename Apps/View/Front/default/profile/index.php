@@ -1,7 +1,7 @@
 <?php
 
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 /** @var $add string|null */
@@ -30,7 +30,7 @@ $this->breadcrumbs = [
 ?>
 
 <h1><?= $this->title ?></h1>
-<?= $this->show('profile/_listTab', ['rating' => $ratingOn]) ?>
+<?= $this->render('profile/_listTab', ['rating' => $ratingOn]) ?>
 
 <?php
     if ($records === null || $records->count() < 1) {

@@ -4,8 +4,8 @@ namespace Apps\Model\Front\User;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Object;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Interfaces\iUser;
 
 class FormLogin extends Model

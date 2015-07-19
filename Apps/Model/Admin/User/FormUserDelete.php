@@ -4,7 +4,7 @@ namespace Apps\Model\Admin\User;
 
 use Apps\ActiveRecord\WallPost;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\File;
+use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Interfaces\iUser;
 
 class FormUserDelete extends Model

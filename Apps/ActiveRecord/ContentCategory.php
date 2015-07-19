@@ -5,7 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 
 class ContentCategory extends ActiveModel
 {

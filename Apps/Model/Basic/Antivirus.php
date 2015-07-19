@@ -4,7 +4,7 @@ namespace Apps\Model\Basic;
 
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\File;
+use Ffcms\Core\Helper\FileSystem\File;
 
 class Antivirus
 {

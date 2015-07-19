@@ -15,7 +15,7 @@ $this->breadcrumbs = [
 $this->title = __('Avatar change')
 ?>
 
-<?= $this->show('profile/_settingsTab') ?>
+<?= $this->render('profile/_settingsTab') ?>
 
 <h1><?= $this->title; ?></h1>
 <hr />

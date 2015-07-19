@@ -2,9 +2,9 @@
 use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Listing;
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 /** @var $user Apps\ActiveRecord\User */
@@ -178,9 +178,9 @@ $this->breadcrumbs = [
                 </tr>
                 <?php endif; ?>
                 <?php
-                $custom_fields = $user->getProfile()->custom_data;
-                if ($custom_fields !== null && count(Serialize::decode($custom_fields)) > 0): ?>
-                    <?php foreach (Serialize::decode($custom_fields) as $cid => $value): ?>
+                $custom_fields = Serialize::decode($user->getProfile()->custom_data);
+                if ($custom_fields !== null && Object::isArray($custom_fields) && count($custom_fields) > 0): ?>
+                    <?php foreach ($custom_fields as $cid => $value): ?>
                         <?php if (!String::likeEmpty($value)): ?>
                             <tr>
                                 <td><?= ProfileField::getNameById($cid) ?></td>
@@ -204,7 +204,7 @@ $this->breadcrumbs = [
             <?php
             // show notification if exist
             if (Object::isArray($notify) && count($notify) > 0) {
-                echo $this->show('macro/notify', ['notify' => $notify]);
+                echo $this->render('macro/notify', ['notify' => $notify]);
             }
             ?>
             <?php $form = new \Ffcms\Core\Helper\HTML\Form(

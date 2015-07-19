@@ -3,9 +3,9 @@
 namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
-use Ffcms\Core\Helper\Arr;
-use Ffcms\Core\Helper\File;
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Arr;
+use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Interfaces\iProfile;
 use Ffcms\Core\App;
 

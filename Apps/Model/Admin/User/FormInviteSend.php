@@ -5,7 +5,7 @@ namespace Apps\Model\Admin\User;
 use Apps\ActiveRecord\Invite;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 
 class FormInviteSend extends Model
 {
@@ -50,7 +50,7 @@ class FormInviteSend extends Model
         $invObj->save();
 
         // get mailing template
-        $template = App::$View->show('user/_inviteMail', [
+        $template = App::$View->render('user/_inviteMail', [
             'invite' => $token,
             'email' => $this->email
         ]);

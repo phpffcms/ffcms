@@ -18,7 +18,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('profile/_tabs') ?>
+<?= $this->render('profile/_tabs') ?>
 
 <h1><?= __('Field delete') ?></h1>
 <hr />

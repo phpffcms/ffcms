@@ -8,7 +8,7 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Contents');
@@ -21,7 +21,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('content/_tabs') ?>
+<?= $this->render('content/_tabs') ?>
 
 <h1><?= __('Content list') ?></h1>
 <hr />

@@ -4,7 +4,7 @@
 /** @var $this object */
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Group management');
@@ -17,7 +17,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('user/_tabs') ?>
+<?= $this->render('user/_tabs') ?>
 
 <h1><?= __('Group list') ?></h1>
 <hr />

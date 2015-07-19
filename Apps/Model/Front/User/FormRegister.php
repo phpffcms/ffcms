@@ -7,7 +7,7 @@ use Apps\ActiveRecord\User;
 use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 
 class FormRegister extends Model
 {
@@ -91,7 +91,7 @@ class FormRegister extends Model
         if (true === $activation) {
             $user->approve_token = String::randomLatinNumeric(mt_rand(32, 128)); // random token for validation url
             // send email
-            $template = App::$View->show('user/_approveMail', [
+            $template = App::$View->render('user/_approveMail', [
                 'token' => $user->approve_token,
                 'email' => $user->email,
                 'login' => $user->login

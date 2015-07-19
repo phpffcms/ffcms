@@ -7,7 +7,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 
 class FrontAppController extends Controller
 {
@@ -43,7 +43,7 @@ class FrontAppController extends Controller
         }
 
         // check if disabled (0 = enabled, anything else = on)
-        return $this->application->disabled === 0;
+        return (int)$this->application->disabled === 0;
     }
 
     /**

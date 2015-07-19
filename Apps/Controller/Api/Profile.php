@@ -10,10 +10,10 @@ use Apps\ActiveRecord\WallPost;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\JsonException;
-use Ffcms\Core\Helper\Arr;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Object;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\String;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Profile extends ApiController

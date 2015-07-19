@@ -1,7 +1,7 @@
 <?php
 /** @var $notify array */
 
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 
 /**
  * Get html css class from notify response type

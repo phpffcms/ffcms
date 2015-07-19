@@ -4,7 +4,7 @@
 /** @var $apps object */
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Applications');
@@ -26,9 +26,9 @@ foreach ($apps as $app) {
     }
 
     $route = $app->sys_name . '/index';
-    $actions = \App::$View->show('macro/app_actions', ['controller' => $app->sys_name]);
+    $actions = \App::$View->render('macro/app_actions', ['controller' => $app->sys_name]);
     $icoStatus = null;
-    if ($app->disabled === 0) {
+    if ((int)$app->disabled === 0) {
         $icoStatus = ' <spal class="label label-success"><i class="fa fa-play"></i></span>';
     } else {
         $icoStatus = ' <span class="label label-danger"><i class="fa fa-pause"></i></span>';

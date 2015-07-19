@@ -5,7 +5,7 @@ namespace Apps\Model\Admin\User;
 use Apps\ActiveRecord\Role;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\File;
+use Ffcms\Core\Helper\FileSystem\File;
 
 class FormUserGroupUpdate extends Model
 {

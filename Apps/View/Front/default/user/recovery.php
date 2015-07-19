@@ -8,7 +8,7 @@ $this->title = __('Recovery');
 
 ?>
 <h1 class="text-center"><?= __('Recovery form') ?></h1>
-<?= $this->show('user/_tabs'); ?>
+<?= $this->render('user/_tabs'); ?>
 <br/>
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>

@@ -6,7 +6,7 @@ use Apps\ActiveRecord\Content;
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Arr;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Serialize;
 
 class FormCategoryDelete extends Model

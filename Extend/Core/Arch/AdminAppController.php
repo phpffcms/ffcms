@@ -4,8 +4,8 @@ namespace Extend\Core\Arch;
 
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\App;
-use Ffcms\Core\Helper\Object;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\String;
 
 class AdminAppController extends Controller
 {

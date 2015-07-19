@@ -5,7 +5,7 @@ namespace Apps\Controller\Admin;
 use Apps\Model\Admin\Main\FormSettings;
 use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
-use Ffcms\Core\Helper\Integer;
+use Ffcms\Core\Helper\Type\Integer;
 
 class Main extends AdminAppController
 {

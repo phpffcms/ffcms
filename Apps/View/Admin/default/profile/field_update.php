@@ -2,7 +2,7 @@
 
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 /** @var $model Apps\Model\Admin\Profile\FormFieldUpdate */
@@ -20,7 +20,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('profile/_tabs') ?>
+<?= $this->render('profile/_tabs') ?>
 
 <h1><?= __('Manage addition field') ?></h1>
 <hr />

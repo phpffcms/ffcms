@@ -2,9 +2,9 @@
 
 namespace Apps\Model\Console;
 
-use Ffcms\Core\Helper\Directory;
-use Ffcms\Core\Helper\File;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\FileSystem\Directory;
+use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\String;
 
 class ArchBuilder
 {

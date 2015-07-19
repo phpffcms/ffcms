@@ -6,8 +6,8 @@ use Apps\Model\Basic\Antivirus;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Helper\File;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\String;
 
 class Main extends ApiController
 {

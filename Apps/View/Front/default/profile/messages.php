@@ -1,5 +1,5 @@
 <?php
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('My dialogs');

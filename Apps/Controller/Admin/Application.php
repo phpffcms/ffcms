@@ -6,7 +6,7 @@ use Apps\Model\Admin\Application\FormAppTurn;
 use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 
 class Application extends AdminAppController
 {
@@ -40,11 +40,5 @@ class Application extends AdminAppController
             'app' => $search,
             'model' => $model
         ]);
-    }
-
-    public function actionInstall()
-    {
-        // TODO: fix me
-        $this->response = 'TODO';
     }
 }

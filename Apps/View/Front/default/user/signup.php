@@ -1,5 +1,5 @@
 <?php
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 
 /** @var $notify array */
 /** @var $useCaptcha bool */
@@ -9,7 +9,7 @@ $this->title = __('Sign up');
 ?>
 
 <h1 class="text-center"><?php echo __('Sign up'); ?></h1>
-<?= $this->show('user/_tabs'); ?>
+<?= $this->render('user/_tabs'); ?>
 
 <br/>
 

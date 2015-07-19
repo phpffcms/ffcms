@@ -4,7 +4,7 @@
 
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Category list');
@@ -17,7 +17,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('content/_tabs') ?>
+<?= $this->render('content/_tabs') ?>
 
 <h1><?= __('Category list') ?></h1>
 <hr />

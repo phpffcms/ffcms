@@ -17,7 +17,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('profile/_settingsTab') ?>
+<?= $this->render('profile/_settingsTab') ?>
 
 <h1><?= __('Profile settings') ?></h1>
 <hr />

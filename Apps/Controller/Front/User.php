@@ -11,8 +11,8 @@ use Ffcms\Core\App;
 use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
-use Ffcms\Core\Helper\Object;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\String;
 
 /**
  * Class User - standard user controller: login/signup/logout/etc

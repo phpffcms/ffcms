@@ -7,10 +7,10 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Helper\Arr;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 
 class EntityContentRead extends Model
 {
@@ -25,6 +25,11 @@ class EntityContentRead extends Model
     public $authorName;
     public $views;
     public $catNesting = [];
+    public $source;
+
+    public $metaTitle;
+    public $description;
+    public $keywords;
 
     // private activerecord relation objects
     private $_category;
@@ -56,6 +61,15 @@ class EntityContentRead extends Model
             throw new ForbiddenException();
         }
 
+        // get meta data
+        $this->metaTitle = Serialize::getDecodeLocale($this->_content->meta_title);
+        if (String::likeEmpty($this->metaTitle)) {
+            $this->metaTitle = $this->title;
+        }
+        $this->description = Serialize::getDecodeLocale($this->_content->description);
+        $tmpKeywords = Serialize::getDecodeLocale($this->_content->keywords);
+        $this->keywords = explode(',', $tmpKeywords);
+
         $this->createDate = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
         $this->catName = Serialize::getDecodeLocale($this->_category->title);
         $this->catPath = $this->_category->path;
@@ -64,6 +78,7 @@ class EntityContentRead extends Model
             $profile = App::$User->identity($this->authorId)->getProfile();
             $this->authorName = String::likeEmpty($profile->nick) ? __('No name') : $profile->nick;
         }
+        $this->source = $this->_content->source;
         $this->views = $this->_content->views+1;
         // check for dependence, add '' for general cat, ex: general/depend1/depend2/.../depend-n
         $catNestingArray = Arr::merge([0 => ''], explode('/', $this->catPath));

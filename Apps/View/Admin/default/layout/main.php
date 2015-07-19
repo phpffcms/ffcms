@@ -1,7 +1,7 @@
 <?php
-use Ffcms\Core\Helper\Arr;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\HTML\Listing;
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Url;
 ?>
 <!DOCTYPE html>
@@ -197,7 +197,7 @@ use Ffcms\Core\Helper\Url;
                             // display notify if not used in views
                             $notify = \App::$Session->getFlashBag()->all();
                             if (Object::isArray($notify) && count($notify) > 0) {
-                                echo \App::$View->show('macro/notify', ['notify' => $notify]);
+                                echo \App::$View->render('macro/notify', ['notify' => $notify]);
                             }
 
                             echo $body;

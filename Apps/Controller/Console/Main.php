@@ -3,11 +3,9 @@
 namespace Apps\Controller\Console;
 
 use Ffcms\Console\App;
-use Ffcms\Console\Transfer\Output;
-use Ffcms\Core\Helper\Arr;
-use Ffcms\Core\Helper\File;
-use Ffcms\Core\Helper\Object;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\String;
 
 class Main
 {

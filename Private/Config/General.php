@@ -15,10 +15,10 @@
 	],
 	'database' => [
 		'driver' => 'mysql',
-		'host' => '127.0.0.1',
+		'host' => 'localhost',
 		'database' => 'ffcms',
-		'username' => 'mysql',
-		'password' => 'mysql',
+		'username' => 'root',
+		'password' => 'root',
 		'charset' => 'utf8',
 		'collation' => 'utf8_unicode_ci',
 		'prefix' => 'ffcms_'

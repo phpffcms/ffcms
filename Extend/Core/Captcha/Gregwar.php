@@ -4,7 +4,7 @@ namespace Extend\Core\Captcha;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Interfaces\iCaptcha;
 
 class Gregwar implements iCaptcha

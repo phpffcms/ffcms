@@ -2,7 +2,7 @@
 
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 /** @var $model Apps\Model\Front\Profile\FormIgnoreDelete */
@@ -19,7 +19,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('profile/_settingsTab') ?>
+<?= $this->render('profile/_settingsTab') ?>
 <h1><?= __('Remove user from blacklist') ?></h1>
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']) ?>

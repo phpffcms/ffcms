@@ -7,7 +7,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 
 class FormRecovery extends Model
 {
@@ -77,7 +77,7 @@ class FormRecovery extends Model
         $rObject->save();
 
         // generate mail template
-        $mailTemplate = App::$View->show('user/_recoveryMail', [
+        $mailTemplate = App::$View->render('user/_recoveryMail', [
             'login' => $user->login,
             'email' => $this->email,
             'password' => $newPwd,

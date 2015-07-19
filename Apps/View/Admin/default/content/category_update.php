@@ -5,7 +5,7 @@
 
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Category manage');
@@ -19,7 +19,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('content/_tabs') ?>
+<?= $this->render('content/_tabs') ?>
 
 <h1><?= __('Category manage') ?></h1>
 <hr />

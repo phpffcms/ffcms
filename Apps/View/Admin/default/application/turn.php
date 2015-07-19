@@ -31,7 +31,7 @@ $this->breadcrumbs = [
             [['text' => __('Name')], ['text' => $app->getLocaleName()]],
             [['text' => __('System name')], ['text' => $app->sys_name]],
             [['text' => __('Last update')], ['text' => Date::convertToDatetime($app->updated_at, DATE::FORMAT_TO_SECONDS)]],
-            [['text' => __('Status')], ['text' => ($app->disabled === 0) ? 'On' : 'Off'], 'property' => ['class' =>  ($app->disabled === 0) ? 'alert-success' : 'alert-danger']]
+            [['text' => __('Status')], ['text' => ((int)$app->disabled === 0) ? 'On' : 'Off'], 'property' => ['class' =>  ((int)$app->disabled === 0) ? 'alert-success' : 'alert-danger']]
         ]
     ]
 ]); ?>

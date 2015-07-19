@@ -3,7 +3,7 @@
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 use Ffcms\Core\Helper\Url;
 
 /** @var $model Apps\Model\Front\Profile\FormIgnoreAdd */
@@ -21,7 +21,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('profile/_settingsTab') ?>
+<?= $this->render('profile/_settingsTab') ?>
 
 <h2><?= __('Add user ignore') ?></h2>
 <hr />

@@ -9,8 +9,8 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Apps\Model\Front\Content\EntityContentRead;
-use Ffcms\Core\Helper\Arr;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\Arr;
+use Ffcms\Core\Helper\Type\String;
 
 class Content extends FrontAppController
 {
@@ -49,6 +49,11 @@ class Content extends FrontAppController
         $this->response = 'List category';
     }
 
+    /**
+     * Show content item
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionRead()
     {
         // get raw path without controller-action
@@ -91,7 +96,8 @@ class Content extends FrontAppController
 
         $this->response = App::$View->render('read_content', [
             'model' => $model,
-            'trash' => $trash
+            'trash' => $trash,
+            'configs' => $this->getConfigs()
         ]);
     }
 }

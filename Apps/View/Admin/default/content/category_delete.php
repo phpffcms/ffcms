@@ -17,7 +17,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('content/_tabs') ?>
+<?= $this->render('content/_tabs') ?>
 
 <h1><?= __('Category delete') ?></h1>
 <hr />

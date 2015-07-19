@@ -16,7 +16,7 @@ use Apps\ActiveRecord\Content as ContentEntity;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 
 class Content extends AdminAppController
 {

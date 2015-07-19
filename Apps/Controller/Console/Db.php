@@ -2,7 +2,7 @@
 
 namespace Apps\Controller\Console;
 
-use Ffcms\Core\Helper\File;
+use Ffcms\Core\Helper\FileSystem\File;
 
 class Db
 {

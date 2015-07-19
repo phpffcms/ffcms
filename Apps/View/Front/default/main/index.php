@@ -1,7 +1,7 @@
 <?php
 /** @var $model \Apps\Model\Front\User */
 /** @var $this \Ffcms\Core\Arch\View */
-echo $this->show('main/other', ['model' => $model]);
+echo $this->render('main/other', ['model' => $model]);
 $this->title = 'Welcome to web-site';
 ?>
     <p>Welcome, <?php echo $model->getLabel('name'); ?>: <?php echo $model->name; ?>. We know you like

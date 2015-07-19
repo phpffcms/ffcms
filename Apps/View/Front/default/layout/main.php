@@ -1,7 +1,7 @@
 <?php
 /** @var $body string */
 use Ffcms\Core\Helper\HTML\Listing;
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Object;
 
 ?>
 <html>
@@ -29,7 +29,6 @@ use Ffcms\Core\Helper\Object;
 <div class="container account-container">
     <div class="text-right">
         <?php
-
         $accountPanel = [];
         if (\App::$User->isAuth()) {
             $userId = \App::$User->identity()->getId();
@@ -124,7 +123,7 @@ use Ffcms\Core\Helper\Object;
                 // display notify if not used in views
                 $notify = \App::$Session->getFlashBag()->all();
                 if (Object::isArray($notify) && count($notify) > 0) {
-                    echo \App::$View->show('macro/notify', ['notify' => $notify]);
+                    echo \App::$View->render('macro/notify', ['notify' => $notify]);
                 }
 
                 echo $body;

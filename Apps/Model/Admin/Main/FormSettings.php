@@ -4,8 +4,8 @@ namespace Apps\Model\Admin\Main;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Directory;
-use Ffcms\Core\Helper\File;
+use Ffcms\Core\Helper\FileSystem\Directory;
+use Ffcms\Core\Helper\FileSystem\File;
 
 class FormSettings extends Model
 {

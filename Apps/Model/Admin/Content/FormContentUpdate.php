@@ -7,10 +7,10 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Integer;
-use Ffcms\Core\Helper\Object;
+use Ffcms\Core\Helper\Type\Integer;
+use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\String;
+use Ffcms\Core\Helper\Type\String;
 
 class FormContentUpdate extends Model
 {
@@ -19,6 +19,7 @@ class FormContentUpdate extends Model
     public $path;
     public $categoryId;
     public $authorId;
+    public $metaTitle;
     public $keywords = [];
     public $description = [];
     public $display = '1';
@@ -60,6 +61,7 @@ class FormContentUpdate extends Model
             $this->path = $this->_content->path;
             $this->categoryId = $this->_content->category_id;
             $this->authorId = $this->_content->author_id;
+            $this->metaTitle = Serialize::decode($this->_content->meta_title);
             $this->keywords = Serialize::decode($this->_content->keywords);
             $this->description = Serialize::decode($this->_content->description);
             $this->display = $this->_content->display;
@@ -80,7 +82,7 @@ class FormContentUpdate extends Model
             ['text', 'used', null, true, true],
             ['path', 'reverse_match', '/[\/\'~`\!@#\$%\^&\*\(\)+=\{\}\[\]\|;:"\<\>,\?\\\]/'],
             [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title'], 'required'],
-            [['keywords', 'description', 'source', 'addRating', 'createdAt'], 'used'],
+            [['metaTitle', 'keywords', 'description', 'source', 'addRating', 'createdAt'], 'used'],
             [['addRating', 'authorId', 'display'], 'int'],
             ['display', 'in', ['0', '1']],
             ['categoryId', 'in', $this->categoryIds()],
@@ -107,6 +109,7 @@ class FormContentUpdate extends Model
             'text' => __('Content text'),
             'path' => __('Path slug'),
             'categoryId' => __('Category'),
+            'metaTitle' => __('Meta title'),
             'keywords' => __('Keywords'),
             'description' => __('Description'),
             'display' => __('Public display'),
@@ -125,6 +128,7 @@ class FormContentUpdate extends Model
         $this->_content->category_id = $this->categoryId;
         $this->_content->author_id = $this->authorId;
         $this->_content->display = $this->display;
+        $this->_content->meta_title = Serialize::encode(App::$Security->strip_tags($this->metaTitle));
         $this->_content->keywords = Serialize::encode(App::$Security->strip_tags($this->keywords));
         $this->_content->description = Serialize::encode(App::$Security->strip_tags($this->description));
         $this->_content->source = App::$Security->strip_tags($this->source);
@@ -166,7 +170,7 @@ class FormContentUpdate extends Model
         // try to find this item
         $find = Content::where('path', '=', $this->path);
         // exclude self id
-        if ($this->_content->id !== null && Object::isInt($this->_content->id)) {
+        if ($this->_content->id !== null && Object::isLikeInt($this->_content->id)) {
             $find->where('id', '!=', $this->_content->id);
         }
         // limit only current category id

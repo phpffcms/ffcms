@@ -3,11 +3,12 @@
 Illuminate\Database\Capsule\Manager::schema()->create('contents', function($table) {
     $table->increments('id');
     $table->text('title');
-    $table->text('text');
+    $table->mediumText('text');
     $table->string('path');
     $table->integer('category_id');
     $table->integer('author_id');
     $table->boolean('display')->default(1);
+    $table->text('meta_title')->nullable();
     $table->text('keywords')->nullable();
     $table->text('description')->nullable();
     $table->integer('views')->default(0);

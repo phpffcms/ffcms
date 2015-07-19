@@ -16,7 +16,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('user/_tabs') ?>
+<?= $this->render('user/_tabs') ?>
 
 <h1><?= $this->title ?></h1>
 <hr />

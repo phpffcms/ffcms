@@ -18,7 +18,7 @@ $this->breadcrumbs = [
 
 ?>
 
-<?= $this->show('profile/_tabs') ?>
+<?= $this->render('profile/_tabs') ?>
 <h1><?= __('Additional profile fields') ?></h1>
 <hr />
 <?php if ($records->count() > 0):
