@@ -99,3 +99,8 @@ label.error {
     border-radius: 5px;
     background-color: #fcfcfc;
 }
+
+.image-item {
+    height: 100px;
+    margin: 0 auto;
+}

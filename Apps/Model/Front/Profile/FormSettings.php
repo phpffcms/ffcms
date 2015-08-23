@@ -98,7 +98,7 @@ class FormSettings extends Model
             ];
             $rules[] = [
                 'custom_data.' . $custom->id,
-                $custom->reg_cond === 1 ? 'direct_match' : 'reverse_match',
+                (int)$custom->reg_cond === 1 ? 'direct_match' : 'reverse_match',
                 $custom->reg_exp
             ];
         }

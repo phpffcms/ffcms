@@ -54,8 +54,8 @@ foreach (\App::$Property->get('languages') as $lang) {
         'type' => 'tab',
         'text' => __('Lang') . ': ' . String::upperCase($lang),
         'content' => $form->field('metaTitle.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param title for page title. Recoomended: 50-70 characters')) .
-            $form->field('keywords.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param keywords for this content, separated by comma. Example: home, door, dog')) .
-            $form->field('description.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param description for this content. Recommended is 100-150 characters')),
+            $form->field('metaKeywords.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param keywords for this content, separated by comma. Example: home, door, dog')) .
+            $form->field('metaDescription.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param description for this content. Recommended is 100-150 characters')),
         'html' => true,
         '!secure' => true,
         'active' => $lang === \App::$Request->getLanguage()
@@ -83,8 +83,23 @@ $otherTab .= $form->field('authorId', 'text', ['class' => 'form-control'], __('E
 $otherTab .= $form->field('source', 'text', ['class' => 'form-control'], __('Set the source URL if this content is copied from someone other url'));
 $otherTab .= $form->field('addRating', 'text', ['class' => 'form-control'], __('Add or reduce rating of this content. Example: 5 gives +5 to total rating, -5 gives -5 to total'));
 
-$galleryTab = 'test gallery';
+$galleryTab = '<div class="row">
+    <div id="gallery-files"></div>
+</div>
 
+<div class="row">
+<div class="col-md-4">
+            <span class="btn btn-success fileinput-button btn-block">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>' . __('Upload image') . '</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input id="fileupload" type="file" name="gallery-files" multiple>
+            </span>
+</div>
+<div class="col-md-8">
+    ' . $form->field('poster', 'select', ['options' => ['1', '2'], 'class' => 'form-control']) . '
+</div>
+</div><br/><br/>';
 ?>
 <?= Nav::display([
     'property' => ['class' => 'nav-tabs'],
@@ -108,6 +123,11 @@ $galleryTab = 'test gallery';
 // load datapicker plugin
 \App::$Alias->setCustomLibrary('css', \App::$Alias->currentViewUrl . '/assets/css/plugins/datapick/datapick.css');
 \App::$Alias->setCustomLibrary('js', \App::$Alias->currentViewUrl . '/assets/js/plugins/datapick.js');
+// load jquery-upload plugin
+\App::$Alias->setCustomLibrary('css', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/css/jquery.fileupload.css');
+\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/js/vendor/jquery.ui.widget.js');
+\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/js/jquery.iframe-transport.js');
+\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/js/jquery.fileupload.js');
 ?>
 
 <script>
@@ -156,12 +176,53 @@ $galleryTab = 'test gallery';
                 pathChanged = true;
             }
 
+            // pathway from title
             $('#FormContentUpdate-title-<?= \App::$Request->getLanguage() ?>').on('keyup', function() {
                 if (pathChanged === true) {
                     return false;
                 }
                 pathObject.val(translit($(this).val()));
             });
+
+            // gallery file listing
+            $.getJSON(script_url+"/api/content/gallerylist/<?= $model->galleryFreeId ?>?lang="+script_lang,
+                function (data) {
+                    $.each(data.files, function (index, file) {
+                        $('<div/>').html(
+                            '<div class="col-md-2 well" style="margin-left: 5px;">'+
+                            '<div class="text-center"><strong>'+file.name+'</strong></div>'+
+                            '<img src="'+script_url+file.thumbnailUrl+'" class="img-responsive image-item" />'+
+                            '<div class="text-center">' +
+                            '<a href="#" class="label label-info">View</a> '+
+                            '<a href="#" class="label label-danger">Delete</a>'+
+                            '</div></div>'
+                        ).appendTo('#gallery-files');
+                    });
+                });
+
+            // gallery file upload
+            $('#fileupload').fileupload({
+                url: script_url+'/api/content/galleryupload/<?= $model->galleryFreeId ?>?lang='+script_lang,
+                dataType: 'json',
+                done: function (e, data) {
+                    $.each(data.result.files, function (index, file) {
+                        $('<div/>').html(
+                            '<div class="col-md-2 well" style="margin-left: 5px;">'+
+                            '<div class="text-center"><strong>'+file.name+'</strong></div>'+
+                            '<img src="'+script_url+file.thumbnailUrl+'" class="img-responsive image-item" />'+
+                            '</div>'
+                        ).appendTo('#gallery-files');
+                    });
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#progress .progress-bar').css(
+                        'width',
+                        progress + '%'
+                    );
+                }
+            }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
             window.onbeforeunload = function (evt) {
                 if (!isChanged) return;

@@ -15,6 +15,7 @@ use Ffcms\Core\App;
 use Apps\ActiveRecord\Content as ContentEntity;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Object;
 
@@ -83,7 +84,7 @@ class Content extends AdminAppController
         // check if model is submit
         if ($model->send() && $model->validate()) {
             $model->save();
-            if (true === $isNew) {
+            if ($isNew === true) {
                 App::$Response->redirect('content/index');
             }
             App::$Session->getFlashBag()->add('success', __('Content is successful updated'));
@@ -166,6 +167,13 @@ class Content extends AdminAppController
         $model = new FormContentClear($records->count());
         if ($model->send() && $model->validate()) {
             // remove all trashed items
+            foreach ($records->get() as $item) {
+                $galleryPath = '/upload/gallery/' . (int)$item->id;
+                if (Directory::exist($galleryPath)) {
+                    Directory::remove($galleryPath);
+                }
+            }
+            // totally remove rows from db
             $records->forceDelete();
             App::$Session->getFlashBag()->add('success', __('Trashed content is cleanup'));
             App::$Response->redirect('content/index');

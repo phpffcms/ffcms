@@ -254,7 +254,7 @@ class Profile extends ApiController
             // sender is not myself? then i'm - target (remote user is sender user->to_me)
             if ($row->sender_id !== $user->id) {
                 $userList[] = $row->sender_id;
-                if ($row->tread === 0) {
+                if ((int)$row->tread === 0) {
                     $unreadList[] = $row->sender_id;
                 }
             }

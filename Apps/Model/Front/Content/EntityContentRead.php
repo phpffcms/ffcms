@@ -28,8 +28,8 @@ class EntityContentRead extends Model
     public $source;
 
     public $metaTitle;
-    public $description;
-    public $keywords;
+    public $metaDescription;
+    public $metaKeywords;
 
     // private activerecord relation objects
     private $_category;
@@ -66,9 +66,9 @@ class EntityContentRead extends Model
         if (String::likeEmpty($this->metaTitle)) {
             $this->metaTitle = $this->title;
         }
-        $this->description = Serialize::getDecodeLocale($this->_content->description);
-        $tmpKeywords = Serialize::getDecodeLocale($this->_content->keywords);
-        $this->keywords = explode(',', $tmpKeywords);
+        $this->metaDescription = Serialize::getDecodeLocale($this->_content->meta_description);
+        $tmpKeywords = Serialize::getDecodeLocale($this->_content->meta_keywords);
+        $this->metaKeywords = explode(',', $tmpKeywords);
 
         $this->createDate = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
         $this->catName = Serialize::getDecodeLocale($this->_category->title);

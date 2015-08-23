@@ -15,10 +15,10 @@ if (String::likeEmpty($this->title)) {
     $this->title = \App::$Security->strip_tags($model->title);
 }
 // set meta description
-$this->description = \App::$Security->strip_tags($model->description);
+$this->description = \App::$Security->strip_tags($model->metaDescription);
 // set meta keywords
-if (Object::isArray($model->keywords) && count($model->keywords) > 0) {
-    $this->keywords = implode(', ', $model->keywords);
+if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
+    $this->keywords = implode(', ', $model->metaKeywords);
 }
 
 $breadcrumbs = [
@@ -40,13 +40,13 @@ $this->breadcrumbs = $breadcrumbs;
 
 <?php
 $properties = [
-    'date' => $model->getCategory()->getProperty('showDate') === '1',
-    'author' => $model->getCategory()->getProperty('showAuthor') === '1',
-    'views' => $model->getCategory()->getProperty('showViews') === '1',
-    'category' => $model->getCategory()->getProperty('showCategory') === '1'
+    'date' => (int)$model->getCategory()->getProperty('showDate') === 1,
+    'author' => (int)$model->getCategory()->getProperty('showAuthor') === 1,
+    'views' => (int)$model->getCategory()->getProperty('showViews') === 1,
+    'category' => (int)$model->getCategory()->getProperty('showCategory') === 1
 ];
-$showComments = $model->getCategory()->getProperty('showComments') === '1';
-$showPoster = $model->getCategory()->getProperty('showPoster') === '1';
+$showComments = (int)$model->getCategory()->getProperty('showComments') === 1;
+$showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
 ?>
 
 <article class="article-item">
@@ -77,8 +77,8 @@ $showPoster = $model->getCategory()->getProperty('showPoster') === '1';
     <div id="content-tags">
         <i class="fa fa-tags"></i>
         <?php
-        if (Object::isArray($model->keywords) && count($model->keywords) > 0) {
-            foreach ($model->keywords as $tag) {
+        if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
+            foreach ($model->metaKeywords as $tag) {
                 $tag = \App::$Security->strip_tags(trim($tag));
                 echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
             }

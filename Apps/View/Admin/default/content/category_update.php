@@ -51,7 +51,7 @@ foreach (\App::$Property->get('languages') as $lang) {
 $pathProperty = [
     'class' => 'form-control'
 ];
-if ($model->id === '1') {
+if ((int)$model->id == '1') {
     $pathProperty['disabled'] = '';
 } else {
     echo $form->field('dependId', 'select', ['class' => 'form-control', 'options' => $model->categoryList(), 'optionsKey' => true], __('Select owner category for this category'));

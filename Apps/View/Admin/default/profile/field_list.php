@@ -21,6 +21,11 @@ $this->breadcrumbs = [
 <?= $this->render('profile/_tabs') ?>
 <h1><?= __('Additional profile fields') ?></h1>
 <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <?= Url::link(['profile/fieldupdate', 0], '<i class="fa fa-plus"></i> ' . __('Add field'), ['class' => 'btn btn-primary pull-right']) ?>
+        </div>
+    </div>
 <?php if ($records->count() > 0):
     $items = [];
     foreach ($records as $row) {
@@ -44,27 +49,22 @@ $this->breadcrumbs = [
         ];
     }
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <?= Url::link(['profile/fieldupdate', 0], '<i class="fa fa-plus"></i> ' . __('Add field'), ['class' => 'btn btn-primary pull-right']) ?>
-    </div>
-</div>
 
     <?= Table::display([
-        'table' => ['class' => 'table table-bordered'],
-        'thead' => [
-            'titles' => [
-                ['text' => 'id'],
-                ['text' => __('Title')],
-                ['text' => __('Type')],
-                ['text' => __('Rule')],
-                ['text' => __('Actions')]
-            ]
-        ],
-        'tbody' => [
-            'items' => $items
+    'table' => ['class' => 'table table-bordered'],
+    'thead' => [
+        'titles' => [
+            ['text' => 'id'],
+            ['text' => __('Title')],
+            ['text' => __('Type')],
+            ['text' => __('Rule')],
+            ['text' => __('Actions')]
         ]
-    ]);
+    ],
+    'tbody' => [
+        'items' => $items
+    ]
+]);
     ?>
 <?php else: ?>
     <p>No additional fields is added!</p>

@@ -25,7 +25,7 @@ class Application extends AdminAppController
 
         $search = \Apps\ActiveRecord\App::where('sys_name', '=', $controller_name)->first();
 
-        if ($search === null || $search->id < 1) {
+        if ($search === null || (int)$search->id < 1) {
             throw new ForbiddenException();
         }
 

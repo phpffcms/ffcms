@@ -7,6 +7,7 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Serialize;
@@ -17,11 +18,12 @@ class FormContentUpdate extends Model
     public $title = [];
     public $text = [];
     public $path;
+    public $poster;
     public $categoryId;
     public $authorId;
     public $metaTitle;
-    public $keywords = [];
-    public $description = [];
+    public $metaKeywords = [];
+    public $metaDescription = [];
     public $display = '1';
     public $source;
     public $addRating = 0;
@@ -44,6 +46,7 @@ class FormContentUpdate extends Model
     */
     public function before()
     {
+        // is new item?
         if ($this->_content->id === null) {
             $this->_new = true;
             if (null === $this->galleryFreeId) {
@@ -55,15 +58,16 @@ class FormContentUpdate extends Model
             if (null === $this->categoryId) {
                 $this->categoryId = 1;
             }
-        } else {
+        } else { // is edit of exist item? define available data
             $this->title = Serialize::decode($this->_content->title);
             $this->text = Serialize::decode($this->_content->text);
             $this->path = $this->_content->path;
+            $this->poster = $this->_content->poster;
             $this->categoryId = $this->_content->category_id;
             $this->authorId = $this->_content->author_id;
             $this->metaTitle = Serialize::decode($this->_content->meta_title);
-            $this->keywords = Serialize::decode($this->_content->keywords);
-            $this->description = Serialize::decode($this->_content->description);
+            $this->metaKeywords = Serialize::decode($this->_content->meta_keywords);
+            $this->metaDescription = Serialize::decode($this->_content->meta_description);
             $this->display = $this->_content->display;
             $this->source  = $this->_content->source;
             $this->createdAt = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
@@ -82,7 +86,7 @@ class FormContentUpdate extends Model
             ['text', 'used', null, true, true],
             ['path', 'reverse_match', '/[\/\'~`\!@#\$%\^&\*\(\)+=\{\}\[\]\|;:"\<\>,\?\\\]/'],
             [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title'], 'required'],
-            [['metaTitle', 'keywords', 'description', 'source', 'addRating', 'createdAt'], 'used'],
+            [['metaTitle', 'metaKeywords', 'metaDescription', 'source', 'addRating', 'createdAt'], 'used'],
             [['addRating', 'authorId', 'display'], 'int'],
             ['display', 'in', ['0', '1']],
             ['categoryId', 'in', $this->categoryIds()],
@@ -110,8 +114,8 @@ class FormContentUpdate extends Model
             'path' => __('Path slug'),
             'categoryId' => __('Category'),
             'metaTitle' => __('Meta title'),
-            'keywords' => __('Keywords'),
-            'description' => __('Description'),
+            'metaKeywords' => __('Meta keywords'),
+            'metaDescription' => __('Meta description'),
             'display' => __('Public display'),
             'createdAt' => __('Publish date'),
             'authorId' => __('Author identity'),
@@ -120,6 +124,9 @@ class FormContentUpdate extends Model
         ];
     }
 
+    /**
+     * Save changes in database
+     */
     public function save()
     {
         $this->_content->title = Serialize::encode(App::$Security->strip_tags($this->title));
@@ -129,8 +136,8 @@ class FormContentUpdate extends Model
         $this->_content->author_id = $this->authorId;
         $this->_content->display = $this->display;
         $this->_content->meta_title = Serialize::encode(App::$Security->strip_tags($this->metaTitle));
-        $this->_content->keywords = Serialize::encode(App::$Security->strip_tags($this->keywords));
-        $this->_content->description = Serialize::encode(App::$Security->strip_tags($this->description));
+        $this->_content->meta_keywords = Serialize::encode(App::$Security->strip_tags($this->metaKeywords));
+        $this->_content->meta_description = Serialize::encode(App::$Security->strip_tags($this->metaDescription));
         $this->_content->source = App::$Security->strip_tags($this->source);
         // check if rating is changed
         if ((int)$this->addRating !== 0) {
@@ -144,7 +151,15 @@ class FormContentUpdate extends Model
         if (!String::likeEmpty($this->createdAt) && !String::startsWith('0000', Date::convertToDatetime($this->createdAt, Date::FORMAT_SQL_TIMESTAMP))) {
             $this->_content->created_at = Date::convertToDatetime($this->createdAt, Date::FORMAT_SQL_TIMESTAMP);
         }
+
+        // get temporary gallery id
+        $tmpGalleryId = $this->galleryFreeId;
+
+        // save row
         $this->_content->save();
+
+        // move files
+        Directory::rename('/upload/gallery/' . $tmpGalleryId, $this->_content->id);
     }
 
     /**

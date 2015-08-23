@@ -47,6 +47,8 @@ return [
     'Display content in depended categories of?' => 'Отображать элементы контента во вложенных категориях?',
     'Gallery resize' => 'Миниатюры в галереи',
     'Specify maximum size of image in gallery in px' => 'Укажите максимальный размер, для уменьшенной копии по одной из сторон изображения в пикселях',
+    'Image size' => 'Размер изображения',
+    'Specify maximum image size in gallery in kb. Example: 500 = 0,5 mb' => 'Укажите максимальный размер изображения, доступного для загрузки в галлерею в киллобайтах. Пример: 500 = 0,5 мб',
     'Keywords to tags' => 'Ключевые слова в теги',
     'Display tag list, based on keywords data?' => 'Отображать список тегов, основываясь на данных ключевых слов?',
     'Rss feed' => 'RSS лента',
@@ -94,5 +96,6 @@ return [
     'Cleanup trash' => 'Очистка корзины',
     'Trashed content' => 'Количество в корзине',
     'Count of content items to total remove' => 'Количество элементов контента для удаления',
-    'Total remove' => 'Полное удаление'
+    'Total remove' => 'Полное удаление',
+    'Content settings' => 'Настройки контента'
 ];

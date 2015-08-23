@@ -102,7 +102,7 @@ class FormCategoryUpdate extends Model
         ];
 
         // general category
-        if ($this->_new === false && $this->_record->id === 1) {
+        if ($this->_new === false && (int)$this->_record->id === 1) {
             $rules[] = ['path', 'used'];
         } else {
             $rules[] = ['path', 'required'];
