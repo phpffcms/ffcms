@@ -2,7 +2,7 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\App;
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\String;
@@ -17,12 +17,12 @@ class Role extends ActiveModel
      */
     public static function get($role_id)
     {
-        $role = App::$Memory->get('user.role.cache.' . $role_id);
+        $role = MainApp::$Memory->get('user.role.cache.' . $role_id);
 
         // not founded in cache
         if ($role === null) {
             $role = self::find($role_id);
-            App::$Memory->set('user.role.cache.' . $role_id, $role);
+            MainApp::$Memory->set('user.role.cache.' . $role_id, $role);
         }
         return $role;
     }
@@ -33,11 +33,11 @@ class Role extends ActiveModel
      */
     public static function getAll()
     {
-        $list = App::$Memory->get('user.roleall.cache');
+        $list = MainApp::$Memory->get('user.roleall.cache');
 
         if ($list === null) {
             $list = self::all();
-            App::$Memory->set('user.roleall.cache', $list);
+            MainApp::$Memory->set('user.roleall.cache', $list);
         }
 
         return $list;

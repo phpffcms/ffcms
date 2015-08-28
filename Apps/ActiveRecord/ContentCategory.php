@@ -2,7 +2,7 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\App;
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\String;
@@ -16,12 +16,12 @@ class ContentCategory extends ActiveModel
      */
     public static function getByPath($path = '')
     {
-        if (App::$Memory->get('cache.content.category.path.' . $path) !== null) {
-            return App::$Memory->get('cache.content.category.path.' . $path);
+        if (MainApp::$Memory->get('cache.content.category.path.' . $path) !== null) {
+            return MainApp::$Memory->get('cache.content.category.path.' . $path);
         }
 
         $record = self::where('path', '=', $path)->first();
-        App::$Memory->set('cache.content.category.path.' . $path, $record);
+        MainApp::$Memory->set('cache.content.category.path.' . $path, $record);
         return $record;
     }
 
@@ -32,12 +32,12 @@ class ContentCategory extends ActiveModel
      */
     public static function getById($id)
     {
-        if (App::$Memory->get('cache.content.category.id.' . $id) !== null) {
-            return App::$Memory->get('cache.content.category.id.' . $id);
+        if (MainApp::$Memory->get('cache.content.category.id.' . $id) !== null) {
+            return MainApp::$Memory->get('cache.content.category.id.' . $id);
         }
 
         $record = self::find($id);
-        App::$Memory->set('cache.content.category.id.' . $id, $record);
+        MainApp::$Memory->set('cache.content.category.id.' . $id, $record);
         return $record;
     }
 
@@ -47,12 +47,12 @@ class ContentCategory extends ActiveModel
      */
     public static function getAll()
     {
-        if (App::$Memory->get('cache.content.category.all') !== null) {
-            return App::$Memory->get('cache.content.category.all');
+        if (MainApp::$Memory->get('cache.content.category.all') !== null) {
+            return MainApp::$Memory->get('cache.content.category.all');
         }
 
         $record = self::all();
-        App::$Memory->set('cache.content.category.all', $record);
+        MainApp::$Memory->set('cache.content.category.all', $record);
         return $record;
     }
 

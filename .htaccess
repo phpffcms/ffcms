@@ -1,23 +1,9 @@
 AddDefaultCharset utf-8
 Options -Indexes
-Options +FollowSymLinks
 DirectoryIndex index.php
 
 RewriteEngine On
 RewriteRule ^.htaccess$ - [F]
-# do not rewrite statics, vendor, uploads and other ;)
-RewriteRule ^vendor/ - [L,NC]
-RewriteRule ^upload/ - [L,NC]
-RewriteRule ^Apps/View/ - [L,NC]
-RewriteRule ^(.*)\.php - [L,NC] # allow direct access to php scripts anywhere
-# admin interface
-RewriteRule ^admin/(.*)$ Loader/Admin/$1 [L]
-# API interface
-RewriteRule ^api/(.*)$ Loader/Api/$1 [L]
-# front main interface
-RewriteRule ^(.*)$ Loader/Front/$1 [L]
-
-<Files ~ "(.json|.lock|.git)">
-    Order allow,deny
-    Deny from all
-</Files>
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]

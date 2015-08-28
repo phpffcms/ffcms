@@ -2,7 +2,7 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\App;
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Serialize;
 
@@ -15,12 +15,12 @@ class ProfileField extends ActiveModel
      */
     public static function getAll()
     {
-        if (App::$Memory->get('custom.fields.all') !== null) {
-            return App::$Memory->get('custom.fields.all');
+        if (MainApp::$Memory->get('custom.fields.all') !== null) {
+            return MainApp::$Memory->get('custom.fields.all');
         }
 
         $records = self::all();
-        App::$Memory->set('custom.fields.all', $records);
+        MainApp::$Memory->set('custom.fields.all', $records);
         return $records;
     }
 

@@ -4,10 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Interfaces\iUser;
-use Apps\ActiveRecord\Blacklist;
-use Apps\ActiveRecord\Role;
-use Apps\ActiveRecord\User as ARecordUser;
-use Ffcms\Core\App;
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Type\String;
 
@@ -22,7 +19,7 @@ class User extends ActiveModel implements iUser
     public static function identity($user_id = null)
     {
         if ($user_id === null) {
-            $user_id = App::$Session->get('ff_user_id');
+            $user_id = MainApp::$Session->get('ff_user_id');
         }
 
         // convert id to real integer
@@ -33,8 +30,8 @@ class User extends ActiveModel implements iUser
         }
 
         // check in memory cache object
-        if (App::$Memory->get('user.object.cache.' . $user_id) !== null) {
-            return App::$Memory->get('user.object.cache.' . $user_id);
+        if (MainApp::$Memory->get('user.object.cache.' . $user_id) !== null) {
+            return MainApp::$Memory->get('user.object.cache.' . $user_id);
         }
         // not founded in memory? lets make query
         $user = self::find($user_id);
@@ -44,7 +41,7 @@ class User extends ActiveModel implements iUser
         }
 
         // store cache and return object
-        App::$Memory->set('user.object.cache.' . $user->id, $user);
+        MainApp::$Memory->set('user.object.cache.' . $user->id, $user);
         return $user;
     }
 
@@ -75,8 +72,8 @@ class User extends ActiveModel implements iUser
     public static function isAuth()
     {
         // get data from session
-        $session_token = App::$Session->get('ff_user_token', null);
-        $session_id = (int)App::$Session->get('ff_user_id', 0);
+        $session_token = MainApp::$Session->get('ff_user_token', null);
+        $session_id = (int)MainApp::$Session->get('ff_user_id', 0);
 
         // validate session data
         if (null === $session_token || $session_id < 1 || String::length($session_token) < 64) {
@@ -86,7 +83,7 @@ class User extends ActiveModel implements iUser
         // find user identity
         $find = self::identity($session_id);
         if (null === $find || String::length($find->token_data) < 64) { // check if this $id exist
-            App::$Session->invalidate(); // destory session data - it's not valid!
+            MainApp::$Session->invalidate(); // destory session data - it's not valid!
             return false;
         }
 
@@ -112,10 +109,10 @@ class User extends ActiveModel implements iUser
         // convert id to real integer
         $id = (int)$id;
 
-        $find = App::$Memory->get('user.counter.cache.' . $id);
+        $find = MainApp::$Memory->get('user.counter.cache.' . $id);
         if ($find === null) {
             $find = self::where('id', '=', $id)->count();
-            App::$Memory->set('user.counter.cache.' . $id, $find);
+            MainApp::$Memory->set('user.counter.cache.' . $id, $find);
         }
 
         return $find === 1;

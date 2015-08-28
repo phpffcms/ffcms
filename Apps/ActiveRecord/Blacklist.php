@@ -2,7 +2,7 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\App;
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 
 class Blacklist extends ActiveModel
@@ -45,7 +45,7 @@ class Blacklist extends ActiveModel
      */
     public function getUser()
     {
-        return App::$User->identity($this->target_id);
+        return MainApp::$User->identity($this->target_id);
     }
 
 }

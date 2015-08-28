@@ -43,16 +43,16 @@
         },
         {
             "name": "bower-asset/blueimp-file-upload",
-            "version": "9.10.4",
+            "version": "9.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueimp/jQuery-File-Upload.git",
-                "reference": "f94f744a3d07d45e571151f09975edc2d9c6339f"
+                "reference": "82a0100cd218797e0f2587c670baa1f3aeb3bb7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/f94f744a3d07d45e571151f09975edc2d9c6339f",
-                "reference": "f94f744a3d07d45e571151f09975edc2d9c6339f",
+                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/82a0100cd218797e0f2587c670baa1f3aeb3bb7b",
+                "reference": "82a0100cd218797e0f2587c670baa1f3aeb3bb7b",
                 "shasum": ""
             },
             "require": {
@@ -64,23 +64,7 @@
             "type": "bower-asset-library",
             "extra": {
                 "bower-asset-main": [
-                    "css/jquery.fileupload.css",
-                    "css/jquery.fileupload-ui.css",
-                    "css/jquery.fileupload-noscript.css",
-                    "css/jquery.fileupload-ui-noscript.css",
-                    "js/cors/jquery.postmessage-transport.js",
-                    "js/cors/jquery.xdr-transport.js",
-                    "js/vendor/jquery.ui.widget.js",
-                    "js/jquery.fileupload.js",
-                    "js/jquery.fileupload-process.js",
-                    "js/jquery.fileupload-validate.js",
-                    "js/jquery.fileupload-image.js",
-                    "js/jquery.fileupload-audio.js",
-                    "js/jquery.fileupload-video.js",
-                    "js/jquery.fileupload-ui.js",
-                    "js/jquery.fileupload-jquery-ui.js",
-                    "js/jquery.fileupload-angular.js",
-                    "js/jquery.iframe-transport.js"
+                    "js/jquery.fileupload.js"
                 ],
                 "bower-asset-ignore": [
                     "/*.*",
@@ -94,7 +78,10 @@
                     "test"
                 ]
             },
-            "description": "File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads. Works with any server-side platform (Google App Engine, PHP, Python, Ruby on Rails, Java, etc.) that supports standard HTML form file uploads.",
+            "license": [
+                "MIT"
+            ],
+            "description": "File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images.",
             "keywords": [
                 "bootstrap",
                 "chunk",
@@ -258,16 +245,16 @@
         },
         {
             "name": "bower-asset/components-font-awesome",
-            "version": "4.3.0",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/font-awesome.git",
-                "reference": "73acf4d65eadd8d127bafc7bd510240ea3979e83"
+                "reference": "7dffacc72e566e5db6272244effc06f64fe9f185"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/font-awesome/zipball/73acf4d65eadd8d127bafc7bd510240ea3979e83",
-                "reference": "73acf4d65eadd8d127bafc7bd510240ea3979e83",
+                "url": "https://api.github.com/repos/components/font-awesome/zipball/7dffacc72e566e5db6272244effc06f64fe9f185",
+                "reference": "7dffacc72e566e5db6272244effc06f64fe9f185",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -277,6 +264,7 @@
                     "scss/font-awesome.scss",
                     "fonts/fontawesome-webfont.eot",
                     "fonts/fontawesome-webfont.woff",
+                    "fonts/fontawesome-webfont.woff2",
                     "fonts/fontawesome-webfont.ttf",
                     "fonts/fontawesome-webfont.svg"
                 ],
@@ -402,16 +390,16 @@
         },
         {
             "name": "danielstjules/stringy",
-            "version": "1.9.0",
+            "version": "1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danielstjules/Stringy.git",
-                "reference": "3cf18e9e424a6dedc38b7eb7ef580edb0929461b"
+                "reference": "4749c205db47ee5b32e8d1adf6d9aff8db6caf3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/3cf18e9e424a6dedc38b7eb7ef580edb0929461b",
-                "reference": "3cf18e9e424a6dedc38b7eb7ef580edb0929461b",
+                "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/4749c205db47ee5b32e8d1adf6d9aff8db6caf3b",
+                "reference": "4749c205db47ee5b32e8d1adf6d9aff8db6caf3b",
                 "shasum": ""
             },
             "require": {
@@ -454,7 +442,7 @@
                 "utility",
                 "utils"
             ],
-            "time": "2015-02-10 06:19:18"
+            "time": "2015-07-23 00:54:12"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -462,12 +450,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dflydev/dflydev-dot-access-data.git",
-                "reference": "e66b3b0d06e204af9e2ff1e06d228f0a527855e7"
+                "reference": "7a0960d088119818ce7687d200c363b01d183cbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dflydev/dflydev-dot-access-data/zipball/e66b3b0d06e204af9e2ff1e06d228f0a527855e7",
-                "reference": "e66b3b0d06e204af9e2ff1e06d228f0a527855e7",
+                "url": "https://api.github.com/repos/dflydev/dflydev-dot-access-data/zipball/7a0960d088119818ce7687d200c363b01d183cbe",
+                "reference": "7a0960d088119818ce7687d200c363b01d183cbe",
                 "shasum": ""
             },
             "require": {
@@ -508,7 +496,7 @@
                 "dot",
                 "notation"
             ],
-            "time": "2015-03-17 13:52:51"
+            "time": "2015-08-13 03:51:18"
         },
         {
             "name": "doctrine/inflector",
@@ -766,12 +754,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "9c27569a4e639e6ffbab1f56b4c862f23890a4de"
+                "reference": "6fc7d3f10f139574be0b6b459e697600117eddfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/9c27569a4e639e6ffbab1f56b4c862f23890a4de",
-                "reference": "9c27569a4e639e6ffbab1f56b4c862f23890a4de",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/6fc7d3f10f139574be0b6b459e697600117eddfe",
+                "reference": "6fc7d3f10f139574be0b6b459e697600117eddfe",
                 "shasum": ""
             },
             "require": {
@@ -801,7 +789,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-06-13 22:48:28"
+            "time": "2015-08-19 17:17:48"
         },
         {
             "name": "illuminate/contracts",
@@ -809,12 +797,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "0bf2ac25a73c40b2d401fc7db58f6b0788ccc312"
+                "reference": "762646a66aa29edc4363914ee5c0b1d49ac72986"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/0bf2ac25a73c40b2d401fc7db58f6b0788ccc312",
-                "reference": "0bf2ac25a73c40b2d401fc7db58f6b0788ccc312",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/762646a66aa29edc4363914ee5c0b1d49ac72986",
+                "reference": "762646a66aa29edc4363914ee5c0b1d49ac72986",
                 "shasum": ""
             },
             "require": {
@@ -843,7 +831,7 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-07-17 14:40:14"
+            "time": "2015-08-19 01:45:32"
         },
         {
             "name": "illuminate/database",
@@ -851,12 +839,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "450be49866ffb855c1de3f7e01a76b3529907003"
+                "reference": "7e47b07b3e432cd88f017eaf67e3619474d85922"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/450be49866ffb855c1de3f7e01a76b3529907003",
-                "reference": "450be49866ffb855c1de3f7e01a76b3529907003",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/7e47b07b3e432cd88f017eaf67e3619474d85922",
+                "reference": "7e47b07b3e432cd88f017eaf67e3619474d85922",
                 "shasum": ""
             },
             "require": {
@@ -902,7 +890,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-07-17 19:35:52"
+            "time": "2015-08-21 18:09:42"
         },
         {
             "name": "illuminate/support",
@@ -910,12 +898,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "0caf4c9216b00aa1172b07f67a92ff42421d8630"
+                "reference": "60a2cc9a09ecbdebfcacf417404fe7a70b287ae2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/0caf4c9216b00aa1172b07f67a92ff42421d8630",
-                "reference": "0caf4c9216b00aa1172b07f67a92ff42421d8630",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/60a2cc9a09ecbdebfcacf417404fe7a70b287ae2",
+                "reference": "60a2cc9a09ecbdebfcacf417404fe7a70b287ae2",
                 "shasum": ""
             },
             "require": {
@@ -955,7 +943,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-07-18 02:58:46"
+            "time": "2015-08-21 18:09:42"
         },
         {
             "name": "maximebf/debugbar",
@@ -1066,12 +1054,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-ckeditor.git",
-                "reference": "1298475c08f4473b49dad1f00a5cac50c03eedac"
+                "reference": "bd2f8d6bcc285fd77adb6b9234e90b65dcfe7779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/1298475c08f4473b49dad1f00a5cac50c03eedac",
-                "reference": "1298475c08f4473b49dad1f00a5cac50c03eedac",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/bd2f8d6bcc285fd77adb6b9234e90b65dcfe7779",
+                "reference": "bd2f8d6bcc285fd77adb6b9234e90b65dcfe7779",
                 "shasum": ""
             },
             "require": {
@@ -1102,7 +1090,7 @@
                 "php",
                 "wysiwyg"
             ],
-            "time": "2015-07-16 10:53:26"
+            "time": "2015-07-19 18:14:43"
         },
         {
             "name": "phpffcms/ffcms-console",
@@ -1154,12 +1142,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "9630169662d042541e5f8d9a6781160636a20c6b"
+                "reference": "e2d114f444582e6200259afb6dd8ffb3a0f54af8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/9630169662d042541e5f8d9a6781160636a20c6b",
-                "reference": "9630169662d042541e5f8d9a6781160636a20c6b",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/e2d114f444582e6200259afb6dd8ffb3a0f54af8",
+                "reference": "e2d114f444582e6200259afb6dd8ffb3a0f54af8",
                 "shasum": ""
             },
             "require": {
@@ -1196,7 +1184,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2015-07-18 15:29:59"
+            "time": "2015-08-23 19:37:43"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1390,12 +1378,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "d049b8bb7085f2d8b413be00336acba3ceceadd4"
+                "reference": "7e1c1e99e3f25d75cf8ac879902d536652c2bd68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/d049b8bb7085f2d8b413be00336acba3ceceadd4",
-                "reference": "d049b8bb7085f2d8b413be00336acba3ceceadd4",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/7e1c1e99e3f25d75cf8ac879902d536652c2bd68",
+                "reference": "7e1c1e99e3f25d75cf8ac879902d536652c2bd68",
                 "shasum": ""
             },
             "require": {
@@ -1443,7 +1431,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-10 04:29:01"
+            "time": "2015-08-24 07:21:16"
         },
         {
             "name": "symfony/var-dumper",
@@ -1451,12 +1439,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "35d27bf5a71abd8f57f15ac4101492494ee0fb11"
+                "reference": "c6ebcc8d4e89d54fa15e413e945a7e7aca47cb8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/35d27bf5a71abd8f57f15ac4101492494ee0fb11",
-                "reference": "35d27bf5a71abd8f57f15ac4101492494ee0fb11",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/c6ebcc8d4e89d54fa15e413e945a7e7aca47cb8f",
+                "reference": "c6ebcc8d4e89d54fa15e413e945a7e7aca47cb8f",
                 "shasum": ""
             },
             "require": {
@@ -1502,7 +1490,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-07-02 14:25:26"
+            "time": "2015-08-24 07:18:02"
         }
     ],
     "packages-dev": [],
