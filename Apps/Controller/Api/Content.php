@@ -16,17 +16,23 @@ use Gregwar\Image\Image;
 
 class Content extends ApiController
 {
-    public $maxSize = 500 * 1024;
+    public $maxSize = 512000; // in bytes, 500 * 1024
     public $maxResize = 150;
 
-    public $allowedExt = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'tiff', 'webp'];
+    public $allowedExt = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'webp'];
 
     public function before()
     {
         parent::before();
         $configs = AppRecord::getConfigs('app', 'Content');
-        $this->maxSize = (int)$configs['gallerySize'] * 1024;
-        $this->maxResize = (int)$configs['galleryResize'];
+        // prevent null-type config data
+        if ((int)$configs['gallerySize'] > 0) {
+            $this->maxSize = (int)$configs['gallerySize'] * 1024;
+        }
+
+        if ((int)$configs['galleryResize'] > 0) {
+            $this->maxResize = (int)$configs['galleryResize'];
+        }
     }
 
     /**
@@ -62,6 +68,8 @@ class Content extends ApiController
 
         // check file size
         if ($file->getSize() < 1 || $file->getSize() > $this->maxSize) {
+            var_dump($file->getSize());
+            var_dump($this->maxSize);
             throw new JsonException('File wrong size');
         }
 

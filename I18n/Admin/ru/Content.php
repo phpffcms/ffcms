@@ -23,8 +23,8 @@ return [
     'Slug of URL pathway for this content item' => 'Ярлык URL адреса для данного материала',
     'Select content category' => 'Выберите раздел для контента',
     'Meta title' => 'Meta заголовок',
-    'Keywords' => 'Ключевые слова',
-    'Description' => 'Описание',
+    'Meta keywords' => 'Meta ключи',
+    'Meta description' => 'Meta описание',
     'Enter meta param title for page title. Recoomended: 50-70 characters' => 'Укажите параметр meta-заголовка для данной страницы. Рекомендуется 50-70 символов',
     'Enter meta param keywords for this content, separated by comma. Example: home, door, dog' => 'Укажите meta параметр ключевых слов для данного материала, разделяя значения запятыми. Пример: дом, дверь, собака',
     'Enter meta param description for this content. Recommended is 100-150 characters' => 'Укажите meta параметр описания для данного материала. Рекомендуется использовать 100-150 символов',
@@ -97,5 +97,10 @@ return [
     'Trashed content' => 'Количество в корзине',
     'Count of content items to total remove' => 'Количество элементов контента для удаления',
     'Total remove' => 'Полное удаление',
-    'Content settings' => 'Настройки контента'
+    'Content settings' => 'Настройки контента',
+    'Remove all' => 'Очистить корзину',
+    'Upload image' => 'Загрузить изображение',
+    'Poster' => 'Постер',
+    'Not selected...' => 'Не выбрано...',
+    'Choice image from gallery as a poster for this content' => 'Выберите изображение из галлереи в качестве постера для данного контента'
 ];

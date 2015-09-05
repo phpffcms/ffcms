@@ -72,12 +72,53 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     <?php if ($trash): ?>
     <p class="alert alert-danger"><i class="fa fa-trash-o"></i> <?= __('This content is placed in trash') ?></p>
     <?php endif; ?>
-    <div id="content-text"><?= $model->text ?></div>
+    <div id="content-text">
+        <?php if ($showPoster === true && $model->posterFull !== null && $model->posterThumb !== null): ?>
+            <a href="#showPoster" data-toggle="modal" data-target="#showPoster"><img src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" /></a>
+            <!-- Modal poster pop-up -->
+            <div class="modal fade" id="showPoster" tabindex="-1" role="dialog" aria-labelledby="showPosterModal">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><?= __('View poster') ?></h4>
+                        </div>
+                        <div class="modal-body">
+                            <img class="img-responsive" src="<?= \App::$Alias->scriptUrl . $model->posterFull ?>" alt="<?= __('Poster image') ?>" style="margin: 0 auto;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif ;?>
+        <?= $model->text ?>
+    </div>
+    <?php if ($model->galleryItems !== null && Object::isArray($model->galleryItems)): ?>
+        <div class="row">
+        <?php foreach ($model->galleryItems as $thumbPic => $fullPic): ?>
+            <div class="col-md-2 well">
+                <a href="#showGallery" class="modalGallery" content="<?= \App::$Alias->scriptUrl . $fullPic ?>"><img src="<?= \App::$Alias->scriptUrl . $thumbPic ?>" class="img-responsive image-item" /></a>
+            </div>
+        <?php endforeach; ?>
+        </div>
+        <div class="modal fade" id="showGallery" tabindex="-1" role="dialog" aria-labelledby="showshowGallery">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="showModalLabel"><?= __('View picture') ?></h4>
+                    </div>
+                    <div class="modal-body" id="modal-gallery-body">
+                        <img class="img-responsive" src="<?= \App::$Alias->scriptUrl . $model->posterFull ?>" alt="<?= __('Gallery picture') ?>" style="margin: 0 auto;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
     <?php if ((int)$configs['keywordsAsTags'] === 1): ?>
     <div id="content-tags">
-        <i class="fa fa-tags"></i>
         <?php
-        if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
+        if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && String::length($model->metaKeywords[0]) > 0) {
+            echo '<i class="fa fa-tags"></i>';
             foreach ($model->metaKeywords as $tag) {
                 $tag = \App::$Security->strip_tags(trim($tag));
                 echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
@@ -99,3 +140,16 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     </div>
     <?php endif; ?>
 </article>
+<?php if ($model->galleryItems !== null && Object::isArray($model->galleryItems)): ?>
+<script>
+    window.jQ.push(function(){
+        $('.modalGallery').on('click', function() {
+            var picture = $(this).attr('content');
+            if (picture != null && picture.length > 0) {
+                $('#modal-gallery-body').html('<img class="img-responsive" alt="Picture" style="margin: 0 auto;" src="' + picture + '"/>');
+                $('#showGallery').modal('show');
+            }
+        });
+    });
+</script>
+<?php endif; ?>

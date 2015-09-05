@@ -97,7 +97,7 @@ $galleryTab = '<div class="row">
             </span>
 </div>
 <div class="col-md-8">
-    ' . $form->field('poster', 'select', ['options' => ['1', '2'], 'class' => 'form-control']) . '
+    ' . $form->field('poster', 'select', ['options' => [__('Not selected...')], 'class' => 'form-control'], __('Select image from gallery as a poster for this content')) . '
 </div>
 </div><br/><br/>';
 ?>
@@ -184,6 +184,11 @@ $galleryTab = '<div class="row">
                 pathObject.val(translit($(this).val()));
             });
 
+            // gallery remove
+            $(document).on('click', '.delete-gallery-item', function() {
+                alert(this.id);
+            });
+
             // gallery file listing
             $.getJSON(script_url+"/api/content/gallerylist/<?= $model->galleryFreeId ?>?lang="+script_lang,
                 function (data) {
@@ -193,10 +198,15 @@ $galleryTab = '<div class="row">
                             '<div class="text-center"><strong>'+file.name+'</strong></div>'+
                             '<img src="'+script_url+file.thumbnailUrl+'" class="img-responsive image-item" />'+
                             '<div class="text-center">' +
-                            '<a href="#" class="label label-info">View</a> '+
-                            '<a href="#" class="label label-danger">Delete</a>'+
+                            '<a href="'+script_url + file.url +'" target="_blank" class="label label-info"><?= __('View') ?></a> '+
+                            '<a href="javascript:void(0);" class="label label-danger delete-gallery-item" id="'+file.name+'"><?= __('Delete') ?></a>'+
                             '</div></div>'
                         ).appendTo('#gallery-files');
+                        var option = '<option value="'+file.name+'">'+file.name+'</option>';
+                        if (file.name == '<?= $model->poster ?>') {
+                            option = '<option value="'+file.name+'" selected>'+file.name+'</option>';
+                        }
+                        $('#FormContentUpdate-poster').append(option);
                     });
                 });
 
@@ -210,8 +220,16 @@ $galleryTab = '<div class="row">
                             '<div class="col-md-2 well" style="margin-left: 5px;">'+
                             '<div class="text-center"><strong>'+file.name+'</strong></div>'+
                             '<img src="'+script_url+file.thumbnailUrl+'" class="img-responsive image-item" />'+
-                            '</div>'
+                            '<div class="text-center">' +
+                            '<a href="'+script_url + file.url +'" target="_blank" class="label label-info"><?= __('View') ?></a> '+
+                            '<a href="javascript:void(0);" class="label label-danger delete-gallery-item" id="'+file.name+'"><?= __('Delete') ?></a>'+
+                            '</div></div>'
                         ).appendTo('#gallery-files');
+                        var option = '<option value="'+file.name+'">'+file.name+'</option>';
+                        if (file.name == '<?= $model->poster ?>') {
+                            option = '<option value="'+file.name+'" selected>'+file.name+'</option>';
+                        }
+                        $('#FormContentUpdate-poster').append(option);
                     });
                 },
                 progressall: function (e, data) {

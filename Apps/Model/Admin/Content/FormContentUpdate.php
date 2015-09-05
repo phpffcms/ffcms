@@ -8,6 +8,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
+use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Serialize;
@@ -86,7 +87,7 @@ class FormContentUpdate extends Model
             ['text', 'used', null, true, true],
             ['path', 'reverse_match', '/[\/\'~`\!@#\$%\^&\*\(\)+=\{\}\[\]\|;:"\<\>,\?\\\]/'],
             [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title'], 'required'],
-            [['metaTitle', 'metaKeywords', 'metaDescription', 'source', 'addRating', 'createdAt'], 'used'],
+            [['metaTitle', 'metaKeywords', 'metaDescription', 'poster', 'source', 'addRating', 'createdAt'], 'used'],
             [['addRating', 'authorId', 'display'], 'int'],
             ['display', 'in', ['0', '1']],
             ['categoryId', 'in', $this->categoryIds()],
@@ -120,7 +121,8 @@ class FormContentUpdate extends Model
             'createdAt' => __('Publish date'),
             'authorId' => __('Author identity'),
             'source' => __('Source URL'),
-            'addRating' => __('Change rating')
+            'addRating' => __('Change rating'),
+            'poster' => __('Poster')
         ];
     }
 
@@ -152,6 +154,12 @@ class FormContentUpdate extends Model
             $this->_content->created_at = Date::convertToDatetime($this->createdAt, Date::FORMAT_SQL_TIMESTAMP);
         }
 
+        // save poster data
+        $posterPath = '/upload/gallery/' . $this->galleryFreeId . '/orig/' . $this->poster;
+        if (File::exist($posterPath)) {
+            $this->_content->poster = $this->poster;
+        }
+
         // get temporary gallery id
         $tmpGalleryId = $this->galleryFreeId;
 
@@ -159,7 +167,9 @@ class FormContentUpdate extends Model
         $this->_content->save();
 
         // move files
-        Directory::rename('/upload/gallery/' . $tmpGalleryId, $this->_content->id);
+        if ($tmpGalleryId !== $this->_content->id) {
+            Directory::rename('/upload/gallery/' . $tmpGalleryId, $this->_content->id);
+        }
     }
 
     /**

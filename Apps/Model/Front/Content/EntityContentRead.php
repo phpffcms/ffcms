@@ -7,6 +7,8 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Helper\FileSystem\Directory;
+use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Serialize;
@@ -26,10 +28,15 @@ class EntityContentRead extends Model
     public $views;
     public $catNesting = [];
     public $source;
+    public $posterThumb;
+    public $posterFull;
 
     public $metaTitle;
     public $metaDescription;
     public $metaKeywords;
+
+    // gallery image key-value array as thumb->full
+    public $galleryItems;
 
     // private activerecord relation objects
     private $_category;
@@ -108,6 +115,41 @@ class EntityContentRead extends Model
             'name' => $this->catName,
             'path' => $this->catPath
         ];
+
+        // get gallery images and poster data
+        $galleryPath = '/upload/gallery/' . $this->_content->id;
+        // check if gallery folder is exist
+        if (Directory::exist($galleryPath)) {
+            $originImages = File::listFiles($galleryPath . '/orig/', ['.jpg', '.png', '.gif', '.jpeg', '.bmp', '.webp'], true);
+            // generate poster data
+            if (Arr::in($this->_content->poster, $originImages)) {
+                // original poster
+                $posterName = $this->_content->poster;
+                $this->posterFull = $galleryPath . '/orig/' . $posterName;
+                if (!File::exist($this->posterFull)) {
+                    $this->posterFull = null;
+                }
+                // thumb poster
+                $posterSplit = explode('.', $posterName);
+                array_pop($posterSplit);
+                $posterCleanName = implode('.', $posterSplit);
+                $this->posterThumb = $galleryPath . '/thumb/' . $posterCleanName . '.jpg';
+                if (!File::exist($this->posterThumb)) {
+                    $this->posterThumb = null;
+                }
+            }
+
+            // generate full gallery
+            foreach ($originImages as $image) {
+                $imageSplit = explode('.', $image);
+                array_pop($imageSplit);
+                $imageClearName = implode('.', $imageSplit);
+                $thumbPath = $galleryPath . '/thumb/' . $imageClearName . '.jpg';
+                if (File::exist($thumbPath)) {
+                    $this->galleryItems[$thumbPath] = $galleryPath . '/orig/' . $image;
+                }
+            }
+        }
 
         // update views count
         $this->_content->views += 1;
