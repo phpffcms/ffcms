@@ -15,6 +15,7 @@ use Ffcms\Core\App;
 use Apps\ActiveRecord\Content as ContentEntity;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Object;
@@ -25,6 +26,8 @@ class Content extends AdminAppController
 
     /**
      * List content items
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {
@@ -66,6 +69,8 @@ class Content extends AdminAppController
     /**
      * Edit and add content items
      * @param $id
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionUpdate($id)
     {
@@ -100,6 +105,8 @@ class Content extends AdminAppController
      * Delete content by id
      * @param int $id
      * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionDelete($id)
     {
@@ -130,6 +137,8 @@ class Content extends AdminAppController
      * Restore deleted content
      * @param $id
      * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionRestore($id)
     {
@@ -158,6 +167,12 @@ class Content extends AdminAppController
         ]);
     }
 
+    /**
+     * Clear the trashed items
+     * @throws SyntaxException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
+     */
     public function actionClear()
     {
         // find trashed rows
@@ -198,6 +213,7 @@ class Content extends AdminAppController
      * @param int $id
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionCategorydelete($id)
     {
@@ -231,6 +247,8 @@ class Content extends AdminAppController
     /**
      * Show category edit and create
      * @param null $id
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionCategoryupdate($id = null)
     {

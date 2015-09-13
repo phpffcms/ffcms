@@ -66,7 +66,7 @@ class FormCategoryUpdate extends Model
 
             // set serialized decoded data
             $this->title = Serialize::decode($this->_record->title);
-            $this->description = Serialize::decode($this->_record->decsription);
+            $this->description = Serialize::decode($this->_record->description);
             if ($this->_record->configs !== null && !String::likeEmpty($this->_record->configs)) {
                 $this->configs = Serialize::decode($this->_record->configs);
             }

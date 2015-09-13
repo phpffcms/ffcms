@@ -74,7 +74,9 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     <?php endif; ?>
     <div id="content-text">
         <?php if ($showPoster === true && $model->posterFull !== null && $model->posterThumb !== null): ?>
-            <a href="#showPoster" data-toggle="modal" data-target="#showPoster"><img src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" /></a>
+            <a href="#showPoster" data-toggle="modal" data-target="#showPoster">
+                <img alt="<?= __('Poster for') ?>: <?= String::lowerCase(\App::$Security->strip_tags($model->title)) ?>" src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" />
+            </a>
             <!-- Modal poster pop-up -->
             <div class="modal fade" id="showPoster" tabindex="-1" role="dialog" aria-labelledby="showPosterModal">
                 <div class="modal-dialog modal-lg" role="document">

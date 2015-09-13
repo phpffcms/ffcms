@@ -4,11 +4,13 @@ namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\Content as ContentEntity;
+use Apps\Model\Front\Content\EntityCategoryRead;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Apps\Model\Front\Content\EntityContentRead;
+use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\String;
 
@@ -19,6 +21,12 @@ class Content extends FrontAppController
         $this->response = 'Welcome index demo action of Content';
     }
 
+    /**
+     * List category content
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
+     */
     public function actionList()
     {
         $path = App::$Request->getPathWithoutControllerAction();
@@ -29,30 +37,59 @@ class Content extends FrontAppController
 
         // generate category array
         $categoryIds = [];
+        $categoryData = null;
+        $currentCategoryData = null;
+        // does it multi-category mod?
         if ((int)$configs['multiCategories'] === 1) {
-            $categoryData = ContentCategory::where('path', 'like', $path . '%')->get(['id'])->toArray();
+            $categoryData = ContentCategory::where('path', 'like', $path . '%')->get()->toArray();
             if (count($categoryData) < 1) {
                 throw new NotFoundException();
             }
             $categoryIds = Arr::ploke('id', $categoryData);
-        } else {
-            $categoryData = ContentCategory::getByPath($path);
-            if ($categoryData === null || $categoryData === false) {
+            // extract current category information
+            foreach ($categoryData as $row) {
+                if ($row['path'] === $path) {
+                    $currentCategoryData = $row;
+                }
+            }
+        } else { // its a single category mod
+            $categoryData = ContentCategory::getByPath($path)->toArray();
+            if ($categoryData === null || $categoryData === false || count($categoryData) < 1) {
                 throw new NotFoundException();
             }
-            $categoryIds[] = $categoryData->toArray()['id'];
+            $currentCategoryData = $categoryData;
+            $categoryIds[] = $categoryData['id'];
         }
 
-        $contentQuery = ContentEntity::whereIn('category_id', $categoryIds)->get();
-        var_dump($contentQuery);
+        // get content item list from depended category id's
+        $query = ContentEntity::whereIn('category_id', $categoryIds)->where('display', '=', 1);
 
-        $this->response = 'List category';
+        // build pagination
+        $pagination = new SimplePagination([
+            'url' => ['content/list', $path],
+            'page' => $page,
+            'step' => $itemCount,
+            'total' => $query->count()
+        ]);
+
+        // generate result
+        $records = $query->skip($offset)->take($itemCount)->orderBy('created_at', 'DESC')->get();
+
+        $model = new EntityCategoryRead($records, $currentCategoryData, $categoryData);
+
+        // drow response view
+        $this->response = App::$View->render('list', [
+            'model' => $model,
+            'pagination' => $pagination,
+            'configs' => $configs,
+        ]);
     }
 
     /**
      * Show content item
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionRead()
     {
@@ -72,7 +109,7 @@ class Content extends FrontAppController
         }
 
         // try to find content entity record
-        $contentRecord = ContentEntity::where('path', '=', $contentPath);
+        $contentRecord = ContentEntity::where('path', '=', $contentPath)->where('category_id', '=', $categoryRecord->id);
         $trash = false;
 
         // if no entity is founded for this path lets try to find on trashed
@@ -94,7 +131,7 @@ class Content extends FrontAppController
         // lets init entity model for content transfer to view
         $model = new EntityContentRead($categoryRecord, $contentRecord->first());
 
-        $this->response = App::$View->render('read_content', [
+        $this->response = App::$View->render('read', [
             'model' => $model,
             'trash' => $trash,
             'configs' => $this->getConfigs()
