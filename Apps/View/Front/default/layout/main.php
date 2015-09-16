@@ -166,14 +166,24 @@ use Ffcms\Core\Helper\Type\Object;
     });
 </script>
 <script>
-    $(function(){
+    // notification function for user pm count block (class="pm-count-block")
+    function ajaxNotifyPm() {
         $.getJSON(script_url+'/api/profile/messagesnewcount?lang='+script_lang, function(resp){
             if (resp.status === 1) {
+                var block = $('.pm-count-block');
                 if (resp.count > 0) {
-                    $('.pm-count-block').html(resp.count).addClass('alert-danger', 1000);
+                    block.html(resp.count).addClass('alert-danger', 1000);
+                } else {
+                    block.removeClass('alert-danger', 1000).html(resp.count);
                 }
             }
         });
+    }
+    $(function(){
+        // instantly run counter
+        ajaxNotifyPm();
+        // run every 5 seconds
+        setInterval('ajaxNotifyPm()', 5000);
     });
 </script>
 <?php

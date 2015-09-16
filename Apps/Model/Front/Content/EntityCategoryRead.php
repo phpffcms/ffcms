@@ -9,7 +9,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\String;
-use Illuminate\Support\Facades\Validator;
+use Ffcms\Core\Exception\NotFoundException;
 
 class EntityCategoryRead extends Model
 {
@@ -24,6 +24,8 @@ class EntityCategoryRead extends Model
     public $_category;
     /** @var array|null $_allCategories */
     public $_allCategories;
+
+    private $_nullCount;
 
     /**
      * Pass data from initialization
@@ -42,13 +44,15 @@ class EntityCategoryRead extends Model
     /**
     * Prepare passed data in __construct
     * @throws ForbiddenException
+    * @throws NotFoundException
     */
     public function before()
     {
         $this->categoryData = [
             'title' => App::$Security->strip_tags(Serialize::getDecodeLocale($this->_category['title'])),
             'description' => App::$Security->strip_tags(Serialize::getDecodeLocale($this->_category['description'])),
-            'configs' => Serialize::decode($this->_category['configs'])
+            'configs' => Serialize::decode($this->_category['configs']),
+            'path' => $this->_category['path']
         ];
 
         // check if this category is hidden
@@ -111,9 +115,14 @@ class EntityCategoryRead extends Model
                 $tags = null;
             }
 
+            $localeTitle = App::$Security->strip_tags(Serialize::getDecodeLocale($row->title));
+            if (String::length($localeTitle) < 1) {
+                ++$this->_nullCount;
+            }
+
             // build result array
             $this->items[] = [
-                'title' => App::$Security->strip_tags(Serialize::getDecodeLocale($row->title)),
+                'title' => $localeTitle,
                 'text' => $text,
                 'date' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_HOUR),
                 'author' => App::$User->identity($row->author_id),
@@ -125,6 +134,11 @@ class EntityCategoryRead extends Model
                 'uri' => '/content/read/' . $itemPath,
                 'tags' => $tags
             ];
+        }
+
+        // try to check count of null items without content
+        if ($this->_nullCount === $this->_records->count()) {
+            throw new NotFoundException();
         }
     }
 }

@@ -7,5 +7,6 @@ return [
     'Poster image' => 'Картинка-постер',
     'View picture' => 'Просмотр изображения',
     'Gallery picture' => 'Изображение из галлереи',
-    'Poster for' => 'Постер для'
+    'Poster for' => 'Постер для',
+    'Read more' => 'Подробней'
 ];
