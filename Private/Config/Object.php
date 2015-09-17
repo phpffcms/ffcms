@@ -18,6 +18,9 @@ $capsule->bootEloquent(); // allow active record model's
 // establish swift mailer
 $swiftTransport = Swift_MailTransport::newInstance();
 
+// configure cache
+phpFastCache::setup('path', root . '/Private/Cache');
+
 return [
     'Session' => new Session(new NativeSessionStorage(
         [
@@ -30,6 +33,7 @@ return [
     'User' => new Apps\ActiveRecord\User(),
     'Database' => $capsule,
     'Mailer' => Swift_Mailer::newInstance($swiftTransport),
-    'Captcha' => new Extend\Core\Captcha\Gregwar()
+    'Captcha' => new Extend\Core\Captcha\Gregwar(),
     //'Captcha' => new Extend\Core\Captcha\Recaptcha('siteKey', 'secret')
+    'Cache' => \phpFastCache()
 ];
