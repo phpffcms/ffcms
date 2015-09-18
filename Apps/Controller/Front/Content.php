@@ -16,9 +16,13 @@ use Ffcms\Core\Helper\Type\String;
 
 class Content extends FrontAppController
 {
+    /**
+     * Index is forbidden
+     * @throws NotFoundException
+     */
     public function actionIndex()
     {
-        $this->response = 'Welcome index demo action of Content';
+        throw new NotFoundException();
     }
 
     /**

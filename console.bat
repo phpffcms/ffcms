@@ -9,6 +9,6 @@ set P=%~dp0
 
 if "%PHP_COMMAND%" == "" set PHP_COMMAND=php.exe
 
-"%PHP_COMMAND%" "%P%console" %*
+"%PHP_COMMAND%" "%P%console.php" %*
 
 @endlocal

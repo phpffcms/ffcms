@@ -3,17 +3,13 @@
 namespace Apps\Controller\Console;
 
 use Ffcms\Console\App;
+use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Type\String;
 
 class Main
 {
-    // php console.php main/index
-    public function actionIndex($id = null)
-    {
-        return 'Hello, console! ' . $id;
-    }
 
     public function actionHelp()
     {
@@ -22,6 +18,7 @@ class Main
         $text .= "\t main/info - show info about CMS\n";
         $text .= "\t main/install - install FFCMS from console line.\n";
         $text .= "\t main/update - update package to current minor version if available.\n";
+        $text .= "\t main/chmod - update chmod for ffcms special folders. Can be used after project deployment.\n";
         $text .= "\t main/buildperms - build and update permissions map for applications. \n";
         $text .= "\t create/model workground/modelName - create model carcase default.\n";
         $text .= "\t create/ar activeRecordName - create active record table and model.\n";
@@ -89,5 +86,24 @@ class Main
         File::write('/Private/Config/PermissionMap.php', $stringSave);
 
         return App::$Output->write('Permission mas is successful updated! Finded permissions: ' . count($permissions));
+    }
+
+    /**
+     * Set chmod for system directories
+     */
+    public function actionChmod()
+    {
+        $pRW = 0666;
+        $pRWX = 0777;
+        chmod(root . '/upload', $pRW);
+        // make upload rw
+        Directory::recursiveChmod('/upload/user/', $pRW);
+        Directory::recursiveChmod('/upload/gallery/', $pRW);
+        Directory::recursiveChmod('/upload/images/', $pRW);
+        // make private rw/rwx
+        Directory::recursiveChmod('/Private/Cache/', $pRW);
+        chmod(root . '/Private/Config/General.php', $pRWX);
+        Directory::recursiveChmod('/Private/Sessions/', $pRW);
+        Directory::recursiveChmod('/Private/Antivirus/', $pRW);
     }
 }

@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ea9dfd69b8e5232e1701e8835f4b3362",
+    "hash": "161200c2261db0196ac661a4eac58d67",
+    "content-hash": "cbb5891ddefcb072eecffa8254a36fcc",
     "packages": [
         {
             "name": "bower-asset/blueimp-canvas-to-blob",
@@ -43,16 +44,16 @@
         },
         {
             "name": "bower-asset/blueimp-file-upload",
-            "version": "9.11.0",
+            "version": "9.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueimp/jQuery-File-Upload.git",
-                "reference": "82a0100cd218797e0f2587c670baa1f3aeb3bb7b"
+                "reference": "0ef967239037d2e477dfa057ccabbea055284395"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/82a0100cd218797e0f2587c670baa1f3aeb3bb7b",
-                "reference": "82a0100cd218797e0f2587c670baa1f3aeb3bb7b",
+                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/0ef967239037d2e477dfa057ccabbea055284395",
+                "reference": "0ef967239037d2e477dfa057ccabbea055284395",
                 "shasum": ""
             },
             "require": {
@@ -446,7 +447,7 @@
         },
         {
             "name": "dflydev/dot-access-data",
-            "version": "dev-master",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dflydev/dflydev-dot-access-data.git",
@@ -504,12 +505,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "b0b2feffb47906a03b570777c07044c529d1d124"
+                "reference": "3a422c73f7bc556d39571f436b61fd58ccae0eb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/b0b2feffb47906a03b570777c07044c529d1d124",
-                "reference": "b0b2feffb47906a03b570777c07044c529d1d124",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/3a422c73f7bc556d39571f436b61fd58ccae0eb0",
+                "reference": "3a422c73f7bc556d39571f436b61fd58ccae0eb0",
                 "shasum": ""
             },
             "require": {
@@ -563,7 +564,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-07-07 15:32:45"
+            "time": "2015-09-17 13:29:15"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -750,26 +751,26 @@
         },
         {
             "name": "illuminate/container",
-            "version": "dev-master",
+            "version": "5.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "6fc7d3f10f139574be0b6b459e697600117eddfe"
+                "reference": "8d6439c2c42a3b0806b3ba7dc0c669023e4550a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/6fc7d3f10f139574be0b6b459e697600117eddfe",
-                "reference": "6fc7d3f10f139574be0b6b459e697600117eddfe",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/8d6439c2c42a3b0806b3ba7dc0c669023e4550a7",
+                "reference": "8d6439c2c42a3b0806b3ba7dc0c669023e4550a7",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "5.2.*",
+                "illuminate/contracts": "5.1.*",
                 "php": ">=5.5.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.2-dev"
+                    "dev-master": "5.1-dev"
                 }
             },
             "autoload": {
@@ -789,20 +790,20 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-08-19 17:17:48"
+            "time": "2015-08-26 23:00:38"
         },
         {
             "name": "illuminate/contracts",
-            "version": "dev-master",
+            "version": "5.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "762646a66aa29edc4363914ee5c0b1d49ac72986"
+                "reference": "c3299e00a695e7d846790d5de007355a96cebc90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/762646a66aa29edc4363914ee5c0b1d49ac72986",
-                "reference": "762646a66aa29edc4363914ee5c0b1d49ac72986",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/c3299e00a695e7d846790d5de007355a96cebc90",
+                "reference": "c3299e00a695e7d846790d5de007355a96cebc90",
                 "shasum": ""
             },
             "require": {
@@ -811,7 +812,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.2-dev"
+                    "dev-master": "5.1-dev"
                 }
             },
             "autoload": {
@@ -831,40 +832,40 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-08-19 01:45:32"
+            "time": "2015-08-31 12:59:22"
         },
         {
             "name": "illuminate/database",
-            "version": "dev-master",
+            "version": "v5.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "7e47b07b3e432cd88f017eaf67e3619474d85922"
+                "reference": "7655e39c507776c9b9226a8f5619ed9933d3396e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/7e47b07b3e432cd88f017eaf67e3619474d85922",
-                "reference": "7e47b07b3e432cd88f017eaf67e3619474d85922",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/7655e39c507776c9b9226a8f5619ed9933d3396e",
+                "reference": "7655e39c507776c9b9226a8f5619ed9933d3396e",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "5.2.*",
-                "illuminate/contracts": "5.2.*",
-                "illuminate/support": "5.2.*",
-                "nesbot/carbon": "~1.20",
+                "illuminate/container": "5.1.*",
+                "illuminate/contracts": "5.1.*",
+                "illuminate/support": "5.1.*",
+                "nesbot/carbon": "~1.19",
                 "php": ">=5.5.9"
             },
             "suggest": {
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (~2.4).",
                 "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4).",
-                "illuminate/console": "Required to use the database commands (5.2.*).",
-                "illuminate/events": "Required to use the observers with Eloquent (5.2.*).",
-                "illuminate/filesystem": "Required to use the migrations (5.2.*)."
+                "illuminate/console": "Required to use the database commands (5.1.*).",
+                "illuminate/events": "Required to use the observers with Eloquent (5.1.*).",
+                "illuminate/filesystem": "Required to use the migrations (5.1.*)."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.2-dev"
+                    "dev-master": "5.1-dev"
                 }
             },
             "autoload": {
@@ -890,37 +891,37 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-08-21 18:09:42"
+            "time": "2015-09-03 14:53:32"
         },
         {
             "name": "illuminate/support",
-            "version": "dev-master",
+            "version": "5.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "60a2cc9a09ecbdebfcacf417404fe7a70b287ae2"
+                "reference": "59f58668d19167a0a473e65d00bf09e1ec131f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/60a2cc9a09ecbdebfcacf417404fe7a70b287ae2",
-                "reference": "60a2cc9a09ecbdebfcacf417404fe7a70b287ae2",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/59f58668d19167a0a473e65d00bf09e1ec131f19",
+                "reference": "59f58668d19167a0a473e65d00bf09e1ec131f19",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "~1.8",
                 "doctrine/inflector": "~1.0",
                 "ext-mbstring": "*",
-                "illuminate/contracts": "5.2.*",
+                "illuminate/contracts": "5.1.*",
                 "php": ">=5.5.9"
             },
             "suggest": {
                 "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0).",
-                "symfony/var-dumper": "Required to use the dd function (3.0.*)."
+                "symfony/var-dumper": "Required to use the dd function (2.7.*)."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.2-dev"
+                    "dev-master": "5.1-dev"
                 }
             },
             "autoload": {
@@ -943,20 +944,20 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-08-21 18:09:42"
+            "time": "2015-09-14 08:50:28"
         },
         {
             "name": "maximebf/debugbar",
-            "version": "dev-master",
+            "version": "v1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "ab12b6f57dd33b1fffa875046fd17c34d88388b9"
+                "reference": "7b2006e6e095126b5a061ec33fca3d90ea8a8219"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/ab12b6f57dd33b1fffa875046fd17c34d88388b9",
-                "reference": "ab12b6f57dd33b1fffa875046fd17c34d88388b9",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/7b2006e6e095126b5a061ec33fca3d90ea8a8219",
+                "reference": "7b2006e6e095126b5a061ec33fca3d90ea8a8219",
                 "shasum": ""
             },
             "require": {
@@ -999,7 +1000,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2015-07-09 18:15:09"
+            "time": "2015-02-05 07:51:20"
         },
         {
             "name": "nesbot/carbon",
@@ -1047,6 +1048,62 @@
                 "time"
             ],
             "time": "2015-06-25 04:19:39"
+        },
+        {
+            "name": "phpfastcache/phpfastcache",
+            "version": "3.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/khoaofgod/phpfastcache.git",
+                "reference": "5ee8aadcf04921f1b6f5742d2610973a5d8e9fe0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/5ee8aadcf04921f1b6f5742d2610973a5d8e9fe0",
+                "reference": "5ee8aadcf04921f1b6f5742d2610973a5d8e9fe0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "phpfastcache.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Khoa Bui",
+                    "email": "khoaofgod@gmail.com",
+                    "homepage": "http://www.phpfastcache.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Cache Class - Supported Redis, Cookie, Predis, APC, MemCached, WinCache, Files, PDO, Reduce mySQL Call by Caching",
+            "homepage": "http://www.phpfastcache.com",
+            "keywords": [
+                "APC Cache",
+                "apc",
+                "cache",
+                "cache class",
+                "caching",
+                "cookie",
+                "files cache",
+                "memcache",
+                "memcached",
+                "mysql cache",
+                "pdo cache",
+                "php cache",
+                "predis",
+                "redis",
+                "wincache"
+            ],
+            "time": "2015-09-14 18:49:38"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -1098,12 +1155,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-console.git",
-                "reference": "1f628072de28e7032700a41b7debb0835dca271a"
+                "reference": "1d8e13954f1cae2943580f3890d08bddffdae21c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/1f628072de28e7032700a41b7debb0835dca271a",
-                "reference": "1f628072de28e7032700a41b7debb0835dca271a",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/1d8e13954f1cae2943580f3890d08bddffdae21c",
+                "reference": "1d8e13954f1cae2943580f3890d08bddffdae21c",
                 "shasum": ""
             },
             "require": {
@@ -1134,7 +1191,7 @@
                 "ffcms",
                 "php"
             ],
-            "time": "2015-07-18 15:33:12"
+            "time": "2015-09-16 16:16:43"
         },
         {
             "name": "phpffcms/ffcms-core",
@@ -1142,12 +1199,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "e2d114f444582e6200259afb6dd8ffb3a0f54af8"
+                "reference": "021c9686b3c724623936952ea7d434cdb0054ed3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/e2d114f444582e6200259afb6dd8ffb3a0f54af8",
-                "reference": "e2d114f444582e6200259afb6dd8ffb3a0f54af8",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/021c9686b3c724623936952ea7d434cdb0054ed3",
+                "reference": "021c9686b3c724623936952ea7d434cdb0054ed3",
                 "shasum": ""
             },
             "require": {
@@ -1184,7 +1241,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2015-08-23 19:37:43"
+            "time": "2015-09-17 19:03:51"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1378,12 +1435,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "7e1c1e99e3f25d75cf8ac879902d536652c2bd68"
+                "reference": "282b52b99ed37d96a35976868577a2ab0cfa01b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/7e1c1e99e3f25d75cf8ac879902d536652c2bd68",
-                "reference": "7e1c1e99e3f25d75cf8ac879902d536652c2bd68",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/282b52b99ed37d96a35976868577a2ab0cfa01b9",
+                "reference": "282b52b99ed37d96a35976868577a2ab0cfa01b9",
                 "shasum": ""
             },
             "require": {
@@ -1431,7 +1488,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 07:21:16"
+            "time": "2015-09-14 14:15:24"
         },
         {
             "name": "symfony/var-dumper",
@@ -1439,12 +1496,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "c6ebcc8d4e89d54fa15e413e945a7e7aca47cb8f"
+                "reference": "937f203533edfad9d9ca64d199fcecb9b9d81f3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/c6ebcc8d4e89d54fa15e413e945a7e7aca47cb8f",
-                "reference": "c6ebcc8d4e89d54fa15e413e945a7e7aca47cb8f",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/937f203533edfad9d9ca64d199fcecb9b9d81f3c",
+                "reference": "937f203533edfad9d9ca64d199fcecb9b9d81f3c",
                 "shasum": ""
             },
             "require": {
@@ -1490,7 +1547,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-08-24 07:18:02"
+            "time": "2015-09-18 07:20:16"
         }
     ],
     "packages-dev": [],
@@ -1500,6 +1557,15 @@
         "phpffcms/ffcms-core": 20,
         "phpffcms/ffcms-console": 20,
         "phpffcms/ffcms-ckeditor": 20,
+        "illuminate/database": 0,
+        "symfony/http-foundation": 0,
+        "maximebf/debugbar": 0,
+        "ezyang/htmlpurifier": 0,
+        "gregwar/image": 0,
+        "dflydev/dot-access-data": 0,
+        "swiftmailer/swiftmailer": 0,
+        "gregwar/captcha": 0,
+        "phpfastcache/phpfastcache": 0,
         "bower-asset/jquery-validation": 0,
         "bower-asset/jquery-ui": 0,
         "bower-asset/components-font-awesome": 0,
