@@ -33,7 +33,7 @@ class FormSettings extends Model
     public function before()
     {
         // set default values
-        foreach (App::$Property->getAll() as $key => $value) {
+        foreach (App::$Properties->getAll() as $key => $value) {
             $this->{$key} = $value;
         }
     }
@@ -107,7 +107,7 @@ class FormSettings extends Model
         $toSave = App::$Security->strip_php_tags($this->getAllProperties());
         $stringSave = '<?php return ' . App::$Security->var_export54($toSave, null, true) . ';';
 
-        $cfgPath = '/Private/Config/General.php';
+        $cfgPath = '/Private/Config/Default.php';
         if (File::exist($cfgPath) && File::writable($cfgPath)) {
             File::write($cfgPath, $stringSave);
             return true;

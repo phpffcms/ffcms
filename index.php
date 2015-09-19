@@ -12,7 +12,7 @@ define('root', realpath(__DIR__));
 $uriRequest = $_SERVER['REQUEST_URI'];
 
 // get configs to prepare posible route to switch environment
-$configs = require(root . '/Private/Config/General.php');
+$configs = require(root . '/Private/Config/Default.php');
 // remove base path
 $uriRequest = substr($uriRequest, strlen($configs['basePath']));
 $uriArray = explode('/', $uriRequest);

@@ -39,7 +39,7 @@ $generalTab = null;
 $generalItems = [];
 $propertiesItems = [];
 // generate language tabs
-foreach (\App::$Property->get('languages') as $lang) {
+foreach (\App::$Properties->get('languages') as $lang) {
     $generalItems[] = [
         'type' => 'tab',
         'text' => __('Lang') . ': ' . String::upperCase($lang),

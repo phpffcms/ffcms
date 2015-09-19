@@ -85,7 +85,7 @@ class FormRecovery extends Model
             'id' => $rObject->id
         ]);
 
-        $sender = App::$Property->get('adminEmail');
+        $sender = App::$Properties->get('adminEmail');
 
         // format SWIFTMailer format
         $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Profile', 'Account recovery on %site%', ['site' => App::$Request->getHost()]))

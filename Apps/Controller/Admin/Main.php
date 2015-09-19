@@ -66,7 +66,7 @@ class Main extends AdminAppController
 
     public function actionDebugcookie()
     {
-        $cookieProperty = App::$Property->get('debug');
+        $cookieProperty = App::$Properties->get('debug');
         //App::$Request->cookies->add([$cookieProperty['cookie']['key'] => $cookieProperty['cookie']['value']]); todo: fix me
         setcookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], Integer::MAX, '/', null, null, true);
         App::$Response->redirect('/');

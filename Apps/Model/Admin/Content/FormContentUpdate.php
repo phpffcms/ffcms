@@ -95,7 +95,7 @@ class FormContentUpdate extends Model
             ['authorId', '\App::$User::isExist']
         ];
 
-        foreach (App::$Property->get('languages') as $lang) {
+        foreach (App::$Properties->get('languages') as $lang) {
             $res[] = ['title.' . $lang, 'length_max', 120, null, true, true];
             $res[] = ['keywords.' . $lang, 'length_max', 150];
             $res[] = ['description.' . $lang, 'length_max', 250];

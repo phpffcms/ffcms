@@ -27,7 +27,7 @@ $this->breadcrumbs = [
 
 <?php
 $items = [];
-foreach (\App::$Property->get('languages') as $lang) {
+foreach (\App::$Properties->get('languages') as $lang) {
     $items[] = [
         'type' => 'tab',
         'text' => __('Lang') . ': ' . String::upperCase($lang),

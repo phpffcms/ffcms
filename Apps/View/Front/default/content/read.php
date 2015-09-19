@@ -47,6 +47,8 @@ $properties = [
 ];
 $showComments = (int)$model->getCategory()->getProperty('showComments') === 1;
 $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
+
+\App::$Cache->set('test.me.baby.1', ['key' => 'value']);
 ?>
 
 <article class="article-item">

@@ -33,7 +33,7 @@ class Main
         $text = "\nInformation about FFCMS package and environment: \n\n";
         $text .= "\t PHP version: " . phpversion() . "\n";
         $text .= "\t Dist path: " . root . "\n";
-        $text .= "\t Used version: " . App::$Property->version['num'] . ' [build: ' . App::$Property->version['date'] . "]\n\n";
+        $text .= "\t Used version: " . App::$Properties->version['num'] . ' [build: ' . App::$Properties->version['date'] . "]\n\n";
         $text .= "Information about FFCMS cmf packages: \n\n";
 
         $composerInfo = File::read('/composer.lock');
@@ -83,9 +83,28 @@ class Main
 
         // prepare save string
         $stringSave = "<?php \n\nreturn " . var_export($permissions, true) . ';';
-        File::write('/Private/Config/PermissionMap.php', $stringSave);
+        File::write('/Private/Config/Permissions.php', $stringSave);
 
-        return App::$Output->write('Permission mas is successful updated! Finded permissions: ' . count($permissions));
+        return App::$Output->write('Permission mas is successful updated! Founded permissions: ' . count($permissions));
+    }
+
+    /**
+     * Set chmod for system directories
+     */
+    public function actionChmod()
+    {
+        $pRW = 0666;
+        $pRWX = 0777;
+        chmod(root . '/upload', $pRW);
+        // make upload rw
+        Directory::recursiveChmod('/upload/user/', $pRW);
+        Directory::recursiveChmod('/upload/gallery/', $pRW);
+        Directory::recursiveChmod('/upload/images/', $pRW);
+        // make private rw/rwx
+        Directory::recursiveChmod('/Private/Cache/', $pRW);
+        chmod(root . '/Private/Config/Default.php', $pRWX);
+        Directory::recursiveChmod('/Private/Sessions/', $pRW);
+        Directory::recursiveChmod('/Private/Antivirus/', $pRW);
     }
 
     /**

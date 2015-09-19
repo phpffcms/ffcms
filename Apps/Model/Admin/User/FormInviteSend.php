@@ -54,7 +54,7 @@ class FormInviteSend extends Model
             'invite' => $token,
             'email' => $this->email
         ]);
-        $sender = App::$Property->get('adminEmail');
+        $sender = App::$Properties->get('adminEmail');
 
         // format SWIFTMailer format
         $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Default', 'You got invite', []))

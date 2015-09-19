@@ -5,7 +5,8 @@ namespace Apps\Model\Admin\User;
 use Apps\ActiveRecord\Role;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\App;
+use Ffcms\Core\Helper\Type\Object;
 
 class FormUserGroupUpdate extends Model
 {
@@ -65,11 +66,12 @@ class FormUserGroupUpdate extends Model
      */
     public function getAllPermissions()
     {
-        if (!File::exist('/Private/Config/PermissionMap.php')) {
-            throw new SyntaxException('Permission map is not founded: /Private/Config/PermissionMap.php');
+        $p = App::$Properties->getAll('permissions');
+        if ($p === false || !Object::isArray($p)) {
+            throw new SyntaxException('User permissions settings is not founded: /Private/Config/Permissions.php');
         }
 
-        return include(root . '/Private/Config/PermissionMap.php');
+        return $p;
     }
 
     public function save()
