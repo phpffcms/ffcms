@@ -32,6 +32,42 @@ class App extends ActiveModel
     }
 
     /**
+     * Get all object by defined $type with caching query in memory
+     * @param $type
+     * @return array|null
+     * @throws SyntaxException
+     */
+    public static function getAllByType($type)
+    {
+        $response = null;
+        foreach (self::getAll() as $object) {
+            if ($object['type'] === $type) {
+                $response[] = $object;
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Get single row by defined type and sys_name with query caching
+     * @param string $type
+     * @param string $sys_name
+     * @return mixed|null
+     * @throws SyntaxException
+     */
+    public static function getItem($type, $sys_name)
+    {
+        foreach (self::getAll() as $object) {
+            if ($object['type'] === $type && $object['sys_name'] === $sys_name) {
+                return $object;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get application configs
      * @param string $type
      * @param string $name

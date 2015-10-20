@@ -106,23 +106,4 @@ class Main
         Directory::recursiveChmod('/Private/Sessions/', $pRW);
         Directory::recursiveChmod('/Private/Antivirus/', $pRW);
     }
-
-    /**
-     * Set chmod for system directories
-     */
-    public function actionChmod()
-    {
-        $pRW = 0666;
-        $pRWX = 0777;
-        chmod(root . '/upload', $pRW);
-        // make upload rw
-        Directory::recursiveChmod('/upload/user/', $pRW);
-        Directory::recursiveChmod('/upload/gallery/', $pRW);
-        Directory::recursiveChmod('/upload/images/', $pRW);
-        // make private rw/rwx
-        Directory::recursiveChmod('/Private/Cache/', $pRW);
-        chmod(root . '/Private/Config/General.php', $pRWX);
-        Directory::recursiveChmod('/Private/Sessions/', $pRW);
-        Directory::recursiveChmod('/Private/Antivirus/', $pRW);
-    }
 }

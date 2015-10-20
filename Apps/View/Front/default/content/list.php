@@ -75,7 +75,7 @@ $this->breadcrumbs = [
         <?php endif; ?>
         <div class="row">
             <div class="col-md-12">
-                <?php if ($catConfigs['showPoster'] === true): ?>
+                <?php if ($catConfigs['showPoster'] === true && $item['thumb'] !== null): ?>
                 <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail" alt="<?= __('Poster for') ?>: <?= String::lowerCase($item['title']) ?>" />
                 <?php endif; ?>
                 <div itemprop="text articleBody">

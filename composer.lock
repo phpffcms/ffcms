@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "161200c2261db0196ac661a4eac58d67",
+    "hash": "575bc0300a6171e8b78aaf4e64846bf4",
     "content-hash": "cbb5891ddefcb072eecffa8254a36fcc",
     "packages": [
         {
@@ -755,12 +755,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "8d6439c2c42a3b0806b3ba7dc0c669023e4550a7"
+                "reference": "e70593245aa175f81679c18e4f3673eba353ac07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/8d6439c2c42a3b0806b3ba7dc0c669023e4550a7",
-                "reference": "8d6439c2c42a3b0806b3ba7dc0c669023e4550a7",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/e70593245aa175f81679c18e4f3673eba353ac07",
+                "reference": "e70593245aa175f81679c18e4f3673eba353ac07",
                 "shasum": ""
             },
             "require": {
@@ -790,7 +790,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-08-26 23:00:38"
+            "time": "2015-09-24 11:16:48"
         },
         {
             "name": "illuminate/contracts",
@@ -798,12 +798,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "c3299e00a695e7d846790d5de007355a96cebc90"
+                "reference": "6e828a355b7a467232efad3dbe76df17463178e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/c3299e00a695e7d846790d5de007355a96cebc90",
-                "reference": "c3299e00a695e7d846790d5de007355a96cebc90",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/6e828a355b7a467232efad3dbe76df17463178e3",
+                "reference": "6e828a355b7a467232efad3dbe76df17463178e3",
                 "shasum": ""
             },
             "require": {
@@ -832,7 +832,7 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-08-31 12:59:22"
+            "time": "2015-09-24 11:16:48"
         },
         {
             "name": "illuminate/database",
@@ -899,12 +899,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "59f58668d19167a0a473e65d00bf09e1ec131f19"
+                "reference": "0d8276cde8fc49de014860d7ee1046680ee7ca1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/59f58668d19167a0a473e65d00bf09e1ec131f19",
-                "reference": "59f58668d19167a0a473e65d00bf09e1ec131f19",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/0d8276cde8fc49de014860d7ee1046680ee7ca1c",
+                "reference": "0d8276cde8fc49de014860d7ee1046680ee7ca1c",
                 "shasum": ""
             },
             "require": {
@@ -944,7 +944,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-09-14 08:50:28"
+            "time": "2015-10-04 02:52:53"
         },
         {
             "name": "maximebf/debugbar",
@@ -1051,16 +1051,16 @@
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "3.0.11",
+            "version": "3.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/khoaofgod/phpfastcache.git",
-                "reference": "5ee8aadcf04921f1b6f5742d2610973a5d8e9fe0"
+                "reference": "fcbc79853970e0fb2be2d4ca5e06602dc16b8400"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/5ee8aadcf04921f1b6f5742d2610973a5d8e9fe0",
-                "reference": "5ee8aadcf04921f1b6f5742d2610973a5d8e9fe0",
+                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/fcbc79853970e0fb2be2d4ca5e06602dc16b8400",
+                "reference": "fcbc79853970e0fb2be2d4ca5e06602dc16b8400",
                 "shasum": ""
             },
             "require": {
@@ -1103,7 +1103,7 @@
                 "redis",
                 "wincache"
             ],
-            "time": "2015-09-14 18:49:38"
+            "time": "2015-10-03 09:16:49"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -1155,12 +1155,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-console.git",
-                "reference": "1d8e13954f1cae2943580f3890d08bddffdae21c"
+                "reference": "58977495b8ef2f7a370a4328b8f416a23df744ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/1d8e13954f1cae2943580f3890d08bddffdae21c",
-                "reference": "1d8e13954f1cae2943580f3890d08bddffdae21c",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/58977495b8ef2f7a370a4328b8f416a23df744ec",
+                "reference": "58977495b8ef2f7a370a4328b8f416a23df744ec",
                 "shasum": ""
             },
             "require": {
@@ -1191,7 +1191,7 @@
                 "ffcms",
                 "php"
             ],
-            "time": "2015-09-16 16:16:43"
+            "time": "2015-09-19 09:05:49"
         },
         {
             "name": "phpffcms/ffcms-core",
@@ -1199,12 +1199,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "021c9686b3c724623936952ea7d434cdb0054ed3"
+                "reference": "76715a194fb17ff8d545933a041968862ae30bfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/021c9686b3c724623936952ea7d434cdb0054ed3",
-                "reference": "021c9686b3c724623936952ea7d434cdb0054ed3",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/76715a194fb17ff8d545933a041968862ae30bfd",
+                "reference": "76715a194fb17ff8d545933a041968862ae30bfd",
                 "shasum": ""
             },
             "require": {
@@ -1241,7 +1241,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2015-09-17 19:03:51"
+            "time": "2015-09-19 09:05:38"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1381,12 +1381,12 @@
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/HttpFoundation.git",
+                "url": "https://github.com/symfony/http-foundation.git",
                 "reference": "8a6337233f08f7520de97f4ffd6f00e947d892f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/8a6337233f08f7520de97f4ffd6f00e947d892f9",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/8a6337233f08f7520de97f4ffd6f00e947d892f9",
                 "reference": "8a6337233f08f7520de97f4ffd6f00e947d892f9",
                 "shasum": ""
             },
@@ -1434,13 +1434,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Translation.git",
-                "reference": "282b52b99ed37d96a35976868577a2ab0cfa01b9"
+                "url": "https://github.com/symfony/translation.git",
+                "reference": "d3926d01dd4d9c0468fef65ba90c244a28e8ac1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/282b52b99ed37d96a35976868577a2ab0cfa01b9",
-                "reference": "282b52b99ed37d96a35976868577a2ab0cfa01b9",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/d3926d01dd4d9c0468fef65ba90c244a28e8ac1a",
+                "reference": "d3926d01dd4d9c0468fef65ba90c244a28e8ac1a",
                 "shasum": ""
             },
             "require": {
@@ -1488,7 +1488,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-14 14:15:24"
+            "time": "2015-09-29 14:08:28"
         },
         {
             "name": "symfony/var-dumper",
@@ -1496,19 +1496,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "937f203533edfad9d9ca64d199fcecb9b9d81f3c"
+                "reference": "385ed45a239217de1b56192f2ae897a5e5e693bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/937f203533edfad9d9ca64d199fcecb9b9d81f3c",
-                "reference": "937f203533edfad9d9ca64d199fcecb9b9d81f3c",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/385ed45a239217de1b56192f2ae897a5e5e693bc",
+                "reference": "385ed45a239217de1b56192f2ae897a5e5e693bc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "~2.7|~3.0.0"
+                "symfony/phpunit-bridge": "~2.7|~3.0.0",
+                "twig/twig": "~1.20|~2.0"
             },
             "suggest": {
                 "ext-symfony_debug": ""
@@ -1547,7 +1548,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-09-18 07:20:16"
+            "time": "2015-10-02 08:06:31"
         }
     ],
     "packages-dev": [],

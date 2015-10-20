@@ -1,6 +1,6 @@
 <?php return [
 	'basePath' => '/',
-	'siteIndex' => 'Content::read::page/about-page',
+	'siteIndex' => '/Content/Read/test',
 	'passwordSalt' => '$2a$10$1o81mUjA4NhQp8nSeaFmN8',
 	'debug' => [
 		'all' => false,
@@ -16,7 +16,7 @@
 	'database' => [
 		'driver' => 'mysql',
 		'host' => '127.0.0.1',
-		'database' => 'ffcms',
+		'database' => 'ffcms3',
 		'username' => 'mysql',
 		'password' => 'mysql',
 		'charset' => 'utf8',

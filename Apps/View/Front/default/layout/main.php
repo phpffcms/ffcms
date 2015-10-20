@@ -138,9 +138,7 @@ use Ffcms\Core\Helper\Type\Object;
                 <div class="panel-heading">Title</div>
                 <div class="panel-body">
                     Some block body <br />
-                    <?php
-                    echo Ffcms\Widgets\Ckeditor\Widget::widget();
-                    ?>
+                    <?= Widgets\Front\StaticContent\StaticContent::widget(['id' => 2, 'sys' => 'my_block1']); ?>
                 </div>
             </div>
         </div>

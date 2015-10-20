@@ -23,6 +23,10 @@ class FrontAppController extends Controller
         parent::__construct();
     }
 
+    /**
+     * Check is current instance of application is enabled and can be executed
+     * @return bool
+     */
     public function isEnabled()
     {
         $appName = App::$Request->getController();
