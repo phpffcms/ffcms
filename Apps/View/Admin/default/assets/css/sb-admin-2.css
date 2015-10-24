@@ -707,3 +707,6 @@ table.dataTable thead .sorting:after {
 .left-caret:after
 {   border-right: 5px solid #ffaf46;
 }
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #e8e9f0;
+}

@@ -94,7 +94,7 @@ use Ffcms\Core\Helper\Type\Object;
         'collapseId' => 'collapse-mainmenu',
         'activeOrder' => 'action',
         'items' => [
-            ['link' => ['content/news'], 'text' => __('News'), 'position' => 'left'],
+            ['link' => ['content/list', 'news'], 'text' => __('News'), 'position' => 'left'],
             ['link' => ['content/page', 'about.html'], 'text' => __('About'), 'position' => 'left'],
             ['link' => ['feedback/create'], 'text' => __('Feedback'), 'position' => 'left'],
             ['link' => ['profile/index/all'], 'text' => __('Users'), 'position' => 'right']

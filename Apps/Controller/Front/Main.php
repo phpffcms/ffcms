@@ -20,17 +20,7 @@ class Main extends FrontAppController
         $this->wtf = 'Test me baby ;)';
         //$this->setGlobalVar('wtf', 'test global variable set');
 
-
-        $view = new View('Main', 'index');
-
-        $model = new User();
-        $model->name = "Petr";
-        $model->role = "user";
-
-        $model->make();
-
-        $this->response = $view->out(['model' => $model->export()]);
-        //$this->response = \App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);
+        $this->response = \App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);
     }
 
     public function actionRead($id)

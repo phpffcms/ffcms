@@ -1,11 +1,9 @@
 <?php
-/** @var $model \Apps\Model\Front\User */
 /** @var $this \Ffcms\Core\Arch\View */
-echo $this->render('main/other', ['model' => $model]);
+echo $this->render('main/other');
 $this->title = 'Welcome to web-site';
 ?>
-    <p>Welcome, <?php echo $model->getLabel('name'); ?>: <?php echo $model->name; ?>. We know you like
-        a <?php echo $model->role; ?></p>
+    <p>Welcome!. We know you! ?></p>
 <?php echo __('Test text %a% var', ['a' => 'success']); ?>
     <br/>
 <?php echo \Ffcms\Core\Helper\HTML\Listing::display([
@@ -67,13 +65,3 @@ $this->title = 'Welcome to web-site';
         ]
     ]
 ]); ?>
-
-    <br/>
-
-<?php $form = new \Ffcms\Core\Helper\HTML\Form($model, ['class' => 'form-horizontal', 'method' => 'POST']); ?>
-<?= $form->field('name', 'text', ['class' => 'form-control'], __('Helper block for current param')); ?>
-<?= $form->field('email', 'email', ['class' => 'form-control'], __('Enter your email')); ?>
-<?= $form->field('role', 'select', ['class' => 'form-control', 'options' => ['admin', 'guest', 'user']]); ?>
-<?= $form->field('isJoined', 'checkbox'); ?>
-<?= $form->submitButton('Submit it', ['class' => 'btn btn-success']); ?>
-<?= $form->finish(); ?>

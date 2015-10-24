@@ -84,12 +84,13 @@ foreach ($records as $content) {
         $actionIcons .= Url::link(['content/delete', $content->id], '<i class="fa fa-trash-o fa-lg"></i>');
     }
     $items[] = [
-        ['text' => $content->id],
-        ['text' => Url::link(['content/update', $content->id], Serialize::getDecodeLocale($content->title)), 'html' => true],
-        ['text' => Serialize::getDecodeLocale($content->getCategory()->title)],
-        ['text' => '<a href="' . $frontLink . '" target="_blank">' . $frontPath . '</a>', 'html' => true],
-        ['text' => Date::convertToDatetime($content->updated_at, Date::FORMAT_TO_SECONDS)],
-        ['text' => $actionIcons, 'html' => true, 'property' => ['class' => 'text-center']]
+        'property' => ['class' => 'checkbox-row'],
+        1 => ['text' => $content->id, 'html' => true, '!secure' => true],
+        2 => ['text' => Url::link(['content/update', $content->id], Serialize::getDecodeLocale($content->title)), 'html' => true],
+        3 => ['text' => Serialize::getDecodeLocale($content->getCategory()->title)],
+        4 =>['text' => '<a href="' . $frontLink . '" target="_blank">' . $frontPath . '</a>', 'html' => true],
+        5 => ['text' => Date::convertToDatetime($content->updated_at, Date::FORMAT_TO_SECONDS)],
+        6 => ['text' => $actionIcons, 'html' => true, 'property' => ['class' => 'text-center']]
     ];
 }
 ?>
@@ -107,9 +108,26 @@ foreach ($records as $content) {
     ],
     'tbody' => [
         'items' => $items
+    ],
+    'selectableBox' => [
+        'attachOrder' => 1,
+        'form' => ['method' => 'POST', 'class' => 'form-horizontal', 'action' => Url::to('content/globdelete')],
+        'input' => ['type' => 'checkbox', 'name' => 'selectRemove[]'],
+        'button' => ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
     ]
 ])?>
 
 <div class="text-center">
     <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>
 </div>
+<script>
+    window.jQ.push(function() {
+        $(function () {
+            $('tr.checkbox-row').click(function(event) {
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).trigger('click');
+                }
+            });
+        });
+    });
+</script>

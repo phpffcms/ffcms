@@ -3,7 +3,7 @@
 $loaderList = ['Front', 'Admin', 'Api'];
 
 // set error level
-error_reporting(E_ERROR);
+error_reporting(E_ALL ^ E_NOTICE);
 
 // define document root as project root folder
 define('root', realpath(__DIR__));
