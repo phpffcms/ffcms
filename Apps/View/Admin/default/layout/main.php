@@ -127,7 +127,7 @@ use Ffcms\Core\Helper\Url;
                                     ['type' => 'link', 'link' => ['main/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true],
                                     ['type' => 'link', 'link' => ['main/files'], 'text' => '<i class="fa fa-file-o"></i> ' . __('Files'), 'html' => true],
                                     ['type' => 'link', 'link' => ['main/antivirus'], 'text' => '<i class="fa fa-shield"></i> ' . __('Antivirus'), 'html' => true],
-                                    ['type' => 'link', 'link' => ['main/codex'], 'text' => '<i class="fa fa-code"></i> ' . __('CodeX'), 'html' => true],
+                                    ['type' => 'link', 'link' => ['main/routing'], 'text' => '<i class="fa fa-code"></i> ' . __('Routing'), 'html' => true],
                                     ['type' => 'link', 'link' => ['main/updates'], 'text' => '<i class="fa fa-gavel"></i> ' . __('Updates'), 'html' => true]
                                 ]
                             ]) ?>
@@ -136,12 +136,18 @@ use Ffcms\Core\Helper\Url;
                         <?php
                         $appMenuItems = null;
                         $appControllers = [];
-                        foreach ($this->applications as $app) {
-                            if ($app->type !== 'app') {
-                                continue;
+                        if (count($this->applications) > 0) {
+                            foreach ($this->applications as $app) {
+                                if ($app->type !== 'app') {
+                                    continue;
+                                }
+                                $appControllers[] = $app->sys_name;
+                                $appMenuItems[] = [
+                                        'type' => 'link',
+                                        'link' => [$app->sys_name . '/index'],
+                                        'text' => $app->getLocaleName()
+                                ];
                             }
-                            $appControllers[] = $app->sys_name;
-                            $appMenuItems[] = ['type' => 'link', 'link' => [$app->sys_name . '/index'], 'text' => $app->getLocaleName()];
                         }
                         $appMenuItems[] = ['type' => 'link', 'link' => ['application/index'], 'text' => __('All apps') . '...'];
                         $appControllers[] = 'Application';

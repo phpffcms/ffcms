@@ -24,11 +24,13 @@ $catMeta = [
 ];
 
 $this->title = $model->categoryData['title'];
-$this->breadcrumbs = [
-    Url::to('/') => __('Home'),
-    Url::to('content/list') => __('Contents'),
-    $model->categoryData['title']
-]
+if (!\App::$Request->isPathInjected()) {
+    $this->breadcrumbs = [
+            Url::to('/') => __('Home'),
+            Url::to('content/list') => __('Contents'),
+            $model->categoryData['title']
+    ];
+}
 
 ?>
 <h1><?= $model->categoryData['title'] ?></h1>

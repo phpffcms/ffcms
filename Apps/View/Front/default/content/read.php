@@ -21,21 +21,24 @@ if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
     $this->keywords = implode(', ', $model->metaKeywords);
 }
 
-$breadcrumbs = [
-    Url::to('/') => __('Home')
-];
-if (Object::isArray($model->catNesting)) {
-    foreach ($model->catNesting as $cat) {
-        if ($cat['path'] === '') {
-            $breadcrumbs[Url::to('content/list', $cat['path'])] = __('Contents');
-        } else {
-            $breadcrumbs[Url::to('content/list', $cat['path'], null, [], false)] = $cat['name'];
+// don't use breadcrumbs on injected pathway rule
+if (!\App::$Request->isPathInjected()) {
+    $breadcrumbs = [
+            Url::to('/') => __('Home')
+    ];
+    if (Object::isArray($model->catNesting)) {
+        foreach ($model->catNesting as $cat) {
+            if ($cat['path'] === '') {
+                $breadcrumbs[Url::to('content/list', $cat['path'])] = __('Contents');
+            } else {
+                $breadcrumbs[Url::to('content/list', $cat['path'], null, [], false)] = $cat['name'];
+            }
         }
+        $breadcrumbs[] = __('Content') . ': ' . String::substr($this->title, 0, 40);
     }
-    $breadcrumbs[] = __('Content') . ': ' . String::substr($this->title, 0, 40);
-}
 
-$this->breadcrumbs = $breadcrumbs;
+    $this->breadcrumbs = $breadcrumbs;
+}
 ?>
 
 <?php

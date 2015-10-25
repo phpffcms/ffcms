@@ -71,4 +71,9 @@ class Main extends AdminAppController
         setcookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], Integer::MAX, '/', null, null, true);
         App::$Response->redirect('/');
     }
+
+    public function actionRouting()
+    {
+
+    }
 }

@@ -1,6 +1,5 @@
 <?php return [
 	'basePath' => '/',
-	'siteIndex' => 'Main::Index',
 	'passwordSalt' => '$2a$10$1o81mUjA4NhQp8nSeaFmN8',
 	'debug' => [
 		'all' => false,

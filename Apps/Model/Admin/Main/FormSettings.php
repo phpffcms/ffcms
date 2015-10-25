@@ -11,7 +11,6 @@ class FormSettings extends Model
 {
 
     public $basePath;
-    public $siteIndex;
     public $passwordSalt;
 
     public $debug;
@@ -45,7 +44,6 @@ class FormSettings extends Model
     {
         return [
             'basePath' => __('Base path'),
-            'siteIndex' => __('Main page'),
             'debug.all' => __('Debug for all'),
             'singleLanguage' => __('Default language'),
             'languages' => __('Available languages'),
@@ -72,7 +70,7 @@ class FormSettings extends Model
     {
         return [
             [['debug.all', 'multiLanguage'], 'used'],
-            [['basePath', 'siteIndex', 'singleLanguage', 'adminEmail'], 'required'],
+            [['basePath', 'singleLanguage', 'adminEmail'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
             [['database.driver', 'database.database'], 'required'],

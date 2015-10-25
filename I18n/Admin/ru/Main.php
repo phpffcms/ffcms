@@ -2,7 +2,6 @@
 
 return [
     'Base path' => 'Базовый путь',
-    'Main page' => 'Главная страница',
     'Debug for all' => 'Отладка для всех',
     'Default language' => 'Стандартный язык',
     'Available languages' => 'Доступные языки',
@@ -20,7 +19,6 @@ return [
     'Debug cookie key' => 'Название cookie отладки',
     'Debug cookie value' => 'Значение cookie отладки',
     'FFCMS installation sub-directory, used if installed not in root. Example: /subdir/' => 'Директория установки FFCMS, используемая при установке не в корень. Пример: /subdir/',
-    'Define controller::action to display on main page in position $body' => 'Укажите контроллер::действие для вызова на главной странице сайта',
     'Enable debug bar panel for all visitors? Recommended only on development environment' => 'Включить панель отладки для всех? Не рекомендуется в продакшене',
     'Set cookie name(key) for enable debug bar panel' => 'Укажите название ключа cookie для включения панели отладки',
     'Set cookie value for enable debug bar panel' => 'Укажите значение ключа cookie для включения отладки',

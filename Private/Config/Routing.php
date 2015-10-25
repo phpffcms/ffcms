@@ -11,7 +11,7 @@
 return [
     'Alias' => [
         'Front' => [
-            null => '/content/read/news/ffcms'
+            '/' => '/content/list/news'
         ],
         /**'Admin' => [
             '/test' => '/main/settings'
