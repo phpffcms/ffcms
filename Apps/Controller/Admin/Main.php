@@ -74,6 +74,10 @@ class Main extends AdminAppController
 
     public function actionRouting()
     {
+        $routingMap = App::$Properties->getAll('Routing');
 
+        $this->response = App::$View->render('routing', [
+            'routes' => $routingMap
+        ]);
     }
 }

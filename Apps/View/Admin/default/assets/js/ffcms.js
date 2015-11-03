@@ -104,3 +104,12 @@ $(function(){
         root.find('.sub-menu:visible').hide();
     });
 });
+
+// checkbox change on table row click
+$(function () {
+    $('tr.checkbox-row').click(function(event) {
+        if (event.target.type !== 'checkbox') {
+            $(':checkbox', this).trigger('click');
+        }
+    });
+});

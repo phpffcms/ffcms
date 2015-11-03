@@ -11,7 +11,8 @@
 return [
     'Alias' => [
         'Front' => [
-            '/' => '/content/list/news'
+            '/' => '/content/list/news',
+            '/about' => '/content/read/o-saite'
         ],
         /**'Admin' => [
             '/test' => '/main/settings'

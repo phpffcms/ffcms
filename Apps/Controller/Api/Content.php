@@ -68,8 +68,6 @@ class Content extends ApiController
 
         // check file size
         if ($file->getSize() < 1 || $file->getSize() > $this->maxSize) {
-            var_dump($file->getSize());
-            var_dump($this->maxSize);
             throw new JsonException('File wrong size');
         }
 

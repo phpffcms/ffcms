@@ -112,7 +112,7 @@ foreach ($records as $content) {
     'selectableBox' => [
         'attachOrder' => 1,
         'form' => ['method' => 'POST', 'class' => 'form-horizontal', 'action' => Url::to('content/globdelete')],
-        'input' => ['type' => 'checkbox', 'name' => 'selectRemove[]'],
+        'input' => ['type' => 'checkbox', 'name' => 'selectRemove[]', 'class' => 'massSelectId'],
         'button' => ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
     ]
 ])?>
@@ -120,14 +120,3 @@ foreach ($records as $content) {
 <div class="text-center">
     <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>
 </div>
-<script>
-    window.jQ.push(function() {
-        $(function () {
-            $('tr.checkbox-row').click(function(event) {
-                if (event.target.type !== 'checkbox') {
-                    $(':checkbox', this).trigger('click');
-                }
-            });
-        });
-    });
-</script>

@@ -59,5 +59,6 @@ return [
     'File' => 'Файл',
     'Issues' => 'Проблемы',
     'Descriptions of issues' => 'Описание проблем',
-    'Update results' => 'Обновить результаты'
+    'Update results' => 'Обновить результаты',
+    'Routing scheme' => 'Схемы маршрутизации'
 ];

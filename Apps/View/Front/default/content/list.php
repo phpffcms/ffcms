@@ -17,6 +17,7 @@ $catConfigs = [];
 foreach ($model->categoryData['configs'] as $key=>$value) {
     $catConfigs[$key] = (int)$value === 1;
 }
+
 $catMeta = [
     'date' => $catConfigs['showDate'],
     'author' => $catConfigs['showAuthor'],
@@ -33,11 +34,13 @@ if (!\App::$Request->isPathInjected()) {
 }
 
 ?>
-<h1><?= $model->categoryData['title'] ?></h1>
-<?php if (String::length($model->categoryData['description']) > 0): ?>
-<p><?= $model->categoryData['description'] ?></p>
+<?php if (!\App::$Request->isPathInjected()): ?>
+    <h1><?= $model->categoryData['title'] ?></h1>
+    <?php if (String::length($model->categoryData['description']) > 0): ?>
+    <p><?= $model->categoryData['description'] ?></p>
+    <?php endif; ?>
+    <hr />
 <?php endif; ?>
-<hr />
 <?php foreach ($model->items as $item): ?>
     <article class="article-item" itemscope="itemscope" itemtype="https://schema.org/NewsArticle">
         <h2 itemprop="name">
