@@ -4,7 +4,7 @@ namespace Extend\Core\Captcha;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iCaptcha;
 
 class Gregwar implements iCaptcha
@@ -40,7 +40,7 @@ class Gregwar implements iCaptcha
         // unset session value to prevent duplication. Security fix.
         App::$Session->remove('captcha');
         // check if session has value
-        if ($captchaValue === null || String::length($captchaValue) < 1) {
+        if ($captchaValue === null || Str::length($captchaValue) < 1) {
             return false;
         }
 

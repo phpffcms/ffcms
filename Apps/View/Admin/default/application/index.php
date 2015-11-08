@@ -4,7 +4,7 @@
 /** @var $apps object */
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Applications');
@@ -37,7 +37,7 @@ foreach ($apps as $app) {
     $appTableItems[] = [
         ['text' => $app->id . $icoStatus, 'html' => true, '!secure' => true],
         ['text' => Url::link([$route], $app->getLocaleName()), 'html' => true],
-        ['text' => '<a target="_blank" href="' . \App::$Alias->scriptUrl . '/' . String::lowerCase($route) . '">' . $route . '</a>', 'html' => true],
+        ['text' => '<a target="_blank" href="' . \App::$Alias->scriptUrl . '/' . Str::lowerCase($route) . '">' . $route . '</a>', 'html' => true],
         ['text' => Date::convertToDatetime($app->updated_at, Date::FORMAT_TO_HOUR)],
         ['text' => $actions, 'property' => ['class' => 'text-center'], 'html' => true]
     ];

@@ -8,7 +8,7 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Contents');
@@ -69,13 +69,13 @@ $items = [];
 foreach ($records as $content) {
     $frontLink = \App::$Alias->scriptUrl . '/content/read';
     $frontPath = null;
-    if (!String::likeEmpty($content->getCategory()->path)) {
+    if (!Str::likeEmpty($content->getCategory()->path)) {
         $frontLink .= '/' . $content->getCategory()->path;
         $frontPath .= '/' . $content->getCategory()->path;
     }
     $frontLink .= '/' . $content->path;
     $frontPath .= '/' . $content->path;
-    $frontPath = String::substr($frontPath, 0, 30);
+    $frontPath = Str::substr($frontPath, 0, 30);
     $actionIcons = '<a href="' . $frontLink . '" target="_blank"><i class="fa fa-eye fa-lg"></i></a> ';
     $actionIcons .= Url::link(['content/update', $content->id], '<i class="fa fa-pencil fa-lg"></i> ');
     if ($type === 'trash') {

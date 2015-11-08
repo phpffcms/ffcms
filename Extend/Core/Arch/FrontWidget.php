@@ -4,7 +4,7 @@ namespace Extend\Core\Arch;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Widget as NativeWidget;
 use Apps\ActiveRecord\App as AppRecord;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class FrontWidget extends NativeWidget
 {
@@ -15,7 +15,7 @@ class FrontWidget extends NativeWidget
         // get widget class-namespace callback and single class name
         if (self::$name === null || self::$class === null) {
             self::$class = get_called_class();
-            self::$name = String::lastIn(self::$class, '\\', true);
+            self::$name = Str::lastIn(self::$class, '\\', true);
         }
 
         $wData = AppRecord::getItem('widget', self::$name);

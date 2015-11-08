@@ -7,7 +7,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class FormRecovery extends Model
 {
@@ -50,7 +50,7 @@ class FormRecovery extends Model
         if ($user === null) {
             throw new SyntaxException('Email not found');
         }
-        if ($user->approve_token !== '0' && String::length($user->approve_token) > 0) {
+        if ($user->approve_token !== '0' && Str::length($user->approve_token) > 0) {
             throw new SyntaxException('You must approve your account');
         }
 
@@ -66,9 +66,9 @@ class FormRecovery extends Model
         }
 
         // generate pwd, token and pwdCrypt
-        $newPwd = String::randomLatinNumeric(mt_rand(8, 16));
+        $newPwd = Str::randomLatinNumeric(mt_rand(8, 16));
         $pwdCrypt = App::$Security->password_hash($newPwd);
-        $token = String::randomLatinNumeric(mt_rand(64, 128));
+        $token = Str::randomLatinNumeric(mt_rand(64, 128));
 
         $rObject = new UserRecovery();
         $rObject->user_id = $user->id;

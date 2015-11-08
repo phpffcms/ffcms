@@ -4,7 +4,7 @@ namespace Apps\Model\Console;
 
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class ArchBuilder
 {
@@ -13,7 +13,7 @@ class ArchBuilder
     public function createObject($name, $type)
     {
         $singleName = false;
-        if (!String::contains('/', $name)) {
+        if (!Str::contains('/', $name)) {
             if ($type === 'ActiveRecord') {
                 $singleName = true;
             } else {
@@ -40,7 +40,7 @@ class ArchBuilder
             $subName = false;
             if (count($split) > 0) { // some sub-namespace / folder path
                 foreach ($split as $part) {
-                    if (String::length($part) > 0) {
+                    if (Str::length($part) > 0) {
                         $subName[] = ucfirst(strtolower($part));
                     }
                 }
@@ -60,7 +60,7 @@ class ArchBuilder
             }
         }
 
-        if (!File::exist($objectDirPath) && !Directory::create($objectDirPath)) {
+        if (!Directory::exist($objectDirPath) && !Directory::create($objectDirPath)) {
             $this->message = 'Directory could not be created: ' . $objectDirPath;
             return false;
         }
@@ -73,7 +73,7 @@ class ArchBuilder
             }
         }
 
-        $objectContent = String::replace(['%namespace%', '%name%'], [$objectNamespace, $objectName], $objectTemplate);
+        $objectContent = Str::replace(['%namespace%', '%name%'], [$objectNamespace, $objectName], $objectTemplate);
         $objectFullPath = $objectDirPath . '/' . $objectName . '.php';
         if (File::exist($objectFullPath)) {
             $this->message = $type . ' is always exist: ' . $objectFullPath;

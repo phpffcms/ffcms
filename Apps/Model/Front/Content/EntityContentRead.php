@@ -12,7 +12,7 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class EntityContentRead extends Model
 {
@@ -64,13 +64,13 @@ class EntityContentRead extends Model
         $this->text = Serialize::getDecodeLocale($this->_content->text);
 
         // check if title and text are exists
-        if (String::length($this->title) < 1 || String::length($this->text) < 1) {
+        if (Str::length($this->title) < 1 || Str::length($this->text) < 1) {
             throw new ForbiddenException();
         }
 
         // get meta data
         $this->metaTitle = Serialize::getDecodeLocale($this->_content->meta_title);
-        if (String::likeEmpty($this->metaTitle)) {
+        if (Str::likeEmpty($this->metaTitle)) {
             $this->metaTitle = $this->title;
         }
         $this->metaDescription = Serialize::getDecodeLocale($this->_content->meta_description);
@@ -83,7 +83,7 @@ class EntityContentRead extends Model
         if (App::$User->isExist($this->_content->author_id)) {
             $this->authorId = $this->_content->author_id;
             $profile = App::$User->identity($this->authorId)->getProfile();
-            $this->authorName = String::likeEmpty($profile->nick) ? __('No name') : $profile->nick;
+            $this->authorName = Str::likeEmpty($profile->nick) ? __('No name') : $profile->nick;
         }
         $this->source = $this->_content->source;
         $this->views = $this->_content->views+1;
@@ -105,7 +105,7 @@ class EntityContentRead extends Model
                         'path' => $record->path
                     ];
                 }
-                if (!String::likeEmpty($catNestingPath)) {
+                if (!Str::likeEmpty($catNestingPath)) {
                     $catNestingPath .= '/';
                 }
             }

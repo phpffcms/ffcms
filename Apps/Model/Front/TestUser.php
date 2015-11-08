@@ -30,7 +30,7 @@ class User extends Model
             ['name', 'length_max', '12'],
             ['isJoined', 'boolean'],
             ['email', 'email'],
-            //['name', 'Core\Helper\String::contains'],
+            //['name', 'Core\Helper\Str::contains'],
             ['role', 'in', ['user', 'admin']]
         ];
     }

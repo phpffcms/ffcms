@@ -6,7 +6,7 @@ use Apps\Model\Admin\Application\FormAppTurn;
 use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class Application extends AdminAppController
 {
@@ -21,7 +21,7 @@ class Application extends AdminAppController
     // allow turn on/off applications
     public function actionTurn($controller_name)
     {
-        $controller_name = ucfirst(String::lowerCase($controller_name));
+        $controller_name = ucfirst(Str::lowerCase($controller_name));
 
         $search = \Apps\ActiveRecord\App::where('sys_name', '=', $controller_name)->first();
 

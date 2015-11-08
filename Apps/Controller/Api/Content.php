@@ -11,7 +11,7 @@ use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\Normalize;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Gregwar\Image\Image;
 
 class Content extends ApiController
@@ -45,7 +45,7 @@ class Content extends ApiController
     public function actionGalleryupload($id)
     {
         // check if id is passed
-        if (String::likeEmpty($id)) {
+        if (Str::likeEmpty($id)) {
             throw new JsonException('Wrong input data');
         }
 
@@ -119,7 +119,7 @@ class Content extends ApiController
     public function actionGallerylist($id)
     {
         // check if id is passed
-        if (String::likeEmpty($id)) {
+        if (Str::likeEmpty($id)) {
             throw new JsonException('Wrong input data');
         }
 
@@ -140,8 +140,8 @@ class Content extends ApiController
 
         $output = [];
         foreach ($files as $file) {
-            $fileExt = String::lastIn($file, '.');
-            $fileName = String::substr($file, 0, -String::length($fileExt));
+            $fileExt = Str::lastIn($file, '.');
+            $fileName = Str::substr($file, 0, -Str::length($fileExt));
             $output[] = [
                 'thumbnailUrl' => '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg',
                 'url' => '/upload/gallery/' . $id . '/orig/' . $file,

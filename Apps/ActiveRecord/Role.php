@@ -5,7 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class Role extends ActiveModel
 {

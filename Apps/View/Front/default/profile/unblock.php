@@ -2,7 +2,7 @@
 
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 /** @var $model Apps\Model\Front\Profile\FormIgnoreDelete */
@@ -28,7 +28,7 @@ $this->breadcrumbs = [
         <label class="pull-right"><?= $model->getLabel('name') ?></label>
     </div>
     <div class="col-md-9">
-        <?= Url::link(['profile/show', $model->id], String::likeEmpty($model->name) ? __('No name') : $model->name, ['target' => '_blank']) ?>
+        <?= Url::link(['profile/show', $model->id], Str::likeEmpty($model->name) ? __('No name') : $model->name, ['target' => '_blank']) ?>
     </div>
 </div>
 

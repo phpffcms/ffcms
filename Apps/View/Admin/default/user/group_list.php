@@ -4,7 +4,7 @@
 /** @var $this object */
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Group management');
@@ -29,7 +29,7 @@ foreach($records as $role) {
     $permissionsLabel = null;
     foreach ($permissions as $perm) {
         $labelMark = null;
-        if (String::startsWith('admin/', $perm)) {
+        if (Str::startsWith('admin/', $perm)) {
             $labelMark = 'label-warning';
         } elseif ($perm === 'global/all') {
             $labelMark = 'label-danger';

@@ -7,7 +7,7 @@ use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class Main extends ApiController
 {
@@ -74,7 +74,7 @@ class Main extends ApiController
             $data = json_decode(File::read('/Private/Antivirus/Infected.json'));
             $compile = [];
             foreach ($data as $file => $sign) {
-                $file = String::replace('\\', '/', String::substr($file, strlen(root)));
+                $file = Str::replace('\\', '/', Str::substr($file, strlen(root)));
                 $compile[$file][] = $sign;
             }
 

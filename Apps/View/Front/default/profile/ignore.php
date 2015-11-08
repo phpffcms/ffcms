@@ -3,7 +3,7 @@
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 /** @var $model Apps\Model\Front\Profile\FormIgnoreAdd */
@@ -41,7 +41,7 @@ $this->breadcrumbs = [
     $items = [];
     foreach ($records as $row) {
         $userProfile = $row->getUser()->getProfile();
-        $userNick = String::likeEmpty($userProfile->nick) ? __('No name') : \App::$Security->strip_tags($userProfile->nick);
+        $userNick = Str::likeEmpty($userProfile->nick) ? __('No name') : \App::$Security->strip_tags($userProfile->nick);
         $items[] = [
             ['text' => Url::link(['profile/show', $row->target_id], $userNick, ['target' => '_blank']), 'html' => true],
             ['text' => $row->comment],

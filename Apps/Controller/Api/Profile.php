@@ -13,7 +13,7 @@ use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Profile extends ApiController
@@ -34,7 +34,7 @@ class Profile extends ApiController
         // set header
         $this->setJsonHeader();
         // check what we got
-        if ($postIds === null || String::length($postIds) < 1) {
+        if ($postIds === null || Str::length($postIds) < 1) {
             throw new JsonException('Wrong input count');
         }
 
@@ -123,7 +123,7 @@ class Profile extends ApiController
         // get message from post and validate minlength
         $message = App::$Request->get('message');
         $message = App::$Security->strip_tags($message);
-        if (!Object::isString($message) || String::length($message) < 3) {
+        if (!Object::isString($message) || Str::length($message) < 3) {
             throw new JsonException('Wrong input data');
         }
 
@@ -429,7 +429,7 @@ class Profile extends ApiController
 
         // check input params
         $msg = App::$Security->strip_tags(App::$Request->get('message'));
-        if (!Object::isLikeInt($target_id) || $target_id < 1 || String::length($msg) < 1) {
+        if (!Object::isLikeInt($target_id) || $target_id < 1 || Str::length($msg) < 1) {
             throw new JsonException('Wrong input data');
         }
 

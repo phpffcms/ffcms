@@ -1,8 +1,8 @@
 <?php
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
-if (String::likeEmpty($rating)) {
+if (Str::likeEmpty($rating)) {
     $rating = 0;
 }
 

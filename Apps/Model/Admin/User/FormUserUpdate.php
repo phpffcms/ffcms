@@ -6,7 +6,7 @@ use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\App;
 
@@ -95,7 +95,7 @@ class FormUserUpdate extends Model
         foreach ($this->getAllProperties() as $property => $value) {
             if ($property === 'password' || $property === 'newpassword') {
                 // update password only if new is set and length >= 3
-                if ($this->newpassword !== null && String::length($this->newpassword) >= 3) {
+                if ($this->newpassword !== null && Str::length($this->newpassword) >= 3) {
                     $this->_user->password = App::$Security->password_hash($this->newpassword);
                 }
             } elseif($property === 'approve_token') {
@@ -103,7 +103,7 @@ class FormUserUpdate extends Model
                     $this->_user->approve_token = '0';
                 } else {
                     if ($this->_approve_tmp === '0') {
-                        $this->_approve_tmp = String::randomLatinNumeric(mt_rand(32, 128));
+                        $this->_approve_tmp = Str::randomLatinNumeric(mt_rand(32, 128));
                     }
                     $this->_user->approve_token = $this->_approve_tmp;
                 }

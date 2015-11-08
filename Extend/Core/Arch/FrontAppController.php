@@ -8,7 +8,7 @@ use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class FrontAppController extends Controller
 {
@@ -32,7 +32,7 @@ class FrontAppController extends Controller
     {
         $appName = App::$Request->getController();
         // if app class extend current class we can get origin name
-        $aliasName = String::lastIn(get_class($this), '\\', true);
+        $aliasName = Str::lastIn(get_class($this), '\\', true);
         // check if this controller is enabled
         $this->application = MemoryObject::instance()->get('cache.apps.' . $appName . $aliasName);
         if ($this->application === null) {

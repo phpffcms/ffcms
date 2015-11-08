@@ -12,7 +12,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Apps\Model\Front\Content\EntityContentRead;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class Content extends FrontAppController
 {

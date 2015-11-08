@@ -27,7 +27,7 @@ class FormSettings extends Model
     public $languageDomainAlias;
 
     /**
-    * Magic method before example
+    * Set property values from configurations
     */
     public function before()
     {
@@ -38,7 +38,7 @@ class FormSettings extends Model
     }
 
     /**
-    * Example of usage magic labels for future form helper usage
+    * Set translation helpers
     */
     public function labels()
     {
@@ -64,7 +64,7 @@ class FormSettings extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validate()
+    * Validation rules for configuration saving
     */
     public function rules()
     {

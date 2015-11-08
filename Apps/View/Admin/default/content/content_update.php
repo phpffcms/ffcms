@@ -5,7 +5,7 @@
 
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
 
@@ -42,7 +42,7 @@ $propertiesItems = [];
 foreach (\App::$Properties->get('languages') as $lang) {
     $generalItems[] = [
         'type' => 'tab',
-        'text' => __('Lang') . ': ' . String::upperCase($lang),
+        'text' => __('Lang') . ': ' . Str::upperCase($lang),
         'content' => $form->field('title.' . $lang, 'text', ['class' => 'form-control'], __('Please, enter the title of your material for current language locale'), $formFullFieldStructure) .
             $form->field('text.' . $lang, 'textarea', ['class' => 'form-control wysiwyg', 'rows' => 7, 'html' => true], null, $formFullFieldStructure),
         'html' => true,
@@ -52,7 +52,7 @@ foreach (\App::$Properties->get('languages') as $lang) {
 
     $propertiesItems[] = [
         'type' => 'tab',
-        'text' => __('Lang') . ': ' . String::upperCase($lang),
+        'text' => __('Lang') . ': ' . Str::upperCase($lang),
         'content' => $form->field('metaTitle.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param title for page title. Recoomended: 50-70 characters')) .
             $form->field('metaKeywords.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param keywords for this content, separated by comma. Example: home, door, dog')) .
             $form->field('metaDescription.' . $lang, 'text', ['class' => 'form-control'], __('Enter meta param description for this content. Recommended is 100-150 characters')),

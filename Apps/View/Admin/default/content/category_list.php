@@ -4,7 +4,7 @@
 
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Category list');
@@ -43,7 +43,7 @@ $this->breadcrumbs = [
             if ($row->path === '') {
                 --$offset;
             } else {
-                $nesting = String::entryCount($row->path, '/');
+                $nesting = Str::entryCount($row->path, '/');
                 $offset += $nesting;
 
             }

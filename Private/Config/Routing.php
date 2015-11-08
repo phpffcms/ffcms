@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Static and dynamic routing extensions for ffcms.
  * 1. In section of @Alias you can use "static aliasing" for single-targeted uri. As example, if you want to make alias
@@ -7,20 +6,19 @@
  * 2. In section of @Callback you can use "dynamic callback aliasing" for your own application controllers. As example, you can hook /page URI (you must use controller "Page" as a key)
  * to your own class "\Mynamespace\Space\MyApp" using key-value initiation: 'Page' => '\\Mynamespace\\Space\\MyApp'
  */
-
 return [
-    'Alias' => [
-        'Front' => [
-            '/' => '/content/list/news',
-            '/about' => '/content/read/o-saite'
-        ],
-        /**'Admin' => [
-            '/test' => '/main/settings'
-        ]*/
-    ],
-    'Callback' => [
-        'Front' => [
-            'Demo' => '\\Apps\\Controller\\Front\\Main'
-        ]
-    ]
+	'Alias' => [
+		'Front' => [
+			'/' => '/content/list/news',
+			'/about' => '/content/read/o-saite'
+		],
+		/**'Admin' => [
+			'/test' => '/main/settings'
+		]*/
+	],
+	'Callback' => [
+		'Front' => [
+			'Demo' => '\\Apps\\Controller\\Front\\Main'
+		]
+	]
 ];

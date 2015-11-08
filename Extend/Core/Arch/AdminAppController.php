@@ -5,7 +5,7 @@ namespace Extend\Core\Arch;
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\App;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class AdminAppController extends Controller
 {
@@ -54,7 +54,7 @@ class AdminAppController extends Controller
     private function buildApps()
     {
         $this->applications = \Apps\ActiveRecord\App::getAll();
-        $cname = String::lastIn(get_class($this), '\\', true);
+        $cname = Str::lastIn(get_class($this), '\\', true);
         foreach ($this->applications as $app) {
             if ($app->sys_name === $cname) {
                 $this->application = $app;

@@ -2,7 +2,7 @@
 
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 /** @var $model Apps\Model\Admin\Profile\FormFieldUpdate */
@@ -31,7 +31,7 @@ $nameTab = [];
 foreach (\App::$Properties->get('languages') as $lang) {
     $nameTab[] = [
         'type' => 'tab',
-        'text' => __('Lang') . ': ' . String::upperCase($lang),
+        'text' => __('Lang') . ': ' . Str::upperCase($lang),
         'content' => $form->field('name.' . $lang, 'text', ['class' => 'form-control'], __('Define field name, which be displayed for user for current language locale')),
         'active' => $lang === \App::$Request->getLanguage(),
         'html' => true,

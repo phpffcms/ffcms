@@ -6,7 +6,7 @@ use Ffcms\Console\App;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class Main
 {
@@ -70,7 +70,7 @@ class Main
         $scan = File::listFiles($AdminAppControllers, ['.php']);
 
         foreach ($scan as $file) {
-            $className = String::firstIn(String::lastIn($file, DIRECTORY_SEPARATOR, true), '.');
+            $className = Str::firstIn(Str::lastIn($file, DIRECTORY_SEPARATOR, true), '.');
             // read as plain text
             $byte = File::read($file);
             preg_match_all('/public function action(\w*?)\(/', $byte, $matches); // matches[0] contains all methods ;)

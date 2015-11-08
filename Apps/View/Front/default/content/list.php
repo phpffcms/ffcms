@@ -3,7 +3,7 @@
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use \Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Url;
 
@@ -36,7 +36,7 @@ if (!\App::$Request->isPathInjected()) {
 ?>
 <?php if (!\App::$Request->isPathInjected()): ?>
     <h1><?= $model->categoryData['title'] ?></h1>
-    <?php if (String::length($model->categoryData['description']) > 0): ?>
+    <?php if (Str::length($model->categoryData['description']) > 0): ?>
     <p><?= $model->categoryData['description'] ?></p>
     <?php endif; ?>
     <hr />
@@ -81,7 +81,7 @@ if (!\App::$Request->isPathInjected()) {
         <div class="row">
             <div class="col-md-12">
                 <?php if ($catConfigs['showPoster'] === true && $item['thumb'] !== null): ?>
-                <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail" alt="<?= __('Poster for') ?>: <?= String::lowerCase($item['title']) ?>" />
+                <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail" alt="<?= __('Poster for') ?>: <?= Str::lowerCase($item['title']) ?>" />
                 <?php endif; ?>
                 <div itemprop="text articleBody">
                     <?= $item['text'] ?>

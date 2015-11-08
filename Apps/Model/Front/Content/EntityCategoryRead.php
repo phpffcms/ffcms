@@ -8,7 +8,7 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Exception\NotFoundException;
 
 class EntityCategoryRead extends Model
@@ -76,16 +76,16 @@ class EntityCategoryRead extends Model
             $breakPosition = mb_strpos($text, self::PAGE_BREAK, null, 'UTF-8');
             // offset is finded, try to split preview from full text
             if ($breakPosition !== false) {
-                $text = String::substr($text, 0, $breakPosition);
+                $text = Str::substr($text, 0, $breakPosition);
             } else { // page breaker is not founded, lets get a fun ;D
                 // find first paragraph ending
                 $breakPosition = mb_strpos($text, '</p>', null, 'UTF-8');
                 // cut text from position caret before </p> (+4 symbols to save item as valid)
-                $text = String::substr($text, 0, $breakPosition+4);
+                $text = Str::substr($text, 0, $breakPosition+4);
             }
 
             $itemPath = $this->_allCategories[$row->category_id]['path'];
-            if (!String::likeEmpty($itemPath)) {
+            if (!Str::likeEmpty($itemPath)) {
                 $itemPath .= '/';
             }
             $itemPath .= $row->path;
@@ -93,8 +93,8 @@ class EntityCategoryRead extends Model
             // try to find poster and thumbnail for this content item
             $poster = $row->poster;
             $thumb = null;
-            if (!String::likeEmpty($poster)) {
-                $thumbName = String::cleanExtension($poster) . '.jpg';
+            if (!Str::likeEmpty($poster)) {
+                $thumbName = Str::cleanExtension($poster) . '.jpg';
                 $poster = '/upload/gallery/' . $row->id . '/orig/' . $poster;
                 $thumb = '/upload/gallery/' . $row->id . '/thumb/' . $thumbName;
                 if (!File::exist($poster)) {
@@ -109,14 +109,14 @@ class EntityCategoryRead extends Model
 
             // prepare tags data
             $tags = Serialize::getDecodeLocale($row->meta_keywords);
-            if (!String::likeEmpty($tags)) {
+            if (!Str::likeEmpty($tags)) {
                 $tags = explode(',', $tags);
             } else {
                 $tags = null;
             }
 
             $localeTitle = App::$Security->strip_tags(Serialize::getDecodeLocale($row->title));
-            if (String::length($localeTitle) < 1) {
+            if (Str::length($localeTitle) < 1) {
                 ++$this->_nullCount;
             }
 

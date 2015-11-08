@@ -12,7 +12,7 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class FormContentUpdate extends Model
 {
@@ -51,7 +51,7 @@ class FormContentUpdate extends Model
         if ($this->_content->id === null) {
             $this->_new = true;
             if (null === $this->galleryFreeId) {
-                $this->galleryFreeId = '_tmp_' . String::randomLatin(mt_rand(16, 32));
+                $this->galleryFreeId = '_tmp_' . Str::randomLatin(mt_rand(16, 32));
             }
             if (null === $this->authorId) {
                 $this->authorId = App::$User->identity()->getId();
@@ -146,11 +146,11 @@ class FormContentUpdate extends Model
             $this->_content->rating += (int)$this->addRating;
         }
         // check if special comment hash is exist
-        if ($this->_new || String::length($this->_content->comment_hash) < 32) {
+        if ($this->_new || Str::length($this->_content->comment_hash) < 32) {
             $this->_content->comment_hash = $this->generateCommentHash();
         }
         // check if date is updated
-        if (!String::likeEmpty($this->createdAt) && !String::startsWith('0000', Date::convertToDatetime($this->createdAt, Date::FORMAT_SQL_TIMESTAMP))) {
+        if (!Str::likeEmpty($this->createdAt) && !Str::startsWith('0000', Date::convertToDatetime($this->createdAt, Date::FORMAT_SQL_TIMESTAMP))) {
             $this->_content->created_at = Date::convertToDatetime($this->createdAt, Date::FORMAT_SQL_TIMESTAMP);
         }
 
@@ -210,7 +210,7 @@ class FormContentUpdate extends Model
      */
     private function generateCommentHash()
     {
-        $hash = String::randomLatinNumeric(mt_rand(32, 128));
+        $hash = Str::randomLatinNumeric(mt_rand(32, 128));
         $find = Content::where('comment_hash', '=', $hash)->count();
         // hmmm, is always exist? Chance of it is TOOOO low, but lets recursion re-generate
         if ($find !== 0) {

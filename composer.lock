@@ -505,12 +505,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "3a422c73f7bc556d39571f436b61fd58ccae0eb0"
+                "reference": "097e7ba84f64a427e55008117ef2bb94096731dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/3a422c73f7bc556d39571f436b61fd58ccae0eb0",
-                "reference": "3a422c73f7bc556d39571f436b61fd58ccae0eb0",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/097e7ba84f64a427e55008117ef2bb94096731dc",
+                "reference": "097e7ba84f64a427e55008117ef2bb94096731dc",
                 "shasum": ""
             },
             "require": {
@@ -564,7 +564,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-09-17 13:29:15"
+            "time": "2015-10-07 18:00:26"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -655,16 +655,16 @@
         },
         {
             "name": "gregwar/captcha",
-            "version": "v1.1",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gregwar/Captcha.git",
-                "reference": "9caea9eb001a809ab8734b201ae07ebe4179238d"
+                "reference": "1240ab993ca713680573b2d4166900da5f758623"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/Captcha/zipball/9caea9eb001a809ab8734b201ae07ebe4179238d",
-                "reference": "9caea9eb001a809ab8734b201ae07ebe4179238d",
+                "url": "https://api.github.com/repos/Gregwar/Captcha/zipball/1240ab993ca713680573b2d4166900da5f758623",
+                "reference": "1240ab993ca713680573b2d4166900da5f758623",
                 "shasum": ""
             },
             "require": {
@@ -699,7 +699,7 @@
                 "captcha",
                 "spam"
             ],
-            "time": "2015-05-13 06:34:33"
+            "time": "2015-09-11 15:23:20"
         },
         {
             "name": "gregwar/image",
@@ -755,12 +755,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "e70593245aa175f81679c18e4f3673eba353ac07"
+                "reference": "f14ea33d9ffcab4ca3aaed0328a92301adbe6960"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/e70593245aa175f81679c18e4f3673eba353ac07",
-                "reference": "e70593245aa175f81679c18e4f3673eba353ac07",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/f14ea33d9ffcab4ca3aaed0328a92301adbe6960",
+                "reference": "f14ea33d9ffcab4ca3aaed0328a92301adbe6960",
                 "shasum": ""
             },
             "require": {
@@ -790,7 +790,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-09-24 11:16:48"
+            "time": "2015-10-19 06:01:02"
         },
         {
             "name": "illuminate/contracts",
@@ -836,16 +836,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v5.1.16",
+            "version": "v5.1.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "7655e39c507776c9b9226a8f5619ed9933d3396e"
+                "reference": "f82f4009e5776a8b0a580fca881694a778b229e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/7655e39c507776c9b9226a8f5619ed9933d3396e",
-                "reference": "7655e39c507776c9b9226a8f5619ed9933d3396e",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/f82f4009e5776a8b0a580fca881694a778b229e6",
+                "reference": "f82f4009e5776a8b0a580fca881694a778b229e6",
                 "shasum": ""
             },
             "require": {
@@ -891,7 +891,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-09-03 14:53:32"
+            "time": "2015-10-28 21:57:04"
         },
         {
             "name": "illuminate/support",
@@ -899,12 +899,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "0d8276cde8fc49de014860d7ee1046680ee7ca1c"
+                "reference": "c9e54187f98004a8e049b0b5d9726e39314177f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/0d8276cde8fc49de014860d7ee1046680ee7ca1c",
-                "reference": "0d8276cde8fc49de014860d7ee1046680ee7ca1c",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/c9e54187f98004a8e049b0b5d9726e39314177f9",
+                "reference": "c9e54187f98004a8e049b0b5d9726e39314177f9",
                 "shasum": ""
             },
             "require": {
@@ -916,6 +916,7 @@
             },
             "suggest": {
                 "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0).",
+                "paragonie/random_compat": "Provides a compatible interface like PHP7's random_bytes() in PHP 5 projects (^1.0.6).",
                 "symfony/var-dumper": "Required to use the dd function (2.7.*)."
             },
             "type": "library",
@@ -944,20 +945,20 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-10-04 02:52:53"
+            "time": "2015-11-02 22:14:49"
         },
         {
             "name": "maximebf/debugbar",
-            "version": "v1.10.4",
+            "version": "v1.10.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "7b2006e6e095126b5a061ec33fca3d90ea8a8219"
+                "reference": "30e53e8a28284b69dd223c9f5ee8957befd72636"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/7b2006e6e095126b5a061ec33fca3d90ea8a8219",
-                "reference": "7b2006e6e095126b5a061ec33fca3d90ea8a8219",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/30e53e8a28284b69dd223c9f5ee8957befd72636",
+                "reference": "30e53e8a28284b69dd223c9f5ee8957befd72636",
                 "shasum": ""
             },
             "require": {
@@ -1000,7 +1001,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2015-02-05 07:51:20"
+            "time": "2015-10-19 20:35:12"
         },
         {
             "name": "nesbot/carbon",
@@ -1051,16 +1052,16 @@
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "3.0.14",
+            "version": "3.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/khoaofgod/phpfastcache.git",
-                "reference": "fcbc79853970e0fb2be2d4ca5e06602dc16b8400"
+                "reference": "7a31773fbf5af51978a444750176daafd59b750f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/fcbc79853970e0fb2be2d4ca5e06602dc16b8400",
-                "reference": "fcbc79853970e0fb2be2d4ca5e06602dc16b8400",
+                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/7a31773fbf5af51978a444750176daafd59b750f",
+                "reference": "7a31773fbf5af51978a444750176daafd59b750f",
                 "shasum": ""
             },
             "require": {
@@ -1103,7 +1104,7 @@
                 "redis",
                 "wincache"
             ],
-            "time": "2015-10-03 09:16:49"
+            "time": "2015-10-28 15:21:23"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -1199,12 +1200,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "76715a194fb17ff8d545933a041968862ae30bfd"
+                "reference": "fc6ddcdb1fd88fd4bc504743ecc584e914acb447"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/76715a194fb17ff8d545933a041968862ae30bfd",
-                "reference": "76715a194fb17ff8d545933a041968862ae30bfd",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/fc6ddcdb1fd88fd4bc504743ecc584e914acb447",
+                "reference": "fc6ddcdb1fd88fd4bc504743ecc584e914acb447",
                 "shasum": ""
             },
             "require": {
@@ -1241,7 +1242,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2015-09-19 09:05:38"
+            "time": "2015-11-03 17:05:29"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1430,21 +1431,78 @@
             "time": "2015-04-01 16:50:12"
         },
         {
+            "name": "symfony/polyfill-mbstring",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "82159e61debcd09790b20154b350b1c083029aa6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/82159e61debcd09790b20154b350b1c083029aa6",
+                "reference": "82159e61debcd09790b20154b350b1c083029aa6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2015-10-27 22:54:43"
+        },
+        {
             "name": "symfony/translation",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "d3926d01dd4d9c0468fef65ba90c244a28e8ac1a"
+                "reference": "6c78cad7c0b39a88931e00737d973175f69680cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/d3926d01dd4d9c0468fef65ba90c244a28e8ac1a",
-                "reference": "d3926d01dd4d9c0468fef65ba90c244a28e8ac1a",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/6c78cad7c0b39a88931e00737d973175f69680cd",
+                "reference": "6c78cad7c0b39a88931e00737d973175f69680cd",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.5.9",
+                "symfony/polyfill-mbstring": "~1.0"
             },
             "conflict": {
                 "symfony/config": "<2.8"
@@ -1453,7 +1511,6 @@
                 "psr/log": "~1.0",
                 "symfony/config": "~2.8|~3.0",
                 "symfony/intl": "~2.8|~3.0",
-                "symfony/phpunit-bridge": "~2.8|~3.0",
                 "symfony/yaml": "~2.8|~3.0"
             },
             "suggest": {
@@ -1470,7 +1527,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Translation\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1488,7 +1548,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-29 14:08:28"
+            "time": "2015-10-30 23:35:59"
         },
         {
             "name": "symfony/var-dumper",
@@ -1496,19 +1556,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "385ed45a239217de1b56192f2ae897a5e5e693bc"
+                "reference": "76c148858737e7e17ebc69812473c90d1114ee4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/385ed45a239217de1b56192f2ae897a5e5e693bc",
-                "reference": "385ed45a239217de1b56192f2ae897a5e5e693bc",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/76c148858737e7e17ebc69812473c90d1114ee4f",
+                "reference": "76c148858737e7e17ebc69812473c90d1114ee4f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.3.9",
+                "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "~2.7|~3.0.0",
                 "twig/twig": "~1.20|~2.0"
             },
             "suggest": {
@@ -1526,7 +1586,10 @@
                 ],
                 "psr-4": {
                     "Symfony\\Component\\VarDumper\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1548,7 +1611,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-10-02 08:06:31"
+            "time": "2015-11-03 08:48:22"
         }
     ],
     "packages-dev": [],

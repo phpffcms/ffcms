@@ -2,9 +2,11 @@
 
 namespace Apps\Controller\Admin;
 
+use Apps\Model\Admin\Main\FormAddRoute;
 use Apps\Model\Admin\Main\FormSettings;
 use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
+use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Integer;
 
 class Main extends AdminAppController
@@ -72,12 +74,32 @@ class Main extends AdminAppController
         App::$Response->redirect('/');
     }
 
+    /**
+     * List available routes
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionRouting()
     {
         $routingMap = App::$Properties->getAll('Routing');
 
         $this->response = App::$View->render('routing', [
             'routes' => $routingMap
+        ]);
+    }
+
+    public function actionAddroute()
+    {
+        $model = new FormAddRoute();
+
+        if (!File::exist('/Private/Config/Routing.php') || !File::writable('/Private/Config/Routing.php')) {
+            App::$Session->getFlashBag()->add('error', __('Routing configuration file is not allowed to write: /Private/Config/Routing.php'));
+        } elseif ($model->send() && $model->validate()) {
+            $model->save();
+            App::$Response->redirect('/main/routing');
+        }
+
+        $this->response = App::$View->render('addroute', [
+            'model' => $model
         ]);
     }
 }

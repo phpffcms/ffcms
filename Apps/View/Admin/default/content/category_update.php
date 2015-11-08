@@ -5,7 +5,7 @@
 
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Category manage');
@@ -30,7 +30,7 @@ $items = [];
 foreach (\App::$Properties->get('languages') as $lang) {
     $items[] = [
         'type' => 'tab',
-        'text' => __('Lang') . ': ' . String::upperCase($lang),
+        'text' => __('Lang') . ': ' . Str::upperCase($lang),
         'content' => $form->field('title.' . $lang, 'text', ['class' => 'form-control'], __('Enter category title, visible for users')) .
             $form->field('description.' . $lang, 'text', ['class' => 'form-control'], __('Enter category description')),
         'html' => true,

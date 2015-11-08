@@ -6,12 +6,12 @@
 /** @var $configs array */
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 // set meta title
 $this->title = \App::$Security->strip_tags($model->metaTitle);
-if (String::likeEmpty($this->title)) {
+if (Str::likeEmpty($this->title)) {
     $this->title = \App::$Security->strip_tags($model->title);
 }
 // set meta description
@@ -34,7 +34,7 @@ if (!\App::$Request->isPathInjected()) {
                 $breadcrumbs[Url::to('content/list', $cat['path'], null, [], false)] = $cat['name'];
             }
         }
-        $breadcrumbs[] = __('Content') . ': ' . String::substr($this->title, 0, 40);
+        $breadcrumbs[] = __('Content') . ': ' . Str::substr($this->title, 0, 40);
     }
 
     $this->breadcrumbs = $breadcrumbs;
@@ -80,7 +80,7 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     <div id="content-text">
         <?php if ($showPoster === true && $model->posterFull !== null && $model->posterThumb !== null): ?>
             <a href="#showPoster" data-toggle="modal" data-target="#showPoster">
-                <img alt="<?= __('Poster for') ?>: <?= String::lowerCase(\App::$Security->strip_tags($model->title)) ?>" src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" />
+                <img alt="<?= __('Poster for') ?>: <?= Str::lowerCase(\App::$Security->strip_tags($model->title)) ?>" src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" />
             </a>
             <!-- Modal poster pop-up -->
             <div class="modal fade" id="showPoster" tabindex="-1" role="dialog" aria-labelledby="showPosterModal">
@@ -124,7 +124,7 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     <?php if ((int)$configs['keywordsAsTags'] === 1): ?>
     <div id="content-tags">
         <?php
-        if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && String::length($model->metaKeywords[0]) > 0) {
+        if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
             echo '<i class="fa fa-tags"></i>';
             foreach ($model->metaKeywords as $tag) {
                 $tag = \App::$Security->strip_tags(trim($tag));
@@ -134,7 +134,7 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
         ?>
     </div>
     <?php endif; ?>
-    <?php if (!String::likeEmpty($model->source)): ?>
+    <?php if (!Str::likeEmpty($model->source)): ?>
     <div id="content-source" style="padding-top: 5px;">
         <?php
         $sourceUrl = \App::$Security->strip_tags($model->source);

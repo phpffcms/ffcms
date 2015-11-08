@@ -12,7 +12,7 @@ use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 /**
  * Class User - standard user controller: login/signup/logout/etc
@@ -71,7 +71,7 @@ class User extends FrontAppController
             $inviteToken = App::$Request->query->get('token');
             $inviteEmail = App::$Request->query->get('email');
             // data sounds like a invalid?
-            if (String::length($inviteToken) < 32 || !String::isEmail($inviteEmail)) {
+            if (Str::length($inviteToken) < 32 || !Str::isEmail($inviteEmail)) {
                 throw new ForbiddenException(__('Registration allowed only if you have invite!'));
             }
             // remove oldest data
@@ -125,7 +125,7 @@ class User extends FrontAppController
         }
 
         // is recovery submit?
-        if (Object::isLikeInt($id) && String::length($token) >= 64) {
+        if (Object::isLikeInt($id) && Str::length($token) >= 64) {
             $rObject = UserRecovery::where('id', '=', $id)
                 ->where('token', '=', $token)
                 ->where('archive', '=', false);
@@ -200,7 +200,7 @@ class User extends FrontAppController
     public function actionApprove($email, $token)
     {
         // sounds like a not valid token
-        if (App::$User->isAuth() || String::length($token) < 32 || !String::isEmail($email)) {
+        if (App::$User->isAuth() || Str::length($token) < 32 || !Str::isEmail($email)) {
             throw new ForbiddenException();
         }
         // lets find token&email

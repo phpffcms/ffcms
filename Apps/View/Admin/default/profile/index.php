@@ -5,7 +5,7 @@
 /** @var $this object */
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Profile list');
@@ -29,7 +29,7 @@ foreach ($records as $profile) {
         ['text' => $profile->id],
         ['text' => $profile->User()->login . '/' . $profile->User()->email],
         ['text' => $profile->nick],
-        ['text' => String::startsWith('0000-', $profile->birthday) ? __('None') : Date::convertToDatetime($profile->birthday)],
+        ['text' => Str::startsWith('0000-', $profile->birthday) ? __('None') : Date::convertToDatetime($profile->birthday)],
         ['text' => ($profile->rating > 0 ? '+' : null) . $profile->rating],
         ['text' => Url::link(['profile/update', $profile->id], '<i class="fa fa-pencil fa-lg"></i> ') .
             Url::link(['user/delete', $profile->User()->id], '<i class="fa fa-trash-o fa-lg"></i>'),

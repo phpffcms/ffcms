@@ -1,7 +1,7 @@
 <?php
 
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 /** @var $add string|null */
@@ -46,7 +46,7 @@ $this->breadcrumbs = [
         </div>
         <div class="col-md-8">
             <h3>
-                <?= Url::link(['profile/show', $profile->user_id], String::likeEmpty($profile->nick) ? __('No name') : $profile->nick) ?>
+                <?= Url::link(['profile/show', $profile->user_id], Str::likeEmpty($profile->nick) ? __('No name') : $profile->nick) ?>
             </h3>
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>
         </div>

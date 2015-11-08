@@ -5,7 +5,7 @@ namespace Apps\Model\Admin\User;
 use Apps\ActiveRecord\Invite;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class FormInviteSend extends Model
 {
@@ -67,7 +67,7 @@ class FormInviteSend extends Model
 
     private function makeInvite()
     {
-        $token = String::randomLatinNumeric(mt_rand(32, 128));
+        $token = Str::randomLatinNumeric(mt_rand(32, 128));
         $find = Invite::where('token', '=', $token)->count();
         return $find === 0 ? $token : $this->makeInvite(); // prevent duplication
     }

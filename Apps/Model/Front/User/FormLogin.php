@@ -5,7 +5,7 @@ namespace Apps\Model\Front\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 
 class FormLogin extends Model
@@ -67,7 +67,7 @@ class FormLogin extends Model
         if ($search->count() === 1) {
             $object = $search->first();
             // check if accounts is approved
-            if ($object->approve_token !== '0' && String::length($object->approve_token) > 0) {
+            if ($object->approve_token !== '0' && Str::length($object->approve_token) > 0) {
                 return false;
             }
             return $this->openSession($object);
@@ -87,7 +87,7 @@ class FormLogin extends Model
             return false;
         }
 
-        $token = String::randomLatin(mt_rand(128, 255));
+        $token = Str::randomLatin(mt_rand(128, 255));
 
         // write session data
         App::$Session->set('ff_user_id', $userObject->id);

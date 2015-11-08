@@ -8,7 +8,7 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class FormCategoryUpdate extends Model
 {
@@ -51,7 +51,7 @@ class FormCategoryUpdate extends Model
             $this->id = $this->_record->id;
             $path = $this->_record->path;
             // nesting levels
-            if (String::contains('/', $path)) {
+            if (Str::contains('/', $path)) {
                 $nestedPath = explode('/', $path);
                 $this->path = array_pop($nestedPath);
                 $this->_pathNested = implode('/', $nestedPath);
@@ -67,7 +67,7 @@ class FormCategoryUpdate extends Model
             // set serialized decoded data
             $this->title = Serialize::decode($this->_record->title);
             $this->description = Serialize::decode($this->_record->description);
-            if ($this->_record->configs !== null && !String::likeEmpty($this->_record->configs)) {
+            if ($this->_record->configs !== null && !Str::likeEmpty($this->_record->configs)) {
                 $this->configs = Serialize::decode($this->_record->configs);
             }
         }
@@ -158,7 +158,7 @@ class FormCategoryUpdate extends Model
 
         // build path with owner category
         $this->_pathNested = $owner->path;
-        if (String::length($this->_pathNested) > 0) {
+        if (Str::length($this->_pathNested) > 0) {
             $path = $this->_pathNested . '/' . $path;
         }
 

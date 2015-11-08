@@ -5,7 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class ContentCategory extends ActiveModel
 {
@@ -66,11 +66,11 @@ class ContentCategory extends ActiveModel
         $tmpData = self::getSortedAll();
         foreach ($tmpData as $path => $data) {
             $title = null;
-            if (String::likeEmpty($path)) {
+            if (Str::likeEmpty($path)) {
                 $title .= '--';
             } else {
                 // set level marker based on slashes count in pathway
-                $slashCount = String::entryCount($path, '/');
+                $slashCount = Str::entryCount($path, '/');
                 for ($i=-1; $i <= $slashCount; $i++) {
                     $title .= '--';
                 }
@@ -108,7 +108,7 @@ class ContentCategory extends ActiveModel
     {
         $properties = $this->configs;
         // check if properties is defined
-        if ($properties === null || String::length($properties) < 1) {
+        if ($properties === null || Str::length($properties) < 1) {
             return false;
         }
 

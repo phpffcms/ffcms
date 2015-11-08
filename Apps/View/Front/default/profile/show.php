@@ -4,7 +4,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 /** @var $user Apps\ActiveRecord\User */
@@ -20,7 +20,7 @@ use Ffcms\Core\Helper\Url;
 
 $name = \App::$Security->strip_tags($user->getProfile()->nick);
 
-if (String::likeEmpty($name)) {
+if (Str::likeEmpty($name)) {
     $name = __('No name');
 }
 
@@ -113,7 +113,7 @@ $this->breadcrumbs = [
                     <td><?= __('Join date'); ?></td>
                     <td><?= Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY); ?></td>
                 </tr>
-                <?php if ($user->getProfile()->birthday !== null && !String::startsWith('0000-', $user->getProfile()->birthday)): ?>
+                <?php if ($user->getProfile()->birthday !== null && !Str::startsWith('0000-', $user->getProfile()->birthday)): ?>
                 <tr>
                     <td><?= __('Birthday'); ?></td>
                     <td>
@@ -139,13 +139,13 @@ $this->breadcrumbs = [
                         ?>
                     </td>
                 </tr>
-                <?php if ($user->getProfile()->phone !== null && String::length($user->getProfile()->phone) > 0): ?>
+                <?php if ($user->getProfile()->phone !== null && Str::length($user->getProfile()->phone) > 0): ?>
                 <tr>
                     <td><?= __('Phone'); ?></td>
                     <td><?= \App::$Security->strip_tags($user->getProfile()->phone); ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->url !== null && String::length($user->getProfile()->url) > 0): ?>
+                <?php if ($user->getProfile()->url !== null && Str::length($user->getProfile()->url) > 0): ?>
                 <tr>
                     <td><?= __('Website'); ?></td>
                     <td>
@@ -153,7 +153,7 @@ $this->breadcrumbs = [
                     </td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->city !== null && String::length($user->getProfile()->city) > 0):
+                <?php if ($user->getProfile()->city !== null && Str::length($user->getProfile()->city) > 0):
                     $city = \App::$Security->strip_tags($user->getProfile()->city);
                 ?>
                 <tr>
@@ -161,7 +161,7 @@ $this->breadcrumbs = [
                     <td><?= Url::link(['profile/index', 'city', trim($city, ' ')], $city) ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->hobby !== null && String::length($user->getProfile()->hobby) > 0): ?>
+                <?php if ($user->getProfile()->hobby !== null && Str::length($user->getProfile()->hobby) > 0): ?>
                 <tr>
                     <td><?= __('Interests'); ?></td>
                     <td>
@@ -169,7 +169,7 @@ $this->breadcrumbs = [
                         $hobbyArray = explode(',', $user->getProfile()->hobby);
                         foreach ($hobbyArray as $item) {
                             $item = \App::$Security->strip_tags($item);
-                            if ($item !== null && String::length($item) > 1) {
+                            if ($item !== null && Str::length($item) > 1) {
                                 echo Url::link(['profile/index', 'hobby', trim($item, ' ')], $item, ['class' => 'label label-success']) . ' ';
                             }
                         }
@@ -181,13 +181,13 @@ $this->breadcrumbs = [
                 $custom_fields = Serialize::decode($user->getProfile()->custom_data);
                 if ($custom_fields !== null && Object::isArray($custom_fields) && count($custom_fields) > 0): ?>
                     <?php foreach ($custom_fields as $cid => $value): ?>
-                        <?php if (!String::likeEmpty($value)): ?>
+                        <?php if (!Str::likeEmpty($value)): ?>
                             <tr>
                                 <td><?= ProfileField::getNameById($cid) ?></td>
                                 <td>
                                     <?php
                                     if (ProfileField::getTypeById($cid) === 'link') {
-                                        echo Url::link($value, String::substr($value, 30));
+                                        echo Url::link($value, Str::substr($value, 30));
                                     } else {
                                         echo \App::$Security->strip_tags($value);
                                     }

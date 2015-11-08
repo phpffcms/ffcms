@@ -31,7 +31,7 @@ $this->title = __('Routing');
                             ['text' => $env],
                             ['text' => $source],
                             ['text' => $target],
-                            ['text' => '<i class="fa fa-remove"></i>', 'html' => true]
+                            ['text' => '<i class="fa fa-remove"></i>', 'property' => ['class' => 'text-center'], 'html' => true]
                         ];
                     }
                 }
@@ -45,7 +45,7 @@ $this->title = __('Routing');
                             ['text' => $env],
                             ['text' => $source],
                             ['text' => $target],
-                            ['text' => '<i class="fa fa-remove"></i>', 'html' => true]
+                            ['text' => '<i class="fa fa-remove"></i>', 'property' => ['class' => 'text-center'], 'html' => true]
                         ];
                     }
                 }
@@ -69,7 +69,7 @@ $this->title = __('Routing');
         ?>
     </div>
     <div class="col-md-6">
-        <h2><?= __('Dynamic routes') ?></h2>
+        <h2><?= __('Dynamic(callback) routes') ?></h2>
         <?=
         Table::display([
             'table' => ['class' => 'table table-bordered'],
@@ -87,3 +87,4 @@ $this->title = __('Routing');
         ?>
     </div>
 </div>
+<?= Url::link(['main/addroute'], '<i class="fa fa-plus"></i> ' . __('New route'), ['class' => 'btn btn-primary']) ?>

@@ -18,7 +18,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Object;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 use Apps\ActiveRecord\Profile as ProfileRecords;
 use Ffcms\Core\Helper\Url;
 
@@ -53,13 +53,13 @@ class Profile extends FrontAppController
                 $records = (new ProfileRecords())->orderBy('rating', 'DESC');
                 break;
             case 'hobby': // search by hobby
-                if ($filter_value === null || String::length($filter_value) < 1) {
+                if ($filter_value === null || Str::length($filter_value) < 1) {
                     throw new NotFoundException();
                 }
                 $records = (new ProfileRecords())->where('hobby', 'like', '%' . $filter_value . '%');
                 break;
             case 'city':
-                if ($filter_value === null || String::length($filter_value) < 1) {
+                if ($filter_value === null || Str::length($filter_value) < 1) {
                     throw new NotFoundException();
                 }
                 $records = (new ProfileRecords())->where('city', '=', $filter_value);

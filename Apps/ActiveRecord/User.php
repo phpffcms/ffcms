@@ -6,7 +6,7 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Helper\Type\Object;
-use Ffcms\Core\Helper\Type\String;
+use Ffcms\Core\Helper\Type\Str;
 
 class User extends ActiveModel implements iUser
 {
@@ -76,19 +76,19 @@ class User extends ActiveModel implements iUser
         $session_id = (int)MainApp::$Session->get('ff_user_id', 0);
 
         // validate session data
-        if (null === $session_token || $session_id < 1 || String::length($session_token) < 64) {
+        if (null === $session_token || $session_id < 1 || Str::length($session_token) < 64) {
             return false;
         }
 
         // find user identity
         $find = self::identity($session_id);
-        if (null === $find || String::length($find->token_data) < 64) { // check if this $id exist
+        if (null === $find || Str::length($find->token_data) < 64) { // check if this $id exist
             MainApp::$Session->invalidate(); // destory session data - it's not valid!
             return false;
         }
 
         // check if user is approved. Default value: 0, can be null, '' or the same.
-        if ($find->approve_token !== '0' && String::length($find->approve_token) > 0) {
+        if ($find->approve_token !== '0' && Str::length($find->approve_token) > 0) {
             return false;
         }
 
@@ -125,7 +125,7 @@ class User extends ActiveModel implements iUser
      */
     public static function isMailExist($email)
     {
-        if (!Object::isString($email) || !String::isEmail($email)) {
+        if (!Object::isString($email) || !Str::isEmail($email)) {
             return false;
         }
 
@@ -139,7 +139,7 @@ class User extends ActiveModel implements iUser
      */
     public static function isLoginExist($login)
     {
-        if (!Object::isString($login) || String::length($login) < 1) {
+        if (!Object::isString($login) || Str::length($login) < 1) {
             return false;
         }
 
