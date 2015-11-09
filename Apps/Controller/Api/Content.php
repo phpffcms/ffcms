@@ -10,7 +10,7 @@ use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\Normalize;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Gregwar\Image\Image;
 
@@ -134,7 +134,7 @@ class Content extends ApiController
         }
 
         $files = Directory::scan($thumbDir, null, true);
-        if (!Object::isArray($files) || count($files) < 1) {
+        if (!Obj::isArray($files) || count($files) < 1) {
             throw new JsonException('Nothing found');
         }
 

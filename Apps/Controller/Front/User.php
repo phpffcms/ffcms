@@ -11,7 +11,7 @@ use Ffcms\Core\App;
 use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -125,7 +125,7 @@ class User extends FrontAppController
         }
 
         // is recovery submit?
-        if (Object::isLikeInt($id) && Str::length($token) >= 64) {
+        if (Obj::isLikeInt($id) && Str::length($token) >= 64) {
             $rObject = UserRecovery::where('id', '=', $id)
                 ->where('token', '=', $token)
                 ->where('archive', '=', false);

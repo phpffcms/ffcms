@@ -12,7 +12,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 
 class Profile extends AdminAppController
 {
@@ -59,7 +59,7 @@ class Profile extends AdminAppController
      */
     public function actionUpdate($id)
     {
-        if (!Object::isLikeInt($id) || $id < 1) {
+        if (!Obj::isLikeInt($id) || $id < 1) {
             throw new NotFoundException();
         }
 
@@ -137,7 +137,7 @@ class Profile extends AdminAppController
      */
     public function actionFielddelete($id)
     {
-        if (!Object::isLikeInt($id) || $id < 1) {
+        if (!Obj::isLikeInt($id) || $id < 1) {
             throw new ForbiddenException();
         }
 

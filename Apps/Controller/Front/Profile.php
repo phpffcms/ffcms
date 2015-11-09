@@ -16,7 +16,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 use Apps\ActiveRecord\Profile as ProfileRecords;
@@ -65,7 +65,7 @@ class Profile extends FrontAppController
                 $records = (new ProfileRecords())->where('city', '=', $filter_value);
                 break;
             case 'born':
-                if ($filter_value === null || !Object::isLikeInt($filter_value)) {
+                if ($filter_value === null || !Obj::isLikeInt($filter_value)) {
                     throw new NotFoundException();
                 }
                 $records = (new ProfileRecords())->where('birthday', 'like', $filter_value . '-%');
@@ -156,7 +156,7 @@ class Profile extends FrontAppController
             'user' => $targetPersone,
             'viewer' => $viewerPersone,
             'isSelf' => ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id),
-            'wall' => !Object::isObject($wallModel) ? null : $wallModel->export(),
+            'wall' => !Obj::isObject($wallModel) ? null : $wallModel->export(),
             'notify' => App::$Session->getFlashBag()->all(),
             'wallRecords' => $wallRecords,
             'pagination' => $wallPagination,
@@ -207,7 +207,7 @@ class Profile extends FrontAppController
         }
 
         // is postId is integer?
-        if (!Object::isLikeInt($postId) || $postId < 1) {
+        if (!Obj::isLikeInt($postId) || $postId < 1) {
             throw new NotFoundException();
         }
 
@@ -370,7 +370,7 @@ class Profile extends FrontAppController
         }
 
         // check if target is defined
-        if (!Object::isLikeInt($target_id) || $target_id < 1 || !App::$User->isExist($target_id)) {
+        if (!Obj::isLikeInt($target_id) || $target_id < 1 || !App::$User->isExist($target_id)) {
             throw new NotFoundException();
         }
 

@@ -1,7 +1,7 @@
 <?php
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\HTML\Listing;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Url;
 ?>
 <!DOCTYPE html>
@@ -182,10 +182,10 @@ use Ffcms\Core\Helper\Url;
         <div class="row">
             <div class="col-md-12">
                 <div class="site-index">
-                    <?php if ($this->breadcrumbs !== null && Object::isArray($this->breadcrumbs)) : ?>
+                    <?php if ($this->breadcrumbs !== null && Obj::isArray($this->breadcrumbs)) : ?>
                         <ol class="breadcrumb">
                             <?php foreach ($this->breadcrumbs as $bUrl => $bText): ?>
-                                <?php if (Object::isLikeInt($bUrl)): // only text ?>
+                                <?php if (Obj::isLikeInt($bUrl)): // only text ?>
                                     <li class="active"><?= \App::$Security->strip_tags($bText) ?></li>
                                 <?php else: ?>
                                     <li>
@@ -202,7 +202,7 @@ use Ffcms\Core\Helper\Url;
                         if ($body != null) {
                             // display notify if not used in views
                             $notify = \App::$Session->getFlashBag()->all();
-                            if (Object::isArray($notify) && count($notify) > 0) {
+                            if (Obj::isArray($notify) && count($notify) > 0) {
                                 echo \App::$View->render('macro/notify', ['notify' => $notify]);
                             }
 

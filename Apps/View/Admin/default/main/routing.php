@@ -1,7 +1,7 @@
 <?php
 
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Url;
 
 /** @var $routes array */
@@ -23,29 +23,35 @@ $this->title = __('Routing');
         <?php
         $staticItems = [];
         $dynamicItems = [];
-        if (Object::isArray($routes['Alias'])) {
+        if (Obj::isArray($routes['Alias'])) {
             foreach ($routes['Alias'] as $env => $route) {
-                if (Object::isArray($route)) {
+                if (Obj::isArray($route)) {
                     foreach ($route as $source => $target) {
                         $staticItems[] = [
                             ['text' => $env],
                             ['text' => $source],
                             ['text' => $target],
-                            ['text' => '<i class="fa fa-remove"></i>', 'property' => ['class' => 'text-center'], 'html' => true]
+                            ['text' => Url::link(
+                                ['main/deleteroute', null, null, ['type' => 'Alias', 'loader' => $env, 'path' => $source]],
+                                '<i class="fa fa-remove"></i>'
+                            ), 'property' => ['class' => 'text-center'], 'html' => true]
                         ];
                     }
                 }
             }
         }
-        if (Object::isArray($routes['Callback'])) {
+        if (Obj::isArray($routes['Callback'])) {
             foreach ($routes['Callback'] as $env => $route) {
-                if (Object::isArray($route)) {
+                if (Obj::isArray($route)) {
                     foreach ($route as $source => $target) {
                         $dynamicItems[] = [
                             ['text' => $env],
                             ['text' => $source],
                             ['text' => $target],
-                            ['text' => '<i class="fa fa-remove"></i>', 'property' => ['class' => 'text-center'], 'html' => true]
+                            ['text' => Url::link(
+                                ['main/deleteroute', null, null, ['type' => 'Callback', 'loader' => $env, 'path' => $source]],
+                                '<i class="fa fa-remove"></i>'
+                            ), 'property' => ['class' => 'text-center'], 'html' => true]
                         ];
                     }
                 }

@@ -2,7 +2,7 @@
 
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use \Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Url;
@@ -89,7 +89,7 @@ if (!\App::$Request->isPathInjected()) {
             </div>
         </div>
         <div class="meta">
-            <?php if ($item['tags'] !== null && Object::isArray($item['tags'])): ?>
+            <?php if ($item['tags'] !== null && Obj::isArray($item['tags'])): ?>
             <span><i class="fa fa-tags"></i>
                 <?php
                     foreach ($item['tags'] as $tag) {

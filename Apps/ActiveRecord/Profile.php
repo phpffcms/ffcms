@@ -5,7 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Interfaces\iProfile;
 use Ffcms\Core\App as MainApp;
 
@@ -23,7 +23,7 @@ class Profile extends ActiveModel implements iProfile
             $user_id = MainApp::$Session->get('ff_user_id');
         }
 
-        if ($user_id === null || !Object::isLikeInt($user_id) || $user_id < 1) {
+        if ($user_id === null || !Obj::isLikeInt($user_id) || $user_id < 1) {
             return null;
         }
 

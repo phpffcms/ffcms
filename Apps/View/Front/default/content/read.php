@@ -5,7 +5,7 @@
 /** @var $trash bool */
 /** @var $configs array */
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
@@ -17,7 +17,7 @@ if (Str::likeEmpty($this->title)) {
 // set meta description
 $this->description = \App::$Security->strip_tags($model->metaDescription);
 // set meta keywords
-if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
+if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
     $this->keywords = implode(', ', $model->metaKeywords);
 }
 
@@ -26,7 +26,7 @@ if (!\App::$Request->isPathInjected()) {
     $breadcrumbs = [
             Url::to('/') => __('Home')
     ];
-    if (Object::isArray($model->catNesting)) {
+    if (Obj::isArray($model->catNesting)) {
         foreach ($model->catNesting as $cat) {
             if ($cat['path'] === '') {
                 $breadcrumbs[Url::to('content/list', $cat['path'])] = __('Contents');
@@ -99,7 +99,7 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
         <?php endif ;?>
         <?= $model->text ?>
     </div>
-    <?php if ($model->galleryItems !== null && Object::isArray($model->galleryItems)): ?>
+    <?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
         <div class="row">
         <?php foreach ($model->galleryItems as $thumbPic => $fullPic): ?>
             <div class="col-md-2 well">
@@ -124,7 +124,7 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     <?php if ((int)$configs['keywordsAsTags'] === 1): ?>
     <div id="content-tags">
         <?php
-        if (Object::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
+        if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
             echo '<i class="fa fa-tags"></i>';
             foreach ($model->metaKeywords as $tag) {
                 $tag = \App::$Security->strip_tags(trim($tag));
@@ -147,7 +147,7 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     </div>
     <?php endif; ?>
 </article>
-<?php if ($model->galleryItems !== null && Object::isArray($model->galleryItems)): ?>
+<?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
 <script>
     window.jQ.push(function(){
         $('.modalGallery').on('click', function() {

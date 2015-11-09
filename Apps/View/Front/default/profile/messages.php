@@ -1,5 +1,5 @@
 <?php
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('My dialogs');
@@ -196,7 +196,7 @@ $this->breadcrumbs = [
             };
             <?php // check if defined ?newdialog=userid
             $dialogId = \App::$Request->query->get('newdialog', false);
-            if (false !== $dialogId && Object::isLikeInt($dialogId) && $dialogId > 0) : ?>
+            if (false !== $dialogId && Obj::isLikeInt($dialogId) && $dialogId > 0) : ?>
             new_dialog = <?= $dialogId ?>;
             active_dialog_id = new_dialog;
             <?php endif; ?>

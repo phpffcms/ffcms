@@ -4,7 +4,7 @@ namespace Extend\Core\Arch;
 
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\App;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 class AdminAppController extends Controller
@@ -78,7 +78,7 @@ class AdminAppController extends Controller
      */
     public function setConfigs(array $configs = null)
     {
-        if ($configs === null || !Object::isArray($configs) || count($configs) < 1) {
+        if ($configs === null || !Obj::isArray($configs) || count($configs) < 1) {
             return false;
         }
 

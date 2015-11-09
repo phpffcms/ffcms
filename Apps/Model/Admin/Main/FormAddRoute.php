@@ -62,6 +62,7 @@ class FormAddRoute extends Model
                 ]
             ]
         ];
+
         App::$Properties->updateConfig('Routing', $configData);
     }
 }

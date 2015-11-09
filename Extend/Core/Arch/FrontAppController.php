@@ -7,7 +7,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 class FrontAppController extends Controller
@@ -65,7 +65,7 @@ class FrontAppController extends Controller
         }
         $configs = (array)unserialize($this->application->configs); // data always stored like a "string" objects
         foreach ($configs as $cfg => $value) {
-            if (Object::isLikeInt($value)) {
+            if (Obj::isLikeInt($value)) {
                 $configs[$cfg] = (int)$value; // convert string 1 "1" to int 1 1
             }
         }

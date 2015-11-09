@@ -2,7 +2,7 @@
 use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Listing;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
@@ -179,7 +179,7 @@ $this->breadcrumbs = [
                 <?php endif; ?>
                 <?php
                 $custom_fields = Serialize::decode($user->getProfile()->custom_data);
-                if ($custom_fields !== null && Object::isArray($custom_fields) && count($custom_fields) > 0): ?>
+                if ($custom_fields !== null && Obj::isArray($custom_fields) && count($custom_fields) > 0): ?>
                     <?php foreach ($custom_fields as $cid => $value): ?>
                         <?php if (!Str::likeEmpty($value)): ?>
                             <tr>
@@ -203,7 +203,7 @@ $this->breadcrumbs = [
         <?php if ($wall !== null): ?>
             <?php
             // show notification if exist
-            if (Object::isArray($notify) && count($notify) > 0) {
+            if (Obj::isArray($notify) && count($notify) > 0) {
                 echo $this->render('macro/notify', ['notify' => $notify]);
             }
             ?>

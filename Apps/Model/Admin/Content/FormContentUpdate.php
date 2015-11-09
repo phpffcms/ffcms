@@ -10,7 +10,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Integer;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -195,7 +195,7 @@ class FormContentUpdate extends Model
         // try to find this item
         $find = Content::where('path', '=', $this->path);
         // exclude self id
-        if ($this->_content->id !== null && Object::isLikeInt($this->_content->id)) {
+        if ($this->_content->id !== null && Obj::isLikeInt($this->_content->id)) {
             $find->where('id', '!=', $this->_content->id);
         }
         // limit only current category id

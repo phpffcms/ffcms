@@ -81,5 +81,7 @@ return [
     'Define source path (for static alias) or class name (for dynamic rule) to use it for target query' => 'Задайте исходный путь (для статического алиаса) или имя класса контроллера (для динамического правила) которое будет заменено целевым',
     'Define target path or class path for displayd item on source path' => 'Задайте целевой путь или полный путь класса для отображения содержимого на исходном пути',
     'Static (alias) route' => 'Статический (алиас) маршрут',
-    'Dynamic (callback) route' => 'Динамический (callback) маршрут'
+    'Dynamic (callback) route' => 'Динамический (callback) маршрут',
+    'Deleting route' => 'Удаление маршрута',
+    'Delete this route' => 'Удалить этот маршрут'
 ];

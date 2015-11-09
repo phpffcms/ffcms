@@ -12,7 +12,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -66,7 +66,7 @@ class Profile extends ApiController
     public function actionShowwallanswers($postId)
     {
         // check input post id num
-        if (!Object::isLikeInt($postId) || $postId < 1) {
+        if (!Obj::isLikeInt($postId) || $postId < 1) {
             throw new JsonException('Wrong input data');
         }
 
@@ -114,7 +114,7 @@ class Profile extends ApiController
         }
 
         // no post id? wtf you doing man!
-        if (!Object::isLikeInt($postId) || $postId < 1) {
+        if (!Obj::isLikeInt($postId) || $postId < 1) {
             throw new JsonException('Wrong input data');
         }
 
@@ -123,7 +123,7 @@ class Profile extends ApiController
         // get message from post and validate minlength
         $message = App::$Request->get('message');
         $message = App::$Security->strip_tags($message);
-        if (!Object::isString($message) || Str::length($message) < 3) {
+        if (!Obj::isString($message) || Str::length($message) < 3) {
             throw new JsonException('Wrong input data');
         }
 
@@ -177,7 +177,7 @@ class Profile extends ApiController
             throw new JsonException('Auth required');
         }
         // answer id must be an unsigned integer
-        if (!Object::isLikeInt($answerId) || $answerId < 1) {
+        if (!Obj::isLikeInt($answerId) || $answerId < 1) {
             throw new JsonException('Wrong input data');
         }
 
@@ -222,7 +222,7 @@ class Profile extends ApiController
         $this->setJsonHeader();
 
         // check is offset is int
-        if ($offset !== 0 && !Object::isLikeInt($offset)) {
+        if ($offset !== 0 && !Obj::isLikeInt($offset)) {
             $offset = 0;
         }
         ++$offset;
@@ -241,7 +241,7 @@ class Profile extends ApiController
         $userList = [];
         $unreadList = [];
 
-        if (Object::isLikeInt($new) && $new > 0 && App::$User->isExist($new)) {
+        if (Obj::isLikeInt($new) && $new > 0 && App::$User->isExist($new)) {
             $userList[] = $new;
         }
         // there is 2 way of messages: me->user; user->me, try to parse it
@@ -317,7 +317,7 @@ class Profile extends ApiController
             throw new JsonException('Auth required');
         }
 
-        if (!Object::isLikeInt($cor_id) || $cor_id < 1) {
+        if (!Obj::isLikeInt($cor_id) || $cor_id < 1) {
             throw new JsonException('Corresponded id is wrong');
         }
 
@@ -327,7 +327,7 @@ class Profile extends ApiController
         // get current user object
         $user = App::$User->identity();
 
-        if (Arr::in($queryType, ['before', 'after']) && (!Object::isLikeInt($queryId) || $queryId < 1)) {
+        if (Arr::in($queryType, ['before', 'after']) && (!Obj::isLikeInt($queryId) || $queryId < 1)) {
             throw new JsonException('Bad input data');
         }
 
@@ -429,7 +429,7 @@ class Profile extends ApiController
 
         // check input params
         $msg = App::$Security->strip_tags(App::$Request->get('message'));
-        if (!Object::isLikeInt($target_id) || $target_id < 1 || Str::length($msg) < 1) {
+        if (!Obj::isLikeInt($target_id) || $target_id < 1 || Str::length($msg) < 1) {
             throw new JsonException('Wrong input data');
         }
 
@@ -463,7 +463,7 @@ class Profile extends ApiController
         }
 
         // check if passed user id is exist
-        if (!Object::isLikeInt($target_id) || $target_id < 1 || !App::$User->isExist($target_id)) {
+        if (!Obj::isLikeInt($target_id) || $target_id < 1 || !App::$User->isExist($target_id)) {
             throw new JsonException('Wrong user info');
         }
 

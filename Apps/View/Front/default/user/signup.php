@@ -1,5 +1,5 @@
 <?php
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 
 /** @var $notify array */
 /** @var $useCaptcha bool */
@@ -16,7 +16,7 @@ $this->title = __('Sign up');
 <?php
 
 // mark form elements if it wrong
-if (Object::isArray($model->getWrongFields()) && count($model->getWrongFields()) > 0) {
+if (Obj::isArray($model->getWrongFields()) && count($model->getWrongFields()) > 0) {
     foreach ($model->getWrongFields() as $fieldName) {
         $fieldId = $model->getFormName() . '-' . $fieldName;
         \App::$Alias->addPlainCode('js', '$("#' . $fieldId . '").parent().parent(".form-group").addClass("has-error");');

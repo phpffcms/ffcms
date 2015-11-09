@@ -6,7 +6,7 @@ use Apps\ActiveRecord\Role;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\App;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 
 class FormUserGroupUpdate extends Model
 {
@@ -67,7 +67,7 @@ class FormUserGroupUpdate extends Model
     public function getAllPermissions()
     {
         $p = App::$Properties->getAll('permissions');
-        if ($p === false || !Object::isArray($p)) {
+        if ($p === false || !Obj::isArray($p)) {
             throw new SyntaxException('User permissions settings is not founded: /Private/Config/Permissions.php');
         }
 

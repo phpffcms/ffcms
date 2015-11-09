@@ -1,7 +1,7 @@
 <?php
 /** @var $body string */
 use Ffcms\Core\Helper\HTML\Listing;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 
 ?>
 <html>
@@ -103,10 +103,10 @@ use Ffcms\Core\Helper\Type\Object;
 
     <div class="row">
         <div class="col-md-9 content-container">
-            <?php if ($this->breadcrumbs !== null && Object::isArray($this->breadcrumbs)) : ?>
+            <?php if ($this->breadcrumbs !== null && Obj::isArray($this->breadcrumbs)) : ?>
             <ol class="breadcrumb">
                 <?php foreach ($this->breadcrumbs as $bUrl => $bText): ?>
-                    <?php if (Object::isLikeInt($bUrl)): // only text ?>
+                    <?php if (Obj::isLikeInt($bUrl)): // only text ?>
                     <li class="active"><?= \App::$Security->strip_tags($bText) ?></li>
                     <?php else: ?>
                     <li>
@@ -119,10 +119,12 @@ use Ffcms\Core\Helper\Type\Object;
             </ol>
             <?php endif; ?>
             <?php
+            var_dump(\Ffcms\Core\Helper\Url::to('@\Apps\Controller\Front\Main/show', 'something'));
+            var_dump(\Ffcms\Core\Helper\Url::to('content/read', 'o-saite'));
             if ($body != null) {
                 // display notify if not used in views
                 $notify = \App::$Session->getFlashBag()->all();
-                if (Object::isArray($notify) && count($notify) > 0) {
+                if (Obj::isArray($notify) && count($notify) > 0) {
                     echo \App::$View->render('macro/notify', ['notify' => $notify]);
                 }
 

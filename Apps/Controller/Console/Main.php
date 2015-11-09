@@ -5,7 +5,7 @@ namespace Apps\Controller\Console;
 use Ffcms\Console\App;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 class Main
@@ -74,7 +74,7 @@ class Main
             // read as plain text
             $byte = File::read($file);
             preg_match_all('/public function action(\w*?)\(/', $byte, $matches); // matches[0] contains all methods ;)
-            if (Object::isArray($matches[1]) && count($matches[1]) > 0) {
+            if (Obj::isArray($matches[1]) && count($matches[1]) > 0) {
                 foreach ($matches[1] as $perm) {
                     $permissions[] = 'Admin/' . $className . '/' . $perm;
                 }

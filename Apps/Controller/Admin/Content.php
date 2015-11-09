@@ -18,7 +18,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\HTML\SimplePagination;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 
 class Content extends AdminAppController
 {
@@ -40,7 +40,7 @@ class Content extends AdminAppController
         $type = App::$Request->query->get('type');
         if ($type === 'trash') {
             $query = ContentEntity::onlyTrashed();
-        } elseif (Object::isLikeInt($type)) { // sounds like category id ;)
+        } elseif (Obj::isLikeInt($type)) { // sounds like category id ;)
             $query = ContentEntity::where('category_id', '=', (int)$type);
         } else {
             $query = new ContentEntity();
@@ -110,7 +110,7 @@ class Content extends AdminAppController
      */
     public function actionDelete($id)
     {
-        if (!Object::isLikeInt($id) || $id < 1) {
+        if (!Obj::isLikeInt($id) || $id < 1) {
             throw new NotFoundException();
         }
 
@@ -142,7 +142,7 @@ class Content extends AdminAppController
      */
     public function actionRestore($id)
     {
-        if (!Object::isLikeInt($id) || $id < 1) {
+        if (!Obj::isLikeInt($id) || $id < 1) {
             throw new NotFoundException();
         }
 
@@ -218,7 +218,7 @@ class Content extends AdminAppController
     public function actionCategorydelete($id)
     {
         // check id
-        if (!Object::isLikeInt($id) || $id < 2) {
+        if (!Obj::isLikeInt($id) || $id < 2) {
             throw new ForbiddenException();
         }
 

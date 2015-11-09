@@ -5,7 +5,7 @@ namespace Apps\Model\Admin\User;
 use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\App;
@@ -125,7 +125,7 @@ class FormUserUpdate extends Model
     {
         $find = User::where('email', '=', $email);
 
-        if ($userId !== null && Object::isLikeInt($userId)) {
+        if ($userId !== null && Obj::isLikeInt($userId)) {
             $find->where('id', '!=', $userId);
         }
 
@@ -142,7 +142,7 @@ class FormUserUpdate extends Model
     {
         $find = User::where('login', '=', $login);
 
-        if ($userId !== null && Object::isLikeInt($userId)) {
+        if ($userId !== null && Obj::isLikeInt($userId)) {
             $find->where('id', '!=', $userId);
         }
 

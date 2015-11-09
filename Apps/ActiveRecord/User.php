@@ -5,7 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\App as MainApp;
-use Ffcms\Core\Helper\Type\Object;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 class User extends ActiveModel implements iUser
@@ -25,7 +25,7 @@ class User extends ActiveModel implements iUser
         // convert id to real integer
         $user_id = (int)$user_id;
 
-        if (!Object::isInt($user_id) || $user_id < 1) {
+        if (!Obj::isInt($user_id) || $user_id < 1) {
             return null;
         }
 
@@ -102,7 +102,7 @@ class User extends ActiveModel implements iUser
      */
     public static function isExist($id)
     {
-        if (!Object::isLikeInt($id) || $id < 1) {
+        if (!Obj::isLikeInt($id) || $id < 1) {
             return false;
         }
 
@@ -125,7 +125,7 @@ class User extends ActiveModel implements iUser
      */
     public static function isMailExist($email)
     {
-        if (!Object::isString($email) || !Str::isEmail($email)) {
+        if (!Obj::isString($email) || !Str::isEmail($email)) {
             return false;
         }
 
@@ -139,7 +139,7 @@ class User extends ActiveModel implements iUser
      */
     public static function isLoginExist($login)
     {
-        if (!Object::isString($login) || Str::length($login) < 1) {
+        if (!Obj::isString($login) || Str::length($login) < 1) {
             return false;
         }
 

@@ -2,12 +2,16 @@
 
 namespace Apps\Controller\Admin;
 
+use Apps\Model\Admin\Main\EntityDeleteRoute;
 use Apps\Model\Admin\Main\FormAddRoute;
 use Apps\Model\Admin\Main\FormSettings;
 use Extend\Core\Arch\AdminAppController;
 use Ffcms\Core\App;
+use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Integer;
+use Ffcms\Core\Helper\Type\Str;
 
 class Main extends AdminAppController
 {
@@ -87,6 +91,10 @@ class Main extends AdminAppController
         ]);
     }
 
+    /**
+     * Show add form for routing
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionAddroute()
     {
         $model = new FormAddRoute();
@@ -95,10 +103,31 @@ class Main extends AdminAppController
             App::$Session->getFlashBag()->add('error', __('Routing configuration file is not allowed to write: /Private/Config/Routing.php'));
         } elseif ($model->send() && $model->validate()) {
             $model->save();
-            App::$Response->redirect('/main/routing');
+            App::$Response->redirect('main/routing');
         }
 
-        $this->response = App::$View->render('addroute', [
+        $this->response = App::$View->render('add_route', [
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * Delete scheme route
+     * @throws SyntaxException
+     */
+    public function actionDeleteroute()
+    {
+        $type = (string)App::$Request->query->get('type');
+        $loader = (string)App::$Request->query->get('loader');
+        $source = Str::lowerCase((string)App::$Request->query->get('path'));
+
+        $model = new EntityDeleteRoute($type, $loader, $source);
+        if ($model->send()) {
+            $model->make();
+            App::$Response->redirect('main/routing');
+        }
+
+        $this->response = App::$View->render('delete_route', [
             'model' => $model
         ]);
     }
