@@ -147,6 +147,12 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     </div>
     <?php endif; ?>
 </article>
+<div class="row">
+    <div class="col-md-12">
+        <h3><?= __('Comments') ?></h3>
+        <?= \Widgets\Front\Comments\Comments::widget(['targetClass' => 'wysi-comments', 'config' => 'config-small']); ?>
+    </div>
+</div>
 <?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
 <script>
     window.jQ.push(function(){

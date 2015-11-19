@@ -56,9 +56,15 @@ $configs->content = serialize([
     'galleryResize' => 150
 ]);
 
+$names->comments = serialize([
+    'en' => 'Comments',
+    'ru' => 'Комментарии'
+]);
+
 
 Illuminate\Database\Capsule\Manager::connection()->table('apps')->insert([
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'created_at' => $now, 'updated_at' => $now]
+    ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => null, 'created_at' => $now, 'updated_at' => $now]
 ]);

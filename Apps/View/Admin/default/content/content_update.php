@@ -18,7 +18,7 @@ $this->breadcrumbs = [
     __('Content manage')
 ];
 
-echo Ffcms\Widgets\Ckeditor\Widget::widget(['targetClass' => 'wysiwyg']);
+echo Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysiwyg', 'config' => 'config-full']);
 
 ?>
 

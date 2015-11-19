@@ -16,8 +16,6 @@ class Widget extends AbstractWidget
     {
         if ($this->message === null)
             $this->message = 'Hello, world';
-
-        var_dump($this->title);
     }
 
     public function display()

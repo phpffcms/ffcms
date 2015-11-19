@@ -26,5 +26,5 @@ $uriLoader = ucfirst(strtolower(str_replace('.', '', $uriLoader)));
 if (in_array($uriLoader, $loaderList, true) && file_exists(root . '/Loader/' . $uriLoader . '/index.php')) {
     require_once (root . '/Loader/' . $uriLoader . '/index.php');
 } else { // else - try to load default interface
-    require_once (root . '/Loader/Front/Index.php');
+    require_once (root . '/Loader/Front/index.php');
 }

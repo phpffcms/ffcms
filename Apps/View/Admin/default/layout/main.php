@@ -2,6 +2,7 @@
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Type\Obj;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 ?>
 <!DOCTYPE html>
@@ -144,7 +145,7 @@ use Ffcms\Core\Helper\Url;
                                 $appControllers[] = $app->sys_name;
                                 $appMenuItems[] = [
                                         'type' => 'link',
-                                        'link' => [$app->sys_name . '/index'],
+                                        'link' => [Str::lowerCase($app->sys_name) . '/index'],
                                         'text' => $app->getLocaleName()
                                 ];
                             }

@@ -227,7 +227,7 @@ $this->breadcrumbs = [
                 }
                 $referNickname = ($referObject->getProfile()->nick == null ? __('No name') : \App::$Security->strip_tags($referObject->getProfile()->nick));
                 ?>
-                <div class="row wall-post" id="wall-post-<?= $post->id ?>">
+                <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
                     <div class="col-md-2">
                         <div class="text-center"><img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>"
                              src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
@@ -238,7 +238,7 @@ $this->breadcrumbs = [
                             <i class="fa fa-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
                             <small class="pull-right"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
                         </h5>
-                        <div class="wall-post-text">
+                        <div class="object-text">
                             <?= \App::$Security->strip_tags($post->message); ?>
                         </div>
                         <hr style="margin: 5px;" />
@@ -266,7 +266,7 @@ $this->breadcrumbs = [
     var hideAnswers = [];
     window.jQ.push(function(){
         $(function(){
-            var elements = $('.wall-post');
+            var elements = $('.object-lightborder');
             var viewer_id = 0;
             var target_id = 0;
             var is_self_profile = <?= $isSelf === true ? 'true' : 'false' ?>;

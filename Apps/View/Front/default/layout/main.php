@@ -23,6 +23,7 @@ use Ffcms\Core\Helper\Type\Obj;
         window.jQ = [];
         var script_url = '<?= \App::$Alias->scriptUrl ?>';
         var script_lang = '<?= \App::$Request->getLanguage() ?>';
+        var site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
 </head>
 <body>
@@ -70,7 +71,7 @@ use Ffcms\Core\Helper\Type\Obj;
         </div>
         <!-- text logo -->
         <div class="col-md-7">
-            <div class="site-name"><a href="<?php echo \App::$Alias->baseUrl; ?>">Website title</a></div>
+            <div class="site-name"><a href="<?= \Ffcms\Core\Helper\Url::to('/'); ?>">Website title</a></div>
             <p>Some website short description there!</p>
         </div>
         <!-- Search panel -->
@@ -119,8 +120,6 @@ use Ffcms\Core\Helper\Type\Obj;
             </ol>
             <?php endif; ?>
             <?php
-            var_dump(\Ffcms\Core\Helper\Url::to('@\Apps\Controller\Front\Main/show', 'something'));
-            var_dump(\Ffcms\Core\Helper\Url::to('content/read', 'o-saite'));
             if ($body != null) {
                 // display notify if not used in views
                 $notify = \App::$Session->getFlashBag()->all();

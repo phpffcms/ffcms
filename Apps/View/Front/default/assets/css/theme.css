@@ -157,7 +157,7 @@ label.error {
     color: #a94442;
 }
 
-.wall-post {
+.object-lightborder {
     border: 1px solid #eee;
     border-radius:5px;
     padding: 5px;
@@ -233,7 +233,7 @@ label.error {
         min-height: 500px;
     }
 
-    .wall-post-text {
+    .object-text {
         min-height: 40px;
     }
 }
