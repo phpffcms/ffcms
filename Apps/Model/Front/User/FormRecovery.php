@@ -91,7 +91,7 @@ class FormRecovery extends Model
         $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Profile', 'Account recovery on %site%', ['site' => App::$Request->getHost()]))
             ->setFrom([$sender])
             ->setTo([$this->email])
-            ->setBody($mailTemplate);
+            ->setBody($mailTemplate, 'text/html');
         // send message
         App::$Mailer->send($mailMessage);
     }

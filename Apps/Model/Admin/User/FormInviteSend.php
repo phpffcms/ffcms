@@ -60,7 +60,7 @@ class FormInviteSend extends Model
         $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Default', 'You got invite', []))
             ->setFrom([$sender])
             ->setTo([$this->email])
-            ->setBody($template);
+            ->setBody($template, 'text/html');
         // send message
         return App::$Mailer->send($mailMessage);
     }

@@ -103,7 +103,7 @@ class FormRegister extends Model
             $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Default', 'Registration approve', []))
                 ->setFrom([$sender])
                 ->setTo([$this->email])
-                ->setBody($template);
+                ->setBody($template, 'text/html');
             // send message
             App::$Mailer->send($mailMessage);
         }

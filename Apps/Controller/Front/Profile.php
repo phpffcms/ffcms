@@ -31,7 +31,7 @@ class Profile extends FrontAppController
 {
     const BLOCK_PER_PAGE = 10;
 
-    public function actionIndex($filter_name, $filter_value)
+    public function actionIndex($filter_name, $filter_value = null)
     {
         $records = null;
 
