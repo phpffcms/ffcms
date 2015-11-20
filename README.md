@@ -15,13 +15,13 @@ INSTALLATION
 ------------
 To install ffcms-core you can use composer:
 ```bash
-php composer.phar global require "fxp/composer-asset-plugin:1.0.3"
+php composer.phar global require "fxp/composer-asset-plugin:1.1.*"
 php composer.phar create-project phpffcms/ffcms ./path/to/document_root 3.0.0
 php console.php install
 ```
 For developer version you must use "master" branch from developer repository:
 ```bash
-php composer.phar global require "fxp/composer-asset-plugin:1.0.3"
+php composer.phar global require "fxp/composer-asset-plugin:1.1.*"
 php composer.phar create-project phpffcms/ffcms ./ --stability="dev"
 ```
 
