@@ -6,7 +6,7 @@ $loaderList = ['Front', 'Admin', 'Api'];
 error_reporting(E_ALL ^ E_NOTICE);
 
 // define document root as project root folder
-define('root', realpath(__DIR__));
+define('root', __DIR__);
 
 // get current URI path
 $uriRequest = $_SERVER['REQUEST_URI'];

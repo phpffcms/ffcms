@@ -41,6 +41,9 @@ if (!\App::$Request->isPathInjected()) {
     <?php endif; ?>
     <hr />
 <?php endif; ?>
+<?php if (count($model->items) < 1): ?>
+    <p class="alert alert-warning"><?= __('This category is empty!') ?></p>
+<?php return; endif; ?>
 <?php foreach ($model->items as $item): ?>
     <article class="article-item" itemscope="itemscope" itemtype="https://schema.org/NewsArticle">
         <h2 itemprop="name">

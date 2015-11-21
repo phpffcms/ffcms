@@ -8,5 +8,6 @@ return [
     'View picture' => 'Просмотр изображения',
     'Gallery picture' => 'Изображение из галлереи',
     'Poster for' => 'Постер для',
-    'Read more' => 'Подробней'
+    'Read more' => 'Подробней',
+    'This category is empty!' => 'Данный раздел пуст!'
 ];
