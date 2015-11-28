@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('blacklists', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('blacklists', function($table) {
     $table->increments('id');
     $table->integer('user_id')->unsigned();
     $table->integer('target_id')->unsigned();

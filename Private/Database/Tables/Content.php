@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('contents', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('contents', function($table) {
     $table->increments('id');
     $table->text('title');
     $table->mediumText('text');

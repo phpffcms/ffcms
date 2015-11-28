@@ -9,7 +9,7 @@ use Ffcms\Core\Helper\Url;
 
 $this->title = __('Applications');
 $this->breadcrumbs = [
-    Url::to(['main/index']) => __('Main'),
+    Url::to('main/index') => __('Main'),
     __('Applications')
 ];
 ?>

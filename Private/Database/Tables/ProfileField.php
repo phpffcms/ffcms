@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('profile_fields', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('profile_fields', function($table) {
     $table->increments('id');
     $table->enum('type', ['text', 'link']);
     $table->text('name');

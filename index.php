@@ -1,6 +1,6 @@
 <?php
 // define available loader list
-$loaderList = ['Front', 'Admin', 'Api'];
+$loaderList = ['Front', 'Admin', 'Api', 'Install'];
 
 // set error level
 error_reporting(E_ALL ^ E_NOTICE);

@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('user_recoveries', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('user_recoveries', function($table) {
     $table->increments('id');
     $table->integer('user_id')->unsigned();
     $table->string('password', 512);

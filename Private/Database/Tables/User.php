@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('users', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('users', function($table) {
     $table->increments('id');
     $table->string('login')->unique();
     $table->string('email')->unique();

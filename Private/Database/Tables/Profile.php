@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('profiles', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('profiles', function($table) {
     $table->increments('id');
     $table->integer('user_id')->unsigned()->unique();
     $table->string('nick')->nullable();

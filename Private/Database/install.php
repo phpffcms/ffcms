@@ -1,4 +1,9 @@
 <?php
+// check if $connectName is defined and define "null" to prevent warnings for undefined variable
+if (!isset($connectName)) {
+    $connectName = null;
+}
+
 // require all tables
 require_once(root . '/Private/Database/Tables/App.php');
 require_once(root . '/Private/Database/Tables/Blacklist.php');
@@ -14,4 +19,7 @@ require_once(root . '/Private/Database/Tables/User.php');
 require_once(root . '/Private/Database/Tables/UserRecovery.php');
 require_once(root . '/Private/Database/Tables/WallPost.php');
 require_once(root . '/Private/Database/Tables/WallAnswer.php');
+require_once(root . '/Private/Database/Tables/CommentPost.php');
+require_once(root . '/Private/Database/Tables/CommentAnswer.php');
+require_once(root . '/Private/Database/Tables/StaticContent.php');
 

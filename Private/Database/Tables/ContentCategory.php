@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('content_categories', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('content_categories', function($table) {
     $table->increments('id');
     $table->string('path', 200)->unique();
     $table->text('title');
@@ -42,7 +42,7 @@ $cat->Page = [
     ])
 ];
 
-Illuminate\Database\Capsule\Manager::connection()->table('content_categories')->insert([
+Illuminate\Database\Capsule\Manager::connection($connectName)->table('content_categories')->insert([
     ['path' => '', 'title' => $cat->General['title'], 'description' => '', 'configs' => '', 'created_at' => $now, 'updated_at' => $now],
     ['path' => 'news', 'title' => $cat->News['title'], 'description' => '', 'configs' => $cat->News['configs'], 'created_at' => $now, 'updated_at' => $now],
     ['path' => 'page', 'title' => $cat->Page['title'], 'description' => '', 'configs' => '', 'created_at' => $now, 'updated_at' => $now],

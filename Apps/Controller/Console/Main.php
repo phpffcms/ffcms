@@ -9,6 +9,7 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use \Illuminate\Database\Capsule\Manager as Capsule;
+use Apps\Controller\Console\Db as DbController;
 
 class Main
 {
@@ -126,7 +127,7 @@ class Main
                 Directory::create($obj, 0777);
             }
         }
-        echo 'Upload and private directories are successful created!' . "\n";
+        echo App::$Output->write('Upload and private directories are successful created!');
 
         // set chmods
         echo $this->actionChmod();
@@ -170,17 +171,48 @@ class Main
             $newConfig['prefix'] = $dbPrefix;
         }
 
-        $capsule = new Capsule;
-        $capsule->addConnection($newConfig);
-        $capsule->setAsGlobal(); // available from any places
-        $capsule->bootEloquent(); // allow active record model's
+        // merge configs and add new connection to db pull
+        $dbConfigs = Arr::merge($config, $newConfig);
+        App::$Database->addConnection($dbConfigs, 'install');
 
         try {
-            $capsule->connection()->getDatabaseName();
+            App::$Database->connection('install')->getDatabaseName();
         } catch (\Exception $e) {
-            echo App::$Output->write('Testing database connection is failed! Try to repeat configuration with right data!');
+            return 'Testing database connection is failed! Run installer again and pass tested connection data! Log: ' . $e->getMessage();
         }
 
+        // autoload isn't work here
+        include(root . '/Apps/Controller/Console/Db.php');
 
+        // import db data
+        $dbController = new DbController();
+        echo $dbController->actionImportAll('install');
+
+        // set website send from email from input
+        $emailConfig = App::$Properties->get('adminEmail');
+        echo 'Website sendFrom email(default: ' . $emailConfig . '):';
+        $email = App::$Input->read();
+        if (!Str::isEmail($email)) {
+            $email = $emailConfig;
+        }
+
+        // generate other configuration data and security salt, key's and other
+        echo App::$Output->writeHeader('Writing configurations');
+        $allCfg = App::$Properties->getAll('default');
+        $allCfg['database'] = $dbConfigs;
+        $allCfg['adminEmail'] = $email;
+        echo App::$Output->write('Generate password salt for BLOWFISH crypt');
+        $allCfg['passwordSalt'] = Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
+        echo App::$Output->write('Generate security cookies for debug panel');
+        $allCfg['debug']['cookie']['key'] = 'fdebug_' . Str::randomLatinNumeric(mt_rand(8, 32));
+        $allCfg['debug']['cookie']['value'] = Str::randomLatinNumeric(mt_rand(32, 128));
+
+        // write config data
+        $writeCfg = App::$Properties->writeConfig('default', $allCfg);
+        if ($writeCfg !== true) {
+            return 'File /Private/Config/Default.php is unavailable to write data!';
+        }
+
+        return 'Configuration done! FFCMS 3 is successful installed! Visit your website. You can add administrator using command php console.php db/adduser';
     }
 }

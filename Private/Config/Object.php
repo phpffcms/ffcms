@@ -29,6 +29,12 @@ return [
         $capsule->setAsGlobal(); // available from any places
         $capsule->bootEloquent(); // allow active record model's
 
+        try {
+            $capsule->connection()->getDatabaseName();
+        } catch (Exception $e) {
+            exit('Database connection error!');
+        }
+
         return $capsule;
     },
     'Mailer' => function () {

@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('comment_posts', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('comment_posts', function($table) {
     $table->increments('id');
     $table->string('pathway', 1024);
     $table->integer('user_id')->unsigned();

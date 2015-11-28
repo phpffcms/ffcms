@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('wall_answers', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('wall_answers', function($table) {
     $table->increments('id');
     $table->integer('post_id')->unsigned();
     $table->integer('user_id')->unsigned();

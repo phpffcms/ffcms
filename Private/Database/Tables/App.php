@@ -1,6 +1,6 @@
 <?php
 
-Illuminate\Database\Capsule\Manager::schema()->create('apps', function($table) {
+Illuminate\Database\Capsule\Manager::schema($connectName)->create('apps', function($table) {
     $table->increments('id');
     $table->enum('type', ['widget', 'app']);
     $table->string('sys_name');
@@ -62,7 +62,7 @@ $names->comments = serialize([
 ]);
 
 
-Illuminate\Database\Capsule\Manager::connection()->table('apps')->insert([
+Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->insert([
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'created_at' => $now, 'updated_at' => $now],
