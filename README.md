@@ -13,16 +13,19 @@ FFCMS require support php 5.4 or newest. FFCMS include 2 native engine:
 
 INSTALLATION
 ------------
-To install ffcms-core you can use composer:
+To deploy ffcms software you must have composer and php-cli (don't working now, only developer installation is available):
 ```bash
-php composer.phar global require "fxp/composer-asset-plugin:1.1.*"
-php composer.phar create-project phpffcms/ffcms ./path/to/document_root 3.0.0
-php console.php install
+composer global require "fxp/composer-asset-plugin:1.1.*"
+composer create-project phpffcms/ffcms ./path/to/document_root 3.0.0
+composer update
+php console.php main/install
 ```
-For developer version you must use "master" branch from developer repository:
+If you want to use **developer version** you must use "master" branch from developer repository with stability "-dev":
 ```bash
-php composer.phar global require "fxp/composer-asset-plugin:1.1.*"
-php composer.phar create-project phpffcms/ffcms ./ --stability="dev"
+composer global require "fxp/composer-asset-plugin:1.1.*"
+composer create-project phpffcms/ffcms ./ --stability="dev"
+composer update
+php console.php main/install
 ```
 
 Authors
