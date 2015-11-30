@@ -14,9 +14,9 @@ use Apps\Controller\Console\Db as DbController;
 class Main
 {
     // dirs to create & chmod
-    protected $installDirs = [
+    public static $installDirs = [
         '/upload/user/', '/upload/gallery/', '/upload/images/',
-        '/Private/Cache/', '/Private/Cache/HTMLPurifier/', '/Private/Sessions/', '/Private/Antivirus/',
+        '/Private/Cache/', '/Private/Cache/HTMLPurifier/', '/Private/Sessions/', '/Private/Antivirus/', '/Private/Install/',
         '/Private/Config/', '/Private/Config/Default.php', '/Private/Config/Routing.php'
     ];
 
@@ -103,7 +103,7 @@ class Main
     public function actionChmod()
     {
         $errors = false;
-        foreach ($this->installDirs as $obj) {
+        foreach (self::$installDirs as $obj) {
             if (Directory::exist($obj)) {
                 Directory::recursiveChmod($obj, 0777);
             } elseif (File::exist($obj)) {
@@ -116,12 +116,16 @@ class Main
         return $errors === false ? App::$Output->write('Chmods are successful changed') : $errors;
     }
 
+    /**
+     * Console installation
+     * @return string
+     */
     public function actionInstall()
     {
         $config = App::$Properties->get('database');
         $newConfig = [];
         // creating default directory's
-        foreach ($this->installDirs as $obj) {
+        foreach (self::$installDirs as $obj) {
             // looks like a directory
             if (!Str::contains('.', $obj)) {
                 Directory::create($obj, 0777);
@@ -202,7 +206,7 @@ class Main
         $allCfg['database'] = $dbConfigs;
         $allCfg['adminEmail'] = $email;
         echo App::$Output->write('Generate password salt for BLOWFISH crypt');
-        $allCfg['passwordSalt'] = Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
+        $allCfg['passwordSalt'] = '$2a$07$' . Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
         echo App::$Output->write('Generate security cookies for debug panel');
         $allCfg['debug']['cookie']['key'] = 'fdebug_' . Str::randomLatinNumeric(mt_rand(8, 32));
         $allCfg['debug']['cookie']['value'] = Str::randomLatinNumeric(mt_rand(32, 128));

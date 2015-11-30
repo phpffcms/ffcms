@@ -4,6 +4,7 @@ use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Type\Obj;
 
 ?>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />

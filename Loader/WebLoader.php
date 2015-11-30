@@ -27,7 +27,7 @@ class App extends Ffcms\Core\App {}
 \App::build();
 
 /**
- * Use internalization for text with(in/out) params
+ * Alias for translate function for fast usage. Example: __('Welcome my friend')
  * @param string $text
  * @param array $params
  * @return string
