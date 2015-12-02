@@ -33,8 +33,8 @@ class Profile extends ApiController
     {
         // set header
         $this->setJsonHeader();
-        // check what we got
-        if ($postIds === null || Str::length($postIds) < 1) {
+        // check query length
+        if (Str::likeEmpty($postIds)) {
             throw new JsonException('Wrong input count');
         }
 

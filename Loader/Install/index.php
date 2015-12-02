@@ -7,6 +7,7 @@ if (!defined('root')) {
 // global environment
 define('env_name', 'Install');
 define('type', 'web');
+define('nodebug', true);
 
 require_once(root . '/Loader/WebLoader.php');
 

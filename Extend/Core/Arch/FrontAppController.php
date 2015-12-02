@@ -21,6 +21,10 @@ class FrontAppController extends Controller
         if (!$this->isEnabled()) {
             throw new ForbiddenException('This application is disabled or not installed!');
         }
+
+        // add localizations
+        App::$Translate->append(App::$Alias->currentViewPath . '/I18n/' . App::$Request->getLanguage() . '.php');
+
         parent::__construct();
     }
 

@@ -108,7 +108,7 @@ class ContentCategory extends ActiveModel
     {
         $properties = $this->configs;
         // check if properties is defined
-        if ($properties === null || Str::length($properties) < 1) {
+        if (Str::likeEmpty($properties)) {
             return false;
         }
 

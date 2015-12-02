@@ -67,6 +67,7 @@ class FormInstall extends Model
     {
         // prepare configurations to save
         $cfg = App::$Properties->getAll('default');
+        $this->before();
         $cfg['database'] = $this->db;
         $cfg['adminEmail'] = $this->email;
         $cfg['singleLanguage'] = $this->singleLanguage;
@@ -109,7 +110,7 @@ class FormInstall extends Model
         App::$Database->addConnection($this->db, 'install');
 
         try {
-            App::$Database->connection('install')->getDatabaseName();
+            App::$Database->getConnection('install')->getDatabaseName();
         } catch (\Exception $e) {
             return false;
         }

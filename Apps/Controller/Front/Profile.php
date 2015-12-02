@@ -53,13 +53,13 @@ class Profile extends FrontAppController
                 $records = (new ProfileRecords())->orderBy('rating', 'DESC');
                 break;
             case 'hobby': // search by hobby
-                if ($filter_value === null || Str::length($filter_value) < 1) {
+                if (Str::likeEmpty($filter_value)) {
                     throw new NotFoundException();
                 }
                 $records = (new ProfileRecords())->where('hobby', 'like', '%' . $filter_value . '%');
                 break;
             case 'city':
-                if ($filter_value === null || Str::length($filter_value) < 1) {
+                if (Str::likeEmpty($filter_value)) {
                     throw new NotFoundException();
                 }
                 $records = (new ProfileRecords())->where('city', '=', $filter_value);

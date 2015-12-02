@@ -25,15 +25,16 @@ return [
     },
     'Database' => function () {
         $capsule = new Capsule;
-        $capsule->addConnection(App::$Properties->get('database'));
+        if (env_name !== 'Install') {
+            try {
+                $capsule->addConnection(App::$Properties->get('database'));
+            } catch (Exception $e) {
+                exit('Database connection error!');
+            }
+        }
+
         $capsule->setAsGlobal(); // available from any places
         $capsule->bootEloquent(); // allow active record model's
-
-        try {
-            $capsule->connection()->getDatabaseName();
-        } catch (Exception $e) {
-            exit('Database connection error!');
-        }
 
         return $capsule;
     },
