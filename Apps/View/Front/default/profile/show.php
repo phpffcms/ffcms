@@ -70,10 +70,10 @@ $this->breadcrumbs = [
                 </a>
             </div>
             <div class="col-md-2" style="padding-left: 1px;padding-right: 0;">
-                <a href="javascript:void(0);" class="btn btn-block btn-success" id="addRating">+</a>
+                <button id="addRating" class="btn btn-block btn-success">+</button>
             </div>
             <div class="col-md-2" style="padding-left: 1px; padding-right: 0;">
-                <a href="javascript:void(0);" class="btn btn-block btn-danger" id="reduceRating">-</a>
+                <button class="btn btn-block btn-danger" id="reduceRating">-</button>
             </div>
         </div>
         <?php endif; ?>
@@ -225,7 +225,9 @@ $this->breadcrumbs = [
                 if ($referObject === null) { // caster not founded? skip ...
                     continue;
                 }
-                $referNickname = ($referObject->getProfile()->nick == null ? __('No name') : \App::$Security->strip_tags($referObject->getProfile()->nick));
+                $referNickname = ($referObject->getProfile()->nick == null ?
+                    __('No name') . ' <sup>id' . $referObject->getId() . '</sup>' :
+                    \App::$Security->strip_tags($referObject->getProfile()->nick));
                 ?>
                 <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
                     <div class="col-md-2">
@@ -278,19 +280,18 @@ $this->breadcrumbs = [
             $.each(elements, function(key, val) {
                 postIds.push(val.id.replace('wall-post-', ''));
             });
-            if (postIds.length < 1) {
-                return null;
-            }
 
             // load answers count via JSON
-            $.getJSON(script_url+'/api/profile/wallanswercount/' + postIds.join(',') + '?lang='+script_lang, function (json) {
-                // data is successful loaded, pharse
-                if (json.status === 1) {
-                    $.each(json.data, function(key, val){
-                        $('#wall-post-response-count-'+key).text(val);
-                    });
-                }
-            });
+            if (postIds.length > 0) {
+                $.getJSON(script_url+'/api/profile/wallanswercount/' + postIds.join(',') + '?lang='+script_lang, function (json) {
+                    // data is successful loaded, pharse
+                    if (json.status === 1) {
+                        $.each(json.data, function(key, val){
+                            $('#wall-post-response-count-'+key).text(val);
+                        });
+                    }
+                });
+            }
 
             // load answers via JSON and add to current DOM
             $.fn.loadAnswers = function(postId) {

@@ -91,7 +91,7 @@ class Profile extends ApiController
             $response[] = [
                 'answer_id' => $answer->id,
                 'user_id' => $answer->user_id,
-                'user_nick' => $profile->nick === null ? __('No name') : App::$Security->strip_tags($profile->nick),
+                'user_nick' => $profile->nick === null ? __('No name') . '(id' . $user->getId() . ')' : App::$Security->strip_tags($profile->nick),
                 'user_avatar' => $profile->getAvatarUrl('small'),
                 'answer_message' => App::$Security->strip_tags($answer->message),
                 'answer_date' => Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_SECONDS)
@@ -272,7 +272,7 @@ class Profile extends ApiController
 
             $response[] = [
                 'user_id' => $user_id,
-                'user_nick' => $identity->getProfile()->nick === null ? App::$Translate->get('Profile', 'No name') :
+                'user_nick' => $identity->getProfile()->nick === null ? 'id' . $identity->getId() :
                     App::$Security->strip_tags($identity->getProfile()->nick),
                 'user_avatar' => $identity->getProfile()->getAvatarUrl('small'),
                 'message_new' => Arr::in($user_id, $unreadList),

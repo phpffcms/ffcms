@@ -3,6 +3,7 @@
 namespace Apps\Controller\Console;
 
 use Ffcms\Console\App;
+use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
@@ -119,9 +120,14 @@ class Main
     /**
      * Console installation
      * @return string
+     * @throws NativeException
      */
     public function actionInstall()
     {
+        if (File::exist('/Private/Install/install.lock')) {
+            throw new NativeException('Installation is locked! Please delete /Private/Install/install.lock');
+        }
+
         $config = App::$Properties->get('database');
         $newConfig = [];
         // creating default directory's
@@ -216,6 +222,8 @@ class Main
         if ($writeCfg !== true) {
             return 'File /Private/Config/Default.php is unavailable to write data!';
         }
+
+        File::write('/Private/Install/install.lock', 'Install is locked');
 
         return 'Configuration done! FFCMS 3 is successful installed! Visit your website. You can add administrator using command php console.php db/adduser';
     }
