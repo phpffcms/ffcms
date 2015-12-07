@@ -21,7 +21,7 @@
     "phpffcms/ffcms-console": "dev-master",
     "phpffcms/ffcms-ckeditor": "dev-master",
     "illuminate/database": "5.*@stable",
-    "symfony/http-foundation": "2.6.6@stable",
+    "symfony/http-foundation": "2.8@stable",
     "maximebf/debugbar": "1.*@stable",
     "ezyang/htmlpurifier": "4.6.*@stable",
     "gregwar/image": "2.*@stable",
