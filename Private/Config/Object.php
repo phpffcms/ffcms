@@ -5,24 +5,12 @@ use Ffcms\Core\App;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
 // define timezone
 date_default_timezone_set('Europe/Moscow');
 
 return [
-    'Session' => function() {
-        $handler = new NativeFileSessionHandler(root . '/Private/Sessions');
-        $storage = new NativeSessionStorage([
-            'cookie_lifetime' => 604800,
-            'gc_maxlifetime' => 604800,
-            'cookie_httponly' => '1'
-        ], $handler);
-
-        return new Session($storage);
-    },
-    'User' => function () {
-        return new Apps\ActiveRecord\User();
-    },
     'Database' => function () {
         $capsule = new Capsule;
         if (env_name !== 'Install') {
@@ -37,6 +25,28 @@ return [
         $capsule->bootEloquent(); // allow active record model's
 
         return $capsule;
+    },
+    'Session' => function() {
+        $handler = null;
+        try {
+            $pdo = \App::$Database->connection()->getPdo();
+            $handler = new PdoSessionHandler($pdo, [
+                'db_table' => App::$Properties->get('database')['prefix'] . 'sessions'
+            ]);
+        } catch (Exception $e) {
+            $handler = new NativeFileSessionHandler(root . '/Private/Sessions');
+        }
+
+        $storage = new NativeSessionStorage([
+            'cookie_lifetime' => 86400,
+            'gc_maxlifetime' => 86400,
+            'cookie_httponly' => '1'
+        ], $handler);
+
+        return new Session($storage);
+    },
+    'User' => function () {
+        return new Apps\ActiveRecord\User();
     },
     'Mailer' => function () {
         $swiftTransport = Swift_MailTransport::newInstance();

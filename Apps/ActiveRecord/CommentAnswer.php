@@ -22,6 +22,6 @@ class CommentAnswer extends ActiveModel
      */
     public function getCommentPost()
     {
-        return WallPost::where('id', '=', $this->comment_id)->first();
+        return CommentPost::where('id', '=', $this->comment_id)->first();
     }
 }

@@ -11,7 +11,7 @@ use Ffcms\Core\Helper\Type\Obj;
     <meta charset="utf-8" />
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>assets/css/theme.css"/>
+    <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
     <?php echo \App::$View->showCodeLink('css'); ?>
     <title><?= __('FFCMS installer') ?></title>
     <?php
@@ -30,7 +30,7 @@ use Ffcms\Core\Helper\Type\Obj;
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <img src="<?= \App::$Alias->currentViewUrl ?>assets/img/logo.png" alt="logo" class="img-responsive" />
+                <img src="<?= \App::$Alias->currentViewUrl ?>/assets/img/logo.png" alt="logo" class="img-responsive" />
             </div>
             <div class="col-md-10">
                 <h1>FFCMS 3.0</h1>

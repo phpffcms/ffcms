@@ -30,6 +30,7 @@ class Content extends FrontAppController
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
+     * @return string
      */
     public function actionList()
     {
@@ -82,7 +83,7 @@ class Content extends FrontAppController
         $model = new EntityCategoryRead($records, $currentCategoryData, $categoryData);
 
         // drow response view
-        $this->response = App::$View->render('list', [
+        return App::$View->render('list', [
             'model' => $model,
             'pagination' => $pagination,
             'configs' => $configs,
@@ -94,6 +95,7 @@ class Content extends FrontAppController
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
+     * @return string
      */
     public function actionRead()
     {
@@ -135,7 +137,7 @@ class Content extends FrontAppController
         // lets init entity model for content transfer to view
         $model = new EntityContentRead($categoryRecord, $contentRecord->first());
 
-        $this->response = App::$View->render('read', [
+        return App::$View->render('read', [
             'model' => $model,
             'trash' => $trash,
             'configs' => $this->getConfigs()

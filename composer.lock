@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "575bc0300a6171e8b78aaf4e64846bf4",
-    "content-hash": "cbb5891ddefcb072eecffa8254a36fcc",
+    "hash": "2c5fb6ecbdb6dc9477598a898edf53e5",
+    "content-hash": "724f104bb55c03de15bd447a0877afa1",
     "packages": [
         {
             "name": "bower-asset/blueimp-canvas-to-blob",
@@ -246,16 +246,16 @@
         },
         {
             "name": "bower-asset/components-font-awesome",
-            "version": "4.4.0",
+            "version": "4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/font-awesome.git",
-                "reference": "7dffacc72e566e5db6272244effc06f64fe9f185"
+                "reference": "069663a8419f9db90f9bec71e71ed4bb9d28d6ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/font-awesome/zipball/7dffacc72e566e5db6272244effc06f64fe9f185",
-                "reference": "7dffacc72e566e5db6272244effc06f64fe9f185",
+                "url": "https://api.github.com/repos/components/font-awesome/zipball/069663a8419f9db90f9bec71e71ed4bb9d28d6ee",
+                "reference": "069663a8419f9db90f9bec71e71ed4bb9d28d6ee",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -505,12 +505,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "097e7ba84f64a427e55008117ef2bb94096731dc"
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/097e7ba84f64a427e55008117ef2bb94096731dc",
-                "reference": "097e7ba84f64a427e55008117ef2bb94096731dc",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/90b2128806bfde671b6952ab8bea493942c1fdae",
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
                 "shasum": ""
             },
             "require": {
@@ -522,7 +522,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -564,7 +564,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-10-07 18:00:26"
+            "time": "2015-11-06 14:35:42"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -836,16 +836,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v5.1.22",
+            "version": "v5.1.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "f82f4009e5776a8b0a580fca881694a778b229e6"
+                "reference": "504e6cd9fc76a09646d150accea1f0fef8d608a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/f82f4009e5776a8b0a580fca881694a778b229e6",
-                "reference": "f82f4009e5776a8b0a580fca881694a778b229e6",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/504e6cd9fc76a09646d150accea1f0fef8d608a3",
+                "reference": "504e6cd9fc76a09646d150accea1f0fef8d608a3",
                 "shasum": ""
             },
             "require": {
@@ -860,7 +860,8 @@
                 "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4).",
                 "illuminate/console": "Required to use the database commands (5.1.*).",
                 "illuminate/events": "Required to use the observers with Eloquent (5.1.*).",
-                "illuminate/filesystem": "Required to use the migrations (5.1.*)."
+                "illuminate/filesystem": "Required to use the migrations (5.1.*).",
+                "illuminate/pagination": "Required to paginate the result set (5.1.*)."
             },
             "type": "library",
             "extra": {
@@ -891,7 +892,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-10-28 21:57:04"
+            "time": "2015-11-29 16:58:05"
         },
         {
             "name": "illuminate/support",
@@ -903,7 +904,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/c9e54187f98004a8e049b0b5d9726e39314177f9",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/76a0e7628701df1a56a1d143b0ea8fa4e1d0e9a6",
                 "reference": "c9e54187f98004a8e049b0b5d9726e39314177f9",
                 "shasum": ""
             },
@@ -1005,16 +1006,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.20.0",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "bfd3eaba109c9a2405c92174c8e17f20c2b9caf3"
+                "reference": "7b08ec6f75791e130012f206e3f7b0e76e18e3d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bfd3eaba109c9a2405c92174c8e17f20c2b9caf3",
-                "reference": "bfd3eaba109c9a2405c92174c8e17f20c2b9caf3",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7b08ec6f75791e130012f206e3f7b0e76e18e3d7",
+                "reference": "7b08ec6f75791e130012f206e3f7b0e76e18e3d7",
                 "shasum": ""
             },
             "require": {
@@ -1022,12 +1023,12 @@
                 "symfony/translation": "~2.6|~3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "~4.0|~5.0"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Carbon": "src"
+                "psr-4": {
+                    "Carbon\\": "src/Carbon/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1048,20 +1049,20 @@
                 "datetime",
                 "time"
             ],
-            "time": "2015-06-25 04:19:39"
+            "time": "2015-11-04 20:07:17"
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "3.0.16",
+            "version": "3.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/khoaofgod/phpfastcache.git",
-                "reference": "7a31773fbf5af51978a444750176daafd59b750f"
+                "reference": "aeb7760b553c0185c91067bdb29c72ea3cbcbd27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/7a31773fbf5af51978a444750176daafd59b750f",
-                "reference": "7a31773fbf5af51978a444750176daafd59b750f",
+                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/aeb7760b553c0185c91067bdb29c72ea3cbcbd27",
+                "reference": "aeb7760b553c0185c91067bdb29c72ea3cbcbd27",
                 "shasum": ""
             },
             "require": {
@@ -1104,7 +1105,7 @@
                 "redis",
                 "wincache"
             ],
-            "time": "2015-10-28 15:21:23"
+            "time": "2015-11-19 15:14:29"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -1112,12 +1113,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-ckeditor.git",
-                "reference": "bd2f8d6bcc285fd77adb6b9234e90b65dcfe7779"
+                "reference": "9d3e9058c0abb445416bcd3cc5e53eb21914f89b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/bd2f8d6bcc285fd77adb6b9234e90b65dcfe7779",
-                "reference": "bd2f8d6bcc285fd77adb6b9234e90b65dcfe7779",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/9d3e9058c0abb445416bcd3cc5e53eb21914f89b",
+                "reference": "9d3e9058c0abb445416bcd3cc5e53eb21914f89b",
                 "shasum": ""
             },
             "require": {
@@ -1148,7 +1149,7 @@
                 "php",
                 "wysiwyg"
             ],
-            "time": "2015-07-19 18:14:43"
+            "time": "2015-11-19 18:58:51"
         },
         {
             "name": "phpffcms/ffcms-console",
@@ -1160,7 +1161,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/58977495b8ef2f7a370a4328b8f416a23df744ec",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/4dd0e22c32b37f219302bf84a554e9b1509117ee",
                 "reference": "58977495b8ef2f7a370a4328b8f416a23df744ec",
                 "shasum": ""
             },
@@ -1204,19 +1205,19 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/fc6ddcdb1fd88fd4bc504743ecc584e914acb447",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/f4fae9304ae3636ef1d6c34720b34b1f71ba9670",
                 "reference": "fc6ddcdb1fd88fd4bc504743ecc584e914acb447",
                 "shasum": ""
             },
             "require": {
-                "dflydev/dot-access-data": "1.0.*",
-                "ezyang/htmlpurifier": "4.6.*",
-                "gregwar/captcha": "1.*",
-                "illuminate/database": "5.*",
-                "maximebf/debugbar": "1.*",
+                "dflydev/dot-access-data": "1.0.*@stable",
+                "ezyang/htmlpurifier": "4.6.*@stable",
+                "gregwar/captcha": "1.*@stable",
+                "illuminate/database": "5.*@stable",
+                "maximebf/debugbar": "1.*@stable",
                 "php": ">=5.4",
-                "swiftmailer/swiftmailer": "5.4.*",
-                "symfony/http-foundation": "2.6.6"
+                "swiftmailer/swiftmailer": "5.4.*@stable",
+                "symfony/http-foundation": "2.8@stable"
             },
             "type": "library",
             "autoload": {
@@ -1378,38 +1379,37 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.6.6",
-            "target-dir": "Symfony/Component/HttpFoundation",
+            "version": "v2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "8a6337233f08f7520de97f4ffd6f00e947d892f9"
+                "reference": "5ed0ec39ef684bec84d1fd9f2a55104e403b7e49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/8a6337233f08f7520de97f4ffd6f00e947d892f9",
-                "reference": "8a6337233f08f7520de97f4ffd6f00e947d892f9",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5ed0ec39ef684bec84d1fd9f2a55104e403b7e49",
+                "reference": "5ed0ec39ef684bec84d1fd9f2a55104e403b7e49",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.9",
+                "symfony/polyfill-php54": "~1.0"
             },
             "require-dev": {
-                "symfony/expression-language": "~2.4",
-                "symfony/phpunit-bridge": "~2.7"
+                "symfony/expression-language": "~2.4|~3.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Component\\HttpFoundation\\": ""
                 },
-                "classmap": [
-                    "Symfony/Component/HttpFoundation/Resources/stubs"
+                "exclude-from-classmap": [
+                    "/Tests/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1418,17 +1418,17 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony HttpFoundation Component",
-            "homepage": "http://symfony.com",
-            "time": "2015-04-01 16:50:12"
+            "homepage": "https://symfony.com",
+            "time": "2015-11-27 11:03:19"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1440,7 +1440,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/82159e61debcd09790b20154b350b1c083029aa6",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
                 "reference": "82159e61debcd09790b20154b350b1c083029aa6",
                 "shasum": ""
             },
@@ -1487,17 +1487,75 @@
             "time": "2015-10-27 22:54:43"
         },
         {
+            "name": "symfony/polyfill-php54",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php54.git",
+                "reference": "2c9f6d98eb30dc04fe0b06f9cc92a55acea5bdcc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/2c9f6d98eb30dc04fe0b06f9cc92a55acea5bdcc",
+                "reference": "2c9f6d98eb30dc04fe0b06f9cc92a55acea5bdcc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php54\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 5.4+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2015-11-04 20:28:58"
+        },
+        {
             "name": "symfony/translation",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "6c78cad7c0b39a88931e00737d973175f69680cd"
+                "reference": "2bda1138cccb5ad1295cd09de37dc189ff05f368"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/6c78cad7c0b39a88931e00737d973175f69680cd",
-                "reference": "6c78cad7c0b39a88931e00737d973175f69680cd",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/2bda1138cccb5ad1295cd09de37dc189ff05f368",
+                "reference": "2bda1138cccb5ad1295cd09de37dc189ff05f368",
                 "shasum": ""
             },
             "require": {
@@ -1521,7 +1579,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -1548,7 +1606,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-30 23:35:59"
+            "time": "2015-12-05 17:45:25"
         },
         {
             "name": "symfony/var-dumper",
@@ -1560,7 +1618,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/76c148858737e7e17ebc69812473c90d1114ee4f",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/f943f29ae69c42511a2d85adee9d13d835b5c803",
                 "reference": "76c148858737e7e17ebc69812473c90d1114ee4f",
                 "shasum": ""
             },
@@ -1630,6 +1688,7 @@
         "swiftmailer/swiftmailer": 0,
         "gregwar/captcha": 0,
         "phpfastcache/phpfastcache": 0,
+        "bower-asset/jquery": 0,
         "bower-asset/jquery-validation": 0,
         "bower-asset/jquery-ui": 0,
         "bower-asset/components-font-awesome": 0,
