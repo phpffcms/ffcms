@@ -22,4 +22,5 @@ require_once(root . '/Private/Database/Tables/WallAnswer.php');
 require_once(root . '/Private/Database/Tables/CommentPost.php');
 require_once(root . '/Private/Database/Tables/CommentAnswer.php');
 require_once(root . '/Private/Database/Tables/StaticContent.php');
+require_once(root . '/Private/Database/Tables/Session.php');
 

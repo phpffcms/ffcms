@@ -97,7 +97,7 @@ use Ffcms\Core\Helper\Type\Obj;
         'activeOrder' => 'action',
         'items' => [
             ['link' => ['content/list', 'news'], 'text' => __('News'), 'position' => 'left'],
-            ['link' => ['content/page', 'about.html'], 'text' => __('About'), 'position' => 'left'],
+            ['link' => ['content/read', 'page', 'about'], 'text' => __('About'), 'position' => 'left'],
             ['link' => ['feedback/create'], 'text' => __('Feedback'), 'position' => 'left'],
             ['link' => ['profile/index/all'], 'text' => __('Users'), 'position' => 'right']
         ]
