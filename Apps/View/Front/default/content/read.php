@@ -64,8 +64,12 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
         <?php if ($properties['date'] === true): ?>
         <span><i class="fa fa-calendar"></i><time datetime="<?= date('c', $model->createDate) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
         <?php endif; ?>
-        <?php if ($properties['author'] === true && $model->authorId !== null): ?>
-        <span><i class="fa fa-user"></i><?= Url::link(['profile/show', $model->authorId], $model->authorName, ['itemprop' => 'author']) ?></span>
+        <?php if ($properties['author'] === true): ?>
+            <?php if ($model->authorId !== null && $model->authorId > 0): ?>
+                <span><i class="fa fa-user"></i><?= Url::link(['profile/show', $model->authorId], $model->authorName, ['itemprop' => 'author']) ?></span>
+            <?php else: ?>
+                <span><i class="fa fa-user"></i><s><?= $model->authorName ?></s></span>
+            <?php endif; ?>
         <?php endif; ?>
         <?php if ($properties['views'] === true): ?>
         <span><i class="fa fa-eye"></i><?= $model->views ?></span>

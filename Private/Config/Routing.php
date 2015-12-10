@@ -2,7 +2,7 @@
 	'Alias' => [
 		'Front' => [
 			'/' => '/content/list/news',
-			'/test' => '/content/read/o-saite'
+			'/about' => '/content/read/page/about-page'
 		]
 	],
 	'Callback' => [

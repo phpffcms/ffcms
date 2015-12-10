@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Front\Content;
 
+use Apps\ActiveRecord\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -120,12 +121,18 @@ class EntityCategoryRead extends Model
                 ++$this->_nullCount;
             }
 
+            $owner = App::$User->identity($row->author_id);
+            // make a fake if user is not exist over id
+            if ($owner === null) {
+                $owner = new User();
+            }
+
             // build result array
             $this->items[] = [
                 'title' => $localeTitle,
                 'text' => $text,
                 'date' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_HOUR),
-                'author' => App::$User->identity($row->author_id),
+                'author' => $owner,
                 'poster' => $poster,
                 'thumb' => $thumb,
                 'views' => (int)$row->views,

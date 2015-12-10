@@ -24,3 +24,6 @@ require_once(root . '/Private/Database/Tables/CommentAnswer.php');
 require_once(root . '/Private/Database/Tables/StaticContent.php');
 require_once(root . '/Private/Database/Tables/Session.php');
 
+// insert demo content
+require_once (root . '/Private/Database/Other/DemoContent.php');
+

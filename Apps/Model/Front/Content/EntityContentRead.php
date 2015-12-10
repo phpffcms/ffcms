@@ -83,8 +83,13 @@ class EntityContentRead extends Model
         if (App::$User->isExist($this->_content->author_id)) {
             $this->authorId = $this->_content->author_id;
             $profile = App::$User->identity($this->authorId)->getProfile();
-            $this->authorName = Str::likeEmpty($profile->nick) ? __('No name') : $profile->nick;
+            $this->authorName = $profile->nick;
         }
+
+        if (Str::likeEmpty($this->authorName)) {
+            $this->authorName = __('Unknown');
+        }
+
         $this->source = $this->_content->source;
         $this->views = $this->_content->views+1;
         // check for dependence, add '' for general cat, ex: general/depend1/depend2/.../depend-n

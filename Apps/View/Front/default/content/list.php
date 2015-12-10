@@ -71,7 +71,17 @@ if (!\App::$Request->isPathInjected()) {
             <?php endif; ?>
             <?php if ($catConfigs['showAuthor'] === true): ?>
             <span><i class="fa fa-user"></i>
-                <?= Url::link(['profile/show', $item['author']->getId()], $item['author']->getProfile()->nick, ['itemprop' => 'author']) ?>
+                <?php
+                $ownerNick = $item['author']->getProfile()->nick;
+                if (Str::likeEmpty($ownerNick)) {
+                    $ownerNick = __('Unknown');
+                }
+                if ($item['author']->getId() < 1) {
+                    echo '<s>' . $ownerNick . '</s>';
+                } else {
+                    echo Url::link(['profile/show', $item['author']->getId()], $ownerNick, ['itemprop' => 'author']);
+                }
+                ?>
             </span>
             <?php endif; ?>
             <?php if ($catConfigs['showViews'] === true): ?>
