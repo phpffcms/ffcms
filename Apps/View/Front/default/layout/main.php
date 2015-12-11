@@ -11,6 +11,7 @@ use Ffcms\Core\Helper\Type\Obj;
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/language-flags/flags.css" />
     <?php echo \App::$View->showCodeLink('css'); ?>
     <title><?php echo \App::$Security->escapeQuotes($this->title) ?></title>
     <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($this->keywords); ?>"/>
@@ -75,8 +76,12 @@ use Ffcms\Core\Helper\Type\Obj;
             <div class="site-name"><a href="<?= \Ffcms\Core\Helper\Url::to('/'); ?>">Website title</a></div>
             <p>Some website short description there!</p>
         </div>
-        <!-- Search panel -->
+        <!-- Search/language panel -->
         <div class="col-md-4">
+            <!-- language switcher -->
+            <?= \Widgets\Basic\LanguageSwitcher::widget() ?>
+
+            <!-- search panel -->
             <form method="get" action="http://ffcms.local/ru/search/find/" style="padding-top: 20px;">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query">
