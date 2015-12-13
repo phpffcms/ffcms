@@ -53,7 +53,7 @@ class AdminAppController extends Controller
      */
     private function buildApps()
     {
-        $this->applications = \Apps\ActiveRecord\App::getAll();
+        $this->applications = \Apps\ActiveRecord\App::getAllByType('app');
         $cname = Str::lastIn(get_class($this), '\\', true);
         foreach ($this->applications as $app) {
             if ($app->sys_name === $cname) {

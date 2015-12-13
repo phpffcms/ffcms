@@ -11,7 +11,6 @@ use Ffcms\Core\Helper\Type\Obj;
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
-    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/language-flags/flags.css" />
     <?php echo \App::$View->showCodeLink('css'); ?>
     <title><?php echo \App::$Security->escapeQuotes($this->title) ?></title>
     <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($this->keywords); ?>"/>
@@ -30,7 +29,10 @@ use Ffcms\Core\Helper\Type\Obj;
 </head>
 <body>
 <div class="container account-container">
-    <div class="text-right">
+    <div class="pull-left">
+        <div class="pull-right"><?= \Widgets\Basic\LanguageSwitcher::widget() ?></div>
+    </div>
+    <div class="pull-right">
         <?php
         $accountPanel = [];
         if (\App::$User->isAuth()) {
@@ -73,21 +75,20 @@ use Ffcms\Core\Helper\Type\Obj;
         </div>
         <!-- text logo -->
         <div class="col-md-7">
-            <div class="site-name"><a href="<?= \Ffcms\Core\Helper\Url::to('/'); ?>">Website title</a></div>
+            <div class="site-name">
+                <?= \Ffcms\Core\Helper\Url::link(['/'], 'Website header'); ?>
+            </div>
             <p>Some website short description there!</p>
         </div>
         <!-- Search/language panel -->
         <div class="col-md-4">
-            <!-- language switcher -->
-            <?= \Widgets\Basic\LanguageSwitcher::widget() ?>
-
             <!-- search panel -->
             <form method="get" action="http://ffcms.local/ru/search/find/" style="padding-top: 20px;">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" id="search-submit" type="submit"><?php echo __('Find'); ?></button>
-                                </span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit" type="submit"><?php echo __('Find'); ?></button>
+                    </span>
                 </div>
             </form>
         </div>
@@ -102,7 +103,7 @@ use Ffcms\Core\Helper\Type\Obj;
         'activeOrder' => 'action',
         'items' => [
             ['link' => ['content/list', 'news'], 'text' => __('News'), 'position' => 'left'],
-            ['link' => ['content/read', 'page', 'about'], 'text' => __('About'), 'position' => 'left'],
+            ['link' => ['content/read', 'page', 'about-page'], 'text' => __('About'), 'position' => 'left'],
             ['link' => ['feedback/create'], 'text' => __('Feedback'), 'position' => 'left'],
             ['link' => ['profile/index/all'], 'text' => __('Users'), 'position' => 'right']
         ]

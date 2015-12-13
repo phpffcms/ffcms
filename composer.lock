@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2c5fb6ecbdb6dc9477598a898edf53e5",
-    "content-hash": "724f104bb55c03de15bd447a0877afa1",
+    "hash": "ff9b99b10226f152de5dd2a08b9d34be",
+    "content-hash": "8190ca7bb52323c15742a2762fad8c9c",
     "packages": [
         {
             "name": "bower-asset/blueimp-canvas-to-blob",
@@ -755,12 +755,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "f14ea33d9ffcab4ca3aaed0328a92301adbe6960"
+                "reference": "eac23670541a2b0acb7f3eabed570f834096aeb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/f14ea33d9ffcab4ca3aaed0328a92301adbe6960",
-                "reference": "f14ea33d9ffcab4ca3aaed0328a92301adbe6960",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/eac23670541a2b0acb7f3eabed570f834096aeb2",
+                "reference": "eac23670541a2b0acb7f3eabed570f834096aeb2",
                 "shasum": ""
             },
             "require": {
@@ -790,7 +790,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-10-19 06:01:02"
+            "time": "2015-12-07 20:20:37"
         },
         {
             "name": "illuminate/contracts",
@@ -900,12 +900,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "c9e54187f98004a8e049b0b5d9726e39314177f9"
+                "reference": "76a0e7628701df1a56a1d143b0ea8fa4e1d0e9a6"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/illuminate/support/zipball/76a0e7628701df1a56a1d143b0ea8fa4e1d0e9a6",
-                "reference": "c9e54187f98004a8e049b0b5d9726e39314177f9",
+                "reference": "76a0e7628701df1a56a1d143b0ea8fa4e1d0e9a6",
                 "shasum": ""
             },
             "require": {
@@ -917,8 +917,8 @@
             },
             "suggest": {
                 "jeremeamia/superclosure": "Required to be able to serialize closures (~2.0).",
-                "paragonie/random_compat": "Provides a compatible interface like PHP7's random_bytes() in PHP 5 projects (^1.0.6).",
-                "symfony/var-dumper": "Required to use the dd function (2.7.*)."
+                "paragonie/random_compat": "Provides a compatible interface like PHP7's random_bytes() in PHP 5 projects (~1.1).",
+                "symfony/var-dumper": "Improves the dd function (2.7.*)."
             },
             "type": "library",
             "extra": {
@@ -946,29 +946,29 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-11-02 22:14:49"
+            "time": "2015-12-03 15:05:51"
         },
         {
             "name": "maximebf/debugbar",
-            "version": "v1.10.5",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "30e53e8a28284b69dd223c9f5ee8957befd72636"
+                "reference": "07741d84d39d10f00551c94284cdefcc69703e77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/30e53e8a28284b69dd223c9f5ee8957befd72636",
-                "reference": "30e53e8a28284b69dd223c9f5ee8957befd72636",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/07741d84d39d10f00551c94284cdefcc69703e77",
+                "reference": "07741d84d39d10f00551c94284cdefcc69703e77",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "psr/log": "~1.0",
-                "symfony/var-dumper": "~2.6"
+                "psr/log": "^1.0",
+                "symfony/var-dumper": "^2.6|^3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^4.0|^5.0"
             },
             "suggest": {
                 "kriswallsmith/assetic": "The best way to manage assets",
@@ -978,12 +978,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.10-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "DebugBar": "src/"
+                "psr-4": {
+                    "DebugBar\\": "src/DebugBar/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -995,14 +995,19 @@
                     "name": "Maxime Bouroumeau-Fuseau",
                     "email": "maxime.bouroumeau@gmail.com",
                     "homepage": "http://maximebf.com"
+                },
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
                 }
             ],
             "description": "Debug bar in the browser for php application",
             "homepage": "https://github.com/maximebf/php-debugbar",
             "keywords": [
-                "debug"
+                "debug",
+                "debugbar"
             ],
-            "time": "2015-10-19 20:35:12"
+            "time": "2015-12-10 09:50:24"
         },
         {
             "name": "nesbot/carbon",
@@ -1157,12 +1162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-console.git",
-                "reference": "58977495b8ef2f7a370a4328b8f416a23df744ec"
+                "reference": "4c5e4191a7df9334cb7f45fe7c5ceb3fc4e77a24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/4dd0e22c32b37f219302bf84a554e9b1509117ee",
-                "reference": "58977495b8ef2f7a370a4328b8f416a23df744ec",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/4c5e4191a7df9334cb7f45fe7c5ceb3fc4e77a24",
+                "reference": "4c5e4191a7df9334cb7f45fe7c5ceb3fc4e77a24",
                 "shasum": ""
             },
             "require": {
@@ -1193,7 +1198,7 @@
                 "ffcms",
                 "php"
             ],
-            "time": "2015-09-19 09:05:49"
+            "time": "2015-12-09 18:38:38"
         },
         {
             "name": "phpffcms/ffcms-core",
@@ -1201,12 +1206,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "fc6ddcdb1fd88fd4bc504743ecc584e914acb447"
+                "reference": "f9e7b80e84f6ba3e7bd2156e824f54438a475ec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/f4fae9304ae3636ef1d6c34720b34b1f71ba9670",
-                "reference": "fc6ddcdb1fd88fd4bc504743ecc584e914acb447",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/f9e7b80e84f6ba3e7bd2156e824f54438a475ec2",
+                "reference": "f9e7b80e84f6ba3e7bd2156e824f54438a475ec2",
                 "shasum": ""
             },
             "require": {
@@ -1243,7 +1248,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2015-11-03 17:05:29"
+            "time": "2015-12-11 09:12:54"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1277,6 +1282,34 @@
                 "manager"
             ],
             "time": "2015-06-06 17:24:35"
+        },
+        {
+            "name": "phpffcms/language-flags",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpffcms/language-flags.git",
+                "reference": "b8d45f998970a39a87c0e73a847570e71b6bac9d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpffcms/language-flags/zipball/b8d45f998970a39a87c0e73a847570e71b6bac9d",
+                "reference": "b8d45f998970a39a87c0e73a847570e71b6bac9d",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "County and languages flags css",
+            "homepage": "http://ffcms.org",
+            "keywords": [
+                "css",
+                "ffcms",
+                "flags"
+            ],
+            "time": "2015-12-11 08:48:09"
         },
         {
             "name": "psr/log",
@@ -1436,16 +1469,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "82159e61debcd09790b20154b350b1c083029aa6"
+                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
-                "reference": "82159e61debcd09790b20154b350b1c083029aa6",
+                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
             },
             "type": "library",
             "extra": {
@@ -1484,7 +1520,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2015-10-27 22:54:43"
+            "time": "2015-11-20 09:19:13"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -1610,20 +1646,20 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "2.8.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "76c148858737e7e17ebc69812473c90d1114ee4f"
+                "reference": "14ed95dc176e56b2258fea3deb936b9488de1dbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/f943f29ae69c42511a2d85adee9d13d835b5c803",
-                "reference": "76c148858737e7e17ebc69812473c90d1114ee4f",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/14ed95dc176e56b2258fea3deb936b9488de1dbe",
+                "reference": "14ed95dc176e56b2258fea3deb936b9488de1dbe",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9",
+                "php": ">=5.5.9",
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
@@ -1635,7 +1671,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -1669,7 +1705,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-11-03 08:48:22"
+            "time": "2015-12-05 11:13:35"
         }
     ],
     "packages-dev": [],
@@ -1688,6 +1724,7 @@
         "swiftmailer/swiftmailer": 0,
         "gregwar/captcha": 0,
         "phpfastcache/phpfastcache": 0,
+        "phpffcms/language-flags": 0,
         "bower-asset/jquery": 0,
         "bower-asset/jquery-validation": 0,
         "bower-asset/jquery-ui": 0,
