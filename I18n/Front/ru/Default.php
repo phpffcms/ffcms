@@ -4,9 +4,11 @@ return [
     'Lang' => 'Язык',
     'Page is not founded!' => 'Страница не найдена!',
     'Field "%field%" is incorrect' => 'Поле "%field%" заполнено не верно!',
-    'Unable to find this URL' => 'Данная страница не найдена на сайте',
+    'Unable to find this URL: %e%' => 'Не удается найти эту страницу на сайте: %e%',
     'Field %field% was completed incorrectly' => 'Поле %field% заполнено не корректно',
-    'Access to this page is forbidden' => 'Доступ к этой странице запрещен',
+    'Access to this page is forbidden: %e%' => 'Доступ к этой странице запрещен: %e%',
+    'An unexpected error occurred: %e%' => 'Произошла непредвиденная ошибка: %e%',
+    'Website code syntax exception: %e%' => 'Ошибка в синтаксисе кода сайта: %e%',
     'Sign in' => 'Войти',
     'Sign up' => 'Регистрация',
     'Find' => 'Найти',
@@ -22,5 +24,6 @@ return [
     'Logout' => 'Выйти',
     'Send' => 'Отправить',
     'Contents' => 'Материалы',
-    'Content' => 'Материал'
+    'Content' => 'Материал',
+    'Back' => 'Назад'
 ];

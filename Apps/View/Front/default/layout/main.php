@@ -70,7 +70,7 @@ use Ffcms\Core\Helper\Type\Obj;
     <!-- head logo and search panel -->
     <div class="row header-block">
         <!-- Image logo -->
-        <div class="col-md-1">
+        <div class="col-md-1 hidden-sm hidden-xs col-xs-0">
             <img alt="Website logo" src="<?php echo \App::$Alias->currentViewUrl; ?>/assets/img/logo.png" class="img-responsive" style="padding-top: 5px;">
         </div>
         <!-- text logo -->
