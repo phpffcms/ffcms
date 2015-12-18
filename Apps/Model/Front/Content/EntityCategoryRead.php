@@ -77,12 +77,12 @@ class EntityCategoryRead extends Model
             $breakPosition = mb_strpos($text, self::PAGE_BREAK, null, 'UTF-8');
             // offset is finded, try to split preview from full text
             if ($breakPosition !== false) {
-                $text = Str::substr($text, 0, $breakPosition);
+                $text = Str::sub($text, 0, $breakPosition);
             } else { // page breaker is not founded, lets get a fun ;D
                 // find first paragraph ending
                 $breakPosition = mb_strpos($text, '</p>', null, 'UTF-8');
                 // cut text from position caret before </p> (+4 symbols to save item as valid)
-                $text = Str::substr($text, 0, $breakPosition+4);
+                $text = Str::sub($text, 0, $breakPosition+4);
             }
 
             $itemPath = $this->_allCategories[$row->category_id]['path'];

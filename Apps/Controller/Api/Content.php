@@ -141,7 +141,7 @@ class Content extends ApiController
         $output = [];
         foreach ($files as $file) {
             $fileExt = Str::lastIn($file, '.');
-            $fileName = Str::substr($file, 0, -Str::length($fileExt));
+            $fileName = Str::sub($file, 0, -Str::length($fileExt));
             $output[] = [
                 'thumbnailUrl' => '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg',
                 'url' => '/upload/gallery/' . $id . '/orig/' . $file,

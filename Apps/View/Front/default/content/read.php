@@ -34,7 +34,7 @@ if (!\App::$Request->isPathInjected()) {
                 $breadcrumbs[Url::to('content/list', $cat['path'], null, [], false)] = $cat['name'];
             }
         }
-        $breadcrumbs[] = __('Content') . ': ' . Str::substr($this->title, 0, 40);
+        $breadcrumbs[] = __('Content') . ': ' . Str::sub($this->title, 0, 40);
     }
 
     $this->breadcrumbs = $breadcrumbs;

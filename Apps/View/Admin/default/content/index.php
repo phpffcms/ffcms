@@ -75,7 +75,7 @@ foreach ($records as $content) {
     }
     $frontLink .= '/' . $content->path;
     $frontPath .= '/' . $content->path;
-    $frontPath = Str::substr($frontPath, 0, 30);
+    $frontPath = Str::sub($frontPath, 0, 30);
     $actionIcons = '<a href="' . $frontLink . '" target="_blank"><i class="fa fa-eye fa-lg"></i></a> ';
     $actionIcons .= Url::link(['content/update', $content->id], '<i class="fa fa-pencil fa-lg"></i> ');
     if ($type === 'trash') {

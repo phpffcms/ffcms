@@ -187,7 +187,7 @@ $this->breadcrumbs = [
                                 <td>
                                     <?php
                                     if (ProfileField::getTypeById($cid) === 'link') {
-                                        echo Url::link($value, Str::substr($value, 30));
+                                        echo Url::link($value, Str::sub($value, 30));
                                     } else {
                                         echo \App::$Security->strip_tags($value);
                                     }

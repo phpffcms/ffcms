@@ -74,7 +74,7 @@ class Main extends ApiController
             $data = json_decode(File::read('/Private/Antivirus/Infected.json'));
             $compile = [];
             foreach ($data as $file => $sign) {
-                $file = Str::replace('\\', '/', Str::substr($file, strlen(root)));
+                $file = Str::replace('\\', '/', Str::sub($file, strlen(root)));
                 $compile[$file][] = $sign;
             }
 
