@@ -1058,16 +1058,16 @@
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "3.0.19",
+            "version": "3.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/khoaofgod/phpfastcache.git",
-                "reference": "aeb7760b553c0185c91067bdb29c72ea3cbcbd27"
+                "reference": "cafc8b42e13ac2cd843a1731ea66a58c9b9e8ac5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/aeb7760b553c0185c91067bdb29c72ea3cbcbd27",
-                "reference": "aeb7760b553c0185c91067bdb29c72ea3cbcbd27",
+                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/cafc8b42e13ac2cd843a1731ea66a58c9b9e8ac5",
+                "reference": "cafc8b42e13ac2cd843a1731ea66a58c9b9e8ac5",
                 "shasum": ""
             },
             "require": {
@@ -1110,7 +1110,7 @@
                 "redis",
                 "wincache"
             ],
-            "time": "2015-11-19 15:14:29"
+            "time": "2015-12-17 16:40:23"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -1118,12 +1118,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-ckeditor.git",
-                "reference": "9d3e9058c0abb445416bcd3cc5e53eb21914f89b"
+                "reference": "3df77740f8ab548ca65c7b338cbd5387ccedb35d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/9d3e9058c0abb445416bcd3cc5e53eb21914f89b",
-                "reference": "9d3e9058c0abb445416bcd3cc5e53eb21914f89b",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/3df77740f8ab548ca65c7b338cbd5387ccedb35d",
+                "reference": "3df77740f8ab548ca65c7b338cbd5387ccedb35d",
                 "shasum": ""
             },
             "require": {
@@ -1154,7 +1154,7 @@
                 "php",
                 "wysiwyg"
             ],
-            "time": "2015-11-19 18:58:51"
+            "time": "2015-12-18 09:03:11"
         },
         {
             "name": "phpffcms/ffcms-console",
@@ -1206,12 +1206,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "f9e7b80e84f6ba3e7bd2156e824f54438a475ec2"
+                "reference": "00fa312d327980991c6ea8c6471ae7d30a043e55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/f9e7b80e84f6ba3e7bd2156e824f54438a475ec2",
-                "reference": "f9e7b80e84f6ba3e7bd2156e824f54438a475ec2",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/00fa312d327980991c6ea8c6471ae7d30a043e55",
+                "reference": "00fa312d327980991c6ea8c6471ae7d30a043e55",
                 "shasum": ""
             },
             "require": {
@@ -1248,7 +1248,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2015-12-11 09:12:54"
+            "time": "2015-12-18 08:52:45"
         },
         {
             "name": "phpffcms/ffcms-elfinder",

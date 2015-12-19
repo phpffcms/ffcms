@@ -16,8 +16,8 @@ $this->title = __('Sign up');
 <?php
 
 // mark form elements if it wrong
-if (Obj::isArray($model->getWrongFields()) && count($model->getWrongFields()) > 0) {
-    foreach ($model->getWrongFields() as $fieldName) {
+if (Obj::isArray($model->getBadAttribute()) && count($model->getBadAttribute()) > 0) {
+    foreach ($model->getBadAttribute() as $fieldName) {
         $fieldId = $model->getFormName() . '-' . $fieldName;
         \App::$Alias->addPlainCode('js', '$("#' . $fieldId . '").parent().parent(".form-group").addClass("has-error");');
     }

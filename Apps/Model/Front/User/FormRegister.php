@@ -41,7 +41,7 @@ class FormRegister extends Model
             ['login', 'length_min', '2'],
             ['password', 'length_min', '3'],
             ['email', 'email'],
-            ['repassword', 'equal', $this->getInput('password')],
+            ['repassword', 'equal', $this->getRequest('password', $this->getSubmitMethod())],
             ['captcha', 'used']
         ];
 
