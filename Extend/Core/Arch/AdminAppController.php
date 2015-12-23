@@ -2,24 +2,45 @@
 
 namespace Extend\Core\Arch;
 
-use Ffcms\Core\Arch\Controller;
+use Extend\Core\Arch\Controller as AbstractController;
 use Ffcms\Core\App;
+use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
-class AdminAppController extends Controller
+class AdminAppController extends AbstractController
 {
+    protected $applications;
+    protected $application;
 
-    public $applications;
-    public $application;
-
-    // make check's
-    public function __construct()
+    /**
+     * AdminAppController constructor.
+     * @param bool $checkVersion
+     * @throws ForbiddenException
+     */
+    public function __construct($checkVersion = true)
     {
-        $this->checkAccess();
-        $this->buildApps();
-
         parent::__construct();
+
+        // build app and check access
+        $this->buildApps();
+        $this->checkAccess();
+
+        // if version is not necessary to check - continue
+        if ($checkVersion === false) {
+            return;
+        } elseif ($this->application === null) {
+            // check if appdata is loaded from db
+            throw new ForbiddenException('This application is not installed!');
+        }
+
+        // check app version matching
+        if (!method_exists($this->application, 'checkVersion') || $this->application->checkVersion() !== true) {
+            App::$Session->getFlashBag()->add(
+                'error',
+                __('Attention! Version of this application scripts is no match to database version. Please, make update!')
+            );
+        }
     }
 
     /**
@@ -53,13 +74,37 @@ class AdminAppController extends Controller
      */
     private function buildApps()
     {
-        $this->applications = \Apps\ActiveRecord\App::getAllByType('app');
-        $cname = Str::lastIn(get_class($this), '\\', true);
-        foreach ($this->applications as $app) {
-            if ($app->sys_name === $cname) {
-                $this->application = $app;
+        // each all applications
+        foreach ($this->table as $app) {
+            // check if type is mach for current controller abstraction
+            if ($app->type === 'app') {
+                // add to all type-based list
+                $this->applications[] = $app;
+                $currentAppName = Str::lastIn(get_class($this), '\\', true);
+                // if this row is a current runned controller - set object for fast access
+                if ($app->sys_name === $currentAppName) {
+                    $this->application = $app;
+                }
             }
         }
+    }
+
+    /**
+     * Get current application data as stdClass object
+     * @return object|null
+     */
+    public function getAppData()
+    {
+        return $this->application;
+    }
+
+    /**
+     * Get all applications data as array of objects
+     * @return array|null
+     */
+    public function getAllApps()
+    {
+        return $this->applications;
     }
 
     /**

@@ -19,7 +19,7 @@ class FrontAppController extends Controller
     public function __construct()
     {
         if (!$this->isEnabled()) {
-            throw new ForbiddenException('This application is disabled or not installed!');
+            throw new ForbiddenException(__('This application is disabled or not installed!'));
         }
 
         // add localizations

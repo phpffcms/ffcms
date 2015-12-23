@@ -7,6 +7,7 @@ Illuminate\Database\Capsule\Manager::schema($connectName)->create('apps', functi
     $table->text('name');
     $table->binary('configs')->nullable();
     $table->boolean('disabled')->default(false);
+    $table->double('version', 6, 1)->default(0.1); // from 0.1 to 99999.9
     $table->timestamps();
 });
 
@@ -63,8 +64,8 @@ $names->comments = serialize([
 
 
 Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->insert([
-    ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => null, 'created_at' => $now, 'updated_at' => $now]
+    ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => null, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
 ]);

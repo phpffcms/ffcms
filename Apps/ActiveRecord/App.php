@@ -6,6 +6,8 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Serialize;
+use Ffcms\Core\Helper\Type\Obj;
+use Ffcms\Core\Helper\Type\Str;
 
 class App extends ActiveModel
 {
@@ -96,13 +98,36 @@ class App extends ActiveModel
             throw new SyntaxException('Application object is not founded');
         }
 
-        $nameObject = unserialize($this->name);
+        $nameObject = Serialize::decode($this->name);
         $lang = \Ffcms\Core\App::$Request->getLanguage();
         $name = $nameObject[$lang];
-        if ($name === null) {
+        if (Str::likeEmpty($name)) {
             $name = $this->sys_name;
         }
         return $name;
+    }
+
+    /**
+     * Check if app version match db version of this app
+     * @return bool
+     * @throws SyntaxException
+     */
+    public function checkVersion()
+    {
+        if ($this->sys_name === null) {
+            throw new SyntaxException('Application object is not founded');
+        }
+
+        $class = 'Apps\Controller\Admin\\' . $this->sys_name;
+        if (!class_exists($class)) {
+            return false;
+        }
+
+        if (!defined($class . '::VERSION')) {
+            return false;
+        }
+
+        return (float)constant($class.'::VERSION') === (float)$this->version;
     }
 
 }

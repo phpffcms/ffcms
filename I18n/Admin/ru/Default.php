@@ -21,5 +21,6 @@ return [
     'Routing' => 'Маршрутизация',
     'Save' => 'Сохранить',
     'Send' => 'Отправить',
-    'You got invite' => 'Вы получили приглашение'
+    'You got invite' => 'Вы получили приглашение',
+    'Attention! Version of this application scripts is no match to database version. Please, make update!' => 'Внимание! Версия скрипта и базы данных данного приложения не совпадают. Обновите приложение!'
 ];

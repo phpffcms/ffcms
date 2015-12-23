@@ -15,6 +15,10 @@ use Ffcms\Core\Helper\Type\Str;
 
 class Main extends AdminAppController
 {
+    public function __construct()
+    {
+        parent::__construct(false);
+    }
 
     /**
      * Index page of admin dashboard

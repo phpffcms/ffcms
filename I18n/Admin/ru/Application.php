@@ -14,5 +14,8 @@ return [
     'Name' => 'Название',
     'System name' => 'Системное имя',
     'Last update' => 'Последнее обновление',
-    'Application status was changed' => 'Состояние приложения изменено'
+    'Application status was changed' => 'Состояние приложения изменено',
+    'Application "%app%" is successful installed!' => 'Приложение "%app%" успешно установлено!',
+    'Probably, app or widget with the same name is always used! Try to solve this conflict.' => 'Вероятно, приложение или виджет с таким именем уже используется! Необходимо устранить данный конфликт.',
+    'During the installation process an error has occurred! Please contact with application developer.' => 'В процессе установки произошла ошибка! Пожалуйста, свяжитесь с разработчиком приложения'
 ];

@@ -21,17 +21,21 @@ $this->breadcrumbs = [
 <?php
 $appTableItems = null;
 foreach ($apps as $app) {
+    /** @var $app Apps\ActiveRecord\App */
     if ($app->type !== 'app') {
         continue;
     }
 
     $route = $app->sys_name . '/index';
-    $actions = \App::$View->render('macro/app_actions', ['controller' => $app->sys_name]);
     $icoStatus = null;
-    if ((int)$app->disabled === 0) {
-        $icoStatus = ' <spal class="label label-success"><i class="fa fa-play"></i></span>';
+    $actions = \App::$View->render('macro/app_actions', ['controller' => $app->sys_name]);
+    if ((int)$app->disabled !== 0) {
+        $icoStatus = ' <i class="fa fa-pause" style="color: #ff0000;"></i>';
+    } elseif ($app->checkVersion() !== true) {
+        $icoStatus = ' <i class="fa fa-exclamation" style="color: #ffbd26;"></i>';
+        $actions = Url::link(['application/update', $app->sys_name], '<i class="fa fa-wrench"></i>');
     } else {
-        $icoStatus = ' <span class="label label-danger"><i class="fa fa-pause"></i></span>';
+        $icoStatus = ' <i class="fa fa-check" style="color: #008000;"></i>';
     }
 
     $appTableItems[] = [

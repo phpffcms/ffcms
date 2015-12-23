@@ -9,6 +9,7 @@ return [
     'Access to this page is forbidden: %e%' => 'Доступ к этой странице запрещен: %e%',
     'An unexpected error occurred: %e%' => 'Произошла непредвиденная ошибка: %e%',
     'Website code syntax exception: %e%' => 'Ошибка в синтаксисе кода сайта: %e%',
+    'This application is disabled or not installed!' => 'Это приложение выключено или не установлено!',
     'Sign in' => 'Войти',
     'Sign up' => 'Регистрация',
     'Find' => 'Найти',

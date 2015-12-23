@@ -22,6 +22,8 @@ use Ffcms\Core\Helper\Type\Obj;
 
 class Content extends AdminAppController
 {
+    const VERSION = 0.1;
+
     const ITEM_PER_PAGE = 10;
 
     /**
