@@ -39,6 +39,9 @@ use Ffcms\Core\Helper\Type\Obj;
         </div>
         <div class="row">
             <div class="col-md-12 body-container">
+                <div class="pull-right">
+                    <?= \Widgets\Basic\LanguageSwitcher::widget() ?>
+                </div>
                 <?php
                 $notify = \App::$Session->getFlashBag()->all();
                 if (Obj::isArray($notify) && count($notify) > 0) {

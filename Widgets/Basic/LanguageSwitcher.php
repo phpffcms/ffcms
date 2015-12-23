@@ -33,7 +33,7 @@ class LanguageSwitcher extends Widget
         foreach (App::$Translate->getAvailableLangs() as $lang) {
             $items[] = [
                 'type' => 'link',
-                'link' => App::$Alias->scriptUrl . '/' . $lang . App::$Request->getPathInfo(),
+                'link' => App::$Alias->baseUrlNoLang . '/' . $lang . App::$Request->getPathInfo(),
                 'text' => '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="flag flag-'.$lang.'" />',
                 'html' => true,
                 '!secure' => true
