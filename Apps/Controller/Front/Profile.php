@@ -86,7 +86,7 @@ class Profile extends FrontAppController
             'total' => $records->count()
         ]);
 
-        $this->response = App::$View->render('index', [
+        return App::$View->render('index', [
             'records' => $records->skip($offset)->take($userPerPage)->get(),
             'pagination' => $pagination,
             'id' => $filter_name,
@@ -152,7 +152,7 @@ class Profile extends FrontAppController
         // get wall messages
         $wallRecords = $query->orderBy('id', 'desc')->skip($wallOffset)->take($wallItems)->get();
 
-        $this->response = App::$View->render('show', [
+        return App::$View->render('show', [
             'user' => $targetPersone,
             'viewer' => $viewerPersone,
             'isSelf' => ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id),
@@ -187,7 +187,7 @@ class Profile extends FrontAppController
             }
         }
 
-        $this->response = App::$View->render('avatar', [
+        return App::$View->render('avatar', [
             'user' => $user,
             'model' => $model->export()
         ]);
@@ -230,7 +230,7 @@ class Profile extends FrontAppController
             App::$Response->redirect('profile/show/' . $wallPost->target_id);
         }
 
-        $this->response = App::$View->render('wall_delete', [
+        return App::$View->render('wall_delete', [
             'post' => $wallPost,
             'model' => $wallModel->export()
         ]);
@@ -246,7 +246,7 @@ class Profile extends FrontAppController
             throw new ForbiddenException();
         }
 
-        $this->response = App::$View->render('messages');
+        return App::$View->render('messages');
     }
 
     /**
@@ -271,7 +271,7 @@ class Profile extends FrontAppController
         }
 
         // render view
-        $this->response = App::$View->render('settings', [
+        return App::$View->render('settings', [
             'model' => $model->export()
         ]);
     }
@@ -298,7 +298,7 @@ class Profile extends FrontAppController
         }
 
         // set response output
-        $this->response = App::$View->render('password', [
+        return App::$View->render('password', [
             'model' => $model->export()
         ]);
     }
@@ -349,7 +349,7 @@ class Profile extends FrontAppController
             'total' => $records->count()
         ]);
 
-        $this->response = App::$View->render('ignore', [
+        return App::$View->render('ignore', [
             'records' => $records->skip($offset)->take(self::BLOCK_PER_PAGE)->get(),
             'model' => $model->export(),
             'pagination' => $pagination
@@ -388,7 +388,7 @@ class Profile extends FrontAppController
             App::$Response->redirect(Url::to('profile/ignore'));
         }
 
-        $this->response = App::$View->render('unblock', [
+        return App::$View->render('unblock', [
             'model' => $model->export()
         ]);
     }
@@ -430,7 +430,7 @@ class Profile extends FrontAppController
         }
 
         // display response
-        $this->response = App::$View->render('search', [
+        return App::$View->render('search', [
             'model' => $model->export(),
             'records' => $records,
             'pagination' => $pagination,

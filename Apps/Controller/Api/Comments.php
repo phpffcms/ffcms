@@ -66,7 +66,7 @@ class Comments extends ApiController
             ];
         }
 
-        $this->response = json_encode([
+        return json_encode([
             'status' => 1,
             'data' => $data
         ]);
@@ -114,7 +114,7 @@ class Comments extends ApiController
             ];
         }
 
-        $this->response = json_encode([
+        return json_encode([
             'status' => 1,
             'data' => $response
         ]);

@@ -8,6 +8,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\Directory;
+use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\FileSystem\Normalize;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
@@ -38,6 +39,7 @@ class Content extends ApiController
     /**
      * Upload new files to content item gallery
      * @param $id
+     * @return string
      * @throws JsonException
      * @throws NativeException
      * @throws \Exception
@@ -51,7 +53,7 @@ class Content extends ApiController
 
         // check if user have permission to access there
         if (!App::$User->isAuth() || !App::$User->identity()->getRole()->can('global/file')) {
-            throw new NativeException('Permission denied');
+            throw new NativeException(__('Permissions to upload is denied'));
         }
 
         // check if directory exist
@@ -63,17 +65,17 @@ class Content extends ApiController
         /** @var $file \Symfony\Component\HttpFoundation\File\UploadedFile */
         $file = App::$Request->files->get('gallery-files');
         if ($file === null || $file->getError() !== 0) {
-            throw new JsonException('File not uploaded');
+            throw new JsonException(__('Unexpected error in upload process'));
         }
 
         // check file size
         if ($file->getSize() < 1 || $file->getSize() > $this->maxSize) {
-            throw new JsonException('File wrong size');
+            throw new JsonException(__('File size is too big. Max size: %size%kb', ['size' => intval($this->maxSize/1024)]));
         }
 
         // check file extension
         if (!Arr::in($file->guessExtension(), $this->allowedExt)) {
-            throw new JsonException('Wrong file extension');
+            throw new JsonException(__('File extension is not allowed to upload. Allowed: %s%', ['s' => implode(', ', $this->allowedExt)]));
         }
 
         // create origin directory
@@ -113,9 +115,16 @@ class Content extends ApiController
         $this->setJsonHeader();
 
         // generate success response
-        $this->response = json_encode(['files' => $output]);
+        return json_encode(['status' => 1, 'message' => 'ok', 'files' => $output]);
     }
 
+    /**
+     * Show gallery images from upload directory
+     * @param int $id
+     * @return string
+     * @throws JsonException
+     * @throws NativeException
+     */
     public function actionGallerylist($id)
     {
         // check if id is passed
@@ -150,6 +159,35 @@ class Content extends ApiController
         }
 
         $this->setJsonHeader();
-        $this->response = json_encode(['files' => $output]);
+        return json_encode(['files' => $output]);
+    }
+
+    public function actionGallerydelete($id, $file)
+    {
+        // check passed data
+        if (Str::likeEmpty($file) || !Obj::isLikeInt($id)) {
+            throw new JsonException('Wrong input data');
+        }
+
+        // check passed file extension
+        $fileExt = Str::lastIn($file, '.', true);
+        $fileName = Str::firstIn($file, '.');
+        if (!Arr::in($fileExt, $this->allowedExt)) {
+            throw new JsonException('Wrong file extension');
+        }
+
+        // generate path
+        $thumb = '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg';
+        $full = '/upload/gallery/' . $id . '/orig/' . $file;
+
+        // check if file exists and remove
+        if (File::exist($thumb) || File::exist($full)) {
+            File::remove($thumb);
+            File::remove($full);
+        } else {
+            throw new NativeException('Image is not founded');
+        }
+
+        return json_encode(['status' => 1, 'msg' => 'Image is removed']);
     }
 }

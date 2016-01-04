@@ -20,7 +20,7 @@ class Main extends FrontAppController
         $this->wtf = 'Test me baby ;)';
         //$this->setGlobalVar('wtf', 'test global variable set');
 
-        $this->response = \App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);
+        return \App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);
     }
 
     public function actionRead($id)

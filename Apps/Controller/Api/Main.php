@@ -14,7 +14,7 @@ class Main extends ApiController
     public function actionIndex()
     {
         $this->setJsonHeader();
-        $this->response = json_encode(['status' => 1, 'value' => 'Welcome, man!']);
+        return json_encode(['status' => 1, 'value' => 'Welcome, man!']);
     }
 
     public function actionFiles()
@@ -47,7 +47,7 @@ class Main extends ApiController
         $scanner = new Antivirus();
 
         $this->setJsonHeader();
-        $this->response = json_encode($scanner->make());
+        return json_encode($scanner->make());
     }
 
     /**
@@ -59,7 +59,7 @@ class Main extends ApiController
         File::remove('/Private/Antivirus/ScanFiles.json');
 
         $this->setJsonHeader();
-        $this->response = json_encode(['status' => 1]);
+        return json_encode(['status' => 1]);
     }
 
     /**
@@ -82,6 +82,6 @@ class Main extends ApiController
         }
 
         $this->setJsonHeader();
-        $this->response = json_encode($response);
+        return json_encode($response);
     }
 }

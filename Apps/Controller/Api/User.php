@@ -19,7 +19,7 @@ class User extends ApiController
             throw new JsonException('No auth');
         }
 
-        $this->response = json_encode([
+        return json_encode([
             'status' => 1,
             'data' => 'Auth done'
         ]);

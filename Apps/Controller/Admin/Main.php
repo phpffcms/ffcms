@@ -25,7 +25,7 @@ class Main extends AdminAppController
      */
     public function actionIndex()
     {
-        $this->response = App::$View->render('index', [
+        return App::$View->render('index', [
 
         ]);
     }
@@ -41,7 +41,7 @@ class Main extends AdminAppController
             if ($model->validate()) {
                 if ($model->makeSave()) {
                     // show message about successful save and take system some time ;)
-                    $this->response = App::$View->render('settings_save');
+                    return App::$View->render('settings_save');
                     return;
                 } else {
                     App::$Session->getFlashBag()->add('error', __('Configuration file is not writable! Check /Private/Config/ dir and files'));
@@ -51,7 +51,7 @@ class Main extends AdminAppController
             }
         }
 
-        $this->response = App::$View->render('settings', [
+        return App::$View->render('settings', [
             'model' => $model // no $model->export() there
         ]);
     }
@@ -61,7 +61,7 @@ class Main extends AdminAppController
      */
     public function actionFiles()
     {
-        $this->response = App::$View->render('files', [
+        return App::$View->render('files', [
             'connector' => App::$Alias->scriptUrl . '/api/main/files?lang=' . App::$Request->getLanguage()
         ]);
     }
@@ -71,7 +71,7 @@ class Main extends AdminAppController
      */
     public function actionAntivirus()
     {
-        $this->response = App::$View->render('antivirus');
+        return App::$View->render('antivirus');
     }
 
     public function actionDebugcookie()
@@ -90,7 +90,7 @@ class Main extends AdminAppController
     {
         $routingMap = App::$Properties->getAll('Routing');
 
-        $this->response = App::$View->render('routing', [
+        return App::$View->render('routing', [
             'routes' => $routingMap
         ]);
     }
@@ -110,7 +110,7 @@ class Main extends AdminAppController
             App::$Response->redirect('main/routing');
         }
 
-        $this->response = App::$View->render('add_route', [
+        return App::$View->render('add_route', [
             'model' => $model
         ]);
     }
@@ -131,7 +131,7 @@ class Main extends AdminAppController
             App::$Response->redirect('main/routing');
         }
 
-        $this->response = App::$View->render('delete_route', [
+        return App::$View->render('delete_route', [
             'model' => $model
         ]);
     }

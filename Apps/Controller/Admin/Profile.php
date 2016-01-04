@@ -20,7 +20,11 @@ class Profile extends AdminAppController
 
     const ITEM_PER_PAGE = 10;
 
-    // profile list
+    /**
+     * List all profiles in website with pagination
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionIndex()
     {
         // init Active Record
@@ -42,13 +46,16 @@ class Profile extends AdminAppController
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         // display viewer
-        $this->response = App::$View->render('index', [
+        return App::$View->render('index', [
             'records' => $records,
             'pagination' => $pagination
         ]);
     }
 
-    // redirect delete action to user controller
+    /**
+     * Redirect to user controller
+     * @param $id
+     */
     public function actionDelete($id)
     {
         App::$Response->redirect('user/delete/' . $id);
@@ -57,6 +64,7 @@ class Profile extends AdminAppController
     /**
      * Profile edit action
      * @param int $id
+     * @return string
      * @throws NotFoundException
      */
     public function actionUpdate($id)
@@ -85,7 +93,7 @@ class Profile extends AdminAppController
             App::$Session->getFlashBag()->add('success', __('Profile is updated'));
         }
 
-        $this->response = App::$View->render('update', [
+        return App::$View->render('update', [
             'model' => $model->export(),
             'user' => $user,
             'profile' => $profile
@@ -94,12 +102,14 @@ class Profile extends AdminAppController
 
     /**
      * List additional fields
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionFieldlist()
     {
         $records = ProfileField::all();
 
-        $this->response = App::$View->render('field_list', [
+        return App::$View->render('field_list', [
             'records' => $records
         ]);
     }
@@ -107,6 +117,7 @@ class Profile extends AdminAppController
     /**
      * Add and edit additional fields data
      * @param $id
+     * @return string
      */
     public function actionFieldupdate($id)
     {
@@ -127,7 +138,7 @@ class Profile extends AdminAppController
             App::$Session->getFlashBag()->add('success', __('Profile field was successful updated'));
         }
 
-        $this->response = App::$View->render('field_update', [
+        return App::$View->render('field_update', [
             'model' => $model->export()
         ]);
     }
@@ -135,6 +146,7 @@ class Profile extends AdminAppController
     /**
      * Delete custom field action
      * @param int $id
+     * @return string
      * @throws ForbiddenException
      */
     public function actionFielddelete($id)
@@ -157,11 +169,16 @@ class Profile extends AdminAppController
             App::$Response->redirect('profile/fieldlist');
         }
 
-        $this->response = App::$View->render('field_delete', [
+        return App::$View->render('field_delete', [
             'model' => $model->export()
         ]);
     }
 
+    /**
+     * Show profiles settings
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionSettings()
     {
         $model = new FormSettings($this->getConfigs());
@@ -175,7 +192,7 @@ class Profile extends AdminAppController
             }
         }
 
-        $this->response = App::$View->render('settings', [
+        return App::$View->render('settings', [
             'model' => $model
         ]);
     }

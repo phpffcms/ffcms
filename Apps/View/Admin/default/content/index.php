@@ -94,7 +94,17 @@ foreach ($records as $content) {
     ];
 }
 ?>
-<?=  Table::display([
+<?php
+$selectBox = false;
+if ($type !== 'trash') {
+    $selectBox = [
+        'attachOrder' => 1,
+        'form' => ['method' => 'GET', 'class' => 'form-horizontal', 'action' => Url::to('content/globdelete')],
+        'input' => ['type' => 'checkbox', 'name' => 'selectRemove[]', 'class' => 'massSelectId'],
+        'button' => ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
+    ];
+}
+echo Table::display([
     'table' => ['class' => 'table table-bordered'],
     'thead' => [
         'titles' => [
@@ -109,12 +119,7 @@ foreach ($records as $content) {
     'tbody' => [
         'items' => $items
     ],
-    'selectableBox' => [
-        'attachOrder' => 1,
-        'form' => ['method' => 'POST', 'class' => 'form-horizontal', 'action' => Url::to('content/globdelete')],
-        'input' => ['type' => 'checkbox', 'name' => 'selectRemove[]', 'class' => 'massSelectId'],
-        'button' => ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
-    ]
+    'selectableBox' => $selectBox
 ])?>
 
 <div class="text-center">

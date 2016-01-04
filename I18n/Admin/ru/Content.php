@@ -102,5 +102,15 @@ return [
     'Upload image' => 'Загрузить изображение',
     'Poster' => 'Постер',
     'Not selected...' => 'Не выбрано...',
-    'Choice image from gallery as a poster for this content' => 'Выберите изображение из галлереи в качестве постера для данного контента'
+    'Choice image from gallery as a poster for this content' => 'Выберите изображение из галлереи в качестве постера для данного контента',
+    'Nothing to delete is founded' => 'Для удаления ничего не найдено',
+    'Content are successful removed' => 'Контент успешно удален',
+    'Content global delete' => 'Глобальное удаление контента',
+    'Are you sure to delete all this content items?' => 'Вы уверены что хотите удалить эти элементы контента?',
+    'Delete all' => 'Удалить все',
+    'View' => 'Просмотр',
+    'Delete' => 'Удалить',
+    'Delete selected' => 'Удалить выбранные',
+    'Select image from gallery as a poster for this content' => 'Выберите изображение из галереи в качестве картинки-постера для контента',
+    'Attention! Your session is deprecated. You need to make auth in new window!' => 'Внимание! Ваша сессия авторизации устарела, данные могут быть утеряны. Пройдите авторизацию повторно в новой вкладке!'
 ];

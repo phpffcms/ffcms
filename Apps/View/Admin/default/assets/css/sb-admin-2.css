@@ -127,6 +127,11 @@ body {
     padding-left: 52px;
 }
 
+.image-item {
+    display: block;
+    margin: 0 auto;
+}
+
 @media(min-width:768px) {
     .sidebar {
         z-index: 1;
@@ -139,6 +144,11 @@ body {
     .navbar-top-links .dropdown-tasks,
     .navbar-top-links .dropdown-alerts {
         margin-left: auto;
+    }
+
+    .image-item {
+        height: 150px;
+        max-width: 150px;
     }
 }
 

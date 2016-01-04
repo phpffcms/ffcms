@@ -7,6 +7,7 @@ use Apps\Model\Admin\Content\FormCategoryDelete;
 use Apps\Model\Admin\Content\FormCategoryUpdate;
 use Apps\Model\Admin\Content\FormContentClear;
 use Apps\Model\Admin\Content\FormContentDelete;
+use Apps\Model\Admin\Content\FormContentGlobDelete;
 use Apps\Model\Admin\Content\FormContentRestore;
 use Apps\Model\Admin\Content\FormContentUpdate;
 use Apps\Model\Admin\Content\FormSettings;
@@ -18,6 +19,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
 class Content extends AdminAppController
@@ -28,6 +30,7 @@ class Content extends AdminAppController
 
     /**
      * List content items
+     * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
      */
@@ -61,7 +64,7 @@ class Content extends AdminAppController
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
 
-        $this->response = App::$View->render('index', [
+        return App::$View->render('index', [
             'records' => $records,
             'pagination' => $pagination,
             'type' => $type
@@ -71,6 +74,7 @@ class Content extends AdminAppController
     /**
      * Edit and add content items
      * @param $id
+     * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
      */
@@ -98,7 +102,7 @@ class Content extends AdminAppController
         }
 
         // draw response
-        $this->response = App::$View->render('content_update', [
+        return App::$View->render('content_update', [
             'model' => $model
         ]);
     }
@@ -106,6 +110,7 @@ class Content extends AdminAppController
     /**
      * Delete content by id
      * @param int $id
+     * @return string
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
@@ -130,7 +135,7 @@ class Content extends AdminAppController
             App::$Response->redirect('content/index');
         }
 
-        $this->response = App::$View->render('content_delete', [
+        return App::$View->render('content_delete', [
             'model' => $model->export()
         ]);
     }
@@ -138,8 +143,9 @@ class Content extends AdminAppController
     /**
      * Restore deleted content
      * @param $id
+     * @return string
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionRestore($id)
@@ -164,13 +170,14 @@ class Content extends AdminAppController
         }
 
         // draw response
-        $this->response = App::$View->render('content_restore', [
+        return App::$View->render('content_restore', [
             'model' => $model->export()
         ]);
     }
 
     /**
      * Clear the trashed items
+     * @return string
      * @throws SyntaxException
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
@@ -197,7 +204,7 @@ class Content extends AdminAppController
         }
 
         // draw response
-        $this->response = App::$View->render('content_clear', [
+        return App::$View->render('content_clear', [
             'model' => $model->export()
         ]);
     }
@@ -207,12 +214,13 @@ class Content extends AdminAppController
      */
     public function actionCategories()
     {
-        $this->response = App::$View->render('category_list');
+        return App::$View->render('category_list');
     }
 
     /**
      * Delete category action
      * @param int $id
+     * @return string
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
@@ -241,14 +249,15 @@ class Content extends AdminAppController
         }
 
         // draw view
-        $this->response = App::$View->render('category_delete', [
+        return App::$View->render('category_delete', [
             'model' => $model->export()
         ]);
     }
 
     /**
      * Show category edit and create
-     * @param null $id
+     * @param int $id
+     * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
      */
@@ -274,13 +283,54 @@ class Content extends AdminAppController
         }
 
         // draw response view and pass model properties
-        $this->response = App::$View->render('category_update', [
+        return App::$View->render('category_update', [
             'model' => $model->export()
         ]);
     }
 
     /**
-     * Content app settings
+     * Show content global delete
+     * @return string
+     * @throws NotFoundException
+     * @throws SyntaxException
+     */
+    public function actionGlobdelete()
+    {
+        // get content ids from request
+        $ids = App::$Request->query->get('selectRemove');
+
+        // check if input is array
+        if (!Obj::isArray($ids) || count($ids) < 1) {
+            throw new NotFoundException(__('Nothing to delete is founded'));
+        }
+
+        // get all records as object from db
+        $records = ContentEntity::find($ids);
+
+        if ($records->count() < 1) {
+            throw new NotFoundException(__('Nothing to delete is founded'));
+        }
+
+        // init model and pass objects
+        $model = new FormContentGlobDelete($records);
+
+        // check if delete is submited
+        if ($model->send() && $model->validate()) {
+            $model->make();
+            App::$Session->getFlashBag()->add('success', __('Content are successful removed'));
+            App::$Response->redirect('content/index');
+        }
+
+        // return response
+        return App::$View->render('content_glob_delete', [
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * Show settings form with prepared model
+     * @return string
+     * @throws SyntaxException
      */
     public function actionSettings()
     {
@@ -298,7 +348,7 @@ class Content extends AdminAppController
         }
 
         // draw response
-        $this->response = App::$View->render('settings', [
+        return App::$View->render('settings', [
             'model' => $model->export()
         ]);
     }

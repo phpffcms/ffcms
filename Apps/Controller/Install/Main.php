@@ -34,7 +34,7 @@ class Main extends Controller
 
         $model = new EntityCheck();
 
-        $this->response = App::$View->render('index', [
+        return App::$View->render('index', [
             'model' => $model
         ]);
     }
@@ -56,7 +56,7 @@ class Main extends Controller
             App::$Response->redirect('main/success');
         }
 
-        $this->response = App::$View->render('install', [
+        return App::$View->render('install', [
             'model' => $model->export()
         ]);
     }
@@ -67,6 +67,6 @@ class Main extends Controller
      */
     public function actionSuccess()
     {
-        $this->response = App::$View->render('success');
+        return App::$View->render('success');
     }
 }

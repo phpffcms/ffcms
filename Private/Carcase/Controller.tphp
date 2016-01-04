@@ -8,6 +8,6 @@ class %name% extends Controller
 {
     public function actionIndex()
     {
-        $this->response = 'Welcome index demo action of %name%';
+        return 'Welcome index demo action of %name%';
     }
 }

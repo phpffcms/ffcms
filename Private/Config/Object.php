@@ -23,6 +23,9 @@ return [
 
         $capsule->setAsGlobal(); // available from any places
         $capsule->bootEloquent(); // allow active record model's
+        if (App::$Debug !== null) { // enable query collector
+            $capsule->connection()->enableQueryLog();
+        }
 
         return $capsule;
     },

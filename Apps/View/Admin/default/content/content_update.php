@@ -83,9 +83,7 @@ $otherTab .= $form->field('authorId', 'text', ['class' => 'form-control'], __('E
 $otherTab .= $form->field('source', 'text', ['class' => 'form-control'], __('Set the source URL if this content is copied from someone other url'));
 $otherTab .= $form->field('addRating', 'text', ['class' => 'form-control'], __('Add or reduce rating of this content. Example: 5 gives +5 to total rating, -5 gives -5 to total'));
 
-$galleryTab = '<div class="row">
-    <div id="gallery-files"></div>
-</div>
+$galleryTab = '<div class="row" id="gallery-files"></div>
 
 <div class="row">
 <div class="col-md-4">
@@ -130,12 +128,23 @@ $galleryTab = '<div class="row">
 \App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/js/jquery.fileupload.js');
 ?>
 
+<!-- dom model for gallery items -->
+<div class="col-md-3 well hidden" id="gallery-item">
+    <div class="text-center"><strong id="item-title"></strong></div>
+    <img id="item-image" src="" class="img-responsive image-item"/>
+    <div class="text-center">
+        <a id="item-view-link" href="#" target="_blank" class="label label-info"><?= __('View') ?></a>
+        <a id="item-delete-link" href="javascript:void(0);" class="label label-danger delete-gallery-item"><?= __('Delete') ?></a>
+    </div>
+</div>
+
 <script>
     window.jQ.push(function(){
         $(function(){
             // onbeforeUnload hook
             var isChanged = false;
             var pathChanged = false;
+            var galleryItem = $('#gallery-item').clone().removeClass('hidden').removeAttr('id');
             // init ckeditor
             CKEDITOR.disableAutoInline = true;
             // init maxlength plugin
@@ -161,7 +170,7 @@ $galleryTab = '<div class="row">
                     }
                 });
                 if(is_fail) {
-                    alert('Attention! Your session is deprecated. You need to make auth in new window!');
+                    alert('<?= __('Attention! Your session is deprecated. You need to make auth in new window!') ?>');
                     return false;
                 }
                 window.onbeforeunload = null;
@@ -186,22 +195,29 @@ $galleryTab = '<div class="row">
 
             // gallery remove
             $(document).on('click', '.delete-gallery-item', function() {
-                alert(this.id);
+                var itemId = (this.id);
+                $.getJSON(script_url+"/api/content/gallerydelete/<?= $model->galleryFreeId ?>/"+(this.id)+"?lang="+script_lang, function (data){
+                    if (data.status === 1) {
+                        document.getElementById('image-'+itemId).remove();
+                    } else {
+                        alert('Could not delete this image: ' + itemId);
+                    }
+                });
             });
 
             // gallery file listing
             $.getJSON(script_url+"/api/content/gallerylist/<?= $model->galleryFreeId ?>?lang="+script_lang,
                 function (data) {
                     $.each(data.files, function (index, file) {
-                        $('<div/>').html(
-                            '<div class="col-md-2 well" style="margin-left: 5px;">'+
-                            '<div class="text-center"><strong>'+file.name+'</strong></div>'+
-                            '<img src="'+script_url+file.thumbnailUrl+'" class="img-responsive image-item" />'+
-                            '<div class="text-center">' +
-                            '<a href="'+script_url + file.url +'" target="_blank" class="label label-info"><?= __('View') ?></a> '+
-                            '<a href="javascript:void(0);" class="label label-danger delete-gallery-item" id="'+file.name+'"><?= __('Delete') ?></a>'+
-                            '</div></div>'
-                        ).appendTo('#gallery-files');
+                        var gItem = galleryItem.clone();
+                        // make dom for gallery item
+                        gItem.attr('id', 'image-'+file.name);
+                        gItem.find('#item-title').text(file.name).removeAttr('id');
+                        gItem.find('#item-image').attr('src', script_url+file.thumbnailUrl).removeAttr('id');
+                        gItem.find('#item-view-link').attr('href', script_url + file.url).removeAttr('id');
+                        gItem.find('#item-delete-link').attr('id', file.name);
+                        $('#gallery-files').append(gItem);
+
                         var option = '<option value="'+file.name+'">'+file.name+'</option>';
                         if (file.name == '<?= $model->poster ?>') {
                             option = '<option value="'+file.name+'" selected>'+file.name+'</option>';
@@ -215,16 +231,19 @@ $galleryTab = '<div class="row">
                 url: script_url+'/api/content/galleryupload/<?= $model->galleryFreeId ?>?lang='+script_lang,
                 dataType: 'json',
                 done: function (e, data) {
+                    if (data.result.status !== 1) {
+                        alert(data.result.message);
+                    }
                     $.each(data.result.files, function (index, file) {
-                        $('<div/>').html(
-                            '<div class="col-md-2 well" style="margin-left: 5px;">'+
-                            '<div class="text-center"><strong>'+file.name+'</strong></div>'+
-                            '<img src="'+script_url+file.thumbnailUrl+'" class="img-responsive image-item" />'+
-                            '<div class="text-center">' +
-                            '<a href="'+script_url + file.url +'" target="_blank" class="label label-info"><?= __('View') ?></a> '+
-                            '<a href="javascript:void(0);" class="label label-danger delete-gallery-item" id="'+file.name+'"><?= __('Delete') ?></a>'+
-                            '</div></div>'
-                        ).appendTo('#gallery-files');
+                        var gItem = galleryItem.clone();
+                        // make dom for gallery item
+                        gItem.attr('id', 'image-'+file.name);
+                        gItem.find('#item-title').text(file.name).removeAttr('id');
+                        gItem.find('#item-image').attr('src', script_url+file.thumbnailUrl).removeAttr('id');
+                        gItem.find('#item-view-link').attr('href', script_url + file.url).removeAttr('id');
+                        gItem.find('#item-delete-link').attr('id', file.name);
+                        $('#gallery-files').append(gItem);
+
                         var option = '<option value="'+file.name+'">'+file.name+'</option>';
                         if (file.name == '<?= $model->poster ?>') {
                             option = '<option value="'+file.name+'" selected>'+file.name+'</option>';

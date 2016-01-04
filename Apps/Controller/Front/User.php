@@ -9,6 +9,7 @@ use Apps\Model\Front\User\FormRegister;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Apps\Model\Front\User\FormLogin;
+use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Obj;
@@ -43,7 +44,7 @@ class User extends FrontAppController
         }
 
         // render view
-        $this->response = App::$View->render('login', [
+        return App::$View->render('login', [
             'model' => $loginForm->export(),
             'useCaptcha' => $configs['captchaOnLogin'] === 1
         ]);
@@ -103,7 +104,7 @@ class User extends FrontAppController
         }
 
         // render view
-        $this->response = App::$View->render('signup', [
+        return App::$View->render('signup', [
             'model' => $registerForm->export(),
             'config' => $configs,
             'useCaptcha' => $configs['captchaOnRegister'] === 1
@@ -169,7 +170,7 @@ class User extends FrontAppController
         }
 
         // render visual form content
-        $this->response = App::$View->render('recovery', [
+        return App::$View->render('recovery', [
             'model' => $model
         ]);
     }

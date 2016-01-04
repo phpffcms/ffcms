@@ -21,7 +21,11 @@ class User extends AdminAppController
 
     const ITEM_PER_PAGE = 10;
 
-    // list users
+    /**
+     * List all users as table
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionIndex()
     {
         // init Active Record
@@ -43,13 +47,18 @@ class User extends AdminAppController
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         // display viewer
-        $this->response = App::$View->render('index', [
+        return App::$View->render('index', [
             'records' => $records,
             'pagination' => $pagination
         ]);
     }
 
-    // edit user profiles
+    /**
+     * Edit user profile by id
+     * @param int $id
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionUpdate($id)
     {
         $user = UserRecords::findOrNew($id);
@@ -70,14 +79,15 @@ class User extends AdminAppController
         }
 
         // render viewer
-        $this->response = App::$View->render('user_update', [
+        return App::$View->render('user_update', [
             'model' => $model->export()
         ]);
     }
 
     /**
-     * Delete user data
-     * @param $id
+     * Delete user row from database
+     * @param int $id
+     * @return string
      * @throws NotFoundException
      */
     public function actionDelete($id)
@@ -98,27 +108,30 @@ class User extends AdminAppController
         }
 
         // set view response
-        $this->response = App::$View->render('user_delete', [
+        return App::$View->render('user_delete', [
             'model' => $model
         ]);
     }
 
     /**
      * Show all role groups
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionGrouplist()
     {
         // get all roles
         $roles = Role::getAll();
 
-        $this->response = App::$View->render('group_list', [
+        return App::$View->render('group_list', [
             'records' => $roles
         ]);
     }
 
     /**
      * Edit and add groups
-     * @param $id
+     * @param int $id
+     * @return string
      */
     public function actionGroupUpdate($id)
     {
@@ -136,13 +149,14 @@ class User extends AdminAppController
         }
 
         // render view
-        $this->response = App::$View->render('group_update', [
+        return App::$View->render('group_update', [
             'model' => $model
         ]);
     }
 
     /**
      * User identity settings
+     * @return string
      */
     public function actionSettings()
     {
@@ -159,13 +173,14 @@ class User extends AdminAppController
         }
 
         // render view
-        $this->response = App::$View->render('settings', [
+        return App::$View->render('settings', [
             'model' => $model->export()
         ]);
     }
 
     /**
-     * Send invite to users
+     * Send invite to user by email
+     * @return string
      */
     public function actionInvite()
     {
@@ -185,7 +200,7 @@ class User extends AdminAppController
         }
 
         // render view
-        $this->response = App::$View->render('invite', [
+        return App::$View->render('invite', [
             'model' => $model
         ]);
     }

@@ -52,7 +52,7 @@ class Profile extends ApiController
         }
 
         // display json data
-        $this->response = json_encode([
+        return json_encode([
             'status' => 1,
             'data' => $response
         ]);
@@ -98,7 +98,7 @@ class Profile extends ApiController
             ];
         }
 
-        $this->response = json_encode(['status' => 1, 'data' => $response]);
+        return json_encode(['status' => 1, 'data' => $response]);
     }
 
     /**
@@ -161,7 +161,7 @@ class Profile extends ApiController
 
         // send "ok" response
         $this->setJsonHeader();
-        $this->response = json_encode(['status' => 1, 'message' => 'ok']);
+        return json_encode(['status' => 1, 'message' => 'ok']);
     }
 
     /**
@@ -201,7 +201,7 @@ class Profile extends ApiController
         // all is ok, lets remove this answer ;)
         $findAnswer->delete();
 
-        $this->response = json_encode([
+        return json_encode([
            'status' => 1,
             'message' => 'ok'
         ]);
@@ -280,7 +280,7 @@ class Profile extends ApiController
             ];
         }
 
-        $this->response = json_encode(['status' => 1, 'data' => $response]);
+        return json_encode(['status' => 1, 'data' => $response]);
     }
 
     /**
@@ -303,7 +303,7 @@ class Profile extends ApiController
             ->where('readed', '=', 0)->count();
 
         // set response as json
-        $this->response = json_encode(['status' => 1, 'count' => $query]);
+        return json_encode(['status' => 1, 'count' => $query]);
     }
 
     /**
@@ -380,7 +380,7 @@ class Profile extends ApiController
 
         // check if messages exist
         if ($messages->count() < 1) {
-            $this->response = json_encode(['status' => 0, 'text' => 'No messages']);
+            return json_encode(['status' => 0, 'text' => 'No messages']);
             return;
         }
 
@@ -401,7 +401,7 @@ class Profile extends ApiController
             }
         }
 
-        $this->response = json_encode([
+        return json_encode([
             'status' => 1,
             'data' => array_reverse($response),
             'blocked' => !Blacklist::check($user->id, $cor_id)
@@ -442,7 +442,7 @@ class Profile extends ApiController
         $message->message = $msg;
         $message->save();
 
-        $this->response = json_encode(['status' => 1]);
+        return json_encode(['status' => 1]);
     }
 
     public function actionChangerating()
@@ -509,6 +509,6 @@ class Profile extends ApiController
         }
         $profile->save();
 
-        $this->response = json_encode(['status' => 1, 'data' => 'ok']);
+        return json_encode(['status' => 1, 'data' => 'ok']);
     }
 }

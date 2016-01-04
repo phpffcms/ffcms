@@ -9,6 +9,6 @@ class %name% extends ApiController
     public function actionIndex()
     {
         $this->setJsonHeader();
-        $this->response = json_encode(['status' => 'ok']);
+        return json_encode(['status' => 'ok']);
     }
 }
