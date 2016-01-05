@@ -74,6 +74,9 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
         <?php if ($properties['views'] === true): ?>
         <span><i class="fa fa-eye"></i><?= $model->views ?></span>
         <?php endif ?>
+        <?php if (\App::$User->isAuth() && \App::$User->identity()->getRole()->can('Admin/Content/Update')): ?>
+        <span class="pull-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="fa fa-pencil" style="color: #ff0000;"></i></a></span>
+        <?php endif; ?>
     </div>
     <?php else: ?>
     <hr />

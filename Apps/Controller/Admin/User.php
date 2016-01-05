@@ -8,14 +8,14 @@ use Apps\Model\Admin\User\FormUserDelete;
 use Apps\Model\Admin\User\FormUserGroupUpdate;
 use Apps\Model\Admin\User\FormUserSettings;
 use Apps\Model\Admin\User\FormUserUpdate;
-use Extend\Core\Arch\AdminAppController;
+use Extend\Core\Arch\AdminController;
 use Apps\ActiveRecord\User as UserRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 
 
-class User extends AdminAppController
+class User extends AdminController
 {
     const VERSION = 0.1;
 

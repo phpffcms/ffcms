@@ -11,7 +11,7 @@ use Apps\Model\Admin\Content\FormContentGlobDelete;
 use Apps\Model\Admin\Content\FormContentRestore;
 use Apps\Model\Admin\Content\FormContentUpdate;
 use Apps\Model\Admin\Content\FormSettings;
-use Extend\Core\Arch\AdminAppController;
+use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Apps\ActiveRecord\Content as ContentEntity;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -22,7 +22,7 @@ use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
-class Content extends AdminAppController
+class Content extends AdminController
 {
     const VERSION = 0.1;
 

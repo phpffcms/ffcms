@@ -6,7 +6,7 @@ use Apps\ActiveRecord\ProfileField;
 use Apps\Model\Admin\Profile\FormFieldUpdate;
 use Apps\Model\Admin\Profile\FormSettings;
 use Apps\Model\Front\Profile\FormSettings as FrontFormSettings;
-use Extend\Core\Arch\AdminAppController;
+use Extend\Core\Arch\AdminController;
 use Apps\ActiveRecord\Profile as ProfileRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -14,7 +14,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Obj;
 
-class Profile extends AdminAppController
+class Profile extends AdminController
 {
     const VERSION = 0.1;
 

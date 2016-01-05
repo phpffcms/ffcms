@@ -139,9 +139,11 @@ use Ffcms\Core\Helper\Url;
                     </li>
                     <?php
                     $appMenuItems = null;
+                    $widgetMenuItems = null;
                     $appControllers = [];
-                    if (count($this->applications) > 0) {
-                        foreach ($this->applications as $app) {
+                    $widgetControllers = [];
+                    if (count($this->getTypeTable('app')) > 0) {
+                        foreach ($this->getTypeTable('app') as $app) {
                             if ($app->type !== 'app') {
                                 continue;
                             }

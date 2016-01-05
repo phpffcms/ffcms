@@ -37,7 +37,7 @@ class FormAvatarUpload extends Model
         ];
     }
 
-    public function inputTypes()
+    public function sources()
     {
         return [
             'file' => 'file'

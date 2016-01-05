@@ -5,7 +5,7 @@ namespace Apps\Controller\Admin;
 use Apps\Model\Admin\Main\EntityDeleteRoute;
 use Apps\Model\Admin\Main\FormAddRoute;
 use Apps\Model\Admin\Main\FormSettings;
-use Extend\Core\Arch\AdminAppController;
+use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\FileSystem\File;
@@ -13,7 +13,7 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Str;
 
-class Main extends AdminAppController
+class Main extends AdminController
 {
     public function __construct()
     {
@@ -42,7 +42,6 @@ class Main extends AdminAppController
                 if ($model->makeSave()) {
                     // show message about successful save and take system some time ;)
                     return App::$View->render('settings_save');
-                    return;
                 } else {
                     App::$Session->getFlashBag()->add('error', __('Configuration file is not writable! Check /Private/Config/ dir and files'));
                 }

@@ -9,9 +9,13 @@ use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class App - active record for 'prefix_apps' table.
+ * @package Apps\ActiveRecord
+ * @property int $id
+ */
 class App extends ActiveModel
 {
-
     /**
      * Get all objects with query caching
      * @return \Illuminate\Database\Eloquent\Collection|static

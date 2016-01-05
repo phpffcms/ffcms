@@ -16,6 +16,7 @@ use Ffcms\Core\Helper\Type\Str;
 
 class EntityContentRead extends Model
 {
+    public $id;
     public $title;
     public $path;
     public $text;
@@ -60,6 +61,7 @@ class EntityContentRead extends Model
     */
     public function before()
     {
+        $this->id = $this->_content->id;
         $this->title = Serialize::getDecodeLocale($this->_content->title);
         $this->text = Serialize::getDecodeLocale($this->_content->text);
 
@@ -149,6 +151,10 @@ class EntityContentRead extends Model
                 $imageSplit = explode('.', $image);
                 array_pop($imageSplit);
                 $imageClearName = implode('.', $imageSplit);
+                // skip image used in poster
+                if (Str::startsWith($imageClearName, $this->_content->poster)) {
+                    continue;
+                }
                 $thumbPath = $galleryPath . '/thumb/' . $imageClearName . '.jpg';
                 if (File::exist($thumbPath)) {
                     $this->galleryItems[$thumbPath] = $galleryPath . '/orig/' . $image;

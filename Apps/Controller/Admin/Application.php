@@ -4,13 +4,15 @@ namespace Apps\Controller\Admin;
 
 use Apps\Model\Admin\Application\FormAppTurn;
 use Apps\Model\Admin\Application\FormInstall;
-use Extend\Core\Arch\AdminAppController;
+use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Type\Str;
 
-class Application extends AdminAppController
+class Application extends AdminController
 {
+    public $type = 'app';
+
     public function __construct()
     {
         // prevent version checks
