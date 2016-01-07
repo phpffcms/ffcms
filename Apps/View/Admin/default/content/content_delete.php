@@ -24,8 +24,10 @@ $this->breadcrumbs = [
 
 <?php $form = new Form($model, ['class' => 'form-horizontal']) ?>
 
-<?= $form->field('id', 'text', ['class' => 'form-control', 'disabled' => '']) ?>
-<?= $form->field('title', 'text', ['class' => 'form-control', 'disabled' => '']) ?>
+<?= $form->start() ?>
+
+<?= $form->field('id', 'text', ['class' => 'form-control', 'disabled' => null]) ?>
+<?= $form->field('title', 'text', ['class' => 'form-control', 'disabled' => null]) ?>
 
 <div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Remove'), ['class' => 'btn btn-danger']) ?></div>
 

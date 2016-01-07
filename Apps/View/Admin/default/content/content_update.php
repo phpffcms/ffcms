@@ -33,6 +33,8 @@ $form = new Form(
     ['base' => '<div class="form-group"><label for="%name%" class="col-md-3 control-label"><span class="pull-right" style="padding-top: 5px;">%label%</span></label><div class="col-md-9">%item% <p class="help-block">%help%</p></div></div>']
 );
 
+echo $form->start();
+
 $formFullFieldStructure = '<div class="form-group"><label for="%name%">%label%</label>%item% <p class="help-block">%help%</p></div>';
 
 $generalTab = null;

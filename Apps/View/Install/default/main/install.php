@@ -2,8 +2,11 @@
 /** @var $model \Apps\Model\Install\Main\FormInstall */
 $form = new \Ffcms\Core\Helper\HTML\Form($model, ['class' => 'form-horizontal', 'method' => 'post']);
 ?>
+
 <h1><?= __('FFCMS installation') ?></h1>
 <hr />
+
+<?= $form->start() ?>
 
 <h2><?= __('Database configurations') ?></h2>
 <?= $form->field('db.driver', 'select', ['class' => 'form-control', 'options' => ['mysql', 'pgsql']], __('Select database server driver (type). Recommended - mysql')) ?>

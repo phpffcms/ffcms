@@ -4,6 +4,7 @@ namespace Apps\Controller\Admin;
 
 use Apps\Model\Admin\Application\FormAppTurn;
 use Apps\Model\Admin\Application\FormInstall;
+use Apps\Model\Admin\Application\FormUpdate;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -40,7 +41,7 @@ class Application extends AdminController
      */
     public function actionInstall()
     {
-        $model = new FormInstall($this->table, 'app');
+        $model = new FormInstall($this->applications, 'app');
 
         // check if model is sended
         if ($model->send()) {
@@ -63,6 +64,25 @@ class Application extends AdminController
         ]);
     }
 
+    public function actionUpdate($sys_name)
+    {
+        // get controller name and try to find app in db
+        $controller = ucfirst(Str::lowerCase($sys_name));
+        $search = \Apps\ActiveRecord\App::getItem('app', $controller);
+
+        // check what we got
+        if ($search === null || (int)$search->id < 1) {
+            throw new ForbiddenException('App is not founded');
+        }
+
+        $model = new FormUpdate($controller);
+
+
+
+
+        return 'test';
+    }
+
     /**
      * Allow turn on/off applications
      * @param $controllerName
@@ -74,10 +94,10 @@ class Application extends AdminController
     {
         $controllerName = ucfirst(Str::lowerCase($controllerName));
 
-        $search = \Apps\ActiveRecord\App::where('sys_name', '=', $controllerName)->first();
+        $search = \Apps\ActiveRecord\App::where('sys_name', '=', $controllerName)->where('type', '=', 'app')->first();
 
         if ($search === null || (int)$search->id < 1) {
-            throw new ForbiddenException();
+            throw new ForbiddenException('App is not founded');
         }
 
         $model = new FormAppTurn();

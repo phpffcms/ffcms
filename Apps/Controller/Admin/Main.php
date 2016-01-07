@@ -15,6 +15,8 @@ use Ffcms\Core\Helper\Type\Str;
 
 class Main extends AdminController
 {
+    public $type = 'app';
+
     public function __construct()
     {
         parent::__construct(false);

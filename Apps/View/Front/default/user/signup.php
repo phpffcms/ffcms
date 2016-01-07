@@ -1,5 +1,5 @@
 <?php
-use Ffcms\Core\Helper\Type\Obj;
+use Ffcms\Core\Helper\HTML\Form;
 
 /** @var $notify array */
 /** @var $useCaptcha bool */
@@ -10,28 +10,17 @@ $this->title = __('Sign up');
 
 <h1 class="text-center"><?php echo __('Sign up'); ?></h1>
 <?= $this->render('user/_tabs'); ?>
+<br />
 
-<br/>
+<?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
-<?php
+<?= $form->start() ?>
 
-// mark form elements if it wrong
-if (Obj::isArray($model->getBadAttribute()) && count($model->getBadAttribute()) > 0) {
-    foreach ($model->getBadAttribute() as $fieldName) {
-        $fieldId = $model->getFormName() . '-' . $fieldName;
-        \App::$Alias->addPlainCode('js', '$("#' . $fieldId . '").parent().parent(".form-group").addClass("has-error");');
-    }
-}
-?>
-
-<?php $form = new \Ffcms\Core\Helper\HTML\Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
-
-<?php
-echo $form->field('login', 'text', ['class' => 'form-control'], __('Enter your username for future use on the site'));
-echo $form->field('email', 'text', ['class' => 'form-control'], __('Enter your e-mail for an account'));
-echo $form->field('password', 'password', ['class' => 'form-control'], __('Enter a password for your account. It should be longer than 3 characters'));
-echo $form->field('repassword', 'password', ['class' => 'form-control'], __('Repeat your password to be sure it correct'));
-if (true === $useCaptcha) {
+<?= $form->field('login', 'text', ['class' => 'form-control'], __('Enter your username for future use on the site')); ?>
+<?= $form->field('email', 'text', ['class' => 'form-control'], __('Enter your e-mail for an account')); ?>
+<?= $form->field('password', 'password', ['class' => 'form-control'], __('Enter a password for your account. It should be longer than 3 characters')); ?>
+<?= $form->field('repassword', 'password', ['class' => 'form-control'], __('Repeat your password to be sure it correct')); ?>
+<?php if (true === $useCaptcha) {
     if (\App::$Captcha->isFull()) {
         echo '<div class="col-md-offset-3 col-md-9">' . \App::$Captcha->get() . '</div>';
     } else {

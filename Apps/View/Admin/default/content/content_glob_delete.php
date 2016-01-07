@@ -24,6 +24,8 @@ $this->breadcrumbs = [
 <p><?= __('Are you sure to delete all this content items?'); ?></p>
 <?php $form = new Form($model, ['class' => 'form-horizontal']) ?>
 
+<?= $form->start() ?>
+
 <?php
 $items = [];
 foreach ($model->data as $item) {

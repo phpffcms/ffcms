@@ -18,7 +18,8 @@ $this->title = __('Settings');
 
 <?php
 
-$form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']);
+$form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post']);
+echo $form->start();
 $baseTab = $form->field('basePath', 'text', ['class' => 'form-control'], __('FFCMS installation sub-directory, used if installed not in root. Example: /subdir/'));
 $baseTab .= $form->field('adminEmail', 'email', ['class' => 'form-control'], __('Define administrator email. Used in mailing functions. Other mail settings in /Private/Config/Object.php'));
 $baseTab .= $form->field('debug.all', 'checkbox', null, __('Enable debug bar panel for all visitors? Recommended only on development environment'));

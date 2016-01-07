@@ -14,12 +14,14 @@ $this->breadcrumbs = [
 ?>
 <h1><?= __('Application install'); ?></h1>
 <hr />
-<p>On this page you can install FFCMS application, using application system name. Please, type app.sys_name in form below.</p>
+<p><?= __('On this page you can install FFCMS application, using application system name. Please, type app.sys_name in form below.') ?></p>
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post']) ?>
 
-<?= $form->field('sysname', 'text', ['class' => 'form-control'], __('Specify your application or widget system name for installation')) ?>
+<?= $form->start() ?>
 
-<?= $form->submitButton('Try install', ['class' => 'btn btn-primary']) ?>
+<?= $form->field('sysname', 'text', ['class' => 'form-control'], __('Specify your application system name for installation')) ?>
+
+<?= $form->submitButton(__('Try install'), ['class' => 'btn btn-primary']) ?>
 
 <?= $form->finish() ?>
 

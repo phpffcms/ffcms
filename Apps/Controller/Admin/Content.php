@@ -25,8 +25,9 @@ use Ffcms\Core\Helper\Type\Obj;
 class Content extends AdminController
 {
     const VERSION = 0.1;
-
     const ITEM_PER_PAGE = 10;
+
+    public $type = 'app';
 
     /**
      * List content items

@@ -38,6 +38,8 @@ $this->breadcrumbs = [
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '', 'enctype' => 'multipart/form-data']); ?>
 
+<?= $form->start() ?>
+
 <div class="col-md-12"><?= $form->submitButton(__('Switch'), ['class' => 'btn btn-primary']); ?></div>
 
 <?= $form->finish(); ?>

@@ -24,6 +24,8 @@ $this->breadcrumbs = [
 
 <?php $form = new Form($model, ['class' => 'form-horizontal']) ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('count', 'text', ['class' => 'form-control', 'disabled' => ''], __('Count of content items to total remove')) ?>
 
 <div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Total remove'), ['class' => 'btn btn-danger']) ?></div>

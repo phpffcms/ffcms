@@ -138,26 +138,37 @@ use Ffcms\Core\Helper\Url;
                         <!-- /.nav-second-level -->
                     </li>
                     <?php
+                    $extTable = null;
+                    if (method_exists($this, 'getTable')) {
+                        $extTable = $this->getTable();
+                    } else {
+                        $extTable = \Apps\ActiveRecord\App::all();
+                    }
+
                     $appMenuItems = null;
                     $widgetMenuItems = null;
                     $appControllers = [];
                     $widgetControllers = [];
-                    if (count($this->getTypeTable('app')) > 0) {
-                        foreach ($this->getTypeTable('app') as $app) {
-                            if ($app->type !== 'app') {
-                                continue;
-                            }
-                            $appControllers[] = $app->sys_name;
-                            $appMenuItems[] = [
-                                'type' => 'link',
-                                'link' => [Str::lowerCase($app->sys_name) . '/index'],
-                                'text' => $app->getLocaleName() . (!$app->checkVersion() ? ' <i class="fa fa-wrench" style="color: #ffbd26;"></i>' : null),
-                                'html' => true
-                            ];
+                    foreach ($extTable as $item) {
+                        $menuItem = [
+                            'type' => 'link',
+                            'link' => [Str::lowerCase($item->sys_name) . '/index'],
+                            'text' => $item->getLocaleName() . (!$item->checkVersion() ? ' <i class="fa fa-wrench" style="color: #ffbd26;"></i>' : null),
+                            'html' => true
+                        ];
+                        if ($item->type === 'app') {
+                            $appControllers[] = $item->sys_name;
+                            $appMenuItems[] = $menuItem;
+                        } elseif($item->type === 'widget') {
+                            $widgetControllers[] = $item->sys_name;
+                            $widgetMenuItems[] = $menuItem;
                         }
                     }
+
                     $appMenuItems[] = ['type' => 'link', 'link' => ['application/index'], 'text' => __('All apps') . '...'];
                     $appControllers[] = 'Application';
+                    $widgetMenuItems[] = ['type' => 'link', 'link' => ['widget/index'], 'text' => __('All widgets') . '...'];
+                    $widgetControllers[] = 'Widget';
                     ?>
                     <li<?= Arr::in(\App::$Request->getController(), $appControllers) ? ' class="active"' : null ?>>
                         <a href="#"><i class="fa fa-plug fa-fw"></i> <?= __('Applications') ?><span class="fa arrow"></span></a>
@@ -168,14 +179,16 @@ use Ffcms\Core\Helper\Url;
                             'activeOrder' => 'controller',
                             'items' => $appMenuItems
                         ]) ?>
-                        <!-- /.nav-second-level -->
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table fa-fw"></i> <?= __('Widgets') ?><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="#">All widgets...</a></li>
-                        </ul>
-                        <!-- /.nav-second-level -->
+                    <li<?= Arr::in(\App::$Request->getController(), $widgetControllers) ? ' class="active"' : null ?>>
+                        <a href="#"><i class="fa fa-plug fa-fw"></i> <?= __('Widgets') ?><span class="fa arrow"></span></a>
+                        <?php
+                        echo Listing::display([
+                            'type' => 'ul',
+                            'property' => ['class' => 'nav nav-second-level'],
+                            'activeOrder' => 'controller',
+                            'items' => $widgetMenuItems
+                        ]) ?>
                     </li>
                 </ul>
             </div>

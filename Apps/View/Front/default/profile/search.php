@@ -25,6 +25,8 @@ $this->breadcrumbs = [
 <br />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '']) ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('query', 'text', ['class' => 'form-control'], __('Enter user nickname or part of user nickname, more then 3 characters')) ?>
 
 <div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Search'), ['class' => 'btn btn-primary']) ?></div>

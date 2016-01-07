@@ -21,6 +21,8 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']); ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('current', 'password', ['class' => 'form-control'], __('Enter your current account password')) ?>
 <?= $form->field('new', 'password', ['class' => 'form-control'], __('Enter new password for account')) ?>
 <?= $form->field('renew', 'password', ['class' => 'form-control'], __('Repeat new password for account')) ?>

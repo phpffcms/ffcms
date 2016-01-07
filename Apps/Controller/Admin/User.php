@@ -18,8 +18,9 @@ use Ffcms\Core\Helper\HTML\SimplePagination;
 class User extends AdminController
 {
     const VERSION = 0.1;
-
     const ITEM_PER_PAGE = 10;
+
+    public $type = 'app';
 
     /**
      * List all users as table

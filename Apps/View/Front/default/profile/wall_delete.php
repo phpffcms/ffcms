@@ -41,9 +41,8 @@ $referNickname = ($referObject->getProfile()->nick == null ? __('No name') : \Ap
     </div>
 </div>
 
-<?php $form = new Form(
-    $model,
-    ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
+<?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post']); ?>
+<?= $form->start() ?>
 <?= $form->field('id', 'hidden', null, null, '%item%'); ?>
 <?= $form->submitButton(__('Delete'), ['class' => 'btn btn-danger']) ?>
 <?= $form->finish(false) ?>

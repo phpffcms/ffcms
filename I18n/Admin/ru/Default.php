@@ -14,6 +14,7 @@ return [
     'System' => 'Система',
     'All apps' => 'Все приложения',
     'Widgets' => 'Виджеты',
+    'All widgets' => 'Все виджеты',
     'Logout' => 'Выйти',
     'Settings' => 'Настройки',
     'Files' => 'Файлы',

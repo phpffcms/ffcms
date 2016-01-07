@@ -25,6 +25,8 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '']) ?>
 
+<?= $form->start() ?>
+
 <?php
 $items = [];
 foreach (\App::$Properties->get('languages') as $lang) {

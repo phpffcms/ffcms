@@ -1,6 +1,7 @@
 <?php
 use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Serialize;
@@ -207,11 +208,12 @@ $this->breadcrumbs = [
                 echo $this->render('macro/notify', ['notify' => $notify]);
             }
             ?>
-            <?php $form = new \Ffcms\Core\Helper\HTML\Form(
+            <?php $form = new Form(
                 $wall,
                 ['class' => 'form-horizontal', 'method' => 'post', 'action' => ''],
                 ['base' => '<div class="form-group no-margin-bottom"><div class="col-md-12">%item% <p class="help-block">%help%</p></div></div>']
             ); ?>
+            <?= $form->start() ?>
             <?= $form->field('message', 'textarea', ['class' => 'form-control']); ?>
             <div class="text-right"><?= $form->submitButton(__('Send'), ['class' => 'btn btn-default']); ?></div>
             <?= $form->finish(); ?>

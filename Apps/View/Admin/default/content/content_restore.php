@@ -24,6 +24,8 @@ $this->breadcrumbs = [
 
 <?php $form = new Form($model, ['class' => 'form-horizontal']) ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('id', 'text', ['class' => 'form-control', 'disabled' => 'disabled']) ?>
 <?= $form->field('title', 'text', ['class' => 'form-control', 'disabled' => 'disabled']) ?>
 

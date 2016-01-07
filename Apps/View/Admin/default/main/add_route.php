@@ -20,6 +20,8 @@ $this->title = __('Add route');
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('type', 'select',
     [
         'class' => 'form-control',

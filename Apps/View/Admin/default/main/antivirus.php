@@ -13,7 +13,7 @@ $this->breadcrumbs = [
 <script>
 window.jQ.push(function() {
     $.fn.runscan = function (first) {
-        $.getJSON("<?= \App::$Alias->scriptUrl .  '/api/main/antivirus?lang=' . \App::$Request->getLanguage() ?> . ", function (data) {
+        $.getJSON(script_url+'/api/main/antivirus?lang='+script_lang, function (data) {
             if (first) {
                 totalScan = data.left;
                 progress = 0;
@@ -39,7 +39,7 @@ window.jQ.push(function() {
 window.jQ.push(function () {
     $(function () {
         $("#runscan").on("click", function () {
-            $.get("<?= \App::$Alias->scriptUrl . '/api/main/antivirusclear?lang=' . \App::$Request->getLanguage() ?>", function () {});
+            $.get(script_url+'/api/main/antivirusclear?lang='+script_lang, function () {});
             $(this).addClass("disabled");
             $(this).text("Working ...");
             $("#scanlog").removeClass("hidden");
@@ -52,7 +52,7 @@ window.jQ.push(function () {
 // jquery load results via json
 window.jQ.push(function () {
     $.fn.loadResults = function () {
-        $.getJSON("<?= \App::$Alias->scriptUrl . '/api/main/antivirusresults?lang=' . \App::$Request->getLanguage() ?>", function(data) {
+        $.getJSON(script_url + '/api/main/antivirusresults?lang=' + script_lang, function(data) {
             if (data.status != 1) {
                 $("#scanresult").addClass('hidden');
                 $("#loadresults").addClass('hidden');

@@ -23,6 +23,7 @@ $this->breadcrumbs = [
 <h1><?= __('Remove user from blacklist') ?></h1>
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']) ?>
+<?= $form->start() ?>
 <div class="row">
     <div class="col-md-3">
         <label class="pull-right"><?= $model->getLabel('name') ?></label>

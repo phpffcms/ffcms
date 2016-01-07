@@ -24,6 +24,8 @@ $this->breadcrumbs = [
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '']); ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('itemPerCategory', 'text', ['class' => 'form-control'], __('Count of content items per each page of category')) ?>
 <?= $form->field('userAdd', 'checkbox', null, __('Allow users add content pages?')) ?>
 <?= $form->field('multiCategories', 'checkbox', null, __('Display content in depended categories of?')) ?>
