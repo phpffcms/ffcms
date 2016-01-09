@@ -26,5 +26,6 @@ return [
     'Send' => 'Отправить',
     'Contents' => 'Материалы',
     'Content' => 'Материал',
-    'Back' => 'Назад'
+    'Back' => 'Назад',
+    'Native exception catched in view: %path% in line %line%' => 'Обнаружена базовая ошибка в представлении: %path% в линии %line%'
 ];

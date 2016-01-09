@@ -22,5 +22,13 @@ return [
     'Application install' => 'Установка приложения',
     'On this page you can install FFCMS application, using application system name. Please, type app.sys_name in form below.' => 'В данном разделе вы можете произвести установку приложения по его системному имени. Введите app.sys_name в форму ниже.',
     'Specify your application system name for installation' => 'Укажите системное имя вашего приложения для установки',
-    'Try install' => 'Попробовать установить'
+    'Try install' => 'Попробовать установить',
+    'Try update' => 'Попробовать обновить',
+    'Update app' => 'Обновление приложения',
+    'App name' => 'Название приложения',
+    'Script version' => 'Версия файлов',
+    'DB version' => 'Версия БД',
+    'Last changes' => 'Последние изменения',
+    'Application %s% is successful updated to %v% version' => 'Приложение %s% успешно обновлено до версии %v%',
+    'Version' => 'Версия'
 ];

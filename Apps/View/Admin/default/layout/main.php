@@ -218,7 +218,7 @@ use Ffcms\Core\Helper\Url;
                     <?php endif; ?>
                     <article>
                         <?php
-                        if ($body != null) {
+                        if (!Str::likeEmpty($body)) {
                             // display notify if not used in views
                             $notify = \App::$Session->getFlashBag()->all();
                             if (Obj::isArray($notify) && count($notify) > 0) {

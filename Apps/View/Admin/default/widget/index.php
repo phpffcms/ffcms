@@ -14,15 +14,18 @@ $this->breadcrumbs = [
 ];
 ?>
     <h1><?= __('Widgets list'); ?></h1>
-    <hr />
-    <div class="pull-right">
-        <?= Url::link(['widget/install'], '<i class="fa fa-tasks"></i> ' . __('Install'), ['class' => 'btn btn-primary']) ?>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <?= Url::link(['widget/install'], '<i class="fa fa-tasks"></i> ' . __('Install'), ['class' => 'btn btn-primary']) ?>
+            </div>
+        </div>
     </div>
 <?php
 $widgetTableItems = null;
 foreach ($widgets as $widget) {
     /** @var $widget Apps\ActiveRecord\App */
-
     $route = $widget->sys_name . '/index';
     $icoStatus = null;
     $actions = $this->render('macro/widget_actions', ['controller' => $widget->sys_name]);
@@ -38,12 +41,17 @@ foreach ($widgets as $widget) {
     $widgetTableItems[] = [
         ['text' => $widget->id . $icoStatus, 'html' => true, '!secure' => true],
         ['text' => Url::link([$route], $widget->getLocaleName()), 'html' => true],
+        ['text' => $widget->version],
         ['text' => Date::convertToDatetime($widget->updated_at, Date::FORMAT_TO_HOUR)],
         ['text' => $actions, 'property' => ['class' => 'text-center'], 'html' => true]
     ];
 }
 
 ?>
+
+<?php if ($widgetTableItems === null || count($widgetTableItems) < 1) {
+    echo '<p class="alert alert-info">' . __('Installed widgets is not founded') . '</p>';
+} ?>
 
 
 <?= Table::display([
@@ -52,6 +60,7 @@ foreach ($widgets as $widget) {
         'titles' => [
             ['text' => '#'],
             ['text' => __('Widget')],
+            ['text' => __('Version')],
             ['text' => __('Activity')],
             ['text' => __('Actions')]
         ]

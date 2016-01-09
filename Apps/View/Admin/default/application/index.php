@@ -15,8 +15,12 @@ $this->breadcrumbs = [
 ?>
 <h1><?= __('List of applications'); ?></h1>
 <hr />
-<div class="pull-right">
-    <?= Url::link(['application/install'], '<i class="fa fa-tasks"></i> ' . __('Install'), ['class' => 'btn btn-primary']) ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <?= Url::link(['application/install'], '<i class="fa fa-tasks"></i> ' . __('Install'), ['class' => 'btn btn-primary']) ?>
+        </div>
+    </div>
 </div>
 <?php
 $appTableItems = null;
@@ -29,6 +33,7 @@ foreach ($apps as $app) {
     $route = $app->sys_name . '/index';
     $icoStatus = null;
     $actions = \App::$View->render('macro/app_actions', ['controller' => $app->sys_name]);
+    // set action icons based on app status
     if ((int)$app->disabled !== 0) {
         $icoStatus = ' <i class="fa fa-pause" style="color: #ff0000;"></i>';
     } elseif ($app->checkVersion() !== true) {
@@ -42,6 +47,7 @@ foreach ($apps as $app) {
         ['text' => $app->id . $icoStatus, 'html' => true, '!secure' => true],
         ['text' => Url::link([$route], $app->getLocaleName()), 'html' => true],
         ['text' => '<a target="_blank" href="' . \App::$Alias->scriptUrl . '/' . Str::lowerCase($route) . '">' . $route . '</a>', 'html' => true],
+        ['text' => $app->version],
         ['text' => Date::convertToDatetime($app->updated_at, Date::FORMAT_TO_HOUR)],
         ['text' => $actions, 'property' => ['class' => 'text-center'], 'html' => true]
     ];
@@ -49,19 +55,22 @@ foreach ($apps as $app) {
 
 ?>
 
-
-<?= Table::display([
-    'table' => ['class' => 'table table-bordered'],
-    'thead' => [
-        'titles' => [
-            ['text' => '#'],
-            ['text' => __('Application')],
-            ['text' => __('User interface')],
-            ['text' => __('Activity')],
-            ['text' => __('Actions')]
+<div class="table-responsive">
+    <?= Table::display([
+        'table' => ['class' => 'table table-bordered'],
+        'thead' => [
+            'titles' => [
+                ['text' => '#'],
+                ['text' => __('Application')],
+                ['text' => __('User interface')],
+                ['text' => __('Version')],
+                ['text' => __('Activity')],
+                ['text' => __('Actions')]
+            ]
+        ],
+        'tbody' => [
+            'items' => $appTableItems
         ]
-    ],
-    'tbody' => [
-        'items' => $appTableItems
-    ]
-]); ?>
+    ]); ?>
+</div>
+

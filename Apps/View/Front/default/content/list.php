@@ -102,8 +102,8 @@ if (!\App::$Request->isPathInjected()) {
             </div>
         </div>
         <div class="meta">
-            <?php if ($item['tags'] !== null && Obj::isArray($item['tags'])): ?>
-            <span><i class="fa fa-tags"></i>
+            <?php if ((int)$configs['keywordsAsTags'] === 1 && $item['tags'] !== null && Obj::isArray($item['tags'])): ?>
+            <span><i class="fa fa-tags hidden-xs"></i>
                 <?php
                     foreach ($item['tags'] as $tag) {
                         $tag = \App::$Security->strip_tags(trim($tag));
@@ -114,7 +114,7 @@ if (!\App::$Request->isPathInjected()) {
             <meta itemprop="keywords" content="<?php implode(',', $item['tags']); ?>">
             <?php endif; ?>
             <span><i class="fa fa-comments"></i>
-                <a href="#">Comments: <span itemprop="commentCount">0</span></a> <!-- todo: add comment anchor after done -->
+                <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount">0</span></a>
             </span>
             <span class="pull-right hidden-xs">
                 <i class="fa fa-share"></i>

@@ -122,6 +122,17 @@ class App extends ActiveModel
             throw new SyntaxException('Application object is not founded');
         }
 
+        $scriptVersion = $this->getScriptVersion();
+
+        return $scriptVersion === (float)$this->version;
+    }
+
+    /**
+     * Get extension script version if exists
+     * @return bool|float
+     */
+    public function getScriptVersion()
+    {
         $class = 'Apps\Controller\Admin\\' . $this->sys_name;
         if (!class_exists($class)) {
             return false;
@@ -131,7 +142,7 @@ class App extends ActiveModel
             return false;
         }
 
-        return (float)constant($class.'::VERSION') === (float)$this->version;
+        return (float)constant($class . '::VERSION');
     }
 
 }

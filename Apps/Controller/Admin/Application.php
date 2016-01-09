@@ -2,12 +2,13 @@
 
 namespace Apps\Controller\Admin;
 
-use Apps\Model\Admin\Application\FormAppTurn;
+use Apps\Model\Admin\Application\FormTurn;
 use Apps\Model\Admin\Application\FormInstall;
 use Apps\Model\Admin\Application\FormUpdate;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Str;
 
 class Application extends AdminController
@@ -72,15 +73,21 @@ class Application extends AdminController
 
         // check what we got
         if ($search === null || (int)$search->id < 1) {
-            throw new ForbiddenException('App is not founded');
+            throw new NotFoundException('App is not founded');
         }
 
-        $model = new FormUpdate($controller);
+        // init model and make update with notification
+        $model = new FormUpdate($search);
+        if ($model->send() && $model->validate()) {
+            $model->make();
+            App::$Session->getFlashBag()->add('success', __('Application %s% is successful updated to %v% version', ['s' => $sys_name, 'v' => $model->scriptVersion]));
+            App::$Response->redirect('application/index');
+        }
 
-
-
-
-        return 'test';
+        // render response
+        return App::$View->render('update', [
+            'model' => $model
+        ]);
     }
 
     /**
@@ -100,10 +107,10 @@ class Application extends AdminController
             throw new ForbiddenException('App is not founded');
         }
 
-        $model = new FormAppTurn();
+        $model = new FormTurn();
 
         if ($model->send()) {
-            $model->updateApp($search);
+            $model->update($search);
             App::$Session->getFlashBag()->add('success', __('Application status was changed'));
         }
 

@@ -5,10 +5,10 @@ namespace Apps\Model\Admin\Application;
 use Apps\ActiveRecord\App;
 use Ffcms\Core\Arch\Model;
 
-class FormAppTurn extends Model
+class FormTurn extends Model
 {
 
-    public function updateApp(App $object)
+    public function update(App $object)
     {
         $status = $object->disabled;
 
