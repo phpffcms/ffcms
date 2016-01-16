@@ -28,7 +28,7 @@ if (!\App::$Request->isPathInjected()) {
     ];
     if (Obj::isArray($model->catNesting)) {
         foreach ($model->catNesting as $cat) {
-            if ($cat['path'] === '') {
+            if (Str::likeEmpty($cat['path'])) {
                 $breadcrumbs[Url::to('content/list', $cat['path'])] = __('Contents');
             } else {
                 $breadcrumbs[Url::to('content/list', $cat['path'], null, [], false)] = $cat['name'];
@@ -154,12 +154,14 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     </div>
     <?php endif; ?>
 </article>
+<?php if ($showComments === true): ?>
 <div class="row">
     <div class="col-md-12">
         <h3><?= __('Comments') ?></h3>
         <?= \Widgets\Front\Comments\Comments::widget(['targetClass' => 'wysi-comments', 'config' => 'config-small']); ?>
     </div>
 </div>
+<?php endif; ?>
 <?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
 <script>
     window.jQ.push(function(){

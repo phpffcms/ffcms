@@ -28,7 +28,7 @@ $this->breadcrumbs = [
 
 <?= $form->field('itemPerCategory', 'text', ['class' => 'form-control'], __('Count of content items per each page of category')) ?>
 <?= $form->field('userAdd', 'checkbox', null, __('Allow users add content pages?')) ?>
-<?= $form->field('multiCategories', 'checkbox', null, __('Display content in depended categories of?')) ?>
+<?= $form->field('multiCategories', 'checkbox', null, __('Display content from child categories?')) ?>
 <?= $form->field('galleryResize', 'text', ['class' => 'form-control'], __('Specify maximum size of image in gallery in px')) ?>
 <?= $form->field('gallerySize', 'text', ['class' => 'form-control'], __('Specify maximum image size in gallery in kb. Example: 500 = 0,5 mb')) ?>
 <?= $form->field('keywordsAsTags', 'checkbox', null, __('Display tag list, based on keywords data?')) ?>

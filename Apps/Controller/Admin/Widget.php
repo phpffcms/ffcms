@@ -13,8 +13,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
- * Class Widget - control of user comments in website.
- * This class provide general admin implementation of control for user comments and its settings
+ * Class Widget - control installed and not-installed widgets.
  * @package Apps\Controller\Admin
  */
 class Widget extends AdminController
@@ -42,7 +41,7 @@ class Widget extends AdminController
     }
 
     /**
-     * Show installation for of applications
+     * Show installation form for widget
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
@@ -71,6 +70,13 @@ class Widget extends AdminController
         ]);
     }
 
+    /**
+     * Run widget update - display submit form & callback execution
+     * @param $sys_name
+     * @return string
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionUpdate($sys_name)
     {
         // get controller name and try to find app in db
@@ -98,7 +104,7 @@ class Widget extends AdminController
     }
 
     /**
-     * Allow turn on/off applications
+     * Allow turn on/off widget
      * @param $controllerName
      * @return string
      * @throws ForbiddenException

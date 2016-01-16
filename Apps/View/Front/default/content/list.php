@@ -11,10 +11,10 @@ use Ffcms\Core\Helper\Url;
 /** @var $configs array */
 /** @var $this object */
 /** @var $category array */
-/** @var $model Apps\Model\Front\Content\EntityCategoryRead */
+/** @var $model Apps\Model\Front\Content\EntityCategoryList */
 
 $catConfigs = [];
-foreach ($model->categoryData['configs'] as $key=>$value) {
+foreach ($model->category['configs'] as $key=>$value) {
     $catConfigs[$key] = (int)$value === 1;
 }
 
@@ -24,24 +24,24 @@ $catMeta = [
     'views' => $catConfigs['showViews']
 ];
 
-$this->title = $model->categoryData['title'];
+$this->title = $model->category['title'];
 if (!\App::$Request->isPathInjected()) {
     $this->breadcrumbs = [
             Url::to('/') => __('Home'),
             Url::to('content/list') => __('Contents'),
-            $model->categoryData['title']
+            $model->category['title']
     ];
 }
 
 ?>
 <?php if (!\App::$Request->isPathInjected()): ?>
-    <h1><?= $model->categoryData['title'] ?></h1>
-    <?php if (Str::length($model->categoryData['description']) > 0): ?>
-    <p><?= $model->categoryData['description'] ?></p>
+    <h1><?= $model->category['title'] ?></h1>
+    <?php if (Str::length($model->category['description']) > 0): ?>
+    <p><?= $model->category['description'] ?></p>
     <?php endif; ?>
     <hr />
 <?php endif; ?>
-<?php if (count($model->items) < 1): ?>
+<?php if ($model->getContentCount() < 1): ?>
     <p class="alert alert-warning"><?= __('This category is empty!') ?></p>
 <?php return; endif; ?>
 <?php foreach ($model->items as $item): ?>
@@ -56,8 +56,8 @@ if (!\App::$Request->isPathInjected()) {
             <?php if ($catConfigs['showCategory'] === true): ?>
             <span><i class="fa fa-list"></i>
                 <?= Url::link(
-                    ['content/list', $item['category']['path']],
-                    Serialize::getDecodeLocale($item['category']['title']),
+                    ['content/list', $item['category']->path],
+                    Serialize::getDecodeLocale($item['category']->title),
                     ['itemprop' => 'genre']
                 ) ?>
             </span>

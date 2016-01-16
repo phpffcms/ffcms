@@ -64,7 +64,7 @@ class Application extends AdminController
             'model' => $model->export()
         ]);
     }
-
+    
     public function actionUpdate($sys_name)
     {
         // get controller name and try to find app in db

@@ -83,8 +83,10 @@
             var comPath = '<?= \App::$Request->getPathInfo() ?>';
             var comStructure = $('#comment-structure').clone();
             var answStructure = $('#comment-answer-item').clone();
+            var comSendForm = $('#comment-answer-form').clone();
             comStructure.removeClass('hidden').removeAttr('id');
             answStructure.removeClass('hidden').removeAttr('id');
+            comSendForm.removeClass('hidden').removeAttr('id');
             var targetElem = $('#comment-list');
             var answersLoaded = [];
 

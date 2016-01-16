@@ -44,7 +44,7 @@ return [
     'User add' => 'Пользовательское добавление',
     'Allow users add content pages?' => 'Разрешить пользователям добавлять страницы контента?',
     'Multi categories' => 'Мульти-разделы',
-    'Display content in depended categories of?' => 'Отображать элементы контента во вложенных категориях?',
+    'Display content from child categories?' => 'Отображать элементы контента из вложенных категорий?',
     'Gallery resize' => 'Миниатюры в галереи',
     'Specify maximum size of image in gallery in px' => 'Укажите максимальный размер, для уменьшенной копии по одной из сторон изображения в пикселях',
     'Image size' => 'Размер изображения',

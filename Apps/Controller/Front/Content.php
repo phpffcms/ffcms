@@ -4,18 +4,22 @@ namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\Content as ContentEntity;
-use Apps\Model\Front\Content\EntityCategoryRead;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
-use Ffcms\Core\Exception\ForbiddenException;
+use Apps\Model\Front\Content\EntityCategoryList;
 use Ffcms\Core\Exception\NotFoundException;
 use Apps\Model\Front\Content\EntityContentRead;
 use Ffcms\Core\Helper\HTML\SimplePagination;
-use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class Content. Controller of content app - content and categories.
+ * @package Apps\Controller\Front
+ */
 class Content extends FrontAppController
 {
+    const TAG_PER_PAGE = 50;
+
     /**
      * Index is forbidden
      * @throws NotFoundException
@@ -38,49 +42,17 @@ class Content extends FrontAppController
         $configs = $this->getConfigs();
         $page = (int)App::$Request->query->get('page');
         $itemCount = (int)$configs['itemPerCategory'];
-        $offset = $page * $itemCount;
 
-        // generate category array
-        $categoryIds = [];
-        $categoryData = null;
-        $currentCategoryData = null;
-        // does it multi-category mod?
-        if ((int)$configs['multiCategories'] === 1) {
-            $categoryData = ContentCategory::where('path', 'like', $path . '%')->get()->toArray();
-            if (count($categoryData) < 1) {
-                throw new NotFoundException();
-            }
-            $categoryIds = Arr::ploke('id', $categoryData);
-            // extract current category information
-            foreach ($categoryData as $row) {
-                if ($row['path'] === $path) {
-                    $currentCategoryData = $row;
-                }
-            }
-        } else { // its a single category mod
-            $categoryData = ContentCategory::getByPath($path)->toArray();
-            if ($categoryData === null || $categoryData === false || count($categoryData) < 1) {
-                throw new NotFoundException();
-            }
-            $currentCategoryData = $categoryData;
-            $categoryIds[] = $categoryData['id'];
-        }
-
-        // get content item list from depended category id's
-        $query = ContentEntity::whereIn('category_id', $categoryIds)->where('display', '=', 1);
+        // build special model with content list and category list information
+        $model = new EntityCategoryList($path, $configs, $page);
 
         // build pagination
         $pagination = new SimplePagination([
             'url' => ['content/list', $path],
             'page' => $page,
             'step' => $itemCount,
-            'total' => $query->count()
+            'total' => $model->getContentCount()
         ]);
-
-        // generate result
-        $records = $query->skip($offset)->take($itemCount)->orderBy('created_at', 'DESC')->get();
-
-        $model = new EntityCategoryRead($records, $currentCategoryData, $categoryData);
 
         // drow response view
         return App::$View->render('list', [
@@ -142,5 +114,47 @@ class Content extends FrontAppController
             'trash' => $trash,
             'configs' => $this->getConfigs()
         ]);
+    }
+
+    /**
+     * List latest by created_at content items contains tag name
+     * @param string $tagName
+     * @return string
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
+    public function actionTag($tagName)
+    {
+        $configs = $this->getConfigs();
+        // check if tags is enabled
+        if ((int)$configs['keywordsAsTags'] !== 1) {
+            throw new NotFoundException(__('Tag system is disabled'));
+        }
+
+        // remove spaces and other shits
+        $tagName = trim($tagName);
+
+        // check if tag is not empty
+        if (Str::likeEmpty($tagName) || Str::length($tagName) < 2) {
+            throw new NotFoundException(__('Tag is empty or is too short!'));
+        }
+
+        // get equal rows order by creation date
+        $records = ContentEntity::where('meta_keywords', 'like', '%' . $tagName . '%')->orderBy('created_at', 'DESC')->take(self::TAG_PER_PAGE);
+        // check if result is not empty
+        if ($records->count() < 1) {
+            throw new NotFoundException(__('Nothing founded'));
+        }
+
+        // render response
+        return App::$View->render('tag', [
+            'records' => $records->get(),
+            'tag' => App::$Security->strip_tags($tagName)
+        ]);
+    }
+
+    public function actionRss()
+    {
+        $path = App::$Request->getPathWithoutControllerAction();
     }
 }

@@ -38,16 +38,21 @@ class AdminController extends Controller
         // if version is not necessary to check - continue
         if ($checkVersion === false) {
             return;
-        } elseif ($this->application === null) {
-            // check if appdata is loaded from db
-            throw new ForbiddenException('This application is not installed!');
         }
 
-        // check app version matching
-        if (!method_exists($this->application, 'checkVersion') || $this->application->checkVersion() !== true) {
+        // get extension record based on type
+        $record = $this->getTypeItem();
+
+        // check if extension is loaded
+        if ($record === null) {
+            throw new ForbiddenException(__('This extension is not installed'));
+        }
+
+        // check extension version
+        if (!method_exists($record, 'checkVersion') || $record->checkVersion() !== true) {
             App::$Session->getFlashBag()->add(
                 'error',
-                __('Attention! Version of this application scripts is no match to database version. Please, make update!')
+                __('Attention! Version of this extension scripts is no match to database version. Please, make update!')
             );
         }
     }
