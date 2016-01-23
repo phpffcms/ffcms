@@ -5,6 +5,15 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Date;
 
+/**
+ * Class Invite. Active record model to store invite keys
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property string $token
+ * @property string $email
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class Invite extends ActiveModel
 {
 

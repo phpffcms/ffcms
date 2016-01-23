@@ -1,5 +1,8 @@
 <?php
 
+use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\Serialize;
+
 Illuminate\Database\Capsule\Manager::schema($connectName)->create('contents', function($table) {
     $table->increments('id');
     $table->text('title');
@@ -19,3 +22,79 @@ Illuminate\Database\Capsule\Manager::schema($connectName)->create('contents', fu
     $table->timestamps();
     $table->softDeletes();
 });
+
+$now = Date::convertToDatetime(time(), Date::FORMAT_SQL_DATE);
+$content = new stdClass();
+
+$content->News = [
+    'title' => [
+        'en' => 'FFCMS 3 - the content management system',
+        'ru' => 'FFCMS 3 - система управления содержимым сайта'
+    ],
+    'path' => 'ffcms3-announce',
+    'commentHash' => \Ffcms\Core\Helper\Type\Str::randomLatinNumeric(mt_rand(32, 128)),
+    'text' => [
+        'en' => '<p><strong>FFCMS 3</strong> - the new version of ffcms content management system, based on MVC application structure. FFCMS writed on php language syntax and using mysql, pgsql, sqlite or other PDO-compatable as database storage.</p>
+
+<p>FFCMS is fully free system, distributed "as is" under MIT license and third-party packages license like GNU GPL v2/v3, BSD and other free-to-use license.</p>
+
+<div style="page-break-after: always"> </div>
+
+<p>In basic distribution FFCMS included all necessary applications and widgets for classic website. The management interface of website is developed based on principles of maximum user friendly for fast usage. Moreover, the functional features of system can be faster and dynamicly extended by <strong>applications</strong> and <strong>widgets</strong>.</p>
+
+<p>The FFCMS system can be used in any kind of website regardless of the model of monetization. Using FFCMS you can get the source code of system and change it or redistribute as you wish.</p>
+
+<p>Official websites: <a href="http://ffcms.org">ffcms.org</a>, <a href="http://ffcms.ru">ffcms.ru</a></p>',
+        'ru' => '<p><strong>FFCMS 3</strong> - новая версия системы управления содержимым сайта FFCMS, основанная на принципах построения приложений MVC. Система FFCMS написана с использованием синтаксиса языка php и использующая в качестве хранилища баз данных mysql, pgsql, sqlite или иную базу данных, совместимую с PDO драйвером.</p>
+
+<p>FFCMS абсолютно бесплатная система, распространяемая по принципу "как есть (as is)" под лицензией MIT и лицензиями GNU GPL v2/v3, BSD и другими в зависимости от прочих используемых пакетов в составе системы.</p>
+
+<div style="page-break-after: always"> </div>
+
+<p>В базовой поставке система имеет весь необходимый набор приложений и виджетов для реализации классического веб-сайта. Интерфейс управления содержимым сайта реализован исходя из принципов максимальной простоты использования. Кроме того, функциональные возможности системы могут быть быстро и динамично расширены при помощи <strong>приложений</strong> и <strong>виджетов</strong>.</p>
+
+<p>Система FFCMS может быть использована на любых сайтах в не зависимости от моделей монетизации. Система имеет полностью открытый исходный код, который может быть вами использован как угодно.</p>
+
+<p>Официальные сайты проекта: <a href="http://ffcms.org">ffcms.org</a>, <a href="http://ffcms.ru">ffcms.ru</a></p>'
+    ]
+];
+
+$content->Page = [
+    'title' => [
+        'en' => 'About',
+        'ru' => 'О сайте'
+    ],
+    'path' => 'about-page',
+    'commentHash' => \Ffcms\Core\Helper\Type\Str::randomLatinNumeric(mt_rand(32, 128)),
+    'text' => [
+        'en' => '<p>This page can be edited in administrative panel > App > Content > "About".</p>',
+        'ru' => '<p>Данная страница может быть отредактирована в административной панели > приложения > контент > "О сайте".</p>'
+    ]
+];
+
+Illuminate\Database\Capsule\Manager::connection($connectName)->table('contents')->insert([
+    [
+        'title' => Serialize::encode($content->News['title']),
+        'text' => Serialize::encode($content->News['text']),
+        'path' => $content->News['path'],
+        'comment_hash' => $content->News['commentHash'],
+        'category_id' => 2,
+        'author_id' => 1,
+        'display' => 1,
+        'created_at' => $now,
+        'updated_at' => $now
+    ],
+    [
+        'title' => Serialize::encode($content->Page['title']),
+        'text' => Serialize::encode($content->Page['text']),
+        'path' => $content->Page['path'],
+        'comment_hash' => $content->Page['commentHash'],
+        'category_id' => 3,
+        'author_id' => 1,
+        'display' => 1,
+        'created_at' => $now,
+        'updated_at' => $now
+    ]
+]);
+
+

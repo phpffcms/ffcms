@@ -1,6 +1,7 @@
 <?php
 
 /** @var $model Apps\Model\Front\Content\EntityContentRead */
+/** @var $search Apps\Model\Front\Content\EntityContentSearch */
 /** @var $this object */
 /** @var $trash bool */
 /** @var $configs array */
@@ -39,9 +40,7 @@ if (!\App::$Request->isPathInjected()) {
 
     $this->breadcrumbs = $breadcrumbs;
 }
-?>
 
-<?php
 $properties = [
     'date' => (int)$model->getCategory()->getProperty('showDate') === 1,
     'author' => (int)$model->getCategory()->getProperty('showAuthor') === 1,
@@ -89,6 +88,7 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
             <a href="#showPoster" data-toggle="modal" data-target="#showPoster">
                 <img alt="<?= __('Poster for') ?>: <?= Str::lowerCase(\App::$Security->strip_tags($model->title)) ?>" src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" />
             </a>
+
             <!-- Modal poster pop-up -->
             <div class="modal fade" id="showPoster" tabindex="-1" role="dialog" aria-labelledby="showPosterModal">
                 <div class="modal-dialog modal-lg" role="document">
@@ -126,6 +126,31 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
                     </div>
                 </div>
             </div>
+        </div>
+    <?php endif; ?>
+    <?php if ($search->items !== null && Obj::isArray($search->items)): ?>
+        <div class="h3"><?= __('Similar content') ?></div>
+        <div class="panel-group">
+        <?php $idx = 1; ?>
+        <?php foreach ($search->items as $item): ?>
+            <div id="similar-group" class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#similar-group" href="#similar<?= $idx ?>">
+                            <i class="fa fa-arrows-v"></i> <?= $item['title'] ?>
+                        </a>
+                    </h4>
+                </div>
+                <div id="similar<?= $idx ?>" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>">
+                            <?= $item['snippet'] ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php ++$idx; ?>
+        <?php endforeach; ?>
         </div>
     <?php endif; ?>
     <?php if ((int)$configs['keywordsAsTags'] === 1): ?>

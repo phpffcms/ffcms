@@ -63,10 +63,12 @@ if ((int)$model->id == '1') {
 <?= $form->field('path', 'text', $pathProperty, __('Enter category path slug for URI building')) ?>
 <?= $form->field('configs.showDate', 'checkbox', null, __('Display dates of content in this category?')) ?>
 <?= $form->field('configs.showCategory', 'checkbox', null, __('Display current category for content?')) ?>
+<?= $form->field('configs.showSimilar', 'checkbox', null, __('Show the similar content items for this category? This option introduce additional system load and memory usage.')) ?>
 <?= $form->field('configs.showAuthor', 'checkbox', null, __('Display information about content authors in this category?')) ?>
 <?= $form->field('configs.showViews', 'checkbox', null, __('Display information about content view count in this category?')) ?>
 <?= $form->field('configs.showComments', 'checkbox', null, __('Display comment list and comment form in this category?')) ?>
 <?= $form->field('configs.showPoster', 'checkbox', null, __('Display content poster from gallery in this category?')) ?>
+<?= $form->field('configs.showRss', 'checkbox', null, __('Allow display RSS 2.0 feed for this category?')) ?>
 
 <div class="col-md-9 col-md-offset-3"><?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?></div>
 

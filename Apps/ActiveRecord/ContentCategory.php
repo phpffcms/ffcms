@@ -7,6 +7,17 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class ContentCategory. Active record model for content category nesting
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property string $path
+ * @property string $title
+ * @property string $description
+ * @property string $configs
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class ContentCategory extends ActiveModel
 {
     /**

@@ -21,14 +21,9 @@ $this->breadcrumbs = [
 $items = [];
 foreach ($records as $item) {
     /** @var \Apps\ActiveRecord\Content $item*/
-    $uri = $item->getCategory()->path;
-    if (!Str::likeEmpty($uri)) {
-        $uri .= '/';
-    }
-    $uri .= $item->path;
     $items[] = [
         'text' => Serialize::getDecodeLocale($item->title),
-        'link' => \App::$Alias->baseUrl . '/content/read/' . $uri
+        'link' => \App::$Alias->baseUrl . '/content/read/' . $item->getPath()
     ];
 }
 ?>

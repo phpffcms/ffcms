@@ -73,6 +73,9 @@ div.content-container {
     .article-item .meta a.label {color: #FFFFFF;}
     .article-item h1 a, .article-item h2 a, .article-item h3 a {color:#323740;}
 
+    div.body-container {min-height: 500px;}
+    .object-text {min-height: 40px;}
+    .image_poster {float: left; margin: 0 5px;}
 }
 /** Mobile device styles */
 @media (max-width: 768px) {
@@ -237,23 +240,7 @@ label.error {
     background-color: #eeeeee;
 }
 
-.image_poster {
-    float: left;
-}
-
 .image-item {
     height: 100px;
     margin: 0 auto;
-}
-
-/** Some media screen adaptive */
-
-@media (min-width:768px) {
-    div.body-container {
-        min-height: 500px;
-    }
-
-    .object-text {
-        min-height: 40px;
-    }
 }

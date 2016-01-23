@@ -13,6 +13,14 @@ use Ffcms\Core\Helper\Type\Str;
  * Class App - active record for 'prefix_apps' table.
  * @package Apps\ActiveRecord
  * @property int $id
+ * @property string $type
+ * @property string $sys_name
+ * @property string $name
+ * @property string $configs
+ * @property int $disabled
+ * @property float $version
+ * @property string created_at
+ * @property string updated_at
  */
 class App extends ActiveModel
 {

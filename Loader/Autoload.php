@@ -11,5 +11,6 @@ if (!defined('root')) {
 $loader = require root . '/vendor/autoload.php';
 // enable autoload for general namespaces user apps
 $loader->add('Apps\\', root);
+$loader->add('Apps\\', root . '/vendor/phpffcms/demo-app-package/src'); // todo: remove me
 $loader->add('Extend\\', root);
 $loader->add('Widgets\\', root);

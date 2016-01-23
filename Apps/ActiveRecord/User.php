@@ -8,6 +8,20 @@ use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class User. Active record model for user auth data
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property string $login
+ * @property string $email
+ * @property string $password
+ * @property int $role_id
+ * @property string $approve_token
+ * @property string $token_data
+ * @property string $token_ip
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class User extends ActiveModel implements iUser
 {
 

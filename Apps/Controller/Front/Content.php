@@ -4,13 +4,19 @@ namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\Content as ContentEntity;
+use Apps\Model\Front\Content\EntityContentSearch;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Apps\Model\Front\Content\EntityCategoryList;
+use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Apps\Model\Front\Content\EntityContentRead;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
+use Suin\RSSWriter\Channel;
+use Suin\RSSWriter\Feed;
+use Suin\RSSWriter\Item;
 
 /**
  * Class Content. Controller of content app - content and categories.
@@ -108,9 +114,15 @@ class Content extends FrontAppController
 
         // lets init entity model for content transfer to view
         $model = new EntityContentRead($categoryRecord, $contentRecord->first());
+        $search = null;
+        // check if similar search is enabled for item category
+        if ((int)$model->getCategory()->getProperty('showSimilar') === 1 && $trash === false) {
+            $search = new EntityContentSearch($model->title, $model->id);
+        }
 
         return App::$View->render('read', [
             'model' => $model,
+            'search' => $search,
             'trash' => $trash,
             'configs' => $this->getConfigs()
         ]);
@@ -153,8 +165,55 @@ class Content extends FrontAppController
         ]);
     }
 
+    /**
+     * Display rss feeds from content category
+     * @return string
+     * @throws ForbiddenException
+     */
     public function actionRss()
     {
         $path = App::$Request->getPathWithoutControllerAction();
+        $configs = $this->getConfigs();
+
+        // build model data
+        $model = new EntityCategoryList($path, $configs, 0);
+        // remove global layout
+        $this->layout = null;
+
+        // check if rss display allowed for this category
+        if ((int)$model->category['configs']['showRss'] !== 1) {
+            throw new ForbiddenException(__('Rss feed is disabled for this category'));
+        }
+
+        // initialize rss feed objects
+        $feed = new Feed();
+        $channel = new Channel();
+
+        // set channel data
+        $channel->title($model->category['title'])
+            ->description($model->category['description'])
+            ->url(App::$Alias->baseUrl . '/content/list/' . $model->category['path'])
+            ->appendTo($feed);
+
+        // add content data
+        if ($model->getContentCount() > 0) {
+            foreach ($model->items as $row) {
+                $item = new Item();
+                // add title, short text, url
+                $item->title($row['title'])
+                    ->description($row['text'])
+                    ->url(App::$Alias->baseUrl . $row['uri']);
+                // add poster
+                if ($row['thumb'] !== null) {
+                    $item->enclosure(App::$Alias->scriptUrl . $row['thumb'], $row['thumbSize'], 'image/jpeg');
+                }
+
+                // append response to channel
+                $item->appendTo($channel);
+            }
+        }
+
+        // render response from feed object
+        return $feed->render();
     }
 }

@@ -3,6 +3,7 @@
 namespace Apps\Model\Front\Content;
 
 
+use Apps\ActiveRecord\Content;
 use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\Content as ContentRecord;
 use Apps\ActiveRecord\User;
@@ -13,6 +14,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Serialize;
+use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -159,8 +161,8 @@ class EntityCategoryList extends Model
     {
         // prepare current category data to output (unserialize locales and strip tags)
         $this->category = [
-            'title' => App::$Security->strip_tags(Serialize::getDecodeLocale($this->_currentCategory->title)),
-            'description' => App::$Security->strip_tags(Serialize::getDecodeLocale($this->_currentCategory->description)),
+            'title' => App::$Security->strip_tags($this->_currentCategory->getLocaled('title')),
+            'description' => App::$Security->strip_tags($this->_currentCategory->getLocaled('description')),
             'configs' => Serialize::decode($this->_currentCategory->configs),
             'path' => $this->_currentCategory->path
         ];
@@ -177,19 +179,9 @@ class EntityCategoryList extends Model
 
         $nullItems = 0;
         foreach ($records as $row) {
-            // get full text
-            $text = Serialize::getDecodeLocale($row->text);
-            // try to find page breaker
-            $breakPosition = mb_strpos($text, self::PAGE_BREAK, null, 'UTF-8');
-            // offset is founded, try to split preview from full text
-            if ($breakPosition !== false) {
-                $text = Str::sub($text, 0, $breakPosition);
-            } else { // page breaker is not founded, lets get a fun ;D
-                // find first paragraph ending
-                $breakPosition = mb_strpos($text, '</p>', null, 'UTF-8');
-                // cut text from position caret before </p> (+4 symbols to save item as valid)
-                $text = Str::sub($text, 0, $breakPosition+4);
-            }
+            /** @var Content $row */
+            // get snippet from full text for current locale
+            $text = Text::snippet($row->getLocaled('text'));
 
             $itemPath = $this->categories[$row->category_id]->path;
             if (!Str::likeEmpty($itemPath)) {
@@ -197,25 +189,8 @@ class EntityCategoryList extends Model
             }
             $itemPath .= $row->path;
 
-            // try to find poster and thumbnail for this content item
-            $poster = $row->poster;
-            $thumb = null;
-            if (!Str::likeEmpty($poster)) {
-                $thumbName = Str::cleanExtension($poster) . '.jpg';
-                $poster = '/upload/gallery/' . $row->id . '/orig/' . $poster;
-                $thumb = '/upload/gallery/' . $row->id . '/thumb/' . $thumbName;
-                if (!File::exist($poster)) {
-                    $poster = null;
-                }
-                if (!File::exist($thumb)) {
-                    $thumb = null;
-                }
-            } else {
-                $poster = null;
-            }
-
             // prepare tags data
-            $tags = Serialize::getDecodeLocale($row->meta_keywords);
+            $tags = $row->getLocaled('meta_keywords');
             if (!Str::likeEmpty($tags)) {
                 $tags = explode(',', $tags);
             } else {
@@ -223,7 +198,7 @@ class EntityCategoryList extends Model
             }
 
             // check title length on current language locale
-            $localeTitle = App::$Security->strip_tags(Serialize::getDecodeLocale($row->title));
+            $localeTitle = App::$Security->strip_tags($row->getLocaled('title'));
             if (Str::length($localeTitle) < 1) {
                 ++$nullItems;
             }
@@ -240,8 +215,9 @@ class EntityCategoryList extends Model
                 'text' => $text,
                 'date' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_HOUR),
                 'author' => $owner,
-                'poster' => $poster,
-                'thumb' => $thumb,
+                'poster' => $row->getPosterUri(),
+                'thumb' => $row->getPosterThumbUri(),
+                'thumbSize' => File::size($row->getPosterThumbUri()),
                 'views' => (int)$row->views,
                 'rating' => (int)$row->rating,
                 'category' => $this->categories[$row->category_id],

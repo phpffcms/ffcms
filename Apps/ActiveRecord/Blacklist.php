@@ -5,6 +5,16 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 
+/**
+ * Class Blacklist. Active record for user blacklist table
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property int $user_id
+ * @property int $target_id
+ * @property string $comment
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class Blacklist extends ActiveModel
 {
 

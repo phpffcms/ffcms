@@ -9,6 +9,23 @@ use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Interfaces\iProfile;
 use Ffcms\Core\App as MainApp;
 
+/**
+ * Class Profile. Active record model for user profile data store
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property int $user_id
+ * @property string $nick
+ * @property int $sex
+ * @property string $birthday
+ * @property string $city
+ * @property string $hobby
+ * @property int $rating
+ * @property string $phone
+ * @property string $url
+ * @property string $custom_data
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class Profile extends ActiveModel implements iProfile
 {
 

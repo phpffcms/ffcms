@@ -51,8 +51,7 @@ class FormSettings extends Model
             'keywordsAsTags' => __('Keywords to tags'),
             'galleryResize' => __('Gallery resize'),
             'gallerySize' => __('Image size'),
-            'rss' => __('Rss feed'),
-            'rssFull' => __('Rss content')
+            'rss' => __('Rss feed')
         ];
     }
 
@@ -62,8 +61,8 @@ class FormSettings extends Model
     public function rules()
     {
         return [
-            [['itemPerCategory', 'userAdd', 'multiCategories', 'keywordsAsTags', 'galleryResize', 'rss', 'rssFull', 'gallerySize'], 'required'],
-            [['itemPerCategory', 'userAdd', 'multiCategories', 'keywordsAsTags', 'galleryResize', 'rss', 'rssFull', 'gallerySize'], 'int'],
+            [['itemPerCategory', 'userAdd', 'multiCategories', 'keywordsAsTags', 'galleryResize', 'rss', 'gallerySize'], 'required'],
+            [['itemPerCategory', 'userAdd', 'multiCategories', 'keywordsAsTags', 'galleryResize', 'rss', 'gallerySize'], 'int'],
             [['userAdd', 'multiCategories', 'keywordsAsTags', 'rss', 'rssFull'], 'in', ['0', '1']]
         ];
     }

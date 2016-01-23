@@ -4,6 +4,18 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
 
+/**
+ * Class CommentPost. Active record model for comment posts.
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property string $pathway
+ * @property int $user_id
+ * @property string|null $guest_name
+ * @property string $message
+ * @property string $lang
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class CommentPost extends ActiveModel
 {
     /**

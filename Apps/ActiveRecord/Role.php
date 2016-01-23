@@ -7,6 +7,15 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class Role. Active model for user roles with RBAC permissions.
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property string $name
+ * @property string $permissions
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class Role extends ActiveModel
 {
 

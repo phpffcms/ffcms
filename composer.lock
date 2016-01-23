@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff9b99b10226f152de5dd2a08b9d34be",
-    "content-hash": "8190ca7bb52323c15742a2762fad8c9c",
+    "hash": "063189b2876995c40288e0fd67d7fe59",
+    "content-hash": "eb24b3ab2eb1df0528970af5bdedb536",
     "packages": [
         {
             "name": "bower-asset/blueimp-canvas-to-blob",
@@ -699,12 +699,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "17192553b2d14baa0af98ff2ff77a3f91ab06232"
+                "reference": "f7231e6ef8e7115df26f5787365727683530f275"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/17192553b2d14baa0af98ff2ff77a3f91ab06232",
-                "reference": "17192553b2d14baa0af98ff2ff77a3f91ab06232",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/88cd62ea45063ecc7a2c2319f3dfa601a9f8a47e",
+                "reference": "f7231e6ef8e7115df26f5787365727683530f275",
                 "shasum": ""
             },
             "require": {
@@ -734,7 +734,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2015-12-23 01:00:15"
+            "time": "2016-01-13 09:25:36"
         },
         {
             "name": "illuminate/contracts",
@@ -742,12 +742,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "65ba0830f51da1cbaa1df38ff955c9df228daf7f"
+                "reference": "255a9547a2fa7cb1dfb8fc3223f7114650848eaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/65ba0830f51da1cbaa1df38ff955c9df228daf7f",
-                "reference": "65ba0830f51da1cbaa1df38ff955c9df228daf7f",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/255a9547a2fa7cb1dfb8fc3223f7114650848eaf",
+                "reference": "255a9547a2fa7cb1dfb8fc3223f7114650848eaf",
                 "shasum": ""
             },
             "require": {
@@ -776,20 +776,20 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2015-12-19 14:25:38"
+            "time": "2016-01-07 19:57:38"
         },
         {
             "name": "illuminate/database",
-            "version": "v5.2.0",
+            "version": "v5.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "af0e0d1cb4e4abf18eae6400c4ed5685a69a9e41"
+                "reference": "7072548f8a2933230e7f3e7199b78496fda964b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/af0e0d1cb4e4abf18eae6400c4ed5685a69a9e41",
-                "reference": "af0e0d1cb4e4abf18eae6400c4ed5685a69a9e41",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/7072548f8a2933230e7f3e7199b78496fda964b5",
+                "reference": "7072548f8a2933230e7f3e7199b78496fda964b5",
                 "shasum": ""
             },
             "require": {
@@ -836,7 +836,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2015-12-20 16:11:11"
+            "time": "2016-01-06 16:20:30"
         },
         {
             "name": "illuminate/support",
@@ -844,12 +844,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "9b0bf9de6deab284958df1738c427377ed23546b"
+                "reference": "6825ef7021a59d72c0f6646bc869c1e212fb6ade"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/9b0bf9de6deab284958df1738c427377ed23546b",
-                "reference": "9b0bf9de6deab284958df1738c427377ed23546b",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/6825ef7021a59d72c0f6646bc869c1e212fb6ade",
+                "reference": "6825ef7021a59d72c0f6646bc869c1e212fb6ade",
                 "shasum": ""
             },
             "require": {
@@ -892,7 +892,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2015-12-29 14:47:47"
+            "time": "2016-01-15 16:28:21"
         },
         {
             "name": "maximebf/debugbar",
@@ -1004,16 +1004,16 @@
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "3.0.24",
+            "version": "3.0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/khoaofgod/phpfastcache.git",
-                "reference": "704197e6c5d579a582ec2fea976a9fc65e1c21db"
+                "reference": "939b5521c4d76897345afaa4c808228feb0474ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/704197e6c5d579a582ec2fea976a9fc65e1c21db",
-                "reference": "704197e6c5d579a582ec2fea976a9fc65e1c21db",
+                "url": "https://api.github.com/repos/khoaofgod/phpfastcache/zipball/939b5521c4d76897345afaa4c808228feb0474ff",
+                "reference": "939b5521c4d76897345afaa4c808228feb0474ff",
                 "shasum": ""
             },
             "require": {
@@ -1056,7 +1056,7 @@
                 "redis",
                 "wincache"
             ],
-            "time": "2015-12-30 00:42:41"
+            "time": "2016-01-10 05:02:56"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -1152,12 +1152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "ffc510f68872fe59bc8d57e1027e5f29031b7471"
+                "reference": "337d70403a81afae76c6014fbc4b4039128fdc4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/ffc510f68872fe59bc8d57e1027e5f29031b7471",
-                "reference": "ffc510f68872fe59bc8d57e1027e5f29031b7471",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/337d70403a81afae76c6014fbc4b4039128fdc4a",
+                "reference": "337d70403a81afae76c6014fbc4b4039128fdc4a",
                 "shasum": ""
             },
             "require": {
@@ -1194,7 +1194,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2016-01-04 12:03:34"
+            "time": "2016-01-16 18:47:45"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1258,17 +1258,67 @@
             "time": "2015-12-11 08:48:09"
         },
         {
+            "name": "phpffcms/searchable",
+            "version": "1.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpffcms/searchable.git",
+                "reference": "47fa82313911ef06a0d1a67d5610bae15b3f4398"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpffcms/searchable/zipball/47fa82313911ef06a0d1a67d5610bae15b3f4398",
+                "reference": "47fa82313911ef06a0d1a67d5610bae15b3f4398",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "illuminate/database": "4.2.x|~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ffcms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Lopez",
+                    "email": "nicolaslopezj@me.com"
+                },
+                {
+                    "name": "Mihail Pyatinsky",
+                    "email": "zenn1989@gmail.com"
+                }
+            ],
+            "description": "Eloquent model search trait.",
+            "keywords": [
+                "database",
+                "eloquent",
+                "ffcms",
+                "model",
+                "search",
+                "searchable"
+            ],
+            "time": "2016-01-20 09:15:36"
+        },
+        {
             "name": "psr/log",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "9e45edca52cc9c954680072c93e621f8b71fab26"
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/9e45edca52cc9c954680072c93e621f8b71fab26",
-                "reference": "9e45edca52cc9c954680072c93e621f8b71fab26",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
                 "shasum": ""
             },
             "require": {
@@ -1296,12 +1346,103 @@
                 }
             ],
             "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
             "keywords": [
                 "log",
                 "psr",
                 "psr-3"
             ],
-            "time": "2015-06-02 13:48:41"
+            "time": "2016-01-06 21:40:42"
+        },
+        {
+            "name": "sofa/hookable",
+            "version": "5.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jarektkaczyk/hookable.git",
+                "reference": "ae87508e072737a602832acdd62272867152c775"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jarektkaczyk/hookable/zipball/ae87508e072737a602832acdd62272867152c775",
+                "reference": "ae87508e072737a602832acdd62272867152c775",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.2.*",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "crysalead/kahlan": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sofa\\Hookable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jarek Tkaczyk",
+                    "email": "jarek@softonsofa.com",
+                    "homepage": "http://softonsofa.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Eloquent hooks system.",
+            "keywords": [
+                "eloquent",
+                "laravel"
+            ],
+            "time": "2016-01-14 21:06:40"
+        },
+        {
+            "name": "suin/php-rss-writer",
+            "version": "1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/suin/php-rss-writer.git",
+                "reference": "96ff59575442dbe23e15fe7ff56d0bf27486cff9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/suin/php-rss-writer/zipball/96ff59575442dbe23e15fe7ff56d0bf27486cff9",
+                "reference": "96ff59575442dbe23e15fe7ff56d0bf27486cff9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Suin\\RSSWriter": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hidehito Nozawa aka Suin",
+                    "email": "suinyeze@gmail.com"
+                }
+            ],
+            "description": "Yet another simple RSS writer library for PHP 5.3 or later.",
+            "homepage": "https://github.com/suin/php-rss-writer",
+            "keywords": [
+                "feed",
+                "generator",
+                "php",
+                "rss",
+                "writer"
+            ],
+            "time": "2015-08-21 06:24:39"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1415,12 +1556,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "c9206b4e785f1b3bf2948ccfafc6620831c69922"
+                "reference": "d7f01c96a4dde264682cf36c28e62086c77a09d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/c9206b4e785f1b3bf2948ccfafc6620831c69922",
-                "reference": "c9206b4e785f1b3bf2948ccfafc6620831c69922",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d7f01c96a4dde264682cf36c28e62086c77a09d4",
+                "reference": "d7f01c96a4dde264682cf36c28e62086c77a09d4",
                 "shasum": ""
             },
             "require": {
@@ -1466,7 +1607,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-01 11:06:21"
+            "time": "2016-01-13 07:16:33"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -1474,12 +1615,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php54.git",
-                "reference": "8c815426034841705584d17a1a21f67193926a1a"
+                "reference": "2fc6510fe668493fe6a6ed6c61e03fea88f0ef6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/8c815426034841705584d17a1a21f67193926a1a",
-                "reference": "8c815426034841705584d17a1a21f67193926a1a",
+                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/2fc6510fe668493fe6a6ed6c61e03fea88f0ef6b",
+                "reference": "2fc6510fe668493fe6a6ed6c61e03fea88f0ef6b",
                 "shasum": ""
             },
             "require": {
@@ -1524,7 +1665,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-01 11:06:21"
+            "time": "2016-01-13 07:16:33"
         },
         {
             "name": "symfony/translation",
@@ -1596,12 +1737,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "38a34b88c3c94f5ad9e2c4e25d9c8ca5fabdceeb"
+                "reference": "c6c8f6195ee77f4e89cafa94f2dc738314349b88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/38a34b88c3c94f5ad9e2c4e25d9c8ca5fabdceeb",
-                "reference": "38a34b88c3c94f5ad9e2c4e25d9c8ca5fabdceeb",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/c6c8f6195ee77f4e89cafa94f2dc738314349b88",
+                "reference": "c6c8f6195ee77f4e89cafa94f2dc738314349b88",
                 "shasum": ""
             },
             "require": {
@@ -1651,7 +1792,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-01-03 15:35:40"
+            "time": "2016-01-14 09:13:44"
         }
     ],
     "packages-dev": [],
@@ -1662,6 +1803,7 @@
         "phpffcms/ffcms-console": 20,
         "phpffcms/ffcms-ckeditor": 20,
         "illuminate/database": 0,
+        "phpffcms/searchable": 0,
         "symfony/http-foundation": 0,
         "maximebf/debugbar": 0,
         "ezyang/htmlpurifier": 0,
@@ -1671,6 +1813,7 @@
         "gregwar/captcha": 0,
         "phpfastcache/phpfastcache": 0,
         "phpffcms/language-flags": 0,
+        "suin/php-rss-writer": 0,
         "bower-asset/jquery": 0,
         "bower-asset/jquery-validation": 0,
         "bower-asset/jquery-ui": 0,

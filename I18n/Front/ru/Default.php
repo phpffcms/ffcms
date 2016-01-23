@@ -27,5 +27,6 @@ return [
     'Contents' => 'Материалы',
     'Content' => 'Материал',
     'Back' => 'Назад',
-    'Native exception catched in view: %path% in line %line%' => 'Обнаружена базовая ошибка в представлении: %path% в линии %line%'
+    'Native exception catched in view: %path% in line %line%' => 'Обнаружена базовая ошибка в представлении: %path% в линии %line%',
+    'Comments' => 'Коментарии'
 ];

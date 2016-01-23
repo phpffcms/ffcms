@@ -6,6 +6,17 @@ use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Serialize;
 
+/**
+ * Class ProfileField. Active record model for additional profile fields management
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property string $type
+ * @property string $name
+ * @property string $reg_exp
+ * @property string $reg_cond
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class ProfileField extends ActiveModel
 {
 

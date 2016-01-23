@@ -4,6 +4,17 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
 
+/**
+ * Class CommentAnswer. Active record model for comments answers list
+ * @package Apps\ActiveRecord
+ * @property int $id
+ * @property int $comment_id
+ * @property int $user_id
+ * @property string $guest_name
+ * @property string $message
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class CommentAnswer extends ActiveModel
 {
 

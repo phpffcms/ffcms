@@ -94,7 +94,7 @@ if (!\App::$Request->isPathInjected()) {
         <div class="row">
             <div class="col-md-12">
                 <?php if ($catConfigs['showPoster'] === true && $item['thumb'] !== null): ?>
-                <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail" alt="<?= __('Poster for') ?>: <?= Str::lowerCase($item['title']) ?>" />
+                <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail hidden-xs" alt="<?= __('Poster for') ?>: <?= Str::lowerCase($item['title']) ?>" />
                 <?php endif; ?>
                 <div itemprop="text articleBody">
                     <?= $item['text'] ?>
@@ -113,7 +113,7 @@ if (!\App::$Request->isPathInjected()) {
             </span>
             <meta itemprop="keywords" content="<?php implode(',', $item['tags']); ?>">
             <?php endif; ?>
-            <span><i class="fa fa-comments"></i>
+            <span class="hidden-xs"><i class="fa fa-comments"></i>
                 <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount">0</span></a>
             </span>
             <span class="pull-right hidden-xs">

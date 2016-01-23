@@ -32,8 +32,7 @@ $this->breadcrumbs = [
 <?= $form->field('galleryResize', 'text', ['class' => 'form-control'], __('Specify maximum size of image in gallery in px')) ?>
 <?= $form->field('gallerySize', 'text', ['class' => 'form-control'], __('Specify maximum image size in gallery in kb. Example: 500 = 0,5 mb')) ?>
 <?= $form->field('keywordsAsTags', 'checkbox', null, __('Display tag list, based on keywords data?')) ?>
-<?= $form->field('rss', 'checkbox', null, __('Display rss line of content add, changes, updates?')) ?>
-<?= $form->field('rssFull', 'checkbox', null, __('Display full text of content in rss line?')) ?>
+<?= $form->field('rss', 'checkbox', null, __('Allow use RSS display for categories where this is enabled?')) ?>
 
 <div class="col-md-9 col-md-offset-3"><?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?></div>
 

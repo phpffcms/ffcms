@@ -52,7 +52,6 @@ $configs->content = serialize([
     'multiCategories' => 1,
     'keywordsAsTags' => 1,
     'rss' => 1,
-    'rssFull' => 0,
     'gallerySize' => 500,
     'galleryResize' => 150
 ]);

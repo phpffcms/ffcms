@@ -14,5 +14,7 @@ return [
     'Content by tag: %tag%' => 'Контент по тегу: %tag%',
     'Category is not founded' => 'Категория не найдена',
     'This category is not available to view' => 'Данный раздел недоступен для просмотра',
-    'Content is not founded' => 'Контент не обнаружен'
+    'Content is not founded' => 'Контент не обнаружен',
+    'Rss feed is disabled for this category' => 'RSS поток запрещен для данной категории',
+    'Similar content' => 'Похожий контент'
 ];
