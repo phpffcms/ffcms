@@ -50,7 +50,7 @@
 <div id="comment-answer-item" class="hidden">
     <div class="row object-lightborder">
         <div class="col-md-2">
-            <img src="http://ffcms3.local/upload/user/avatar/small/default.jpg" alt="avatar" class="img-responsive img-rounded">
+            <img src="<?= \App::$Alias->scriptUrl; ?>/upload/user/avatar/small/default.jpg" alt="avatar" class="img-responsive img-rounded">
         </div>
         <div class="col-md-10">
             <div class="answer-header">

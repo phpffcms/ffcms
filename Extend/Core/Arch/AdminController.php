@@ -144,7 +144,7 @@ class AdminController extends Controller
      */
     public function getConfigs()
     {
-        return $this->type === 'widget' ? (array)Serialize::decode($this->widget->config) : (array)Serialize::decode($this->application->configs);
+        return $this->type === 'widget' ? (array)Serialize::decode($this->widget->configs) : (array)Serialize::decode($this->application->configs);
     }
 
     /**

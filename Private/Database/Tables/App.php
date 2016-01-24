@@ -31,6 +31,15 @@ $configs->profile = serialize([
     'usersOnPage' => 10
 ]);
 
+$configs->comments = serialize([
+    'perPage' => 10,
+    'delay' => 60,
+    'minLength' => 10,
+    'maxLength' => 10,
+    'guestAdd' => 0,
+    'editTime' => 180
+]);
+
 $names->user = serialize([
     'en' => 'User identity',
     'ru' => 'Идентификация пользователя'
@@ -66,5 +75,5 @@ Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->in
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => null, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
+    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
 ]);

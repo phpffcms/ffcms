@@ -167,6 +167,7 @@ class User extends AdminController
         if ($model->send()) {
             if ($model->validate()) {
                 $this->setConfigs($model->getAllProperties());
+                App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
                 App::$Response->redirect('user/index');
             } else {
                 App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
