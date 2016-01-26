@@ -22,8 +22,10 @@ class Comments extends Ckeditor
     {
         parent::display();
 
-        return App::$View->render('widgets/comments/show', [
+        $configs = $this->getConfigs();
 
+        return App::$View->render('widgets/comments/show', [
+            'configs' => $configs
         ]);
     }
 

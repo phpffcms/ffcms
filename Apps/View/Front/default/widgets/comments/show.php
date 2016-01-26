@@ -1,80 +1,84 @@
+<?php
+/** @var array $configs */
+?>
+<!-- Note! You can change this structures any way you like. JS operations based ONLY on ID and "hidden" class -->
+<!-- comments general line -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-comment">
+            <ul class="comments" id="comment-list"></ul>
+        </div>
+        <div id="comment-show-more" class="hidden">
+            <button class="btn btn-block btn-info">Load more (<span id="comment-left-count">85</span> left)</button>
+        </div>
+    </div>
+</div>
+
+<!-- Comment post item structure. -->
+<li class="clearfix hidden" id="comment-structure">
+    <img id="comment-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="avatar" alt="Avatar">
+    <div class="post-comments">
+        <p class="meta">
+            <span id="comment-date">01.01.2016</span> <span id="comment-user-nick"><?= __('Unknown') ?></span>:
+            <i class="pull-right">
+                <a href="#" class="show-comment-answers">
+                    <small><?= __('Answers') ?> (<span id="comment-answer-count">0</span>)</small>
+                </a>
+            </i>
+        </p>
+        <p id="comment-text"><?= __('Loading') . ' ...' ?></p>
+    </div>
+    <div id="comment-answers-0" class="hidden"></div>
+    <div class="row hidden" id="add-replay-to">
+        <div class="col-md-12" style="padding-bottom: 15px;">
+            <div class="pull-right">
+                <a href="#showReplay" class="btn btn-info btn-sm comment-hook-replay" id="replay-to-0">
+                    <i class="fa fa-plus-circle"></i> <?= __('Replay') ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</li>
+
+<!-- comment answer item structure -->
+<ul class="comments hidden" id="comment-answer-item">
+    <li class="clearfix">
+        <img id="answer-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="avatar" alt="avatar">
+        <div class="post-comments">
+            <p class="meta">
+                <span class="answer-date">00.00.00 00-00-00</span>
+                <span id="answer-user-name"><?= __('Unknown') ?></span>:
+            </p>
+            <p id="answer-text"><?= __('Loading') . ' ...' ?></p>
+        </div>
+    </li>
+</ul>
+
+<?php if ((int)$configs['guestAdd'] === 1 || \App::$User->isAuth()): ?>
 <!-- comment form -->
-<form action="" method="post">
-    <input type="hidden" id="comment-response-id" name="comment-response" />
+<form name="comment-add-form" action="" method="post" style="padding-top: 15px;" class="form-horizontal">
+    <input type="hidden" name="replay-to" value="0" />
+    <?php if (!\App::$User->isAuth()): ?>
+    <div class="form-group">
+        <label for="guest-name" class="col-sm-3 control-label"><?= __('Your name') ?>:</label>
+        <div class="col-sm-9">
+            <input id="guest-name" type="text" name="guest-name" class="form-control" placeholder="John" required minlength="3">
+        </div>
+    </div>
+    <?php endif; ?>
     <textarea class="form-control wysi-comments" name="message"></textarea>
 </form>
 <!-- comment send button -->
-<div class="row">
+<div class="row" id="showReplay">
     <div class="col-md-12">
-        <button class="btn btn-success pull-right"><?= __('Send') ?></button>
+        <span class="label label-primary hidden" id="replay-to-text"><?= __('Replay to') ?>:
+            <span id="replay-to-user">user</span>
+            <i class="fa fa-close"></i>
+        </span>
+        <button class="btn btn-success pull-right" id="add-new-comment"><?= __('Send') ?></button>
     </div>
 </div>
-
-<!-- comment list dom element to insert inner -->
-<div id="comment-list"></div>
-
-<!-- comment item structure -->
-<div class="row object-lightborder hidden" id="comment-structure">
-    <div class="col-md-2">
-        <div class="text-center">
-            <img id="comment-user-avatar" class="img-responsive img-rounded" alt="User avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" />
-        </div>
-        <div class="text-center">
-            <span class="label label-success"><i class="fa fa-plus"></i></span>
-            <span class="label label-danger"><i class="fa fa-minus"></i></span>
-        </div>
-    </div>
-    <div class="col-md-10">
-        <h5 style="margin-top: 0;">
-            <i class="fa fa-pencil"></i> <span id="comment-user-nick">Unknown</span>
-            <small class="pull-right" id="comment-date">01.01.2016</small>
-        </h5>
-        <div class="object-text" id="comment-text">
-            <?= __('Loading') . ' ...' ?>
-        </div>
-        <hr style="margin: 5px;" />
-        <div>
-            <i class="fa fa-comment-o"></i>
-            <a href="#" class="show-comment-answers">
-                <?= __('Answers') ?> (<span id="comment-answer-count">0</span>)
-            </a>
-            <a href="#" class="pull-right">
-                <?= __('Delete'); ?>
-            </a>
-        </div>
-        <div id="comment-answers-0" class="hidden"></div>
-    </div>
-</div>
-
-<!-- comment answer item structure -->
-<div id="comment-answer-item" class="hidden">
-    <div class="row object-lightborder">
-        <div class="col-md-2">
-            <img src="<?= \App::$Alias->scriptUrl; ?>/upload/user/avatar/small/default.jpg" alt="avatar" class="img-responsive img-rounded">
-        </div>
-        <div class="col-md-10">
-            <div class="answer-header">
-                <span id="answer-user-name"><?= __('Unknown') ?></span>
-                <small class="pull-right">
-                    <span class="answer-date">00.00.00 00-00-00</span>
-                    <a href="#send-wall-object-1" class="delete-answer" id="delete-answer-2-1"><i class="fa fa-lg fa-times"></i></a>
-                </small>
-            </div>
-            <div id="answer-text"></div>
-        </div>
-    </div>
-</div>
-
-<!-- comment add answer form -->
-<div id="comment-answer-form" class="hidden">
-    <div class="well">
-        <div id="send-wall-object-1"></div>
-        <input type="text" id="make-answer-1" placeholder="Напишите комментарий" class="form-control wall-answer-text" maxlength="200">
-        <a style="margin-top: 5px;" href="#wall-post-1" class="send-wall-answer btn btn-primary btn-sm" id="send-wall-1">Отправить</a>
-        <span class="pull-right" id="answer-counter-1">200</span>
-    </div>
-</div>
-
+<?php endif ?>
 
 <script>
     window.jQ.push(function() {
@@ -88,9 +92,10 @@
             answStructure.removeClass('hidden').removeAttr('id');
             comSendForm.removeClass('hidden').removeAttr('id');
             var targetElem = $('#comment-list');
+            var commentData = [];
             var answersLoaded = [];
 
-            // load answers via JSON and add to current DOM
+            // load comments posts via JSON and add to current DOM
             $.fn.loadCommentList = function() {
                 $.getJSON(script_url+'/api/comments/list/' + comOffset +'?path=' + comPath + '&lang='+script_lang, function (json) {
                     if (json.status !== 1) {
@@ -98,6 +103,7 @@
                     }
                     // if json response is done lets foreach rows
                     $.each(json.data, function(index,row) {
+                        commentData[row.id] = row;
                         // create clone of comment structure
                         var commentDom = comStructure.clone();
                         // set comment text
@@ -114,6 +120,8 @@
                         commentDom.find('#comment-answer-count').text(row.answers).attr('id', 'comment-answer-count-'+row.id);
                         // set id for row
                         commentDom.attr('id', 'comment-item-'+row.id);
+                        // set id for answer add
+                        commentDom.find('#replay-to-0').attr('id', 'replay-to-'+row.id);
                         // set date, remove id
                         commentDom.find('#comment-date').text(row.date).removeAttr('id');
                         // set data for load answers - id, anchor
@@ -126,8 +134,14 @@
                         commentDom.find('#comment-answers-0').attr('id', 'comment-answers-' + row.id);
 
                         // append or prepend data to general dom element
-                        targetElem.append(commentDom);
+                        targetElem.append(commentDom.show('slow'));
                     });
+
+                    if (json.leftCount > 0) {
+                        $('#comment-show-more').removeClass('hidden').find('#comment-left-count').text(json.leftCount);
+                    } else {
+                        $('#comment-show-more').addClass('hidden');
+                    }
                 });
                 // increase offset
                 comOffset++;
@@ -137,6 +151,7 @@
                 var targetElement = $('#comment-answers-' + comId);
                 if (answersLoaded[comId] === true) {
                     targetElement.toggle('slow');
+                    targetElement.parent().find('#add-replay-to').toggle('slow');
                     return null;
                 }
                 // load data via jquery-json
@@ -154,16 +169,18 @@
                         if (row.user.id > 0) { // registered user, link required
                             var userLink = $('<a></a>').attr('href', site_url + '/profile/show/'+row.user.id).text(row.user.name);
                             ansDom.find('#answer-user-name').html(userLink).removeAttr('id');
+                            ansDom.find('#answer-user-avatar').attr('src', row.user.avatar).removeAttr('id');
                         } else { // its a guest, display only nickname
                             ansDom.find('#answer-user-name').text(row.user.name).removeAttr('id');
                         }
 
+                        // append to target comment post
                         targetElement.append(ansDom);
-
-                        // make visible
-                        targetElement.removeClass('hidden');
+                        // make item visible
+                        targetElement.hide().removeClass('hidden').show('slow');
                         // save marker
                         answersLoaded[comId] = true;
+                        targetElement.parent().find('#add-replay-to').hide().removeClass('hidden').show('slow');
                     });
                 });
             };
@@ -171,11 +188,49 @@
             // load first N comments
             $.fn.loadCommentList();
 
+            $('#comment-show-more').on('click', function(){
+                $.fn.loadCommentList();
+            });
+
+            // show answers for comment
             $(document).on('click', '.show-comment-answers', function(){
                 var comId = this.id.replace('comment-id-', '');
                 if (comId > 0)
                     $.fn.loadAnswerList(comId);
             });
+
+            // add 'replayTo' field for sending form
+            $(document).on('click', '.comment-hook-replay', function(){
+                var comId = this.id.replace('replay-to-', '');
+                if (comId > 0) {
+                    // set hidden value
+                    $('form[name="comment-add-form"]').find('input[name="replay-to"]').val(comId);
+                    // find comment with current id
+                    var comUser = commentData[comId].user.name;
+                    var comHtml = $('#replay-to-text');
+                    // show label
+                    comHtml.find('#replay-to-user').text(comUser);
+                    comHtml.hide().removeClass('hidden').show('slow');
+                }
+            });
+
+            // remove replayTo field after cancel click
+            $(document).on('click', '#replay-to-text', function(){
+                // unset replay to field
+                $('form[name=comment-add-form]').find('input[name=replay-to]').val(0);
+                // remove label
+                $(this).toggle('slow');
+            });
+
+            // listen click on "add comment" button
+            $('#add-new-comment').on('click', function(){
+                var formData = $('form[name="comment-add-form"]');
+
+                $.post(script_url+'/api/comments/add?lang='+script_lang, formData.serialize()).done(function(res){
+                    console.log(res);
+                });
+            });
+
         });
     });
 </script>

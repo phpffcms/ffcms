@@ -182,7 +182,8 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
 <?php if ($showComments === true): ?>
 <div class="row">
     <div class="col-md-12">
-        <h3><?= __('Comments') ?></h3>
+        <div class="h3 text-success"><?= __('Comments') ?></div>
+        <hr />
         <?= \Widgets\Front\Comments\Comments::widget(['targetClass' => 'wysi-comments', 'config' => 'config-small']); ?>
     </div>
 </div>

@@ -173,6 +173,7 @@ use Ffcms\Core\Helper\Type\Obj;
 </script>
 <script>
     // notification function for user pm count block (class="pm-count-block")
+    var loadPmInterval = false;
     function ajaxNotifyPm() {
         $.getJSON(script_url+'/api/profile/messagesnewcount?lang='+script_lang, function(resp){
             if (resp.status === 1) {
@@ -182,14 +183,16 @@ use Ffcms\Core\Helper\Type\Obj;
                 } else {
                     block.removeClass('alert-danger', 1000).html(resp.count);
                 }
+            } else if (loadPmInterval !== false) { // remove autorefresh
+                clearInterval(loadPmInterval);
             }
         });
     }
     $(function(){
         // instantly run counter
         ajaxNotifyPm();
-        // run every 5 seconds
-        setInterval('ajaxNotifyPm()', 5000);
+        // make autorefresh every 5 seconds
+        loadPmInterval = setInterval('ajaxNotifyPm()', 5000);
     });
 </script>
 <?php

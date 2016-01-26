@@ -100,6 +100,23 @@ class App extends ActiveModel
     }
 
     /**
+     * Get single config value by ext type, ext name and config key
+     * @param string $type
+     * @param string $name
+     * @param string $configKey
+     * @return null
+     */
+    public static function getConfig($type, $name, $configKey)
+    {
+        $configs = self::getConfigs($type, $name);
+        if (isset($configs[$configKey])) {
+            return $configs[$configKey];
+        }
+
+        return null;
+    }
+
+    /**
      * Get localized application name
      * @return string
      * @throws SyntaxException

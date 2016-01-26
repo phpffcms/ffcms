@@ -76,6 +76,9 @@ div.content-container {
     div.body-container {min-height: 500px;}
     .object-text {min-height: 40px;}
     .image_poster {float: left; margin: 0 5px;}
+    .text-center > img {
+        margin: 0 auto;
+    }
 }
 /** Mobile device styles */
 @media (max-width: 768px) {
@@ -243,4 +246,69 @@ label.error {
 .image-item {
     height: 100px;
     margin: 0 auto;
+}
+
+/** Comment styles */
+.page-comment::before,
+.page-comment::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.page-comment ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+.page-comment img{
+    opacity: 1;
+    filter: Alpha(opacity=100);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.page-comment img.avatar {
+    position: relative;
+    float: left;
+    margin-left: 0;
+    margin-top: 0;
+    width: 65px;
+    height: 65px;
+}
+
+.page-comment .post-comments{
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    margin-left: 85px;
+    margin-right: 0;
+    padding: 10px 20px;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    background: #fff;
+    color: #6b6e80;
+}
+
+.page-comment .meta {
+    font-size: 13px;
+    color: #aaaaaa;
+    padding-bottom: 8px;
+    margin-bottom: 10px !important;
+    border-bottom: 1px solid #eee;
+}
+
+.page-comment ul.comments ul{
+    list-style-type: none;
+    padding: 0;
+    margin-left: 85px;
+}
+
+.page-comment a:not(.btn) {
+    color: #82b440;
+    text-decoration: none;
 }

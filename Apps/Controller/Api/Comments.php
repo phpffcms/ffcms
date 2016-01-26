@@ -4,6 +4,7 @@ namespace Apps\Controller\Api;
 
 use Apps\ActiveRecord\CommentPost;
 use Apps\ActiveRecord\CommentAnswer;
+use Apps\ActiveRecord\App as AppRecord;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\JsonException;
@@ -15,12 +16,15 @@ class Comments extends ApiController
 {
     const ITEM_PER_PAGE = 10;
 
-    public function actionList($offset)
+    public function actionList($index)
     {
         // set header
         $this->setJsonHeader();
+        // get config count per page
+        $perPage = (int)AppRecord::getConfig('widget', 'Comments', 'perPage');
         // offset can be only integer
-        $offset = (int)$offset;
+        $index = (int)$index;
+        $offset = $perPage * $index;
         // get comment target path and check
         $path = (string)App::$Request->query->get('path');
         if (Str::likeEmpty($path)) {
@@ -29,8 +33,9 @@ class Comments extends ApiController
 
         // select comments from db and check it
         $records = CommentPost::where('pathway', '=', $path)
-            ->skip($offset * self::ITEM_PER_PAGE)
-            ->take(self::ITEM_PER_PAGE);
+            ->skip($offset)
+            ->take($perPage)
+            ->get();
 
         if ($records->count() < 1) {
             throw new JsonException('No comments is found');
@@ -38,7 +43,7 @@ class Comments extends ApiController
 
         // build output json data as array
         $data = [];
-        foreach ($records->get() as $comment) {
+        foreach ($records as $comment) {
             // comment can be passed from registered user (with unique ID) or from guest (without ID)
             $userName = __('Unknown');
             $userAvatar = App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
@@ -66,9 +71,17 @@ class Comments extends ApiController
             ];
         }
 
+        // calculate comments left count
+        $count = CommentPost::where('pathway', '=', $path)->count();
+        $count -= $offset + $perPage;
+        if ($count < 0) {
+            $count = 0;
+        }
+
         return json_encode([
             'status' => 1,
-            'data' => $data
+            'data' => $data,
+            'leftCount' => $count
         ]);
     }
 
