@@ -312,3 +312,8 @@ label.error {
     color: #82b440;
     text-decoration: none;
 }
+
+.page-comment blockquote {
+    font-size: 11px;
+    background-color: #f8f8f8;
+}

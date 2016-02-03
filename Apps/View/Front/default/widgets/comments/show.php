@@ -6,7 +6,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="page-comment">
-            <ul class="comments" id="comment-list"></ul>
+            <ul class="comments" id="comment-list">
+                <li class="hidden" id="load-comments"></li>
+            </ul>
         </div>
         <div id="comment-show-more" class="hidden">
             <button class="btn btn-block btn-info">Load more (<span id="comment-left-count">85</span> left)</button>
@@ -46,7 +48,7 @@
         <img id="answer-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="avatar" alt="avatar">
         <div class="post-comments">
             <p class="meta">
-                <span class="answer-date">00.00.00 00-00-00</span>
+                <span id="answer-date">00.00.00 00-00-00</span>
                 <span id="answer-user-name"><?= __('Unknown') ?></span>:
             </p>
             <p id="answer-text"><?= __('Loading') . ' ...' ?></p>
@@ -58,11 +60,12 @@
 <!-- comment form -->
 <form name="comment-add-form" action="" method="post" style="padding-top: 15px;" class="form-horizontal">
     <input type="hidden" name="replay-to" value="0" />
+    <input type="hidden" name="pathway" value="<?= \App::$Request->getPathInfo() ?>" />
     <?php if (!\App::$User->isAuth()): ?>
     <div class="form-group">
         <label for="guest-name" class="col-sm-3 control-label"><?= __('Your name') ?>:</label>
         <div class="col-sm-9">
-            <input id="guest-name" type="text" name="guest-name" class="form-control" placeholder="John" required minlength="3">
+            <input id="guest-name" type="text" name="guest-name" class="form-control" placeholder="John" required>
         </div>
     </div>
     <?php endif; ?>
@@ -95,46 +98,80 @@
             var commentData = [];
             var answersLoaded = [];
 
+            $.fn.buildCommentDOM = function (data) {
+                // comment is always loaded (can be ajax-add from user in after position or something else)
+                if (data.id in commentData) {
+                    $('#comment-item-'+data.id).remove();
+                }
+                commentData[data.id] = data;
+                // create clone of comment structure
+                var commentDom = comStructure.clone();
+                // set comment text
+                commentDom.find('#comment-text').html(data.text);
+                // working around user data, prepare display
+                if (data.user.id > 0) {
+                    commentDom.find('#comment-user-avatar').attr('src', data.user.avatar).removeAttr('id');
+                    var userLink = $('<a></a>').attr('href', site_url + '/profile/show/'+data.user.id).text(data.user.name);
+                    commentDom.find('#comment-user-nick').html(userLink);
+                } else {
+                    commentDom.find('#comment-user-nick').text(data.user.name);
+                }
+                // set answers count for this comment post
+                commentDom.find('#comment-answer-count').text(data.answers).attr('id', 'comment-answer-count-'+data.id);
+                // set id for row
+                commentDom.attr('id', 'comment-item-'+data.id);
+                // set id for answer add
+                commentDom.find('#replay-to-0').attr('id', 'replay-to-'+data.id);
+                // set date, remove id
+                commentDom.find('#comment-date').text(data.date).removeAttr('id');
+                // set data for load answers - id, anchor
+                commentDom.find('.show-comment-answers').attr('href', '#comment-item-'+data.id).attr('id', 'comment-id-'+data.id);
+
+                // remove duplicate id attribute
+                commentDom.find('#comment-user-nick').removeAttr('id');
+
+                // set answers anchor with id
+                commentDom.find('#comment-answers-0').attr('id', 'comment-answers-' + data.id);
+
+                return commentDom;
+            };
+
+            $.fn.buildAnswerDOM = function (data) {
+                var ansDom = answStructure.clone();
+                ansDom.find('#answer-text').html(data.text).removeAttr('id');
+
+                if (data.user.id > 0) { // registered user, link required
+                    var userLink = $('<a></a>').attr('href', site_url + '/profile/show/'+data.user.id).text(data.user.name);
+                    ansDom.find('#answer-user-name').html(userLink).removeAttr('id');
+                    ansDom.find('#answer-user-avatar').attr('src', data.user.avatar).removeAttr('id');
+                } else { // its a guest, display only nickname
+                    ansDom.find('#answer-user-name').text(data.user.name).removeAttr('id');
+                }
+
+                // set date
+                ansDom.find('#answer-date').text(data.date).removeAttr('id');
+
+                return ansDom;
+            };
+
             // load comments posts via JSON and add to current DOM
             $.fn.loadCommentList = function() {
                 $.getJSON(script_url+'/api/comments/list/' + comOffset +'?path=' + comPath + '&lang='+script_lang, function (json) {
                     if (json.status !== 1) {
+                        var errorNotify = $('<p></p>').text(json.message).attr('id', 'comments-empty-notify');
+                        targetElem.append(errorNotify);
                         return null;
                     }
+
+                    // remove error notifications
+                    targetElem.find('#comments-empty-notify').remove();
+
                     // if json response is done lets foreach rows
                     $.each(json.data, function(index,row) {
-                        commentData[row.id] = row;
-                        // create clone of comment structure
-                        var commentDom = comStructure.clone();
-                        // set comment text
-                        commentDom.find('#comment-text').html(row.text);
-                        // working aroud user data, prepare display
-                        if (row.user.id > 0) {
-                            commentDom.find('#comment-user-avatar').attr('src', row.user.avatar).removeAttr('id');
-                            var userLink = $('<a></a>').attr('href', site_url + '/profile/show/'+row.user.id).text(row.user.name);
-                            commentDom.find('#comment-user-nick').html(userLink);
-                        } else {
-                            commentDom.find('#comment-user-nick').text(row.user.name);
-                        }
-                        // set answers count for this comment post
-                        commentDom.find('#comment-answer-count').text(row.answers).attr('id', 'comment-answer-count-'+row.id);
-                        // set id for row
-                        commentDom.attr('id', 'comment-item-'+row.id);
-                        // set id for answer add
-                        commentDom.find('#replay-to-0').attr('id', 'replay-to-'+row.id);
-                        // set date, remove id
-                        commentDom.find('#comment-date').text(row.date).removeAttr('id');
-                        // set data for load answers - id, anchor
-                        commentDom.find('.show-comment-answers').attr('href', '#comment-item-'+row.id).attr('id', 'comment-id-'+row.id);
-
-                        // remove duplicate id attribute
-                        commentDom.find('#comment-user-nick').removeAttr('id');
-
-                        // set answers anchor with id
-                        commentDom.find('#comment-answers-0').attr('id', 'comment-answers-' + row.id);
-
-                        // append or prepend data to general dom element
-                        targetElem.append(commentDom.show('slow'));
+                        // add comment to document DOM model
+                        var domHtmlComment = $.fn.buildCommentDOM(row);
+                        // find current hidden selector and add data before it
+                        targetElem.find('#load-comments').before(domHtmlComment.show('slow'));
                     });
 
                     if (json.leftCount > 0) {
@@ -156,26 +193,20 @@
                 }
                 // load data via jquery-json
                 $.getJSON(script_url + '/api/comments/showanswers/' + comId + '?lang='+script_lang, function(json){
-                    // status != 1 sounds like fail query
                     if (json.status !== 1) {
+                        targetElement.parent().find('#add-replay-to').hide().removeClass('hidden').show('slow');
                         return null;
                     }
 
                     // foreach response content and prepare output html container
                     $.each(json.data, function(idx,row){
-                        var ansDom = answStructure.clone();
-                        ansDom.find('#answer-text').text(row.text).removeAttr('id');
-
-                        if (row.user.id > 0) { // registered user, link required
-                            var userLink = $('<a></a>').attr('href', site_url + '/profile/show/'+row.user.id).text(row.user.name);
-                            ansDom.find('#answer-user-name').html(userLink).removeAttr('id');
-                            ansDom.find('#answer-user-avatar').attr('src', row.user.avatar).removeAttr('id');
-                        } else { // its a guest, display only nickname
-                            ansDom.find('#answer-user-name').text(row.user.name).removeAttr('id');
+                        if (row == null) {
+                            return null;
                         }
+                        var domHtmlAnswer = $.fn.buildAnswerDOM(row);
 
                         // append to target comment post
-                        targetElement.append(ansDom);
+                        targetElement.append(domHtmlAnswer);
                         // make item visible
                         targetElement.hide().removeClass('hidden').show('slow');
                         // save marker
@@ -227,9 +258,36 @@
                 var formData = $('form[name="comment-add-form"]');
 
                 $.post(script_url+'/api/comments/add?lang='+script_lang, formData.serialize()).done(function(res){
-                    console.log(res);
+                    // comment post is successful added
+                    if (res.status === 1) {
+                        // its a new comment post item
+                        if (res.data.type === 'post') {
+                            var domHtmlComment = $.fn.buildCommentDOM(res.data);
+                            formData.trigger('reset');
+                            $.fn.ckCleanup();
+                            // remove error notifications
+                            targetElem.find('#comments-empty-notify').remove();
+                            // add comment dom content element
+                            targetElem.find('#load-comments').after(domHtmlComment);
+                        } else if (res.data.type === 'answer') { // looks like a new answer to comment post item
+                            var domHtmlAnswer = $.fn.buildAnswerDOM(res.data);
+                            var targetCommentDom = $('#comment-answers-' + res.data.comment_id);
+                            formData.trigger('reset');
+                            $.fn.ckCleanup();
+                            targetCommentDom.append(domHtmlAnswer).hide().removeClass('hidden').show('slow');
+                        }
+                    } else {
+                        alert(res.message);
+                    }
                 });
             });
+
+            $.fn.ckCleanup = function () {
+                for (var ckInstance in CKEDITOR.instances ) {
+                    CKEDITOR.instances[ckInstance].updateElement();
+                    CKEDITOR.instances[ckInstance].setData('');
+                }
+            };
 
         });
     });

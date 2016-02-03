@@ -5,6 +5,10 @@ namespace Apps\Controller\Api;
 use Apps\ActiveRecord\CommentPost;
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\App as AppRecord;
+use Apps\Model\Api\Comments\CommentAdd;
+use Apps\Model\Api\Comments\CommentAnswerAdd;
+use Apps\Model\Api\Comments\CommentPostAdd;
+use Apps\Model\Api\Comments\EntityCommentData;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\JsonException;
@@ -15,6 +19,42 @@ use Ffcms\Core\Helper\Type\Str;
 class Comments extends ApiController
 {
     const ITEM_PER_PAGE = 10;
+
+    public function actionAdd()
+    {
+        $this->setJsonHeader();
+        $configs = AppRecord::getConfigs('widget', 'Comments');
+
+        $replayTo = (int)App::$Request->request->get('replay-to');
+        $model = null;
+        // check if its a answer (comment answer type)
+        if ($replayTo > 0) {
+            $model = new CommentAnswerAdd($configs);
+            $model->replayTo = $replayTo;
+        } else { // sounds like new comment row
+            $model = new CommentPostAdd($configs);
+            $model->pathway = App::$Security->strip_tags(App::$Request->request->get('pathway'));
+        }
+
+        // pass general comment params to model
+        $model->message = App::$Security->secureHtml((string)App::$Request->request->get('message'));
+        $model->guestName = App::$Security->strip_tags(App::$Request->request->get('guest-name'));
+
+        // check model conditions before add new row
+        if ($model === null || !$model->check()) {
+            throw new JsonException('Unknown error');
+        }
+
+        // add comment post or answer to database and get response active record row
+        $record = $model->buildRecord();
+        // pass row to entity builder model
+        $response = new EntityCommentData($record);
+
+        return json_encode([
+            'status' => 1,
+            'data' => $response->make() // build row to standard format
+        ]);
+    }
 
     public function actionList($index)
     {
@@ -38,37 +78,18 @@ class Comments extends ApiController
             ->get();
 
         if ($records->count() < 1) {
-            throw new JsonException('No comments is found');
+            throw new JsonException(__('There is no comments found yet. You can be the first!'));
         }
 
         // build output json data as array
         $data = [];
         foreach ($records as $comment) {
-            // comment can be passed from registered user (with unique ID) or from guest (without ID)
-            $userName = __('Unknown');
-            $userAvatar = App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
-            $userObject = $comment->getUser();
-            if ($userObject !== null) {
-                $userName = $userObject->getProfile()->nick;
-                $userAvatar = $userObject->getProfile()->getAvatarUrl('small');
-            } else {
-                if (!Str::likeEmpty($comment->guest_name)) {
-                    $userName = App::$Security->strip_tags($comment->guest_name);
-                }
-            }
+            // prepare specified data to output response, based on entity model
+            $commentResponse = new EntityCommentData($comment);
 
             // build output json data
-            $data[] = [
-                'id' => $comment->id,
-                'text' => $comment->message,
-                'date' => Date::convertToDatetime($comment->created_at, Date::FORMAT_TO_HOUR),
-                'user' => [
-                    'id' => $comment->user_id,
-                    'name' => $userName,
-                    'avatar' => $userAvatar
-                ],
-                'answers' => $comment->getAnswerCount()
-            ];
+            $data[] = $commentResponse->make();
+            $commentResponse = null;
         }
 
         // calculate comments left count
@@ -95,36 +116,14 @@ class Comments extends ApiController
         // get data from db by comment id
         $records = CommentAnswer::where('comment_id', '=', $commentId);
         if ($records->count() < 1) {
-            throw new JsonException('No answers for comment is founded');
+            throw new JsonException(__('No answers for comment is founded'));
         }
 
         // prepare output
         $response = [];
         foreach ($records->get() as $row) {
-            $userInstance = $row->getUser();
-            $userName = __('Unknown');
-            $userAvatar = App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
-            if ($userInstance !== null) {
-                if (!Str::likeEmpty($userInstance->getProfile()->nick)) {
-                    $userName = $userInstance->getProfile()->nick;
-                }
-                $userAvatar = $userInstance->getProfile()->getAvatarUrl('small');
-            } else {
-                if (!Str::likeEmpty($row->guest_name)) {
-                    $userName = App::$Security->strip_tags($row->guest_name);
-                }
-            }
-
-            $response[] = [
-                'id' => $row->id,
-                'text' => $row->message,
-                'date' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_HOUR),
-                'user' => [
-                    'id' => $row->user_id,
-                    'name' => $userName,
-                    'avatar' => $userAvatar
-                ]
-            ];
+            $commentAnswer = new EntityCommentData($row);
+            $response[] = $commentAnswer->make();
         }
 
         return json_encode([

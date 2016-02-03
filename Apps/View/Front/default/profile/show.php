@@ -84,7 +84,7 @@ $this->breadcrumbs = [
         if (true === $isSelf) {
             $userMenu = [
                 ['type' => 'link', 'link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Avatar'), 'html' => true],
-                ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
+                ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
                 ['type' => 'link', 'link' => ['profile/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]
             ];
         } elseif (\App::$User->isAuth()) {

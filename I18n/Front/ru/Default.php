@@ -28,5 +28,11 @@ return [
     'Content' => 'Материал',
     'Back' => 'Назад',
     'Native exception catched in view: %path% in line %line%' => 'Обнаружена базовая ошибка в представлении: %path% в линии %line%',
-    'Comments' => 'Коментарии'
+    'Arguments for method %method% is not enough. Expected: %required%, got: %current%.' => 'Недостаточно аргументов для метода %method%. Ожидалось: %required%, получено: %current%.',
+    'Comments' => 'Коментарии',
+    'Loading' => 'Загрузка',
+    'Unknown' => 'Аноним',
+    'Answers' => 'Ответы',
+    'Replay to' => 'Ответить',
+    'Replay' => 'Ответить'
 ];

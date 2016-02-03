@@ -12,6 +12,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property int $user_id
  * @property string $guest_name
  * @property string $message
+ * @property string $ip
  * @property string $created_at
  * @property string $updated_at
  */

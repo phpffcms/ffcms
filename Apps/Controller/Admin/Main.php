@@ -8,6 +8,8 @@ use Apps\Model\Admin\Main\FormSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\Environment;
+use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Integer;
@@ -27,8 +29,29 @@ class Main extends AdminController
      */
     public function actionIndex()
     {
-        return App::$View->render('index', [
+        // cache some data
+        $rootSize = App::$Cache->get('root.size');
+        if ($rootSize === null) {
+            $rootSize = round(Directory::getSize('/') / (1024*1000), 2) . ' mb';
+            App::$Cache->set('root.size', $rootSize, 60 * 60 * 24); // 24 hours caching
+        }
+        $loadAvg = App::$Cache->get('load.average');
+        if ($loadAvg === null) {
+            $loadAvg = Environment::loadAverage();
+            App::$Cache->set('load.average', $loadAvg, 60*2); // 2 min cache
+        }
 
+        $stats = [
+            'ff_version' => App::$Properties->version['num'] . ' (' . App::$Properties->version['date'] . ')',
+            'php_version' => Environment::phpVersion() . ' (' . Environment::phpSAPI() . ')',
+            'os_name' => Environment::osName(),
+            'database_name' => App::$Database->connection()->getDatabaseName() . ' (' . App::$Database->connection()->getDriverName() . ')',
+            'file_size' => $rootSize,
+            'load_avg' => $loadAvg
+        ];
+
+        return App::$View->render('index', [
+            'stats' => $stats
         ]);
     }
 

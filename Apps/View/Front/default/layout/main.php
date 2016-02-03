@@ -38,18 +38,18 @@ use Ffcms\Core\Helper\Type\Obj;
         if (\App::$User->isAuth()) {
             $userId = \App::$User->identity()->getId();
             $accountPanel = [
-                ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => '<i class="fa fa-user"></i> ' . __('Profile'), 'html' => true],
-                ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
-                ['type' => 'link', 'link' => ['user/logout'], 'text' => '<i class="fa fa-user-secret"></i> ' . __('Logout'), 'html' => true]
+                ['type' => 'link', 'link' => ['profile/show', $userId], 'text' => '<i class="fa fa-user"></i> ' . __('Profile'), 'html' => true, '!secure' => true],
+                ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true, '!secure' => true],
+                ['type' => 'link', 'link' => ['user/logout'], 'text' => '<i class="fa fa-user-secret"></i> ' . __('Logout'), 'html' => true, '!secure' => true]
             ];
 
             if (\App::$User->identity()->getRole()->can('Admin/Main/Index')) {
-                $accountPanel[] = ['type' => 'link', 'link' => \App::$Alias->scriptUrl . '/admin/', 'text' => '<i class="fa fa-cogs"></i> Admin', 'html' => true];
+                $accountPanel[] = ['type' => 'link', 'link' => \App::$Alias->scriptUrl . '/admin/', 'text' => '<i class="fa fa-cogs"></i> Admin', 'html' => true, '!secure' => true];
             }
         } else {
             $accountPanel = [
-                ['type' => 'link', 'link' => ['user/login'], 'text' => '<i class="fa fa-sign-in"></i> ' . __('Sign in'), 'html' => true],
-                ['type' => 'link', 'link' => ['user/signup'], 'text' => '<i class="fa fa-check-square-o"></i> ' . __('Sign up'), 'html' => true]
+                ['type' => 'link', 'link' => ['user/login'], 'text' => '<i class="fa fa-sign-in"></i> ' . __('Sign in'), 'html' => true, '!secure' => true],
+                ['type' => 'link', 'link' => ['user/signup'], 'text' => '<i class="fa fa-check-square-o"></i> ' . __('Sign up'), 'html' => true, '!secure' => true]
             ];
         }
 
@@ -76,7 +76,7 @@ use Ffcms\Core\Helper\Type\Obj;
         <!-- text logo -->
         <div class="col-md-7">
             <div class="site-name">
-                <?= \Ffcms\Core\Helper\Url::link(['/'], 'Website header'); ?>
+                <?= \Ffcms\Core\Helper\Url::link(['/'], 'FFCMS Demo'); ?>
             </div>
             <p>Some website short description there!</p>
         </div>
