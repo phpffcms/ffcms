@@ -256,7 +256,7 @@ label.error {
     clear: both;
 }
 
-.page-comment ul{
+.page-comment ul {
     list-style-type: none;
     padding: 0;
 }
@@ -302,13 +302,13 @@ label.error {
     border-bottom: 1px solid #eee;
 }
 
-.page-comment ul.comments ul{
+.page-comment ul.comments ul {
     list-style-type: none;
     padding: 0;
     margin-left: 85px;
 }
 
-.page-comment a:not(.btn) {
+.page-comment .meta a {
     color: #82b440;
     text-decoration: none;
 }
@@ -316,4 +316,9 @@ label.error {
 .page-comment blockquote {
     font-size: 11px;
     background-color: #f8f8f8;
+}
+
+.comment-text ul {
+    list-style-type: circle !important;
+    margin-left: 40px !important;
 }

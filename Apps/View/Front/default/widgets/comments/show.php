@@ -28,7 +28,7 @@
                 </a>
             </i>
         </p>
-        <p id="comment-text"><?= __('Loading') . ' ...' ?></p>
+        <p id="comment-text" class="comment-text"><?= __('Loading') . ' ...' ?></p>
     </div>
     <div id="comment-answers-0" class="hidden"></div>
     <div class="row hidden" id="add-replay-to">
@@ -107,7 +107,7 @@
                 // create clone of comment structure
                 var commentDom = comStructure.clone();
                 // set comment text
-                commentDom.find('#comment-text').html(data.text);
+                commentDom.find('#comment-text').html(data.text).removeAttr('id');
                 // working around user data, prepare display
                 if (data.user.id > 0) {
                     commentDom.find('#comment-user-avatar').attr('src', data.user.avatar).removeAttr('id');
