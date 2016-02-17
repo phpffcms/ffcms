@@ -15,7 +15,7 @@ class FormSettings extends Model
     public $minLength;
     public $maxLength;
     public $guestAdd;
-    public $editTime;
+    public $onlyLocale;
 
     private $_configs;
 
@@ -52,7 +52,7 @@ class FormSettings extends Model
             'minLength' => __('Minimal length'),
             'maxLength' => __('Maximum length'),
             'guestAdd' => __('Guest add'),
-            'editTime' => __('Edit time')
+            'onlyLocale' => __('Only locale')
         ];
     }
 
@@ -62,9 +62,9 @@ class FormSettings extends Model
     public function rules()
     {
         return [
-            [['perPage', 'delay', 'minLength', 'maxLength', 'guestAdd', 'editTime'], 'required'],
-            [['minLength', 'maxLength', 'delay', 'perPage', 'editTime'], 'int'],
-            ['guestAdd', 'in', ['0', '1']]
+            [['perPage', 'delay', 'minLength', 'maxLength', 'guestAdd', 'onlyLocale'], 'required'],
+            [['minLength', 'maxLength', 'delay', 'perPage', 'onlyLocale'], 'int'],
+            [['guestAdd', 'onlyLocale'], 'in', ['0', '1']]
         ];
     }
 }

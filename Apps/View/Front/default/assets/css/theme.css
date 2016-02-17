@@ -322,3 +322,7 @@ label.error {
     list-style-type: circle !important;
     margin-left: 40px !important;
 }
+.comment-text {
+    overflow: auto;
+    max-height: 250px;
+}

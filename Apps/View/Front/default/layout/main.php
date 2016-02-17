@@ -158,7 +158,7 @@ use Ffcms\Core\Helper\Type\Obj;
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p>Copyright &copy 2015. Powered on <a href="https://ffcms.org" target="_blank">ffcms</a>.</p>
+                <p>Copyright &copy; 2015. Powered on <a href="https://ffcms.org" target="_blank">ffcms</a>.</p>
             </div>
         </div>
     </div>

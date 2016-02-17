@@ -5,21 +5,26 @@ namespace Apps\Controller\Api;
 use Apps\ActiveRecord\CommentPost;
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\App as AppRecord;
-use Apps\Model\Api\Comments\CommentAdd;
 use Apps\Model\Api\Comments\CommentAnswerAdd;
 use Apps\Model\Api\Comments\CommentPostAdd;
 use Apps\Model\Api\Comments\EntityCommentData;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\JsonException;
-use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class Comments. View and add comments and answers via json based ajax query's
+ * @package Apps\Controller\Api
+ */
 class Comments extends ApiController
 {
-    const ITEM_PER_PAGE = 10;
-
+    /**
+     * Add comment or answer via ajax.
+     * @return string
+     * @throws JsonException
+     */
     public function actionAdd()
     {
         $this->setJsonHeader();
@@ -56,12 +61,20 @@ class Comments extends ApiController
         ]);
     }
 
+    /**
+     * List comments as json object with defined offset index
+     * @param int $index
+     * @return string
+     * @throws JsonException
+     */
     public function actionList($index)
     {
         // set header
         $this->setJsonHeader();
-        // get config count per page
-        $perPage = (int)AppRecord::getConfig('widget', 'Comments', 'perPage');
+        // get configs
+        $configs = AppRecord::getConfigs('widget', 'Comments');
+        // items per page
+        $perPage = (int)$configs['perPage'];
         // offset can be only integer
         $index = (int)$index;
         $offset = $perPage * $index;
@@ -72,11 +85,19 @@ class Comments extends ApiController
         }
 
         // select comments from db and check it
-        $records = CommentPost::where('pathway', '=', $path)
-            ->skip($offset)
+        $query = CommentPost::where('pathway', '=', $path);
+
+        // check if comments is depend of language locale
+        if ((int)$configs['onlyLocale'] === 1) {
+            $query = $query->where('lang', '=', App::$Request->getLanguage());
+        }
+
+        // get comments with offset and limit
+        $records = $query->skip($offset)
             ->take($perPage)
             ->get();
 
+        // check if records is not empty
         if ($records->count() < 1) {
             throw new JsonException(__('There is no comments found yet. You can be the first!'));
         }
@@ -106,6 +127,12 @@ class Comments extends ApiController
         ]);
     }
 
+    /**
+     * List answers by comment id as json object
+     * @param int $commentId
+     * @return string
+     * @throws JsonException
+     */
     public function actionShowanswers($commentId)
     {
         // check input data
@@ -113,8 +140,16 @@ class Comments extends ApiController
             throw new JsonException('Input data is incorrect');
         }
 
+        // get configs
+        $configs = AppRecord::getConfigs('widget', 'Comments');
+
         // get data from db by comment id
         $records = CommentAnswer::where('comment_id', '=', $commentId);
+        if ((int)$configs['onlyLocale'] === 1) {
+            $records = $records->where('lang', '=', App::$Request->getLanguage());
+        }
+
+        // check objects count
         if ($records->count() < 1) {
             throw new JsonException(__('No answers for comment is founded'));
         }

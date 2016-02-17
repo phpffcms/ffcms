@@ -6,6 +6,7 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Obj;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iProfile;
 use Ffcms\Core\App as MainApp;
 
@@ -81,6 +82,20 @@ class Profile extends ActiveModel implements iProfile
         }
 
         return MainApp::$Alias->scriptUrl . $default;
+    }
+
+    /**
+     * Get user nickname. If is empty - return 'id+userId'
+     * @return string
+     */
+    public function getNickname()
+    {
+        $userNick = $this->nick;
+        if ($userNick === null || Str::likeEmpty($userNick)) {
+            $userNick = 'id' . $this->id;
+        }
+
+        return $userNick;
     }
 
     /**

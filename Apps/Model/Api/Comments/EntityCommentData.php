@@ -54,7 +54,7 @@ class EntityCommentData extends Model
         $userAvatar = App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
         $userObject = $this->_record->getUser();
         if ($userObject !== null) {
-            $userName = $userObject->getProfile()->nick;
+            $userName = $userObject->getProfile()->getNickname();
             $userAvatar = $userObject->getProfile()->getAvatarUrl('small');
         } else {
             if (!Str::likeEmpty($this->_record->guest_name)) {

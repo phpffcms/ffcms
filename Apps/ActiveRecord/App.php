@@ -6,7 +6,6 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 /**

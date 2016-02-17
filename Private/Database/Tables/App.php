@@ -35,9 +35,9 @@ $configs->comments = serialize([
     'perPage' => 10,
     'delay' => 60,
     'minLength' => 10,
-    'maxLength' => 10,
+    'maxLength' => 5000,
     'guestAdd' => 0,
-    'editTime' => 180
+    'onlyLocale' => 0
 ]);
 
 $names->user = serialize([

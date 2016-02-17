@@ -98,6 +98,7 @@ class CommentAnswerAdd extends Model
         $record->user_id = $this->_userId;
         $record->guest_name = $this->guestName;
         $record->message = $this->message;
+        $record->lang = App::$Request->getLanguage();
         $record->ip = $this->ip;
         $record->save();
 

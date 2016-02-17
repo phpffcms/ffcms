@@ -3,10 +3,11 @@
 namespace Apps\Controller\Admin;
 
 
-use Apps\ActiveRecord\Session;
+use Apps\ActiveRecord\CommentPost;
 use Apps\Model\Admin\Comments\FormSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
+use Ffcms\Core\Helper\HTML\SimplePagination;
 
 /**
  * Class Comments. Admin controller for management user comments.
@@ -16,16 +17,52 @@ use Ffcms\Core\App;
 class Comments extends AdminController
 {
     const VERSION = 0.1;
+    const ITEM_PER_PAGE = 10;
 
     public $type = 'widget';
 
+    /**
+     * List user comments with pagination
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionIndex()
     {
-        return App::$View->render('index', [
+        // set current page and offset
+        $page = (int)App::$Request->query->get('page');
+        $offset = $page * self::ITEM_PER_PAGE;
 
+        // initialize active record model
+        $query = new CommentPost();
+
+        // make pagination
+        $pagination = new SimplePagination([
+            'url' => ['comments/index'],
+            'page' => $page,
+            'step' => self::ITEM_PER_PAGE,
+            'total' => $query->count()
+        ]);
+
+        // get result as active records object with offset
+        $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
+
+        // render output view
+        return App::$View->render('index', [
+            'records' => $records,
+            'pagination' => $pagination
         ]);
     }
 
+    public function actionAnswerlist()
+    {
+
+    }
+
+    /**
+     * Comment widget global settings
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionSettings()
     {
         // initialize settings model

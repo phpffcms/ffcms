@@ -85,7 +85,7 @@ class FormInstall extends Model
         $user->setConnection('install');
         $user->login = $this->user['login'];
         $user->email = $this->user['email'];
-        $user->role_id = 3;
+        $user->role_id = 4;
         $user->password = App::$Security->password_hash($this->user['password'], $cfg['passwordSalt']);
         $user->save();
 

@@ -104,7 +104,9 @@ if ($type !== 'trash') {
         'button' => ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
     ];
 }
-echo Table::display([
+?>
+<div class="table-responsive">
+<?= Table::display([
     'table' => ['class' => 'table table-bordered'],
     'thead' => [
         'titles' => [
@@ -121,6 +123,7 @@ echo Table::display([
     ],
     'selectableBox' => $selectBox
 ])?>
+</div>
 
 <div class="text-center">
     <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>

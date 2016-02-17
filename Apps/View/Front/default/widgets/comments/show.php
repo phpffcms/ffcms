@@ -20,15 +20,15 @@
 <li class="clearfix hidden" id="comment-structure">
     <img id="comment-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="avatar" alt="Avatar">
     <div class="post-comments">
-        <p class="meta">
+        <div class="meta">
             <span id="comment-date">01.01.2016</span> <span id="comment-user-nick"><?= __('Unknown') ?></span>:
             <i class="pull-right">
                 <a href="#" class="show-comment-answers">
                     <small><?= __('Answers') ?> (<span id="comment-answer-count">0</span>)</small>
                 </a>
             </i>
-        </p>
-        <p id="comment-text" class="comment-text"><?= __('Loading') . ' ...' ?></p>
+        </div>
+        <div id="comment-text" class="comment-text"><?= __('Loading') . ' ...' ?></div>
     </div>
     <div id="comment-answers-0" class="hidden"></div>
     <div class="row hidden" id="add-replay-to">
@@ -47,11 +47,11 @@
     <li class="clearfix">
         <img id="answer-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="avatar" alt="avatar">
         <div class="post-comments">
-            <p class="meta">
+            <div class="meta">
                 <span id="answer-date">00.00.00 00-00-00</span>
                 <span id="answer-user-name"><?= __('Unknown') ?></span>:
-            </p>
-            <p id="answer-text"><?= __('Loading') . ' ...' ?></p>
+            </div>
+            <div id="answer-text" class="comment-text"><?= __('Loading') . ' ...' ?></div>
         </div>
     </li>
 </ul>
