@@ -31,6 +31,11 @@ $configs->profile = serialize([
     'usersOnPage' => 10
 ]);
 
+$configs->feedback = serialize([
+    'useCaptcha' => 1,
+    'guestAdd' => 1
+]);
+
 $configs->comments = serialize([
     'perPage' => 10,
     'delay' => 60,
@@ -65,6 +70,11 @@ $configs->content = serialize([
     'galleryResize' => 150
 ]);
 
+$names->feedback = serialize([
+    'en' => 'Feedback',
+    'ru' => 'Обратная связь'
+]);
+
 $names->comments = serialize([
     'en' => 'Comments',
     'ru' => 'Комментарии'
@@ -75,5 +85,6 @@ Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->in
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
 ]);
