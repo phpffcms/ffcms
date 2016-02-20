@@ -11,6 +11,8 @@ require_once(root . '/Private/Database/Tables/CommentAnswer.php');
 require_once(root . '/Private/Database/Tables/CommentPost.php');
 require_once(root . '/Private/Database/Tables/Content.php');
 require_once(root . '/Private/Database/Tables/ContentCategory.php');
+require_once(root . '/Private/Database/Tables/FeedbackAnswer.php');
+require_once(root . '/Private/Database/Tables/FeedbackPost.php');
 require_once(root . '/Private/Database/Tables/Invite.php');
 require_once(root . '/Private/Database/Tables/Message.php');
 require_once(root . '/Private/Database/Tables/Profile.php');

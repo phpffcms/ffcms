@@ -77,7 +77,7 @@ class FormRecovery extends Model
         $rObject->save();
 
         // generate mail template
-        $mailTemplate = App::$View->render('user/_recoveryMail', [
+        $mailTemplate = App::$View->render('user/mail/recovery', [
             'login' => $user->login,
             'email' => $this->email,
             'password' => $newPwd,

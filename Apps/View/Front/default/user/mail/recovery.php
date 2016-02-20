@@ -21,9 +21,9 @@
             <h3 style="font-family:Helvetica Neue,Arial,Helvetica,sans-serif;font-size:16px;color:#3e434a;font-weight:normal;margin-top:0;margin-bottom:19px;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;line-height:25px;">
                 <?= __('You or someone other required recovery password on website') ?>.
                 <?= __('You must approve recovery following link below') ?>.
-                <br />
-                <?= __('Login') ?>: <?= $login ?>
-                <?= __('New password') ?>: <?= $password; ?>
+                <br /><br />
+                <b><?= __('Login') ?></b>: <?= $login ?><br />
+                <b><?= __('New password') ?></b>: <?= $password; ?>
             </h3>
         </td>
     </tr>

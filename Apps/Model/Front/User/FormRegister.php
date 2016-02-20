@@ -91,7 +91,7 @@ class FormRegister extends Model
         if (true === $activation) {
             $user->approve_token = Str::randomLatinNumeric(mt_rand(32, 128)); // random token for validation url
             // send email
-            $template = App::$View->render('user/_approveMail', [
+            $template = App::$View->render('user/mail/approve', [
                 'token' => $user->approve_token,
                 'email' => $user->email,
                 'login' => $user->login

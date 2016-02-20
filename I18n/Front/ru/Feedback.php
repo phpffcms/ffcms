@@ -37,5 +37,10 @@ return [
     'Close feedback request #%id%' => 'Закрытие запроса обратной связи: #%id%',
     'Are you sure to close this feedback request?' => 'Вы уверены что хотите закрыть данный запрос в службу обратной связи?',
     'Feedback request now is closed!' => 'Запрос обратной связи теперь закрыт!',
-    'No requests is founded' => 'Запросы обратной связи не найдены'
+    'No requests is founded' => 'Запросы обратной связи не найдены',
+    'Request #%id% is created' => 'Запрос #%id% принят',
+    'Feedback request on %site% with id #%id% created' => 'Запрос обратной связи на сайте %site% с номером #%id% создан',
+    'Your feedback request is created and will be reviewed soon' => 'Ваш запрос обратной связи успешно создан и будет вскоре рассмотрен',
+    'View request' => 'Просмотреть запрос',
+    'If you do not make the feedback request please ignore this message!' => 'Если вы не совершали запроса обратной связи проигнорируйте данное сообщение!'
 ];
