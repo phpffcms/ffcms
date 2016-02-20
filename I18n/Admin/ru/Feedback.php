@@ -47,5 +47,6 @@ return [
     'Sender' => 'Отправитель',
     'Feedback delete' => 'Удаление запроса обратной связи',
     'Delete feedback message' => 'Удалить сообщение обратной связи',
-    'Delete message' => 'Удаление сообщения'
+    'Delete message' => 'Удаление сообщения',
+    'Feedback requests is empty now!' => 'Запросов обратной связи еще не было!'
 ];

@@ -23,5 +23,6 @@ return [
     'Author' => 'Автор',
     'Page' => 'Страница',
     'Date' => 'Дата',
-    'Actions' => 'Действия'
+    'Actions' => 'Действия',
+    'Comments is not founded' => 'Комментарии не найдены'
 ];

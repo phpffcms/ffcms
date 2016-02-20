@@ -34,8 +34,8 @@ return [
     'Close request' => 'Закрыть запрос',
     'Close' => 'Закрыть',
     'Cancel' => 'Отмена',
-    'Close request' => 'Закрыть запрос',
     'Close feedback request #%id%' => 'Закрытие запроса обратной связи: #%id%',
     'Are you sure to close this feedback request?' => 'Вы уверены что хотите закрыть данный запрос в службу обратной связи?',
-    'Feedback request now is closed!' => 'Запрос обратной связи теперь закрыт!'
+    'Feedback request now is closed!' => 'Запрос обратной связи теперь закрыт!',
+    'No requests is founded' => 'Запросы обратной связи не найдены'
 ];
