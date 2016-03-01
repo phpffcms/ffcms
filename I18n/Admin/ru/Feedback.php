@@ -48,5 +48,10 @@ return [
     'Feedback delete' => 'Удаление запроса обратной связи',
     'Delete feedback message' => 'Удалить сообщение обратной связи',
     'Delete message' => 'Удаление сообщения',
-    'Feedback requests is empty now!' => 'Запросов обратной связи еще не было!'
+    'Feedback requests is empty now!' => 'Запросов обратной связи еще не было!',
+    'New answer in request #%id%' => 'Новый ответ в запросе #%id%',
+    'In feedback request with id #%id% is added new answer' => 'В запросе обратной связи с номером #%id% появился новый ответ',
+    'In your feedback request is added new answer from website stuff' => 'В вашем запросе обратной связи появился новый ответ от команды сайта',
+    'View request' => 'Просмотреть запрос',
+    'If you do not make the feedback request please ignore this message!' => 'Если вы не совершали запроса в обратную связть просто проигнорируйте данное сообщение!'
 ];

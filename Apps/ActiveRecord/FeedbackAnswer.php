@@ -23,7 +23,7 @@ class FeedbackAnswer extends ActiveModel
 {
     /**
      * Get post relation
-     * @return ActiveModel|null
+     * @return FeedbackPost|null
      */
     public function getFeedbackPost()
     {
