@@ -20,7 +20,7 @@ use Ffcms\Core\Helper\Type\Str;
 class Feedback extends Controller
 {
     const ITEM_PER_PAGE = 10;
-
+    
     /**
      * This action is not allowed there
      * @throws NotFoundException

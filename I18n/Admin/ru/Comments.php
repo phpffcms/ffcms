@@ -24,5 +24,10 @@ return [
     'Page' => 'Страница',
     'Date' => 'Дата',
     'Actions' => 'Действия',
-    'Comments is not founded' => 'Комментарии не найдены'
+    'Comments is not founded' => 'Комментарии не найдены',
+    'View comment' => 'Просмотр комментария',
+    'Read comment #%id%' => 'Чтение комментария #%id%',
+    'Comment answers' => 'Ответы на комментарий',
+    'Edit' => 'Изменить',
+    'Delete' => 'Удалить'
 ];

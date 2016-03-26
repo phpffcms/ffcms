@@ -1,6 +1,5 @@
 <?php
 /** @var array $configs */
-?>
 <!-- Note! You can change this structures any way you like. JS operations based ONLY on ID and "hidden" class -->
 <!-- comments general line -->
 <div class="row">
@@ -11,7 +10,7 @@
             </ul>
         </div>
         <div id="comment-show-more" class="hidden">
-            <button class="btn btn-block btn-info">Load more (<span id="comment-left-count">85</span> left)</button>
+            <button class="btn btn-block btn-info">Load more (<span id="comment-left-count">0</span> left)</button>
         </div>
     </div>
 </div>

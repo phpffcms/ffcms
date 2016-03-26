@@ -79,7 +79,7 @@ echo $this->render('feedback/_tabs');
                 if ((int)$record->user_id > 0) {
                     $user = \App::$User->identity($record->user_id);
                     if ($user !== null && $user->getId() > 0) {
-                        $uInfo = Url::link(['user/update', $user->getId()], $user->getProfile()->nick);
+                        $uInfo = Url::link(['user/update', $user->getId()], $user->getProfile()->getNickname());
                     }
                 }
                 ?>

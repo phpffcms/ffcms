@@ -79,17 +79,16 @@ class EntityContentRead extends Model
         $tmpKeywords = Serialize::getDecodeLocale($this->_content->meta_keywords);
         $this->metaKeywords = explode(',', $tmpKeywords);
 
+        // set content date, category data
         $this->createDate = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
         $this->catName = Serialize::getDecodeLocale($this->_category->title);
         $this->catPath = $this->_category->path;
+
+        // set user data
         if (App::$User->isExist($this->_content->author_id)) {
             $this->authorId = $this->_content->author_id;
             $profile = App::$User->identity($this->authorId)->getProfile();
-            $this->authorName = $profile->nick;
-        }
-
-        if (Str::likeEmpty($this->authorName)) {
-            $this->authorName = __('Unknown');
+            $this->authorName = $profile->getNickname();
         }
 
         $this->source = $this->_content->source;
@@ -118,6 +117,7 @@ class EntityContentRead extends Model
             }
         }
 
+        // build array of category nesting level
         $this->catNesting[] = [
             'name' => $this->catName,
             'path' => $this->catPath

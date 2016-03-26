@@ -34,7 +34,7 @@ try {
         'Mailer' => true,
         'Captcha' => true,
         'Cache' => true
-    ]);
+    ], $loader);
     // display output
     \App::run();
 } catch (Exception $e) {

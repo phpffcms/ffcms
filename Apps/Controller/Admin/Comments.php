@@ -3,11 +3,14 @@
 namespace Apps\Controller\Admin;
 
 
+use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\CommentPost;
 use Apps\Model\Admin\Comments\FormSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
+use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Type\Arr;
 
 /**
  * Class Comments. Admin controller for management user comments.
@@ -18,6 +21,9 @@ class Comments extends AdminController
 {
     const VERSION = 0.1;
     const ITEM_PER_PAGE = 10;
+
+    const TYPE_COMMENT = 'comment';
+    const TYPE_ANSWER = 'answer';
 
     public $type = 'widget';
 
@@ -51,6 +57,49 @@ class Comments extends AdminController
             'records' => $records,
             'pagination' => $pagination
         ]);
+    }
+
+    /**
+     * List comment - read comment and list answers
+     * @param int $id
+     * @return string
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
+    public function actionRead($id)
+    {
+        // find object in active record model
+        $record = CommentPost::find($id);
+        if ($record === null || $record === false) {
+            throw new NotFoundException(__('Comment is not founded'));
+        }
+
+        // render response
+        return App::$View->render('comment_read', [
+            'record' => $record
+        ]);
+    }
+
+    public function actionEdit($type, $id)
+    {
+        // get active record by type and id from active records
+        $record = null;
+        switch ($type) {
+            case static::TYPE_COMMENT:
+                $record = CommentPost::find($id);
+                break;
+            case static::TYPE_ANSWER:
+                $record = CommentAnswer::find($id);
+                break;
+        }
+
+        // check if response is not empty
+        if ($record === null || $record->count() != 1) {
+            throw new NotFoundException(__('Comment is not founded'));
+        }
+
+
+
     }
 
     public function actionAnswerlist()

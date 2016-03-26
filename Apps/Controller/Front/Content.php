@@ -25,6 +25,11 @@ use Suin\RSSWriter\Item;
 class Content extends FrontAppController
 {
     const TAG_PER_PAGE = 50;
+    
+    const EVENT_CONTENT_READ = 'content.read';
+    const EVENT_RSS_READ = 'content.rss.read';
+    const EVENT_CONTENT_LIST = 'content.list';
+    const EVENT_TAG_LIST = 'content.tags';
 
     /**
      * Index is forbidden
@@ -58,6 +63,11 @@ class Content extends FrontAppController
             'page' => $page,
             'step' => $itemCount,
             'total' => $model->getContentCount()
+        ]);
+        
+        // define list event
+        App::$Event->run(static::EVENT_CONTENT_LIST, [
+            'model' => $model
         ]);
 
         // drow response view
@@ -119,7 +129,13 @@ class Content extends FrontAppController
         if ((int)$model->getCategory()->getProperty('showSimilar') === 1 && $trash === false) {
             $search = new EntityContentSearch($model->title, $model->id);
         }
+        
+        // define read event
+        App::$Event->run(static::EVENT_CONTENT_READ, [
+            'model' => $model
+        ]);
 
+        // render view output
         return App::$View->render('read', [
             'model' => $model,
             'search' => $search,
@@ -157,6 +173,11 @@ class Content extends FrontAppController
         if ($records->count() < 1) {
             throw new NotFoundException(__('Nothing founded'));
         }
+        
+        // define tag list event
+        App::$Event->run(static::EVENT_TAG_LIST, [
+            'records' => $records
+        ]);
 
         // render response
         return App::$View->render('tag', [
@@ -212,7 +233,13 @@ class Content extends FrontAppController
                 $item->appendTo($channel);
             }
         }
-
+        // define rss read event
+        App::$Event->run(static::EVENT_RSS_READ, [
+            'model' => $model,
+            'feed' => $feed,
+            'channel' => $channel
+        ]);
+        
         // render response from feed object
         return $feed->render();
     }

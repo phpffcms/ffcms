@@ -28,6 +28,7 @@ class Profile extends ApiController
      * Get wall answer's count by post-ids list
      * @param int $postIds
      * @throws JsonException
+     * @return string
      */
     public function actionWallanswercount($postIds)
     {
@@ -62,6 +63,7 @@ class Profile extends ApiController
      * Show all answers for this post id
      * @param int $postId
      * @throws JsonException
+     * @return string
      */
     public function actionShowwallanswers($postId)
     {
@@ -91,7 +93,7 @@ class Profile extends ApiController
             $response[] = [
                 'answer_id' => $answer->id,
                 'user_id' => $answer->user_id,
-                'user_nick' => $profile->nick === null ? __('No name') . '(id' . $user->getId() . ')' : App::$Security->strip_tags($profile->nick),
+                'user_nick' => App::$Security->strip_tags($profile->getNickname()),
                 'user_avatar' => $profile->getAvatarUrl('small'),
                 'answer_message' => App::$Security->strip_tags($answer->message),
                 'answer_date' => Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_SECONDS)
@@ -272,8 +274,7 @@ class Profile extends ApiController
 
             $response[] = [
                 'user_id' => $user_id,
-                'user_nick' => $identity->getProfile()->nick === null ? 'id' . $identity->getId() :
-                    App::$Security->strip_tags($identity->getProfile()->nick),
+                'user_nick' => App::$Security->strip_tags($identity->getProfile()->getNickname()),
                 'user_avatar' => $identity->getProfile()->getAvatarUrl('small'),
                 'message_new' => Arr::in($user_id, $unreadList),
                 'user_block' => !Blacklist::check($user->id, $identity->id)

@@ -21,6 +21,12 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class User extends FrontAppController
 {
+    const EVENT_USER_LOGIN_SUCCESS = 'user.login.success';
+    const EVENT_USER_LOGIN_FAIL = 'user.login.fail';
+    const EVENT_USER_REGISTER_SUCCESS = 'user.signup.success';
+    const EVENT_USER_REGISTER_FAIL = 'user.signup.fail';
+    
+    
     /**
      * View login form and process submit action
      * @throws ForbiddenException
@@ -38,9 +44,17 @@ class User extends FrontAppController
         // check if data is send and valid
         if ($loginForm->send() && $loginForm->validate()) {
             if ($loginForm->tryAuth()) {
+                // initialize success event
+                App::$Event->run(static::EVENT_USER_LOGIN_SUCCESS, [
+                    'model' => $loginForm
+                ]);
                 App::$Response->redirect('/'); // void header change & exit()
             }
             App::$Session->getFlashBag()->add('error', __('User is never exist or password is incorrect!'));
+            // initialize fail event
+            App::$Event->run(static::EVENT_USER_LOGIN_FAIL, [
+               'model' => $loginForm 
+            ]);
         }
 
         // render view
@@ -97,8 +111,17 @@ class User extends FrontAppController
         // if register data is send and valid
         if ($registerForm->send() && $registerForm->validate()) {
             if ($registerForm->tryRegister($configs['registrationType'] === 1)) {
+                // initialize succes signup event
+                App::$Event->run(static::EVENT_USER_REGISTER_SUCCESS, [
+                   'model' => $registerForm 
+                ]);
+                // send notification of successful registering
                 App::$Session->getFlashBag()->add('success', __('Your account is registered. You must confirm account via email'));
             } else {
+                // init fail signup event
+                App::$Event->run(static::EVENT_USER_REGISTER_FAIL, [
+                   'model' => $registerForm 
+                ]);
                 App::$Session->getFlashBag()->add('error', __('Login or email is always used on website'));
             }
         }

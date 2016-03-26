@@ -38,7 +38,7 @@ foreach ($records as $item) {
 
     $items[] = [
         1 => ['text' => $item->id],
-        2 => ['text' => Url::link(['comments/list', $item->id], $message), 'html' => true],
+        2 => ['text' => Url::link(['comments/read', $item->id], $message), 'html' => true],
         3 => ['text' => $item->getAnswerCount()],
         4 => $userArr,
         5 => ['text' => '<a href="' . App::$Alias->scriptUrl . $item->pathway . '" target="_blank">' . Str::sub($item->pathway, 0, 20) . '...</a>', 'html' => true],

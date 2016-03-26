@@ -72,10 +72,7 @@ if (!\App::$Request->isPathInjected()) {
             <?php if ($catConfigs['showAuthor'] === true): ?>
             <span><i class="fa fa-user"></i>
                 <?php
-                $ownerNick = $item['author']->getProfile()->nick;
-                if (Str::likeEmpty($ownerNick)) {
-                    $ownerNick = __('Unknown');
-                }
+                $ownerNick = $item['author']->getProfile()->getNickname();
                 if ($item['author']->getId() < 1) {
                     echo '<s>' . $ownerNick . '</s>';
                 } else {

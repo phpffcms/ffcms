@@ -18,8 +18,8 @@ use Ffcms\Core\Helper\Type\Str;
  * @property string $configs
  * @property int $disabled
  * @property float $version
- * @property string created_at
- * @property string updated_at
+ * @property string $created_at
+ * @property string $updated_at
  */
 class App extends ActiveModel
 {
@@ -36,7 +36,7 @@ class App extends ActiveModel
             $object = self::all();
             MemoryObject::instance()->set('app.cache.all', $object);
         }
-
+        
         if ($object === null) {
             throw new SyntaxException('Application table "prefix_app" is empty!!!');
         }
