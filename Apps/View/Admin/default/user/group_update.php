@@ -20,6 +20,8 @@ $this->breadcrumbs = [
     <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('name', 'text', ['class' => 'form-control'], __('Set the name of the group')) ?>
 <?= $form->field('permissions', 'checkboxes', ['options' => $model->getAllPermissions()]) ?>
 

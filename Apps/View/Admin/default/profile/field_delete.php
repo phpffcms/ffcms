@@ -42,6 +42,8 @@ $this->breadcrumbs = [
 ?>
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']) ?>
 
+<?= $form->start() ?>
+
 <div class="col-md-12"><?= $form->submitButton(__('Delete'), ['class' => 'btn btn-danger']) ?></div>
 
 <?= $form->finish(false) ?>

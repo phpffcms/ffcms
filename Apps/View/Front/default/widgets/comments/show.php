@@ -1,5 +1,6 @@
 <?php
 /** @var array $configs */
+?>
 <!-- Note! You can change this structures any way you like. JS operations based ONLY on ID and "hidden" class -->
 <!-- comments general line -->
 <div class="row">

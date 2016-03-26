@@ -35,6 +35,7 @@ $this->breadcrumbs = [
 ]); ?>
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post']) ?>
+
 <?= $form->start() ?>
 
 <?= $form->submitButton(__('Try update'), ['class' => 'btn btn-primary']) ?>

@@ -25,6 +25,8 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']) ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('nick', 'text', ['class' => 'form-control']) ?>
 <?= $form->field('sex', 'select', ['class' => 'form-control', 'options' => ['0' => __('Unknown'), '1' => __('Male'), '2' => __('Female')], 'optionsKey' => true]) ?>
 <?= $form->field('birthday', 'text', ['class' => 'form-control'], __('Birthday date in d.m.Y format')) ?>

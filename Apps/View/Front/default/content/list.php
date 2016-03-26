@@ -54,7 +54,7 @@ if (!\App::$Request->isPathInjected()) {
         <?php if (Arr::in(true, $catMeta)): ?>
         <div class="meta">
             <?php if ($catConfigs['showCategory'] === true): ?>
-            <span><i class="fa fa-list"></i>
+            <span class="spaced"><i class="fa fa-list"></i>
                 <?= Url::link(
                     ['content/list', $item['category']->path],
                     Serialize::getDecodeLocale($item['category']->title),
@@ -63,14 +63,14 @@ if (!\App::$Request->isPathInjected()) {
             </span>
             <?php endif; ?>
             <?php if ($catConfigs['showDate'] === true): ?>
-            <span><i class="fa fa-calendar"></i>
+            <span class="spaced"><i class="fa fa-calendar"></i>
                 <time datetime="<?= date('c', Date::convertToTimestamp($item['date'])) ?>" itemprop="datePublished">
                     <?= $item['date'] ?>
                 </time>
             </span>
             <?php endif; ?>
             <?php if ($catConfigs['showAuthor'] === true): ?>
-            <span><i class="fa fa-user"></i>
+            <span class="spaced"><i class="fa fa-user"></i>
                 <?php
                 $ownerNick = $item['author']->getProfile()->getNickname();
                 if ($item['author']->getId() < 1) {
@@ -82,7 +82,7 @@ if (!\App::$Request->isPathInjected()) {
             </span>
             <?php endif; ?>
             <?php if ($catConfigs['showViews'] === true): ?>
-            <span><i class="fa fa-eye"></i> <?= $item['views'] ?></span>
+            <span class="spaced"><i class="fa fa-eye"></i> <?= $item['views'] ?></span>
             <?php endif; ?>
         </div>
         <?php else: ?>
@@ -99,8 +99,13 @@ if (!\App::$Request->isPathInjected()) {
             </div>
         </div>
         <div class="meta">
+			<span class="rating" style="margin-right: 20px;">
+				<span class="rating-minus label label-danger" id="" data-toggle="tooltip" title="Dislike this"><i class="fa fa-arrow-down"></i></span>
+				<span class="label label-info" data-toggle="tooltip" title="Current content rating">0</span>
+				<span class="rating-minus label label-success" id="" data-toggle="tooltip" title="Like this"><i class="fa fa-arrow-up"></i></span>
+			</span>
             <?php if ((int)$configs['keywordsAsTags'] === 1 && $item['tags'] !== null && Obj::isArray($item['tags'])): ?>
-            <span><i class="fa fa-tags hidden-xs"></i>
+            <span class="spaced"><i class="fa fa-tags hidden-xs"></i>
                 <?php
                     foreach ($item['tags'] as $tag) {
                         $tag = \App::$Security->strip_tags(trim($tag));
@@ -110,14 +115,8 @@ if (!\App::$Request->isPathInjected()) {
             </span>
             <meta itemprop="keywords" content="<?php implode(',', $item['tags']); ?>">
             <?php endif; ?>
-            <span class="hidden-xs"><i class="fa fa-comments"></i>
+            <span class="spaced hidden-xs"><i class="fa fa-comments"></i>
                 <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount">0</span></a>
-            </span>
-            <span class="pull-right hidden-xs">
-                <i class="fa fa-share"></i>
-                <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>">
-                    <?= __('Read more') ?>
-                </a>
             </span>
         </div>
     </article>
@@ -127,3 +126,11 @@ if (!\App::$Request->isPathInjected()) {
 <div class="text-center">
     <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>
 </div>
+
+<script>
+window.jQ.push(function(){
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		})
+});
+</script>

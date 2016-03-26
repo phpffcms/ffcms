@@ -20,6 +20,8 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('email', 'email', ['class' => 'form-control'], __('Specify user email')) ?>
 <?= $form->field('login', 'text', ['class' => 'form-control'], __('Specify user login')) ?>
 <?= $form->field('newpassword', 'text', ['class' => 'form-control'], __('Specify new user password if you want to change it! Less empty field to save current')) ?>

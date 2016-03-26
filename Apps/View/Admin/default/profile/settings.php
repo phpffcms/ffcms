@@ -23,6 +23,8 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']) ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('usersOnPage', 'text', ['class' => 'form-control'], __('How many users will be displayed per one list page?')) ?>
 <?= $form->field('guestView', 'checkbox', null, __('Allow guests view user profiles?')) ?>
 <?= $form->field('wallPostOnPage', 'text', ['class' => 'form-control'], __('How many wall posts must be displayed per one page?')) ?>

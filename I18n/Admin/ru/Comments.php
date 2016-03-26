@@ -29,5 +29,20 @@ return [
     'Read comment #%id%' => 'Чтение комментария #%id%',
     'Comment answers' => 'Ответы на комментарий',
     'Edit' => 'Изменить',
-    'Delete' => 'Удалить'
+    'Delete' => 'Удалить',
+    'Back' => 'Назад',
+    'Edit comment' => 'Редактирование комментария',
+    'Edit comment or answer' => 'Редактирование комментария или ответа',
+    'Edit comment/answer' => 'Редактирование комментария/ответа',
+    'Guest name' => 'Гостевое имя',
+    'Message' => 'Сообщение',
+    'Guest name for this comment or answer if defined' => 'Гостевое имя для этого комментария, если задано',
+    'Comment message text' => 'Текст комментария',
+    'Comment or answer is successful update' => 'Комментарий или ответ успешно отредактированы',
+    'Comments or answers are successful deleted!' => 'Комментарии или ответы успешно удалены!',
+    'No comments found for this condition' => 'По данному запросу ничего не найдено',
+    'Delete comments' => 'Удаление комментариев',
+    'Delete comments and answers' => 'Удаление коментариев и ответов',
+    'Are you sure to delete this comments or answers?' => 'Вы уверены что хотите удалить эти комментарии или ответы?',
+    'Answers is not founded' => 'Ответы не найдены'
 ];

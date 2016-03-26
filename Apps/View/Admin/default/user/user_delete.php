@@ -22,6 +22,8 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('email', 'text', ['class' => 'form-control', 'disabled' => null]) ?>
 <?= $form->field('login', 'text', ['class' => 'form-control', 'disabled' => null]) ?>
 

@@ -22,6 +22,7 @@ echo $this->render('feedback/_tabs');
 <h1><?= __('Feedback edit') ?></h1>
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post']) ?>
+
 <?= $form->start() ?>
 
 <?= $form->field('name', 'text', ['class' => 'form-control'], __('Author name for this item')) ?>

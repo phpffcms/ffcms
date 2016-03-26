@@ -23,6 +23,8 @@ $this->breadcrumbs = [
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']) ?>
 
+<?= $form->start() ?>
+
 <?= $form->field('registrationType', 'select', ['class' => 'form-control', 'options' => ['0' => __('Only invite'), '1' => __('Email approve'), '2' => __('Full opened')], 'optionsKey' => true]) ?>
 <?= $form->field('captchaOnLogin', 'checkbox', null, __('Show captcha on login form?')) ?>
 <?= $form->field('captchaOnRegister', 'checkbox', null, __('Show captcha on registration form?')) ?>
