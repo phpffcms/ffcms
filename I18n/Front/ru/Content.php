@@ -16,5 +16,8 @@ return [
     'This category is not available to view' => 'Данный раздел недоступен для просмотра',
     'Content is not founded' => 'Контент не обнаружен',
     'Rss feed is disabled for this category' => 'RSS поток запрещен для данной категории',
-    'Similar content' => 'Похожий контент'
+    'Similar content' => 'Похожий контент',
+    'Current content rating' => 'Текущий рейнтинг материала',
+    'Dislike this' => 'НЕ нравится',
+    'Like this' => 'Нравится'
 ];

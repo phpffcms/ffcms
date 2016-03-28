@@ -13,6 +13,7 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Type\Obj;
 
 class EntityContentRead extends Model
 {
@@ -31,6 +32,8 @@ class EntityContentRead extends Model
     public $source;
     public $posterThumb;
     public $posterFull;
+    public $rating;
+    public $canRate;
 
     public $metaTitle;
     public $metaDescription;
@@ -161,7 +164,18 @@ class EntityContentRead extends Model
                 }
             }
         }
-
+        
+        // set rating data
+        $this->rating = $this->_content->rating;
+        $ignoredRate = App::$Session->get('content.rate.ignore');
+        $this->canRate = true;
+        if (Obj::isArray($ignoredRate) && Arr::in((string)$this->id, $ignoredRate)) {
+            $this->canRate = false;
+        }
+        if (!App::$User->isAuth()) {
+            $this->canRate = false;
+        }
+        
         // update views count
         $this->_content->views += 1;
         $this->_content->save();

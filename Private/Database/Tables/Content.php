@@ -1,8 +1,5 @@
 <?php
 
-use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Serialize;
-
 Illuminate\Database\Capsule\Manager::schema($connectName)->create('contents', function($table) {
     $table->increments('id');
     $table->text('title');

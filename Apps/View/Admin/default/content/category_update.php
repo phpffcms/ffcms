@@ -62,6 +62,7 @@ if ((int)$model->id == '1') {
 
 <?= $form->field('path', 'text', $pathProperty, __('Enter category path slug for URI building')) ?>
 <?= $form->field('configs.showDate', 'checkbox', null, __('Display dates of content in this category?')) ?>
+<?= $form->field('configs.showRating', 'checkbox', null, __('Display rating for items in this category?'))?>
 <?= $form->field('configs.showCategory', 'checkbox', null, __('Display current category for content?')) ?>
 <?= $form->field('configs.showSimilar', 'checkbox', null, __('Show the similar content items for this category? This option introduce additional system load and memory usage.')) ?>
 <?= $form->field('configs.showAuthor', 'checkbox', null, __('Display information about content authors in this category?')) ?>

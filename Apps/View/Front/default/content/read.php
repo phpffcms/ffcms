@@ -45,7 +45,8 @@ $properties = [
     'date' => (int)$model->getCategory()->getProperty('showDate') === 1,
     'author' => (int)$model->getCategory()->getProperty('showAuthor') === 1,
     'views' => (int)$model->getCategory()->getProperty('showViews') === 1,
-    'category' => (int)$model->getCategory()->getProperty('showCategory') === 1
+    'category' => (int)$model->getCategory()->getProperty('showCategory') === 1,
+    'rating' => (int)$model->getCategory()->getProperty('showRating') === 1
 ];
 $showComments = (int)$model->getCategory()->getProperty('showComments') === 1;
 $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
@@ -58,20 +59,20 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
     <?php if (Arr::in(true, $properties)): ?>
     <div class="meta">
         <?php if ($properties['category'] === true): ?>
-        <span><i class="fa fa-list"></i><?= Url::link(['content/list', $model->catPath, null, [], false], $model->catName, ['itemprop' => 'genre']) ?></span>
+        <span class="spaced"><i class="fa fa-list"></i><?= Url::link(['content/list', $model->catPath, null, [], false], $model->catName, ['itemprop' => 'genre']) ?></span>
         <?php endif; ?>
         <?php if ($properties['date'] === true): ?>
-        <span><i class="fa fa-calendar"></i><time datetime="<?= date('c', $model->createDate) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
+        <span class="spaced"><i class="fa fa-calendar"></i><time datetime="<?= date('c', $model->createDate) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
         <?php endif; ?>
         <?php if ($properties['author'] === true): ?>
             <?php if ($model->authorId !== null && $model->authorId > 0): ?>
-                <span><i class="fa fa-user"></i><?= Url::link(['profile/show', $model->authorId], $model->authorName, ['itemprop' => 'author']) ?></span>
+                <span class="spaced"><i class="fa fa-user"></i><?= Url::link(['profile/show', $model->authorId], $model->authorName, ['itemprop' => 'author']) ?></span>
             <?php else: ?>
-                <span><i class="fa fa-user"></i><s><?= $model->authorName ?></s></span>
+                <span class="spaced"><i class="fa fa-user"></i><s><?= $model->authorName ?></s></span>
             <?php endif; ?>
         <?php endif; ?>
         <?php if ($properties['views'] === true): ?>
-        <span><i class="fa fa-eye"></i><?= $model->views ?></span>
+        <span class="spaced"><i class="fa fa-eye"></i><?= $model->views ?></span>
         <?php endif ?>
         <?php if (\App::$User->isAuth() && \App::$User->identity()->getRole()->can('Admin/Content/Update')): ?>
         <span class="pull-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="fa fa-pencil" style="color: #ff0000;"></i></a></span>
@@ -153,19 +154,36 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
         <?php endforeach; ?>
         </div>
     <?php endif; ?>
-    <?php if ((int)$configs['keywordsAsTags'] === 1): ?>
-    <div id="content-tags">
-        <?php
-        if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
-            echo '<i class="fa fa-tags hidden-xs"></i> ';
-            foreach ($model->metaKeywords as $tag) {
-                $tag = \App::$Security->strip_tags(trim($tag));
-                echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
-            }
-        }
-        ?>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="pull-left">
+        	<?php if ($properties['rating']) {
+        	    echo \App::$View->render('content/_rate', [
+        	        'id' => $model->id,
+        	        'rating' => $model->rating,
+        	        'canRate' => $model->canRate
+        	    ]);
+        	} ?>
+        	<?= \App::$View->render('content/_rateJs') ?>
+    		</div>
+    		<div class="pull-right">
+    		    <?php if ((int)$configs['keywordsAsTags'] === 1): ?>
+                <div id="content-tags">
+                    <?php
+                    if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
+                        echo '<i class="fa fa-tags hidden-xs"></i> ';
+                        foreach ($model->metaKeywords as $tag) {
+                            $tag = \App::$Security->strip_tags(trim($tag));
+                            echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
+                        }
+                    }
+                    ?>
+                </div>
+                <?php endif; ?>
+    		</div>
+    	</div>
     </div>
-    <?php endif; ?>
     <?php if (!Str::likeEmpty($model->source)): ?>
     <div id="content-source" style="padding-top: 5px;">
         <?php

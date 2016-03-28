@@ -63,6 +63,8 @@ return [
     'Enter category path slug for URI building' => 'Укажите ярлык URI пути для данного раздела',
     'Show date' => 'Показывать дату',
     'Display dates of content in this category?' => 'Показывать даты материалов в данном разделе?',
+    'Show rating' => 'Показывать рейтинг',
+    'Display rating for items in this category?' => 'Отображать рейтинг для элементов в этой категории?',
     'Show author' => 'Показывать автора',
     'Display information about content authors in this category?' => 'Показывать информацию о авторах материалов в данном разделе?',
     'Show views' => 'Показывать просмотры',

@@ -208,9 +208,20 @@ class EntityCategoryList extends Model
             if ($owner === null) {
                 $owner = new User();
             }
-
+            
+            // check if current user can rate item
+            $ignoredRate = App::$Session->get('content.rate.ignore');
+            $canRate = true;
+            if (Obj::isArray($ignoredRate) && Arr::in((string)$row->id, $ignoredRate)) {
+                $canRate = false;
+            }
+            if (!App::$User->isAuth()) {
+                $canRate = false;
+            }
+            
             // build result array
             $this->items[] = [
+                'id' => $row->id,
                 'title' => $localeTitle,
                 'text' => $text,
                 'date' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_HOUR),
@@ -220,6 +231,7 @@ class EntityCategoryList extends Model
                 'thumbSize' => File::size($row->getPosterThumbUri()),
                 'views' => (int)$row->views,
                 'rating' => (int)$row->rating,
+                'canRate' => $canRate,
                 'category' => $this->categories[$row->category_id],
                 'uri' => '/content/read/' . $itemPath,
                 'tags' => $tags

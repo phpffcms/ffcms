@@ -14,6 +14,9 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Gregwar\Image\Image;
+use Apps\ActiveRecord\Content as ContentRecord;
+use Apps\ActiveRecord\ContentRating;
+use Apps\Model\Api\Content\ContentRatingChange;
 
 class Content extends ApiController
 {
@@ -22,6 +25,9 @@ class Content extends ApiController
 
     public $allowedExt = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'webp'];
 
+    /**
+     * Prepare configuratins before initialization
+     */
     public function before()
     {
         parent::before();
@@ -35,10 +41,61 @@ class Content extends ApiController
             $this->maxResize = (int)$configs['galleryResize'];
         }
     }
+    
+    /**
+     * Change content item rating action
+     * @param string $type
+     * @param int $id
+     * @throws JsonException
+     * @return string
+     */
+    public function actionChangerate($type, $id)
+    {
+        // check input params
+        if (!Arr::in($type, ['plus', 'minus']) || !Obj::isLikeInt($id)) {
+            throw new JsonException('Bad conditions');
+        }
+        
+        // get current user and check is authed
+        $user = App::$User->identity();
+        if ($user === null || !App::$User->isAuth()) {
+            throw new JsonException(__('Authorization is required!'));
+        }
+        
+        // find content record
+        $record = ContentRecord::find($id);
+        if ($record === null || $record->count() < 1) {
+            throw new JsonException(__('Content item is not founded'));
+        }
+        
+        // initialize model
+        $model = new ContentRatingChange($record, $type, $user);
+        // check if content items is already rated by this user
+        if ($model->isAlreadyRated()) {
+            // set ignored content id to rate in session
+            $ignored = App::$Session->get('content.rate.ignore');
+            $ignored[] = $id;
+            App::$Session->set('content.rate.ignore', $ignored);
+            throw new JsonException(__('You have already rate this!'));            
+        }
+        
+        // make rate - add +1 to content rating and author rating
+        if ($model->make()) {
+            // set ignored content id to rate in session
+            $ignored = App::$Session->get('content.rate.ignore');
+            $ignored[] = $id;
+            App::$Session->set('content.rate.ignore', $ignored);            
+        }
+        
+        return json_encode([
+            'status' => 1,
+            'rating' => $model->getRating() // @todo this
+        ]);
+    }
 
     /**
      * Upload new files to content item gallery
-     * @param $id
+     * @param int $id
      * @return string
      * @throws JsonException
      * @throws NativeException
@@ -106,7 +163,8 @@ class Content extends ApiController
             ->save($thumbSaveName, 'jpg', 90);
         $thumb = null;
 
-        $output[] = [
+        // dont ask me why there is 2nd lvl array (can contains multiply items to frontend response)
+        $output = [
             'thumbnailUrl' => '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg',
             'url' => '/upload/gallery/' . $id . '/orig/' . $fileNewName,
             'name' => $fileNewName
@@ -115,7 +173,7 @@ class Content extends ApiController
         $this->setJsonHeader();
 
         // generate success response
-        return json_encode(['status' => 1, 'message' => 'ok', 'files' => $output]);
+        return json_encode(['status' => 1, 'message' => 'ok', 'files' => [$output]]);
     }
 
     /**
@@ -162,6 +220,14 @@ class Content extends ApiController
         return json_encode(['files' => $output]);
     }
 
+    /**
+     * Remove items from gallery (preview+full)
+     * @param int $id
+     * @param string $file
+     * @throws JsonException
+     * @throws NativeException
+     * @return string
+     */
     public function actionGallerydelete($id, $file)
     {
         // check passed data

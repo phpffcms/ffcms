@@ -27,6 +27,7 @@ $cat->News = [
     ]),
     'configs' => serialize([
         'showDate' => '1',
+        'showRating' => '1',
         'showCategory' => '1',
         'showAuthor' => '1',
         'showViews' => '1',

@@ -84,6 +84,7 @@ class FormCategoryUpdate extends Model
             'path' => __('Path slug'),
             'dependId' => __('Owner category'),
             'configs.showDate' => __('Show date'),
+            'configs.showRating' => __('Show rating'),
             'configs.showAuthor' => __('Show author'),
             'configs.showViews' => __('Show views'),
             'configs.showComments' => __('Show comments'),
@@ -101,7 +102,7 @@ class FormCategoryUpdate extends Model
     {
         $rules = [
             [['title', 'description', 'configs'], 'used'],
-            [['configs.showDate', 'configs.showAuthor', 'configs.showViews', 'configs.showComments'], 'in', ['0', '1']],
+            [['configs.showDate', 'configs.showRating', 'configs.showAuthor', 'configs.showViews', 'configs.showComments'], 'in', ['0', '1']],
             [['configs.showPoster', 'configs.showCategory', 'configs.showRss', 'configs.showSimilar'], 'in', ['0', '1']]
         ];
 

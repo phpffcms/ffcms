@@ -99,38 +99,37 @@ if (!\App::$Request->isPathInjected()) {
             </div>
         </div>
         <div class="meta">
-			<span class="rating" style="margin-right: 20px;">
-				<span class="rating-minus label label-danger" id="" data-toggle="tooltip" title="Dislike this"><i class="fa fa-arrow-down"></i></span>
-				<span class="label label-info" data-toggle="tooltip" title="Current content rating">0</span>
-				<span class="rating-minus label label-success" id="" data-toggle="tooltip" title="Like this"><i class="fa fa-arrow-up"></i></span>
-			</span>
+        	<?php if ((int)$catConfigs['showRating'] === 1) {
+        	    echo \App::$View->render('content/_rate', [
+        	        'id' => $item['id'],
+        	        'canRate' => $item['canRate'],
+        	        'rating' => $item['rating']
+        	    ]);
+        	} ?>
+        	
+        	<span class="spaced hidden-xs"><i class="fa fa-comments"></i>
+                <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount">0</span></a>
+            </span>
+            <span class="pull-right">
             <?php if ((int)$configs['keywordsAsTags'] === 1 && $item['tags'] !== null && Obj::isArray($item['tags'])): ?>
-            <span class="spaced"><i class="fa fa-tags hidden-xs"></i>
+                <span class="spaced"><i class="fa fa-tags hidden-xs"></i>
                 <?php
                     foreach ($item['tags'] as $tag) {
                         $tag = \App::$Security->strip_tags(trim($tag));
                         echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
                     }
                 ?>
-            </span>
-            <meta itemprop="keywords" content="<?php implode(',', $item['tags']); ?>">
+                </span>
+                <meta itemprop="keywords" content="<?php implode(',', $item['tags']); ?>">
             <?php endif; ?>
-            <span class="spaced hidden-xs"><i class="fa fa-comments"></i>
-                <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount">0</span></a>
             </span>
         </div>
     </article>
 
 <?php endforeach; ?>
 
+<?= \App::$View->render('content/_rateJs') ?>
+
 <div class="text-center">
     <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>
 </div>
-
-<script>
-window.jQ.push(function(){
-	$(function () {
-		  $('[data-toggle="tooltip"]').tooltip()
-		})
-});
-</script>
