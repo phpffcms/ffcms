@@ -4,8 +4,9 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
 
-/** @var $post Apps\ActiveRecord\WallPost */
-/** @var $model Apps\Model\Front\FormWallPostDelete */
+/** @var $post \Apps\ActiveRecord\WallPost */
+/** @var $model \Apps\Model\Front\FormWallPostDelete */
+/** @var $this \Ffcms\Core\Arch\View */
 
 $this->title = __('Delete post');
 
@@ -43,6 +44,6 @@ $referNickname = ($referObject->getProfile()->nick == null ? __('No name') : \Ap
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post']); ?>
 <?= $form->start() ?>
-<?= $form->field('id', 'hidden', null, null, '%item%'); ?>
-<?= $form->submitButton(__('Delete'), ['class' => 'btn btn-danger']) ?>
+<?= $form->field('id', 'hidden'); ?>
+<div class="col-md-offset-2 col-md-10"><?= $form->submitButton(__('Delete'), ['class' => 'btn btn-danger']) ?></div>
 <?= $form->finish(false) ?>

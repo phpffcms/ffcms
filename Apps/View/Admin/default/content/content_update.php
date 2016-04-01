@@ -30,12 +30,10 @@ echo Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysiwyg', 'confi
 $form = new Form(
     $model,
     ['action' => ''],
-    ['base' => '<div class="form-group"><label for="%name%" class="col-md-3 control-label"><span class="pull-right" style="padding-top: 5px;">%label%</span></label><div class="col-md-9">%item% <p class="help-block">%help%</p></div></div>']
+    ['base' => 'content/form/base_content_update']
 );
 
 echo $form->start();
-
-$formFullFieldStructure = '<div class="form-group"><label for="%name%">%label%</label>%item% <p class="help-block">%help%</p></div>';
 
 $generalTab = null;
 $generalItems = [];
@@ -45,8 +43,8 @@ foreach (\App::$Properties->get('languages') as $lang) {
     $generalItems[] = [
         'type' => 'tab',
         'text' => __('Lang') . ': ' . Str::upperCase($lang),
-        'content' => $form->field('title.' . $lang, 'text', ['class' => 'form-control'], __('Please, enter the title of your material for current language locale'), $formFullFieldStructure) .
-            $form->field('text.' . $lang, 'textarea', ['class' => 'form-control wysiwyg', 'rows' => 7, 'html' => true], null, $formFullFieldStructure),
+        'content' => $form->field('title.' . $lang, 'text', ['class' => 'form-control'], __('Please, enter the title of your material for current language locale'), 'content/form/tab_content_update') .
+            $form->field('text.' . $lang, 'textarea', ['class' => 'form-control wysiwyg', 'rows' => 7, 'html' => true], null, 'content/form/tab_content_update'),
         'html' => true,
         'active' => $lang === \App::$Request->getLanguage(),
         '!secure' => true

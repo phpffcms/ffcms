@@ -211,7 +211,7 @@ $this->breadcrumbs = [
             <?php $form = new Form(
                 $wall,
                 ['class' => 'form-horizontal', 'method' => 'post', 'action' => ''],
-                ['base' => '<div class="form-group no-margin-bottom"><div class="col-md-12">%item% <p class="help-block">%help%</p></div></div>']
+                ['base' => 'profile/form/wall_base']
             ); ?>
             <?= $form->start() ?>
             <?= $form->field('message', 'textarea', ['class' => 'form-control']); ?>

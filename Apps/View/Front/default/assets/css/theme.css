@@ -8,6 +8,11 @@ body {
     font: 13px/1.5 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
 }
 
+hr.pretty {
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+
 div.account-container {
     margin-top: 5px;
 }
@@ -92,6 +97,11 @@ div.content-container {
 
     .article-item .meta .pull-right {
         float: left !important;
+    }
+    .navbar-toggle {
+    	margin-top: 3px;
+		margin-right: 10px;
+		margin-bottom: 3px;
     }
 }
 
