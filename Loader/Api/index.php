@@ -1,5 +1,5 @@
 <?php
-
+/** @var object $loader */
 // check if loader is initialized
 if (!defined('root')) {
     die('Hack attempt');
@@ -7,8 +7,10 @@ if (!defined('root')) {
 
 // global environment
 define('env_name', 'Api');
-define('type', 'web');
+// this environment have no layouts
 define('env_no_layout', true);
+// this environment is based on json response type
+define('env_type', 'json');
 
 require_once(root . '/Loader/Autoload.php');
 
@@ -35,7 +37,7 @@ try {
         'Mailer' => true,
         'Captcha' => true,
         'Cache' => true
-    ]);
+    ], $loader);
     // display output
     \App::run();
 } catch (Exception $e) {

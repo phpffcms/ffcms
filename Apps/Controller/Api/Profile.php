@@ -9,12 +9,14 @@ use Apps\ActiveRecord\WallAnswer;
 use Apps\ActiveRecord\WallPost;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
-use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Ffcms\Core\Exception\NativeException;
+use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NotFoundException;
 
 class Profile extends ApiController
 {
@@ -27,7 +29,7 @@ class Profile extends ApiController
     /**
      * Get wall answer's count by post-ids list
      * @param int $postIds
-     * @throws JsonException
+     * @throws NativeException
      * @return string
      */
     public function actionWallanswercount($postIds)
@@ -36,14 +38,14 @@ class Profile extends ApiController
         $this->setJsonHeader();
         // check query length
         if (Str::likeEmpty($postIds)) {
-            throw new JsonException('Wrong input count');
+            throw new NativeException('Wrong input count');
         }
 
         $list = explode(',', $postIds);
         $itemCount = count($list);
         // empty or is biggest then limit?
         if ($itemCount < 1 || $itemCount > self::ITEM_PER_PAGE) {
-            throw new JsonException('Wrong input count');
+            throw new NativeException('Wrong input count');
         }
 
         // prepare response
@@ -62,21 +64,21 @@ class Profile extends ApiController
     /**
      * Show all answers for this post id
      * @param int $postId
-     * @throws JsonException
+     * @throws NativeException
      * @return string
      */
     public function actionShowwallanswers($postId)
     {
         // check input post id num
         if (!Obj::isLikeInt($postId) || $postId < 1) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         // try to find this post
         $object = WallPost::find($postId);
 
         if ($object === null || $object === false) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         $response = [];
@@ -106,18 +108,19 @@ class Profile extends ApiController
     /**
      * Add new post answer from AJAX post
      * @param int $postId
-     * @throws JsonException
+     * @throws ForbiddenException
+     * @throws NativeException
      */
     public function actionSendwallanswer($postId)
     {
         // not auth? what are you doing there? ;)
         if (!App::$User->isAuth()) {
-            throw new JsonException('Auth required');
+            throw new ForbiddenException('Auth required');
         }
 
         // no post id? wtf you doing man!
         if (!Obj::isLikeInt($postId) || $postId < 1) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         $viewer = App::$User->identity();
@@ -126,20 +129,20 @@ class Profile extends ApiController
         $message = App::$Request->get('message');
         $message = App::$Security->strip_tags($message);
         if (!Obj::isString($message) || Str::length($message) < 3) {
-            throw new JsonException('Wrong input data');
+            throw new ForbiddenException('Wrong input data');
         }
 
         // try to find this post
         $wallPost = WallPost::where('id', '=', $postId);
         if ($wallPost->count() < 1) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         $wallRow = $wallPost->first();
         $target_id = $wallRow->target_id;
         // check if in blacklist
         if (!Blacklist::check($viewer->id, $target_id)) {
-            throw new JsonException('User is blocked!');
+            throw new ForbiddenException('User is blocked!');
         }
 
         // check delay between user last post and current
@@ -150,7 +153,7 @@ class Profile extends ApiController
             $cfgs = \Apps\ActiveRecord\App::getConfigs('app', 'Profile');
             // hmm, maybe past less then delay required?
             if ($now - (int)$cfgs['delayBetweenPost'] < $answerTime) {
-                throw new JsonException('Delay between answers not pass');
+                throw new ForbiddenException('Delay between answers not pass');
             }
         }
 
@@ -169,25 +172,27 @@ class Profile extends ApiController
     /**
      * Delete answer by answer owner or wall owner
      * @param $answerId
-     * @throws JsonException
+     * @throws ForbiddenException
+     * @throws NativeException
+     * @throws NotFoundException
      */
     public function actionDeleteanswerowner($answerId)
     {
         $this->setJsonHeader();
         // hello script kiddy, you must be auth ;)
         if (!App::$User->isAuth()) {
-            throw new JsonException('Auth required');
+            throw new ForbiddenException('Auth required');
         }
         // answer id must be an unsigned integer
         if (!Obj::isLikeInt($answerId) || $answerId < 1) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         $findAnswer = WallAnswer::find($answerId);
 
         // check if this answer id exist
         if (null === $findAnswer || false === $findAnswer) {
-            throw new JsonException('Wrong input data');
+            throw new NotFoundException('Wrong input data');
         }
 
         // get current viewer
@@ -197,7 +202,7 @@ class Profile extends ApiController
 
         // if not a target user of answer and not answer owner - lets throw exception
         if($postInfo->target_id !== $viewer->id && $findAnswer->user_id !== $viewer->id) {
-            throw new JsonException('Access declined!');
+            throw new ForbiddenException('Access declined!');
         }
 
         // all is ok, lets remove this answer ;)
@@ -213,13 +218,13 @@ class Profile extends ApiController
      * Load user dialog list based on offset
      * @param int $offset
      * @param int $new
-     * @throws JsonException
+     * @throws ForbiddenException
      */
     public function actionListmessagedialog($offset = 0, $new = 0)
     {
         // check is user auth
         if (!App::$User->isAuth()) {
-            throw new JsonException('Auth required');
+            throw new ForbiddenException('Auth required');
         }
         $this->setJsonHeader();
 
@@ -286,13 +291,13 @@ class Profile extends ApiController
 
     /**
      * Get new p.m. count for current user
-     * @throws JsonException
+     * @throws ForbiddenException
      */
     public function actionMessagesnewcount()
     {
         // check if authed
         if (!App::$User->isAuth()) {
-            throw new JsonException('Auth required');
+            throw new ForbiddenException('Auth required');
         }
         $this->setJsonHeader();
 
@@ -310,16 +315,18 @@ class Profile extends ApiController
     /**
      * List messages with correspondent
      * @param $cor_id
-     * @throws JsonException
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws NativeException
      */
     public function actionMessageList($cor_id)
     {
         if (!App::$User->isAuth()) {
-            throw new JsonException('Auth required');
+            throw new ForbiddenException('Auth required');
         }
 
         if (!Obj::isLikeInt($cor_id) || $cor_id < 1) {
-            throw new JsonException('Corresponded id is wrong');
+            throw new NotFoundException('Corresponded id is wrong');
         }
 
         // get special types for this action
@@ -329,7 +336,7 @@ class Profile extends ApiController
         $user = App::$User->identity();
 
         if (Arr::in($queryType, ['before', 'after']) && (!Obj::isLikeInt($queryId) || $queryId < 1)) {
-            throw new JsonException('Bad input data');
+            throw new NativeException('Bad input data');
         }
 
         $messages = null;
@@ -412,26 +419,27 @@ class Profile extends ApiController
     /**
      * Send message via AJAX
      * @param $target_id
-     * @throws JsonException
+     * @throws ForbiddenException
+     * @throws NativeException
      */
     public function actionMessagesend($target_id)
     {
         // check if user is auth
         if (!App::$User->isAuth()) {
-            throw new JsonException('Auth required');
+            throw new ForbiddenException('Auth required');
         }
 
         // get current user object
         $user = App::$User->identity();
 
         if (!Blacklist::check($user->id, $target_id)) {
-            throw new JsonException('In blacklist');
+            throw new ForbiddenException('In blacklist');
         }
 
         // check input params
         $msg = App::$Security->strip_tags(App::$Request->get('message'));
         if (!Obj::isLikeInt($target_id) || $target_id < 1 || Str::length($msg) < 1) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         $this->setJsonHeader();
@@ -446,10 +454,17 @@ class Profile extends ApiController
         return json_encode(['status' => 1]);
     }
 
+    /**
+     * Change user rating action
+     * @throws ForbiddenException
+     * @throws NativeException
+     * @throws NotFoundException
+     * @return string
+     */
     public function actionChangerating()
     {
         if (!App::$User->isAuth()) {
-            throw new JsonException('Auth required');
+            throw new ForbiddenException('Auth required');
         }
 
         $this->setJsonHeader();
@@ -460,18 +475,18 @@ class Profile extends ApiController
 
         // check type of query
         if ($type !== '+' && $type !== '-') {
-            throw new JsonException('Wrong data');
+            throw new NativeException('Wrong data');
         }
 
         // check if passed user id is exist
         if (!Obj::isLikeInt($target_id) || $target_id < 1 || !App::$User->isExist($target_id)) {
-            throw new JsonException('Wrong user info');
+            throw new NotFoundException('Wrong user info');
         }
 
         $cfg = \Apps\ActiveRecord\App::getConfigs('app', 'Profile');
         // check if rating is enabled for website
         if ((int)$cfg['rating'] !== 1) {
-            throw new JsonException('Rating is disabled');
+            throw new NativeException('Rating is disabled');
         }
 
         // get target and sender objects
@@ -480,7 +495,7 @@ class Profile extends ApiController
 
         // disable self-based changes ;)
         if ($target->getId() === $sender->getId()) {
-            throw new JsonException('Self change prevented');
+            throw new ForbiddenException('Self change prevented');
         }
 
         // check delay
@@ -491,7 +506,7 @@ class Profile extends ApiController
             ->where('created_at', '>=', $diff)
             ->orderBy('id', 'DESC');
         if ($query !== null && $query->count() > 0) {
-            throw new JsonException('Delay required');
+            throw new ForbiddenException('Delay required');
         }
 
         // delay is ok, lets insert a row

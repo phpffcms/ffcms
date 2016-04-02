@@ -131,7 +131,7 @@ use Ffcms\Core\Helper\Type\Obj;
                 // display notify if not used in views
                 $notify = \App::$Session->getFlashBag()->all();
                 if (Obj::isArray($notify) && count($notify) > 0) {
-                    echo \App::$View->render('macro/notify', ['notify' => $notify]);
+                    echo \App::$View->render('native/macro/notify', ['notify' => $notify]);
                 }
 
                 echo $body;

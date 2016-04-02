@@ -16,6 +16,7 @@ use Ffcms\Core\Helper\Url;
 /** @var $pagination Ffcms\Core\Helper\HTML\SimplePagination */
 /** @var $isSelf bool */
 /** @var $ratingOn bool */
+/** @var $this Ffcms\Core\Arch\View */
 
 // $user is a target profile depended object(not current user!!!)
 
@@ -205,7 +206,7 @@ $this->breadcrumbs = [
             <?php
             // show notification if exist
             if (Obj::isArray($notify) && count($notify) > 0) {
-                echo $this->render('macro/notify', ['notify' => $notify]);
+                echo $this->render('native/macro/notify', ['notify' => $notify]);
             }
             ?>
             <?php $form = new Form(

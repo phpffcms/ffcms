@@ -4,6 +4,8 @@ use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
+
+/** @var $this Ffcms\Core\Arch\View */
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -222,7 +224,7 @@ use Ffcms\Core\Helper\Url;
                             // display notify if not used in views
                             $notify = \App::$Session->getFlashBag()->all();
                             if (Obj::isArray($notify) && count($notify) > 0) {
-                                echo \App::$View->render('macro/notify', ['notify' => $notify]);
+                                echo \App::$View->render('native/macro/notify', ['notify' => $notify]);
                             }
 
                             echo $body;

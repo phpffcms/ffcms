@@ -1,4 +1,5 @@
 <?php
+/** @var object $loader - defined in composer Autoload */
 // check if loader is initialized
 if (!defined('root')) {
     die('Hack attempt');
@@ -7,7 +8,7 @@ if (!defined('root')) {
 // global environment
 define('env_name', 'Front');
 define('env_no_uri', true);
-define('type', 'web');
+define('env_type', 'html');
 
 require_once(root . '/Loader/Autoload.php');
 

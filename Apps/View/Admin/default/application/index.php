@@ -32,7 +32,7 @@ foreach ($apps as $app) {
 
     $route = $app->sys_name . '/index';
     $icoStatus = null;
-    $actions = \App::$View->render('macro/app_actions', ['controller' => $app->sys_name]);
+    $actions = \App::$View->render('native/macro/app_actions', ['controller' => $app->sys_name]);
     // set action icons based on app status
     if ((int)$app->disabled !== 0) {
         $icoStatus = ' <i class="fa fa-pause" style="color: #ff0000;"></i>';

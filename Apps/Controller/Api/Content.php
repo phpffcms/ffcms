@@ -5,7 +5,6 @@ namespace Apps\Controller\Api;
 use Extend\Core\Arch\ApiController;
 use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\App;
-use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
@@ -15,8 +14,9 @@ use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Gregwar\Image\Image;
 use Apps\ActiveRecord\Content as ContentRecord;
-use Apps\ActiveRecord\ContentRating;
 use Apps\Model\Api\Content\ContentRatingChange;
+use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NotFoundException;
 
 class Content extends ApiController
 {
@@ -46,26 +46,28 @@ class Content extends ApiController
      * Change content item rating action
      * @param string $type
      * @param int $id
-     * @throws JsonException
+     * @throws NativeException
+     * @throws ForbiddenException
+     * @throws NotFoundException
      * @return string
      */
     public function actionChangerate($type, $id)
     {
         // check input params
         if (!Arr::in($type, ['plus', 'minus']) || !Obj::isLikeInt($id)) {
-            throw new JsonException('Bad conditions');
+            throw new NativeException('Bad conditions');
         }
         
         // get current user and check is authed
         $user = App::$User->identity();
         if ($user === null || !App::$User->isAuth()) {
-            throw new JsonException(__('Authorization is required!'));
+            throw new ForbiddenException(__('Authorization is required!'));
         }
         
         // find content record
         $record = ContentRecord::find($id);
         if ($record === null || $record->count() < 1) {
-            throw new JsonException(__('Content item is not founded'));
+            throw new NotFoundException(__('Content item is not founded'));
         }
         
         // initialize model
@@ -76,7 +78,7 @@ class Content extends ApiController
             $ignored = App::$Session->get('content.rate.ignore');
             $ignored[] = $id;
             App::$Session->set('content.rate.ignore', $ignored);
-            throw new JsonException(__('You have already rate this!'));            
+            throw new ForbiddenException(__('You have already rate this!'));            
         }
         
         // make rate - add +1 to content rating and author rating
@@ -97,7 +99,7 @@ class Content extends ApiController
      * Upload new files to content item gallery
      * @param int $id
      * @return string
-     * @throws JsonException
+     * @throws ForbiddenException
      * @throws NativeException
      * @throws \Exception
      */
@@ -105,7 +107,7 @@ class Content extends ApiController
     {
         // check if id is passed
         if (Str::likeEmpty($id)) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         // check if user have permission to access there
@@ -122,17 +124,17 @@ class Content extends ApiController
         /** @var $file \Symfony\Component\HttpFoundation\File\UploadedFile */
         $file = App::$Request->files->get('gallery-files');
         if ($file === null || $file->getError() !== 0) {
-            throw new JsonException(__('Unexpected error in upload process'));
+            throw new NativeException(__('Unexpected error in upload process'));
         }
 
         // check file size
         if ($file->getSize() < 1 || $file->getSize() > $this->maxSize) {
-            throw new JsonException(__('File size is too big. Max size: %size%kb', ['size' => intval($this->maxSize/1024)]));
+            throw new ForbiddenException(__('File size is too big. Max size: %size%kb', ['size' => intval($this->maxSize/1024)]));
         }
 
         // check file extension
         if (!Arr::in($file->guessExtension(), $this->allowedExt)) {
-            throw new JsonException(__('File extension is not allowed to upload. Allowed: %s%', ['s' => implode(', ', $this->allowedExt)]));
+            throw new ForbiddenException(__('File extension is not allowed to upload. Allowed: %s%', ['s' => implode(', ', $this->allowedExt)]));
         }
 
         // create origin directory
@@ -180,14 +182,14 @@ class Content extends ApiController
      * Show gallery images from upload directory
      * @param int $id
      * @return string
-     * @throws JsonException
+     * @throws NotFoundException
      * @throws NativeException
      */
     public function actionGallerylist($id)
     {
         // check if id is passed
         if (Str::likeEmpty($id)) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         // check if user have permission to access there
@@ -197,12 +199,12 @@ class Content extends ApiController
 
         $thumbDir = Normalize::diskFullPath('/upload/gallery/' . $id . '/orig/');
         if (!Directory::exist($thumbDir)) {
-            throw new JsonException('Nothing found');
+            throw new NotFoundException('Nothing found');
         }
 
         $files = Directory::scan($thumbDir, null, true);
         if (!Obj::isArray($files) || count($files) < 1) {
-            throw new JsonException('Nothing found');
+            throw new NotFoundException('Nothing found');
         }
 
         $output = [];
@@ -224,7 +226,7 @@ class Content extends ApiController
      * Remove items from gallery (preview+full)
      * @param int $id
      * @param string $file
-     * @throws JsonException
+     * @throws ForbiddenException
      * @throws NativeException
      * @return string
      */
@@ -232,14 +234,14 @@ class Content extends ApiController
     {
         // check passed data
         if (Str::likeEmpty($file) || !Obj::isLikeInt($id)) {
-            throw new JsonException('Wrong input data');
+            throw new NativeException('Wrong input data');
         }
 
         // check passed file extension
         $fileExt = Str::lastIn($file, '.', true);
         $fileName = Str::firstIn($file, '.');
         if (!Arr::in($fileExt, $this->allowedExt)) {
-            throw new JsonException('Wrong file extension');
+            throw new ForbiddenException('Wrong file extension');
         }
 
         // generate path

@@ -10,9 +10,11 @@ use Apps\Model\Api\Comments\CommentPostAdd;
 use Apps\Model\Api\Comments\EntityCommentData;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
-use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Exception\NativeException;
+use Ffcms\Core\Exception\ForbiddenException;
 
 /**
  * Class Comments. View and add comments and answers via json based ajax query's
@@ -23,7 +25,7 @@ class Comments extends ApiController
     /**
      * Add comment or answer via ajax.
      * @return string
-     * @throws JsonException
+     * @throws NativeException
      */
     public function actionAdd()
     {
@@ -47,7 +49,7 @@ class Comments extends ApiController
 
         // check model conditions before add new row
         if ($model === null || !$model->check()) {
-            throw new JsonException('Unknown error');
+            throw new NativeException('Unknown error');
         }
 
         // add comment post or answer to database and get response active record row
@@ -65,7 +67,7 @@ class Comments extends ApiController
      * List comments as json object with defined offset index
      * @param int $index
      * @return string
-     * @throws JsonException
+     * @throws NotFoundException
      */
     public function actionList($index)
     {
@@ -81,7 +83,7 @@ class Comments extends ApiController
         // get comment target path and check
         $path = (string)App::$Request->query->get('path');
         if (Str::likeEmpty($path)) {
-            throw new JsonException('Wrong path');
+            throw new NotFoundException('Wrong path');
         }
 
         // select comments from db and check it
@@ -99,7 +101,7 @@ class Comments extends ApiController
 
         // check if records is not empty
         if ($records->count() < 1) {
-            throw new JsonException(__('There is no comments found yet. You can be the first!'));
+            throw new NotFoundException(__('There is no comments found yet. You can be the first!'));
         }
 
         // build output json data as array
@@ -131,13 +133,14 @@ class Comments extends ApiController
      * List answers by comment id as json object
      * @param int $commentId
      * @return string
-     * @throws JsonException
+     * @throws ForbiddenException
+     * @throws NotFoundException
      */
     public function actionShowanswers($commentId)
     {
         // check input data
         if (!Obj::isLikeInt($commentId) || (int)$commentId < 1) {
-            throw new JsonException('Input data is incorrect');
+            throw new ForbiddenException('Input data is incorrect');
         }
 
         // get configs
@@ -151,7 +154,7 @@ class Comments extends ApiController
 
         // check objects count
         if ($records->count() < 1) {
-            throw new JsonException(__('No answers for comment is founded'));
+            throw new NotFoundException(__('No answers for comment is founded'));
         }
 
         // prepare output

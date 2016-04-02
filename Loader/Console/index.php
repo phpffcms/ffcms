@@ -1,6 +1,6 @@
 <?php
 define('env_name', 'Console');
-define('type', 'cli');
+define('env_type', 'cli');
 
 if (PHP_SAPI !== 'cli' || !defined('root')) {
     die();

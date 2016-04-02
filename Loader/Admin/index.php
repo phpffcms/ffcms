@@ -1,5 +1,5 @@
 <?php
-
+/** @var object $loader */
 // check if loader is initialized
 if (!defined('root')) {
     die('Hack attempt');
@@ -8,7 +8,7 @@ if (!defined('root')) {
 // global environment
 define('env_name', 'Admin');
 define('env_no_uri', false);
-define('type', 'web');
+define('env_type', 'html');
 
 require_once(root . '/Loader/Autoload.php');
 
@@ -35,7 +35,7 @@ try {
         'Mailer' => true,
         'Captcha' => true,
         'Cache' => true
-    ]);
+    ], $loader);
     // display output
     \App::run();
 } catch (Exception $e) {

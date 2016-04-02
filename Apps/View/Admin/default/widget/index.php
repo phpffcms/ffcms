@@ -4,7 +4,6 @@
 /** @var $widgets object */
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 $this->title = __('Widgets');
@@ -28,7 +27,7 @@ foreach ($widgets as $widget) {
     /** @var $widget Apps\ActiveRecord\App */
     $route = $widget->sys_name . '/index';
     $icoStatus = null;
-    $actions = $this->render('macro/widget_actions', ['controller' => $widget->sys_name]);
+    $actions = $this->render('native/macro/widget_actions', ['controller' => $widget->sys_name]);
     if ((int)$widget->disabled !== 0) {
         $icoStatus = ' <i class="fa fa-pause" style="color: #ff0000;"></i>';
     } elseif ($widget->checkVersion() !== true) {

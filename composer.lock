@@ -699,12 +699,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "68bf024b0cad31e980d0b9fb0ff35e44d447fc25"
+                "reference": "1e156f8017490f5583ab161030bf839c77c95e54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/68bf024b0cad31e980d0b9fb0ff35e44d447fc25",
-                "reference": "68bf024b0cad31e980d0b9fb0ff35e44d447fc25",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/1e156f8017490f5583ab161030bf839c77c95e54",
+                "reference": "1e156f8017490f5583ab161030bf839c77c95e54",
                 "shasum": ""
             },
             "require": {
@@ -734,7 +734,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2016-02-22 06:42:06"
+            "time": "2016-03-16 17:19:17"
         },
         {
             "name": "illuminate/contracts",
@@ -742,12 +742,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "6a02a2089388a5fab945eb598e7d080bade4cd64"
+                "reference": "411b851962c211078ade7664a6976e77a78cd2a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/6a02a2089388a5fab945eb598e7d080bade4cd64",
-                "reference": "6a02a2089388a5fab945eb598e7d080bade4cd64",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/411b851962c211078ade7664a6976e77a78cd2a5",
+                "reference": "411b851962c211078ade7664a6976e77a78cd2a5",
                 "shasum": ""
             },
             "require": {
@@ -776,20 +776,20 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2016-02-22 09:18:57"
+            "time": "2016-03-07 20:37:17"
         },
         {
             "name": "illuminate/database",
-            "version": "v5.2.21",
+            "version": "v5.2.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "8b0068c326652332fd364399f4d8cce894953172"
+                "reference": "1ea9f36cef011a80b1623ea3566d57017e7913bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/8b0068c326652332fd364399f4d8cce894953172",
-                "reference": "8b0068c326652332fd364399f4d8cce894953172",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/1ea9f36cef011a80b1623ea3566d57017e7913bc",
+                "reference": "1ea9f36cef011a80b1623ea3566d57017e7913bc",
                 "shasum": ""
             },
             "require": {
@@ -836,7 +836,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2016-02-24 15:02:47"
+            "time": "2016-04-01 18:17:22"
         },
         {
             "name": "illuminate/support",
@@ -844,24 +844,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "fa1d46fe7e51d190618a0b69779a6be1d89386c5"
+                "reference": "72c0870aa452140d21bf5ac99ad07c1af7bbb08a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/fa1d46fe7e51d190618a0b69779a6be1d89386c5",
-                "reference": "fa1d46fe7e51d190618a0b69779a6be1d89386c5",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/72c0870aa452140d21bf5ac99ad07c1af7bbb08a",
+                "reference": "72c0870aa452140d21bf5ac99ad07c1af7bbb08a",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "~1.0",
                 "ext-mbstring": "*",
                 "illuminate/contracts": "5.2.*",
+                "paragonie/random_compat": "~1.4",
                 "php": ">=5.5.9"
             },
             "suggest": {
                 "illuminate/filesystem": "Required to use the composer class (5.2.*).",
                 "jeremeamia/superclosure": "Required to be able to serialize closures (~2.2).",
-                "paragonie/random_compat": "Provides a compatible interface like PHP7's random_bytes() in PHP 5 projects (~1.1).",
                 "symfony/polyfill-php56": "Required to use the hash_equals function on PHP 5.5 (~1.0).",
                 "symfony/process": "Required to use the composer class (2.8.*|3.0.*).",
                 "symfony/var-dumper": "Improves the dd function (2.8.*|3.0.*)."
@@ -892,7 +892,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2016-03-03 14:17:38"
+            "time": "2016-04-01 23:39:03"
         },
         {
             "name": "maximebf/debugbar",
@@ -1001,6 +1001,54 @@
                 "time"
             ],
             "time": "2015-11-04 20:07:17"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c7e26a21ba357863de030f0b9e701c7d04593774",
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/random.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2016-03-18 20:34:03"
         },
         {
             "name": "phpfastcache/phpfastcache",
@@ -1152,12 +1200,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "5bbdfe6e82cca60c84850610fc770f0eab2dd188"
+                "reference": "c3c3c227018c70aa74905667beb13550490e5d50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/5bbdfe6e82cca60c84850610fc770f0eab2dd188",
-                "reference": "5bbdfe6e82cca60c84850610fc770f0eab2dd188",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/c3c3c227018c70aa74905667beb13550490e5d50",
+                "reference": "c3c3c227018c70aa74905667beb13550490e5d50",
                 "shasum": ""
             },
             "require": {
@@ -1194,7 +1242,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2016-02-17 12:32:25"
+            "time": "2016-04-01 21:02:52"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1569,12 +1617,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php54.git",
-                "reference": "9ba741ca01c77282ecf5796c2c1d667f03454ffb"
+                "reference": "95e9a5cc46972bb8bd38dc7a960a3041c5813075"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/9ba741ca01c77282ecf5796c2c1d667f03454ffb",
-                "reference": "9ba741ca01c77282ecf5796c2c1d667f03454ffb",
+                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/95e9a5cc46972bb8bd38dc7a960a3041c5813075",
+                "reference": "95e9a5cc46972bb8bd38dc7a960a3041c5813075",
                 "shasum": ""
             },
             "require": {
@@ -1619,7 +1667,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-25 19:13:00"
+            "time": "2016-03-29 10:16:13"
         },
         {
             "name": "symfony/translation",
@@ -1627,12 +1675,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "74893d6cb2536d7ec0152a0cff48859e6c80aceb"
+                "reference": "82a923279e03c8cab7bfdcad706b1bf51afddd0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/74893d6cb2536d7ec0152a0cff48859e6c80aceb",
-                "reference": "74893d6cb2536d7ec0152a0cff48859e6c80aceb",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/82a923279e03c8cab7bfdcad706b1bf51afddd0f",
+                "reference": "82a923279e03c8cab7bfdcad706b1bf51afddd0f",
                 "shasum": ""
             },
             "require": {
@@ -1683,7 +1731,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-04 12:57:09"
+            "time": "2016-03-31 18:23:24"
         },
         {
             "name": "symfony/var-dumper",
@@ -1691,12 +1739,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "3c2f3b6d45a3098450bd1a10376d1d50918006b5"
+                "reference": "9405f7a18d2c086806ea79c265a1ea563f170f3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3c2f3b6d45a3098450bd1a10376d1d50918006b5",
-                "reference": "3c2f3b6d45a3098450bd1a10376d1d50918006b5",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/9405f7a18d2c086806ea79c265a1ea563f170f3b",
+                "reference": "9405f7a18d2c086806ea79c265a1ea563f170f3b",
                 "shasum": ""
             },
             "require": {
@@ -1746,7 +1794,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-02-13 09:24:02"
+            "time": "2016-04-01 08:39:52"
         }
     ],
     "packages-dev": [],

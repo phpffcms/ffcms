@@ -1,6 +1,5 @@
 <?php
 /** @var $body string */
-use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Type\Obj;
 ?>
 <!DOCTYPE html>
@@ -45,7 +44,7 @@ use Ffcms\Core\Helper\Type\Obj;
                 <?php
                 $notify = \App::$Session->getFlashBag()->all();
                 if (Obj::isArray($notify) && count($notify) > 0) {
-                    echo \App::$View->render('macro/notify', ['notify' => $notify]);
+                    echo \App::$View->render('native/macro/notify', ['notify' => $notify]);
                 }
                 echo $body;
                 ?>

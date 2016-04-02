@@ -1,4 +1,5 @@
 <?php
+/** @var object $loader */
 // check if loader is initialized
 if (!defined('root')) {
     die('Hack attempt');
@@ -6,8 +7,8 @@ if (!defined('root')) {
 
 // global environment
 define('env_name', 'Install');
-define('type', 'web');
 define('nodebug', true);
+define('env_type', 'html');
 
 require_once(root . '/Loader/Autoload.php');
 
@@ -29,7 +30,7 @@ try {
     \App::init([
         'Database' => true,
         'Session' => true
-    ]);
+    ], $loader);
     // display output
     \App::run();
 } catch (Exception $e) {
