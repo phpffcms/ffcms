@@ -180,6 +180,14 @@ class EntityCategoryList extends Model
         $nullItems = 0;
         foreach ($records as $row) {
             /** @var Content $row */
+            
+            // check title length on current language locale
+            $localeTitle = App::$Security->strip_tags($row->getLocaled('title'));
+            if (Str::likeEmpty($localeTitle)) {
+                ++$nullItems;
+                continue;
+            }
+            
             // get snippet from full text for current locale
             $text = Text::snippet($row->getLocaled('text'));
 
@@ -195,12 +203,6 @@ class EntityCategoryList extends Model
                 $tags = explode(',', $tags);
             } else {
                 $tags = null;
-            }
-
-            // check title length on current language locale
-            $localeTitle = App::$Security->strip_tags($row->getLocaled('title'));
-            if (Str::length($localeTitle) < 1) {
-                ++$nullItems;
             }
 
             $owner = App::$User->identity($row->author_id);

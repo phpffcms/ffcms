@@ -34,6 +34,10 @@ if (!\App::$Request->isPathInjected()) {
 }
 
 ?>
+<script>
+// content id array
+var contentItemList = {path: {}}
+</script>
 <?php if (!\App::$Request->isPathInjected()): ?>
     <h1><?= $model->category['title'] ?></h1>
     <?php if (Str::length($model->category['description']) > 0): ?>
@@ -108,7 +112,7 @@ if (!\App::$Request->isPathInjected()) {
         	} ?>
         	
         	<span class="spaced hidden-xs"><i class="fa fa-comments"></i>
-                <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount">0</span></a>
+                <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
             <span class="pull-right">
             <?php if ((int)$configs['keywordsAsTags'] === 1 && $item['tags'] !== null && Obj::isArray($item['tags'])): ?>
@@ -125,7 +129,9 @@ if (!\App::$Request->isPathInjected()) {
             </span>
         </div>
     </article>
-
+	<script>
+		contentItemList['path'][<?= $item['id'] ?>] = '<?= $item['uri'] ?>';
+	</script>
 <?php endforeach; ?>
 
 <?= \App::$View->render('content/_rateJs') ?>
@@ -133,3 +139,22 @@ if (!\App::$Request->isPathInjected()) {
 <div class="text-center">
     <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>
 </div>
+
+<script>
+window.jQ.push(function() {
+	if (typeof contentItemList === 'object' || Ojbect.keys(contentItemList).length > 0) {
+		$.getJSON(script_url + '/api/comments/count?lang='+script_lang, contentItemList, function(json){
+			// check if response is success
+			if (json.status !== 1 || typeof json.count !== 'object') {
+			    return null;
+			}
+
+			// list response json counts by itemId => count
+			for (var itemId in json.count) {
+				$('#comment-count-' + itemId).text(json.count[itemId]);
+			}
+			
+		});
+	}
+})
+</script>

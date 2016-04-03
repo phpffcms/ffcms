@@ -138,6 +138,7 @@ class Comments extends ApiController
      */
     public function actionShowanswers($commentId)
     {
+        $this->setJsonHeader();
         // check input data
         if (!Obj::isLikeInt($commentId) || (int)$commentId < 1) {
             throw new ForbiddenException('Input data is incorrect');
@@ -169,5 +170,36 @@ class Comments extends ApiController
             'data' => $response
         ]);
     }
-
+    
+    /**
+     * Get commentaries count for pathway. Pathway should be array [itemId => pathway]
+     * @throws NativeException
+     * @return string
+     */
+    public function actionCount()
+    {
+        // set headers
+        $this->setJsonHeader();
+        // get configs
+        $configs = AppRecord::getConfigs('widget', 'Comments');
+        // get path array from request
+        $path = App::$Request->query->get('path');
+        if (!Obj::isArray($path) || count($path) < 1) {
+            throw new NativeException('Wrong query params');
+        }
+        
+        $count = [];
+        // for each item in path array calculate comments count
+        foreach ($path as $id => $uri) {
+            $query = CommentPost::where('pathway', '=', $uri);
+            // check if comments is depend of language locale
+            if ((int)$configs['onlyLocale'] === 1) {
+                $query = $query->where('lang', '=', App::$Request->getLanguage());
+            }
+            // set itemId => count
+            $count[(int)$id] = $query->count();
+        }
+        // render json response
+        return json_encode(['status' => 1, 'count' => $count]);
+    }
 }
