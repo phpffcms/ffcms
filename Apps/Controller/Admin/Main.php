@@ -38,7 +38,7 @@ class Main extends AdminController
         $loadAvg = App::$Cache->get('load.average');
         if ($loadAvg === null) {
             $loadAvg = Environment::loadAverage();
-            App::$Cache->set('load.average', $loadAvg, 60*2); // 2 min cache
+            App::$Cache->set('load.average', $loadAvg, 60*5); // 5 min cache
         }
 
         $stats = [

@@ -26,6 +26,10 @@ class FormSettings extends Model
 
     public $languageDomainAlias;
 
+    // google analytics settings
+    public $gaClientId;
+    public $gaTrackId;
+    
     /**
     * Set property values from configurations
     */
@@ -59,7 +63,9 @@ class FormSettings extends Model
             'database.collation' => __('Collation'),
             'database.prefix' => __('Tables prefix'),
             'debug.cookie.key' => __('Debug cookie key'),
-            'debug.cookie.value' => __('Debug cookie value')
+            'debug.cookie.value' => __('Debug cookie value'),
+            'gaClientId' => __('GA Client ID'),
+            'gaTrackId' => __('GA Track ID')
         ];
     }
 
@@ -69,7 +75,7 @@ class FormSettings extends Model
     public function rules()
     {
         return [
-            [['debug.all', 'multiLanguage'], 'used'],
+            [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId'], 'used'],
             [['basePath', 'singleLanguage', 'adminEmail'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
@@ -100,6 +106,9 @@ class FormSettings extends Model
         return $response;
     }
 
+    /**
+     * Save model properties as configurations
+     */
     public function makeSave()
     {
         $toSave = App::$Security->strip_php_tags($this->getAllProperties());

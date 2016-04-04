@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'Dashboard' => 'Панель инструментов',
+    'Main dashboard' => 'Главная панель инструментов',
+    'Server info' => 'Информация о сервере',
+    'GA: visits and users' => 'GA: визиты и клиенты',
+    'GA: Countries' => 'GA: страны',
     'Base path' => 'Базовый путь',
     'Debug for all' => 'Отладка для всех',
     'Default language' => 'Стандартный язык',
@@ -83,5 +88,8 @@ return [
     'Static (alias) route' => 'Статический (алиас) маршрут',
     'Dynamic (callback) route' => 'Динамический (callback) маршрут',
     'Deleting route' => 'Удаление маршрута',
-    'Delete this route' => 'Удалить этот маршрут'
+    'Delete this route' => 'Удалить этот маршрут',
+    'There you can change specified configs depends of other platforms. GA = google analytics.' => 'Здесь вы можете изменить специфичые конфигурации зависимые от других сервисов. GA = google analytics.',
+    'Google oAuth2 client id. This id will be used to display google.analytics info. Client ID looks like: xxxxxx.apps.googleusercontent.com' => 'Google oAuth2 id клиента. Этот ID используется для отображения данных google.analytics. ID клиента выглядит так: xxxxxx.apps.googleusercontent.com',
+    'Set google analytics tracking id for your website. Track id looks like: UA-XXXXXX-Y' => 'Установите идентификатор отслеживания, полученный в google analytics для сбора статистики. Идентификатор слежения выглядит как: UA-XXXXXX-Y'
 ];

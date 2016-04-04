@@ -200,6 +200,8 @@ $customJsCode = \App::$View->showPlainCode('js');
 if ($customJsCode !== null) {
     echo '<script>' . $customJsCode . '</script>';
 }
+// render google analytics code here
+echo \App::$View->render('blocks/googleanalytics');
 ?>
 </body>
 </html>

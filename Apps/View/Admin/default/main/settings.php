@@ -47,6 +47,10 @@ $databaseTab .= $form->field('database.charset', 'text', ['class' => 'form-contr
 $databaseTab .= $form->field('database.collation', 'text', ['class' => 'form-control']);
 $databaseTab .= $form->field('database.prefix', 'text', ['class' => 'form-control'], __('Database tables prefix'));
 
+$otherTab = '<p>' . __('There you can change specified configs depends of other platforms. GA = google analytics.') . '</p>';
+$otherTab .= $form->field('gaClientId', 'text', ['class' => 'form-control'], __('Google oAuth2 client id. This id will be used to display google.analytics info. Client ID looks like: xxxxxx.apps.googleusercontent.com'));
+$otherTab .= $form->field('gaTrackId', 'text', ['class' => 'form-control'], __('Set google analytics tracking id for your website. Track id looks like: UA-XXXXXX-Y'));
+
 ?>
 
 <?php echo \Ffcms\Core\Helper\HTML\Bootstrap\Nav::display([
@@ -58,7 +62,7 @@ $databaseTab .= $form->field('database.prefix', 'text', ['class' => 'form-contro
         ['type' => 'tab', 'text' => __('Localization'), 'content' => $langTab, 'html' => true, '!secure' => true],
         ['type' => 'tab', 'text' => __('Database'), 'content' => $databaseTab, 'html' => true, '!secure' => true],
         ['type' => 'tab', 'text' => __('Debug'), 'content' => $debugTab, 'html' => true, '!secure' => true],
-        ['type' => 'tab', 'text' => __('Other'), 'content' => 'This is an other content of other tab!']
+        ['type' => 'tab', 'text' => __('Other'), 'content' => $otherTab, 'html' => true, '!secure' => true]
     ]
 ]); ?>
 
