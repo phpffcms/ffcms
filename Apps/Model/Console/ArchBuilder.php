@@ -45,9 +45,15 @@ class ArchBuilder
                     }
                 }
             }
-
-            $objectDirPath = root . '/Apps/' . $type . '/' . $workground;
-            $objectNamespace = 'Apps\\' . $type . '\\' . $workground;
+            
+            if ($type === 'Widget') {
+                $objectDirPath = root . '/Widgets/' . $workground;
+                $objectNamespace = 'Widgets\\' . $workground;
+            } else {
+                $objectDirPath = root . '/Apps/' . $type . '/' . $workground;
+                $objectNamespace = 'Apps\\' . $type . '\\' . $workground;
+            }
+            
             if (false !== $subName) {
                 $objectDirPath .= '/' . implode('/', $subName);
                 $objectNamespace .= '\\' . implode('\\', $subName);
@@ -80,7 +86,7 @@ class ArchBuilder
             return false;
         }
         File::write($objectFullPath, $objectContent);
-        $this->message = $type . ' template was created: ' . $objectName;
+        $this->message = $type . ' template was created: [' . $objectName . '] in path: ' . Str::replace(root, '', $objectDirPath);
         return true;
     }
 }

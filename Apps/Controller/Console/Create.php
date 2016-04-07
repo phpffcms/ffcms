@@ -26,4 +26,12 @@ class create
         $builder->createObject($name, 'ActiveRecord');
         return $builder->message;
     }
+    
+    public function actionWidget($name)
+    {
+        $builder = new ArchBuilder();
+        $builder->createObject($name, 'Widget');
+        return $builder->message;
+        
+    }
 }
