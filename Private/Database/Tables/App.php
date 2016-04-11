@@ -45,6 +45,11 @@ $configs->comments = serialize([
     'onlyLocale' => 0
 ]);
 
+$configs->newcontent = serialize([
+    'categories' => '1,2,3',
+    'count' => '5'
+]);
+
 $names->user = serialize([
     'en' => 'User identity',
     'ru' => 'Идентификация пользователя'
@@ -80,11 +85,17 @@ $names->comments = serialize([
     'ru' => 'Комментарии'
 ]);
 
+$names->newcontent = serialize([
+    'en' => 'New content',
+    'ru' => 'Новый контент'
+]);
+
 
 Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->insert([
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
+    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
 ]);

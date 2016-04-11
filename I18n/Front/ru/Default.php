@@ -34,5 +34,6 @@ return [
     'Unknown' => 'Аноним',
     'Answers' => 'Ответы',
     'Replay to' => 'Ответить',
-    'Replay' => 'Ответить'
+    'Replay' => 'Ответить',
+    'New content' => 'Новые материалы'
 ];

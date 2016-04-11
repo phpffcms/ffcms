@@ -143,10 +143,9 @@ use Ffcms\Core\Helper\Type\Obj;
         </div>
         <div class="col-md-3">
             <div class="panel panel-primary">
-                <div class="panel-heading">Title</div>
+                <div class="panel-heading"><?= __('New content') ?></div>
                 <div class="panel-body">
-                    Some block body <br />
-                    <?= Widgets\Front\StaticContent\StaticContent::widget(['id' => 2, 'sys' => 'my_block1']); ?>
+                    <?= Widgets\Front\Newcontent\Newcontent::widget(); ?>
                 </div>
             </div>
         </div>
