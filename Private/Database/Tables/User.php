@@ -5,7 +5,7 @@ Illuminate\Database\Capsule\Manager::schema($connectName)->create('users', funct
     $table->string('login')->unique();
     $table->string('email')->unique();
     $table->string('password', 512);
-    $table->tinyInteger('role_id')->default(1);
+    $table->tinyInteger('role_id')->default(2); // 1 = onlyRead(same as guest), 2 = user, 3 = moder, 4 = adm
     $table->string('approve_token', 128)->default(0);
     $table->string('token_data')->nullable();
     $table->string('token_ip')->nullable();

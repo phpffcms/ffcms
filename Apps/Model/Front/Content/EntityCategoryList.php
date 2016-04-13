@@ -159,12 +159,20 @@ class EntityCategoryList extends Model
      */
     private function buildOutput($records)
     {
+        // prepare rss url link for current category if enabled
+        $rssUrl = false;
+        if ((int)$this->_configs['rss'] === 1) {
+            $rssUrl = App::$Alias->baseUrl . '/content/rss/' . $this->_currentCategory->path;
+            $rssUrl = rtrim($rssUrl, '/');
+        }
+        
         // prepare current category data to output (unserialize locales and strip tags)
         $this->category = [
             'title' => App::$Security->strip_tags($this->_currentCategory->getLocaled('title')),
             'description' => App::$Security->strip_tags($this->_currentCategory->getLocaled('description')),
             'configs' => Serialize::decode($this->_currentCategory->configs),
-            'path' => $this->_currentCategory->path
+            'path' => $this->_currentCategory->path,
+            'rss' => $rssUrl
         ];
 
         // check if this category is hidden

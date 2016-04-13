@@ -46,8 +46,9 @@ $configs->comments = serialize([
 ]);
 
 $configs->newcontent = serialize([
-    'categories' => '1,2,3',
-    'count' => '5'
+    'categories' => serialize(['2','3']),
+    'count' => '5',
+    'cache' => '60'
 ]);
 
 $names->user = serialize([

@@ -15,7 +15,7 @@ foreach ($records as $record) {
     $newsLink = rtrim($newsLink, '/') . '/' . $record->path;
     
     echo '<div class="row"><div class="col-md-12">';
-    echo '<a href="' . $newsLink . '">' . $title . '</a><br />';
+    echo '<a href="' . $newsLink . '">&rarr; ' . $title . '</a><br />';
     echo '<small class="pull-left">' . $categoryLink . '</small>';
     echo '<small class="pull-right">' . $date . '</small>';
     echo '</div></div>';

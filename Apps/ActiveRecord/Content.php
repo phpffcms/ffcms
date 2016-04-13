@@ -2,7 +2,6 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\App as AppMain;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
