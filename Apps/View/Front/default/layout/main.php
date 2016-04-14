@@ -148,6 +148,13 @@ use Ffcms\Core\Helper\Type\Obj;
                     <?= Widgets\Front\Newcontent\Newcontent::widget(); ?>
                 </div>
             </div>
+            
+            <div class="panel panel-primary">
+                <div class="panel-heading"><?= __('Content tags') ?></div>
+                <div class="panel-body">
+                    <?= Widgets\Front\Contenttag\Contenttag::widget() ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>

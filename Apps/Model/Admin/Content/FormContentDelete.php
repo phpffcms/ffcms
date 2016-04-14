@@ -58,6 +58,8 @@ class FormContentDelete extends Model
      */
     public function make()
     {
+        $this->_record->getTags()->delete();
+        $this->_record->getRating()->delete();
         $this->_record->delete();
     }
 }

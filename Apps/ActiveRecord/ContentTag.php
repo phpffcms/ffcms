@@ -11,8 +11,6 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property int $content_id
  * @property string $lang
  * @property string $tag
- * @property string $created_at
- * @property string $updated_at
  */
 class ContentTag extends ActiveModel
 {

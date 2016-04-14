@@ -51,6 +51,11 @@ $configs->newcontent = serialize([
     'cache' => '60'
 ]);
 
+$configs->contenttag = serialize([
+    'count' => 10,
+    'cache' => 120
+]);
+
 $names->user = serialize([
     'en' => 'User identity',
     'ru' => 'Идентификация пользователя'
@@ -91,6 +96,11 @@ $names->newcontent = serialize([
     'ru' => 'Новый контент'
 ]);
 
+$names->contenttag = serialize([
+    'en' => 'Content tags',
+    'ru' => 'Метки контента'
+]);
+
 
 Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->insert([
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
@@ -98,5 +108,6 @@ Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->in
     ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
+    ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Contenttag', 'name' => $names->contenttag, 'configs' => $configs->contenttag, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
 ]);

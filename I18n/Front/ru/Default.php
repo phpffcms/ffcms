@@ -35,5 +35,7 @@ return [
     'Answers' => 'Ответы',
     'Replay to' => 'Ответить',
     'Replay' => 'Ответить',
-    'New content' => 'Новые материалы'
+    'New content' => 'Новые материалы',
+    'Content tags' => 'Метки контента',
+    'Content tags is not found' => 'Метки контента не найдены'
 ];

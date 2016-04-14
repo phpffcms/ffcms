@@ -60,6 +60,15 @@ class Content extends ActiveModel
     {
         return $this->hasMany('Apps\\ActiveRecord\\ContentRating', 'content_id');
     }
+    
+    /**
+     * Get content_tags relation one-to-many
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getTags()
+    {
+        return $this->hasMany('Apps\\ActiveRecord\\ContentTag', 'content_id');
+    }
 
     /**
      * Get item path URI - category/item

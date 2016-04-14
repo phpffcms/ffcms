@@ -13,6 +13,7 @@ use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
+use Apps\ActiveRecord\ContentTag;
 
 class FormContentUpdate extends Model
 {
@@ -165,6 +166,28 @@ class FormContentUpdate extends Model
 
         // save row
         $this->_content->save();
+        
+        // update tags data in special table (relation: content->content_tags = oneToMany)
+        ContentTag::where('content_id', '=', $this->_content->id)->delete();
+        $insertData = [];
+        foreach ($this->metaKeywords as $lang => $keys) {
+            // split keywords to tag array
+            $tags = explode(',', $keys);
+            foreach ($tags as $tag) {
+                // cleanup tag from white spaces
+                $tag = trim($tag);
+                // prepare data to insert
+                if (Str::length($tag) > 0) {
+                    $insertData[] = [
+                        'content_id' => $this->_content->id,
+                        'lang' => $lang,
+                        'tag' => $tag
+                    ];
+                }
+            }
+        }
+        // insert tags 
+        ContentTag::insert($insertData);
 
         // move files
         if ($tmpGalleryId !== $this->_content->id) {
