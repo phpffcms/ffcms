@@ -42,5 +42,7 @@ return [
     'We send to you email with instruction to recovery your account' => 'Мы отправили вам письмо с дальнейшими инструкциями по восстановлению доступа',
     'Form validation is failed' => 'Проверка данных в форме завершилась неудачей',
     'Recovery form' => 'Форма восстановления',
-    'Your account are successful recovered. We recommend you change password' => 'Ваш аккаунт успешно восстановлен. Мы рекомендуем вам сменить пароль'
+    'Your account are successful recovered. We recommend you change password' => 'Ваш аккаунт успешно восстановлен. Мы рекомендуем вам сменить пароль',
+    'Successful authorization from ip: %ip%' => 'Успешная авторизация с адреса %ip%',
+    'Password recovery is initialized from: %ip%' => 'Инициировано восстановление пароля с адреса: %ip%'
 ];

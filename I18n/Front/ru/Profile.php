@@ -62,6 +62,7 @@ return [
     'Save' => 'Сохранить',
     'Profile data are successful updated' => 'Данные профиля успешно обновлены',
     'Blacklist' => 'Черный список',
+    'Logs' => 'Логи',
     'User was successful blocked!' => 'Пользователь успешно заблокирован!',
     'This user is always in ignore list' => 'Этот пользователь уже находится в черном списке',
     'Add user ignore' => 'Добавить пользовательскую блокировку',
@@ -93,5 +94,9 @@ return [
     'Password is successful changed' => 'Пароль успешно изменен',
     'Enter user nickname or part of user nickname, more then 3 characters' => 'Введите псевдоним пользователя или его часть, более чем 3 символа',
     'Rating was successful changed' => 'Рейтинг успешно изменен',
-    'Rating cannot be changed' => 'Рейтинг не может быть изменен'
+    'Rating cannot be changed' => 'Рейтинг не может быть изменен',
+    'My logs' => 'Мои логи',
+    'Type' => 'Тип',
+    'Message' => 'Сообщение',
+    'Date' => 'Дата'
 ];

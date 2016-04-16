@@ -8,6 +8,7 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
+use Apps\ActiveRecord\UserLog;
 
 class FormRecovery extends Model
 {
@@ -70,11 +71,19 @@ class FormRecovery extends Model
         $pwdCrypt = App::$Security->password_hash($newPwd);
         $token = Str::randomLatinNumeric(mt_rand(64, 128));
 
+        // write new data to recovery table
         $rObject = new UserRecovery();
         $rObject->user_id = $user->id;
         $rObject->password = $pwdCrypt;
         $rObject->token = $token;
         $rObject->save();
+
+        // write logs data
+        $log = new UserLog();
+        $log->user_id = $user->id;
+        $log->type = 'RECOVERY';
+        $log->message = __('Password recovery is initialized from: %ip%', ['ip' => App::$Request->getClientIp()]);
+        $log->save();
 
         // generate mail template
         $mailTemplate = App::$View->render('user/mail/recovery', [

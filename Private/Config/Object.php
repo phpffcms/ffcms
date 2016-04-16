@@ -41,7 +41,7 @@ return [
         }
 
         $storage = new NativeSessionStorage([
-            'cookie_lifetime' => 86400,
+            'cookie_lifetime' => 86400, // 86400 = 24 * 60 * 60 = 24 hours
             'gc_maxlifetime' => 86400,
             'cookie_httponly' => '1'
         ], $handler);

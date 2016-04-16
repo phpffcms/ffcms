@@ -4,9 +4,9 @@ namespace Apps\Model\Front\User;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
+use Apps\ActiveRecord\UserLog;
 
 class FormLogin extends Model
 {
@@ -87,15 +87,15 @@ class FormLogin extends Model
             return false;
         }
 
-        $token = Str::randomLatin(mt_rand(128, 255));
-
         // write session data
         App::$Session->set('ff_user_id', $userObject->id);
-        App::$Session->set('ff_user_token', $token);
 
-        // write token to db
-        $userObject->token_data = $token;
-        $userObject->save();
+        // write user log
+        $log = new UserLog();
+        $log->user_id = $userObject->id;
+        $log->type = 'AUTH';
+        $log->message = __('Successful authorization from ip: %ip%', ['ip' => App::$Request->getClientIp()]);
+        $log->save();
 
         return true;
     }

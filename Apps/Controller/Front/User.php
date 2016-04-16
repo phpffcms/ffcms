@@ -14,6 +14,7 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Apps\ActiveRecord\UserLog;
 
 /**
  * Class User - standard user controller: login/signup/logout/etc
@@ -25,8 +26,8 @@ class User extends FrontAppController
     const EVENT_USER_LOGIN_FAIL = 'user.login.fail';
     const EVENT_USER_REGISTER_SUCCESS = 'user.signup.success';
     const EVENT_USER_REGISTER_FAIL = 'user.signup.fail';
-    
-    
+
+
     /**
      * View login form and process submit action
      * @throws ForbiddenException
@@ -53,7 +54,7 @@ class User extends FrontAppController
             App::$Session->getFlashBag()->add('error', __('User is never exist or password is incorrect!'));
             // initialize fail event
             App::$Event->run(static::EVENT_USER_LOGIN_FAIL, [
-               'model' => $loginForm 
+               'model' => $loginForm
             ]);
         }
 
@@ -113,14 +114,14 @@ class User extends FrontAppController
             if ($registerForm->tryRegister($configs['registrationType'] === 1)) {
                 // initialize succes signup event
                 App::$Event->run(static::EVENT_USER_REGISTER_SUCCESS, [
-                   'model' => $registerForm 
+                   'model' => $registerForm
                 ]);
                 // send notification of successful registering
                 App::$Session->getFlashBag()->add('success', __('Your account is registered. You must confirm account via email'));
             } else {
                 // init fail signup event
                 App::$Event->run(static::EVENT_USER_REGISTER_FAIL, [
-                   'model' => $registerForm 
+                   'model' => $registerForm
                 ]);
                 App::$Session->getFlashBag()->add('error', __('Login or email is always used on website'));
             }

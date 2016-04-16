@@ -17,8 +17,6 @@ use Ffcms\Core\Helper\Type\Str;
  * @property string $password
  * @property int $role_id
  * @property string $approve_token
- * @property string $token_data
- * @property string $token_ip
  * @property string $created_at
  * @property string $updated_at
  */
@@ -86,27 +84,26 @@ class User extends ActiveModel implements iUser
     public static function isAuth()
     {
         // get data from session
-        $session_token = MainApp::$Session->get('ff_user_token', null);
-        $session_id = (int)MainApp::$Session->get('ff_user_id', 0);
+        $sessionUserId = (int)MainApp::$Session->get('ff_user_id', 0);
 
-        // validate session data
-        if (null === $session_token || $session_id < 1 || Str::length($session_token) < 64) {
+        // check if session contains user id data
+        if ($sessionUserId < 1) {
             return false;
         }
 
         // find user identity
-        $find = self::identity($session_id);
-        if (null === $find || Str::length($find->token_data) < 64) { // check if this $id exist
+        $identity = self::identity($sessionUserId);
+        if ($identity === null) { // check if this $id exist
             MainApp::$Session->invalidate(); // destory session data - it's not valid!
             return false;
         }
 
         // check if user is approved. Default value: 0, can be null, '' or the same.
-        if ($find->approve_token !== '0' && Str::length($find->approve_token) > 0) {
+        if ($identity->approve_token !== '0' && Str::length($identity->approve_token) > 0) {
             return false;
         }
 
-        return $find->token_data === $session_token;
+        return ((int)$identity->id > 0 && (int)$identity->id === $sessionUserId);
     }
 
     /**
@@ -208,6 +205,15 @@ class User extends ActiveModel implements iUser
         }
         // return result ;)
         return $object;
+    }
+
+    /**
+     * Get user logs
+     * @return \Apps\ActiveRecord\UserLog
+     */
+    public function getLogs()
+    {
+        return $this->hasMany('Apps\\ActiveRecord\\UserLog', 'user_id');
     }
 
     /**

@@ -8,6 +8,7 @@ echo \Ffcms\Core\Helper\HTML\Bootstrap\Nav::display([
         ['type' => 'link', 'link' => 'profile/avatar', 'text' => __('Avatar')],
         ['type' => 'link', 'link' => 'profile/settings', 'text' => __('Profile')],
         ['type' => 'link', 'link' => 'profile/password', 'text' => __('Password')],
-        ['type' => 'link', 'link' => 'profile/ignore', 'text' => __('Blacklist')]
+        ['type' => 'link', 'link' => 'profile/ignore', 'text' => __('Blacklist')],
+        ['type' => 'link', 'link' => 'profile/log', 'text' => __('Logs')]
     ]
 ]);
