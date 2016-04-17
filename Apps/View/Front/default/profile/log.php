@@ -22,7 +22,7 @@ $this->breadcrumbs = [
 <h2><?= __('My logs') ?></h2>
 <hr />
 <?php
-if ($records->count() < 1) {
+if ($records === null || $records->count() < 1) {
     echo __('No logs is available');
     return;
 }

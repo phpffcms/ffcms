@@ -357,6 +357,32 @@ class Profile extends FrontAppController
     }
 
     /**
+     * Show user logs
+     * @throws ForbiddenException
+     * @return string
+     */
+    public function actionLog()
+    {
+        // check if user is authorized
+        if (!App::$User->isAuth()) {
+            throw new ForbiddenException();
+        }
+
+        // get user object
+        $user = App::$User->identity();
+
+        // get log records
+        $records = $user->getLogs();
+        if ($records !== null && $records->count() > 0) {
+            $records = $records->orderBy('id', 'DESC');
+        }
+
+        return App::$View->render('log', [
+            'records' => $records
+        ]);
+    }
+
+    /**
      * Unblock always blocked user
      * @param string $target_id
      * @throws ForbiddenException

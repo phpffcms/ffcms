@@ -37,5 +37,7 @@ return [
     'Replay' => 'Ответить',
     'New content' => 'Новые материалы',
     'Content tags' => 'Метки контента',
-    'Content tags is not found' => 'Метки контента не найдены'
+    'Content tags is not found' => 'Метки контента не найдены',
+    'New comments' => 'Новые комментарии',
+    'Comments not yet found' => 'Комментарии еще не добавлены'
 ];

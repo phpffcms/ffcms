@@ -155,6 +155,13 @@ use Ffcms\Core\Helper\Type\Obj;
                     <?= Widgets\Front\Contenttag\Contenttag::widget() ?>
                 </div>
             </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading"><?= __('New comments') ?></div>
+                <div class="panel-body">
+                    <?= Widgets\Front\Newcomment\Newcomment::widget() ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>

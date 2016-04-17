@@ -1,6 +1,7 @@
 <?php
 /** @var array $configs */
 ?>
+<div id="comments-list"></div> <!-- special anchor to use #comment-list -->
 <!-- Note! You can change this structures any way you like. JS operations based ONLY on ID and "hidden" class -->
 <!-- comments general line -->
 <div class="row">

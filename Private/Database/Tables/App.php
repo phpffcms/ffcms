@@ -31,6 +31,16 @@ $configs->profile = serialize([
     'usersOnPage' => 10
 ]);
 
+$configs->content = serialize([
+    'itemPerCategory' => 10,
+    'userAdd' => 0,
+    'multiCategories' => 1,
+    'keywordsAsTags' => 1,
+    'rss' => 1,
+    'gallerySize' => 500,
+    'galleryResize' => 150
+]);
+
 $configs->feedback = serialize([
     'useCaptcha' => 1,
     'guestAdd' => 1
@@ -56,6 +66,12 @@ $configs->contenttag = serialize([
     'cache' => 120
 ]);
 
+$configs->newcomment = serialize([
+    'snippet' => 50,
+    'count' => 5,
+    'cache' => 60
+]);
+
 $names->user = serialize([
     'en' => 'User identity',
     'ru' => 'Идентификация пользователя'
@@ -69,16 +85,6 @@ $names->profile = serialize([
 $names->content = serialize([
     'en' => 'Content',
     'ru' => 'Контент'
-]);
-
-$configs->content = serialize([
-    'itemPerCategory' => 10,
-    'userAdd' => 0,
-    'multiCategories' => 1,
-    'keywordsAsTags' => 1,
-    'rss' => 1,
-    'gallerySize' => 500,
-    'galleryResize' => 150
 ]);
 
 $names->feedback = serialize([
@@ -101,6 +107,11 @@ $names->contenttag = serialize([
     'ru' => 'Метки контента'
 ]);
 
+$names->newcomment = serialize([
+    'en' => 'New comments',
+    'ru' => 'Новые комментарии'
+]);
+
 
 Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->insert([
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
@@ -109,5 +120,6 @@ Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->in
     ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Contenttag', 'name' => $names->contenttag, 'configs' => $configs->contenttag, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
+    ['type' => 'widget', 'sys_name' => 'Contenttag', 'name' => $names->contenttag, 'configs' => $configs->contenttag, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Newcomment', 'name' => $names->newcomment, 'configs' => $configs->newcomment, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
 ]);
