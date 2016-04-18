@@ -91,5 +91,10 @@ return [
     'Delete this route' => 'Удалить этот маршрут',
     'There you can change specified configs depends of other platforms. GA = google analytics.' => 'Здесь вы можете изменить специфичые конфигурации зависимые от других сервисов. GA = google analytics.',
     'Google oAuth2 client id. This id will be used to display google.analytics info. Client ID looks like: xxxxxx.apps.googleusercontent.com' => 'Google oAuth2 id клиента. Этот ID используется для отображения данных google.analytics. ID клиента выглядит так: xxxxxx.apps.googleusercontent.com',
-    'Set google analytics tracking id for your website. Track id looks like: UA-XXXXXX-Y' => 'Установите идентификатор отслеживания, полученный в google analytics для сбора статистики. Идентификатор слежения выглядит как: UA-XXXXXX-Y'
+    'Set google analytics tracking id for your website. Track id looks like: UA-XXXXXX-Y' => 'Установите идентификатор отслеживания, полученный в google analytics для сбора статистики. Идентификатор слежения выглядит как: UA-XXXXXX-Y',
+    'Proxy list' => 'Список прокси',
+    'Set trusted proxy list to accept X-FORWARDED data. Example: 103.21.244.15,103.22.200.0/22' => 'Укажите список прокси-серверов с которых будут приниматься заголовки X-FORWARDED. Пример: 103.21.244.15,103.22.200.0/22',
+    'Route saved' => 'Маршрут сохранен',
+    'Route is successful deleted! Wait 5 second to update configurations' => 'Маршрут успешно удален! Подождите 5 секунд для обновления конфигурации',
+    'Route are successful saved! Wait 5 second to update configurations' => 'Маршрут успешно сохранен! Подождите 5 секунд для обновления конфигурации'
 ];

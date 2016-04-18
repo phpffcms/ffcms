@@ -50,6 +50,7 @@ $databaseTab .= $form->field('database.prefix', 'text', ['class' => 'form-contro
 $otherTab = '<p>' . __('There you can change specified configs depends of other platforms. GA = google analytics.') . '</p>';
 $otherTab .= $form->field('gaClientId', 'text', ['class' => 'form-control'], __('Google oAuth2 client id. This id will be used to display google.analytics info. Client ID looks like: xxxxxx.apps.googleusercontent.com'));
 $otherTab .= $form->field('gaTrackId', 'text', ['class' => 'form-control'], __('Set google analytics tracking id for your website. Track id looks like: UA-XXXXXX-Y'));
+$otherTab .= $form->field('trustedProxy', 'text', ['class' => 'form-control'], __('Set trusted proxy list to accept X-FORWARDED data. Example: 103.21.244.15,103.22.200.0/22'));
 
 ?>
 

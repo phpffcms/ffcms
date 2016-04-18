@@ -26,6 +26,7 @@ class Main extends AdminController
 
     /**
      * Index page of admin dashboard
+     * @return string
      */
     public function actionIndex()
     {
@@ -57,6 +58,7 @@ class Main extends AdminController
 
     /**
      * Manage settings in web
+     * @return string
      */
     public function actionSettings()
     {
@@ -82,6 +84,7 @@ class Main extends AdminController
 
     /**
      * Manage files via elFinder
+     * @return string
      */
     public function actionFiles()
     {
@@ -92,12 +95,16 @@ class Main extends AdminController
 
     /**
      * Show antivirus
+     * @return string
      */
     public function actionAntivirus()
     {
         return App::$View->render('antivirus');
     }
 
+    /**
+     * Set debugging cookie to current user session
+     */
     public function actionDebugcookie()
     {
         $cookieProperty = App::$Properties->get('debug');
@@ -108,7 +115,7 @@ class Main extends AdminController
 
     /**
      * List available routes
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @return string
      */
     public function actionRouting()
     {
@@ -122,6 +129,7 @@ class Main extends AdminController
     /**
      * Show add form for routing
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @return string
      */
     public function actionAddroute()
     {
@@ -131,7 +139,7 @@ class Main extends AdminController
             App::$Session->getFlashBag()->add('error', __('Routing configuration file is not allowed to write: /Private/Config/Routing.php'));
         } elseif ($model->send() && $model->validate()) {
             $model->save();
-            App::$Response->redirect('main/routing');
+            return App::$View->render('add_route_save');
         }
 
         return App::$View->render('add_route', [
@@ -142,6 +150,7 @@ class Main extends AdminController
     /**
      * Delete scheme route
      * @throws SyntaxException
+     * @return string
      */
     public function actionDeleteroute()
     {
@@ -152,7 +161,7 @@ class Main extends AdminController
         $model = new EntityDeleteRoute($type, $loader, $source);
         if ($model->send()) {
             $model->make();
-            App::$Response->redirect('main/routing');
+            return App::$View->render('delete_route_save');
         }
 
         return App::$View->render('delete_route', [
