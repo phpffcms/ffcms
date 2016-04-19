@@ -9,7 +9,7 @@ use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
 
-$this->title = __('Content update');
+$this->title = __('Content edit');
 
 $this->breadcrumbs = [
     Url::to('main/index') => __('Main'),

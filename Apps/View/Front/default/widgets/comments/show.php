@@ -1,6 +1,11 @@
 <?php
 /** @var array $configs */
 ?>
+
+<?php if ((bool)$configs['guestAdd'] && (bool)$configs['guestModerate'] && !\App::$User->isAuth()): ?>
+<p class="alert alert-warning"><?= __('All guest comments will be moderated before display') ?></p>
+<?php endif; ?>
+
 <div id="comments-list"></div> <!-- special anchor to use #comment-list -->
 <!-- Note! You can change this structures any way you like. JS operations based ONLY on ID and "hidden" class -->
 <!-- comments general line -->
@@ -69,6 +74,17 @@
             <input id="guest-name" type="text" name="guest-name" class="form-control" placeholder="John" required>
         </div>
     </div>
+    <?php if (\App::$Captcha->isFull()): ?>
+		<div class="col-md-offset-3 col-md-9"><?= \App::$Captcha->get() ?></div>
+    <?php else: ?>
+    <div class="form-group">
+        <label for="guest-captcha" class="col-sm-3 control-label"><?= __('Captcha') ?>:</label>
+        <div class="col-sm-9">
+        	<img src="<?= \App::$Captcha->get() ?>" onclick="this.src='<?= \App::$Captcha->get() ?>&lang=<?= \App::$Request->getLanguage() ?>&rnd='+Math.random()" /> <br />
+            <input id="guest-captcha" type="text" name="captcha" class="form-control" required>
+        </div>
+    </div>
+    <?php endif; ?>
     <?php endif; ?>
     <textarea class="form-control wysi-comments" name="message"></textarea>
 </form>
@@ -107,6 +123,10 @@
                 commentData[data.id] = data;
                 // create clone of comment structure
                 var commentDom = comStructure.clone();
+                if (data.moderate === 1) {
+                	commentDom.find('#comment-text').addClass('premoderate-comment');
+                	commentDom.find('#comment-date').before('<span class="label label-danger"><?= __('On moderation') ?></span> ');
+                }
                 // set comment text
                 commentDom.find('#comment-text').html(data.text).removeAttr('id');
                 // working around user data, prepare display
@@ -139,6 +159,10 @@
 
             $.fn.buildAnswerDOM = function (data) {
                 var ansDom = answStructure.clone();
+                if (data.moderate === 1) {
+                	ansDom.find('#answer-text').addClass('premoderate-comment');
+                	ansDom.find('#answer-date').before('<span class="label label-danger"><?= __('On moderation') ?></span> ');
+                }
                 ansDom.find('#answer-text').html(data.text).removeAttr('id');
 
                 if (data.user.id > 0) { // registered user, link required

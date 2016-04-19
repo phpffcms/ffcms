@@ -21,7 +21,7 @@ class CommentAnswerAdd extends Model
     public $replayTo = 0;
     public $guestName;
     public $ip;
-    
+
     private $_configs;
     private $_userId = 0;
 
@@ -51,13 +51,22 @@ class CommentAnswerAdd extends Model
             throw new JsonException(__('Guest name is not defined'));
         }
 
+        // guest moderation
+        if (!App::$User->isAuth() && (bool)$this->_configs['guestModerate']) {
+            $captcha = App::$Request->request->get('captcha');
+            if (!App::$Captcha->validate($captcha)) {
+                throw new JsonException(__('Captcha is incorrect! Click on image to refresh and try again'));
+            }
+        }
+
+        // check if replayTo is defined
         if ($this->replayTo < 1) {
             throw new JsonException(__('Comment post thread is not founded'));
         }
 
         // check if message length is correct
         if (Str::length($this->message) < (int)$this->_configs['minLength'] || Str::length($this->message) > (int)$this->_configs['maxLength']) {
-            throw new JsonException(__('Message length is incorrect. Current: %cur% , min - %min%, max - %max%', [
+            throw new JsonException(__('Message length is incorrect. Current: %cur%, min - %min%, max - %max%', [
                 'cur' => Str::length($this->message),
                 'min' => $this->_configs['minLength'],
                 'max' => $this->_configs['maxLength']
@@ -100,6 +109,10 @@ class CommentAnswerAdd extends Model
         $record->message = $this->message;
         $record->lang = App::$Request->getLanguage();
         $record->ip = $this->ip;
+        // check if premoderation is enabled and user is guest
+        if ((int)$this->_configs['guestModerate'] === 1 && $this->_userId < 1) {
+            $record->moderate = 1;
+        }
         $record->save();
 
         return $record;

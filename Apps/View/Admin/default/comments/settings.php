@@ -3,6 +3,7 @@
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
 
+/** @var \Ffcms\Core\Arch\View $this */
 /** @var \Apps\Model\Admin\Comments\FormSettings $model */
 
 $this->title = __('Comments settings');
@@ -31,6 +32,7 @@ $this->breadcrumbs = [
 
 <?= $form->field('onlyLocale', 'checkbox', null, __('Show only localized comments and answers for current user locale?')) ?>
 <?= $form->field('guestAdd', 'checkbox', null, __('Allow add comments for not authorized users?')) ?>
+<?= $form->field('guestModerate', 'checkbox', null, __('Set pre-moderation for guest comments?'))?>
 
 <?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?>
 

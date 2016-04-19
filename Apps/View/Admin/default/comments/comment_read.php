@@ -53,10 +53,7 @@ foreach ($answers->get() as $answer):
 <div class="panel panel-default" id="answer-<?= $answer->id ?>">
     <div class="panel-heading">
         <?php
-        $answerAuthor = Simplify::parseUserNick($answer->user_id, $answer->guest_name);
-        if ((int)$answer->user_id > 0) {
-            $answerAuthor = Url::link(['user/update', $answer->user_id], $answerAuthor);
-        }
+        $answerAuthor = Simplify::parseUserLink($answer->user_id, $answer->guest_name, 'user/update');
         ?>
         <?= $answerAuthor . ', ' . Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_HOUR) ?>
         <div class="pull-right">

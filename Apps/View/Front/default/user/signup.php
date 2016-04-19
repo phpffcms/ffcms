@@ -20,7 +20,7 @@ $this->title = __('Sign up');
 <?= $form->field('email', 'text', ['class' => 'form-control'], __('Enter your e-mail for an account')); ?>
 <?= $form->field('password', 'password', ['class' => 'form-control'], __('Enter a password for your account. It should be longer than 3 characters')); ?>
 <?= $form->field('repassword', 'password', ['class' => 'form-control'], __('Repeat your password to be sure it correct')); ?>
-<?php if (true === $useCaptcha) {
+<?php if ($useCaptcha) {
     if (\App::$Captcha->isFull()) {
         echo '<div class="col-md-offset-3 col-md-9">' . \App::$Captcha->get() . '</div>';
     } else {

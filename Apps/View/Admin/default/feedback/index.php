@@ -23,7 +23,7 @@ echo $this->render('feedback/_tabs');
 <h1><?= __('Feedback list') ?></h1>
 <hr />
 <?php if ($records === null || $records->count() < 1) {
-    echo '<p class="alert alert-danger">' . __('Feedback requests is empty now!') . '</p>';
+    echo '<p class="alert alert-warning">' . __('Feedback requests is empty now!') . '</p>';
     return;
 }
 

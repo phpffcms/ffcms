@@ -75,7 +75,8 @@ class Newcomment extends AbstractWidget
      */
     private function makeQuery()
     {
-        $records = CommentPost::where('lang', '=', App::$Request->getLanguage());
+        $records = CommentPost::where('lang', '=', App::$Request->getLanguage())
+            ->where('moderate', '=', 0);
 
         if ($records === null || $records->count() < 1) {
             return null;

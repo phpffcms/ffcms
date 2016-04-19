@@ -14,6 +14,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $message
  * @property string $lang
  * @property string $ip
+ * @property boolean $moderate
  * @property string $created_at
  * @property string $updated_at
  */

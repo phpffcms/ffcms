@@ -87,7 +87,8 @@ class Comments extends ApiController
         }
 
         // select comments from db and check it
-        $query = CommentPost::where('pathway', '=', $path);
+        $query = CommentPost::where('pathway', '=', $path)
+            ->where('moderate', '=', 0);
 
         // check if comments is depend of language locale
         if ((int)$configs['onlyLocale'] === 1) {
@@ -116,7 +117,7 @@ class Comments extends ApiController
         }
 
         // calculate comments left count
-        $count = CommentPost::where('pathway', '=', $path)->count();
+        $count = CommentPost::where('pathway', '=', $path)->where('moderate', '=', 0)->count();
         $count -= $offset + $perPage;
         if ($count < 0) {
             $count = 0;
@@ -148,7 +149,8 @@ class Comments extends ApiController
         $configs = AppRecord::getConfigs('widget', 'Comments');
 
         // get data from db by comment id
-        $records = CommentAnswer::where('comment_id', '=', $commentId);
+        $records = CommentAnswer::where('comment_id', '=', $commentId)
+            ->where('moderate', '=', 0);
         if ((int)$configs['onlyLocale'] === 1) {
             $records = $records->where('lang', '=', App::$Request->getLanguage());
         }
@@ -170,7 +172,7 @@ class Comments extends ApiController
             'data' => $response
         ]);
     }
-    
+
     /**
      * Get commentaries count for pathway. Pathway should be array [itemId => pathway]
      * @throws NativeException
@@ -187,11 +189,11 @@ class Comments extends ApiController
         if (!Obj::isArray($path) || count($path) < 1) {
             throw new NativeException('Wrong query params');
         }
-        
+
         $count = [];
         // for each item in path array calculate comments count
         foreach ($path as $id => $uri) {
-            $query = CommentPost::where('pathway', '=', $uri);
+            $query = CommentPost::where('pathway', '=', $uri)->where('moderate', '=', 0);
             // check if comments is depend of language locale
             if ((int)$configs['onlyLocale'] === 1) {
                 $query = $query->where('lang', '=', App::$Request->getLanguage());

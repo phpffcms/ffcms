@@ -9,6 +9,7 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Exception\ForbiddenException;
 
 /**
  * Class CommentPostAdd. Model to parse and insert input comment post data.
@@ -67,11 +68,19 @@ class CommentPostAdd extends Model
 
         // check if message length is correct
         if (Str::length($this->message) < (int)$this->_configs['minLength'] || Str::length($this->message) > (int)$this->_configs['maxLength']) {
-            throw new JsonException(__('Message length is incorrect. Current: %cur% , min - %min%, max - %max%', [
+            throw new JsonException(__('Message length is incorrect. Current: %cur%, min - %min%, max - %max%', [
                 'cur' => Str::length($this->message),
                 'min' => $this->_configs['minLength'],
                 'max' => $this->_configs['maxLength']
             ]));
+        }
+
+        // guest moderation
+        if (!App::$User->isAuth() && (bool)$this->_configs['guestModerate']) {
+            $captcha = App::$Request->request->get('captcha');
+            if (!App::$Captcha->validate($captcha)) {
+                throw new JsonException(__('Captcha is incorrect! Click on image to refresh and try again'));
+            }
         }
 
         // check delay between 2 comments from 1 user or 1 ip
@@ -104,6 +113,10 @@ class CommentPostAdd extends Model
         $record->guest_name = $this->guestName;
         $record->message = $this->message;
         $record->lang = App::$Request->getLanguage();
+        // check if premoderation is enabled and user is guest
+        if ((int)$this->_configs['guestModerate'] === 1 && $this->_userId < 1) {
+            $record->moderate = 1;
+        }
         $record->save();
 
         return $record;

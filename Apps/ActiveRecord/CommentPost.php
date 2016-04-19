@@ -2,6 +2,7 @@
 
 namespace Apps\ActiveRecord;
 
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 
 /**
@@ -13,6 +14,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string|null $guest_name
  * @property string $message
  * @property string $lang
+ * @property boolean $moderate
  * @property string $created_at
  * @property string $updated_at
  */
@@ -42,7 +44,17 @@ class CommentPost extends ActiveModel
      */
     public function getAnswerCount()
     {
-        return CommentAnswer::where('comment_id', '=', $this->id)->count();
+        // check if count is cached
+        if (MainApp::$Memory->get('commentpost.answer.count.' . $this->id) !== null) {
+            return MainApp::$Memory->get('commentpost.answer.count.' . $this->id);
+        }
+        // get count from db
+        $count = CommentAnswer::where('comment_id', '=', $this->id)
+            ->where('moderate', '=', 0)
+            ->count();
+        // save in cache
+        MainApp::$Memory->set('commentpost.answer.count.' . $this->id, $count);
+        return $count;
     }
 
 }

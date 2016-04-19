@@ -4,7 +4,9 @@ use Ffcms\Core\Helper\HTML\Table;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
+use Ffcms\Core\Helper\Simplify;
 
+/** @var \Ffcms\Core\Arch\View $this */
 /** @var \Apps\ActiveRecord\CommentPost $records */
 /** @var \Ffcms\Core\Helper\HTML\SimplePagination $pagination */
 
@@ -30,17 +32,12 @@ if ($records === null || $records->count() < 1) {
 $items = [];
 foreach ($records as $item) {
     $message = Text::cut(\App::$Security->strip_tags($item->message), 0, 75);
-    $userArr = [];
-    if ((int)$item->user_id > 0 && \App::$User->isExist($item->user_id)) {
-        $userName = \App::$User->identity($item->user_id)->getProfile()->getNickname();
-        $userArr = ['text' => Url::link(['user/update', $item->user_id], $userName), 'html' => true];
-    }
 
     $items[] = [
         1 => ['text' => $item->id],
         2 => ['text' => Url::link(['comments/read', $item->id], $message), 'html' => true],
         3 => ['text' => $item->getAnswerCount()],
-        4 => $userArr,
+        4 => ['text' => Simplify::parseUserLink((int)$item->user_id, $item->guest_name, 'user/update'), 'html' => true],
         5 => ['text' => '<a href="' . App::$Alias->scriptUrl . $item->pathway . '" target="_blank">' . Str::sub($item->pathway, 0, 20) . '...</a>', 'html' => true],
         6 => ['text' => Date::convertToDatetime($item->created_at, Date::FORMAT_TO_HOUR)],
         7 => ['text' => Url::link(['comments/read', $item->id], '<i class="fa fa-list fa-lg"></i>') .

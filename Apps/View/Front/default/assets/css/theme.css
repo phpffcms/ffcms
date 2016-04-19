@@ -336,3 +336,7 @@ label.error {
     overflow: auto;
     max-height: 250px;
 }
+
+.premoderate-comment {
+	color: #e3516a;
+}

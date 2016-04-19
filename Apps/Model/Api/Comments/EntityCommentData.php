@@ -69,6 +69,7 @@ class EntityCommentData extends Model
             'text' => $this->_record->message,
             'date' => Date::convertToDatetime($this->_record->created_at, Date::FORMAT_TO_HOUR),
             'pathway' => $this->_record->pathway,
+            'moderate' => (int)$this->_record->moderate,
             'user' => [
                 'id' => $this->_record->user_id,
                 'name' => $userName,

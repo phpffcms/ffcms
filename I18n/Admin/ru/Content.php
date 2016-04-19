@@ -117,5 +117,6 @@ return [
     'Delete' => 'Удалить',
     'Delete selected' => 'Удалить выбранные',
     'Select image from gallery as a poster for this content' => 'Выберите изображение из галереи в качестве картинки-постера для контента',
-    'Attention! Your session is deprecated. You need to make auth in new window!' => 'Внимание! Ваша сессия авторизации устарела, данные могут быть утеряны. Пройдите авторизацию повторно в новой вкладке!'
+    'Attention! Your session is deprecated. You need to make auth in new window!' => 'Внимание! Ваша сессия авторизации устарела, данные могут быть утеряны. Пройдите авторизацию повторно в новой вкладке!',
+    'Content edit' => 'Редактирование контента'
 ];

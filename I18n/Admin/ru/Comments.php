@@ -45,5 +45,7 @@ return [
     'Delete comments and answers' => 'Удаление коментариев и ответов',
     'Are you sure to delete this comments or answers?' => 'Вы уверены что хотите удалить эти комментарии или ответы?',
     'Answers is not founded' => 'Ответы не найдены',
-    'Answer' => 'Ответ'
+    'Answer' => 'Ответ',
+    'Guest moderate' => 'Гостевая модерация',
+    'Set pre-moderation for guest comments?' => 'Установить пре-модерацию гостевых комментариев?'
 ];

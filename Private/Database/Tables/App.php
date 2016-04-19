@@ -52,6 +52,7 @@ $configs->comments = serialize([
     'minLength' => 10,
     'maxLength' => 5000,
     'guestAdd' => 0,
+    'guestModerate' => 1,
     'onlyLocale' => 0
 ]);
 

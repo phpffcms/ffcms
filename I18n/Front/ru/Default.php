@@ -39,5 +39,9 @@ return [
     'Content tags' => 'Метки контента',
     'Content tags is not found' => 'Метки контента не найдены',
     'New comments' => 'Новые комментарии',
-    'Comments not yet found' => 'Комментарии еще не добавлены'
+    'Comments not yet found' => 'Комментарии еще не добавлены',
+    'On moderation' => 'На модерации',
+    'All guest comments will be moderated before display' => 'Все гостевые комментарии будут подвергнуты модерации перед отображением',
+    'Your name' => 'Ваше имя',
+    'Captcha' => 'Защитное изображение'
 ];
