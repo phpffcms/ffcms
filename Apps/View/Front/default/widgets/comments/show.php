@@ -80,7 +80,7 @@
     <div class="form-group">
         <label for="guest-captcha" class="col-sm-3 control-label"><?= __('Captcha') ?>:</label>
         <div class="col-sm-9">
-        	<img src="<?= \App::$Captcha->get() ?>" onclick="this.src='<?= \App::$Captcha->get() ?>&lang=<?= \App::$Request->getLanguage() ?>&rnd='+Math.random()" /> <br />
+        	<img src="<?= \App::$Captcha->get() ?>" onclick="this.src='<?= \App::$Captcha->get() ?>&lang=<?= \App::$Request->getLanguage() ?>&rnd='+Math.random()" id="comment-captcha" /> <br />
             <input id="guest-captcha" type="text" name="captcha" class="form-control" required>
         </div>
     </div>
@@ -281,6 +281,11 @@
             // listen click on "add comment" button
             $('#add-new-comment').on('click', function(){
                 var formData = $('form[name="comment-add-form"]');
+
+                // refresh user captcha if guest submit
+                if ($('#comment-captcha').length > 0) {
+					$('#comment-captcha').trigger('click');
+                }
 
                 $.post(script_url+'/api/comments/add?lang='+script_lang, formData.serialize()).done(function(res){
                     // comment post is successful added

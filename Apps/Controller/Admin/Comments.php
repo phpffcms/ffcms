@@ -14,6 +14,7 @@ use Ffcms\Core\Helper\Type\Arr;
 use Apps\Model\Admin\Comments\FormCommentUpdate;
 use Ffcms\Core\Helper\Type\Obj;
 use Apps\Model\Admin\Comments\FormCommentDelete;
+use Apps\Model\Admin\Comments\FormCommentModerate;
 
 /**
  * Class Comments. Admin controller for management user comments.
@@ -107,10 +108,10 @@ class Comments extends AdminController
         if ($record === null || $record === false) {
             throw new NotFoundException(__('Comment is not founded'));
         }
-        
+
         // init edit model
         $model = new FormCommentUpdate($record, $type);
-        
+
         // check if data is submited and validated
         if ($model->send() && $model->validate()) {
             $model->make();
@@ -122,7 +123,7 @@ class Comments extends AdminController
             'model' => $model->export()
         ]);
     }
-    
+
     /**
      * Delete comments and answers single or multiply items
      * @param string $type
@@ -134,7 +135,7 @@ class Comments extends AdminController
     {
         // sounds like a multiply delete definition
         if ($id === 0 || (int)$id < 1) {
-            $ids = App::$Request->query->get('selectRemove');
+            $ids = App::$Request->query->get('selected');
             if (Obj::isArray($ids) && Arr::onlyNumericValues($ids)) {
                 $id = $ids;
             } else {
@@ -143,7 +144,7 @@ class Comments extends AdminController
         } else {
             $id = [$id];
         }
-        
+
         // prepare query to db
         $query = null;
         switch ($type) {
@@ -154,22 +155,22 @@ class Comments extends AdminController
                 $query = CommentAnswer::whereIn('id', $id);
                 break;
         }
-        
+
         // check if result is not empty
         if ($query === null || $query->count() < 1) {
             throw new NotFoundException(__('No comments found for this condition'));
         }
-        
+
         // initialize model
         $model = new FormCommentDelete($query, $type);
-        
+
         // check if delete is submited
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Comments or answers are successful deleted!'));
             App::$Response->redirect('comments/' . ($type === 'answer' ? 'answerlist' : 'index'));
         }
-        
+
         // render view
         return App::$View->render('delete', [
             'model' => $model
@@ -177,7 +178,59 @@ class Comments extends AdminController
     }
 
     /**
-     * List answers 
+     * Moderate guest comments and answer - make it publish
+     * @param string $type
+     * @param int $id
+     * @throws NotFoundException
+     * @return string
+     */
+    public function actionPublish($type, $id = 0)
+    {
+        // check if it multiple accept ids
+        if ($id === 0 || (int)$id < 1) {
+            $ids = App::$Request->query->get('selected');
+            if (Obj::isArray($ids) && Arr::onlyNumericValues($ids)) {
+                $id = $ids;
+            } else {
+                throw new NotFoundException('Bad conditions');
+            }
+        } else {
+            $id = [$id];
+        }
+
+        // build query
+        $query = null;
+        switch ($type) {
+            case static::TYPE_COMMENT:
+                $query = CommentPost::whereIn('id', $id)->where('moderate', '=', 1);
+                break;
+            case static::TYPE_ANSWER:
+                $query = CommentAnswer::whereIn('id', $id)->where('moderate', '=', 1);
+                break;
+        }
+
+        // check if result is not empty
+        if ($query === null || $query->count() < 1) {
+            throw new NotFoundException(__('No comments found for this condition'));
+        }
+
+        // initialize moderation model
+        $model = new FormCommentModerate($query, $type);
+
+        // check if form is submited
+        if ($model->send()) {
+            $model->make();
+            App::$Session->getFlashBag()->add('success', __('Comments or answers are successful published'));
+            App::$Response->redirect('comments/' . ($type === 'answer' ? 'answerlist' : 'index'));
+        }
+
+        return App::$View->render('publish', [
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * List answers
      * @return string
      */
     public function actionAnswerlist()
@@ -185,10 +238,10 @@ class Comments extends AdminController
         // set current page and offset
         $page = (int)App::$Request->query->get('page');
         $offset = $page * self::ITEM_PER_PAGE;
-        
+
         // initialize ar answers model
         $query = new CommentAnswer();
-        
+
         // build pagination list
         $pagination = new SimplePagination([
             'url' => ['comments/answerlist'],
@@ -196,10 +249,10 @@ class Comments extends AdminController
             'step' => self::ITEM_PER_PAGE,
             'total' => $query->count()
         ]);
-        
+
         // get result as active records object with offset
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
-        
+
         // render output view
         return App::$View->render('answer_list', [
             'records' => $records,

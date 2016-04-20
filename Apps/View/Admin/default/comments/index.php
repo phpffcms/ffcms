@@ -30,12 +30,19 @@ if ($records === null || $records->count() < 1) {
     return;
 }
 $items = [];
+$moderateIsFound = false;
 foreach ($records as $item) {
     $message = Text::cut(\App::$Security->strip_tags($item->message), 0, 75);
 
+    $moderate = (bool)$item->moderate;
+    // if even one moderate item is found - change global flag to true
+    if ($moderate) {
+        $moderateIsFound = true;
+    }
+
     $items[] = [
         1 => ['text' => $item->id],
-        2 => ['text' => Url::link(['comments/read', $item->id], $message), 'html' => true],
+        2 => ['text' => ($moderate ? '<i class="fa fa-exclamation text-warning"></i> ' : null) . Url::link(['comments/read', $item->id], $message), 'html' => true],
         3 => ['text' => $item->getAnswerCount()],
         4 => ['text' => Simplify::parseUserLink((int)$item->user_id, $item->guest_name, 'user/update'), 'html' => true],
         5 => ['text' => '<a href="' . App::$Alias->scriptUrl . $item->pathway . '" target="_blank">' . Str::sub($item->pathway, 0, 20) . '...</a>', 'html' => true],
@@ -43,8 +50,20 @@ foreach ($records as $item) {
         7 => ['text' => Url::link(['comments/read', $item->id], '<i class="fa fa-list fa-lg"></i>') .
             ' ' . Url::link(['comments/delete', 'comment', $item->id], '<i class="fa fa-trash-o fa-lg"></i>'),
             'html' => true, 'property' => ['class' => 'text-center']],
-        'property' => ['class' => 'checkbox-row']
+        'property' => [
+            'class' => 'checkbox-row' . ($moderate !== false ? ' alert-warning' : null)
+        ]
     ];
+}
+
+$massAccept = false;
+if ($moderateIsFound) {
+    $massAccept = [
+                    'type' => 'submit',
+                    'class' => 'btn btn-warning',
+                    'value' => __('Publish'),
+                    'formaction' => Url::to('comments/publish', 'comment'),
+                  ];
 }
 
 ?>
@@ -67,10 +86,22 @@ foreach ($records as $item) {
         'items' => $items
     ],
     'selectableBox' => [
+        'form' => ['method' => 'GET', 'class' => 'form-horizontal', 'action' => ''],
         'attachOrder' => 1,
-        'form' => ['method' => 'GET', 'class' => 'form-horizontal', 'action' => Url::to('comments/delete', 'comment')],
-        'input' => ['type' => 'checkbox', 'name' => 'selectRemove[]', 'class' => 'massSelectId'],
-        'button' => ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
+        'selector' => ['type' => 'checkbox', 'name' => 'selected[]', 'class' => 'massSelectId'],
+        'buttons' => [
+            [
+                'type' => 'submit',
+                'class' => 'btn btn-danger',
+                'value' => __('Delete selected'),
+                'formaction' => Url::to('comments/delete', 'comment'),
+            ],
+            $massAccept
+        ],
     ]
 ]); ?>
+</div>
+
+<div class="text-center">
+    <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>
 </div>

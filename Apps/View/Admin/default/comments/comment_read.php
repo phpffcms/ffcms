@@ -5,6 +5,7 @@ use Ffcms\Core\Helper\Simplify;
 use Ffcms\Core\Helper\Url;
 
 /** @var \Apps\ActiveRecord\CommentPost $record */
+/** @var \Ffcms\Core\Arch\View $this */
 
 $this->title = __('View comment');
 $this->breadcrumbs = [
@@ -30,11 +31,14 @@ $this->breadcrumbs = [
         ?>
         <?= $author . ', ' . Date::convertToDatetime($record->created_at, Date::FORMAT_TO_HOUR)  ?>
         <div class="pull-right">
+        	<?php if ((bool)$record->moderate):?>
+        		<?= Url::link(['comments/publish', 'comment', $record->id], __('Publish'), ['class' => 'label label-warning']) ?>
+        	<?php endif; ?>
             <?= Url::link(['comments/edit', 'comment', $record->id], __('Edit'), ['class' => 'label label-primary']) ?>
             <?= Url::link(['comments/delete', 'comment', $record->id], __('Delete'), ['class' => 'label label-danger']) ?>
         </div>
     </div>
-    <div class="panel-body">
+    <div class="panel-body<?= ((bool)$record->moderate ? ' text-warning' : null)?>">
         <?= $record->message ?>
     </div>
 </div>
@@ -57,11 +61,14 @@ foreach ($answers->get() as $answer):
         ?>
         <?= $answerAuthor . ', ' . Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_HOUR) ?>
         <div class="pull-right">
+            <?php if ((bool)$answer->moderate):?>
+        		<?= Url::link(['comments/publish', 'answer', $answer->id], __('Publish'), ['class' => 'label label-warning']) ?>
+        	<?php endif; ?>
             <?= Url::link(['comments/edit', 'answer', $answer->id], __('Edit'), ['class' => 'label label-primary']) ?>
             <?= Url::link(['comments/delete', 'answer', $answer->id], __('Delete'), ['class' => 'label label-danger']) ?>
         </div>
     </div>
-    <div class="panel-body">
+    <div class="panel-body<?= ((bool)$answer->moderate ? ' text-warning' : null)?>">
         <?= $answer->message ?>
     </div>
 </div>

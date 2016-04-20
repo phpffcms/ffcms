@@ -47,5 +47,10 @@ return [
     'Answers is not founded' => 'Ответы не найдены',
     'Answer' => 'Ответ',
     'Guest moderate' => 'Гостевая модерация',
-    'Set pre-moderation for guest comments?' => 'Установить пре-модерацию гостевых комментариев?'
+    'Set pre-moderation for guest comments?' => 'Установить пре-модерацию гостевых комментариев?',
+    'Publish' => 'Опубликовать',
+    'Publish comments' => 'Публикация комментариев',
+    'Publish comments and answers' => 'Публикация комментариев или ответов',
+    'Are you sure to moderate and make public this comments and answers?' => 'Вы уверены что хотите провести модерацию и опубликовать эти комментарии или ответы?',
+    'Comments or answers are successful published' => 'Комментарии или ответы были успешно опубликованы'
 ];

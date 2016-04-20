@@ -100,8 +100,10 @@ if ($type !== 'trash') {
     $selectBox = [
         'attachOrder' => 1,
         'form' => ['method' => 'GET', 'class' => 'form-horizontal', 'action' => Url::to('content/globdelete')],
-        'input' => ['type' => 'checkbox', 'name' => 'selectRemove[]', 'class' => 'massSelectId'],
-        'button' => ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
+        'selector' => ['type' => 'checkbox', 'name' => 'selectRemove[]', 'class' => 'massSelectId'],
+        'buttons' => [
+            ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
+        ]
     ];
 }
 ?>
