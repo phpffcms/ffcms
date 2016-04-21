@@ -19,5 +19,9 @@ return [
     'Similar content' => 'Похожий контент',
     'Current content rating' => 'Текущий рейнтинг материала',
     'Dislike this' => 'НЕ нравится',
-    'Like this' => 'Нравится'
+    'Like this' => 'Нравится',
+    'Sorting' => 'Сортировка',
+    'Newest' => 'По новизне',
+    'Rating' => 'По рейтингу',
+    'Popularity' => 'По популярности'
 ];

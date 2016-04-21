@@ -18,6 +18,7 @@ use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Url;
 
 /**
  * Class EntityCategoryList. Build content and category data to display in views based on pathway.
@@ -37,6 +38,7 @@ class EntityCategoryList extends Model
     private $_path;
     private $_configs;
     private $_page = 0;
+    private $_sort;
     private $_contentCount = 0;
 
     private $_currentCategory;
@@ -48,12 +50,14 @@ class EntityCategoryList extends Model
      * @param string $path
      * @param array $configs
      * @param int $offset
+     * @param string $sort
      */
-    public function __construct($path, array $configs, $offset = 0)
+    public function __construct($path, array $configs, $offset = 0, $sort = 'newest')
     {
         $this->_path = $path;
         $this->_configs = $configs;
         $this->_page = (int)$offset;
+        $this->_sort = $sort;
         parent::__construct();
     }
 
@@ -73,8 +77,9 @@ class EntityCategoryList extends Model
 
         // try to find content items depend of founded category(ies)
         $records = $this->findItems();
-        // prepare output data
-        $this->buildOutput($records);
+        // build output information
+        $this->buildCategory();
+        $this->buildContent($records);
     }
 
     /**
@@ -147,17 +152,28 @@ class EntityCategoryList extends Model
         // save count
         $this->_contentCount = $query->count();
 
+        // apply sort by
+        switch ($this->_sort) {
+            case 'rating':
+                $query = $query->orderBy('rating', 'DESC');
+                break;
+            case 'views':
+                $query = $query->orderBy('views', 'DESC');
+                break;
+            default:
+                $query = $query->orderBy('created_at', 'DESC');
+                break;
+        }
+
         // make select based on offset
-        return $query->skip($offset)->take($itemPerPage)->orderBy('created_at', 'DESC')->get();
+        return $query->skip($offset)->take($itemPerPage)->get();
     }
 
     /**
-     * Build content data to model properties
-     * @param $records
+     * Prepare category data to display
      * @throws ForbiddenException
-     * @throws NotFoundException
      */
-    private function buildOutput($records)
+    private function buildCategory()
     {
         // prepare rss url link for current category if enabled
         $rssUrl = false;
@@ -165,14 +181,26 @@ class EntityCategoryList extends Model
             $rssUrl = App::$Alias->baseUrl . '/content/rss/' . $this->_currentCategory->path;
             $rssUrl = rtrim($rssUrl, '/');
         }
-        
+
+        // prepare sorting urls
+        $catSortParams = [];
+        if (App::$Request->query->get('page') !== null) {
+            $catSortParams['page'] = (int)App::$Request->query->get('page');
+        }
+        $catSortUrls = [
+            'views' => Url::to('content/list', $this->_currentCategory->path, null, Arr::merge($catSortParams, ['sort' => 'views']), false),
+            'rating' => Url::to('content/list', $this->_currentCategory->path, null, Arr::merge($catSortParams, ['sort' => 'rating']), false),
+            'newest' => Url::to('content/list', $this->_currentCategory->path, null, $catSortParams, false)
+        ];
+
         // prepare current category data to output (unserialize locales and strip tags)
         $this->category = [
             'title' => App::$Security->strip_tags($this->_currentCategory->getLocaled('title')),
             'description' => App::$Security->strip_tags($this->_currentCategory->getLocaled('description')),
             'configs' => Serialize::decode($this->_currentCategory->configs),
             'path' => $this->_currentCategory->path,
-            'rss' => $rssUrl
+            'rss' => $rssUrl,
+            'sort' => $catSortUrls
         ];
 
         // check if this category is hidden
@@ -184,18 +212,27 @@ class EntityCategoryList extends Model
         foreach ($this->_allCategories as $cat) {
             $this->categories[$cat->id] = $cat;
         }
+    }
 
+    /**
+     * Build content data to model properties
+     * @param $records
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     */
+    private function buildContent($records)
+    {
         $nullItems = 0;
         foreach ($records as $row) {
             /** @var Content $row */
-            
+
             // check title length on current language locale
             $localeTitle = App::$Security->strip_tags($row->getLocaled('title'));
             if (Str::likeEmpty($localeTitle)) {
                 ++$nullItems;
                 continue;
             }
-            
+
             // get snippet from full text for current locale
             $text = Text::snippet($row->getLocaled('text'));
 
@@ -218,7 +255,7 @@ class EntityCategoryList extends Model
             if ($owner === null) {
                 $owner = new User();
             }
-            
+
             // check if current user can rate item
             $ignoredRate = App::$Session->get('content.rate.ignore');
             $canRate = true;
@@ -228,7 +265,7 @@ class EntityCategoryList extends Model
             if (!App::$User->isAuth()) {
                 $canRate = false;
             }
-            
+
             // build result array
             $this->items[] = [
                 'id' => $row->id,

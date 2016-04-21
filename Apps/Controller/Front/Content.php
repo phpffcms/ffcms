@@ -16,6 +16,7 @@ use Ffcms\Core\Helper\Type\Str;
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
+use Ffcms\Core\Helper\Type\Arr;
 
 /**
  * Class Content. Controller of content app - content and categories.
@@ -24,7 +25,7 @@ use Suin\RSSWriter\Item;
 class Content extends FrontAppController
 {
     const TAG_PER_PAGE = 50;
-    
+
     const EVENT_CONTENT_READ = 'content.read';
     const EVENT_RSS_READ = 'content.rss.read';
     const EVENT_CONTENT_LIST = 'content.list';
@@ -51,19 +52,26 @@ class Content extends FrontAppController
         $path = App::$Request->getPathWithoutControllerAction();
         $configs = $this->getConfigs();
         $page = (int)App::$Request->query->get('page');
+        $sort = (string)App::$Request->query->get('sort', 'newest');
         $itemCount = (int)$configs['itemPerCategory'];
 
         // build special model with content list and category list information
-        $model = new EntityCategoryList($path, $configs, $page);
+        $model = new EntityCategoryList($path, $configs, $page, $sort);
+
+        // prepare query string (?a=b) for pagination if sort is defined
+        $sortQuery = null;
+        if (Arr::in($sort, ['rating', 'views'])) {
+            $sortQuery = ['sort' => $sort];
+        }
 
         // build pagination
         $pagination = new SimplePagination([
-            'url' => ['content/list', $path],
+            'url' => ['content/list', $path, null, $sortQuery],
             'page' => $page,
             'step' => $itemCount,
             'total' => $model->getContentCount()
         ]);
-        
+
         // define list event
         App::$Event->run(static::EVENT_CONTENT_LIST, [
             'model' => $model
@@ -128,7 +136,7 @@ class Content extends FrontAppController
         if ((int)$model->getCategory()->getProperty('showSimilar') === 1 && $trash === false) {
             $search = new EntityContentSearch($model->title, $model->id);
         }
-        
+
         // define read event
         App::$Event->run(static::EVENT_CONTENT_READ, [
             'model' => $model
@@ -172,7 +180,7 @@ class Content extends FrontAppController
         if ($records->count() < 1) {
             throw new NotFoundException(__('Nothing founded'));
         }
-        
+
         // define tag list event
         App::$Event->run(static::EVENT_TAG_LIST, [
             'records' => $records
@@ -238,7 +246,7 @@ class Content extends FrontAppController
             'feed' => $feed,
             'channel' => $channel
         ]);
-        
+
         // render response from feed object
         return $feed->render();
     }

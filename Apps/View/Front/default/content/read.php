@@ -23,7 +23,7 @@ if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
 }
 
 // don't use breadcrumbs on injected pathway rule
-if (!\App::$Request->isPathInjected()) {
+if (!\App::$Request->isPathInjected() && (bool)$model->getCategory()->getProperty('showCategory')) {
     $breadcrumbs = [
             Url::to('/') => __('Home')
     ];
@@ -42,37 +42,36 @@ if (!\App::$Request->isPathInjected()) {
 }
 
 $properties = [
-    'date' => (int)$model->getCategory()->getProperty('showDate') === 1,
-    'author' => (int)$model->getCategory()->getProperty('showAuthor') === 1,
-    'views' => (int)$model->getCategory()->getProperty('showViews') === 1,
-    'category' => (int)$model->getCategory()->getProperty('showCategory') === 1,
-    'rating' => (int)$model->getCategory()->getProperty('showRating') === 1
+    'date' => (bool)$model->getCategory()->getProperty('showDate'),
+    'author' => (bool)$model->getCategory()->getProperty('showAuthor'),
+    'views' => (bool)$model->getCategory()->getProperty('showViews'),
+    'category' => (bool)$model->getCategory()->getProperty('showCategory'),
+    'rating' => (bool)$model->getCategory()->getProperty('showRating')
 ];
-$showComments = (int)$model->getCategory()->getProperty('showComments') === 1;
-$showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
+$showComments = (bool)$model->getCategory()->getProperty('showComments');
+$showPoster = (bool)$model->getCategory()->getProperty('showPoster');
 
-\App::$Cache->set('test.me.baby.1', ['key' => 'value']);
 ?>
 
-<article class="article-item">
+<article class="article-item" itemscope="itemscope" itemtype="https://schema.org/NewsArticle">
     <h1><?= \App::$Security->strip_tags($model->title); ?></h1>
     <?php if (Arr::in(true, $properties)): ?>
     <div class="meta">
         <?php if ($properties['category'] === true): ?>
-        <span class="spaced"><i class="fa fa-list"></i><?= Url::link(['content/list', $model->catPath, null, [], false], $model->catName, ['itemprop' => 'genre']) ?></span>
+        <span class="spaced"><i class="fa fa-list"></i> <?= Url::link(['content/list', $model->catPath, null, [], false], $model->catName, ['itemprop' => 'genre']) ?></span>
         <?php endif; ?>
         <?php if ($properties['date'] === true): ?>
-        <span class="spaced"><i class="fa fa-calendar"></i><time datetime="<?= date('c', $model->createDate) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
+        <span class="spaced"><i class="fa fa-calendar"></i> <time datetime="<?= date('c', $model->createDate) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
         <?php endif; ?>
         <?php if ($properties['author'] === true): ?>
             <?php if ($model->authorId !== null && $model->authorId > 0): ?>
-                <span class="spaced"><i class="fa fa-user"></i><?= Url::link(['profile/show', $model->authorId], $model->authorName, ['itemprop' => 'author']) ?></span>
+                <span class="spaced"><i class="fa fa-user"></i> <?= Url::link(['profile/show', $model->authorId], $model->authorName, ['itemprop' => 'author']) ?></span>
             <?php else: ?>
-                <span class="spaced"><i class="fa fa-user"></i><s><?= $model->authorName ?></s></span>
+                <span class="spaced"><i class="fa fa-user"></i> <s><?= $model->authorName ?></s></span>
             <?php endif; ?>
         <?php endif; ?>
         <?php if ($properties['views'] === true): ?>
-        <span class="spaced"><i class="fa fa-eye"></i><?= $model->views ?></span>
+        <span class="spaced"><i class="fa fa-eye"></i> <?= $model->views ?></span>
         <?php endif ?>
         <?php if (\App::$User->isAuth() && \App::$User->identity()->getRole()->can('Admin/Content/Update')): ?>
         <span class="pull-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="fa fa-pencil" style="color: #ff0000;"></i></a></span>
@@ -154,7 +153,7 @@ $showPoster = (int)$model->getCategory()->getProperty('showPoster') === 1;
         <?php endforeach; ?>
         </div>
     <?php endif; ?>
-    
+
     <div class="row">
     	<div class="col-md-12">
     		<div class="pull-left">

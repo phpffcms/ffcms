@@ -39,16 +39,28 @@ if (!\App::$Request->isPathInjected()) {
 var contentItemList = {path: {}}
 </script>
 <?php if (!\App::$Request->isPathInjected()): ?>
-    <h1>
-    	<?= $model->category['title'] ?>
-    	<?php if ($model->category['rss'] !== false && !Str::likeEmpty($model->category['rss'])): ?>
-    		<small class="pull-right"><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fa fa-rss"></i></a></small>
-    	<?php endif; ?>
-    </h1>
-    <?php if (Str::length($model->category['description']) > 0): ?>
+<h1>
+<?= $model->category['title'] ?>
+<?php if ($model->category['rss'] !== false && !Str::likeEmpty($model->category['rss'])): ?>
+	<small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fa fa-rss"></i></a></small>
+<?php endif; ?>
+	<div class="pull-right">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-sort-amount-desc "></i> <?= __('Sorting')?> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="<?= $model->category['sort']['newest'] ?>"><?= __('Newest') ?> </a></li>
+				<li><a href="<?= $model->category['sort']['rating'] ?>"><?= __('Rating') ?></a></li>
+				<li><a href="<?= $model->category['sort']['views'] ?>"><?= __('Popularity') ?></a></li>
+			</ul>
+		</div>
+	</div>
+</h1>
+<?php if (Str::length($model->category['description']) > 0): ?>
     <p><?= $model->category['description'] ?></p>
-    <?php endif; ?>
-    <hr />
+<?php endif; ?>
+<hr />
 <?php endif; ?>
 <?php if ($model->getContentCount() < 1): ?>
     <p class="alert alert-warning"><?= __('This category is empty!') ?></p>
@@ -115,7 +127,7 @@ var contentItemList = {path: {}}
         	        'rating' => $item['rating']
         	    ]);
         	} ?>
-        	
+
         	<span class="spaced hidden-xs"><i class="fa fa-comments"></i>
                 <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
@@ -158,7 +170,7 @@ window.jQ.push(function() {
 			for (var itemId in json.count) {
 				$('#comment-count-' + itemId).text(json.count[itemId]);
 			}
-			
+
 		});
 	}
 })
