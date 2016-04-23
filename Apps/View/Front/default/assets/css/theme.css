@@ -20,12 +20,14 @@ div.account-container {
 ul.account-list > li {
     padding-right: 0;
     padding-left: 0;
+    margin-left: 0;
 }
 
 ul.account-list > li > a {
     font-size: 16px;
     color: #999;
     padding: 10px;
+    border-radius: 0;
 }
 
 ul.account-list > li.active > a {
@@ -62,6 +64,10 @@ div.site-name {
 
 div.content-container {
     padding-left: 25px;
+}
+
+.nopadding {
+	padding: 0 !important;
 }
 
 /** Article styles **/
@@ -172,7 +178,35 @@ footer {
 .navbar-default {
     background-color: #31668d;
     border-color: #e7e7e7;
+    
 }
+
+/** gray navbar */
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+    color: #000000;
+    background: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-brand:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav > li.active > a {
+    color: #ffffff;
+    background: #000000;
+}
+
+.navbar-inverse {
+    background-color: transparent;
+    border-color: transparent;
+	margin-bottom: 1px;
+}
+
+.navbar-inverse .navbar-toggle {
+	background-color: #000000;
+}
+
 
 /** Custom panel style's */
 

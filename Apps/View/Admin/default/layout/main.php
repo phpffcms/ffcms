@@ -11,7 +11,8 @@ use Ffcms\Core\Helper\Url;
 <html lang="ru">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1">
     <title><?= App::$Security->strip_tags($this->title) ?></title>
     <link rel="stylesheet" href="<?= \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
     <link rel="stylesheet" href="<?= \App::$Alias->getVendor('css', 'fa'); ?>"/>

@@ -12,6 +12,7 @@ class LanguageSwitcher extends Widget
     private $multiLangEnabled = false;
 
     public $css = ['class' => 'list-inline'];
+    public $onlyArrayItems = false;
 
     public function init()
     {
@@ -38,6 +39,10 @@ class LanguageSwitcher extends Widget
                 'html' => true,
                 '!secure' => true
             ];
+        }
+
+        if ($this->onlyArrayItems) {
+            return $items;
         }
 
         return Listing::display([
