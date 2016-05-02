@@ -13,7 +13,7 @@ use Apps\Model\Api\Comments\EntityCommentData;
 <?php foreach ($records as $comment):?>
 <?php
 /** @var array $data */
-$data = (new EntityCommentData($comment))->make();
+$data = (new EntityCommentData($comment, false))->make();
 ?>
 
 
@@ -35,7 +35,9 @@ $data = (new EntityCommentData($comment))->make();
 			<img class="media-object img-responsive" src="<?= $data['user']['avatar']?>" style="width: 64px; height: 64px;" alt="Picture of user <?= $data['user']['name'] ?>">
 		</span>
 		<div class="media-body">
-			<a href="<?= \App::$Alias->baseUrl . $data['pathway'] . '#comment-list' ?>"><?= $data['text'] ?></a>
+			<a href="<?= \App::$Alias->baseUrl . $data['pathway'] . '#comment-list' ?>">
+				<?= \App::$Security->strip_tags($data['text']) ?>
+			</a>
 		</div>
 	</li>
 </ul>

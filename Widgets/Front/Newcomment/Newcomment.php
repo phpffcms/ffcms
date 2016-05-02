@@ -41,6 +41,8 @@ class Newcomment extends AbstractWidget
      * Show latest comments
      * {@inheritDoc}
      * @see \Ffcms\Core\Arch\Widget::display()
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function display()
     {
@@ -53,6 +55,7 @@ class Newcomment extends AbstractWidget
                 $records = App::$Cache->get('widget.newcomment.' . $classHash);
             } else {
                 $records = $this->makeQuery();
+                App::$Cache->set('widget.newcomment.' . $classHash, $records);
             }
         } else {
             $records = $this->makeQuery();

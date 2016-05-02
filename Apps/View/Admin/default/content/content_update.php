@@ -184,6 +184,10 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
             if (pathObject.val().length > 1) {
                 pathChanged = true;
             }
+            pathObject.on('keyup', function(){
+				pathChanged = true;
+            });
+
 
             // pathway from title
             $('#FormContentUpdate-title-<?= \App::$Request->getLanguage() ?>').on('keyup', function() {

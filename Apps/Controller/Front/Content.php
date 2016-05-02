@@ -9,6 +9,7 @@ use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Apps\Model\Front\Content\EntityCategoryList;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
 use Apps\Model\Front\Content\EntityContentRead;
 use Ffcms\Core\Helper\HTML\SimplePagination;
@@ -17,6 +18,8 @@ use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 use Ffcms\Core\Helper\Type\Arr;
+use Apps\Model\Front\Content\FormNarrowContentUpdate;
+use Apps\ActiveRecord\Content as ContentRecord;
 
 /**
  * Class Content. Controller of content app - content and categories.
@@ -51,7 +54,7 @@ class Content extends FrontAppController
     {
         $path = App::$Request->getPathWithoutControllerAction();
         $configs = $this->getConfigs();
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)App::$Request->query->get('page', 0);
         $sort = (string)App::$Request->query->get('sort', 'newest');
         $itemCount = (int)$configs['itemPerCategory'];
 
@@ -77,7 +80,7 @@ class Content extends FrontAppController
             'model' => $model
         ]);
 
-        // drow response view
+        // draw response view
         return App::$View->render('list', [
             'model' => $model,
             'pagination' => $pagination,
@@ -157,6 +160,7 @@ class Content extends FrontAppController
      * @return string
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionTag($tagName)
     {
@@ -249,5 +253,92 @@ class Content extends FrontAppController
 
         // render response from feed object
         return $feed->render();
+    }
+
+    public function actionMy()
+    {
+        // check if user is auth
+        if (!App::$User->isAuth()) {
+            throw new ForbiddenException(__('Only authorized users can manage content'));
+        }
+
+        // check if user add enabled
+        $configs = $this->getConfigs();
+        if (!(bool)$configs['userAdd']) {
+            throw new NotFoundException(__('User add is disabled'));
+        }
+
+        // prepare query
+        $page = (int)App::$Request->query->get('page', 0);
+        $offset = $page * 10;
+        $query = ContentRecord::where('author_id', '=', App::$User->identity()->getId());
+
+        // build pagination
+        $pagination = new SimplePagination([
+            'url' => ['content/my'],
+            'page' => $page,
+            'step' => 10,
+            'total' => $query->count()
+        ]);
+
+        // build records object
+        $records = $query->skip($offset)->take(10)->orderBy('id', 'DESC')->get();
+
+        // render output view
+        return App::$View->render('my', [
+            'records' => $records,
+            'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * Update personal content items or add new content item
+     * @param null|int $id
+     * @return string
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
+    public function actionUpdate($id = null)
+    {
+        // check if user is auth
+        if (!App::$User->isAuth()) {
+            throw new ForbiddenException(__('Only authorized users can add content'));
+        }
+
+        // check if user add enabled
+        $configs = $this->getConfigs();
+        if (!(bool)$configs['userAdd']) {
+            throw new NotFoundException(__('User add is disabled'));
+        }
+
+        // find record in db
+        $record = ContentRecord::findOrNew($id);
+        $new = $record->id === null;
+
+        // reject edit published items and items from other authors
+        if (($new === false && (int)$record->author_id !== App::$User->identity()->getId()) || (int)$record->display === 1) {
+            throw new ForbiddenException(__('You have no permissions to edit this content'));
+        }
+
+        // initialize model
+        $model = new FormNarrowContentUpdate($record, $configs);
+        if ($model->send() && $model->validate()) {
+            $model->make();
+            // if is new - make redirect to listing & add notify
+            if ($new === true) {
+                App::$Session->getFlashBag()->add('success', __('Content successfully added'));
+                App::$Response->redirect('content/my');
+            } else {
+                App::$Session->getFlashBag()->add('success', __('Content successfully updated'));
+            }
+        }
+
+        // render view output
+        return App::$View->render('update', [
+            'model' => $model,
+            'configs' => $configs
+        ]);
     }
 }

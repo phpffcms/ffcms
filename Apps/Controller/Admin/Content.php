@@ -46,6 +46,8 @@ class Content extends AdminController
         $type = App::$Request->query->get('type');
         if ($type === 'trash') {
             $query = ContentEntity::onlyTrashed();
+        } elseif ($type === 'moderate') { // only items on moderate
+            $query = ContentEntity::where('display', '=', 0);
         } elseif (Obj::isLikeInt($type)) { // sounds like category id ;)
             $query = ContentEntity::where('category_id', '=', (int)$type);
         } else {
@@ -79,10 +81,10 @@ class Content extends AdminController
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id = null)
     {
         // get item with trashed objects
-        $record = ContentEntity::withTrashed()->find($id);
+        $record = ContentEntity::withTrashed()->findOrNew($id);
         $isNew = $record->id === null;
 
         // create empty object if its new

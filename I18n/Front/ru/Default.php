@@ -26,6 +26,8 @@ return [
     'My profile' => 'Мой профиль',
     'Messages' => 'Сообщения',
     'Logout' => 'Выйти',
+    'Add content' => 'Добавить материал',
+    'My content' => 'Мои материалы',
     'Send' => 'Отправить',
     'Contents' => 'Материалы',
     'Content' => 'Материал',

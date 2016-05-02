@@ -20,15 +20,17 @@ class EntityCommentData extends Model
     /** @var \Apps\ActiveRecord\CommentPost|\Apps\ActiveRecord\CommentAnswer $_record */
     private $_record;
     private $_type;
+    private $_calcAnswers = true;
 
     /**
      * EntityCommentPostData constructor. Pass inside the model active record object of comment post or answer
      * @param $record
      * @throws JsonException
      */
-    public function __construct($record)
+    public function __construct($record, $calcAnswers = true)
     {
         $this->_record = $record;
+        $this->_calcAnswers = (bool)$calcAnswers;
         if ($this->_record instanceof CommentPost) {
             $this->_type = 'post';
         } elseif ($this->_record instanceof CommentAnswer) {
@@ -77,7 +79,7 @@ class EntityCommentData extends Model
             ]
         ];
 
-        if ($this->_type === 'post' && method_exists($this->_record, 'getAnswerCount')) {
+        if ($this->_type === 'post' && method_exists($this->_record, 'getAnswerCount') && $this->_calcAnswers) {
             $res['answers'] = $this->_record->getAnswerCount();
         } elseif ($this->_type === 'answer') {
             $res['comment_id'] = $this->_record->comment_id;

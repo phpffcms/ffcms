@@ -35,7 +35,8 @@ $this->breadcrumbs = [
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><?= Url::link(['content/index', null, null, ['type' => 'all']], '<i class="fa fa-thumbs-up"></i> ' . __('Published')) ?></li>
+                    <li><?= Url::link(['content/index', null, null, ['type' => 'all']], '<i class="fa fa-list"></i> ' . __('All')) ?></li>
+                    <li><?= Url::link(['content/index', null, null, ['type' => 'moderate']], '<i class="fa fa-exclamation"></i> ' . __('Moderate')) ?></li>
                     <li><?= Url::link(['content/index', null, null, ['type' => 'trash']], '<i class="fa fa-trash"></i> ' . __('Trash')) ?></li>
                     <li>
                         <a class="trigger right-caret"><i class="fa fa-table"></i> <?= __('Categories') ?></a>
@@ -84,9 +85,9 @@ foreach ($records as $content) {
         $actionIcons .= Url::link(['content/delete', $content->id], '<i class="fa fa-trash-o fa-lg"></i>');
     }
     $items[] = [
-        'property' => ['class' => 'checkbox-row'],
+        'property' => ['class' => 'checkbox-row' . (!(bool)$content->display ? ' alert-warning' : null)],
         1 => ['text' => $content->id, 'html' => true, '!secure' => true],
-        2 => ['text' => Url::link(['content/update', $content->id], Serialize::getDecodeLocale($content->title)), 'html' => true],
+        2 => ['text' => (!(bool)$content->display ? '<i class="fa fa-exclamation text-warning"></i> ' : null) . Url::link(['content/update', $content->id], Serialize::getDecodeLocale($content->title)), 'html' => true],
         3 => ['text' => Serialize::getDecodeLocale($content->getCategory()->title)],
         4 =>['text' => '<a href="' . $frontLink . '" target="_blank">' . $frontPath . '</a>', 'html' => true],
         5 => ['text' => Date::convertToDatetime($content->updated_at, Date::FORMAT_TO_SECONDS)],

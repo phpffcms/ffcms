@@ -129,7 +129,7 @@ class Content extends ApiController
 
         // check file size
         if ($file->getSize() < 1 || $file->getSize() > $this->maxSize) {
-            throw new ForbiddenException(__('File size is too big. Max size: %size%kb', ['size' => intval($this->maxSize/1024)]));
+            throw new ForbiddenException(__('File size is too big. Max size: %size%kb', ['size' => (int)($this->maxSize/1024)]));
         }
 
         // check file extension
@@ -144,7 +144,7 @@ class Content extends ApiController
         }
 
         // lets make a new file name
-        $fileName = App::$Security->simpleHash($file->getFilename() . $file->getSize());
+        $fileName = App::$Security->simpleHash($file->getClientOriginalName() . $file->getSize());
         $fileNewName = $fileName . '.' . $file->guessExtension();
         // save file from tmp to gallery origin directory
         $file->move(Normalize::diskFullPath($originPath), $fileNewName);

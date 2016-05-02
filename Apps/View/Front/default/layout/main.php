@@ -4,6 +4,7 @@ use Ffcms\Core\Helper\Type\Obj;
 use Widgets\Basic\LanguageSwitcher;
 use Ffcms\Core\Arch\Widget;
 use Ffcms\Core\Helper\HTML\Bootstrap\Navbar;
+use Apps\ActiveRecord\App as AppRecord;
 
 ?>
 <!DOCTYPE html>
@@ -38,11 +39,24 @@ $items = LanguageSwitcher::widget(['onlyArrayItems' => true]);
 
 if (\App::$User->isAuth()) {
     $userId = \App::$User->identity()->getId();
-    $items[] = ['type' => 'dropdown', 'text' => '<i class="fa fa-user"></i> ' . __('Account') . ' <span class="badge pm-count-block">0</span>', 'html' => true, 'position' => 'right', 'items' => [
-        ['link' => ['profile/show', $userId], 'text' => __('My profile')],
-        ['link' => ['profile/messages'], 'text' => __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
-        ['link' => ['profile/settings'], 'text' => __('Settings')]
-    ]];
+    // show 'add content' button if current controller is Content and user add is enabled
+    if (\App::$Request->getController() === 'Content' && (bool)AppRecord::getConfig('app', 'Content', 'userAdd')) {
+        $items[] = ['type' => 'link', 'link' => ['content/update'], 'text' => '<i class="fa fa-plus"></i> ' . __('Add content'), 'html' => true, 'position' => 'right'];
+    }
+    $accountDropdown[] = ['link' => ['profile/show', $userId], 'text' => __('My profile')];
+    $accountDropdown[] = ['link' => ['profile/messages'], 'text' => __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true];
+    if ((bool)AppRecord::getConfig('app', 'Content', 'userAdd')) {
+        $accountDropdown[] = ['link' => ['content/my'], 'text' => __('My content')];
+    }
+    $accountDropdown[] = ['link' => ['profile/settings'], 'text' => __('Settings')];
+
+    $items[] = [
+        'type' => 'dropdown',
+        'text' => '<i class="fa fa-user"></i> ' . __('Account') . ' <span class="badge pm-count-block">0</span>',
+        'html' => true,
+        'position' => 'right',
+        'items' => $accountDropdown
+    ];
     if (\App::$User->identity()->getRole()->can('Admin/Main/Index')) {
         $items[] = ['type' => 'link', 'link' => \App::$Alias->scriptUrl . '/admin/', 'text' => '<i class="fa fa-cogs"></i> Admin', 'position' => 'right', 'html' => true];
     }
@@ -55,6 +69,7 @@ if (\App::$User->isAuth()) {
 echo Navbar::display([
     'nav' => ['class' => 'navbar-inverse', 'style' => 'padding-left: 0'],
     'property' => ['id' => 'headmenu', 'class' => 'navbar-nav'],
+    'activeOrder' => 'action',
     'container' => 'container',
     'collapseId' => 'collapse-object',
     'items' => $items
@@ -174,7 +189,7 @@ echo Navbar::display([
 </footer>
 <script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
 <script src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
-<script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/basic.js"></script>
+<script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/ffcms.js"></script>
 <?php echo \App::$View->showCodeLink('js'); ?>
 <script>
     $.each(window.jQ, function(index, fn) {

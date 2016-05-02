@@ -51,7 +51,7 @@ class Content extends ActiveModel
     {
         return ContentCategory::getById($this->category_id);
     }
-    
+
     /**
      * Get content_rating relation one-to-many
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -60,7 +60,7 @@ class Content extends ActiveModel
     {
         return $this->hasMany('Apps\\ActiveRecord\\ContentRating', 'content_id');
     }
-    
+
     /**
      * Get content_tags relation one-to-many
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -218,8 +218,8 @@ class User extends FrontAppController
 
     /**
      * Approve user profile via $email and $token params
-     * @param $email
-     * @param $token
+     * @param string $email
+     * @param string $token
      * @throws ForbiddenException
      */
     public function actionApprove($email, $token)
