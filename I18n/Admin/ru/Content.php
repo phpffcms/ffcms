@@ -119,5 +119,9 @@ return [
     'Delete selected' => 'Удалить выбранные',
     'Select image from gallery as a poster for this content' => 'Выберите изображение из галереи в качестве картинки-постера для контента',
     'Attention! Your session is deprecated. You need to make auth in new window!' => 'Внимание! Ваша сессия авторизации устарела, данные могут быть утеряны. Пройдите авторизацию повторно в новой вкладке!',
-    'Content edit' => 'Редактирование контента'
+    'Content edit' => 'Редактирование контента',
+    'Content is successful published' => 'Контент успешно опубликован',
+    'Publish' => 'Опубликовать',
+    'Content publish' => 'Публикация контента',
+    'Are you sure to make this item public?' => 'Вы уверены что хотите опубликовать эти элементы?'
 ];

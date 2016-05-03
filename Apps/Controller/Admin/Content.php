@@ -8,6 +8,7 @@ use Apps\Model\Admin\Content\FormCategoryUpdate;
 use Apps\Model\Admin\Content\FormContentClear;
 use Apps\Model\Admin\Content\FormContentDelete;
 use Apps\Model\Admin\Content\FormContentGlobDelete;
+use Apps\Model\Admin\Content\FormContentPublish;
 use Apps\Model\Admin\Content\FormContentRestore;
 use Apps\Model\Admin\Content\FormContentUpdate;
 use Apps\Model\Admin\Content\FormSettings;
@@ -15,6 +16,7 @@ use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Apps\ActiveRecord\Content as ContentEntity;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\FileSystem\Directory;
@@ -296,11 +298,12 @@ class Content extends AdminController
      * @return string
      * @throws NotFoundException
      * @throws SyntaxException
+     * @throws NativeException
      */
     public function actionGlobdelete()
     {
         // get content ids from request
-        $ids = App::$Request->query->get('selectRemove');
+        $ids = App::$Request->query->get('selected');
 
         // check if input is array
         if (!Obj::isArray($ids) || count($ids) < 1) {
@@ -331,9 +334,46 @@ class Content extends AdminController
     }
 
     /**
+     * Publish content on moderate stage
+     * @return string
+     * @throws NotFoundException
+     * @throws SyntaxException
+     * @throws NativeException
+     */
+    public function actionPublish()
+    {
+        // get ids as array from GET
+        $ids = App::$Request->query->get('selected');
+        if (!Obj::isArray($ids) || count($ids) < 1) {
+            throw new NotFoundException(__('Items to publish is not found'));
+        }
+
+        // try to find items in db
+        $records = ContentEntity::whereIn('id', $ids)->where('display', '=', 0);
+        if ($records->count() < 1) {
+            throw new NotFoundException(__('Items to publish is not found'));
+        }
+
+        // initialize model and operate submit
+        $model = new FormContentPublish($records);
+        if ($model->send() && $model->validate()) {
+            $model->make();
+            App::$Session->getFlashBag()->add('success', __('Content is successful published'));
+            App::$Response->redirect('content/index');
+        }
+
+        // draw view output
+        return App::$View->render('publish', [
+            'records' => $records->get(),
+            'model' => $model
+        ]);
+    }
+
+    /**
      * Show settings form with prepared model
      * @return string
      * @throws SyntaxException
+     * @throws NativeException
      */
     public function actionSettings()
     {

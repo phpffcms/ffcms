@@ -59,11 +59,11 @@ foreach ($records as $item) {
 $massAccept = false;
 if ($moderateIsFound) {
     $massAccept = [
-                    'type' => 'submit',
-                    'class' => 'btn btn-warning',
-                    'value' => __('Publish'),
-                    'formaction' => Url::to('comments/publish', 'comment'),
-                  ];
+        'type' => 'submit',
+        'class' => 'btn btn-warning',
+        'value' => __('Publish'),
+        'formaction' => Url::to('comments/publish', 'comment'),
+    ];
 }
 
 ?>

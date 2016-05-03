@@ -271,7 +271,7 @@ class EntityCategoryList extends Model
                 'id' => $row->id,
                 'title' => $localeTitle,
                 'text' => $text,
-                'date' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_HOUR),
+                'date' => Date::humanize($row->created_at),
                 'author' => $owner,
                 'poster' => $row->getPosterUri(),
                 'thumb' => $row->getPosterThumbUri(),

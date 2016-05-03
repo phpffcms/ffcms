@@ -67,6 +67,7 @@ if ($records->count() < 1) {
 }
 
 $items = [];
+$moderate = false;
 foreach ($records as $content) {
     $frontLink = \App::$Alias->scriptUrl . '/content/read';
     $frontPath = null;
@@ -84,6 +85,11 @@ foreach ($records as $content) {
     } else {
         $actionIcons .= Url::link(['content/delete', $content->id], '<i class="fa fa-trash-o fa-lg"></i>');
     }
+
+    if (!(bool)$content->display) {
+        $moderate = true;
+    }
+
     $items[] = [
         'property' => ['class' => 'checkbox-row' . (!(bool)$content->display ? ' alert-warning' : null)],
         1 => ['text' => $content->id, 'html' => true, '!secure' => true],
@@ -98,12 +104,22 @@ foreach ($records as $content) {
 <?php
 $selectBox = false;
 if ($type !== 'trash') {
+    $acceptButton = false;
+    if ($moderate === true) {
+        $acceptButton = [
+            'type' => 'submit',
+            'class' => 'btn btn-warning',
+            'value' => __('Publish'),
+            'formaction' => Url::to('content/publish'),
+        ];
+    }
     $selectBox = [
         'attachOrder' => 1,
         'form' => ['method' => 'GET', 'class' => 'form-horizontal', 'action' => Url::to('content/globdelete')],
-        'selector' => ['type' => 'checkbox', 'name' => 'selectRemove[]', 'class' => 'massSelectId'],
+        'selector' => ['type' => 'checkbox', 'name' => 'selected[]', 'class' => 'massSelectId'],
         'buttons' => [
-            ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
+            ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')],
+            $acceptButton
         ]
     ];
 }
@@ -113,7 +129,7 @@ if ($type !== 'trash') {
     'table' => ['class' => 'table table-bordered'],
     'thead' => [
         'titles' => [
-            ['text' => 'id'],
+            ['text' => '#'],
             ['text' => __('Title')],
             ['text' => __('Category')],
             ['text' => __('Pathway')],

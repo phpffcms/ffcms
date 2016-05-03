@@ -12,6 +12,7 @@ $this->title = __('Category list');
 $this->breadcrumbs = [
     Url::to('main/index') => __('Main'),
     Url::to('application/index') => __('Applications'),
+    Url::to('content/index') => __('Contents'),
     __('Categories')
 ];
 

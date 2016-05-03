@@ -255,6 +255,14 @@ class Content extends FrontAppController
         return $feed->render();
     }
 
+    /**
+     * Show user added content list
+     * @return string
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws NativeException
+     */
     public function actionMy()
     {
         // check if user is auth

@@ -83,7 +83,7 @@ class EntityContentRead extends Model
         $this->metaKeywords = explode(',', $tmpKeywords);
 
         // set content date, category data
-        $this->createDate = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
+        $this->createDate = Date::humanize($this->_content->created_at);
         $this->catName = Serialize::getDecodeLocale($this->_category->title);
         $this->catPath = $this->_category->path;
 
