@@ -1,6 +1,7 @@
 <?php
 
-/** @var $this object */
+/** @var $this \Ffcms\Core\Arch\View */
+/** @var $categories array */
 
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\Serialize;
@@ -37,8 +38,7 @@ $this->breadcrumbs = [
         </thead>
         <tbody>
         <?php
-        $categoryArray = ContentCategory::getSortedAll();
-        foreach ($categoryArray as $path => $row):
+        foreach ($categories as $path => $row):
             $offset = 2;
             $nesting = 0;
             if ($row->path === '') {

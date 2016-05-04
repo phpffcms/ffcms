@@ -3,6 +3,7 @@ use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Listing;
+use Ffcms\Core\Helper\Simplify;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
@@ -228,9 +229,8 @@ $this->breadcrumbs = [
                 if ($referObject === null) { // caster not founded? skip ...
                     continue;
                 }
-                $referNickname = ($referObject->getProfile()->nick == null ?
-                    __('No name') . ' <sup>id' . $referObject->getId() . '</sup>' :
-                    \App::$Security->strip_tags($referObject->getProfile()->nick));
+
+                $referNickname = Simplify::parseUserNick($post->sender_id);
                 ?>
                 <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
                     <div class="col-md-2">
@@ -241,7 +241,7 @@ $this->breadcrumbs = [
                     <div class="col-md-10">
                         <h5 style="margin-top: 0;">
                             <i class="fa fa-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
-                            <small class="pull-right"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
+                            <small class="pull-right"><?= Date::humanize($post->updated_at); ?></small>
                         </h5>
                         <div class="object-text">
                             <?= \App::$Security->strip_tags($post->message); ?>

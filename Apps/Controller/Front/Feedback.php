@@ -33,6 +33,7 @@ class Feedback extends Controller
     /**
      * Add new feedback message action
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
@@ -51,7 +52,6 @@ class Feedback extends Controller
                 // if validation is passed save data to db and get row
                 $record = $model->make();
                 App::$Session->getFlashBag()->add('success', __('Your message was added successful'));
-                // todo: add email notification
                 App::$Response->redirect('feedback/read/' . $record->id . '/' . $record->hash);
             } else {
                 App::$Session->getFlashBag()->add('error', __('Message is not sended! Please, fix issues in form below'));
@@ -60,7 +60,7 @@ class Feedback extends Controller
 
         // render output view
         return App::$View->render('create', [
-            'model' => $model->export(),
+            'model' => $model->filter(),
             'useCaptcha' => (int)$configs['useCaptcha'] === 1
         ]);
     }
@@ -71,6 +71,7 @@ class Feedback extends Controller
      * @param int $id
      * @param string $hash
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
@@ -101,6 +102,8 @@ class Feedback extends Controller
                 App::$Session->getFlashBag()->add('success', __('Your answer was added'));
                 $model->clearProperties();
             }
+            // secure display html data
+            $model = $model->filter();
         }
 
         // render output view
@@ -111,6 +114,14 @@ class Feedback extends Controller
         ]);
     }
 
+    /**
+     * @param int $id
+     * @param string $hash
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws ForbiddenException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionClose($id, $hash)
     {
         // get feedback post record from database
@@ -150,6 +161,7 @@ class Feedback extends Controller
     /**
      * List feedback requests messages from authorized user
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */

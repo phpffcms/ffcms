@@ -64,6 +64,7 @@ class Profile extends ApiController
     /**
      * Show all answers for this post id
      * @param int $postId
+     * @return string
      * @throws NativeException
      * @return string
      */
@@ -108,6 +109,7 @@ class Profile extends ApiController
     /**
      * Add new post answer from AJAX post
      * @param int $postId
+     * @return string
      * @throws ForbiddenException
      * @throws NativeException
      */
@@ -172,6 +174,7 @@ class Profile extends ApiController
     /**
      * Delete answer by answer owner or wall owner
      * @param $answerId
+     * @return string
      * @throws ForbiddenException
      * @throws NativeException
      * @throws NotFoundException
@@ -218,6 +221,7 @@ class Profile extends ApiController
      * Load user dialog list based on offset
      * @param int $offset
      * @param int $new
+     * @return string
      * @throws ForbiddenException
      */
     public function actionListmessagedialog($offset = 0, $new = 0)
@@ -291,6 +295,7 @@ class Profile extends ApiController
 
     /**
      * Get new p.m. count for current user
+     * @return string
      * @throws ForbiddenException
      */
     public function actionMessagesnewcount()
@@ -315,6 +320,7 @@ class Profile extends ApiController
     /**
      * List messages with correspondent
      * @param $cor_id
+     * @return string
      * @throws ForbiddenException
      * @throws NotFoundException
      * @throws NativeException
@@ -419,6 +425,7 @@ class Profile extends ApiController
     /**
      * Send message via AJAX
      * @param $target_id
+     * @return string
      * @throws ForbiddenException
      * @throws NativeException
      */

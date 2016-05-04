@@ -13,8 +13,13 @@ use Apps\ActiveRecord\User as UserRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Type\Obj;
 
 
+/**
+ * Class User. Admin controller of user application.
+ * @package Apps\Controller\Admin
+ */
 class User extends AdminController
 {
     const VERSION = 0.1;
@@ -25,6 +30,7 @@ class User extends AdminController
     /**
      * List all users as table
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
@@ -33,7 +39,7 @@ class User extends AdminController
         $query = new UserRecords();
 
         // set current page and offset
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)App::$Request->query->get('page', 0);
         $offset = $page * self::ITEM_PER_PAGE;
 
         // build pagination
@@ -58,6 +64,7 @@ class User extends AdminController
      * Edit user profile by id
      * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionUpdate($id)
@@ -81,7 +88,7 @@ class User extends AdminController
 
         // render viewer
         return App::$View->render('user_update', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
@@ -89,11 +96,13 @@ class User extends AdminController
      * Delete user row from database
      * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      */
     public function actionDelete($id)
     {
-        if ($id < !1 || !App::$User->isExist($id)) {
+        if (!Obj::isLikeInt($id) || !App::$User->isExist($id)) {
             throw new NotFoundException('User is not founded');
         }
 
@@ -110,13 +119,14 @@ class User extends AdminController
 
         // set view response
         return App::$View->render('user_delete', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Show all role groups
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionGrouplist()
@@ -133,6 +143,8 @@ class User extends AdminController
      * Edit and add groups
      * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionGroupUpdate($id)
     {
@@ -151,13 +163,15 @@ class User extends AdminController
 
         // render view
         return App::$View->render('group_update', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * User identity settings
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionSettings()
     {
@@ -176,13 +190,15 @@ class User extends AdminController
 
         // render view
         return App::$View->render('settings', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Send invite to user by email
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionInvite()
     {
@@ -203,7 +219,7 @@ class User extends AdminController
 
         // render view
         return App::$View->render('invite', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 }

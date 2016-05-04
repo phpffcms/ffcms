@@ -264,6 +264,8 @@ class EntityCategoryList extends Model
             }
             if (!App::$User->isAuth()) {
                 $canRate = false;
+            } elseif ($owner->getId() === App::$User->identity()->getId()) { // own item
+                $canRate = false;
             }
 
             // build result array

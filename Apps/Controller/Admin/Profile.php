@@ -24,6 +24,7 @@ class Profile extends AdminController
     /**
      * List all profiles in website with pagination
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
@@ -66,6 +67,8 @@ class Profile extends AdminController
      * Profile edit action
      * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      */
     public function actionUpdate($id)
@@ -95,7 +98,7 @@ class Profile extends AdminController
         }
 
         return App::$View->render('update', [
-            'model' => $model->export(),
+            'model' => $model->filter(),
             'user' => $user,
             'profile' => $profile
         ]);
@@ -104,6 +107,7 @@ class Profile extends AdminController
     /**
      * List additional fields
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionFieldlist()
@@ -117,8 +121,10 @@ class Profile extends AdminController
 
     /**
      * Add and edit additional fields data
-     * @param $id
+     * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionFieldupdate($id)
     {
@@ -140,7 +146,7 @@ class Profile extends AdminController
         }
 
         return App::$View->render('field_update', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
@@ -148,6 +154,8 @@ class Profile extends AdminController
      * Delete custom field action
      * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      */
     public function actionFielddelete($id)
@@ -171,13 +179,14 @@ class Profile extends AdminController
         }
 
         return App::$View->render('field_delete', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Show profiles settings
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionSettings()
@@ -195,7 +204,7 @@ class Profile extends AdminController
         }
 
         return App::$View->render('settings', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 

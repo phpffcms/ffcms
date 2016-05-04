@@ -7,7 +7,7 @@ use Extend\Core\Arch\AdminController;
 use Apps\Model\Admin\Newcontent\FormSettings;
 
 /**
- * Admin controller of new content widget.
+ * Class Newcontent. Admin controller of new content widget.
  */
 class Newcontent extends AdminController
 {
@@ -18,6 +18,8 @@ class Newcontent extends AdminController
     /**
      * Show widget settings
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {
@@ -32,7 +34,7 @@ class Newcontent extends AdminController
         
         // render viewer
         return App::$View->render('index', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 }

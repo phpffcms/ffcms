@@ -78,7 +78,7 @@ class Content extends AdminController
 
     /**
      * Edit and add content items
-     * @param $id
+     * @param int|null $id
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
@@ -108,7 +108,7 @@ class Content extends AdminController
 
         // draw response
         return App::$View->render('content_update', [
-            'model' => $model
+            'model' => $model->filter(['text' => '!secure'])
         ]);
     }
 
@@ -141,7 +141,7 @@ class Content extends AdminController
         }
 
         return App::$View->render('content_delete', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
@@ -176,7 +176,7 @@ class Content extends AdminController
 
         // draw response
         return App::$View->render('content_restore', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
@@ -210,16 +210,21 @@ class Content extends AdminController
 
         // draw response
         return App::$View->render('content_clear', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Display category list
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionCategories()
     {
-        return App::$View->render('category_list');
+        return App::$View->render('category_list', [
+            'categories' => ContentCategory::getSortedAll()
+        ]);
     }
 
     /**
@@ -255,13 +260,13 @@ class Content extends AdminController
 
         // draw view
         return App::$View->render('category_delete', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Show category edit and create
-     * @param int $id
+     * @param int|null $id
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
@@ -289,7 +294,7 @@ class Content extends AdminController
 
         // draw response view and pass model properties
         return App::$View->render('category_update', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
@@ -393,7 +398,7 @@ class Content extends AdminController
 
         // draw response
         return App::$View->render('settings', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 }

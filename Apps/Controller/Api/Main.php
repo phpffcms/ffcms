@@ -17,6 +17,10 @@ class Main extends ApiController
         return json_encode(['status' => 1, 'value' => 'Welcome, man!']);
     }
 
+    /**
+     * Elfinder injector file listing
+     * @throws ForbiddenException
+     */
     public function actionFiles()
     {
         $user = App::$User->identity();
@@ -41,6 +45,7 @@ class Main extends ApiController
 
     /**
      * Make scan and display scan iteration data
+     * @return string
      */
     public function actionAntivirus()
     {
@@ -52,6 +57,7 @@ class Main extends ApiController
 
     /**
      * Remove previous scan files
+     * @return string
      */
     public function actionAntivirusclear()
     {
@@ -64,6 +70,7 @@ class Main extends ApiController
 
     /**
      * Show scan results
+     * @return string
      */
     public function actionAntivirusresults()
     {

@@ -34,6 +34,7 @@ class Comments extends AdminController
     /**
      * List user comments with pagination
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
@@ -67,6 +68,7 @@ class Comments extends AdminController
      * List comment - read comment and list answers
      * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
@@ -90,6 +92,8 @@ class Comments extends AdminController
      * @param int $id
      * @throws NotFoundException
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionEdit($type, $id)
     {
@@ -120,7 +124,7 @@ class Comments extends AdminController
 
         // render view
         return App::$View->render('edit', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
@@ -128,8 +132,10 @@ class Comments extends AdminController
      * Delete comments and answers single or multiply items
      * @param string $type
      * @param int $id
-     * @throws NotFoundException
      * @return string
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionDelete($type, $id = 0)
     {
@@ -181,8 +187,10 @@ class Comments extends AdminController
      * Moderate guest comments and answer - make it publish
      * @param string $type
      * @param int $id
-     * @throws NotFoundException
      * @return string
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionPublish($type, $id = 0)
     {
@@ -232,6 +240,8 @@ class Comments extends AdminController
     /**
      * List answers
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionAnswerlist()
     {
@@ -263,6 +273,7 @@ class Comments extends AdminController
     /**
      * Comment widget global settings
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionSettings()
@@ -283,7 +294,7 @@ class Comments extends AdminController
 
         // render view
         return App::$View->render('settings', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 

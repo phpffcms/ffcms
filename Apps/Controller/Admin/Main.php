@@ -27,6 +27,8 @@ class Main extends AdminController
     /**
      * Index page of admin dashboard
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {
@@ -34,7 +36,7 @@ class Main extends AdminController
         $rootSize = App::$Cache->get('root.size');
         if ($rootSize === null) {
             $rootSize = round(Directory::getSize('/') / (1024*1000), 2) . ' mb';
-            App::$Cache->set('root.size', $rootSize, 60 * 60 * 24); // 24 hours caching
+            App::$Cache->set('root.size', $rootSize, 86400); // 24 hours caching = 60 * 60 * 24
         }
         $loadAvg = App::$Cache->get('load.average');
         if ($loadAvg === null) {
@@ -42,6 +44,7 @@ class Main extends AdminController
             App::$Cache->set('load.average', $loadAvg, 60*5); // 5 min cache
         }
 
+        // prepare system statistic
         $stats = [
             'ff_version' => App::$Properties->version['num'] . ' (' . App::$Properties->version['date'] . ')',
             'php_version' => Environment::phpVersion() . ' (' . Environment::phpSAPI() . ')',
@@ -51,6 +54,7 @@ class Main extends AdminController
             'load_avg' => $loadAvg
         ];
 
+        // render view output
         return App::$View->render('index', [
             'stats' => $stats
         ]);
@@ -59,11 +63,13 @@ class Main extends AdminController
     /**
      * Manage settings in web
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionSettings()
     {
+        // init settings model and process post send
         $model = new FormSettings();
-
         if ($model->send()) {
             if ($model->validate()) {
                 if ($model->makeSave()) {
@@ -77,14 +83,17 @@ class Main extends AdminController
             }
         }
 
+        // render output view
         return App::$View->render('settings', [
-            'model' => $model // no $model->export() there
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Manage files via elFinder
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionFiles()
     {
@@ -94,8 +103,10 @@ class Main extends AdminController
     }
 
     /**
-     * Show antivirus
+     * Show antivirus view
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionAntivirus()
     {
@@ -116,6 +127,8 @@ class Main extends AdminController
     /**
      * List available routes
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionRouting()
     {
@@ -128,8 +141,9 @@ class Main extends AdminController
 
     /**
      * Show add form for routing
-     * @throws \Ffcms\Core\Exception\SyntaxException
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionAddroute()
     {
@@ -143,7 +157,7 @@ class Main extends AdminController
         }
 
         return App::$View->render('add_route', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 
@@ -151,6 +165,7 @@ class Main extends AdminController
      * Delete scheme route
      * @throws SyntaxException
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionDeleteroute()
     {
@@ -165,7 +180,7 @@ class Main extends AdminController
         }
 
         return App::$View->render('delete_route', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 }

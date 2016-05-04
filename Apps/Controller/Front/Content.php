@@ -345,7 +345,7 @@ class Content extends FrontAppController
 
         // render view output
         return App::$View->render('update', [
-            'model' => $model,
+            'model' => $model->filter(['text' => 'html']),
             'configs' => $configs
         ]);
     }

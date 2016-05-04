@@ -10,7 +10,8 @@ class User extends ApiController
 {
 
     /**
-     * Chekc user auth.
+     * Check user auth.
+     * @return string
      * @throws JsonException
      */
     public function actionAuth()

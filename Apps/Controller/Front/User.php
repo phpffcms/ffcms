@@ -11,7 +11,9 @@ use Ffcms\Core\App;
 use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Apps\ActiveRecord\UserLog;
@@ -31,6 +33,8 @@ class User extends FrontAppController
     /**
      * View login form and process submit action
      * @throws ForbiddenException
+     * @throws NativeException
+     * @throws SyntaxException
      */
     public function actionLogin()
     {
@@ -60,7 +64,7 @@ class User extends FrontAppController
 
         // render view
         return App::$View->render('login', [
-            'model' => $loginForm->export(),
+            'model' => $loginForm->filter(),
             'useCaptcha' => $configs['captchaOnLogin'] === 1
         ]);
     }
@@ -68,6 +72,8 @@ class User extends FrontAppController
     /**
      * View register form and process submit action
      * @throws ForbiddenException
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionSignup()
     {
@@ -129,7 +135,7 @@ class User extends FrontAppController
 
         // render view
         return App::$View->render('signup', [
-            'model' => $registerForm->export(),
+            'model' => $registerForm->filter(),
             'config' => $configs,
             'useCaptcha' => $configs['captchaOnRegister'] === 1
         ]);
@@ -139,6 +145,8 @@ class User extends FrontAppController
      * Recovery form and recovery submit action
      * @param int|null $id
      * @param string|null $token
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
@@ -195,7 +203,7 @@ class User extends FrontAppController
 
         // render visual form content
         return App::$View->render('recovery', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 

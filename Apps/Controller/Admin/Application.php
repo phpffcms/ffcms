@@ -11,10 +11,17 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class Application. View and manage system applications.
+ * @package Apps\Controller\Admin
+ */
 class Application extends AdminController
 {
     public $type = 'app';
 
+    /**
+     * Application constructor.
+     */
     public function __construct()
     {
         // prevent version checks
@@ -24,7 +31,8 @@ class Application extends AdminController
 
     /**
      * List of all installed applications
-     * @return string|null
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
@@ -38,6 +46,7 @@ class Application extends AdminController
     /**
      * Show installation for of applications
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionInstall()
@@ -61,7 +70,7 @@ class Application extends AdminController
         }
 
         return App::$View->render('install', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
     
@@ -86,7 +95,7 @@ class Application extends AdminController
 
         // render response
         return App::$View->render('update', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 
@@ -94,6 +103,7 @@ class Application extends AdminController
      * Allow turn on/off applications
      * @param $controllerName
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */

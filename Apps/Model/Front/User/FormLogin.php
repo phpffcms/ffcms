@@ -18,14 +18,19 @@ class FormLogin extends Model
     private $_captcha = false;
 
     /**
+     * Construct FormLogin. Pass is captcha used inside
      * @param bool $captcha
      */
     public function __construct($captcha = false)
     {
-        parent::__construct();
         $this->_captcha = $captcha;
+        parent::__construct();
     }
 
+    /**
+     * Login validation rules
+     * @return array
+     */
     public function rules()
     {
         $rules = [
@@ -40,6 +45,10 @@ class FormLogin extends Model
         return $rules;
     }
 
+    /**
+     * Form labels
+     * @return array
+     */
     public function labels()
     {
         return [

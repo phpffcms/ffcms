@@ -25,6 +25,7 @@ class Main extends Controller
      * Show environment check form
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {
@@ -43,6 +44,7 @@ class Main extends Controller
      * Installation form
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionInstall()
     {
@@ -57,13 +59,14 @@ class Main extends Controller
         }
 
         return App::$View->render('install', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Display view of success process finish
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionSuccess()
     {

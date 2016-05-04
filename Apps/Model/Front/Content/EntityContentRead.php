@@ -174,6 +174,8 @@ class EntityContentRead extends Model
         }
         if (!App::$User->isAuth()) {
             $this->canRate = false;
+        } elseif ($this->authorId === App::$User->identity()->getId()) {
+            $this->canRate = false;
         }
         
         // update views count

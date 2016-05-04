@@ -27,6 +27,7 @@ class Feedback extends Controller
     /**
      * List feedback post messages with notifications
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
@@ -60,6 +61,7 @@ class Feedback extends Controller
      * Read feedback post and answer and add answer to thread post
      * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
@@ -92,6 +94,15 @@ class Feedback extends Controller
         ]);
     }
 
+    /**
+     * Edit feedback post or answer
+     * @param string $type
+     * @param int $id
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionUpdate($type, $id)
     {
         // get active record based on type (post or answer for post)
@@ -128,7 +139,7 @@ class Feedback extends Controller
 
         // render output view
         return App::$View->render('update', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
@@ -179,6 +190,7 @@ class Feedback extends Controller
      * @param string $type
      * @param int $id
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      * @throws \Exception
      * @throws \Ffcms\Core\Exception\SyntaxException
@@ -228,6 +240,7 @@ class Feedback extends Controller
     /**
      * Settings of feedback application
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionSettings()
@@ -250,7 +263,7 @@ class Feedback extends Controller
 
         // render view
         return App::$View->render('settings', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 

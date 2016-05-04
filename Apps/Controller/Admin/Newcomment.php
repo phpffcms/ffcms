@@ -6,12 +6,22 @@ use Ffcms\Core\App;
 use Extend\Core\Arch\AdminController;
 use Apps\Model\Admin\Newcomment\FormSettings;
 
+/**
+ * Class Newcomment. Controller of widget admin part
+ * @package Apps\Controller\Admin
+ */
 class Newcomment extends AdminController
 {
     const VERSION = 0.1;
     
     public $type = 'widget';
-    
+
+    /**
+     * Show widget new comments settings
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionIndex()
     {
         $model = new FormSettings($this->getConfigs());
@@ -22,7 +32,7 @@ class Newcomment extends AdminController
         }
         
         return App::$View->render('index', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 }

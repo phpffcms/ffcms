@@ -44,6 +44,7 @@ class FormRecovery extends Model
     /**
      * After validation generate new pwd, recovery token and send email
      * @throws SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function make()
     {

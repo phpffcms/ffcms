@@ -132,16 +132,16 @@ class FormContentUpdate extends Model
      */
     public function save()
     {
-        $this->_content->title = Serialize::encode(App::$Security->strip_tags($this->title));
+        $this->_content->title = Serialize::encode($this->title);
         $this->_content->text = Serialize::encode($this->text);
         $this->_content->path = $this->path;
         $this->_content->category_id = $this->categoryId;
         $this->_content->author_id = $this->authorId;
         $this->_content->display = $this->display;
-        $this->_content->meta_title = Serialize::encode(App::$Security->strip_tags($this->metaTitle));
-        $this->_content->meta_keywords = Serialize::encode(App::$Security->strip_tags($this->metaKeywords));
-        $this->_content->meta_description = Serialize::encode(App::$Security->strip_tags($this->metaDescription));
-        $this->_content->source = App::$Security->strip_tags($this->source);
+        $this->_content->meta_title = Serialize::encode($this->metaTitle);
+        $this->_content->meta_keywords = Serialize::encode($this->metaKeywords);
+        $this->_content->meta_description = Serialize::encode($this->metaDescription);
+        $this->_content->source = $this->source;
         // check if rating is changed
         if ((int)$this->addRating !== 0) {
             $this->_content->rating += (int)$this->addRating;

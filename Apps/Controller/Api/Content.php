@@ -63,35 +63,36 @@ class Content extends ApiController
         if ($user === null || !App::$User->isAuth()) {
             throw new ForbiddenException(__('Authorization is required!'));
         }
+
+        // set ignored content id to rate in session
+        $ignored = App::$Session->get('content.rate.ignore');
+        $ignored[] = $id;
+        App::$Session->set('content.rate.ignore', $ignored);
         
         // find content record
         $record = ContentRecord::find($id);
         if ($record === null || $record->count() < 1) {
             throw new NotFoundException(__('Content item is not founded'));
         }
+
+        // check if author rate him-self content
+        if ($record->author_id === $user->getId()) {
+            throw new ForbiddenException(__('You can not rate your own content'));
+        }
         
         // initialize model
         $model = new ContentRatingChange($record, $type, $user);
         // check if content items is already rated by this user
-        if ($model->isAlreadyRated()) {
-            // set ignored content id to rate in session
-            $ignored = App::$Session->get('content.rate.ignore');
-            $ignored[] = $id;
-            App::$Session->set('content.rate.ignore', $ignored);
+        if ($model->isAlreadyRated()) {;
             throw new ForbiddenException(__('You have already rate this!'));            
         }
         
         // make rate - add +1 to content rating and author rating
-        if ($model->make()) {
-            // set ignored content id to rate in session
-            $ignored = App::$Session->get('content.rate.ignore');
-            $ignored[] = $id;
-            App::$Session->set('content.rate.ignore', $ignored);            
-        }
+        $model->make();
         
         return json_encode([
             'status' => 1,
-            'rating' => $model->getRating() // @todo this
+            'rating' => $model->getRating()
         ]);
     }
 

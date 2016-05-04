@@ -1,4 +1,5 @@
 <?php
+use Apps\Model\Admin\Stats\EntityNotificationStats;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Type\Obj;
@@ -43,68 +44,55 @@ use Ffcms\Core\Helper\Url;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo App::$Alias->baseUrl ?>">FFCMS<sup>3</sup> Dashboard</a>
+            <a class="navbar-brand" href="<?php echo App::$Alias->baseUrl ?>">FFCMS<sup>3</sup> <?= __('Dashboard') ?></a>
         </div>
         <!-- /.navbar-header -->
+
+        <?php
+            $notifyStats = new EntityNotificationStats();
+        ?>
 
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell fa-fw"></i> <?= __('Fast Access') ?> <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-bell fa-fw"></i> <?= __('Fast Access') ?>
+                    <span class="badge <?= $notifyStats->total > 0 ? 'alert-warning' : null ?>"><?= $notifyStats->total ?></span>
+                    <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-messages">
                     <li>
-                        <a href="#">
+                        <a href="<?= Url::to('content/index') ?>">
                             <div>
-                                <strong>Add page</strong>
+                                <strong><?= __('Content') ?></strong>
                                     <span class="pull-right text-muted">
-                                        <i class="fa fa-list-alt fa-lg"></i>
+                                        <span class="badge <?= $notifyStats->contents > 0 ? 'alert-warning' : null ?>"><?= $notifyStats->contents ?></span>
                                     </span>
                             </div>
-                            <div>Using this function you can add static page to website</div>
+                            <div><?= __('Using this function you can manage website content') ?></div>
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#">
+                        <a href="<?= Url::to('feedback/index') ?>">
                             <div>
-                                <strong>Add page</strong>
+                                <strong><?= __('Feedback') ?></strong>
                                     <span class="pull-right text-muted">
-                                        <i class="fa fa-plus fa-lg"></i>
+                                        <span class="badge <?= $notifyStats->feedback > 0 ? 'alert-warning' : null ?>"><?= $notifyStats->feedback ?></span>
                                     </span>
                             </div>
-                            <div>Using this function you can add news material on website</div>
+                            <div><?= __('Using this function you can manage feedback requests from users') ?></div>
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#">
+                        <a href="<?= Url::to('comments/index') ?>">
                             <div>
-                                <strong>Read feedback</strong>
+                                <strong><?= __('Comments') ?></strong>
                                     <span class="pull-right text-muted">
-                                        <i class="fa fa-envelope fa-lg"></i>
+                                        <span class="badge <?= $notifyStats->comments > 0 ? 'alert-warning' : null ?>"><?= $notifyStats->comments ?></span>
                                     </span>
                             </div>
-                            <div>Using this function you can read current feedback from users</div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <strong>Moderate comments</strong>
-                                    <span class="pull-right text-muted">
-                                        <i class="fa fa-plus fa-lg"></i>
-                                    </span>
-                            </div>
-                            <div>Using this function you can moderate user comments</div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a class="text-center" href="#">
-                            <strong>View All admin notify</strong>
-                            <i class="fa fa-angle-right"></i>
+                            <div><?= __('Using this function you can manage user comments') ?></div>
                         </a>
                     </li>
                 </ul>

@@ -3,6 +3,7 @@
 namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\Blacklist;
+use Apps\ActiveRecord\WallPost;
 use Apps\Model\Front\Profile\FormAvatarUpload;
 use Apps\Model\Front\Profile\FormIgnoreAdd;
 use Apps\Model\Front\Profile\FormIgnoreDelete;
@@ -31,6 +32,15 @@ class Profile extends FrontAppController
 {
     const BLOCK_PER_PAGE = 10;
 
+    /**
+     * List user profiles on website by defined filter
+     * @param string $filter_name
+     * @param null|string|int $filter_value
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionIndex($filter_name, $filter_value = null)
     {
         $records = null;
@@ -97,7 +107,10 @@ class Profile extends FrontAppController
 
     /**
      * Show user profile: data, wall posts, other features
-     * @param $userId
+     * @param int $userId
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      * @throws ForbiddenException
      */
@@ -105,11 +118,11 @@ class Profile extends FrontAppController
     {
         $cfg = Serialize::decode($this->application->configs);
         if ((int)$cfg['guestView'] !== 1 && !App::$User->isAuth()) {
-            throw new ForbiddenException('You must be registered user to view other profile');
+            throw new ForbiddenException(__('You must login to view other profile'));
         }
         // check if target exists
         if (!App::$User->isExist($userId)) {
-            throw new NotFoundException('This profile is not exist');
+            throw new NotFoundException(__('This profile is not exist'));
         }
 
         $targetPersone = App::$User->identity($userId); // target user object instance of Apps\ActiveRecord\User
@@ -156,7 +169,7 @@ class Profile extends FrontAppController
             'user' => $targetPersone,
             'viewer' => $viewerPersone,
             'isSelf' => ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id),
-            'wall' => !Obj::isObject($wallModel) ? null : $wallModel->export(),
+            'wall' => !Obj::isObject($wallModel) ? null : $wallModel->filter(),
             'notify' => App::$Session->getFlashBag()->all(),
             'wallRecords' => $wallRecords,
             'pagination' => $wallPagination,
@@ -166,6 +179,8 @@ class Profile extends FrontAppController
 
     /**
      * User avatar management
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionAvatar()
     {
@@ -189,13 +204,16 @@ class Profile extends FrontAppController
 
         return App::$View->render('avatar', [
             'user' => $user,
-            'model' => $model->export()
+            'model' => $model
         ]);
     }
 
     /**
      * Allow post owners and targets delete
      * @param int $postId
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws NotFoundException
      */
@@ -212,7 +230,7 @@ class Profile extends FrontAppController
         }
 
         // try to find the wall post
-        $wallPost = \Apps\ActiveRecord\WallPost::find($postId);
+        $wallPost = WallPost::find($postId);
         if (null === $wallPost || false === $wallPost) {
             throw new NotFoundException();
         }
@@ -232,12 +250,15 @@ class Profile extends FrontAppController
 
         return App::$View->render('wall_delete', [
             'post' => $wallPost,
-            'model' => $wallModel->export()
+            'model' => $wallModel->filter()
         ]);
     }
 
     /**
      * Show user messages (based on ajax, all in template)
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      */
     public function actionMessages()
@@ -251,6 +272,9 @@ class Profile extends FrontAppController
 
     /**
      * User profile settings
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      */
     public function actionSettings()
@@ -272,12 +296,15 @@ class Profile extends FrontAppController
 
         // render view
         return App::$View->render('settings', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Action change user password
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      */
     public function actionPassword()
@@ -299,12 +326,15 @@ class Profile extends FrontAppController
 
         // set response output
         return App::$View->render('password', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Show users in blacklist and allow add new users
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      */
     public function actionIgnore()
@@ -351,15 +381,17 @@ class Profile extends FrontAppController
 
         return App::$View->render('ignore', [
             'records' => $records->skip($offset)->take(self::BLOCK_PER_PAGE)->get(),
-            'model' => $model->export(),
+            'model' => $model->filter(),
             'pagination' => $pagination
         ]);
     }
 
     /**
      * Show user logs
-     * @throws ForbiddenException
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws ForbiddenException
      */
     public function actionLog()
     {
@@ -385,6 +417,9 @@ class Profile extends FrontAppController
     /**
      * Unblock always blocked user
      * @param string $target_id
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws NotFoundException
      */
@@ -408,19 +443,21 @@ class Profile extends FrontAppController
         }
 
         $model = new FormIgnoreDelete($user, $target_id);
-
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Response->redirect(Url::to('profile/ignore'));
         }
 
         return App::$View->render('unblock', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Search users
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionSearch()
     {
@@ -457,7 +494,7 @@ class Profile extends FrontAppController
 
         // display response
         return App::$View->render('search', [
-            'model' => $model->export(),
+            'model' => $model->filter(),
             'records' => $records,
             'pagination' => $pagination,
             'ratingOn' => (int)$cfgs['rating']

@@ -7,5 +7,6 @@ return [
     'Unexpected error in upload process' => 'Неожиданная ошибка при загрузке файла',
     'You have already rate this!' => 'Вы уже голосовали за этот материал!',
     'Content item is not founded' => 'Материал не найден',
-    'Authorization is required!' => 'Необходимо авторизоваться!'
+    'Authorization is required!' => 'Необходимо авторизоваться!',
+    'You can not rate your own content' => 'Вы не можете оценивать свои материалы'
 ];

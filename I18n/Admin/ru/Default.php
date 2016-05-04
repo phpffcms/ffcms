@@ -3,6 +3,7 @@
 return [
     'Lang' => 'Язык',
     'FFCMS 3 Dashboard' => 'Панель управления FFCMS 3',
+    'Dashboard' => 'Панель управления',
     'Field "%field%" is incorrect' => 'Поле "%field%" заполнено не верно!',
     'Main' => 'Главная',
     'Applications' => 'Приложения',
@@ -25,5 +26,11 @@ return [
     'You got invite' => 'Вы получили приглашение',
     'Attention! Version of this extension scripts is no match to database version. Please, make update!' => 'Внимание! Версия скрипта и базы данных данного расширения не совпадают. Обновите расширение!',
     'Native exception catched in view: %path% in line %line%' => 'Обнаружена базовая ошибка в представлении: %path% в линии %line%',
-    'Settings is successful updated' => 'Настройки успешно обновлены'
+    'Settings is successful updated' => 'Настройки успешно обновлены',
+    'Content' => 'Контент',
+    'Using this function you can manage website content' => 'Используя эту функцию вы можете управлять контентом на сайте',
+    'Feedback' => 'Обратная связь',
+    'Using this function you can manage feedback requests from users' => 'Используя эту функцию вы можете управлять запросами обратной связи от пользователей',
+    'Comments' => 'Комментарии',
+    'Using this function you can manage user comments' => 'Используя эту функцию вы можете управлять пользовательскими комментариями'
 ];

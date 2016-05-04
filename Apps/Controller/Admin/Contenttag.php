@@ -11,10 +11,12 @@ class Contenttag extends AdminController
     const VERSION = 0.1;
     
     public $type = 'widget';
-    
+
     /**
      * Show and edit widget settings
      * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {
@@ -29,7 +31,7 @@ class Contenttag extends AdminController
         
         // render view output
         return App::$View->render('index', [
-           'model' => $model 
+           'model' => $model->filter()
         ]);
     }
 }

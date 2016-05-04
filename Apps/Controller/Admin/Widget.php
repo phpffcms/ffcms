@@ -31,6 +31,7 @@ class Widget extends AdminController
     /**
      * Show all installed widgets
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
@@ -43,6 +44,7 @@ class Widget extends AdminController
     /**
      * Show installation form for widget
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionInstall()
@@ -66,14 +68,15 @@ class Widget extends AdminController
         }
 
         return App::$View->render('install', [
-            'model' => $model->export()
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Run widget update - display submit form & callback execution
-     * @param $sys_name
+     * @param string $sys_name
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
@@ -99,14 +102,15 @@ class Widget extends AdminController
 
         // render response
         return App::$View->render('update', [
-            'model' => $model
+            'model' => $model->filter()
         ]);
     }
 
     /**
      * Allow turn on/off widget
-     * @param $controllerName
+     * @param string $controllerName
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */

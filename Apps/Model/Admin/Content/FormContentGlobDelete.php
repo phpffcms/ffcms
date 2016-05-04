@@ -13,12 +13,19 @@ class FormContentGlobDelete extends Model
 
     public $data = [];
 
+    /**
+     * FormContentGlobDelete constructor. Pass records inside.
+     * @param $records
+     */
     public function __construct($records)
     {
         $this->_records = $records;
         parent::__construct();
     }
 
+    /**
+     * Construct records into data array to display in view
+     */
     public function before()
     {
         // set data to display in view
@@ -31,6 +38,9 @@ class FormContentGlobDelete extends Model
         }
     }
 
+    /**
+     * Delete founded records
+     */
     public function make()
     {
         foreach ($this->_records as $record) {

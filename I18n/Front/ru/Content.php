@@ -42,5 +42,6 @@ return [
     'Yes' => 'Да',
     'No' => 'Нет',
     'Remember you can edit content only on moderate stage!' => 'Помните, вы можете редактировать материал только на стадии модерации!',
-    'Only authorized users can manage content' => 'Только авторизованные пользователи могут управлять контентом'
+    'Only authorized users can manage content' => 'Только авторизованные пользователи могут управлять контентом',
+    'Content successfully updated' => 'Контент успешно обновлен'
 ];
