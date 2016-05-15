@@ -12,6 +12,7 @@ class FormSettings extends Model
 
     public $basePath;
     public $passwordSalt;
+    public $timezone;
 
     public $debug;
     public $theme;
@@ -51,6 +52,8 @@ class FormSettings extends Model
     {
         return [
             'basePath' => __('Base path'),
+            'adminEmail' => __('Admin email'),
+            'timezone' => __('Timezone'),
             'debug.all' => __('Debug for all'),
             'singleLanguage' => __('Default language'),
             'languages' => __('Available languages'),
@@ -80,11 +83,12 @@ class FormSettings extends Model
     {
         return [
             [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy'], 'used'],
-            [['basePath', 'singleLanguage', 'adminEmail'], 'required'],
+            [['basePath', 'singleLanguage', 'adminEmail', 'timezone'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
             [['database.driver', 'database.database'], 'required'],
-            ['adminEmail', 'email']
+            ['adminEmail', 'email'],
+            ['timezone', 'string']
         ];
     }
 

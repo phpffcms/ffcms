@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHa
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
 // define timezone
-date_default_timezone_set('Europe/Moscow');
+date_default_timezone_set(App::$Properties->get('timezone'));
 
 return [
     'Database' => function () {

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "063189b2876995c40288e0fd67d7fe59",
-    "content-hash": "eb24b3ab2eb1df0528970af5bdedb536",
+    "hash": "0f3dc71bbf0991d0311f723d3622a6c6",
+    "content-hash": "559a3db900bd6269659a9403ca769ecb",
     "packages": [
         {
             "name": "bower-asset/blueimp-canvas-to-blob",
@@ -172,22 +172,23 @@
         },
         {
             "name": "bower-asset/components-font-awesome",
-            "version": "4.5.0",
+            "version": "4.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/font-awesome.git",
-                "reference": "069663a8419f9db90f9bec71e71ed4bb9d28d6ee"
+                "reference": "41891b80da2ee0a328c93d465bd3699edec2ca6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/font-awesome/zipball/069663a8419f9db90f9bec71e71ed4bb9d28d6ee",
-                "reference": "069663a8419f9db90f9bec71e71ed4bb9d28d6ee",
+                "url": "https://api.github.com/repos/components/font-awesome/zipball/41891b80da2ee0a328c93d465bd3699edec2ca6c",
+                "reference": "41891b80da2ee0a328c93d465bd3699edec2ca6c",
                 "shasum": ""
             },
             "type": "bower-asset-library",
             "extra": {
                 "bower-asset-main": [
                     "css/font-awesome.css",
+                    "css/font-awesome.css.map",
                     "scss/font-awesome.scss",
                     "fonts/fontawesome-webfont.eot",
                     "fonts/fontawesome-webfont.woff",
@@ -375,12 +376,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
+                "reference": "803a2ed9fea02f9ca47cd45395089fe78769a392"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/90b2128806bfde671b6952ab8bea493942c1fdae",
-                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/803a2ed9fea02f9ca47cd45395089fe78769a392",
+                "reference": "803a2ed9fea02f9ca47cd45395089fe78769a392",
                 "shasum": ""
             },
             "require": {
@@ -434,7 +435,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06 14:35:42"
+            "time": "2016-05-12 17:23:41"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -706,16 +707,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v5.2.28",
+            "version": "v5.2.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "1ea9f36cef011a80b1623ea3566d57017e7913bc"
+                "reference": "becc003759a0b028a237a8c5d2aeb550077d42fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/1ea9f36cef011a80b1623ea3566d57017e7913bc",
-                "reference": "1ea9f36cef011a80b1623ea3566d57017e7913bc",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/becc003759a0b028a237a8c5d2aeb550077d42fd",
+                "reference": "becc003759a0b028a237a8c5d2aeb550077d42fd",
                 "shasum": ""
             },
             "require": {
@@ -762,7 +763,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2016-04-01 18:17:22"
+            "time": "2016-04-27 12:59:09"
         },
         {
             "name": "illuminate/support",
@@ -770,12 +771,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "c0b3c7e170cb13d5f33413727a5c6bc13f46d4a2"
+                "reference": "cb5b004610baabe6b4bf532e6e4ff9eaca5eb25b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/c0b3c7e170cb13d5f33413727a5c6bc13f46d4a2",
-                "reference": "c0b3c7e170cb13d5f33413727a5c6bc13f46d4a2",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/cb5b004610baabe6b4bf532e6e4ff9eaca5eb25b",
+                "reference": "cb5b004610baabe6b4bf532e6e4ff9eaca5eb25b",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +819,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2016-04-14 16:06:53"
+            "time": "2016-04-21 13:28:36"
         },
         {
             "name": "maximebf/debugbar",
@@ -1034,16 +1035,16 @@
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-ckeditor.git",
-                "reference": "dccc83bd4971ab24c143ef70b811075b5243457d"
+                "reference": "3d9c5e0e6801f0c62b08684da16c009a368cbf9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/dccc83bd4971ab24c143ef70b811075b5243457d",
-                "reference": "dccc83bd4971ab24c143ef70b811075b5243457d",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-ckeditor/zipball/3d9c5e0e6801f0c62b08684da16c009a368cbf9f",
+                "reference": "3d9c5e0e6801f0c62b08684da16c009a368cbf9f",
                 "shasum": ""
             },
             "require": {
@@ -1074,7 +1075,7 @@
                 "php",
                 "wysiwyg"
             ],
-            "time": "2016-02-03 09:55:24"
+            "time": "2016-05-02 16:38:55"
         },
         {
             "name": "phpffcms/ffcms-console",
@@ -1126,12 +1127,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "681acd12b1e6309689e0138d7925888c8c1dbe68"
+                "reference": "0b8712bbe2600e5ff48aadf3a175d03fd31cba2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/681acd12b1e6309689e0138d7925888c8c1dbe68",
-                "reference": "681acd12b1e6309689e0138d7925888c8c1dbe68",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/0b8712bbe2600e5ff48aadf3a175d03fd31cba2a",
+                "reference": "0b8712bbe2600e5ff48aadf3a175d03fd31cba2a",
                 "shasum": ""
             },
             "require": {
@@ -1168,11 +1169,11 @@
                 "mvc",
                 "php"
             ],
-            "time": "2016-04-13 08:06:59"
+            "time": "2016-05-13 12:33:07"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-elfinder.git",
@@ -1374,16 +1375,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.1",
+            "version": "v5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
-                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
                 "shasum": ""
             },
             "require": {
@@ -1423,7 +1424,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2015-06-06 14:19:39"
+            "time": "2016-05-01 08:45:47"
         },
         {
             "name": "symfony/http-foundation",
@@ -1484,12 +1485,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "1289d16209491b584839022f29257ad859b8532d"
+                "reference": "6bab34bbffa5f5ac079fdc4a68e143f158e87b7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
-                "reference": "1289d16209491b584839022f29257ad859b8532d",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6bab34bbffa5f5ac079fdc4a68e143f158e87b7d",
+                "reference": "6bab34bbffa5f5ac079fdc4a68e143f158e87b7d",
                 "shasum": ""
             },
             "require": {
@@ -1535,7 +1536,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-20 09:13:37"
+            "time": "2016-04-15 07:04:29"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -1601,12 +1602,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "82a923279e03c8cab7bfdcad706b1bf51afddd0f"
+                "reference": "0e67031c9ef0ad681932d2b24f4fd0ec8a6679ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/82a923279e03c8cab7bfdcad706b1bf51afddd0f",
-                "reference": "82a923279e03c8cab7bfdcad706b1bf51afddd0f",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/0e67031c9ef0ad681932d2b24f4fd0ec8a6679ff",
+                "reference": "0e67031c9ef0ad681932d2b24f4fd0ec8a6679ff",
                 "shasum": ""
             },
             "require": {
@@ -1657,7 +1658,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-31 18:23:24"
+            "time": "2016-05-12 18:19:29"
         },
         {
             "name": "symfony/var-dumper",
@@ -1665,12 +1666,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "59c57f4d982026f19a8748473020a5ab9b65a9aa"
+                "reference": "8e1dda91a6a77807b503d08dd1c45fbf106eb0bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/59c57f4d982026f19a8748473020a5ab9b65a9aa",
-                "reference": "59c57f4d982026f19a8748473020a5ab9b65a9aa",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/8e1dda91a6a77807b503d08dd1c45fbf106eb0bd",
+                "reference": "8e1dda91a6a77807b503d08dd1c45fbf106eb0bd",
                 "shasum": ""
             },
             "require": {
@@ -1720,7 +1721,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-04-12 18:27:47"
+            "time": "2016-04-25 11:21:08"
         }
     ],
     "packages-dev": [],
@@ -1729,7 +1730,7 @@
     "stability-flags": {
         "phpffcms/ffcms-core": 20,
         "phpffcms/ffcms-console": 20,
-        "phpffcms/ffcms-ckeditor": 20,
+        "phpffcms/ffcms-ckeditor": 0,
         "illuminate/database": 0,
         "phpffcms/searchable": 0,
         "symfony/http-foundation": 0,
@@ -1737,6 +1738,7 @@
         "ezyang/htmlpurifier": 0,
         "gregwar/image": 0,
         "dflydev/dot-access-data": 0,
+        "phpffcms/ffcms-elfinder": 0,
         "swiftmailer/swiftmailer": 0,
         "gregwar/captcha": 0,
         "phpfastcache/phpfastcache": 0,

@@ -52,6 +52,8 @@ use Ffcms\Core\Helper\Url;
             $notifyStats = new EntityNotificationStats();
         ?>
 
+        <?= \Widgets\Basic\LanguageSwitcher::widget(['css' => ['class' => 'nav navbar-top-links navbar-left']]) ?>
+
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
