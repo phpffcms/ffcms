@@ -11,7 +11,6 @@ class Widget extends AbstractWidget
 {
     public $message;
 
-
     public function init()
     {
         if ($this->message === null)

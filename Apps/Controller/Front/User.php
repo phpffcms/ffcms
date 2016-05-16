@@ -29,7 +29,6 @@ class User extends FrontAppController
     const EVENT_USER_REGISTER_SUCCESS = 'user.signup.success';
     const EVENT_USER_REGISTER_FAIL = 'user.signup.fail';
 
-
     /**
      * View login form and process submit action
      * @throws ForbiddenException

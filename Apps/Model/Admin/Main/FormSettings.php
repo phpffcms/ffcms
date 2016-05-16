@@ -6,6 +6,8 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Arr;
+use Ffcms\Core\Helper\Type\Obj;
 
 class FormSettings extends Model
 {
@@ -41,7 +43,9 @@ class FormSettings extends Model
     {
         // set default values
         foreach (App::$Properties->getAll() as $key => $value) {
-            $this->{$key} = $value;
+            if (property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
         }
     }
 
@@ -82,7 +86,7 @@ class FormSettings extends Model
     public function rules()
     {
         return [
-            [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy'], 'used'],
+            [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy', 'languages'], 'used'],
             [['basePath', 'singleLanguage', 'adminEmail', 'timezone'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
@@ -120,7 +124,7 @@ class FormSettings extends Model
     public function makeSave()
     {
         $toSave = App::$Security->strip_php_tags($this->getAllProperties());
-        $stringSave = '<?php return ' . App::$Security->var_export54($toSave, null, true) . ';';
+        $stringSave = '<?php return ' . Arr::exportVar($toSave, null, true) . ';';
 
         $cfgPath = '/Private/Config/Default.php';
         if (File::exist($cfgPath) && File::writable($cfgPath)) {

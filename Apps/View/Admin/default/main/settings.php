@@ -36,7 +36,7 @@ $debugTab .= $form->field('debug.cookie.value', 'text', ['class' => 'form-contro
 $langTab = $form->field('singleLanguage', 'select', ['class' => 'form-control', 'options' => \App::$Translate->getAvailableLangs()], __('Default language of website'));
 $langTab .= $form->field('multiLanguage', 'checkbox', null, __('Must we use multi language system in site pathway'));
 $langTab .= $form->field('baseLanguage', 'text', ['class' => 'form-control', 'disabled' => null], __('Website base script language. Do not change it'));
-$langTab .= $form->field('languages', 'checkboxes', ['options' => ['ru', 'en']], __('Website available languages'));
+$langTab .= $form->field('languages', 'checkboxes', ['options' => App::$Translate->getAvailableLangs()], __('Website available languages'));
 
 $databaseTab = '<p>' . __('Do not change any information in this tab if you not sure what you do!') . '</p>';
 $databaseTab .= $form->field('database.driver', 'select', ['class' => 'form-control', 'options' => ['mysql', 'sqlite', 'pgsql']], __('Database connection driver'));
