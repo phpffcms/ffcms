@@ -175,9 +175,10 @@ class EntityCategoryList extends Model
      */
     private function buildCategory()
     {
+        $catConfigs = Serialize::decode($this->_currentCategory->configs);
         // prepare rss url link for current category if enabled
         $rssUrl = false;
-        if ((int)$this->_configs['rss'] === 1) {
+        if ((int)$this->_configs['rss'] === 1 && (int)$catConfigs['showRss'] === 1) {
             $rssUrl = App::$Alias->baseUrl . '/content/rss/' . $this->_currentCategory->path;
             $rssUrl = rtrim($rssUrl, '/');
         }
@@ -197,7 +198,7 @@ class EntityCategoryList extends Model
         $this->category = [
             'title' => App::$Security->strip_tags($this->_currentCategory->getLocaled('title')),
             'description' => App::$Security->strip_tags($this->_currentCategory->getLocaled('description')),
-            'configs' => Serialize::decode($this->_currentCategory->configs),
+            'configs' => $catConfigs,
             'path' => $this->_currentCategory->path,
             'rss' => $rssUrl,
             'sort' => $catSortUrls

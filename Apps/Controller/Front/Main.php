@@ -2,12 +2,12 @@
 
 namespace Apps\Controller\Front;
 
-use Extend\Core\Arch\FrontAppController;
-use Ffcms\Core\Arch\View;
+use Extend\Core\Arch\Controller;
 use Apps\Model\Front\User;
+use Ffcms\Core\App;
 
 
-class Main extends FrontAppController
+class Main extends Controller
 {
 
     public function before()
@@ -17,10 +17,9 @@ class Main extends FrontAppController
 
     public function actionIndex()
     {
-        $this->wtf = 'Test me baby ;)';
-        //$this->setGlobalVar('wtf', 'test global variable set');
+        $this->wtf = 'Test global variable';
 
-        return \App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);
+        return App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);
     }
 
     public function actionRead($id)

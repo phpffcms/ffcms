@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0f3dc71bbf0991d0311f723d3622a6c6",
-    "content-hash": "559a3db900bd6269659a9403ca769ecb",
+    "hash": "834166376426409dd06e1c11eabb0bbe",
+    "content-hash": "50ab9fb6270700600a110d0590c32a21",
     "packages": [
         {
             "name": "bower-asset/blueimp-canvas-to-blob",
@@ -771,12 +771,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "cb5b004610baabe6b4bf532e6e4ff9eaca5eb25b"
+                "reference": "61329ea409362fdae167fdca1125f46c997ce689"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/cb5b004610baabe6b4bf532e6e4ff9eaca5eb25b",
-                "reference": "cb5b004610baabe6b4bf532e6e4ff9eaca5eb25b",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/61329ea409362fdae167fdca1125f46c997ce689",
+                "reference": "61329ea409362fdae167fdca1125f46c997ce689",
                 "shasum": ""
             },
             "require": {
@@ -819,20 +819,20 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2016-04-21 13:28:36"
+            "time": "2016-05-14 16:24:10"
         },
         {
             "name": "maximebf/debugbar",
-            "version": "v1.11.1",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "d9302891c1f0a0ac5a4f66725163a00537c6359f"
+                "reference": "e634fbd32cd6bc3fa0e8c972b52d4bf49bab3988"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/d9302891c1f0a0ac5a4f66725163a00537c6359f",
-                "reference": "d9302891c1f0a0ac5a4f66725163a00537c6359f",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/e634fbd32cd6bc3fa0e8c972b52d4bf49bab3988",
+                "reference": "e634fbd32cd6bc3fa0e8c972b52d4bf49bab3988",
                 "shasum": ""
             },
             "require": {
@@ -851,7 +851,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.11-dev"
+                    "dev-master": "1.12-dev"
                 }
             },
             "autoload": {
@@ -880,7 +880,7 @@
                 "debug",
                 "debugbar"
             ],
-            "time": "2016-01-22 12:22:23"
+            "time": "2016-05-15 13:11:34"
         },
         {
             "name": "nesbot/carbon",
@@ -979,25 +979,34 @@
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "3.0.28",
+            "version": "4.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
-                "reference": "54e5a6165a29d58304afc53b484a2071c1cc2d76"
+                "reference": "29b1fa5a4d74010dd254f892b26e6a3a43acbffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/54e5a6165a29d58304afc53b484a2071c1cc2d76",
-                "reference": "54e5a6165a29d58304afc53b484a2071c1cc2d76",
+                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/29b1fa5a4d74010dd254f892b26e6a3a43acbffd",
+                "reference": "29b1fa5a4d74010dd254f892b26e6a3a43acbffd",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.1.0"
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "ext-apc": "*",
+                "ext-mbstring": "*",
+                "ext-memcache": "*",
+                "ext-memcached": "*",
+                "ext-predis": "*",
+                "ext-redis": "*",
+                "ext-sqlite": "*"
             },
             "type": "library",
             "autoload": {
                 "files": [
-                    "phpfastcache.php"
+                    "src/phpFastCache/phpFastCache.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1009,6 +1018,12 @@
                     "name": "Khoa Bui",
                     "email": "khoaofgod@gmail.com",
                     "homepage": "http://www.phpfastcache.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Georges.L",
+                    "email": "contact@geolim4.com",
+                    "homepage": "https://github.com/Geolim4",
                     "role": "Developer"
                 }
             ],
@@ -1031,7 +1046,7 @@
                 "redis",
                 "wincache"
             ],
-            "time": "2016-01-31 20:42:58"
+            "time": "2016-04-14 00:52:34"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -1127,12 +1142,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "0b8712bbe2600e5ff48aadf3a175d03fd31cba2a"
+                "reference": "8077944e6d2156ebd420da4304fd44b716b7f47d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/0b8712bbe2600e5ff48aadf3a175d03fd31cba2a",
-                "reference": "0b8712bbe2600e5ff48aadf3a175d03fd31cba2a",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/8077944e6d2156ebd420da4304fd44b716b7f47d",
+                "reference": "8077944e6d2156ebd420da4304fd44b716b7f47d",
                 "shasum": ""
             },
             "require": {
@@ -1169,7 +1184,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2016-05-13 12:33:07"
+            "time": "2016-05-16 11:49:48"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1602,12 +1617,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "0e67031c9ef0ad681932d2b24f4fd0ec8a6679ff"
+                "reference": "b08a9f6e13416cd63e7167d5233575d3ec0c091c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/0e67031c9ef0ad681932d2b24f4fd0ec8a6679ff",
-                "reference": "0e67031c9ef0ad681932d2b24f4fd0ec8a6679ff",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/b08a9f6e13416cd63e7167d5233575d3ec0c091c",
+                "reference": "b08a9f6e13416cd63e7167d5233575d3ec0c091c",
                 "shasum": ""
             },
             "require": {
@@ -1631,7 +1646,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "3.2-dev"
                 }
             },
             "autoload": {
@@ -1658,7 +1673,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-05-12 18:19:29"
+            "time": "2016-05-13 18:13:23"
         },
         {
             "name": "symfony/var-dumper",
@@ -1666,12 +1681,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "8e1dda91a6a77807b503d08dd1c45fbf106eb0bd"
+                "reference": "b5ad0aeeba7cfe1fad3f3c944eaa344c2280a821"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/8e1dda91a6a77807b503d08dd1c45fbf106eb0bd",
-                "reference": "8e1dda91a6a77807b503d08dd1c45fbf106eb0bd",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/b5ad0aeeba7cfe1fad3f3c944eaa344c2280a821",
+                "reference": "b5ad0aeeba7cfe1fad3f3c944eaa344c2280a821",
                 "shasum": ""
             },
             "require": {
@@ -1687,7 +1702,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "3.2-dev"
                 }
             },
             "autoload": {
@@ -1721,7 +1736,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-04-25 11:21:08"
+            "time": "2016-05-13 18:13:23"
         }
     ],
     "packages-dev": [],
@@ -1731,18 +1746,18 @@
         "phpffcms/ffcms-core": 20,
         "phpffcms/ffcms-console": 20,
         "phpffcms/ffcms-ckeditor": 0,
-        "illuminate/database": 0,
         "phpffcms/searchable": 0,
+        "phpffcms/language-flags": 0,
+        "phpffcms/ffcms-elfinder": 0,
+        "illuminate/database": 0,
         "symfony/http-foundation": 0,
         "maximebf/debugbar": 0,
         "ezyang/htmlpurifier": 0,
         "gregwar/image": 0,
         "dflydev/dot-access-data": 0,
-        "phpffcms/ffcms-elfinder": 0,
         "swiftmailer/swiftmailer": 0,
         "gregwar/captcha": 0,
         "phpfastcache/phpfastcache": 0,
-        "phpffcms/language-flags": 0,
         "suin/php-rss-writer": 0,
         "bower-asset/jquery": 0,
         "bower-asset/jquery-validation": 0,

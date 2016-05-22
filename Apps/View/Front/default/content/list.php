@@ -41,7 +41,7 @@ var contentItemList = {path: {}}
 <?php if (!\App::$Request->isPathInjected()): ?>
 <h1>
 <?= $model->category['title'] ?>
-<?php if ($model->category['rss'] !== false && !Str::likeEmpty($model->category['rss'])): ?>
+<?php if (!Str::likeEmpty($model->category['rss'])): ?>
 	<small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fa fa-rss"></i></a></small>
 <?php endif; ?>
 	<div class="pull-right">

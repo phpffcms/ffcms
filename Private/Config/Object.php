@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
+use phpFastCache\CacheManager;
 
 // define timezone
 date_default_timezone_set(App::$Properties->get('timezone'));
@@ -59,7 +60,11 @@ return [
         return new Extend\Core\Captcha\Gregwar();
     },
     'Cache' => function () {
-        phpFastCache::setup('path', root . '/Private/Cache');
-        return \phpFastCache();
+        // initialize cache manager. You can use redis, memcache or anything else. Look at: phpfastcache.com
+        CacheManager::setup([
+            'storage' => 'files',
+            'path' => root . '/Private/Cache'
+        ]);
+        return CacheManager::getInstance('files');
     }
 ];
