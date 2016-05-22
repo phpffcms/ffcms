@@ -82,9 +82,10 @@ class Profile extends ApiController
             throw new NativeException('Wrong input data');
         }
 
+        $result = $object->getAnswer()->orderBy('id', 'DESC')->take(200)->get();
         $response = [];
 
-        foreach ($object->getAnswer()->orderBy('id', 'DESC')->get() as $answer) {
+        foreach ($result as $answer) {
             // get user object and profile
             $user = $answer->getUser();
             $profile = $user->getProfile();
@@ -99,7 +100,7 @@ class Profile extends ApiController
                 'user_nick' => App::$Security->strip_tags($profile->getNickname()),
                 'user_avatar' => $profile->getAvatarUrl('small'),
                 'answer_message' => App::$Security->strip_tags($answer->message),
-                'answer_date' => Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_SECONDS)
+                'answer_date' => Date::humanize($answer->created_at)
             ];
         }
 

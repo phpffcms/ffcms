@@ -233,12 +233,12 @@ $this->breadcrumbs = [
                 $referNickname = Simplify::parseUserNick($post->sender_id);
                 ?>
                 <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
-                    <div class="col-md-2">
+                    <div class="col-xs-4 col-md-2">
                         <div class="text-center"><img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>"
                              src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
                         </div>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-xs-8 col-md-10">
                         <h5 style="margin-top: 0;">
                             <i class="fa fa-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
                             <small class="pull-right"><?= Date::humanize($post->updated_at); ?></small>
@@ -267,6 +267,32 @@ $this->breadcrumbs = [
         </div>
     </div>
 </div>
+
+<!-- add answer dom template -->
+<div id="add-answer-field" class="hidden">
+    <hr style="margin: 5px;"/>
+    <input type="text" id="make-answer" placeHolder="<?= __('Write comment') ?>" class="form-control wall-answer-text" maxlength="200"/>
+    <a style="margin-top: 5px;" href="#wall-post" class="send-wall-answer btn btn-primary btn-sm" id="send-wall">
+        <?= __('Send') ?>
+    </a>
+    <span class="pull-right" id="answer-counter">200</span>
+</div>
+<div id="show-answer-list" class="hidden">
+    <div class="row wall-answer">
+        <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="avatar" class="img-responsive img-rounded avatar" /></div>
+        <div class="col-md-10 col-xs-8">
+            <div class="answer-header">
+                <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
+                <small class="pull-right"><span id="wall-answer-date">01.01.1970</span>
+                    <a href="#send-wall-object" class="delete-answer hidden" id="delete-answer"><i class="fa fa-lg fa-times"></i></a>
+                </small>
+            </div>
+            <div id="wall-answer-text"></div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     var hideAnswers = [];
     window.jQ.push(function(){
@@ -302,29 +328,45 @@ $this->breadcrumbs = [
                     if (json.status !== 1) {
                         return null;
                     }
-                    var htmlAnswer = '<hr style="margin: 5px;" />';
-                    htmlAnswer += '<div class="well">';
-                    htmlAnswer += '<div id="send-wall-object-'+postId+'"></div>';
-                    htmlAnswer += '<input type="text" id="make-answer-'+postId+'" placeHolder="<?= __('Write comment') ?>" class="form-control wall-answer-text" maxlength="200" />';
-                    htmlAnswer += '<a style="margin-top: 5px;" href="#wall-post-'+postId+'" class="send-wall-answer btn btn-primary btn-sm" id="send-wall-'+postId+'"><?= __('Send') ?></a>';
-                    htmlAnswer += '<span class="pull-right" id="answer-counter-'+postId+'">200</span>';
-                    htmlAnswer += "</div>";
-                    $.each(json.data, function(idx, row){
-                        htmlAnswer += '<div class="row wall-answer">';
-                        htmlAnswer += '<div class="col-md-2"><img src="'+row.user_avatar+'" alt="avatar" class="img-responsive img-rounded" /></div>';
-                        htmlAnswer += '<div class="col-md-10">';
-                        htmlAnswer += '<div class="answer-header">';
-                        htmlAnswer += '<a href="<?= \App::$Alias->baseUrl ?>/profile/show/'+row.user_id+'">'+row.user_nick+'</a>';
-                        htmlAnswer += '<small class="pull-right">'+row.answer_date;
+
+                    var answerField = $('#add-answer-field').clone();
+                    var answerDom = $('#show-answer-list').clone();
+                    answerField.removeAttr('id').removeClass('hidden');
+                    answerDom.removeAttr('id').removeClass('hidden');
+                    // add hidden div with wall post object id
+                    answerField.prepend($('<div></div>').attr('id', 'send-wall-object-'+postId));
+                    // set make answer wall post object id
+                    answerField.find('#make-answer').attr('id', 'make-answer-'+postId);
+                    // build send submit button - set id and href to wall post object anchor
+                    answerField.find('#send-wall').attr('id', 'send-wall-'+postId).attr('href', '#wall-post-'+postId);
+                    // build counter (max chars in input = 200)
+                    answerField.find('#answer-counter').attr('id', 'answer-counter-'+postId);
+
+                    var addAnswerField = '';
+                    if (viewer_id > 0) {
+                        addAnswerField = answerField.html();
+                    }
+
+                    var answers = '';
+                    $.each(json.data, function(idx, row) {
+                        // clone general dom element
+                        var dom = answerDom.clone();
+                        // set avatar src
+                        dom.find('#wall-answer-avatar').attr('src', row.user_avatar).removeAttr('id');
+                        // set user link
+                        dom.find('#wall-answer-userlink').attr('href', '<?= Url::to('profile/show') ?>/'+row.user_id).text(row.user_nick).removeAttr('id');
+                        // set date
+                        dom.find('#wall-answer-date').text(row.answer_date).removeAttr('id');
+                        // set message text
+                        dom.find('#wall-answer-text').text(row.answer_message);
+                        // check if this user can remove answers - answer writer or target user profile
                         if (is_self_profile || row.user_id === viewer_id) {
-                            htmlAnswer += '<a href="#send-wall-object-' + postId + '" class="delete-answer" id="delete-answer-' + row.answer_id + '-' + postId +'"><i class="fa fa-lg fa-times"></i></a>';
+                            dom.find('#delete-answer').attr('href', '#send-wall-object-'+postId).attr('id', 'delete-answer-'+row.answer_id+'-'+postId).removeClass('hidden');
                         }
-                        htmlAnswer += '</small>';
-                        htmlAnswer += '</div>';
-                        htmlAnswer += '<div>' + row.answer_message + '</div>';
-                        htmlAnswer += '</div></div>';
+
+                        answers += dom.html();
                     });
-                    $('#wall-answer-dom-'+postId).html(htmlAnswer);
+                    $('#wall-answer-dom-'+postId).html(addAnswerField + answers);
                 })
             };
 
@@ -383,14 +425,14 @@ $this->breadcrumbs = [
                 var answerToId = this.id.replace('send-wall-', '');
                 var message = $('#make-answer-'+answerToId).val();
                 if (message == null || message.length < 3) {
-                    alert('Message is too short');
+                    alert('<?= __('Message is too short') ?>');
                     return null;
                 }
 
                 var result = $.fn.addAnswer(answerToId, message);
                 // sending going wrong !
                 if (false === result) {
-                    $('#send-wall-object-'+answerToId).html('<p class="alert alert-warning"><?= __('Comment send was failed! Wait few moments') ?></p>');
+                    $('#send-wall-object-'+answerToId).html('<p class="alert alert-warning"><?= __('Comment send was failed! Try to send it later.') ?></p>');
                 }
             });
 
