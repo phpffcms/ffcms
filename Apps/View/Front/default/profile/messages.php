@@ -13,16 +13,7 @@ $this->breadcrumbs = [
 <h1><?= __('My messages') ?></h1>
 <hr />
 <div class="row">
-    <div class="col-md-3 well-light" style="min-height: 300px">
-        <div id="message-user-list" style="padding-bottom: 10px;"></div>
-        <div class="row">
-            <div class="col-md-12">
-                <a href="#" class="btn btn-primary btn-block btn-sm" id="show-more-dialogs"><i class="fa fa-caret-down"></i> <?= __('Show more') ?></a>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-md-9">
+    <div class="col-md-push-3 col-md-9">
         <!-- user info -->
         <div class="row">
             <div class="col-md-12">
@@ -56,19 +47,100 @@ $this->breadcrumbs = [
             <a href="javascript:void(0);" class="btn btn-primary" id="send-new-message"><?= __('Send message') ?></a>
         </div>
     </div>
+    <div class="col-md-pull-9 col-md-3 well-light">
+        <div id="message-user-list" style="padding-bottom: 10px;"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#" class="btn btn-primary btn-block btn-sm" id="show-more-dialogs"><i class="fa fa-caret-down"></i> <?= __('Show more') ?></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- dynamic dom templates -->
+<!-- 1. Userlist -->
+<div class="hidden" id="msg-user">
+    <div id="msg-user-background">
+        <div class="row">
+            <div class="col-md-12">
+                <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="pull-left img-responsive img-circle" style="max-height: 50px;padding-right: 5px;" />
+                <div style="padding-top: 12px;">
+                    <span class="media-person-uname" id="msg-user-name"><?= __('Unknown') ?></span>
+                    <span class="hidden" id="msg-user-isnew"><i class="fa fa-envelope"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 2. Current dialog title -->
+<div class="hidden" id="dialog-title">
+    <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="pull-right img-responsive img-circle" style="max-height: 50px;" />
+    <div class="pull-right" style="padding-top: 12px;padding-right: 5px;">
+        <a href="#" target="_blank" id="msg-user-link"><span class="media-person-uname" id="msg-user-name">unknown</span></a>
+    </div>
+</div>
+<!-- 3.1. Messages between users - owner message -->
+<div class="hidden" id="msg-owner">
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-md-6">
+            <div class="message-text">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <small id="msg-user-nick">You</small>
+                    </div>
+                    <div class="col-xs-6">
+                        <small class="pull-right" style="color: #696969;" id="msg-date">01.01.1970</small>
+                    </div>
+                </div>
+                <div id="msg-text">text</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 3.2. Messages between users - oponent message -->
+<div class="hidden" id="msg-remote">
+    <div class="row" style="padding-top: 15px;">
+        <div class="col-md-offset-6 col-md-6">
+            <div class="message-text message-text-remote">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <small id="msg-user-nick">companion</small>
+                    </div>
+                    <div class="col-xs-6">
+                        <small class="pull-right" style="color: #696969;" id="msg-date">01.01.1970</small>
+                    </div>
+                </div>
+                <div id="msg-text">text</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+    /** Css class for default, selected and blocked user display in list */
+    var cssUserList = {
+        'default': 'media-person',
+        'active': 'media-person-selected',
+        'blocked': 'media-person-blocked'
+    };
+
     var active_dialog_id = 0;
     var user_object = [];
     var dialog_offset = 0;
     var new_dialog = 0;
+    var profile_link = '<?= Url::to('profile/show') ?>';
 
     var last_msg = [];
     var first_msg = [];
 
     window.jQ.push(function(){
         $(function(){
+            var userListDom = $('#msg-user').clone();
+            var dialogPanelDom = $('#dialog-title').clone();
+            var myMsgDom = $('#msg-owner').clone();
+            var remMsgDom = $('#msg-remote').clone();
+
             // load users with active dialog
             $.fn.loadDialogUsers = function() {
                 $.getJSON(script_url+'/api/profile/listmessagedialog/'+dialog_offset+'/'+new_dialog+'/?lang='+script_lang, function(response){
@@ -79,46 +151,57 @@ $this->breadcrumbs = [
                             return false;
                         }
                         var userMap = '';
-                        $('.media-person').removeClass('media-person-selected');
+                        $('.media-person').removeClass(cssUserList.active);
                         $.each(response.data, function(key, row){
-                            var itemClass = 'media-person';
+                            var itemClass = cssUserList.default;
                             if (row.user_id == active_dialog_id) {
-                                itemClass += ' media-person-selected';
+                                itemClass += ' '+cssUserList.active;
                             }
                             if (row.user_block == true) {
-                                itemClass += ' media-person-blocked';
+                                itemClass += ' '+cssUserList.blocked;
                             }
-                            userMap += '<div class="'+itemClass+'" id="msg-user-'+row.user_id+'" >'; // if current add class media-person-selected
-                            userMap += '<div class="row">';
-                            userMap += '<div class="col-md-12">';
-                            userMap += '<img src="'+row.user_avatar+'" class="pull-left img-responsive img-circle" style="max-height: 50px;padding-right: 5px;" />';
-                            userMap += '<div style="padding-top: 12px;">';
-                            userMap += '<span class="media-person-uname">';
+
+                            // clone user list dom template
+                            var itemDom = userListDom.clone();
+                            // set id attr
+                            itemDom.find('#msg-user-background').attr('id', 'msg-user-'+row.user_id).addClass(itemClass);
+                            // set user obj avatar
+                            itemDom.find('#msg-user-avatar').attr('src', row.user_avatar).removeAttr('id');
+                            // set user name
                             if (row.user_block == true) {
-                                userMap += '<s>'+row.user_nick+'</s>';
+                                itemDom.find('#msg-user-name').html('<s>'+row.user_nick+'</s>').removeAttr('id');
                             } else {
-                                userMap += row.user_nick;
+                                itemDom.find('#msg-user-name').text(row.user_nick).removeAttr('id');
                             }
-                            userMap += '</span>';
+                            // check if new messages inside
                             if (row.message_new === true) {
-                                userMap += ' <i class="fa fa-envelope"></i>';
+                                itemDom.find('#msg-user-isnew').removeClass('hidden').removeAttr('id');
                             }
-                            userMap += '</div>';
-                            userMap += '</div></div></div>';
                             // store object data
                             user_object[row.user_id] = row;
+                            // concat string result
+                            userMap += itemDom.html();
                         });
                         $('#message-user-list').html(userMap);
                     } else {
                         $('#show-more-dialogs').addClass('hidden');
                     }
                 }).complete(function(){
+                    // if used "new dialog" over ?newdialog=userid request - draw it as possible
                     if (new_dialog > 0) {
                         $('.message-scroll-body').removeClass('hidden');
                         // set message streak title
                         var current_user = user_object[new_dialog];
-                        $('#dialog-user-streak').html('<img src="'+current_user.user_avatar+'" class="pull-right img-responsive img-circle" style="max-height: 50px;" />'+
-                        '<div class="pull-right" style="padding-top: 12px;padding-right: 5px;"><span class="media-person-uname">'+current_user.user_nick+'</span></div>');
+                        var dialogDom = dialogPanelDom.clone();
+                        // cleanup global id
+                        dialogDom.removeClass('hidden').removeAttr('id');
+                        // set user avatar in title panel
+                        dialogDom.find('#msg-user-avatar').attr('src', current_user.user_avatar).removeAttr('id');
+                        // set user nickname
+                        dialogDom.find('#msg-user-name').text(current_user.user_nick).removeAttr('id');
+                        // set user profile link
+                        dialogDom.find('#msg-user-link').attr('href', profile_link + '/' + current_user.user_id).removeAttr('id');
+                        $('#dialog-user-streak').html(dialogDom.html());
                         // load 'now' dialog messages
                         $.fn.loadMessageDialog('now');
                         $('.message-add-container').removeClass('hidden');
@@ -151,6 +234,7 @@ $this->breadcrumbs = [
                         return false;
                     }
 
+                    // mark blocked user
                     if (resp.blocked == true) {
                         $('#messages-blocked-user').removeClass('hidden');
                         $('#send-new-message').addClass('disabled');
@@ -166,19 +250,18 @@ $this->breadcrumbs = [
                             first_msg[active_dialog_id] = row.id;
                             isFirst = false;
                         }
-                        var msgClass = 'col-md-6';
-                        var msgTextClass = 'message-text';
-                        if (row.my != 1) {
-                            msgClass += ' col-md-offset-6';
-                            msgTextClass += ' message-text-remote';
+                        // get message dom element
+                        var msgDom = (!row.my ? remMsgDom.clone() : myMsgDom.clone());
+                        // set msg date
+                        msgDom.find('#msg-date').text(row.date).removeAttr('id');
+                        // set msg text
+                        msgDom.find('#msg-text').text(row.message).removeAttr('id');
+                        // add target user name from obj cache
+                        if (!row.my && user_object[active_dialog_id] != null) {
+                            msgDom.find('#msg-user-nick').text(user_object[active_dialog_id].user_nick);
                         }
-
-                        msgBody += '<div class="row" style="padding-top: 15px;">';
-                        msgBody += '<div class="'+msgClass+'">';
-                        msgBody += '<div class="'+msgTextClass+'">';
-                        msgBody += '<div><small style="color: #696969;">'+row.date+'</small></div>';
-                        msgBody += '<div>'+row.message+'</div>';
-                        msgBody += '</div></div></div>';
+                        // compile output concat var
+                        msgBody += msgDom.html();
                         if (type != 'before') {
                             last_msg[active_dialog_id] = row.id;
                         }
@@ -212,16 +295,24 @@ $this->breadcrumbs = [
                 }
                 // set active id
                 active_dialog_id = selected_dialog_id;
-                $('.media-person').removeClass('media-person-selected');
-                $(this).addClass('media-person-selected');
+                $('.media-person').removeClass(cssUserList.active);
+                $(this).addClass(cssUserList.active);
                 // make msg body visible
                 $('.message-scroll-body').removeClass('hidden');
                 // set message streak title
                 var current_user = user_object[selected_dialog_id];
-                var profile_link = '<?= Url::to('profile/show') ?>';
-                $('#dialog-user-streak').html('<img src="'+current_user.user_avatar+'" class="pull-right img-responsive img-circle" style="max-height: 50px;" />'+
-                '<div class="pull-right" style="padding-top: 12px;padding-right: 5px;">' +
-                '<a href="'+profile_link+'/'+current_user.user_id+'" target="_blank"><span class="media-person-uname">'+current_user.user_nick+'</span></a></div>');
+
+                var dialogDom = dialogPanelDom.clone();
+                // cleanup global id
+                dialogDom.removeClass('hidden').removeAttr('id');
+                // set user avatar in title panel
+                dialogDom.find('#msg-user-avatar').attr('src', current_user.user_avatar).removeAttr('id');
+                // set user nickname
+                dialogDom.find('#msg-user-name').text(current_user.user_nick).removeAttr('id');
+                // set user profile link
+                dialogDom.find('#msg-user-link').attr('href', profile_link + '/' + current_user.user_id).removeAttr('id');
+                $('#dialog-user-streak').html(dialogDom.html());
+;
                 // load 'now' dialog messages
                 $.fn.loadMessageDialog('now');
                 $('.message-add-container').removeClass('hidden');
