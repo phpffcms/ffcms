@@ -3,8 +3,7 @@
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
 
-/** @var $model Apps\Model\Admin\Profile\FormFieldUpdate */
-/** @var $record object */
+/** @var $model Apps\Model\Admin\Profile\FormSettings */
 
 $this->title = __('Profile settings');
 

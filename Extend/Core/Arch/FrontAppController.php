@@ -10,6 +10,11 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class FrontAppController. Extended controller for front applications.
+ * This controller allow to control off/on status of controller application and support fast configuration usage.
+ * @package Extend\Core\Arch
+ */
 class FrontAppController extends Controller
 {
     // information about application from table apps

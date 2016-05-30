@@ -89,14 +89,14 @@ echo Navbar::display([
 			<div class="site-name">
                 <?= \Ffcms\Core\Helper\Url::link(['/'], 'FFCMS Demo'); ?>
             </div>
-			<p>Some website short description there!</p>
+			<p>This is a test description of new website.</p>
 		</div>
 		<!-- Search/language panel -->
 		<div class="col-md-4">
 			<!-- search panel -->
-			<form method="get" action="http://ffcms.local/ru/search/find/" style="padding-top: 20px;">
+			<form method="get" action="<?= \Ffcms\Core\Helper\Url::to('search/index') ?>" style="padding-top: 20px;">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query">
+					<input type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query" required>
 					<span class="input-group-btn">
 						<button class="btn btn-default" id="search-submit" type="submit"><?php echo __('Find'); ?></button>
 					</span>
