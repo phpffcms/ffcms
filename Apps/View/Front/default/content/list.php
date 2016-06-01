@@ -129,7 +129,7 @@ var contentItemList = {path: {}}
         	} ?>
 
         	<span class="spaced hidden-xs"><i class="fa fa-comments"></i>
-                <a href="#"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
+                <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>#comments-list"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
             <span class="pull-right">
             <?php if ((int)$configs['keywordsAsTags'] === 1 && $item['tags'] !== null && Obj::isArray($item['tags'])): ?>

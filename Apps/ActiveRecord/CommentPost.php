@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Traits\SearchableTrait;
 
 /**
  * Class CommentPost. Active record model for comment posts.
@@ -20,6 +21,14 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class CommentPost extends ActiveModel
 {
+    use SearchableTrait;
+
+    protected $searchable = [
+        'columns' => [
+            'message' => 1
+        ]
+    ];
+
     /**
      * Get user identity
      * @return User|null

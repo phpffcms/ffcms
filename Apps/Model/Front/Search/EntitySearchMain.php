@@ -7,8 +7,6 @@ use Ffcms\Core\Helper\Type\Obj;
 
 class EntitySearchMain extends Model
 {
-    const ITEM_PER_APP = 10;
-
     public $results = [];
     public $query;
 
@@ -31,9 +29,13 @@ class EntitySearchMain extends Model
      */
     public function make()
     {
+        $itemCount = (int)$this->_configs['itemPerApp'];
         // search content items
-        $content = new SearchContent($this->query, (int)$this->_configs['itemPerApp']);
+        $content = new SearchContent($this->query, $itemCount);
         $this->results['Content'] = $content->getResult();
+        // search comments
+        $comments = new SearchComments($this->query, $itemCount);
+        $this->results['Comments'] = $comments->getResult();
     }
 
     /**
@@ -64,8 +66,10 @@ class EntitySearchMain extends Model
             }
         }
 
-        ksort($result);
+        // sort output by relevance
+        krsort($result);
 
+        // return result as array
         return $result;
     }
 

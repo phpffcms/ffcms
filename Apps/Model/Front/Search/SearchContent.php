@@ -11,6 +11,10 @@ use Apps\ActiveRecord\Content;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class SearchContent. Search instance model for content.
+ * @package Apps\Model\Front\Search
+ */
 class SearchContent extends Model implements SearchContainer
 {
     private $query;
@@ -38,7 +42,8 @@ class SearchContent extends Model implements SearchContainer
     public function getResult()
     {
         // relevant search by string query
-        $records = Content::search($this->query)
+        $records = Content::where('display', '=', 1)
+            ->search($this->query)
             ->take($this->limit)
             ->get();
 
