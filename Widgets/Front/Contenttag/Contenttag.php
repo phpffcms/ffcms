@@ -50,7 +50,7 @@ class Contenttag extends AbstractWidget
     	if ($this->cache === 0) {
     	    $records = $this->makeQuery();
     	} else {
-    	    $records === App::$Cache->get('widget.contenttag.' . $classHash);
+    	    $records = App::$Cache->get('widget.contenttag.' . $classHash);
     	    if ($records === null) {
     	        $records = $this->makeQuery();
     	        App::$Cache->set('widget.contenttag' . $classHash, $records, $this->cache);

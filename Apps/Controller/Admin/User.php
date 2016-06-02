@@ -13,6 +13,7 @@ use Apps\ActiveRecord\User as UserRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
 
@@ -100,26 +101,36 @@ class User extends AdminController
      * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      */
-    public function actionDelete($id)
+    public function actionDelete($id = null)
     {
-        if (!Obj::isLikeInt($id) || !App::$User->isExist($id)) {
-            throw new NotFoundException('User is not founded');
+        // check if id is passed or get data from GET as array ids
+        if ($id === 0 || (int)$id < 1) {
+            $ids = App::$Request->query->get('selected');
+            if (Obj::isArray($ids) && Arr::onlyNumericValues($ids)) {
+                $id = $ids;
+            } else {
+                throw new NotFoundException('Bad conditions');
+            }
+        } else {
+            $id = [$id];
         }
 
-        // get user object and load model
-        $user = App::$User->identity($id);
-        $model = new FormUserDelete($user);
+        // initialize delete model
+        $model = new FormUserDelete($id);
+
+        if ($model->users === null) {
+            throw new NotFoundException(__('Users are not found'));
+        }
 
         if ($model->send()) {
             $model->delete();
+            App::$Session->getFlashBag()->add('success', __('Users and them data are successful removed'));
             App::$Response->redirect('user/index');
-        } else {
-            App::$Session->getFlashBag()->add('error', __('There is no way to revert this action! Be careful!'));
         }
 
         // set view response
         return App::$View->render('user_delete', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 

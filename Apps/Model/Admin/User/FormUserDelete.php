@@ -3,20 +3,28 @@
 namespace Apps\Model\Admin\User;
 
 use Apps\ActiveRecord\WallPost;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Interfaces\iUser;
 
+/**
+ * Class FormUserDelete. Delete users as passed array of them ids.
+ * @package Apps\Model\Admin\User
+ */
 class FormUserDelete extends Model
 {
-    public $email;
-    public $login;
+    public $users;
 
-    private $_user;
+    private $_ids;
 
-    public function __construct(iUser $user)
+    /**
+     * FormUserDelete constructor. Pass user ids inside
+     * @param array $ids
+     */
+    public function __construct(array $ids)
     {
-        $this->_user = $user;
+        $this->_ids = $ids;
         parent::__construct();
     }
 
@@ -25,8 +33,13 @@ class FormUserDelete extends Model
     */
     public function before()
     {
-        $this->email = $this->_user->getParam('email');
-        $this->login = $this->_user->getParam('login');
+        // try to find each user
+        foreach ($this->_ids as $id) {
+            $user = App::$User->identity($id);
+            if ($user !== null) {
+                $this->users[] = $user;
+            }
+        }
     }
 
     /**
@@ -43,20 +56,26 @@ class FormUserDelete extends Model
 
     /**
      * Delete user from database
+     * @throws \Exception
      */
     public function delete()
     {
-        // delete wall records
-        WallPost::where('target_id', '=', $this->_user->getParam('id'))
-            ->orwhere('sender_id', '=', $this->_user->getParam('id'))
-            ->delete();
-        // delete avatars
-        File::remove('/upload/user/avatar/big/' . $this->_user->getParam('id') . '.jpg');
-        File::remove('/upload/user/avatar/medium/' . $this->_user->getParam('id') . '.jpg');
-        File::remove('/upload/user/avatar/small/' . $this->_user->getParam('id') . '.jpg');
-        // delete user profile and auth data
-        $this->_user->getProfile()->delete();
-        $this->_user->delete();
+        foreach ($this->users as $user) {
+            /** @var iUser $user */
+            $uid = $user->getParam('id');
+            // delete wall records
+            WallPost::where('target_id', '=', $uid)
+                ->orWhere('sender_id', '=', $uid)
+                ->delete();
+            // delete avatars
+            File::remove('/upload/user/avatar/big/' . $uid . '.jpg');
+            File::remove('/upload/user/avatar/medium/' . $uid . '.jpg');
+            File::remove('/upload/user/avatar/small/' . $uid . '.jpg');
+            File::remove('/upload/user/avatar/original/' . $uid . '.jpg');
+            // delete user profile and auth data
+            $user->getProfile()->delete();
+            $user->delete();
+        }
     }
 
 

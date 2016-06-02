@@ -55,11 +55,12 @@ class Newcomment extends AbstractWidget
                 $records = App::$Cache->get('widget.newcomment.' . $classHash);
             } else {
                 $records = $this->makeQuery();
-                App::$Cache->set('widget.newcomment.' . $classHash, $records);
+                App::$Cache->set('widget.newcomment.' . $classHash, $records, $this->cache);
             }
         } else {
             $records = $this->makeQuery();
         }
+
         // check if records is found
         if ($records === null) {
             return __('Comments not yet found');

@@ -25,14 +25,17 @@ $this->breadcrumbs = [
     $items = [];
     foreach ($records as $user) {
         $items[] = [
-            ['text' => $user->id . ($user->approve_token != '0' ? ' <strong class="text-danger">*</strong>' : null), 'html' => true],
-            ['text' => $user->email],
-            ['text' => $user->login],
-            ['text' => $user->getRole()->name],
-            ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
-            ['text' => Url::link(['user/update', $user->id], '<i class="fa fa-pencil fa-lg"></i>') .
+            1 => ['text' => $user->id],
+            2 => ['text' => $user->email],
+            3 => ['text' => $user->login],
+            4 => ['text' => $user->getRole()->name],
+            5 => ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
+            6 => ['text' => Url::link(['user/update', $user->id], '<i class="fa fa-pencil fa-lg"></i>') .
                 Url::link(['user/delete', $user->id], ' <i class="fa fa-trash-o fa-lg"></i>'),
-                'html' => true, 'property' => ['class' => 'text-center']]
+                'html' => true, 'property' => ['class' => 'text-center']],
+            'property' => [
+                'class' => 'checkbox-row' . ($user->approve_token != '0' ? ' alert-warning' : null)
+            ]
         ];
     }
 ?>
@@ -46,7 +49,7 @@ $this->breadcrumbs = [
     'table' => ['class' => 'table table-bordered'],
     'thead' => [
         'titles' => [
-            ['text' => 'id'],
+            ['text' => '#'],
             ['text' => __('Email')],
             ['text' => __('Login')],
             ['text' => __('Role')],
@@ -56,12 +59,16 @@ $this->breadcrumbs = [
     ],
     'tbody' => [
         'items' => $items
+    ],
+    'selectableBox' => [
+        'attachOrder' => 1,
+        'form' => ['method' => 'GET', 'class' => 'form-horizontal', 'action' => Url::to('user/delete')],
+        'selector' => ['type' => 'checkbox', 'name' => 'selected[]', 'class' => 'massSelectId'],
+        'buttons' => [
+            ['type' => 'submit', 'class' => 'btn btn-danger', 'value' => __('Delete selected')]
+        ]
     ]
 ])?>
-
-<div>
-    <strong class="text-danger">*</strong> - <?= __('User is not approved via email') ?>
-</div>
 
 <div class="text-center">
     <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>

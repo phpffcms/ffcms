@@ -8,7 +8,7 @@ use Ffcms\Core\Helper\Date;
 foreach ($records as $record) {
     $title = Serialize::getDecodeLocale($record->title);
     $title = Text::snippet($title, 50);
-    $date = Date::convertToDatetime($record->created_at, Date::FORMAT_TO_HOUR);
+    $date = Date::humanize($record->created_at);
     $categoryUrl = \App::$Alias->baseUrl . '/content/list/' . $record->cpath;
     $categoryLink = '<a href="' . $categoryUrl . '">' . Serialize::getDecodeLocale($record->ctitle) . '</a>';
     $newsLink = \App::$Alias->baseUrl . '/content/read/' . $record->cpath;

@@ -22,9 +22,9 @@ return [
     'Specify user nickname' => 'Укажите псевдоним пользователя',
     'Specify new user password if you want to change it! Less empty field to save current' => 'Укажите новый пароль для пользователя, если хотите его изменить. Оставьте поле пустым чтобы сохранить прежний пароль',
     'Set if user is approved or not' => 'Укажите, прошел ли пользователь процедуру подтверждения регистрации',
-    'Delete user' => 'Удаление пользователя',
+    'Delete users' => 'Удаление пользователей',
     'Delete' => 'Удалить',
-    'There is no way to revert this action! Be careful!' => 'Осторожно! Отменить данное действие невозможно!',
+    'Users and them data are successful removed' => 'Пользователи и их данные были успешно удалены',
     'Group list' => 'Список групп',
     'Name' => 'Название',
     'Permissions' => 'Полномочия',
@@ -40,7 +40,6 @@ return [
     'If you don\'t request invite just ignore this message. Thanks!' => 'Если вы не запрашивали каких-либо приглашений - проигнорируйте данное сообщение. Спасибо!',
     'Invite was successful send!' => 'Приглашение успешно отправлено на почту',
     'Mail server connection is failed!' => 'При подключении к почтовому серверу произошла ошибка!',
-    'User is not approved via email' => 'Пользователь не подтвердил аккаунт по почте',
     'Registration type' => 'Тип регистрации',
     'Captcha on login' => 'Капча при авторизации',
     'Captcha on registration' => 'Капча при регистрации',
@@ -50,5 +49,8 @@ return [
     'Email approve' => 'Подтверждение по почте',
     'Full opened' => 'Открытая, без подтверждений',
     'Profile data' => 'Данные профиля',
-    'Edit profile data' => 'Редактировать данные профиля'
+    'Edit profile data' => 'Редактировать данные профиля',
+    'Delete selected' => 'Удалить выбранных',
+    'Users are not found' => 'Пользователи не найдены',
+    'Are you sure to delete this users?' => 'Вы уверены что хотите удалить этих пользователей?'
 ];
