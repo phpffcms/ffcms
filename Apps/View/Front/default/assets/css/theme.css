@@ -381,3 +381,7 @@ label.error {
     border-left: 1px #00ad9c solid;
     padding-left: 5px;
 }
+
+.search-highlight {
+    background-color: #ffe1a5;
+}

@@ -2,9 +2,11 @@
 
 namespace Apps\Controller\Admin;
 
+use Apps\ActiveRecord\Session;
 use Apps\Model\Admin\Main\EntityDeleteRoute;
 use Apps\Model\Admin\Main\FormAddRoute;
 use Apps\Model\Admin\Main\FormSettings;
+use Apps\Model\Install\Main\EntityCheck;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\SyntaxException;
@@ -53,10 +55,13 @@ class Main extends AdminController
             'file_size' => $rootSize,
             'load_avg' => $loadAvg
         ];
+        // check directory chmods and other environment features
+        $model = new EntityCheck();
 
         // render view output
         return App::$View->render('index', [
-            'stats' => $stats
+            'stats' => $stats,
+            'check' => $model
         ]);
     }
 
@@ -181,6 +186,59 @@ class Main extends AdminController
 
         return App::$View->render('delete_route', [
             'model' => $model->filter()
+        ]);
+    }
+
+    /**
+     * Clear cached data
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws SyntaxException
+     */
+    public function actionCache()
+    {
+        $stats = App::$Cache->stats();
+        // get size in mb from cache stats
+        $size = round((int)$stats['size'] / (1024*1024), 2);
+
+        // check if submited
+        if (App::$Request->request->get('clearcache', false)) {
+            // clear cache
+            App::$Cache->clean();
+            // add notification & redirect
+            App::$Session->getFlashBag()->add('success', __('Cache cleared successfully'));
+            App::$Response->redirect('/');
+        }
+
+        // render output view
+        return App::$View->render('clear_cache', [
+            'size' => $size
+        ]);
+    }
+
+    /**
+     * Clear all sessions data
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws SyntaxException
+     */
+    public function actionSessions()
+    {
+        // get all sessions data
+        $sessions = Session::all();
+
+        // check if action is submited
+        if (App::$Request->request->get('clearsessions', false)) {
+            // truncate table
+            App::$Database->table('sessions')->truncate();
+            // add notification and make redirect to main
+            App::$Session->getFlashBag()->add('success', __('Sessions cleared successfully'));
+            App::$Response->redirect('/');
+        }
+
+        // render output view
+        return App::$View->render('clear_sessions', [
+            'count' => $sessions->count()
         ]);
     }
 }

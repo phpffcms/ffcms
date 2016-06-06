@@ -3,7 +3,9 @@
 namespace Apps\Model\Front\Search;
 
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\HTML\System\Dom;
 use Ffcms\Core\Helper\Type\Obj;
+use Ffcms\Core\Helper\Type\Str;
 
 class EntitySearchMain extends Model
 {
@@ -71,6 +73,26 @@ class EntitySearchMain extends Model
 
         // return result as array
         return $result;
+    }
+
+    /**
+     * Highlight words in text by current query request.
+     * @param string $text
+     * @param string $tag
+     * @param array $properties
+     * @return string
+     */
+    public function highlightText($text, $tag, array $properties = [])
+    {
+        $queries = explode(' ', $this->query);
+        $dom = new Dom();
+        foreach ($queries as $query) {
+            $highlight = $dom->{$tag}(function() use ($query) {
+                return $query;
+            }, $properties);
+            $text = Str::ireplace($query, $highlight, $text);
+        }
+        return $text;
     }
 
 

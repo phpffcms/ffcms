@@ -1,5 +1,6 @@
 <?php
 
+/** @var \Apps\Model\Install\Main\EntityCheck $check */
 /** @var array $stats */
 /** @var \Ffcms\Core\Arch\View $this */
 
@@ -13,13 +14,6 @@ $this->breadcrumbs = [
 <h1><?= __('Main dashboard') ?></h1>
 <hr/>
 <div class="row">
-	<div class="col-md-12">
-		<div class="pull-right">
-			<div id="embed-api-auth-container"></div>
-		</div>
-	</div>
-</div>
-<div class="row">
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading"><?= __('Server info') ?></div>
@@ -29,55 +23,94 @@ $this->breadcrumbs = [
                     'tbody' => [
                         'items' => [
                             [
-                                ['text' => 'FFCMS version'],
+                                ['text' => __('FFCMS version')],
                                 ['text' => $stats['ff_version']]
                             ],
                             [
-                                ['text' => 'PHP version'],
+                                ['text' => __('PHP version')],
                                 ['text' => $stats['php_version']]
                             ],
                             [
-                                ['text' => 'OS name'],
+                                ['text' => __('OS name')],
                                 ['text' => $stats['os_name']]
                             ],
                             [
-                                ['text' => 'Database name'],
+                                ['text' => __('Database')],
                                 ['text' => $stats['database_name']]
                             ],
                             [
-                                ['text' => 'Files size'],
+                                ['text' => __('Files size')],
                                 ['text' => $stats['file_size']]
                             ],
                             [
-                                ['text' => 'Load average'],
+                                ['text' => __('Load average')],
                                 ['text' => $stats['load_avg']]
                             ],
                         ]
                     ]
                 ]); ?>
-                <?= \Ffcms\Core\Helper\Url::link(['main/cache'], 'Clean cache', ['class' => 'btn btn-warning']) ?>
-                <?= \Ffcms\Core\Helper\Url::link(['main/sessions'], 'Clean sessions', ['class' => 'btn btn-info']) ?>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
-            <div class="panel-heading"><?= __('GA: visits and users') ?></div>
+            <div class="panel-heading"><?= __('Directories and files') ?></div>
             <div class="panel-body">
-				<div id="chart-1-container"></div>
-				<div id="view-selector-1-container" class="ViewSelector"></div>
-			</div>
+                <?php
+                $items = [];
+                foreach ($check->chmodCheck as $dir => $success) {
+                    $class = 'label-success';
+                    $tooltip = __('Location: %loc%. Permissions is ok.', ['loc' => $dir]);
+                    if ($success !== true) {
+                        $class = 'label-danger';
+                        $tooltip = __('Location: %loc%. Required permissions: +rw', ['loc' => $dir]);
+                    }
+                    echo '<span class="label ' . $class . '" data-toggle="tooltip" title="' . $tooltip . '">' . $dir . '</span> ';
+                }
+                ?>
+                <hr />
+                <?= __('All directories and files in this list required to be readable and writable.') ?>
+                <hr />
+                <?= \Ffcms\Core\Helper\Url::link(['main/cache'], __('Clear cache'), ['class' => 'btn btn-warning']) ?>
+                <?= \Ffcms\Core\Helper\Url::link(['main/sessions'], __('Clear sessions'), ['class' => 'btn btn-info']) ?>
+            </div>
         </div>
     </div>
     <div class="col-md-4">
-    	<div class="panel panel-default">
-    		<div class="panel-heading"><?= __('GA: Countries')?></div>
-    		<div class="panel-body">
-				<div id="chart-2-container"></div>
-				<div id="view-selector-2-container" class="ViewSelector"></div>
-			</div>
-    	</div>
-	</div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><?= __('FFCMS News') ?></div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <div id="embed-api-auth-container"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><?= __('GA: visits and users') ?></div>
+            <div class="panel-body">
+                <div id="chart-1-container"></div>
+                <div id="view-selector-1-container" class="ViewSelector"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><?= __('GA: Countries')?></div>
+            <div class="panel-body">
+                <div id="chart-2-container"></div>
+                <div id="view-selector-2-container" class="ViewSelector"></div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 (function(w,d,s,g,js,fs){

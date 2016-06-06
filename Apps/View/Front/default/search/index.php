@@ -40,10 +40,10 @@ if (!\Ffcms\Core\Helper\Type\Obj::isArray($results) || count($results) < 1) {
     <div class="col-md-12">
         <div class="search-result">
             <div class="h4">
-                <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>"><?= $item['title'] ?></a>
+                <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>"><?= $model->highlightText($item['title'], 'span', ['class' => 'search-highlight']) ?></a>
                 <small class="pull-right"><?= $item['date'] ?></small>
             </div>
-            <small><?= $item['snippet'] ?>...</small>
+            <small><?= $model->highlightText($item['snippet'], 'span', ['class' => 'search-highlight']) ?>...</small>
         </div>
     </div>
 </div>

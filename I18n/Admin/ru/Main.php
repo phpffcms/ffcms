@@ -99,5 +99,21 @@ return [
     'Set trusted proxy list to accept X-FORWARDED data. Example: 103.21.244.15,103.22.200.0/22' => 'Укажите список прокси-серверов с которых будут приниматься заголовки X-FORWARDED. Пример: 103.21.244.15,103.22.200.0/22',
     'Route saved' => 'Маршрут сохранен',
     'Route is successful deleted! Wait 5 second to update configurations' => 'Маршрут успешно удален! Подождите 5 секунд для обновления конфигурации',
-    'Route are successful saved! Wait 5 second to update configurations' => 'Маршрут успешно сохранен! Подождите 5 секунд для обновления конфигурации'
+    'Route are successful saved! Wait 5 second to update configurations' => 'Маршрут успешно сохранен! Подождите 5 секунд для обновления конфигурации',
+    'FFCMS version' => 'Версия FFCMS',
+    'PHP version' => 'Версия PHP',
+    'OS name' => 'Название OS',
+    'Files size' => 'Размер файлов',
+    'Load average' => 'Нагрузка',
+    'Directories and files' => 'Директории и файлы',
+    'FFCMS News' => 'Новости FFCMS',
+    'All directories and files in this list required to be readable and writable.' => 'Все директории и файлы из этого списка должны иметь права на чтение и запись.',
+    'Clear cache' => 'Очистить кэш',
+    'Clear sessions' => 'Очистить сессии',
+    'Clean cache' => 'Очистка кэша',
+    'Clear' => 'Очистить',
+    'Are you sure to clear all website cache? Cache size: %size%mb' => 'Вы уверены что хотите очистить весь кэш сайта? Размер кэша: %size%mb',
+    'Cache cleared successfully' => 'Кэш успешно очищен',
+    'Clean sessions' => 'Очистка сессий',
+    'Are you sure to clear all sessions information? All authorization sessions will be dropped down! Sessions count: %count%' => 'Вы уверены что хотите очистить всю информацию о сессиях? Все данные сессий авторизации будут сброшены! Количество сессий: %count%'
 ];

@@ -248,6 +248,9 @@ use Ffcms\Core\Helper\Url;
     $.each(window.jQ, function(index, fn) {
         fn();
     });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
 <?php
 $customJsCode = \App::$View->showPlainCode('js');

@@ -118,10 +118,12 @@ class User extends AdminController
         // initialize delete model
         $model = new FormUserDelete($id);
 
+        // check if users is found
         if ($model->users === null) {
             throw new NotFoundException(__('Users are not found'));
         }
 
+        // check if delete is submited
         if ($model->send()) {
             $model->delete();
             App::$Session->getFlashBag()->add('success', __('Users and them data are successful removed'));
