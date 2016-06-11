@@ -7,6 +7,10 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Interfaces\iUser;
 use Gregwar\Image\Image;
 
+/**
+ * Class FormAvatarUpload. Upload user avatar from settings form
+ * @package Apps\Model\Front\Profile
+ */
 class FormAvatarUpload extends Model
 {
     /** @var \Symfony\Component\HttpFoundation\File\UploadedFile */
@@ -16,7 +20,7 @@ class FormAvatarUpload extends Model
     const COMPRESS_QUALITY = 90;
 
     /**
-    * Example of usage magic labels for future form helper usage
+    * Form text helper data with translation
     */
     public function labels()
     {
@@ -26,7 +30,7 @@ class FormAvatarUpload extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validate()
+    * Validation rules for avatar uploading
     */
     public function rules()
     {
@@ -37,6 +41,10 @@ class FormAvatarUpload extends Model
         ];
     }
 
+    /**
+     * Input data sources
+     * @return array
+     */
     public function sources()
     {
         return [
@@ -44,6 +52,10 @@ class FormAvatarUpload extends Model
         ];
     }
 
+    /**
+     * Make 3 copy from original user avatar with compression: small, medium and big
+     * @param iUser $user
+     */
     public function copyFile(iUser $user)
     {
         // move file to original folder
@@ -63,13 +75,14 @@ class FormAvatarUpload extends Model
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $original
+     * Resize user avatar from uploaded picture
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile|\Symfony\Component\HttpFoundation\File\File $original
      * @param int $user_id
      * @param string $size
      * @throws \Exception
      * @return null
      */
-    protected function resizeAndSave($original, $user_id, $size = 'small')
+    public function resizeAndSave($original, $user_id, $size = 'small')
     {
         $sizeConvert = [
             'big' => [400, 400],

@@ -66,5 +66,33 @@ return [
             'path' => root . '/Private/Cache'
         ]);
         return CacheManager::getInstance('files');
+    },
+    '_hybridauth' => function() {
+        /** Uncomment code below to enable social oauth
+         $instance = new Hybrid_Auth([
+            'base_url' => App::$Alias->scriptUrl . '/api/user/endpoint?lang=en',
+            'providers' => [
+                'Twitter' => [
+                    'enabled' => true,
+                    'keys' => [
+                        'key' => 'my_app_key',
+                        'secret' => 'my_app_secret'
+                    ],
+                    'scope' => 'email'
+                ],
+                'Github' => [
+                    'enabled' => true,
+                    'keys' => [
+                        'id' => 'my_client_id',
+                        'secret' => 'my_client_secret'
+                    ],
+                    'wrapper' => [
+                        'path' => root . '/vendor/hybridauth/hybridauth/additional-providers/hybridauth-github/Providers/GitHub.php',
+                        'class' => 'Hybrid_Providers_GitHub'
+                    ]
+                ]
+            ]
+        ]);
+        \App::$User->setOpenidInstance($instance);*/
     }
 ];

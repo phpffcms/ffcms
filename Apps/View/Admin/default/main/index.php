@@ -1,6 +1,8 @@
 <?php
 
 /** @var \Apps\Model\Install\Main\EntityCheck $check */
+use Ffcms\Core\Helper\Type\Str;
+
 /** @var array $stats */
 /** @var \Ffcms\Core\Arch\View $this */
 
@@ -85,6 +87,7 @@ $this->breadcrumbs = [
         </div>
     </div>
 </div>
+<?php if (App::$Properties->get('gaClientId') != null && Str::endsWith('apps.googleusercontent.com', App::$Properties->get('gaClientId'))): ?>
 <div class="row">
     <div class="col-md-12">
         <div class="pull-right">
@@ -190,3 +193,4 @@ gapi.analytics.ready(function() {
 
 });
 </script>
+<?php endif; ?>

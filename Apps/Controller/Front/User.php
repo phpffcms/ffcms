@@ -6,6 +6,7 @@ use Apps\ActiveRecord\Invite;
 use Apps\ActiveRecord\UserRecovery;
 use Apps\Model\Front\User\FormRecovery;
 use Apps\Model\Front\User\FormRegister;
+use Apps\Model\Front\User\FormSocialAuth;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Apps\Model\Front\User\FormLogin;
@@ -69,6 +70,67 @@ class User extends FrontAppController
     }
 
     /**
+     * Authorization in social networks over hybridauth layer. How its work:
+     *  1. User visit actionSocialauth and initialize openid instance
+     *  2. 3rd party software generate redirect to @api -> User::actionEndpoint() (as endpoint) where create hash's, tokens and other shit
+     *  3. After successful auth on service user redirect back to actionSocialauth and we can work with $userIdentity if no exceptions catched.
+     * Don't aks me "why did you do this sh@t"? I want to make container in User class, but this shit work only on direct call on endpoint.
+     * @param string $provider
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws ForbiddenException
+     * @throws SyntaxException
+     */
+    public function actionSocialauth($provider)
+    {
+        // get hybridauth instance
+        /** @var \Hybrid_Auth $instance */
+        $instance = App::$User->getOpenidInstance();
+        if ($instance === null) {
+            throw new ForbiddenException(__('OpenID auth is disabled'));
+        }
+
+        // try to get user identity data from remove service
+        $userIdentity = null;
+        try {
+            $adapter = $instance->authenticate($provider);
+            $userIdentity = $adapter->getUserProfile();
+        } catch (\Exception $e) {
+            throw new SyntaxException(__('Authorization failed: %e%', ['e' => $e->getMessage()]));
+        }
+
+        // check if openid data provided
+        if ($userIdentity === null || Str::likeEmpty($userIdentity->identifier)) {
+            throw new ForbiddenException(__('User data not provided!'));
+        }
+
+        // initialize model and pass user identity
+        $model = new FormSocialAuth($provider, $userIdentity);
+        // check if user is always registered
+        if ($model->identityExists()) {
+            $model->makeAuth();
+            App::$Response->redirect('/');
+            return null;
+        }
+        // its a new identify, check if finish register form is submited
+        if ($model->send() && $model->validate()) {
+            if ($model->tryRegister()) {
+                // registration is completed, lets open new session
+                $loginModel = new FormLogin();
+                $loginModel->openSession($model->_userObject);
+                App::$Response->redirect('/'); // session is opened, refresh page
+            } else { // something gonna wrong, lets notify user
+                App::$Session->getFlashBag()->add('error', __('Login or email is always used on website'));
+            }
+        }
+
+        // render output view
+        return App::$View->render('social_signup', [
+            'model' => $model
+        ]);
+    }
+
+    /**
      * View register form and process submit action
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\NativeException
@@ -116,11 +178,18 @@ class User extends FrontAppController
 
         // if register data is send and valid
         if ($registerForm->send() && $registerForm->validate()) {
-            if ($registerForm->tryRegister($configs['registrationType'] === 1)) {
+            $activation = $configs['registrationType'] === 1;
+            if ($registerForm->tryRegister($activation)) {
                 // initialize succes signup event
                 App::$Event->run(static::EVENT_USER_REGISTER_SUCCESS, [
                    'model' => $registerForm
                 ]);
+                // if no activation is required - just open session and redirect user to main page
+                if (!$activation) {
+                    $loginModel = new FormLogin();
+                    $loginModel->openSession($registerForm->_userObject);
+                    App::$Response->redirect('/'); // session is opened, refresh page
+                }
                 // send notification of successful registering
                 App::$Session->getFlashBag()->add('success', __('Your account is registered. You must confirm account via email'));
             } else {

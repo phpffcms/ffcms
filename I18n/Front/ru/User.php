@@ -29,8 +29,7 @@ return [
     'Approve account' => 'Подтвердить аккаунт',
     'If you do not any register action just ignore this message. Thanks!' => 'Если вы не совершали каких-либо действий по регистрации аккаунта - проигнорируйте это сообщение. Спасибо!',
     'Captcha' => 'Защитное изображение',
-    'Enter data from security image to prove that you are human. If you can\'t read symbols - click on image to reload' =>
-        'Введите символы с защитного изображения, чтобы доказать что вы человек. Если вы не можете прочесть символы - кликните по картинке для перезагрузки',
+    'Enter data from security image to prove that you are human. If you can\'t read symbols - click on image to reload' => 'Введите символы с защитного изображения, чтобы доказать что вы человек. Если вы не можете прочесть символы - кликните по картинке для перезагрузки',
     'Input your account email' => 'Укажите почтовый ящик вашего аккаунта',
     'Make recovery' => 'Восстановить',
     'Recovery on %site%' => 'Восстановление данных на %site%',
@@ -44,5 +43,13 @@ return [
     'Recovery form' => 'Форма восстановления',
     'Your account are successful recovered. We recommend you change password' => 'Ваш аккаунт успешно восстановлен. Мы рекомендуем вам сменить пароль',
     'Successful authorization from ip: %ip%' => 'Успешная авторизация с адреса %ip%',
-    'Password recovery is initialized from: %ip%' => 'Инициировано восстановление пароля с адреса: %ip%'
+    'Password recovery is initialized from: %ip%' => 'Инициировано восстановление пароля с адреса: %ip%',
+    'User data not provided!' => 'Пользовательские данные не переданы!',
+    'OpenID auth is disabled' => 'Авторизация OpenID отключена',
+    'Social login' => 'Социальная авторизация',
+    'This social account: %profile% used first time in our website. Please, complete form below' => 'Этот социальный аккаунт: %profile% используется на сайте впервые. Пожалуйста, заполните форму ниже',
+    'Register and sign in' => 'Зарегистрироваться и войти',
+    'Cancel' => 'Отмена',
+    'User related to this social account was deleted' => 'Пользователь сайта, связанный с этой учетной записью был удален',
+    'You can login to website using your social network account' => 'Вы можете войти на сайт используя ваш аккаунт в социальной сети'
 ];

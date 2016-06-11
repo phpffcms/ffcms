@@ -5,7 +5,7 @@ if (\Ffcms\Core\Helper\Type\Str::likeEmpty($msg)) {
 }
 ?>
 
-    <p class="alert alert-primary">
+    <p class="alert alert-danger">
         <?= $msg ?>
     </p>
 <?= $this->render('errors/_back') ?>

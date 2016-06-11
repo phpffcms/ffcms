@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "834166376426409dd06e1c11eabb0bbe",
-    "content-hash": "50ab9fb6270700600a110d0590c32a21",
+    "hash": "69c6c41a683b9dae867aecd981a3e9df",
+    "content-hash": "acf3c6258b9a1eafe4eb06140f85caf5",
     "packages": [
         {
             "name": "bower-asset/blueimp-canvas-to-blob",
@@ -172,16 +172,16 @@
         },
         {
             "name": "bower-asset/components-font-awesome",
-            "version": "4.6.1",
+            "version": "4.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/font-awesome.git",
-                "reference": "41891b80da2ee0a328c93d465bd3699edec2ca6c"
+                "reference": "daa3ef598620217085dcb13ad11149e89a20a925"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/font-awesome/zipball/41891b80da2ee0a328c93d465bd3699edec2ca6c",
-                "reference": "41891b80da2ee0a328c93d465bd3699edec2ca6c",
+                "url": "https://api.github.com/repos/components/font-awesome/zipball/daa3ef598620217085dcb13ad11149e89a20a925",
+                "reference": "daa3ef598620217085dcb13ad11149e89a20a925",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -621,17 +621,69 @@
             "time": "2015-05-30 19:24:37"
         },
         {
+            "name": "hybridauth/hybridauth",
+            "version": "v2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hybridauth/hybridauth.git",
+                "reference": "45e52d12dccc00d4de25dc534961ab46204a15cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/45e52d12dccc00d4de25dc534961ab46204a15cf",
+                "reference": "45e52d12dccc00d4de25dc534961ab46204a15cf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Hybrid": "hybridauth/"
+                },
+                "classmap": [
+                    "hybridauth/Hybrid"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(MIT or GPL-3.0+)"
+            ],
+            "authors": [
+                {
+                    "name": "Miled",
+                    "email": "hybridauth@gmail.com"
+                }
+            ],
+            "description": "Open source social sign on PHP library.",
+            "homepage": "http://hybridauth.sourceforge.net",
+            "keywords": [
+                "OpenId",
+                "facebook",
+                "google",
+                "hybridauth",
+                "login",
+                "oauth",
+                "social",
+                "twitter",
+                "yahoo"
+            ],
+            "time": "2016-01-12 12:19:25"
+        },
+        {
             "name": "illuminate/container",
             "version": "5.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "1e156f8017490f5583ab161030bf839c77c95e54"
+                "reference": "7ec395833738b9059f829348ddc9a59d0118ac88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/1e156f8017490f5583ab161030bf839c77c95e54",
-                "reference": "1e156f8017490f5583ab161030bf839c77c95e54",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/7ec395833738b9059f829348ddc9a59d0118ac88",
+                "reference": "7ec395833738b9059f829348ddc9a59d0118ac88",
                 "shasum": ""
             },
             "require": {
@@ -661,7 +713,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2016-03-16 17:19:17"
+            "time": "2016-05-29 02:18:23"
         },
         {
             "name": "illuminate/contracts",
@@ -669,12 +721,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "411b851962c211078ade7664a6976e77a78cd2a5"
+                "reference": "f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/411b851962c211078ade7664a6976e77a78cd2a5",
-                "reference": "411b851962c211078ade7664a6976e77a78cd2a5",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5",
+                "reference": "f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5",
                 "shasum": ""
             },
             "require": {
@@ -703,20 +755,20 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "http://laravel.com",
-            "time": "2016-03-07 20:37:17"
+            "time": "2016-05-31 21:36:13"
         },
         {
             "name": "illuminate/database",
-            "version": "v5.2.31",
+            "version": "v5.2.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "becc003759a0b028a237a8c5d2aeb550077d42fd"
+                "reference": "5fbd370c687b5f428357982883eadf9fa33cf9a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/becc003759a0b028a237a8c5d2aeb550077d42fd",
-                "reference": "becc003759a0b028a237a8c5d2aeb550077d42fd",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/5fbd370c687b5f428357982883eadf9fa33cf9a1",
+                "reference": "5fbd370c687b5f428357982883eadf9fa33cf9a1",
                 "shasum": ""
             },
             "require": {
@@ -763,7 +815,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2016-04-27 12:59:09"
+            "time": "2016-05-15 17:43:26"
         },
         {
             "name": "illuminate/support",
@@ -771,12 +823,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "61329ea409362fdae167fdca1125f46c997ce689"
+                "reference": "6e86ac2b4e3d0c42c2dc846dbac3e74d378a812b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/61329ea409362fdae167fdca1125f46c997ce689",
-                "reference": "61329ea409362fdae167fdca1125f46c997ce689",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/6e86ac2b4e3d0c42c2dc846dbac3e74d378a812b",
+                "reference": "6e86ac2b4e3d0c42c2dc846dbac3e74d378a812b",
                 "shasum": ""
             },
             "require": {
@@ -819,7 +871,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2016-05-14 16:24:10"
+            "time": "2016-05-30 02:40:53"
         },
         {
             "name": "maximebf/debugbar",
@@ -979,16 +1031,16 @@
         },
         {
             "name": "phpfastcache/phpfastcache",
-            "version": "4.3.16",
+            "version": "4.3.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPSocialNetwork/phpfastcache.git",
-                "reference": "29b1fa5a4d74010dd254f892b26e6a3a43acbffd"
+                "reference": "348f765dbb426f5da1d009802ab496909e4ad691"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/29b1fa5a4d74010dd254f892b26e6a3a43acbffd",
-                "reference": "29b1fa5a4d74010dd254f892b26e6a3a43acbffd",
+                "url": "https://api.github.com/repos/PHPSocialNetwork/phpfastcache/zipball/348f765dbb426f5da1d009802ab496909e4ad691",
+                "reference": "348f765dbb426f5da1d009802ab496909e4ad691",
                 "shasum": ""
             },
             "require": {
@@ -1046,7 +1098,7 @@
                 "redis",
                 "wincache"
             ],
-            "time": "2016-04-14 00:52:34"
+            "time": "2016-05-17 22:29:47"
         },
         {
             "name": "phpffcms/ffcms-ckeditor",
@@ -1142,12 +1194,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "8077944e6d2156ebd420da4304fd44b716b7f47d"
+                "reference": "e78af6810ecdb145cf7211c66d0603886acae611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/8077944e6d2156ebd420da4304fd44b716b7f47d",
-                "reference": "8077944e6d2156ebd420da4304fd44b716b7f47d",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/e78af6810ecdb145cf7211c66d0603886acae611",
+                "reference": "e78af6810ecdb145cf7211c66d0603886acae611",
                 "shasum": ""
             },
             "require": {
@@ -1184,7 +1236,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2016-05-16 11:49:48"
+            "time": "2016-06-06 12:08:33"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1500,12 +1552,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "6bab34bbffa5f5ac079fdc4a68e143f158e87b7d"
+                "reference": "67f0d2b927796648c5c38cedb7a2c8f1cf14e7dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6bab34bbffa5f5ac079fdc4a68e143f158e87b7d",
-                "reference": "6bab34bbffa5f5ac079fdc4a68e143f158e87b7d",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/67f0d2b927796648c5c38cedb7a2c8f1cf14e7dc",
+                "reference": "67f0d2b927796648c5c38cedb7a2c8f1cf14e7dc",
                 "shasum": ""
             },
             "require": {
@@ -1517,7 +1569,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -1551,7 +1603,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-04-15 07:04:29"
+            "time": "2016-05-26 01:13:28"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -1559,12 +1611,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php54.git",
-                "reference": "95e9a5cc46972bb8bd38dc7a960a3041c5813075"
+                "reference": "34d761992f6f2cc6092cc0e5e93f38b53ba5e4f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/95e9a5cc46972bb8bd38dc7a960a3041c5813075",
-                "reference": "95e9a5cc46972bb8bd38dc7a960a3041c5813075",
+                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/34d761992f6f2cc6092cc0e5e93f38b53ba5e4f1",
+                "reference": "34d761992f6f2cc6092cc0e5e93f38b53ba5e4f1",
                 "shasum": ""
             },
             "require": {
@@ -1573,7 +1625,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -1609,7 +1661,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-03-29 10:16:13"
+            "time": "2016-05-18 14:26:46"
         },
         {
             "name": "symfony/translation",
@@ -1617,12 +1669,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "b08a9f6e13416cd63e7167d5233575d3ec0c091c"
+                "reference": "f22e1fd24bd6c6b2f2237947d013d44f6784a455"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/b08a9f6e13416cd63e7167d5233575d3ec0c091c",
-                "reference": "b08a9f6e13416cd63e7167d5233575d3ec0c091c",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/f22e1fd24bd6c6b2f2237947d013d44f6784a455",
+                "reference": "f22e1fd24bd6c6b2f2237947d013d44f6784a455",
                 "shasum": ""
             },
             "require": {
@@ -1673,7 +1725,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-05-13 18:13:23"
+            "time": "2016-06-06 11:53:30"
         },
         {
             "name": "symfony/var-dumper",
@@ -1681,12 +1733,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "b5ad0aeeba7cfe1fad3f3c944eaa344c2280a821"
+                "reference": "64c842d6f254dd3f4327bd09b6ae574af3242bb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/b5ad0aeeba7cfe1fad3f3c944eaa344c2280a821",
-                "reference": "b5ad0aeeba7cfe1fad3f3c944eaa344c2280a821",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/64c842d6f254dd3f4327bd09b6ae574af3242bb6",
+                "reference": "64c842d6f254dd3f4327bd09b6ae574af3242bb6",
                 "shasum": ""
             },
             "require": {
@@ -1736,7 +1788,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-05-13 18:13:23"
+            "time": "2016-05-25 08:18:05"
         }
     ],
     "packages-dev": [],
@@ -1759,6 +1811,7 @@
         "gregwar/captcha": 0,
         "phpfastcache/phpfastcache": 0,
         "suin/php-rss-writer": 0,
+        "hybridauth/hybridauth": 0,
         "bower-asset/jquery": 0,
         "bower-asset/jquery-validation": 0,
         "bower-asset/jquery-ui": 0,

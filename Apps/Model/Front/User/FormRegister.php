@@ -8,6 +8,7 @@ use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Interfaces\iUser;
 
 class FormRegister extends Model
 {
@@ -18,6 +19,10 @@ class FormRegister extends Model
     public $captcha;
 
     private $_captcha = false;
+    /** @var User|null */
+    public $_userObject;
+    /** @var Profile|null */
+    public $_profileObject;
 
     /**
      * Build model and set maker if captcha is enabled
@@ -88,7 +93,7 @@ class FormRegister extends Model
         $user->email = $this->email;
         $user->password = $password;
         // if need to be approved - make random token and send email
-        if (true === $activation) {
+        if ($activation) {
             $user->approve_token = Str::randomLatinNumeric(mt_rand(32, 128)); // random token for validation url
             // send email
             $template = App::$View->render('user/mail/approve', [
@@ -109,18 +114,16 @@ class FormRegister extends Model
         }
         // save row
         $user->save();
+
         // create profile
         $profile = new Profile();
         $profile->user_id = $user->id;
         // save profile
         $profile->save();
 
-        // just make auth and redirect ;)
-        if (false === $activation) {
-            $loginModel = new FormLogin();
-            $loginModel->openSession($user);
-            App::$Response->redirect('/'); // session is opened, refresh page
-        }
+        // set user & profile objects to attributes to allow extending this model
+        $this->_userObject = $user;
+        $this->_profileObject = $profile;
 
         return true;
     }

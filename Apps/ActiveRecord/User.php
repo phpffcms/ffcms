@@ -22,6 +22,7 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class User extends ActiveModel implements iUser
 {
+    private $openidProvider;
 
     /**
      * Get user object relation. If $user_id is null - get current session user
@@ -217,6 +218,15 @@ class User extends ActiveModel implements iUser
     }
 
     /**
+     * Get user social providers data
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getProviders()
+    {
+        return $this->hasMany('Apps\ActiveRecord\UserProvider', 'user_id');
+    }
+
+    /**
      * Check if target user in blacklist
      * @param int $target_id
      * @return bool
@@ -226,4 +236,21 @@ class User extends ActiveModel implements iUser
         return Blacklist::have($this->getId(), $target_id);
     }
 
+    /**
+     * Set openID library dependence object. Do not use this function, if you have no idia how it work
+     * @param $provider
+     */
+    public function setOpenidInstance($provider)
+    {
+        $this->openidProvider = $provider;
+    }
+
+    /**
+     * Get openid provider library. Default - hybridauth
+     * @return \Hybrid_Auth
+     */
+    public function getOpenidInstance()
+    {
+        return $this->openidProvider;
+    }
 }

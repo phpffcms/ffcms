@@ -26,4 +26,12 @@ class User extends ApiController
         ]);
     }
 
+    /**
+     * Hybridauth endpoint.
+     */
+    public function actionEndpoint()
+    {
+        \Hybrid_Endpoint::process();
+    }
+
 }

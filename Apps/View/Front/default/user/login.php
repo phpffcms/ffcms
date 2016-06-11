@@ -1,5 +1,7 @@
 <?php
 use Ffcms\Core\Helper\HTML\Form;
+use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Url;
 
 /** @var $useCaptcha bool */
 /** @var $model \Apps\Model\Front\User\FormLogin */
@@ -15,6 +17,8 @@ $this->title = __('Log In');
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
 <?= $form->start() ?>
+
+<?= $this->render('user/_social_panel') ?>
 
 <?= $form->field('login', 'text', ['class' => 'form-control'], __('Input you login or email')); ?>
 <?= $form->field('password', 'password', ['class' => 'form-control'], __('Input you password')); ?>

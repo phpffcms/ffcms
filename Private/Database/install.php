@@ -24,6 +24,7 @@ require_once(root . '/Private/Database/Tables/Role.php');
 require_once(root . '/Private/Database/Tables/Session.php');
 require_once(root . '/Private/Database/Tables/User.php');
 require_once(root . '/Private/Database/Tables/UserLog.php');
+require_once(root . '/Private/Database/Tables/UserProvider.php');
 require_once(root . '/Private/Database/Tables/UserRecovery.php');
 require_once(root . '/Private/Database/Tables/WallPost.php');
 require_once(root . '/Private/Database/Tables/WallAnswer.php');

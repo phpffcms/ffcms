@@ -16,6 +16,8 @@ $this->title = __('Sign up');
 
 <?= $form->start() ?>
 
+<?= $this->render('user/_social_panel') ?>
+
 <?= $form->field('login', 'text', ['class' => 'form-control'], __('Enter your username for future use on the site')); ?>
 <?= $form->field('email', 'text', ['class' => 'form-control'], __('Enter your e-mail for an account')); ?>
 <?= $form->field('password', 'password', ['class' => 'form-control'], __('Enter a password for your account. It should be longer than 3 characters')); ?>

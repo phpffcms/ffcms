@@ -65,7 +65,7 @@ class Recaptcha implements iCaptcha
 
         // make request and parse response
         $url = $request->getSchemeAndHttpHost() . $request->getRequestUri();
-        $response = Url::getRemoteContent($url);
+        $response = Url::download($url);
         $object = json_decode($response);
 
         return $object->success;
