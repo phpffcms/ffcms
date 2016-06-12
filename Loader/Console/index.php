@@ -8,15 +8,15 @@ if (PHP_SAPI !== 'cli' || !defined('root')) {
 
 require_once (root . '/Loader/Autoload.php');
 
-class App extends Ffcms\Console\App {}
+class Console extends Ffcms\Console\Console {}
 
 try {
     // prepare to run
-    \App::init([
+    \Console::init([
         'Database' => true
     ]);
     // display output
-    echo \App::run();
+    echo \Console::run();
 } catch (Exception $e) {
-    echo $e . "\n";
+    echo $e->getMessage() . "\n";
 }

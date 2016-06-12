@@ -4,8 +4,17 @@ namespace Apps\Controller\Console;
 
 use Apps\Model\Console\ArchBuilder;
 
-class create
+/**
+ * Class Create. Create basic cmf entities for app building.
+ * @package Apps\Controller\Console
+ */
+class Create
 {
+    /**
+     * Create app model.
+     * @param string $name
+     * @return string
+     */
     public function actionModel($name)
     {
         $builder = new ArchBuilder();
@@ -13,6 +22,11 @@ class create
         return $builder->message;
     }
 
+    /**
+     * Create app controller.
+     * @param string $name
+     * @return string
+     */
     public function actionController($name)
     {
         $builder = new ArchBuilder();
@@ -20,13 +34,23 @@ class create
         return $builder->message;
     }
 
+    /**
+     * Create app active record table relation.
+     * @param string $name
+     * @return string
+     */
     public function actionAr($name)
     {
         $builder = new ArchBuilder();
         $builder->createObject($name, 'ActiveRecord');
         return $builder->message;
     }
-    
+
+    /**
+     * Create widget main class skeleton.
+     * @param string $name
+     * @return string
+     */
     public function actionWidget($name)
     {
         $builder = new ArchBuilder();

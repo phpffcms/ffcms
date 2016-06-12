@@ -2,14 +2,13 @@
 
 namespace Apps\Controller\Console;
 
-use Ffcms\Console\App;
+use Ffcms\Console\Console;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
-use \Illuminate\Database\Capsule\Manager as Capsule;
 use Apps\Controller\Console\Db as DbController;
 
 class Main
@@ -21,36 +20,46 @@ class Main
         '/Private/Config/', '/Private/Config/Default.php', '/Private/Config/Routing.php'
     ];
 
+    /**
+     * Show available command list
+     * @return string
+     */
     public function actionHelp()
     {
-        $text = "You are using FFCMS console application. \n";
-        $text .= "This application support next basic commands: \n\n";
-        $text .= "\t main/info - show info about CMS\n";
-        $text .= "\t main/install - install FFCMS from console line.\n";
-        $text .= "\t main/update - update package to current minor version if available.\n";
-        $text .= "\t main/chmod - update chmod for ffcms special folders. Can be used after project deployment.\n";
-        $text .= "\t main/buildperms - build and update permissions map for applications. \n";
-        $text .= "\t create/model workground/modelName - create model carcase default.\n";
-        $text .= "\t create/ar activeRecordName - create active record table and model.\n";
-        $text .= "\t create/controller workground/controllerName - create default controller carcase.\n";
-        $text .= "\t db/import activeRecordName - import to database single schema from ar model.\n";
-        $text .= "\t db/importAll - import all active record tables to database.\n";
+        $text = "You are using FFCMS console application." . PHP_EOL;
+        $text .= "This application support next basic commands:" . PHP_EOL;
+        $text .= "\t main/info - show info about CMS" . PHP_EOL;
+        $text .= "\t main/install - install FFCMS from console line." . PHP_EOL;
+        $text .= "\t main/update - update package to current minor version if available." . PHP_EOL;
+        $text .= "\t main/chmod - update chmod for ffcms special folders. Can be used after project deployment." . PHP_EOL;
+        $text .= "\t main/buildperms - build and update permissions map for applications." . PHP_EOL;
+        $text .= "\t create/model workground/modelName - create model carcase default." . PHP_EOL;
+        $text .= "\t create/ar activeRecordName - create active record table and model." . PHP_EOL;
+        $text .= "\t create/controller workground/controllerName - create default controller carcase." . PHP_EOL;
+        $text .= "\t create/widget workground/widgetName/widgetName - create default widget carcase." . PHP_EOL;
+        $text .= "\t db/import activeRecordName - import to database single schema from ar model." . PHP_EOL;
+        $text .= "\t db/importAll - import all active record tables to database." . PHP_EOL;
+        $text .= "\t db/adduser - add new user into database." . PHP_EOL;
         return $text;
     }
 
+    /**
+     * Display system information
+     * @return string
+     */
     public function actionInfo()
     {
-        $text = "\nInformation about FFCMS package and environment: \n\n";
-        $text .= "\t PHP version: " . phpversion() . "\n";
-        $text .= "\t Dist path: " . root . "\n";
-        $text .= "\t Used version: " . App::$Properties->version['num'] . ' [build: ' . App::$Properties->version['date'] . "]\n\n";
-        $text .= "Information about FFCMS cmf packages: \n\n";
+        $text = "Information about FFCMS package and environment:" . PHP_EOL;
+        $text .= "\t PHP version: " . phpversion() . PHP_EOL;
+        $text .= "\t Dist path: " . root . PHP_EOL;
+        $text .= "\t Used version: " . Console::$Properties->version['num'] . ' [build: ' . Console::$Properties->version['date'] . ']' . PHP_EOL;
+        $text .= "Information about FFCMS cmf packages:" . PHP_EOL;
 
         $composerInfo = File::read('/composer.lock');
         if (false !== $composerInfo) {
             $jsonInfo = json_decode($composerInfo);
             foreach ($jsonInfo->packages as $item) {
-                $text .= "\t Package: " . $item->name . ' => ' . $item->version . "\n";
+                $text .= "\t Package: " . $item->name . ' => ' . $item->version . PHP_EOL;
             }
         } else {
             $text .= "\t Composer is never be used - no information available.";
@@ -95,11 +104,12 @@ class Main
         $stringSave = "<?php \n\nreturn " . var_export($permissions, true) . ';';
         File::write('/Private/Config/Permissions.php', $stringSave);
 
-        return App::$Output->write('Permission mas is successful updated! Founded permissions: ' . count($permissions));
+        return 'Permissions configuration is successful updated! Founded permissions: ' . count($permissions);
     }
 
     /**
      * Set chmod for system directories
+     * @return string
      */
     public function actionChmod()
     {
@@ -110,11 +120,11 @@ class Main
             } elseif (File::exist($obj)) {
                 chmod(root . $obj, 0777);
             } else {
-                $errors .= App::$Output->write('Filesystem object is not founded: ' . $obj);
+                $errors .= Console::$Output->write('Filesystem object is not founded: ' . $obj);
             }
         }
 
-        return $errors === false ? App::$Output->write('Chmods are successful changed') : $errors;
+        return $errors === false ? 'Chmods are successful changed' : $errors;
     }
 
     /**
@@ -128,7 +138,7 @@ class Main
             throw new NativeException('Installation is locked! Please delete /Private/Install/install.lock');
         }
 
-        $config = App::$Properties->get('database');
+        $config = Console::$Properties->get('database');
         $newConfig = [];
         // creating default directory's
         foreach (self::$installDirs as $obj) {
@@ -137,56 +147,56 @@ class Main
                 Directory::create($obj, 0777);
             }
         }
-        echo App::$Output->write('Upload and private directories are successful created!');
+        echo Console::$Output->write('Upload and private directories are successful created!');
 
         // set chmods
         echo $this->actionChmod();
 
         // database config from input
-        echo App::$Output->writeHeader('Database connection configuration');
+        echo Console::$Output->writeHeader('Database connection configuration');
         echo 'Driver(default:' . $config['driver'] . '):';
-        $dbDriver = App::$Input->read();
+        $dbDriver = Console::$Input->read();
         if (Arr::in($dbDriver, ['mysql', 'pgsql', 'sqlite'])) {
             $newConfig['driver'] = $dbDriver;
         }
 
         // for sqlite its would be a path
         echo 'Host(default:' . $config['host'] . '):';
-        $dbHost = App::$Input->read();
+        $dbHost = Console::$Input->read();
         if (!Str::likeEmpty($dbHost)) {
             $newConfig['host'] = $dbHost;
         }
 
         echo 'Database name(default:' . $config['database'] . '):';
-        $dbName = App::$Input->read();
+        $dbName = Console::$Input->read();
         if (!Str::likeEmpty($dbName)) {
             $newConfig['database'] = $dbName;
         }
 
         echo 'User(default:' . $config['username'] . '):';
-        $dbUser = App::$Input->read();
+        $dbUser = Console::$Input->read();
         if (!Str::likeEmpty($dbUser)) {
             $newConfig['username'] = $dbUser;
         }
 
         echo 'Password(default:' . $config['password'] . '):';
-        $dbPwd = App::$Input->read();
+        $dbPwd = Console::$Input->read();
         if (!Str::likeEmpty($dbPwd)) {
             $newConfig['password'] = $dbPwd;
         }
 
         echo 'Table prefix(default:' . $config['prefix'] . '):';
-        $dbPrefix = App::$Input->read();
+        $dbPrefix = Console::$Input->read();
         if (!Str::likeEmpty($dbPrefix)) {
             $newConfig['prefix'] = $dbPrefix;
         }
 
         // merge configs and add new connection to db pull
         $dbConfigs = Arr::merge($config, $newConfig);
-        App::$Database->addConnection($dbConfigs, 'install');
+        Console::$Database->addConnection($dbConfigs, 'install');
 
         try {
-            App::$Database->connection('install')->getDatabaseName();
+            Console::$Database->connection('install')->getDatabaseName();
         } catch (\Exception $e) {
             return 'Testing database connection is failed! Run installer again and pass tested connection data! Log: ' . $e->getMessage();
         }
@@ -199,26 +209,27 @@ class Main
         echo $dbController->actionImportAll('install');
 
         // set website send from email from input
-        $emailConfig = App::$Properties->get('adminEmail');
+        $emailConfig = Console::$Properties->get('adminEmail');
         echo 'Website sendFrom email(default: ' . $emailConfig . '):';
-        $email = App::$Input->read();
+        $email = Console::$Input->read();
         if (!Str::isEmail($email)) {
             $email = $emailConfig;
         }
 
         // generate other configuration data and security salt, key's and other
-        echo App::$Output->writeHeader('Writing configurations');
-        $allCfg = App::$Properties->getAll('default');
+        echo Console::$Output->writeHeader('Writing configurations');
+        /** @var array $allCfg */
+        $allCfg = Console::$Properties->getAll('default');
         $allCfg['database'] = $dbConfigs;
         $allCfg['adminEmail'] = $email;
-        echo App::$Output->write('Generate password salt for BLOWFISH crypt');
+        echo Console::$Output->write('Generate password salt for BLOWFISH crypt');
         $allCfg['passwordSalt'] = '$2a$07$' . Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
-        echo App::$Output->write('Generate security cookies for debug panel');
+        echo Console::$Output->write('Generate security cookies for debug panel');
         $allCfg['debug']['cookie']['key'] = 'fdebug_' . Str::randomLatinNumeric(mt_rand(8, 32));
         $allCfg['debug']['cookie']['value'] = Str::randomLatinNumeric(mt_rand(32, 128));
 
         // write config data
-        $writeCfg = App::$Properties->writeConfig('default', $allCfg);
+        $writeCfg = Console::$Properties->writeConfig('default', $allCfg);
         if ($writeCfg !== true) {
             return 'File /Private/Config/Default.php is unavailable to write data!';
         }
