@@ -41,6 +41,9 @@ $this->breadcrumbs = [
     </div>
 </div>
 <hr/>
+<?php if (\App::$User->isAuth() && $user->inBlacklist($viewer->getId())): ?>
+<p class="alert alert-danger"><?= __('You are in blacklist of this user. Your access is limited.') ?></p>
+<?php endif; ?>
 <div class="row">
     <div class="col-md-4">
         <img src="<?= $user->getProfile()->getAvatarUrl('big') ?>" class="img-responsive center-block img-rounded" />

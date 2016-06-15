@@ -4,8 +4,9 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
+/** @var $id string */
 /** @var $add string|null */
-/** @var $this object */
+/** @var $this \Ffcms\Core\Arch\View */
 /** @var $records object */
 /** @var $pagination object */
 /** @var $ratingOn int */
@@ -40,18 +41,22 @@ $this->breadcrumbs = [
 ?>
 
 <?php foreach ($records as $profile) :?>
+    <?php /** @var \Apps\ActiveRecord\Profile $profile */ ?>
     <div class="row" style="padding-top: 10px">
         <div class="col-md-2">
             <div class="text-center"><img src="<?= $profile->getAvatarUrl('small') ?>" class="img-responsive img-circle img-thumbnail"/></div>
         </div>
         <div class="col-md-8">
             <h3>
-                <?= Url::link(['profile/show', $profile->user_id], Str::likeEmpty($profile->nick) ? __('No name') : $profile->nick) ?>
+                <?= Url::link(['profile/show', $profile->user_id], Str::likeEmpty($profile->nick) ? __('No name') . '(id' . $profile->user_id . ')' : $profile->nick) ?>
             </h3>
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>
+            <?php if (\App::$User->identity() !== null && $profile->user_id !== \App::$User->identity()->getId()): ?>
+                <?= Url::link(['profile/messages', null, null, ['newdialog' => $profile->user_id]], '<i class="fa fa-pencil-square-o"></i> '  . __('New message'), ['class' => 'btn btn-info']) ?>
+            <?php endif; ?>
         </div>
         <div class="col-md-2">
-            <h3 class="pull-right">
+            <div class="h3 pull-right">
                 <?php
                     $markLabel = 'badge';
                     if ($profile->rating > 0) {
@@ -63,7 +68,7 @@ $this->breadcrumbs = [
                 <span class="label <?= $markLabel ?>">
                     <?= $profile->rating > 0 ? '+' : null ?><?= $profile->rating ?>
                 </span>
-            </h3>
+            </div>
         </div>
     </div>
     <hr/>

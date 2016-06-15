@@ -100,5 +100,8 @@ return [
     'Type' => 'Тип',
     'Message' => 'Сообщение',
     'Date' => 'Дата',
-    'You must login to view other profile' => 'Вы должны быть авторизованы для просмотра профиля пользователя'
+    'You must login to view other profile' => 'Вы должны быть авторизованы для просмотра профиля пользователя',
+    'You' => 'Вы',
+    'New message' => 'Написать',
+    'You are in blacklist of this user. Your access is limited.' => 'Вы находитесь в черном списке данного пользователя. Ваши права доступа ограничены.'
 ];

@@ -43,7 +43,7 @@ $this->breadcrumbs = [
     $items = [];
     foreach ($records as $row) {
         $userProfile = $row->getUser()->getProfile();
-        $userNick = Str::likeEmpty($userProfile->nick) ? __('No name') : \App::$Security->strip_tags($userProfile->nick);
+        $userNick = \Ffcms\Core\Helper\Simplify::parseUserNick($userProfile->user_id, __('No name'));
         $items[] = [
             ['text' => Url::link(['profile/show', $row->target_id], $userNick, ['target' => '_blank']), 'html' => true],
             ['text' => $row->comment],

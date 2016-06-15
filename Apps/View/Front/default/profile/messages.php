@@ -12,7 +12,7 @@ $this->breadcrumbs = [
 ?>
 <h1><?= __('My messages') ?></h1>
 <hr />
-<div class="row">
+<div class="row" id="msg-layout">
     <div class="col-md-push-3 col-md-9">
         <!-- user info -->
         <div class="row">
@@ -87,7 +87,7 @@ $this->breadcrumbs = [
             <div class="message-text">
                 <div class="row">
                     <div class="col-xs-6">
-                        <small id="msg-user-nick">You</small>
+                        <small id="msg-user-nick"><?= __('You') ?></small>
                     </div>
                     <div class="col-xs-6">
                         <small class="pull-right" style="color: #696969;" id="msg-date">01.01.1970</small>
@@ -146,8 +146,8 @@ $this->breadcrumbs = [
                 $.getJSON(script_url+'/api/profile/listmessagedialog/'+dialog_offset+'/'+new_dialog+'/?lang='+script_lang, function(response){
                     if (response.status === 1) {
                         if (response.data.length < 1) {
-                            $('#show-more-dialogs').addClass('hidden');
-                            $('#message-user-list').text('<?= __('No dialog founded') ?>');
+                            $('#msg-layout').after('<p><?= __('You have no active dialogs. Find users to message with: %u%', ['u' => Url::link(['profile/index', 'all'], __('user list'))]) ?></p>');
+                            $('#msg-layout').remove();
                             return false;
                         }
                         var userMap = '';
@@ -312,7 +312,6 @@ $this->breadcrumbs = [
                 // set user profile link
                 dialogDom.find('#msg-user-link').attr('href', profile_link + '/' + current_user.user_id).removeAttr('id');
                 $('#dialog-user-streak').html(dialogDom.html());
-;
                 // load 'now' dialog messages
                 $.fn.loadMessageDialog('now');
                 $('.message-add-container').removeClass('hidden');
@@ -355,6 +354,14 @@ $this->breadcrumbs = [
                         $.fn.loadMessageDialog('now');
                     }
                 });
+            });
+
+            // send message by pressing enter
+            $('#msg-text').keypress(function(e){
+                if (e.which == 13) {
+                    $('#send-new-message').focus().click();
+                    $(this).focus();
+                }
             });
         });
     });
