@@ -17,6 +17,7 @@ class FormInstall extends Model
     public $multiLanguage;
     public $singleLanguage;
     public $user = [];
+    public $mainpage;
 
     public function before()
     {
@@ -41,7 +42,9 @@ class FormInstall extends Model
             'multiLanguage' => __('Multi language'),
             'user.login' => __('Login'),
             'user.email' => __('Email'),
-            'user.password' => __('Password')
+            'user.password' => __('Password'),
+            'user.repassword' => __('Repeat password'),
+            'mainpage' => __('Main page')
         ];
     }
 
@@ -51,9 +54,11 @@ class FormInstall extends Model
     public function rules()
     {
         return [
-            [['db.driver', 'db.host', 'db.username', 'db.password', 'db.database', 'db.prefix', 'email', 'singleLanguage'], 'required'],
-            [['user.login', 'user.email', 'user.password'], 'required'],
+            [['db.driver', 'db.host', 'db.username', 'db.password', 'db.database', 'db.prefix', 'email', 'singleLanguage', 'mainpage'], 'required'],
+            [['user.login', 'user.email', 'user.password', 'user.repassword'], 'required'],
+            ['mainpage', 'in', ['none', 'news', 'about']],
             [['user.login', 'user.password'], 'length_min', 4],
+            ['user.repassword', 'equal', $this->getRequest('user.password', $this->getSubmitMethod())],
             ['user.email', 'email'],
             ['multiLanguage', 'used'],
             ['db.driver', 'in', ['mysql', 'pgsql', 'sqlite']],
@@ -63,9 +68,13 @@ class FormInstall extends Model
         ];
     }
 
+    /**
+     * Save configurations build by installer interface
+     */
     public function make()
     {
         // prepare configurations to save
+        /** @var array $cfg */
         $cfg = App::$Properties->getAll('default');
         $this->before();
         $cfg['database'] = $this->db;
@@ -96,6 +105,32 @@ class FormInstall extends Model
 
         // write config data
         App::$Properties->writeConfig('default', $cfg);
+        // make routing configs based on preset property
+        $routing = [];
+        switch ($this->mainpage) {
+            case 'news':
+                $routing = [
+                    'Alias' => [
+                        'Front' => [
+                            '/' => '/content/list/news',
+                            '/about' => '/content/read/page/about-page'
+                        ]
+                    ]
+                ];
+                break;
+            case 'about':
+                $routing = [
+                    'Alias' => [
+                        'Front' => [
+                            '/' => '/content/read/page/about-page'
+                        ]
+                    ]
+                ];
+                break;
+        }
+        // write routing configurations
+        App::$Properties->writeConfig('routing', $routing);
+        // write installer lock
         File::write('/Private/Install/install.lock', 'Installation is locked!');
     }
 

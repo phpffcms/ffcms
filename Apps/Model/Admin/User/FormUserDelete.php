@@ -74,6 +74,9 @@ class FormUserDelete extends Model
             File::remove('/upload/user/avatar/original/' . $uid . '.jpg');
             // delete user profile and auth data
             $user->getProfile()->delete();
+            // delete user provider data
+            $user->getProviders()->delete();
+            // delete user object
             $user->delete();
         }
     }

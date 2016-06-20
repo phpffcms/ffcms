@@ -34,7 +34,7 @@ use Ffcms\Core\Helper\Type\Obj;
                 <img src="<?= \App::$Alias->currentViewUrl ?>/assets/img/logo.png" alt="logo" class="img-responsive" />
             </div>
             <div class="col-md-10">
-                <h1>FFCMS 3.0</h1>
+                <h1>FFCMS 3</h1>
                 <small><?= __('Fast, flexibility content management system with MVC framework inside!') ?></small>
             </div>
         </div>

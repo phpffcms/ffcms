@@ -2,6 +2,48 @@
 
 $now = date('Y-m-d H:i:s', time());
 
+// create categories
+
+$cat = new stdClass();
+
+$cat->General = [
+    'title' => serialize([
+        'ru' => 'Главная',
+        'en' => 'General'
+    ])
+];
+
+$cat->News = [
+    'title' => serialize([
+        'ru' => 'Новости',
+        'en' => 'News'
+    ]),
+    'configs' => serialize([
+        'showDate' => '1',
+        'showRating' => '1',
+        'showCategory' => '1',
+        'showAuthor' => '1',
+        'showViews' => '1',
+        'showComments' => '1',
+        'showPoster' => '1'
+    ])
+];
+
+$cat->Page = [
+    'title' => serialize([
+        'ru' => 'Страницы',
+        'en' => 'Pages'
+    ])
+];
+
+Illuminate\Database\Capsule\Manager::connection($connectName)->table('content_categories')->insert([
+    ['id' => 1, 'path' => '', 'title' => $cat->General['title'], 'description' => '', 'configs' => '', 'created_at' => $now, 'updated_at' => $now],
+    ['id' => 2, 'path' => 'news', 'title' => $cat->News['title'], 'description' => '', 'configs' => $cat->News['configs'], 'created_at' => $now, 'updated_at' => $now],
+    ['id' => 3, 'path' => 'page', 'title' => $cat->Page['title'], 'description' => '', 'configs' => '', 'created_at' => $now, 'updated_at' => $now],
+]);
+
+// create content items
+
 $content = new stdClass();
 $content->item1 = [
     'title' => serialize(['en' => 'FFCMS 3 - the content management system', 'ru' => 'FFCMS 3 - система управления содержимым сайта']),

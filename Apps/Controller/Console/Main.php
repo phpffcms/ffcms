@@ -17,7 +17,7 @@ class Main
     public static $installDirs = [
         '/upload/user/', '/upload/gallery/', '/upload/images/', '/upload/flash/', '/upload/files/',
         '/Private/Cache/', '/Private/Cache/HTMLPurifier/', '/Private/Sessions/', '/Private/Antivirus/', '/Private/Install/',
-        '/Private/Config/', '/Private/Config/Default.php', '/Private/Config/Routing.php'
+        '/Private/Config/', '/Private/Config/Default.php', '/Private/Config/Routing.php', '/Private/Config/Cron.php'
     ];
 
     /**

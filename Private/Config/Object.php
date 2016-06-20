@@ -1,5 +1,6 @@
 <?php
 
+use Ffcms\Core\Helper\FileSystem\File;
 use \Illuminate\Database\Capsule\Manager as Capsule;
 use Ffcms\Core\App;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -17,15 +18,25 @@ return [
         if (env_name !== 'Install') {
             try {
                 $capsule->addConnection(App::$Properties->get('database'));
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 exit('Database connection error!');
             }
         }
 
         $capsule->setAsGlobal(); // available from any places
         $capsule->bootEloquent(); // allow active record model's
-        if (App::$Debug !== null) { // enable query collector
+        if (\App::$Debug !== null) { // enable query collector
             $capsule->connection()->enableQueryLog();
+        }
+
+        // if this is not installer interface and cms is not installed - try to redirect to install interface
+        if (env_name !== 'Install' && !File::exist('/Private/Install/install.lock')) {
+            try {
+                $capsule->connection()->getPdo();
+            } catch (\Exception $e) {
+                $instUri = \App::$Alias->scriptUrl . '/install';
+                \App::$Response->redirect($instUri, true);
+            }
         }
 
         return $capsule;

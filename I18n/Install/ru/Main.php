@@ -40,7 +40,18 @@ return [
     'Login' => 'Логин',
     'Email' => 'Почта',
     'Password' => 'Пароль',
+    'Repeat password' => 'Повторите пароль',
     'Install' => 'Установить',
     'Congratulations!' => 'Поздравляем!',
-    'Goto website' => 'Перейти к сайту'
+    'Goto website' => 'Перейти к сайту',
+    'installer is blocked! If you want to continue delete file /Private/Installer/install.lock' => 'установщик заблокирован! Если вы хотите продолжить установку удалите файл /Private/Installer/install.lock',
+    'Set administrator account login' => 'Введите логин для административного аккаунта',
+    'Set administrator account email' => 'Укажите email для административного аккаунта',
+    'Set administrator password' => 'Укажите пароль для аккаунта администратора',
+    'Repeat administrator password' => 'Повторите пароль администратора',
+    'Main page' => 'Главная страница',
+    'Empty' => 'Пустая',
+    'News list' => 'Список новостей',
+    'About page' => 'О сайте',
+    'Select what we should display on the main page. You can always change it in routing configurations' => 'Выберите что необходимо отображать на главной странице. Вы всегда сможете изменить этот парамтер в настройках маршрутизации'
 ];

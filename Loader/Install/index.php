@@ -7,7 +7,6 @@ if (!defined('root')) {
 
 // global environment
 define('env_name', 'Install');
-define('nodebug', true);
 define('env_type', 'html');
 
 require_once(root . '/Loader/Autoload.php');

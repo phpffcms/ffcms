@@ -29,5 +29,5 @@ require_once(root . '/Private/Database/Tables/UserRecovery.php');
 require_once(root . '/Private/Database/Tables/WallPost.php');
 require_once(root . '/Private/Database/Tables/WallAnswer.php');
 
-// insert demo content
-require_once (root . '/Private/Database/Other/DemoContent.php');
+// use default preset (for none or other presets)
+require_once (root . '/Private/Database/Other/PresetDefault.php');

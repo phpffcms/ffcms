@@ -11,9 +11,17 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\File;
 
+/**
+ * Class Main. Controller for install & update
+ * @package Apps\Controller\Install
+ */
 class Main extends Controller
 {
 
+    /**
+     * Silent hide all installer output if final.lock exists
+     * @throws NativeException
+     */
     public function before()
     {
         if (File::exist('/Private/Install/final.lock')) {
@@ -30,7 +38,7 @@ class Main extends Controller
     public function actionIndex()
     {
         if (File::exist('/Private/Install/install.lock')) {
-            throw new ForbiddenException('Installer is blocked! If you want to continue delete file /Private/Installer/install.lock');
+            throw new ForbiddenException(__('installer is blocked! If you want to continue delete file /Private/Installer/install.lock'));
         }
 
         $model = new EntityCheck();
@@ -49,7 +57,7 @@ class Main extends Controller
     public function actionInstall()
     {
         if (File::exist('/Private/Install/install.lock')) {
-            throw new ForbiddenException('Installer is blocked! If you want to continue delete file /Private/Installer/install.lock');
+            throw new ForbiddenException(__('installer is blocked! If you want to continue delete file /Private/Installer/install.lock'));
         }
 
         $model = new FormInstall();
