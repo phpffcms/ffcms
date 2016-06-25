@@ -10,10 +10,11 @@ use Apps\ActiveRecord\UserLog;
 
 class FormLogin extends Model
 {
-
     public $login;
     public $password;
     public $captcha;
+
+    public $csrf_token;
 
     private $_captcha = false;
 
@@ -34,10 +35,11 @@ class FormLogin extends Model
     public function rules()
     {
         $rules = [
-            [['login', 'password'], 'required'],
+            [['login', 'password', 'csrf_token'], 'required'],
             ['login', 'length_min', '2'],
             ['password', 'length_min', '3'],
-            ['captcha', 'used']
+            ['captcha', 'used'],
+            ['csrf_token', 'csrf_check', 'csrf_token']
         ];
         if (true === $this->_captcha) {
             $rules[] = ['captcha', 'App::$Captcha::validate'];
