@@ -7,27 +7,41 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Interfaces\iUser;
 
+/**
+ * Class FormIgnoreDelete. Business logic of delete ignored user for current users object from database
+ * @package Apps\Model\Front\Profile
+ */
 class FormIgnoreDelete extends Model
 {
     public $id;
-    public $name;
 
     private $_user;
     private $_target_id;
 
+    /**
+     * FormIgnoreDelete constructor. Pass current user object and target user id inside
+     * @param iUser $user
+     * @param int $target_id
+     */
     public function __construct(iUser $user, $target_id)
     {
         $this->_user = $user;
         $this->_target_id = $target_id;
-        parent::__construct();
+        parent::__construct(true);
     }
 
+    /**
+     * Set public display data
+     */
     public function before()
     {
         $this->id = $this->_target_id;
-        $this->name = App::$User->identity($this->_target_id)->getProfile()->nick;
     }
 
+    /**
+     * Display labels in form
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -36,6 +50,10 @@ class FormIgnoreDelete extends Model
         ];
     }
 
+    /**
+     * Form submit action - delete user from database
+     * @throws \Exception
+     */
     public function make()
     {
         Blacklist::where('user_id', '=', $this->_user->getId())

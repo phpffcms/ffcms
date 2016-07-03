@@ -5,12 +5,12 @@ use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as Widget;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Traits\OopTools;
+use Ffcms\Core\Traits\ClassTools;
 use Apps\ActiveRecord\Content;
 
 class Newcontent extends Widget
 {
-    use OopTools;
+    use ClassTools;
     
     public $categories;
     public $cache;

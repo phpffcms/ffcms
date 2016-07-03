@@ -11,7 +11,6 @@ use Ffcms\Core\Helper\Type\Obj;
 
 class FormSettings extends Model
 {
-
     public $basePath;
     public $passwordSalt;
     public $timezone;
@@ -81,8 +80,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Validation rules for configuration saving
-    */
+     * Config validation rules
+     * @return array
+     */
     public function rules()
     {
         return [

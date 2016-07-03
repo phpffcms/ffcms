@@ -190,7 +190,7 @@ class Profile extends FrontAppController
 
         // get user identity and model object
         $user = App::$User->identity();
-        $model = new FormAvatarUpload();
+        $model = new FormAvatarUpload(true);
 
         // validate model post data
         if ($model->send()) {

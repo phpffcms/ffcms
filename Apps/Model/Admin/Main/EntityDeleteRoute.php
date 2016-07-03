@@ -7,6 +7,10 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Arr;
 
+/**
+ * Class EntityDeleteRoute. Business logic of delete routing row from config file
+ * @package Apps\Model\Admin\Main
+ */
 class EntityDeleteRoute extends Model
 {
     public $type;
@@ -18,9 +22,9 @@ class EntityDeleteRoute extends Model
 
     /**
      * EntityDeleteRoute constructor. Pass parameters from controller
-     * @param null $type
-     * @param null $loader
-     * @param null $source
+     * @param string|null $type
+     * @param string|null $loader
+     * @param string|null $source
      */
     public function __construct($type = null, $loader = null, $source = null)
     {
@@ -28,12 +32,13 @@ class EntityDeleteRoute extends Model
         $this->loader = $loader;
         $this->source = $source;
         $this->_cfg = App::$Properties->getAll('Routing');
-        parent::__construct();
+        parent::__construct(true);
     }
 
     /**
-    * Check passed params from constructor
-    */
+     * Check passed params from constructor
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function before()
     {
         // check rule type
@@ -70,6 +75,9 @@ class EntityDeleteRoute extends Model
         ];
     }
 
+    /**
+     * Save data to configuration file
+     */
     public function make()
     {
         unset($this->_cfg[$this->type][$this->loader][$this->source]);

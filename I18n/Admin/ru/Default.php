@@ -32,5 +32,6 @@ return [
     'Feedback' => 'Обратная связь',
     'Using this function you can manage feedback requests from users' => 'Используя эту функцию вы можете управлять запросами обратной связи от пользователей',
     'Comments' => 'Комментарии',
-    'Using this function you can manage user comments' => 'Используя эту функцию вы можете управлять пользовательскими комментариями'
+    'Using this function you can manage user comments' => 'Используя эту функцию вы можете управлять пользовательскими комментариями',
+    'Hack attention: security token is wrong!' => 'Предупреждение о взломе: защитный токен передан не верно!'
 ];

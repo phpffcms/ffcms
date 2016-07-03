@@ -259,7 +259,7 @@ class User extends FrontAppController
         }
 
         // lets work with recovery form data
-        $model = new FormRecovery();
+        $model = new FormRecovery(true);
         if ($model->send()) {
             if ($model->validate()) {
                 $model->make();

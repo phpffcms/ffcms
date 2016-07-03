@@ -48,5 +48,6 @@ return [
     'On moderation' => 'На модерации',
     'All guest comments will be moderated before display' => 'Все гостевые комментарии будут подвергнуты модерации перед отображением',
     'Your name' => 'Ваше имя',
-    'Captcha' => 'Защитное изображение'
+    'Captcha' => 'Защитное изображение',
+    'Hack attention: security token is wrong!' => 'Предупреждение о взломе: защитный токен передан не верно!'
 ];

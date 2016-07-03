@@ -74,7 +74,7 @@ class Main extends AdminController
     public function actionSettings()
     {
         // init settings model and process post send
-        $model = new FormSettings();
+        $model = new FormSettings(true);
         if ($model->send()) {
             if ($model->validate()) {
                 if ($model->makeSave()) {
@@ -152,8 +152,8 @@ class Main extends AdminController
      */
     public function actionAddroute()
     {
-        $model = new FormAddRoute();
-
+        $model = new FormAddRoute(true);
+        
         if (!File::exist('/Private/Config/Routing.php') || !File::writable('/Private/Config/Routing.php')) {
             App::$Session->getFlashBag()->add('error', __('Routing configuration file is not allowed to write: /Private/Config/Routing.php'));
         } elseif ($model->send() && $model->validate()) {
@@ -179,7 +179,7 @@ class Main extends AdminController
         $source = Str::lowerCase((string)App::$Request->query->get('path'));
 
         $model = new EntityDeleteRoute($type, $loader, $source);
-        if ($model->send()) {
+        if ($model->send() && $model->validate()) {
             $model->make();
             return App::$View->render('delete_route_save');
         }

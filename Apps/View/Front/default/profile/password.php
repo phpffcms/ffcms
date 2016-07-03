@@ -20,7 +20,6 @@ $this->breadcrumbs = [
 <h1><?= __('Change password') ?></h1>
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']); ?>
-
 <?= $form->start() ?>
 
 <?= $form->field('current', 'password', ['class' => 'form-control'], __('Enter your current account password')) ?>

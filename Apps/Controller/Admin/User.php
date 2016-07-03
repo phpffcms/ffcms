@@ -124,7 +124,7 @@ class User extends AdminController
         }
 
         // check if delete is submited
-        if ($model->send()) {
+        if ($model->send() && $model->validate()) {
             $model->delete();
             App::$Session->getFlashBag()->add('success', __('Users and them data are successful removed'));
             App::$Response->redirect('user/index');

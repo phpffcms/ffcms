@@ -10,6 +10,10 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
 use Apps\ActiveRecord\UserLog;
 
+/**
+ * Class FormRecovery. Model of business logic for user password recovery
+ * @package Apps\Model\Front\User
+ */
 class FormRecovery extends Model
 {
     const DELAY = 900; // delay between 2 recovery submits
@@ -18,7 +22,7 @@ class FormRecovery extends Model
     public $captcha;
 
     /**
-    * Labels
+    * Labels for visual display
     */
     public function labels()
     {
@@ -37,7 +41,7 @@ class FormRecovery extends Model
             [['email', 'captcha'], 'required'],
             ['email', 'email'],
             ['captcha', 'App::$Captcha::validate'],
-            ['email', 'App::$User::isMailExist']
+            ['email', 'App::$User::isMailExist'],
         ];
     }
 

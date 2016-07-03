@@ -2,6 +2,7 @@
 
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
+use Ffcms\Core\Helper\Simplify;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
@@ -24,12 +25,13 @@ $this->breadcrumbs = [
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']) ?>
 <?= $form->start() ?>
+
 <div class="row">
     <div class="col-md-3">
         <label class="pull-right"><?= $model->getLabel('name') ?></label>
     </div>
     <div class="col-md-9">
-        <?= Url::link(['profile/show', $model->id], Str::likeEmpty($model->name) ? __('No name') : $model->name, ['target' => '_blank']) ?>
+        <?= Simplify::parseUserLink($model->id) ?>
     </div>
 </div>
 

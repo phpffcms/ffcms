@@ -26,7 +26,7 @@ $this->breadcrumbs = [
 <?php
 $items = [];
 foreach ($model->users as $user) {
-/** @var \Ffcms\Core\Interfaces\iUser $user */
+/** @var \Apps\ActiveRecord\User $user */
     $items[] = [
         ['text' => $user->getParam('id')],
         ['text' => $user->getParam('email')],

@@ -10,6 +10,10 @@ use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\App;
 
+/**
+ * Class FormUserUpdate. Update user data business logic model
+ * @package Apps\Model\Admin\User
+ */
 class FormUserUpdate extends Model
 {
     public $email;
@@ -31,7 +35,7 @@ class FormUserUpdate extends Model
     public function __construct(iUser $user)
     {
         $this->_user = $user;
-        parent::__construct();
+        parent::__construct(true);
     }
 
     /**
@@ -48,10 +52,12 @@ class FormUserUpdate extends Model
         if ($this->approve_token == '0') {
             $this->approve_token = 1;
         }
-
     }
 
-
+    /**
+     * Form labels to display
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -64,8 +70,9 @@ class FormUserUpdate extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validate()
-    */
+     * Validation rules for input data
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -88,7 +95,7 @@ class FormUserUpdate extends Model
     }
 
     /**
-     * Update user information
+     * Update user information in database based on current obj attributes passed from input data
      */
     public function save()
     {
@@ -108,7 +115,7 @@ class FormUserUpdate extends Model
                     $this->_user->approve_token = $this->_approve_tmp;
                 }
             } else {
-                $this->_user->$property = $value;
+                $this->_user->{$property} = $value;
             }
         }
 

@@ -4,13 +4,13 @@ namespace Widgets\Front\Contenttag;
 
 use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as AbstractWidget;
-use Ffcms\Core\Traits\OopTools;
+use Ffcms\Core\Traits\ClassTools;
 use Ffcms\Core\Helper\Type\Obj;
 use Apps\ActiveRecord\ContentTag as TagRecord;
 
 class Contenttag extends AbstractWidget
 {
-	use OopTools;
+	use ClassTools;
 
 	public $count;
 	public $cache;

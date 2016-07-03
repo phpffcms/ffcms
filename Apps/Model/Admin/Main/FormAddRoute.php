@@ -6,6 +6,10 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class FormAddRoute. Business logic of add route form
+ * @package Apps\Model\Admin\Main
+ */
 class FormAddRoute extends Model
 {
     public $type;
@@ -25,8 +29,9 @@ class FormAddRoute extends Model
     }
 
     /**
-    * Define labels for form
-    */
+     * Define labels for form
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -38,8 +43,9 @@ class FormAddRoute extends Model
     }
 
     /**
-    * Define validation rules
-    */
+     * Define validation rules
+     * @return array
+     */
     public function rules()
     {
         return [

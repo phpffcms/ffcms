@@ -25,7 +25,7 @@ class FormUserDelete extends Model
     public function __construct(array $ids)
     {
         $this->_ids = $ids;
-        parent::__construct();
+        parent::__construct(true);
     }
 
     /**

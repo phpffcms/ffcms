@@ -17,9 +17,9 @@ $this->title = __('Settings');
 <hr />
 
 <?php
-
 $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post']);
 echo $form->start();
+
 $baseTab = $form->field('basePath', 'text', ['class' => 'form-control'], __('FFCMS installation sub-directory, used if installed not in root. Example: /subdir/'));
 $baseTab .= $form->field('adminEmail', 'email', ['class' => 'form-control'], __('Define administrator email. Used in mailing functions. Other mail settings in /Private/Config/Object.php'));
 $baseTab .= $form->field('timezone', 'select', ['class' => 'form-control', 'options' => DateTimeZone::listIdentifiers()], __('Define website default timezone id'));

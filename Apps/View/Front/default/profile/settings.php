@@ -22,7 +22,6 @@ $this->breadcrumbs = [
 <h1><?= __('Profile settings') ?></h1>
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']) ?>
-
 <?= $form->start() ?>
 
 <?= $form->field('nick', 'text', ['class' => 'form-control'], __('Enter your nickname or real name')) ?>

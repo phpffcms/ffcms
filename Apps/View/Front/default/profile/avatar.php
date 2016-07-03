@@ -21,7 +21,6 @@ $this->title = __('Avatar change')
 <hr />
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '', 'enctype' => 'multipart/form-data']); ?>
-
 <?= $form->start() ?>
 
 <?= $form->field('file', 'file', null, __('Select jpg, png or gif avatar')) ?>

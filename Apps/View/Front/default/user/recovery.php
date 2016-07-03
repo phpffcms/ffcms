@@ -12,7 +12,6 @@ $this->title = __('Recovery');
 <br/>
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
-
 <?= $form->start() ?>
 
 <?= $form->field('email', 'email', ['class' => 'form-control'], __('Input your account email')); ?>

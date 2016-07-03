@@ -1,5 +1,7 @@
 <?php
 /** @var array $configs */
+use Ffcms\Core\Helper\Security;
+
 ?>
 
 <?php if ((bool)$configs['guestAdd'] && (bool)$configs['guestModerate'] && !\App::$User->isAuth()): ?>

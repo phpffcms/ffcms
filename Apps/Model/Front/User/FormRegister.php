@@ -30,8 +30,8 @@ class FormRegister extends Model
      */
     public function __construct($captcha = false)
     {
-        parent::__construct();
         $this->_captcha = $captcha;
+        parent::__construct(true);
     }
 
 

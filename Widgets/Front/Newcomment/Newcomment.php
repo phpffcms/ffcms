@@ -4,7 +4,7 @@ namespace Widgets\Front\Newcomment;
 
 use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as AbstractWidget;
-use Ffcms\Core\Traits\OopTools;
+use Ffcms\Core\Traits\ClassTools;
 use Apps\ActiveRecord\CommentPost;
 
 /**
@@ -12,7 +12,7 @@ use Apps\ActiveRecord\CommentPost;
  */
 class Newcomment extends AbstractWidget
 {
-    use OopTools;
+    use ClassTools;
 
 	public $snippet;
 	public $count;

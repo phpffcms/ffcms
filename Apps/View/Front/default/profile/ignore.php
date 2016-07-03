@@ -26,7 +26,6 @@ $this->breadcrumbs = [
 <h2><?= __('Add user ignore') ?></h2>
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'action' => '', 'method' => 'post']) ?>
-
 <?= $form->start() ?>
 
 <?= $form->field('id', 'text', ['class' => 'form-control'], __('Enter id of user who you want to block')) ?>

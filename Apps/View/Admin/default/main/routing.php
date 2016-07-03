@@ -93,4 +93,7 @@ $this->title = __('Routing');
         ?>
     </div>
 </div>
+<?php if (count($staticItems) < 1 && count($dynamicItems) < 1): ?>
+    <p class="alert alert-warning"><?= __('Custom routes is not yet found') ?></p>
+<?php endif ;?>
 <?= Url::link(['main/addroute'], '<i class="fa fa-plus"></i> ' . __('New route'), ['class' => 'btn btn-primary']) ?>

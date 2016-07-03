@@ -18,7 +18,6 @@ $this->title = __('Deleting route');
 <h1><?= __('Deleting route') ?></h1>
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
-
 <?= $form->start() ?>
 
 <?= $form->field('type', 'text', ['disabled' => true, 'class' => 'form-control']) ?>

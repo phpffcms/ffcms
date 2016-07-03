@@ -7,6 +7,10 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Interfaces\iUser;
 
+/**
+ * Class FormIgnoreAdd. Business logic of add users to ignore list in database for current user.
+ * @package Apps\Model\Front\Profile
+ */
 class FormIgnoreAdd extends Model
 {
     public $id;
@@ -14,10 +18,14 @@ class FormIgnoreAdd extends Model
 
     private $_user;
 
+    /**
+     * FormIgnoreAdd constructor. Pass user object inside.
+     * @param iUser $user
+     */
     public function __construct(iUser $user)
     {
         $this->_user = $user;
-        parent::__construct();
+        parent::__construct(true);
     }
 
     /**

@@ -19,7 +19,6 @@ $this->title = __('Add route');
 <h1><?= __('New route') ?></h1>
 <hr />
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
-
 <?= $form->start() ?>
 
 <?= $form->field('type', 'select',

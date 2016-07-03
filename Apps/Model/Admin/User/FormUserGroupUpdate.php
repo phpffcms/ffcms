@@ -7,7 +7,12 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\App;
 use Ffcms\Core\Helper\Type\Obj;
+use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class FormUserGroupUpdate. Business logic of user group update in database.
+ * @package Apps\Model\Admin\User
+ */
 class FormUserGroupUpdate extends Model
 {
     public $name;
@@ -16,17 +21,17 @@ class FormUserGroupUpdate extends Model
     private $_role;
 
     /**
-     * Initialize model
+     * FormUserGroupUpdate constructor. Pass role object inside.
      * @param Role $role
      */
     public function __construct(Role $role)
     {
         $this->_role = $role;
-        parent::__construct();
+        parent::__construct(true);
     }
 
     /**
-    * Magic method before example
+    * Parse public attribute values from input object data
     */
     public function before()
     {
@@ -37,7 +42,8 @@ class FormUserGroupUpdate extends Model
     }
 
     /**
-    * Example of usage magic labels for future form helper usage
+    * Display labels data
+     * @return array
     */
     public function labels()
     {
@@ -48,8 +54,9 @@ class FormUserGroupUpdate extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validate()
-    */
+     * Form validation rules
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -74,10 +81,17 @@ class FormUserGroupUpdate extends Model
         return $p;
     }
 
+    /**
+     * Save new user group data in database after submit
+     */
     public function save()
     {
         $this->_role->name = $this->name;
-        $this->_role->permissions = implode(';', $this->permissions);
+        if (Str::likeEmpty($this->permissions) || !Str::contains(';', $this->permissions)) {
+            $this->_role->permissions = '';
+        } else {
+            $this->_role->permissions = implode(';', $this->permissions);
+        }
         $this->_role->save();
     }
 }

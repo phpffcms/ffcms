@@ -15,8 +15,8 @@ $this->title = __('Log In');
 <br/>
 
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
+
 <?= $form->start() ?>
-<?= $form->csrfToken('csrf_token') ?>
 
 <?= $this->render('user/_social_panel') ?>
 

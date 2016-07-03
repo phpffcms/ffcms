@@ -8,13 +8,15 @@ use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 use Apps\ActiveRecord\UserLog;
 
+/**
+ * Class FormLogin. User log in business logic model
+ * @package Apps\Model\Front\User
+ */
 class FormLogin extends Model
 {
     public $login;
     public $password;
     public $captcha;
-
-    public $csrf_token;
 
     private $_captcha = false;
 
@@ -25,7 +27,8 @@ class FormLogin extends Model
     public function __construct($captcha = false)
     {
         $this->_captcha = $captcha;
-        parent::__construct();
+        // tell that we shall use csrf protection
+        parent::__construct(true);
     }
 
     /**
@@ -35,11 +38,10 @@ class FormLogin extends Model
     public function rules()
     {
         $rules = [
-            [['login', 'password', 'csrf_token'], 'required'],
+            [['login', 'password'], 'required'],
             ['login', 'length_min', '2'],
             ['password', 'length_min', '3'],
-            ['captcha', 'used'],
-            ['csrf_token', 'csrf_check', 'csrf_token']
+            ['captcha', 'used']
         ];
         if (true === $this->_captcha) {
             $rules[] = ['captcha', 'App::$Captcha::validate'];

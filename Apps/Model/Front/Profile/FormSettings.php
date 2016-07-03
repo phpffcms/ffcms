@@ -9,6 +9,10 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Interfaces\iUser;
 
+/**
+ * Class FormSettings. Business logic of user personal settings form
+ * @package Apps\Model\Front\Profile
+ */
 class FormSettings extends Model
 {
     public $nick;
@@ -23,10 +27,14 @@ class FormSettings extends Model
 
     private $_user;
 
+    /**
+     * FormSettings constructor. Pass user object inside
+     * @param iUser $user
+     */
     public function __construct(iUser $user)
     {
         $this->_user = $user;
-        parent::__construct();
+        parent::__construct(true);
     }
 
     /**
@@ -52,7 +60,7 @@ class FormSettings extends Model
     }
 
     /**
-    * Labels
+    * Form display labels
     */
     public function labels()
     {

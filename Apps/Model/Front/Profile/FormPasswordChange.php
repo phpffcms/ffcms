@@ -6,6 +6,10 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Interfaces\iUser;
 
+/**
+ * Class FormPasswordChange. Business logic model for password change form.
+ * @package Apps\Model\Front\Profile
+ */
 class FormPasswordChange extends Model
 {
     public $current;
@@ -21,7 +25,7 @@ class FormPasswordChange extends Model
     public function __construct(iUser $user)
     {
         $this->_user = $user;
-        parent::__construct();
+        parent::__construct(true);
     }
 
     /**
