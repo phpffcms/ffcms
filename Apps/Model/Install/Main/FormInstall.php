@@ -10,6 +10,10 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class FormInstall. System installation business logic model
+ * @package Apps\Model\Install\Main
+ */
 class FormInstall extends Model
 {
     public $db = [];
@@ -19,15 +23,23 @@ class FormInstall extends Model
     public $user = [];
     public $mainpage;
 
+    public $baseDomain;
+
+    /**
+     * Set default data
+     */
     public function before()
     {
         $this->db['charset'] = 'utf8';
         $this->db['collation'] = 'utf8_unicode_ci';
+
+        $this->baseDomain = App::$Request->getHttpHost();
     }
 
     /**
-    * Labels for installation form
-    */
+     * Labels for installation form
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -49,8 +61,9 @@ class FormInstall extends Model
     }
 
     /**
-    * Installation post data validation
-    */
+     * Installation post data validation rules
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -77,6 +90,7 @@ class FormInstall extends Model
         /** @var array $cfg */
         $cfg = App::$Properties->getAll('default');
         $this->before();
+        $cfg['baseDomain'] = $this->baseDomain;
         $cfg['database'] = $this->db;
         $cfg['adminEmail'] = $this->email;
         $cfg['singleLanguage'] = $this->singleLanguage;

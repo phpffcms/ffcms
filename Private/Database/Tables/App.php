@@ -123,6 +123,11 @@ $names->search = serialize([
     'ru' => 'Поиск'
 ]);
 
+$names->sitemap = serialize([
+    'en' => 'Sitemap',
+    'ru' => 'Карта сайта'
+]);
+
 
 Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->insert([
     ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
@@ -130,6 +135,7 @@ Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->in
     ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'app', 'sys_name' => 'Search', 'name' => $names->search, 'configs' => $configs->search, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Sitemap', 'name' => $names->sitemap, 'configs' => '', 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
     ['type' => 'widget', 'sys_name' => 'Contenttag', 'name' => $names->contenttag, 'configs' => $configs->contenttag, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],

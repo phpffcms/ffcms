@@ -45,6 +45,9 @@ class EntityCategoryList extends Model
     private $_allCategories;
     private $_catIds;
 
+    /** @var bool|int */
+    private $_customItemLimit = false;
+
     /**
      * EntityCategoryList constructor. Pass pathway as string and data of multi-category system
      * @param string $path
@@ -80,6 +83,15 @@ class EntityCategoryList extends Model
         // build output information
         $this->buildCategory();
         $this->buildContent($records);
+    }
+
+    /**
+     * Set select items limit count
+     * @param int $limit
+     */
+    public function setItemLimit($limit)
+    {
+        $this->_customItemLimit = (int)$limit;
     }
 
     /**
@@ -141,9 +153,11 @@ class EntityCategoryList extends Model
 
         // calculate selection offset
         $itemPerPage = (int)$this->_configs['itemPerCategory'];
-        if ($itemPerPage < 1) {
-            $itemPerPage = 1;
+        // check if custom itemlimit defined over model api
+        if ($this->_customItemLimit !== false) {
+            $itemPerPage = (int)$this->_customItemLimit;
         }
+
         $offset = $this->_page * $itemPerPage;
 
         // get all items from categories
@@ -163,6 +177,11 @@ class EntityCategoryList extends Model
             default:
                 $query = $query->orderBy('created_at', 'DESC');
                 break;
+        }
+
+        // get all items if offset is negative
+        if ($itemPerPage < 0) {
+            return $query->get();
         }
 
         // make select based on offset
@@ -275,6 +294,7 @@ class EntityCategoryList extends Model
                 'title' => $localeTitle,
                 'text' => $text,
                 'date' => Date::humanize($row->created_at),
+                'updated' => $row->updated_at,
                 'author' => $owner,
                 'poster' => $row->getPosterUri(),
                 'thumb' => $row->getPosterThumbUri(),

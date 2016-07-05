@@ -8,7 +8,10 @@ if (PHP_SAPI !== 'cli' || !defined('root')) {
 
 require_once (root . '/Loader/Autoload.php');
 
+
 class Console extends Ffcms\Console\Console {}
+// make alias 
+class App extends Ffcms\Console\Console {}
 
 try {
     // prepare to run

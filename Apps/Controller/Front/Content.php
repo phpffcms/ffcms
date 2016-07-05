@@ -5,6 +5,7 @@ namespace Apps\Controller\Front;
 use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\Content as ContentEntity;
 use Apps\Model\Front\Content\EntityContentSearch;
+use Apps\Model\Front\Sitemap\EntityBuildMap;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Apps\Model\Front\Content\EntityCategoryList;
@@ -348,5 +349,47 @@ class Content extends FrontAppController
             'model' => $model->filter(['text' => 'html']),
             'configs' => $configs
         ]);
+    }
+
+    /**
+     * Cron schedule action - build content sitemap
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
+    public static function buildSitemapSchedule()
+    {
+        // get records from database as activerecord object
+        $contents = \Apps\ActiveRecord\Content::where('display', '=', 1);
+        if ($contents->count() < 1) {
+            return;
+        }
+
+        // get languages if multilanguage enabled
+        $langs = null;
+        if (App::$Properties->get('multiLanguage')) {
+            $langs = App::$Properties->get('languages');
+        }
+
+        // build sitemap from content items via business model
+        $sitemap = new EntityBuildMap($langs);
+        foreach ($contents->get() as $content) {
+            $category = $content->getCategory();
+            $uri = '/content/read/';
+            if (!Str::likeEmpty($category->path)) {
+                $uri .= $category->path . '/';
+            }
+            $uri .= $content->path;
+            $sitemap->add($uri, $content->created_at, 'weekly', 0.7);
+        }
+        // add categories
+        $categories = ContentCategory::getAll();
+        foreach ($categories as $item) {
+            if ((bool)$item->getProperty('showCategory')) {
+                $uri = '/content/list/' . $item->path;
+                $sitemap->add($uri, date('c'), 'daily', 0.9);
+            }
+        }
+        // save data to xml file
+        $sitemap->save('content');
     }
 }

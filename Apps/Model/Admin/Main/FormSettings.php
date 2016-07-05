@@ -9,8 +9,14 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
+/**
+ * Class FormSettings. Admin settings business logic
+ * @package Apps\Model\Admin\Main
+ */
 class FormSettings extends Model
 {
+    public $baseProto;
+    public $baseDomain;
     public $basePath;
     public $passwordSalt;
     public $timezone;
@@ -49,11 +55,14 @@ class FormSettings extends Model
     }
 
     /**
-    * Set translation helpers
-    */
+     * Set form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
+            'baseDomain' => __('Base domain'),
+            'baseProto' => __('Base protocol'),
             'basePath' => __('Base path'),
             'adminEmail' => __('Admin email'),
             'timezone' => __('Timezone'),
@@ -87,12 +96,13 @@ class FormSettings extends Model
     {
         return [
             [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy', 'languages'], 'used'],
-            [['basePath', 'singleLanguage', 'adminEmail', 'timezone'], 'required'],
+            [['baseProto', 'baseDomain', 'basePath', 'singleLanguage', 'adminEmail', 'timezone'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
             [['database.driver', 'database.database'], 'required'],
             ['adminEmail', 'email'],
-            ['timezone', 'string']
+            ['timezone', 'string'],
+            ['baseProto', 'in', ['http', 'https']]
         ];
     }
 

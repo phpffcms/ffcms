@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Console;
 
+use Apps\ActiveRecord\App;
 use Ffcms\Console\Console;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\Directory;
@@ -15,7 +16,7 @@ class Main
 {
     // dirs to create & chmod
     public static $installDirs = [
-        '/upload/user/', '/upload/gallery/', '/upload/images/', '/upload/flash/', '/upload/files/',
+        '/upload/user/', '/upload/gallery/', '/upload/images/', '/upload/flash/', '/upload/files/', '/upload/sitemap/',
         '/Private/Cache/', '/Private/Cache/HTMLPurifier/', '/Private/Sessions/', '/Private/Antivirus/', '/Private/Install/',
         '/Private/Config/', '/Private/Config/Default.php', '/Private/Config/Routing.php', '/Private/Config/Cron.php'
     ];
@@ -216,12 +217,20 @@ class Main
             $email = $emailConfig;
         }
 
+        // set base domain
+        echo 'Website base domain name(ex. ffcms.org):';
+        $baseDomain = Console::$Input->read();
+        if (Str::likeEmpty($baseDomain)) {
+            $baseDomain = Console::$Properties->get('baseDomain');
+        }
+
         // generate other configuration data and security salt, key's and other
         echo Console::$Output->writeHeader('Writing configurations');
         /** @var array $allCfg */
         $allCfg = Console::$Properties->getAll('default');
         $allCfg['database'] = $dbConfigs;
         $allCfg['adminEmail'] = $email;
+        $allCfg['baseDomain'] = $baseDomain;
         echo Console::$Output->write('Generate password salt for BLOWFISH crypt');
         $allCfg['passwordSalt'] = '$2a$07$' . Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
         echo Console::$Output->write('Generate security cookies for debug panel');
