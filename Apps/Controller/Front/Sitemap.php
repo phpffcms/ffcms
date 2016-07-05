@@ -42,7 +42,7 @@ class Sitemap extends FrontAppController
         // build information about files
         $model->make();
 
-        return App::$View->render('index', [
+        return App::$View->render('native/sitemap/index', [
             'model' => $model
         ]);
     }

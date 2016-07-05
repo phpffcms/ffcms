@@ -12,6 +12,7 @@ use Apps\Model\Front\Profile\FormSettings;
 use Apps\Model\Front\Profile\FormUserSearch;
 use Apps\Model\Front\Profile\FormWallPostDelete;
 use Apps\Model\Front\Profile\FormWallPost;
+use Apps\Model\Front\Sitemap\EntityBuildMap;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -499,5 +500,31 @@ class Profile extends FrontAppController
             'pagination' => $pagination,
             'ratingOn' => (int)$cfgs['rating']
         ]);
+    }
+
+    /**
+     * Cron schedule - build user profiles sitemap
+     */
+    public static function buildSitemapSchedule()
+    {
+        // get not empty user profiles
+        $profiles = ProfileRecords::whereNotNull('nick');
+        if ($profiles->count() < 1) {
+            return;
+        }
+
+        // get languages if multilanguage enabled
+        $langs = null;
+        if (App::$Properties->get('multiLanguage')) {
+            $langs = App::$Properties->get('languages');
+        }
+
+        // build sitemap from content items via business model
+        $sitemap = new EntityBuildMap($langs);
+        foreach ($profiles->get() as $user) {
+            $sitemap->add('profile/show/' . $user->user_id, $user->updated_at, 'weekly', 0.2);
+        }
+
+        $sitemap->save('profile');
     }
 }

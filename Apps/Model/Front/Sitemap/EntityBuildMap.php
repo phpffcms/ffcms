@@ -8,9 +8,12 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
+/**
+ * Class EntityBuildMap. Build sitemap data and save to file in xml format
+ * @package Apps\Model\Front\Sitemap
+ */
 class EntityBuildMap extends Model
 {
     private $data;

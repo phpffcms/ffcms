@@ -27,8 +27,8 @@
 	],
 	'adminEmail' => 'root@ffcms.app',
 	'baseLanguage' => 'en',
-	'multiLanguage' => false,
-	'singleLanguage' => 'ru',
+	'multiLanguage' => true,
+	'singleLanguage' => 'en',
 	'languages' => [
 		'en',
 		'ru'
