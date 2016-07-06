@@ -5,6 +5,8 @@ namespace Apps\Model\Front\Profile;
 use Apps\ActiveRecord\Blacklist;
 use Apps\ActiveRecord\WallPost as WallRecords;
 use Ffcms\Core\App;
+use Ffcms\Core\Helper\Text;
+use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
@@ -56,6 +58,12 @@ class FormWallPost extends Model
         $record->sender_id = $viewer->id;
         $record->message = App::$Security->strip_tags($this->message);
         $record->save();
+
+        // add user notification
+        if ($target->id !== $viewer->id) {
+            $notify = new EntityAddNotification($target->id);
+            $notify->add('profile/show/' . $target->id . '#wall-post-' . $record->id, EntityAddNotification::MSG_ADD_WALLPOST, ['snippet' => Text::snippet($this->message, 50)]);
+        }
 
         // cleanup message
         $this->message = null;

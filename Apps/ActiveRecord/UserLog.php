@@ -8,12 +8,12 @@ use Ffcms\Core\Helper\Date;
 
 /**
  * Class UserLog. Active record model.
- * @property $id int
- * @property $user_id int
- * @property $type string
- * @property $message string
- * @property $created_at string
- * @property $updated_at string
+ * @property int $id
+ * @property int $user_id
+ * @property string $type
+ * @property string $message
+ * @property string $created_at
+ * @property string $updated_at
  */
 class UserLog extends ActiveModel
 {

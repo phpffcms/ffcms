@@ -3,7 +3,9 @@
 namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\Blacklist;
+use Apps\ActiveRecord\UserNotification;
 use Apps\ActiveRecord\WallPost;
+use Apps\Model\Front\Profile\EntityNotificationsList;
 use Apps\Model\Front\Profile\FormAvatarUpload;
 use Apps\Model\Front\Profile\FormIgnoreAdd;
 use Apps\Model\Front\Profile\FormIgnoreDelete;
@@ -18,6 +20,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
@@ -32,6 +35,7 @@ use Ffcms\Core\Helper\Url;
 class Profile extends FrontAppController
 {
     const BLOCK_PER_PAGE = 10;
+    const NOTIFY_PER_PAGE = 25;
 
     /**
      * List user profiles on website by defined filter
@@ -47,7 +51,7 @@ class Profile extends FrontAppController
         $records = null;
 
         // set current page and offset
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)App::$Request->query->get('page', 0);
         $cfgs = Serialize::decode($this->application->configs);
         $userPerPage = (int)$cfgs['usersOnPage'];
         if ($userPerPage < 1) {
@@ -143,7 +147,7 @@ class Profile extends FrontAppController
                     if ($wallModel->makePost($targetPersone, $viewerPersone, (int)$cfg['delayBetweenPost'])) {
                         App::$Session->getFlashBag()->add('success', __('The message was successful posted!'));
                     } else {
-                        App::$Session->getFlashBag()->add('warning', __('Posting message was failed! You need to wait some time...'));
+                        App::$Session->getFlashBag()->add('warning', __('Posting message was failed! Please, wait few seconds'));
                     }
                 }
             }
@@ -269,6 +273,42 @@ class Profile extends FrontAppController
         }
 
         return App::$View->render('messages');
+    }
+
+    public function actionNotifications($type = 'all')
+    {
+        if (!App::$User->isAuth()) {
+            throw new ForbiddenException();
+        }
+
+        // get page index and current user object
+        $page = (int)App::$Request->query->get('page', 0);
+        $offset = $page * static::NOTIFY_PER_PAGE;
+        $user = App::$User->identity();
+
+        // try to find notifications in database as active record
+        $query = UserNotification::where('user_id', '=', $user->id)
+            ->orderBy('created_at', 'DESC');
+        if ($type === 'unread') {
+            $query = $query->where('readed', '=', 0);
+        }
+
+        $pagination = new SimplePagination([
+            'url' => ['profile/notifications'],
+            'page' => $page,
+            'step' => static::NOTIFY_PER_PAGE,
+            'total' => $query->count()
+        ]);
+
+        // get current records as object and build response
+        $records = $query->skip($offset)->take(static::NOTIFY_PER_PAGE)->get();
+        $model = new EntityNotificationsList($records);
+        $model->make();
+
+        return App::$View->render('notifications', [
+            'model' => $model,
+            'pagination' => $pagination
+        ]);
     }
 
     /**

@@ -5,10 +5,12 @@ namespace Apps\Model\Api\Comments;
 
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\CommentPost;
+use Apps\Model\Front\Profile\EntityAddNotification;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -110,10 +112,20 @@ class CommentAnswerAdd extends Model
         $record->lang = App::$Request->getLanguage();
         $record->ip = $this->ip;
         // check if premoderation is enabled and user is guest
-        if ((int)$this->_configs['guestModerate'] === 1 && $this->_userId < 1) {
+        if ((bool)$this->_configs['guestModerate'] && $this->_userId < 1) {
             $record->moderate = 1;
         }
         $record->save();
+
+        // add notification for comment post owner
+        $commentPost = $record->getCommentPost();
+        if ($commentPost !== null && (int)$commentPost->user_id !== 0 && (int)$commentPost->user_id !== $this->_userId) {
+            $notify = new EntityAddNotification((int)$commentPost->user_id);
+            $notify->add($commentPost->pathway, EntityAddNotification::MSG_ADD_COMMENTANSWER, [
+                'snippet' => Text::snippet(App::$Security->strip_tags($this->message), 50),
+                'post' => Text::snippet(App::$Security->strip_tags($commentPost->message), 50)
+            ]);
+        }
 
         return $record;
     }

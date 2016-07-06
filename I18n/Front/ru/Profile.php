@@ -14,7 +14,7 @@ return [
     'Visit' => 'Посетить',
     'Interests' => 'Интересы',
     'The message was successful posted!' => 'Сообщение успешно отправлено!',
-    'Posting message was failed! You need to wait some time...' => 'Сообщение не отправлено - подождите...',
+    'Posting message was failed! Please, wait few seconds' => 'Сообщение не отправлено, немного подождите!',
     'Wall' => 'Стена',
     'Avatar' => 'Аватар',
     'Settings' => 'Настройки',
@@ -103,5 +103,12 @@ return [
     'You must login to view other profile' => 'Вы должны быть авторизованы для просмотра профиля пользователя',
     'You' => 'Вы',
     'New message' => 'Написать',
-    'You are in blacklist of this user. Your access is limited.' => 'Вы находитесь в черном списке данного пользователя. Ваши права доступа ограничены.'
+    'You are in blacklist of this user. Your access is limited.' => 'Вы находитесь в черном списке данного пользователя. Ваши права доступа ограничены.',
+    'Notifications' => 'Уведомления',
+    'My notifications' => 'Мои уведомления',
+    'Unread' => 'Непрочитанные',
+    'New notification event: &laquo;%snippet%&raquo;' => 'Новое уведомление: &laquo;%snippet%&raquo;',
+    'New post on the wall: &laquo;%snippet%&raquo;' => 'Новое сообщение на стене: &laquo;%snippet%&raquo;',
+    'New answer &laquo;%snippet%&raquo; for wall post &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; к сообщению на стене &laquo;%post%&raquo;',
+    'New answer &laquo;%snippet%&raquo; to your comment &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш комментарий &laquo;%post%&raquo;'
 ];

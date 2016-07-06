@@ -32,7 +32,7 @@ class CommentAnswer extends ActiveModel
 
     /**
      * Get comment post object
-     * @return WallPost|null
+     * @return CommentPost|null
      */
     public function getCommentPost()
     {

@@ -7,12 +7,15 @@ use Apps\ActiveRecord\Message;
 use Apps\ActiveRecord\ProfileRating;
 use Apps\ActiveRecord\WallAnswer;
 use Apps\ActiveRecord\WallPost;
+use Apps\Model\Front\Profile\EntityAddNotification;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
+use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Interfaces\iUser;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -126,6 +129,7 @@ class Profile extends ApiController
             throw new NativeException('Wrong input data');
         }
 
+        // get current(sender) user object
         $viewer = App::$User->identity();
 
         // get message from post and validate minlength
@@ -163,9 +167,18 @@ class Profile extends ApiController
         // make new row ;)
         $answers = new WallAnswer();
         $answers->post_id = $postId;
-        $answers->user_id = App::$User->identity()->getId();
+        $answers->user_id = $viewer->id;
         $answers->message = $message;
         $answers->save();
+
+        // add notification for target user
+        if ($viewer->id !== $target_id) {
+            $notify = new EntityAddNotification($target_id);
+            $notify->add('/profile/show/' . $target_id . '#wall-post-' . $wallRow->id, EntityAddNotification::MSG_ADD_WALLANSWER, [
+                'snippet' => Text::snippet($message, 50),
+                'post' => $wallRow->message
+            ]);
+        }
 
         // send "ok" response
         $this->setJsonHeader();

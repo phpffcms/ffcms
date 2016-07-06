@@ -26,9 +26,9 @@ class EntityIndexList extends Model
 
     /**
      * EntityIndexList constructor. Pass current language from controller request
-     * @param bool $currentLang
+     * @param string|null $currentLang
      */
-    public function __construct($currentLang)
+    public function __construct($currentLang = null)
     {
         $this->_lang = $currentLang;
         parent::__construct();
@@ -47,7 +47,7 @@ class EntityIndexList extends Model
         $scan = File::listFiles(static::INDEX_PATH, ['.xml'], true);
         if (Obj::isArray($scan)) {
             foreach ($scan as $file) {
-                if (!Str::contains('.' . $this->_lang, $file)) {
+                if ($this->_lang !== null && !Str::contains('.' . $this->_lang, $file)) {
                     continue;
                 }
                 $this->files[] = static::INDEX_PATH . '/' . $file;
@@ -75,10 +75,13 @@ class EntityIndexList extends Model
 
     /**
      * Get sitemap index files info as array
-     * @return array|null
+     * @return array
      */
     public function getInfo()
     {
+        if (!Obj::isArray($this->info)) {
+            return [];
+        }
         return $this->info;
     }
 }

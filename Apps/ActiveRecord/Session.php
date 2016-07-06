@@ -8,6 +8,11 @@ use Ffcms\Core\Arch\ActiveModel;
 /**
  * Class Session. Session storage table.
  * @package Apps\ActiveRecord
+ * @property string $sess_id
+ * @property string $sess_data
+ * @property string $sess_lifetime
+ * @property string $created_at
+ * @property string $updated_at
  */
 class Session extends ActiveModel
 {

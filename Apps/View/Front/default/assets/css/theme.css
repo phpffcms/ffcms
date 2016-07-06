@@ -375,7 +375,6 @@ label.error {
 	color: #e3516a;
 }
 
-
 /** Search results */
 .search-result {
     border-left: 1px #00ad9c solid;
@@ -384,4 +383,18 @@ label.error {
 
 .search-highlight {
     background-color: #ffe1a5;
+}
+
+/**
+ * Notification style
+ * @link http://bootsnipp.com/snippets/featured/simple-card-alerts
+ */
+.notice {
+    padding: 15px;
+    background-color: #fafafa;
+    border-left: 6px solid #7f7f84;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+    box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
 }
