@@ -3,8 +3,10 @@
 namespace Apps\Model\Front\Feedback;
 
 use Apps\ActiveRecord\FeedbackAnswer;
+use Apps\Model\Front\Profile\EntityAddNotification;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Text;
 
 /**
  * Class FormAnswerAdd. Model to work with add answer to feedback post thread
@@ -91,5 +93,17 @@ class FormAnswerAdd extends Model
         }
         $record->ip = $this->_ip;
         $record->save();
+
+        // add notification msg
+        $targetId = $this->_post->user_id;
+        if ($targetId !== null && (int)$targetId > 0 && $targetId !== $this->_userId) {
+            $notify = new EntityAddNotification($targetId);
+            $uri = '/feedback/read/' . $this->_post->id . '/' . $this->_post->hash . '#feedback-answer-' . $record->id;
+            $notify->add($uri,  EntityAddNotification::MSG_ADD_FEEDBACKANSWER, [
+                'snippet' => Text::snippet(App::$Security->strip_tags($this->message), 50),
+                'post' => Text::snippet(App::$Security->strip_tags($this->_post->message), 50)
+            ]);
+        }
+
     }
 }

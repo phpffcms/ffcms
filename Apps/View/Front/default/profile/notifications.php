@@ -15,12 +15,6 @@ $this->breadcrumbs = [
 ?>
 <h1><?= __('Notifications') ?></h1>
 <hr />
-<?php
-if ($model->items === null || count($model->items) < 1) {
-    echo '<p class="alert alert-warning">' . __('No notifications available') . '</p>';
-    return;
-}
-?>
 <div class="row">
     <div class="col-md-12">
         <div class="pull-right">
@@ -35,8 +29,14 @@ if ($model->items === null || count($model->items) < 1) {
         </div>
     </div>
 </div>
+<?php
+if ($model->items === null || count($model->items) < 1) {
+    echo '<p class="alert alert-warning">' . __('No notifications available') . '</p>';
+    return;
+}
+?>
 <?php foreach ($model->items as $item): ?>
-    <div class="notice">
+    <div class="notice<?= $item['new'] ? ' notice-new' : ''; ?>">
         <span class="label label-info"><?= $item['date'] ?></span> <?= $item['text'] ?>
     </div>
 <?php endforeach; ?>

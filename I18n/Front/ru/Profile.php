@@ -107,8 +107,10 @@ return [
     'Notifications' => 'Уведомления',
     'My notifications' => 'Мои уведомления',
     'Unread' => 'Непрочитанные',
+    'No notifications available' => 'Уведомления не найдены',
     'New notification event: &laquo;%snippet%&raquo;' => 'Новое уведомление: &laquo;%snippet%&raquo;',
     'New post on the wall: &laquo;%snippet%&raquo;' => 'Новое сообщение на стене: &laquo;%snippet%&raquo;',
     'New answer &laquo;%snippet%&raquo; for wall post &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; к сообщению на стене &laquo;%post%&raquo;',
-    'New answer &laquo;%snippet%&raquo; to your comment &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш комментарий &laquo;%post%&raquo;'
+    'New answer &laquo;%snippet%&raquo; to your comment &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш комментарий &laquo;%post%&raquo;',
+    'New answer &laquo;%snippet%&raquo; to your feedback request &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш запрос обратной связи &laquo;%post%&raquo;'
 ];

@@ -58,7 +58,7 @@ if ((int)$post->closed === 0 && \App::$User->isAuth()) {
 
 <?php if ($answers !== null && $answers->count() > 0) : ?>
     <?php foreach ($answers as $answer): ?>
-        <div class="row">
+        <div class="row" id="feedback-answer-<?= $answer->id ?>">
             <div class="col-md-12">
                 <div class="panel <?= (int)$answer->is_admin === 1 ? 'panel-success' : 'panel-default' ?>">
                     <div class="panel-heading">

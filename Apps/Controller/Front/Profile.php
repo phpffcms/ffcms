@@ -275,6 +275,14 @@ class Profile extends FrontAppController
         return App::$View->render('messages');
     }
 
+    /**
+     * Show user notifications
+     * @param string $type
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws ForbiddenException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function actionNotifications($type = 'all')
     {
         if (!App::$User->isAuth()) {
@@ -301,9 +309,13 @@ class Profile extends FrontAppController
         ]);
 
         // get current records as object and build response
-        $records = $query->skip($offset)->take(static::NOTIFY_PER_PAGE)->get();
-        $model = new EntityNotificationsList($records);
+        $records = $query->skip($offset)->take(static::NOTIFY_PER_PAGE);
+        $data = $records->get();
+        $model = new EntityNotificationsList($data);
         $model->make();
+
+        // update reader records
+        $records->update(['readed' => 1]);
 
         return App::$View->render('notifications', [
             'model' => $model,

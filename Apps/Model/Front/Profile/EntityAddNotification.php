@@ -16,7 +16,8 @@ class EntityAddNotification extends Model
     const MSG_DEFAULT = 'New notification event: &laquo;%snippet%&raquo;';
     const MSG_ADD_WALLPOST = 'New post on the wall: &laquo;%snippet%&raquo;';
     const MSG_ADD_WALLANSWER = 'New answer &laquo;%snippet%&raquo; for wall post &laquo;%post%&raquo;';
-    const MSG_ADD_COMMENTANSWER ='New answer &laquo;%snippet%&raquo; to your comment &laquo;%post%&raquo;';
+    const MSG_ADD_COMMENTANSWER = 'New answer &laquo;%snippet%&raquo; to your comment &laquo;%post%&raquo;';
+    const MSG_ADD_FEEDBACKANSWER = 'New answer &laquo;%snippet%&raquo; to your feedback request &laquo;%post%&raquo;';
     
     private $_targetId;
 

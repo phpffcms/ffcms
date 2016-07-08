@@ -398,3 +398,8 @@ label.error {
     -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
     box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
 }
+
+.notice-new {
+    border-color: #45ABCD;
+    background-color: #f4e3e5;
+}

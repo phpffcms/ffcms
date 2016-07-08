@@ -57,7 +57,8 @@ class EntityNotificationsList extends Model
 
             $this->items[] = [
                 'text' => $text,
-                'date' => Date::humanize($record->created_at)
+                'date' => Date::humanize($record->created_at),
+                'new' => (bool)$record->readed === false
             ];
         }
     }
