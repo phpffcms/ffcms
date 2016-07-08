@@ -44,7 +44,8 @@ if (\App::$User->isAuth()) {
         $items[] = ['type' => 'link', 'link' => ['content/update'], 'text' => '<i class="fa fa-plus"></i> ' . __('Add content'), 'html' => true, 'position' => 'right'];
     }
     $accountDropdown[] = ['link' => ['profile/show', $userId], 'text' => __('My profile')];
-    $accountDropdown[] = ['link' => ['profile/messages'], 'text' => __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true];
+    $accountDropdown[] = ['link' => ['profile/messages'], 'text' => __('Messages') . ' <span class="badge" id="pm-count-block">0</span>', 'html' => true, '!secure' => true];
+    $accountDropdown[] = ['link' => ['profile/notifications'], 'text' => __('Notifications') . ' <span class="badge" id="notify-count-block">0</span>', 'html' => true, '!secure' => true];
     if ((bool)AppRecord::getConfig('app', 'Content', 'userAdd')) {
         $accountDropdown[] = ['link' => ['content/my'], 'text' => __('My content')];
     }
@@ -52,8 +53,9 @@ if (\App::$User->isAuth()) {
 
     $items[] = [
         'type' => 'dropdown',
-        'text' => '<i class="fa fa-user"></i> ' . __('Account') . ' <span class="badge pm-count-block">0</span>',
+        'text' => '<i class="fa fa-user"></i> ' . __('Account') . ' <span class="badge" id="summary-count-block">0</span>',
         'html' => true,
+        '!secure' => true,
         'position' => 'right',
         'items' => $accountDropdown
     ];
@@ -199,26 +201,43 @@ echo Navbar::display([
 	<script>
     // notification function for user pm count block (class="pm-count-block")
     var loadPmInterval = false;
-    function ajaxNotifyPm() {
-        $.getJSON(script_url+'/api/profile/messagesnewcount?lang='+script_lang, function(resp){
+    var summaryBlock = $('#summary-count-block');
+    var msgBlock = $('#pm-count-block');
+    var notifyBlock = $('#notify-count-block');
+    function ajaxNotify() {
+        $.getJSON(script_url+'/api/profile/notifications?lang='+script_lang, function(resp){
             if (resp.status === 1) {
-                var block = $('.pm-count-block');
-                if (resp.count > 0) {
-                    block.html(resp.count).addClass('alert-danger', 1000);
+                if (resp.summary > 0) {
+                    summaryBlock.addClass('alert-danger', 1000).text(resp.summary);
+                    // set new messages count
+                    if (resp.messages > 0) {
+                        msgBlock.text(resp.messages).addClass('alert-danger', 1000);
+                    } else {
+                        msgBlock.removeClass('alert-danger', 1000).text(0);
+                    }
+                    // set new notifications count
+                    if (resp.notify > 0) {
+                        notifyBlock.text(resp.notify).addClass('alert-danger', 1000);
+                    } else {
+                        notifyBlock.removeClass('alert-danger', 1000).text(0);
+                    }
                 } else {
-                    block.removeClass('alert-danger', 1000).html(resp.count);
+                    summaryBlock.removeClass('alert-danger', 1000).text(0);
                 }
-                setNotificationNumber(resp.count);
+                setNotificationNumber(resp.summary);
             } else if (loadPmInterval !== false) { // remove autorefresh
                 clearInterval(loadPmInterval);
             }
+        }).fail(function(){
+            if (loadPmInterval !== false)
+                clearInterval(loadPmInterval);
         });
     }
     $(function(){
         // instantly run counter
-        ajaxNotifyPm();
-        // make autorefresh every 5 seconds
-        loadPmInterval = setInterval('ajaxNotifyPm()', 5000);
+        ajaxNotify();
+        // make autorefresh every 10 seconds
+        loadPmInterval = setInterval('ajaxNotify()', 10000);
     });
 </script>
 <?php

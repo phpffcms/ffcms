@@ -5,6 +5,7 @@ namespace Apps\Controller\Api;
 use Apps\ActiveRecord\Blacklist;
 use Apps\ActiveRecord\Message;
 use Apps\ActiveRecord\ProfileRating;
+use Apps\ActiveRecord\UserNotification;
 use Apps\ActiveRecord\WallAnswer;
 use Apps\ActiveRecord\WallPost;
 use Apps\Model\Front\Profile\EntityAddNotification;
@@ -308,11 +309,11 @@ class Profile extends ApiController
     }
 
     /**
-     * Get new p.m. count for current user
+     * Get user p.m and notifications count
      * @return string
      * @throws ForbiddenException
      */
-    public function actionMessagesnewcount()
+    public function actionNotifications()
     {
         // check if authed
         if (!App::$User->isAuth()) {
@@ -323,12 +324,20 @@ class Profile extends ApiController
         // get user object
         $user = App::$User->identity();
 
-        // get new message count
-        $query = Message::where('target_id', '=', $user->id)
+        // get messages count
+        $messagesCount = Message::where('target_id', '=', $user->id)
             ->where('readed', '=', 0)->count();
 
-        // set response as json
-        return json_encode(['status' => 1, 'count' => $query]);
+        // get notifications count
+        $notificationsCount = UserNotification::where('user_id', '=', $user->id)
+            ->where('readed', '=', 0)->count();
+
+        return json_encode([
+            'status' => 1,
+            'notify' => $notificationsCount,
+            'messages' => $messagesCount,
+            'summary' => $notificationsCount + $messagesCount
+        ]);
     }
 
     /**
