@@ -4,6 +4,7 @@ use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Url;
 
 /** @var \Apps\Model\Front\Profile\EntityNotificationsList $model */
+/** @var \Ffcms\Core\Helper\HTML\SimplePagination $pagination */
 
 $this->title = __('My notifications');
 $this->breadcrumbs = [
@@ -40,3 +41,7 @@ if ($model->items === null || count($model->items) < 1) {
         <span class="label label-info"><?= $item['date'] ?></span> <?= $item['text'] ?>
     </div>
 <?php endforeach; ?>
+
+<div class="text-center">
+    <?= $pagination->display(['class' => 'pagination pagination-centered']) ?>
+</div>

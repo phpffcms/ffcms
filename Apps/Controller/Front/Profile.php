@@ -3,6 +3,7 @@
 namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\Blacklist;
+use Apps\ActiveRecord\UserLog;
 use Apps\ActiveRecord\UserNotification;
 use Apps\ActiveRecord\WallPost;
 use Apps\Model\Front\Profile\EntityNotificationsList;
@@ -578,5 +579,16 @@ class Profile extends FrontAppController
         }
 
         $sitemap->save('profile');
+    }
+
+    /**
+     * Cleanup tables as scheduled action
+     */
+    public static function cleanupTablesSchedule()
+    {
+        // calculate date (now - 1week) for sql query 
+        $date = (new \DateTime('now'))->modify('-1 week')->format('Y-m-d');
+        UserNotification::where('created_at', '<=', $date)->delete();
+        UserLog::where('created_at', '<=', $date)->delete();
     }
 }

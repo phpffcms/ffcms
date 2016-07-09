@@ -17,6 +17,9 @@ class Contenttag extends AbstractWidget
 
 	public $tpl = 'widgets/contenttag/default';
 
+	private $_lang;
+    private $_cacheName;
+
 	/**
 	 * Set default configurations if not defined
 	 * {@inheritDoc}
@@ -33,27 +36,29 @@ class Contenttag extends AbstractWidget
         if ($this->count === null || !Obj::isLikeInt($this->count)) {
             $this->count = (int)$cfg['count'];
         }
+
+        $this->_lang = App::$Request->getLanguage();
+        $this->_cacheName = 'widget.contenttag.' . $this->createStringClassSnapshotHash();
     }
 
     /**
      * Display widget info
      * {@inheritDoc}
      * @see \Ffcms\Core\Arch\Widget::display()
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function display()
     {
-        // get special properties hash
-    	$classHash = $this->createStringClassSnapshotHash();
-
     	// get records rows from cache or directly from db
     	$records = null;
     	if ($this->cache === 0) {
     	    $records = $this->makeQuery();
     	} else {
-    	    $records = App::$Cache->get('widget.contenttag.' . $classHash);
-    	    if ($records === null) {
+    	    $records = App::$Cache->get($this->_cacheName);
+            if ($records === null) {
     	        $records = $this->makeQuery();
-    	        App::$Cache->set('widget.contenttag' . $classHash, $records, $this->cache);
+    	        App::$Cache->set($this->_cacheName, $records, $this->cache);
     	    }
     	}
 
@@ -77,7 +82,8 @@ class Contenttag extends AbstractWidget
         return TagRecord::select([
     	    App::$Database->getConnection()->raw('SQL_CALC_FOUND_ROWS tag'),
     	    App::$Database->getConnection()->raw('COUNT(*) AS count')
-    	])->groupBy('tag')
+    	])->where('lang', '=', $this->_lang)
+            ->groupBy('tag')
         	->orderBy('count', 'DESC')
         	->take($this->count)
         	->get();

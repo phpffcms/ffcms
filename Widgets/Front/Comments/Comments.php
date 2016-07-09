@@ -5,10 +5,17 @@ namespace Widgets\Front\Comments;
 use Ffcms\Core\App;
 use Ffcms\Widgets\Ckeditor\Ckeditor;
 
+/**
+ * Class Comments. Add, list comments as widget view
+ * @package Widgets\Front\Comments
+ */
 class Comments extends Ckeditor
 {
     public $pathway;
 
+    /**
+     * Widget initialization. Set current pathway to property
+     */
     public function init()
     {
         parent::init();
@@ -18,6 +25,12 @@ class Comments extends Ckeditor
         }
     }
 
+    /**
+     * Display comment view
+     * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     */
     public function display()
     {
         parent::display();

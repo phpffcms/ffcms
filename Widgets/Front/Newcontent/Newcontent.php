@@ -17,6 +17,8 @@ class Newcontent extends Widget
     public $count;
     
     public $tpl = 'widgets/newcontent/default';
+
+    private $_cacheName;
     
     /**
      * Prepare widget. Set default configs if not defined on initialization
@@ -38,30 +40,31 @@ class Newcontent extends Widget
         if ($this->count === null || !Obj::isLikeInt($this->count)) {
             $this->count = (int)$cfg['count'];
         }
+
+        $this->_cacheName = 'widget.newcontent.' . $this->createStringClassSnapshotHash();
     }
-    
+
     /**
      * Display new content widget logic
      * {@inheritDoc}
      * @see \Ffcms\Core\Arch\Widget::display()
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function display()
     {
-        // get unique instance hash with current params
-        $cacheHash = $this->createStringClassSnapshotHash();
-        
         $query = null;
         // cache is disabled, get result directly
         if ($this->cache === 0) {
             $query = $this->makeQuery();
         } else {
             // try get query result from cache
-            $query = App::$Cache->get('widget.newcontent.' . $cacheHash);
+            $query = App::$Cache->get($this->_cacheName);
             if ($query === null) {
                 // if query is not cached make it
                 $query = $this->makeQuery();
                 // and save result to cache
-                App::$Cache->set('widget.newcontent.' . $cacheHash, $query, $this->cache);
+                App::$Cache->set($this->_cacheName, $query, $this->cache);
             }
         }
         

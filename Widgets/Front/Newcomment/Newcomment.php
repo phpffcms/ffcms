@@ -8,7 +8,8 @@ use Ffcms\Core\Traits\ClassTools;
 use Apps\ActiveRecord\CommentPost;
 
 /**
- * New comments widget. Show new comments in system.
+ * Class Newcomment. New comments widget. Show new comments in system.
+ * @package Widgets\Front\Newcomment
  */
 class Newcomment extends AbstractWidget
 {
@@ -17,6 +18,8 @@ class Newcomment extends AbstractWidget
 	public $snippet;
 	public $count;
 	public $cache;
+
+    private $_cacheName;
 
 	/**
 	 * Set default configs if not passed
@@ -35,6 +38,8 @@ class Newcomment extends AbstractWidget
     	if ($this->cache === null) {
     	    $this->cache = $cfg['cache'];
     	}
+
+        $this->_cacheName = 'widget.newcomment.' . $this->createStringClassSnapshotHash();
     }
 
     /**
@@ -46,16 +51,14 @@ class Newcomment extends AbstractWidget
      */
     public function display()
     {
-        $classHash = $this->createStringClassSnapshotHash();
-
         // work with cache and make query
         $records = null;
         if ((int)$this->cache > 0) {
-            if (App::$Cache->get('widget.newcomment.' . $classHash) !== null) {
-                $records = App::$Cache->get('widget.newcomment.' . $classHash);
+            if (App::$Cache->get($this->_cacheName) !== null) {
+                $records = App::$Cache->get($this->_cacheName);
             } else {
                 $records = $this->makeQuery();
-                App::$Cache->set('widget.newcomment.' . $classHash, $records, $this->cache);
+                App::$Cache->set($this->_cacheName, $records, $this->cache);
             }
         } else {
             $records = $this->makeQuery();
