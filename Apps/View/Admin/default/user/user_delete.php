@@ -57,6 +57,7 @@ foreach ($model->users as $user) {
 <?php
     $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']);
     echo $form->start();
-    echo $form->submitButton(__('Delete'), ['class' => 'btn btn-danger']);
+    echo $form->submitButton(__('Delete'), ['class' => 'btn btn-danger']) . "&nbsp;";
+    echo Url::link(['user/index'], __('Cancel'), ['class' => 'btn btn-default']);
     echo $form->finish();
 ?>

@@ -134,7 +134,7 @@ class Profile extends ApiController
         $viewer = App::$User->identity();
 
         // get message from post and validate minlength
-        $message = App::$Request->get('message');
+        $message = $this->request->get('message');
         $message = App::$Security->strip_tags($message);
         if (!Obj::isString($message) || Str::length($message) < 3) {
             throw new ForbiddenException('Wrong input data');
@@ -359,8 +359,8 @@ class Profile extends ApiController
         }
 
         // get special types for this action
-        $queryType = App::$Request->get('type');
-        $queryId = (int)App::$Request->get('id');
+        $queryType = $this->request->get('type');
+        $queryId = (int)$this->request->get('id');
         // get current user object
         $user = App::$User->identity();
 
@@ -467,7 +467,7 @@ class Profile extends ApiController
         }
 
         // check input params
-        $msg = App::$Security->strip_tags(App::$Request->get('message'));
+        $msg = App::$Security->strip_tags($this->request->get('message'));
         if (!Obj::isLikeInt($target_id) || $target_id < 1 || Str::length($msg) < 1) {
             throw new NativeException('Wrong input data');
         }
@@ -500,8 +500,8 @@ class Profile extends ApiController
         $this->setJsonHeader();
 
         // get operation type and target user id
-        $target_id = (int)App::$Request->get('target');
-        $type = App::$Request->get('type');
+        $target_id = (int)$this->request->get('target');
+        $type = $this->request->get('type');
 
         // check type of query
         if ($type !== '+' && $type !== '-') {

@@ -11,6 +11,8 @@ return [
     'Base path' => 'Базовый путь',
     'Admin email' => 'Админ. почта',
     'Timezone' => 'Временная зона',
+    'User run cron' => 'Запуск cron пользователем',
+    'Initialize cron manager when user load website? Enable this option if you are not configured cron tasks in your operation system' => 'Инициализировать запуск менеджера задач при загрузке сайта пользователем? Включайте эту функцию только если вы не сконфигурировали инициацию cron задач в операционной системе',
     'Debug for all' => 'Отладка для всех',
     'Default language' => 'Стандартный язык',
     'Available languages' => 'Доступные языки',

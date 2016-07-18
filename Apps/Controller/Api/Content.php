@@ -123,7 +123,7 @@ class Content extends ApiController
 
         // get file object
         /** @var $file \Symfony\Component\HttpFoundation\File\UploadedFile */
-        $file = App::$Request->files->get('gallery-files');
+        $file = $this->request->files->get('gallery-files');
         if ($file === null || $file->getError() !== 0) {
             throw new NativeException(__('Unexpected error in upload process'));
         }

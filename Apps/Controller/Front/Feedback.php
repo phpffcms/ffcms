@@ -52,14 +52,14 @@ class Feedback extends Controller
                 // if validation is passed save data to db and get row
                 $record = $model->make();
                 App::$Session->getFlashBag()->add('success', __('Your message was added successful'));
-                App::$Response->redirect('feedback/read/' . $record->id . '/' . $record->hash);
+                $this->response->redirect('feedback/read/' . $record->id . '/' . $record->hash);
             } else {
                 App::$Session->getFlashBag()->add('error', __('Message is not sended! Please, fix issues in form below'));
             }
         }
 
         // render output view
-        return App::$View->render('create', [
+        return $this->view->render('create', [
             'model' => $model->filter(),
             'useCaptcha' => (int)$configs['useCaptcha'] === 1
         ]);
@@ -107,7 +107,7 @@ class Feedback extends Controller
         }
 
         // render output view
-        return App::$View->render('read', [
+        return $this->view->render('read', [
             'model' => $model,
             'post' => $recordPost,
             'answers' => $recordPost->getAnswers()->get() // get feedback answers
@@ -136,7 +136,7 @@ class Feedback extends Controller
         }
 
         // check if action is submited
-        if (App::$Request->request->get('closeRequest', false)) {
+        if ($this->request->request->get('closeRequest', false)) {
             // if created by authorized user
             if ((int)$record->user_id !== 0) {
                 $user = App::$User->identity();
@@ -152,10 +152,10 @@ class Feedback extends Controller
 
             // add notification and redirect
             App::$Session->getFlashBag()->add('warning', __('Feedback request now is closed!'));
-            App::$Response->redirect('feedback/read/' . $id . '/' . $hash);
+            $this->response->redirect('feedback/read/' . $id . '/' . $hash);
         }
 
-        return App::$View->render('close');
+        return $this->view->render('close');
     }
 
     /**
@@ -168,7 +168,7 @@ class Feedback extends Controller
     public function actionList()
     {
         // set current page and offset
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)$this->request->query->get('page');
         $offset = $page * self::ITEM_PER_PAGE;
 
         // check if user is authorized or throw exception
@@ -194,7 +194,7 @@ class Feedback extends Controller
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         // render viewer with parameters
-        return App::$View->render('list', [
+        return $this->view->render('list', [
             'records' => $records,
             'pagination' => $pagination,
         ]);

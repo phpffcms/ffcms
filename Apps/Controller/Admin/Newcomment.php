@@ -31,7 +31,7 @@ class Newcomment extends AdminController
             App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
         }
         
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'model' => $model->filter()
         ]);
     }

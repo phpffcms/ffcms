@@ -34,4 +34,5 @@ echo $this->render('feedback/_tabs');
 </div>
 <form action="" method="post">
     <input type="submit" name="deleteFeedback" value="<?= __('Delete') ?>" class="btn btn-danger" />
+    <?= Url::link(['feedback/index'], __('Cancel'), ['class' => 'btn btn-default']); ?>
 </form>

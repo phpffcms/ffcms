@@ -39,6 +39,10 @@ $this->breadcrumbs = [
 <br />
 <?php endif; ?>
 
-<div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?></div>
+<div class="col-md-offset-3 col-md-9">
+    <?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?>
+    <?= Url::link(['user/delete', $model->_user->id], __('Delete'), ['class' => 'btn btn-danger']) ?>
+    <?= Url::link(['user/index'], __('Cancel'), ['class' => 'btn btn-default']) ?>
+</div>
 
 <?= $form->finish() ?>

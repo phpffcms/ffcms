@@ -15,16 +15,19 @@ use Ffcms\Core\Helper\Type\Obj;
  */
 class FormSettings extends Model
 {
+    // base cfg
     public $baseProto;
     public $baseDomain;
     public $basePath;
     public $passwordSalt;
     public $timezone;
-
+    public $adminEmail;
     public $debug;
+    public $userCron;
+
+    // theme & database configs
     public $theme;
     public $database;
-    public $adminEmail;
 
     // lang cfgs
     public $baseLanguage = 'en';
@@ -66,6 +69,7 @@ class FormSettings extends Model
             'basePath' => __('Base path'),
             'adminEmail' => __('Admin email'),
             'timezone' => __('Timezone'),
+            'userCron' => __('User run cron'),
             'debug.all' => __('Debug for all'),
             'singleLanguage' => __('Default language'),
             'languages' => __('Available languages'),
@@ -84,7 +88,7 @@ class FormSettings extends Model
             'debug.cookie.value' => __('Debug cookie value'),
             'gaClientId' => __('GA Client ID'),
             'gaTrackId' => __('GA Track ID'),
-            'trustedProxy' => __('Proxy list')
+            'trustedProxy' => __('Proxy list'),
         ];
     }
 
@@ -95,14 +99,15 @@ class FormSettings extends Model
     public function rules()
     {
         return [
-            [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy', 'languages'], 'used'],
+            [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy', 'languages', 'userCron'], 'used'],
             [['baseProto', 'baseDomain', 'basePath', 'singleLanguage', 'adminEmail', 'timezone'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
             [['database.driver', 'database.database'], 'required'],
             ['adminEmail', 'email'],
             ['timezone', 'string'],
-            ['baseProto', 'in', ['http', 'https']]
+            ['baseProto', 'in', ['http', 'https']],
+            ['userCron', 'in', ['0', '1']]
         ];
     }
 

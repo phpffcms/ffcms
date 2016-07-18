@@ -71,6 +71,9 @@ if ((int)$model->id == '1') {
 <?= $form->field('configs.showPoster', 'checkbox', null, __('Display content poster from gallery in this category?')) ?>
 <?= $form->field('configs.showRss', 'checkbox', null, __('Allow display RSS 2.0 feed for this category?')) ?>
 
-<div class="col-md-9 col-md-offset-3"><?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?></div>
+<div class="col-md-9 col-md-offset-3">
+    <?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']); ?>
+    <?= Url::link(['content/categories'], __('Cancel'), ['class' => 'btn btn-default']); ?>
+</div>
 
 <?= $form->finish() ?>

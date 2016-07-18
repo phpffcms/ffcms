@@ -24,6 +24,9 @@ $this->breadcrumbs = [
 <?= $form->field('name', 'text', ['class' => 'form-control'], __('Set the name of the group')) ?>
 <?= $form->field('permissions', 'checkboxes', ['options' => $model->getAllPermissions()]) ?>
 
-<div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?></div>
+<div class="col-md-offset-3 col-md-9">
+    <?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?>
+    <?= Url::link(['user/grouplist'], __('Cancel'), ['class' => 'btn btn-default']) ?>
+</div>
 
 <?= $form->finish() ?>

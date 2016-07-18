@@ -44,8 +44,8 @@ class FormUserUpdate extends Model
     public function before()
     {
         foreach ($this->getAllProperties() as $property => $old_data) {
-            if (null !== $this->_user->$property) {
-                $this->$property = $this->_user->$property;
+            if ($this->_user->{$property} !== null) {
+                $this->{$property} = $this->_user->{$property};
             }
         }
         $this->_approve_tmp = $this->approve_token;

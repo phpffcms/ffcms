@@ -40,7 +40,7 @@ class Comments extends AdminController
     public function actionIndex()
     {
         // set current page and offset
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)$this->request->query->get('page');
         $offset = $page * self::ITEM_PER_PAGE;
 
         // initialize active record model
@@ -58,7 +58,7 @@ class Comments extends AdminController
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         // render output view
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'records' => $records,
             'pagination' => $pagination
         ]);
@@ -81,7 +81,7 @@ class Comments extends AdminController
         }
 
         // render response
-        return App::$View->render('comment_read', [
+        return $this->view->render('comment_read', [
             'record' => $record
         ]);
     }
@@ -123,7 +123,7 @@ class Comments extends AdminController
         }
 
         // render view
-        return App::$View->render('edit', [
+        return $this->view->render('edit', [
             'model' => $model->filter()
         ]);
     }
@@ -141,7 +141,7 @@ class Comments extends AdminController
     {
         // sounds like a multiply delete definition
         if ($id === 0 || (int)$id < 1) {
-            $ids = App::$Request->query->get('selected');
+            $ids = $this->request->query->get('selected');
             if (Obj::isArray($ids) && Arr::onlyNumericValues($ids)) {
                 $id = $ids;
             } else {
@@ -174,11 +174,11 @@ class Comments extends AdminController
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Comments or answers are successful deleted!'));
-            App::$Response->redirect('comments/' . ($type === 'answer' ? 'answerlist' : 'index'));
+            $this->response->redirect('comments/' . ($type === 'answer' ? 'answerlist' : 'index'));
         }
 
         // render view
-        return App::$View->render('delete', [
+        return $this->view->render('delete', [
             'model' => $model
         ]);
     }
@@ -196,7 +196,7 @@ class Comments extends AdminController
     {
         // check if it multiple accept ids
         if ($id === 0 || (int)$id < 1) {
-            $ids = App::$Request->query->get('selected');
+            $ids = $this->request->query->get('selected');
             if (Obj::isArray($ids) && Arr::onlyNumericValues($ids)) {
                 $id = $ids;
             } else {
@@ -229,10 +229,10 @@ class Comments extends AdminController
         if ($model->send()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Comments or answers are successful published'));
-            App::$Response->redirect('comments/' . ($type === 'answer' ? 'answerlist' : 'index'));
+            $this->response->redirect('comments/' . ($type === 'answer' ? 'answerlist' : 'index'));
         }
 
-        return App::$View->render('publish', [
+        return $this->view->render('publish', [
             'model' => $model
         ]);
     }
@@ -246,7 +246,7 @@ class Comments extends AdminController
     public function actionAnswerlist()
     {
         // set current page and offset
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)$this->request->query->get('page');
         $offset = $page * self::ITEM_PER_PAGE;
 
         // initialize ar answers model
@@ -264,7 +264,7 @@ class Comments extends AdminController
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         // render output view
-        return App::$View->render('answer_list', [
+        return $this->view->render('answer_list', [
             'records' => $records,
             'pagination' => $pagination
         ]);
@@ -286,14 +286,14 @@ class Comments extends AdminController
             if ($model->validate()) {
                 $this->setConfigs($model->getAllProperties());
                 App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                App::$Response->redirect('comments/index');
+                $this->response->redirect('comments/index');
             } else {
                 App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
             }
         }
 
         // render view
-        return App::$View->render('settings', [
+        return $this->view->render('settings', [
             'model' => $model->filter()
         ]);
     }

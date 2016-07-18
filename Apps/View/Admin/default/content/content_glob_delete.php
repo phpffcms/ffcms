@@ -51,5 +51,6 @@ foreach ($model->data as $item) {
     ]
 ]) ?>
 
-<?= $form->submitButton(__('Delete all'), ['class' => 'btn btn-danger']) ?>
+<?= $form->submitButton(__('Delete all'), ['class' => 'btn btn-danger']); ?>&nbsp;
+<?= Url::link(['content/index'], __('Cancel'), ['class' => 'btn btn-default']); ?>
 <?= $form->finish() ?>

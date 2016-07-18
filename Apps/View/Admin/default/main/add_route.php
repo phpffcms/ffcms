@@ -36,6 +36,9 @@ $this->title = __('Add route');
 <?= $form->field('target', 'text', ['class' => 'form-control'], __('Define target path or class path for displayd item on source path')) ?>
 
 
-<div class="col-md-9 col-md-offset-3"><?= $form->submitButton(__('Add new route'), ['class' => 'btn btn-primary']) ?></div>
+<div class="col-md-9 col-md-offset-3">
+    <?= $form->submitButton(__('Add new route'), ['class' => 'btn btn-primary']) ?>
+    <?= Url::link(['main/routing'], __('Cancel'), ['class' => 'btn btn-default']); ?>
+</div>
 
 <?= $form->finish() ?>

@@ -33,7 +33,7 @@ class Feedback extends Controller
     public function actionIndex()
     {
         // set current page and offset
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)$this->request->query->get('page');
         $offset = $page * self::ITEM_PER_PAGE;
 
         // get feedback posts AR table
@@ -51,7 +51,7 @@ class Feedback extends Controller
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         // render output
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'records' => $records,
             'pagination' => $pagination
         ]);
@@ -88,7 +88,7 @@ class Feedback extends Controller
         }
 
         // render view
-        return App::$View->render('read', [
+        return $this->view->render('read', [
             'record' => $record,
             'model' => $model
         ]);
@@ -131,14 +131,14 @@ class Feedback extends Controller
             if ($model->validate()) {
                 $model->make();
                 App::$Session->getFlashBag()->add('success', __('Feedback item are successful changed'));
-                App::$Response->redirect('feedback/read/' . $postId);
+                $this->response->redirect('feedback/read/' . $postId);
             } else {
                 App::$Session->getFlashBag()->add('danger', __('Updating is failed'));
             }
         }
 
         // render output view
-        return App::$View->render('update', [
+        return $this->view->render('update', [
             'model' => $model->filter()
         ]);
     }
@@ -181,7 +181,7 @@ class Feedback extends Controller
         App::$Session->getFlashBag()->add('success', __('Feedback request is changed!'));
 
         // redirect to feedback post read
-        App::$Response->redirect('feedback/read/' . $id);
+        $this->response->redirect('feedback/read/' . $id);
         return null;
     }
 
@@ -214,24 +214,24 @@ class Feedback extends Controller
         }
 
         // if delete is submited
-        if (App::$Request->request->get('deleteFeedback')) {
+        if ($this->request->request->get('deleteFeedback')) {
             // remove all answers
             if ($type === 'post') {
                 FeedbackAnswer::where('feedback_id', '=', $record->id)->delete();
                 // remove item
                 $record->delete();
                 App::$Session->getFlashBag()->add('success', __('Feedback record is successful removed'));
-                App::$Response->redirect('feedback/index');
+                $this->response->redirect('feedback/index');
             } else {
                 // its a answer, lets remove it and redirect back in post
                 $postId = $record->feedback_id;
                 $record->delete();
-                App::$Response->redirect('feedback/read/' . $postId);
+                $this->response->redirect('feedback/read/' . $postId);
             }
         }
 
         // render view
-        return App::$View->render('delete', [
+        return $this->view->render('delete', [
             'type' => $type,
             'record' => $record
         ]);
@@ -255,14 +255,14 @@ class Feedback extends Controller
                 // save properties
                 $this->setConfigs($model->getAllProperties());
                 App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                App::$Response->redirect('feedback/index');
+                $this->response->redirect('feedback/index');
             } else {
                 App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
             }
         }
 
         // render view
-        return App::$View->render('settings', [
+        return $this->view->render('settings', [
             'model' => $model->filter()
         ]);
     }

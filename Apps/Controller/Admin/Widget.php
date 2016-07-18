@@ -36,7 +36,7 @@ class Widget extends AdminController
      */
     public function actionIndex()
     {
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'widgets' => $this->widgets
         ]);
     }
@@ -58,7 +58,7 @@ class Widget extends AdminController
                 // try to run ::install method from remoute controller
                 if ($model->make()) {
                     App::$Session->getFlashBag()->add('success', __('Widget "%widget%" is successful installed!', ['widget' => $model->sysname]));
-                    App::$Response->redirect('widget/index');
+                    $this->response->redirect('widget/index');
                 } else {
                     App::$Session->getFlashBag()->add('error', __('During the installation process an error has occurred! Please contact with widget developer.'));
                 }
@@ -67,7 +67,7 @@ class Widget extends AdminController
             }
         }
 
-        return App::$View->render('install', [
+        return $this->view->render('install', [
             'model' => $model->filter()
         ]);
     }
@@ -97,11 +97,11 @@ class Widget extends AdminController
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Widget %w% is successful updated to %v% version', ['w' => $sys_name, 'v' => $model->scriptVersion]));
-            App::$Response->redirect('application/index');
+            $this->response->redirect('application/index');
         }
 
         // render response
-        return App::$View->render('update', [
+        return $this->view->render('update', [
             'model' => $model->filter()
         ]);
     }
@@ -131,7 +131,7 @@ class Widget extends AdminController
             App::$Session->getFlashBag()->add('success', __('Widget status was changed'));
         }
 
-        return App::$View->render('turn', [
+        return $this->view->render('turn', [
             'widget' => $search,
             'model' => $model
         ]);

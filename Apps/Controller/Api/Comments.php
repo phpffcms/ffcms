@@ -32,7 +32,7 @@ class Comments extends ApiController
         $this->setJsonHeader();
         $configs = AppRecord::getConfigs('widget', 'Comments');
 
-        $replayTo = (int)App::$Request->request->get('replay-to');
+        $replayTo = (int)$this->request->request->get('replay-to');
         $model = null;
         // check if its a answer (comment answer type)
         if ($replayTo > 0) {
@@ -40,12 +40,12 @@ class Comments extends ApiController
             $model->replayTo = $replayTo;
         } else { // sounds like new comment row
             $model = new CommentPostAdd($configs);
-            $model->pathway = App::$Security->strip_tags(App::$Request->request->get('pathway'));
+            $model->pathway = App::$Security->strip_tags($this->request->request->get('pathway'));
         }
 
         // pass general comment params to model
-        $model->message = App::$Security->secureHtml((string)App::$Request->request->get('message'));
-        $model->guestName = App::$Security->strip_tags(App::$Request->request->get('guest-name'));
+        $model->message = App::$Security->secureHtml((string)$this->request->request->get('message'));
+        $model->guestName = App::$Security->strip_tags($this->request->request->get('guest-name'));
 
         // check model conditions before add new row
         if ($model === null || !$model->check()) {
@@ -81,7 +81,7 @@ class Comments extends ApiController
         $index = (int)$index;
         $offset = $perPage * $index;
         // get comment target path and check
-        $path = (string)App::$Request->query->get('path');
+        $path = (string)$this->request->query->get('path');
         if (Str::likeEmpty($path)) {
             throw new NotFoundException('Wrong path');
         }
@@ -92,7 +92,7 @@ class Comments extends ApiController
 
         // check if comments is depend of language locale
         if ((int)$configs['onlyLocale'] === 1) {
-            $query = $query->where('lang', '=', App::$Request->getLanguage());
+            $query = $query->where('lang', '=', $this->request->getLanguage());
         }
 
         // get comments with offset and limit
@@ -152,7 +152,7 @@ class Comments extends ApiController
         $records = CommentAnswer::where('comment_id', '=', $commentId)
             ->where('moderate', '=', 0);
         if ((int)$configs['onlyLocale'] === 1) {
-            $records = $records->where('lang', '=', App::$Request->getLanguage());
+            $records = $records->where('lang', '=', $this->request->getLanguage());
         }
 
         // check objects count
@@ -185,7 +185,7 @@ class Comments extends ApiController
         // get configs
         $configs = AppRecord::getConfigs('widget', 'Comments');
         // get path array from request
-        $path = App::$Request->query->get('path');
+        $path = $this->request->query->get('path');
         if (!Obj::isArray($path) || count($path) < 1) {
             throw new NativeException('Wrong query params');
         }
@@ -196,7 +196,7 @@ class Comments extends ApiController
             $query = CommentPost::where('pathway', '=', $uri)->where('moderate', '=', 0);
             // check if comments is depend of language locale
             if ((int)$configs['onlyLocale'] === 1) {
-                $query = $query->where('lang', '=', App::$Request->getLanguage());
+                $query = $query->where('lang', '=', $this->request->getLanguage());
             }
             // set itemId => count
             $count[(int)$id] = $query->count();

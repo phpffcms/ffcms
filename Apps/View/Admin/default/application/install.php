@@ -21,7 +21,8 @@ $this->breadcrumbs = [
 
 <?= $form->field('sysname', 'text', ['class' => 'form-control'], __('Specify your application system name for installation')) ?>
 
-<?= $form->submitButton(__('Try install'), ['class' => 'btn btn-primary']) ?>
+<?= $form->submitButton(__('Try install'), ['class' => 'btn btn-primary']) ?>&nbsp;
+<?= Url::link(['application/index'], __('Cancel'), ['class' => 'btn btn-default']); ?>
 
 <?= $form->finish() ?>
 

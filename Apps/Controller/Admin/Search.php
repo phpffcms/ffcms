@@ -28,14 +28,14 @@ class Search extends AdminController
                 // save configurations
                 $this->setConfigs($model->getAllProperties());
                 App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                App::$Response->redirect('search/index');
+                $this->response->redirect('search/index');
             } else {
                 App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
             }
         }
 
         // render output view
-        return App::$View->render('settings', [
+        return $this->view->render('settings', [
             'model' => $model->filter()
         ]);
     }

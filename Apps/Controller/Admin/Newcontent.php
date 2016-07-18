@@ -33,7 +33,7 @@ class Newcontent extends AdminController
         }
         
         // render viewer
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'model' => $model->filter()
         ]);
     }

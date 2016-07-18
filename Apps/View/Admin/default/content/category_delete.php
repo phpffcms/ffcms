@@ -31,6 +31,9 @@ $this->breadcrumbs = [
 
 <?= $form->field('moveTo', 'select', ['class' => 'form-control', 'options' => $model->categoryList(), 'optionsKey' => true], __('Select category acceptor of current category contents')) ?>
 
-<div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Remove'), ['class' => 'btn btn-danger']) ?></div>
+<div class="col-md-offset-3 col-md-9">
+    <?= $form->submitButton(__('Remove'), ['class' => 'btn btn-danger']) ?>
+    <?= Url::link(['content/categories'], __('Cancel'), ['class' => 'btn btn-default']); ?>
+</div>
 
 <?= $form->finish() ?>

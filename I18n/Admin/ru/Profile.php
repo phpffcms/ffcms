@@ -55,5 +55,6 @@ return [
     'Rating delay' => 'Задержка рейтинга',
     'Delay in seconds between repeat change of rating from one user(model: one to one)' => 'Задержка между двумя сменами рейтинга от одного пользователя в секундах(модель - один к одному)',
     'Form validation is failed' => 'При валидации формы произошла ошибка',
-    'Add field' => 'Добавить поле'
+    'Add field' => 'Добавить поле',
+    'No additional fields is add yet!' => 'Пока нет добавленных дополнительных полей'
 ];

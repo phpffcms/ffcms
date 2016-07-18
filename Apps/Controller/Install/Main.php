@@ -43,7 +43,7 @@ class Main extends Controller
 
         $model = new EntityCheck();
 
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'model' => $model
         ]);
     }
@@ -63,10 +63,10 @@ class Main extends Controller
         $model = new FormInstall();
         if ($model->send() && $model->validate()) {
             $model->make();
-            App::$Response->redirect('main/success');
+            $this->response->redirect('main/success');
         }
 
-        return App::$View->render('install', [
+        return $this->view->render('install', [
             'model' => $model->filter()
         ]);
     }
@@ -78,6 +78,6 @@ class Main extends Controller
      */
     public function actionSuccess()
     {
-        return App::$View->render('success');
+        return $this->view->render('success');
     }
 }

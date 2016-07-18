@@ -40,10 +40,12 @@ try {
 
     $cronManager = new \Ffcms\Core\Managers\CronManager(\App::$Properties->getAll('Cron'));
     $logs = $cronManager->run();
-    if ($logs !== null && \Ffcms\Core\Helper\Type\Obj::isArray($logs) && count($logs) > 0) {
-        echo 'Run cron tasks: ' . PHP_EOL . implode(PHP_EOL, $logs);
-    } else {
-        echo 'No tasks runned';
+    if (PHP_SAPI === 'cli') {
+        if ($logs !== null && \Ffcms\Core\Helper\Type\Obj::isArray($logs) && count($logs) > 0) {
+            echo 'Run cron tasks: ' . PHP_EOL . implode(PHP_EOL, $logs);
+        } else {
+            echo 'No tasks runned';
+        }
     }
 } catch (Exception $e) {
     (new \Ffcms\Core\Exception\NativeException($e->getMessage()))->display();

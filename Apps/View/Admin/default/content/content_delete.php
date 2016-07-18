@@ -29,6 +29,9 @@ $this->breadcrumbs = [
 <?= $form->field('id', 'text', ['class' => 'form-control', 'disabled' => null]) ?>
 <?= $form->field('title', 'text', ['class' => 'form-control', 'disabled' => null]) ?>
 
-<div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Remove'), ['class' => 'btn btn-danger']) ?></div>
+<div class="col-md-offset-3 col-md-9">
+    <?= $form->submitButton(__('Remove'), ['class' => 'btn btn-danger']) ?>
+    <?= Url::link(['content/index'], __('Cancel'), ['class' => 'btn btn-default']); ?>
+</div>
 
 <?= $form->finish() ?>

@@ -19,7 +19,7 @@ class Main extends Controller
     {
         $this->wtf = 'Test global variable';
 
-        return App::$View->render('index', ['t1' => 'test1', 't2' => 'test2']);
+        return $this->view->render('index', ['t1' => 'test1', 't2' => 'test2']);
     }
 
     public function actionRead($id)

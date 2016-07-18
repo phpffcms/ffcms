@@ -111,8 +111,8 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
 ]);?>
 
 <?= $form->field('galleryFreeId', 'hidden') ?>
-<?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?>
-
+<?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?>&nbsp;
+<?= Url::link(['content/index'], __('Cancel'), ['class' => 'btn btn-default']) ?>
 <?= $form->finish() ?>
 
 <?php

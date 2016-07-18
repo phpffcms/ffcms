@@ -21,7 +21,7 @@ class Captcha extends ApiController
         App::$Session->set('captcha', $builder->getPhrase());
 
         // set header and display JPEG
-        App::$Response->headers->set('Content-type', 'image/jpeg');
+        $this->response->headers->set('Content-type', 'image/jpeg');
         $builder->output();
     }
 }

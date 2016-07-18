@@ -20,7 +20,7 @@ class Sitemap extends FrontAppController
     public function before()
     {
         $this->layout = null;
-        App::$Response->headers->set('Content-type', 'text/xml');
+        $this->response->headers->set('Content-type', 'text/xml');
     }
 
     /**
@@ -32,7 +32,7 @@ class Sitemap extends FrontAppController
     public function actionIndex()
     {
         // initialize model - scan available sitemap indexes
-        $model = new EntityIndexList(App::$Request->getLanguage());
+        $model = new EntityIndexList($this->request->getLanguage());
 
         // run event - allow add any other sitemap indexes in model before render it
         App::$Event->run(static::EVENT_SITEMAP_LIST, [
@@ -42,7 +42,7 @@ class Sitemap extends FrontAppController
         // build information about files
         $model->make();
 
-        return App::$View->render('native/sitemap/index', [
+        return $this->view->render('native/sitemap/index', [
             'model' => $model
         ]);
     }

@@ -59,7 +59,7 @@ class Main extends AdminController
         $model = new EntityCheck();
 
         // render view output
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'stats' => $stats,
             'check' => $model
         ]);
@@ -79,7 +79,7 @@ class Main extends AdminController
             if ($model->validate()) {
                 if ($model->makeSave()) {
                     // show message about successful save and take system some time ;)
-                    return App::$View->render('settings_save');
+                    return $this->view->render('settings_save');
                 } else {
                     App::$Session->getFlashBag()->add('error', __('Configuration file is not writable! Check /Private/Config/ dir and files'));
                 }
@@ -89,7 +89,7 @@ class Main extends AdminController
         }
 
         // render output view
-        return App::$View->render('settings', [
+        return $this->view->render('settings', [
             'model' => $model->filter()
         ]);
     }
@@ -102,8 +102,8 @@ class Main extends AdminController
      */
     public function actionFiles()
     {
-        return App::$View->render('files', [
-            'connector' => App::$Alias->scriptUrl . '/api/main/files?lang=' . App::$Request->getLanguage()
+        return $this->view->render('files', [
+            'connector' => App::$Alias->scriptUrl . '/api/main/files?lang=' . $this->request->getLanguage()
         ]);
     }
 
@@ -115,7 +115,7 @@ class Main extends AdminController
      */
     public function actionAntivirus()
     {
-        return App::$View->render('antivirus');
+        return $this->view->render('antivirus');
     }
 
     /**
@@ -124,9 +124,9 @@ class Main extends AdminController
     public function actionDebugcookie()
     {
         $cookieProperty = App::$Properties->get('debug');
-        //App::$Request->cookies->add([$cookieProperty['cookie']['key'] => $cookieProperty['cookie']['value']]); todo: fix me
+        //$this->request->cookies->add([$cookieProperty['cookie']['key'] => $cookieProperty['cookie']['value']]); todo: fix me
         setcookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], Integer::MAX, '/', null, null, true);
-        App::$Response->redirect('/');
+        $this->response->redirect('/');
     }
 
     /**
@@ -139,7 +139,7 @@ class Main extends AdminController
     {
         $routingMap = App::$Properties->getAll('Routing');
 
-        return App::$View->render('routing', [
+        return $this->view->render('routing', [
             'routes' => $routingMap
         ]);
     }
@@ -158,10 +158,10 @@ class Main extends AdminController
             App::$Session->getFlashBag()->add('error', __('Routing configuration file is not allowed to write: /Private/Config/Routing.php'));
         } elseif ($model->send() && $model->validate()) {
             $model->save();
-            return App::$View->render('add_route_save');
+            return $this->view->render('add_route_save');
         }
 
-        return App::$View->render('add_route', [
+        return $this->view->render('add_route', [
             'model' => $model->filter()
         ]);
     }
@@ -174,17 +174,17 @@ class Main extends AdminController
      */
     public function actionDeleteroute()
     {
-        $type = (string)App::$Request->query->get('type');
-        $loader = (string)App::$Request->query->get('loader');
-        $source = Str::lowerCase((string)App::$Request->query->get('path'));
+        $type = (string)$this->request->query->get('type');
+        $loader = (string)$this->request->query->get('loader');
+        $source = Str::lowerCase((string)$this->request->query->get('path'));
 
         $model = new EntityDeleteRoute($type, $loader, $source);
         if ($model->send() && $model->validate()) {
             $model->make();
-            return App::$View->render('delete_route_save');
+            return $this->view->render('delete_route_save');
         }
 
-        return App::$View->render('delete_route', [
+        return $this->view->render('delete_route', [
             'model' => $model->filter()
         ]);
     }
@@ -202,16 +202,16 @@ class Main extends AdminController
         $size = round((int)$stats['size'] / (1024*1024), 2);
 
         // check if submited
-        if (App::$Request->request->get('clearcache', false)) {
+        if ($this->request->request->get('clearcache', false)) {
             // clear cache
             App::$Cache->clean();
             // add notification & redirect
             App::$Session->getFlashBag()->add('success', __('Cache cleared successfully'));
-            App::$Response->redirect('/');
+            $this->response->redirect('/');
         }
 
         // render output view
-        return App::$View->render('clear_cache', [
+        return $this->view->render('clear_cache', [
             'size' => $size
         ]);
     }
@@ -228,16 +228,16 @@ class Main extends AdminController
         $sessions = Session::all();
 
         // check if action is submited
-        if (App::$Request->request->get('clearsessions', false)) {
+        if ($this->request->request->get('clearsessions', false)) {
             // truncate table
             App::$Database->table('sessions')->truncate();
             // add notification and make redirect to main
             App::$Session->getFlashBag()->add('success', __('Sessions cleared successfully'));
-            App::$Response->redirect('/');
+            $this->response->redirect('/');
         }
 
         // render output view
-        return App::$View->render('clear_sessions', [
+        return $this->view->render('clear_sessions', [
             'count' => $sessions->count()
         ]);
     }

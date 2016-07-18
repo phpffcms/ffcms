@@ -103,7 +103,7 @@ echo $this->render('feedback/_tabs');
     <?php foreach ($record->getAnswers()->get() as $answer): ?>
         <div class="panel <?= (int)$answer->is_admin === 1 ? 'panel-success' : 'panel-default' ?>">
             <div class="panel-heading">
-                <?= __('From') ?>: <?= $answer->name . '(' . $answer->email . ')' ?>,
+                <?= __('From') ?>: <?= $answer->name . '(' . $answer->email . ')' . ((int)$answer->user_id > 0 ? Url::link(['user/update', $answer->user_id], '[id' . $answer->user_id . ']') : null) ?>,
                 <?= Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_HOUR) ?>
                 <span class="pull-right">
                     <?= Url::link(['feedback/update', 'answer', $answer->id], __('Edit'), ['class' => 'label label-primary']) ?>

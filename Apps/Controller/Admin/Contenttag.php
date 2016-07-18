@@ -30,7 +30,7 @@ class Contenttag extends AdminController
         }
         
         // render view output
-        return App::$View->render('index', [
+        return $this->view->render('index', [
            'model' => $model->filter()
         ]);
     }

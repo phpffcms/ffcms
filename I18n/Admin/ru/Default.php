@@ -4,6 +4,7 @@ return [
     'Lang' => 'Язык',
     'FFCMS 3 Dashboard' => 'Панель управления FFCMS 3',
     'Dashboard' => 'Панель управления',
+    'Cancel' => 'Отмена',
     'Field "%field%" is incorrect' => 'Поле "%field%" заполнено не верно!',
     'Main' => 'Главная',
     'Applications' => 'Приложения',

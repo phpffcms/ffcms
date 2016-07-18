@@ -22,7 +22,7 @@ class Sitemap extends AdminController
     {
         $model = new EntityIndexList();
         
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'model' => $model
         ]);
     }

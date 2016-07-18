@@ -53,10 +53,10 @@ class Content extends FrontAppController
      */
     public function actionList()
     {
-        $path = App::$Request->getPathWithoutControllerAction();
+        $path = $this->request->getPathWithoutControllerAction();
         $configs = $this->getConfigs();
-        $page = (int)App::$Request->query->get('page', 0);
-        $sort = (string)App::$Request->query->get('sort', 'newest');
+        $page = (int)$this->request->query->get('page', 0);
+        $sort = (string)$this->request->query->get('sort', 'newest');
         $itemCount = (int)$configs['itemPerCategory'];
 
         // build special model with content list and category list information
@@ -82,7 +82,7 @@ class Content extends FrontAppController
         ]);
 
         // draw response view
-        return App::$View->render('list', [
+        return $this->view->render('list', [
             'model' => $model,
             'pagination' => $pagination,
             'configs' => $configs,
@@ -99,7 +99,7 @@ class Content extends FrontAppController
     public function actionRead()
     {
         // get raw path without controller-action
-        $rawPath = App::$Request->getPathWithoutControllerAction();
+        $rawPath = $this->request->getPathWithoutControllerAction();
         $arrayPath = explode('/', $rawPath);
         // get category and content item path as string
         $contentPath = array_pop($arrayPath);
@@ -147,7 +147,7 @@ class Content extends FrontAppController
         ]);
 
         // render view output
-        return App::$View->render('read', [
+        return $this->view->render('read', [
             'model' => $model,
             'search' => $search,
             'trash' => $trash,
@@ -192,7 +192,7 @@ class Content extends FrontAppController
         ]);
 
         // render response
-        return App::$View->render('tag', [
+        return $this->view->render('tag', [
             'records' => $records->get(),
             'tag' => App::$Security->strip_tags($tagName)
         ]);
@@ -205,7 +205,7 @@ class Content extends FrontAppController
      */
     public function actionRss()
     {
-        $path = App::$Request->getPathWithoutControllerAction();
+        $path = $this->request->getPathWithoutControllerAction();
         $configs = $this->getConfigs();
 
         // build model data
@@ -278,7 +278,7 @@ class Content extends FrontAppController
         }
 
         // prepare query
-        $page = (int)App::$Request->query->get('page', 0);
+        $page = (int)$this->request->query->get('page', 0);
         $offset = $page * 10;
         $query = ContentRecord::where('author_id', '=', App::$User->identity()->getId());
 
@@ -294,7 +294,7 @@ class Content extends FrontAppController
         $records = $query->skip($offset)->take(10)->orderBy('id', 'DESC')->get();
 
         // render output view
-        return App::$View->render('my', [
+        return $this->view->render('my', [
             'records' => $records,
             'pagination' => $pagination
         ]);
@@ -338,14 +338,14 @@ class Content extends FrontAppController
             // if is new - make redirect to listing & add notify
             if ($new === true) {
                 App::$Session->getFlashBag()->add('success', __('Content successfully added'));
-                App::$Response->redirect('content/my');
+                $this->response->redirect('content/my');
             } else {
                 App::$Session->getFlashBag()->add('success', __('Content successfully updated'));
             }
         }
 
         // render view output
-        return App::$View->render('update', [
+        return $this->view->render('update', [
             'model' => $model->filter(['text' => 'html']),
             'configs' => $configs
         ]);

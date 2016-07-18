@@ -8,6 +8,8 @@ use Ffcms\Core\Helper\Url;
 /** @var $this object */
 /** @var $model object */
 
+$this->title = __('Turn on/off');
+
 $this->breadcrumbs = [
     Url::to('main/index') => __('Main'),
     Url::to('widget/index') => __('Widgets'),
@@ -40,6 +42,9 @@ $this->breadcrumbs = [
 
 <?= $form->start() ?>
 
-<div class="col-md-12"><?= $form->submitButton(__('Switch'), ['class' => 'btn btn-primary']); ?></div>
+<div class="col-md-12">
+    <?= $form->submitButton(__('Switch'), ['class' => 'btn btn-primary']); ?>
+    <?= Url::link(['widget/index'], __('Cancel'), ['class' => 'btn btn-default']); ?>
+</div>
 
 <?= $form->finish(); ?>

@@ -25,7 +25,7 @@ class Search extends Controller
     public function actionIndex()
     {
         // get search query value from GET headers
-        $query = (string)App::$Request->query->get('query', null);
+        $query = (string)$this->request->query->get('query', null);
         // strip html tags
         $query = App::$Security->strip_tags($query);
         // get configs
@@ -52,7 +52,7 @@ class Search extends Controller
         ]);
 
         // render output view with search result
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'model' => $model,
             'query' => $query
         ]);

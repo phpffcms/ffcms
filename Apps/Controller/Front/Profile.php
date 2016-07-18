@@ -52,7 +52,7 @@ class Profile extends FrontAppController
         $records = null;
 
         // set current page and offset
-        $page = (int)App::$Request->query->get('page', 0);
+        $page = (int)$this->request->query->get('page', 0);
         $cfgs = Serialize::decode($this->application->configs);
         $userPerPage = (int)$cfgs['usersOnPage'];
         if ($userPerPage < 1) {
@@ -90,7 +90,7 @@ class Profile extends FrontAppController
                 $records = (new ProfileRecords())->orderBy('id', 'DESC');
                 break;
             default:
-                App::$Response->redirect('profile/index/all');
+                $this->response->redirect('profile/index/all');
                 break;
         }
 
@@ -102,7 +102,7 @@ class Profile extends FrontAppController
             'total' => $records->count()
         ]);
 
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'records' => $records->skip($offset)->take($userPerPage)->get(),
             'pagination' => $pagination,
             'id' => $filter_name,
@@ -156,7 +156,7 @@ class Profile extends FrontAppController
 
         $query = $targetPersone->getWall(); // relation hasMany from users to walls
         // pagination and query params
-        $wallPage = (int)App::$Request->query->get('page');
+        $wallPage = (int)$this->request->query->get('page');
         $wallItems = (int)$cfg['wallPostOnPage'];
         $wallOffset = $wallPage * $wallItems;
 
@@ -171,7 +171,7 @@ class Profile extends FrontAppController
         // get wall messages
         $wallRecords = $query->orderBy('id', 'desc')->skip($wallOffset)->take($wallItems)->get();
 
-        return App::$View->render('show', [
+        return $this->view->render('show', [
             'user' => $targetPersone,
             'viewer' => $viewerPersone,
             'isSelf' => ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id),
@@ -208,7 +208,7 @@ class Profile extends FrontAppController
             }
         }
 
-        return App::$View->render('avatar', [
+        return $this->view->render('avatar', [
             'user' => $user,
             'model' => $model
         ]);
@@ -251,10 +251,10 @@ class Profile extends FrontAppController
         $wallModel = new FormWallPostDelete($wallPost);
         if ($wallModel->send() && $wallModel->validate()) {
             $wallModel->make();
-            App::$Response->redirect('profile/show/' . $wallPost->target_id);
+            $this->response->redirect('profile/show/' . $wallPost->target_id);
         }
 
-        return App::$View->render('wall_delete', [
+        return $this->view->render('wall_delete', [
             'post' => $wallPost,
             'model' => $wallModel->filter()
         ]);
@@ -273,7 +273,7 @@ class Profile extends FrontAppController
             throw new ForbiddenException();
         }
 
-        return App::$View->render('messages');
+        return $this->view->render('messages');
     }
 
     /**
@@ -291,7 +291,7 @@ class Profile extends FrontAppController
         }
 
         // get page index and current user object
-        $page = (int)App::$Request->query->get('page', 0);
+        $page = (int)$this->request->query->get('page', 0);
         $offset = $page * static::NOTIFY_PER_PAGE;
         $user = App::$User->identity();
 
@@ -318,7 +318,7 @@ class Profile extends FrontAppController
         // update reader records
         $records->update(['readed' => 1]);
 
-        return App::$View->render('notifications', [
+        return $this->view->render('notifications', [
             'model' => $model,
             'pagination' => $pagination
         ]);
@@ -349,7 +349,7 @@ class Profile extends FrontAppController
         }
 
         // render view
-        return App::$View->render('settings', [
+        return $this->view->render('settings', [
             'model' => $model->filter()
         ]);
     }
@@ -379,7 +379,7 @@ class Profile extends FrontAppController
         }
 
         // set response output
-        return App::$View->render('password', [
+        return $this->view->render('password', [
             'model' => $model->filter()
         ]);
     }
@@ -404,7 +404,7 @@ class Profile extends FrontAppController
 
         // set user id from ?id= get param if form not sended
         if (!$model->send()) {
-            $uid = (int)App::$Request->query->get('id');
+            $uid = (int)$this->request->query->get('id');
             if ($uid > 0) {
                 $model->id = $uid;
             }
@@ -422,7 +422,7 @@ class Profile extends FrontAppController
         // get blocked users
         $records = Blacklist::where('user_id', '=', $user->getId());
 
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)$this->request->query->get('page');
         $offset = $page * self::BLOCK_PER_PAGE;
 
         // build pagination
@@ -433,7 +433,7 @@ class Profile extends FrontAppController
             'total' => $records->count()
         ]);
 
-        return App::$View->render('ignore', [
+        return $this->view->render('ignore', [
             'records' => $records->skip($offset)->take(self::BLOCK_PER_PAGE)->get(),
             'model' => $model->filter(),
             'pagination' => $pagination
@@ -463,7 +463,7 @@ class Profile extends FrontAppController
             $records = $records->orderBy('id', 'DESC');
         }
 
-        return App::$View->render('log', [
+        return $this->view->render('log', [
             'records' => $records
         ]);
     }
@@ -499,10 +499,10 @@ class Profile extends FrontAppController
         $model = new FormIgnoreDelete($user, $target_id);
         if ($model->send() && $model->validate()) {
             $model->make();
-            App::$Response->redirect(Url::to('profile/ignore'));
+            $this->response->redirect(Url::to('profile/ignore'));
         }
 
-        return App::$View->render('unblock', [
+        return $this->view->render('unblock', [
             'model' => $model->filter()
         ]);
     }
@@ -528,7 +528,7 @@ class Profile extends FrontAppController
         if ($model->send() && $model->validate()) {
             // get records from db
             $records = ProfileRecords::where('nick', 'like', '%' . $model->query . '%');
-            $page = (int)App::$Request->query->get('page');
+            $page = (int)$this->request->query->get('page');
             $userPerPage = (int)$cfgs['usersOnPage'];
             if ($userPerPage < 1) {
                 $userPerPage = 1;
@@ -547,7 +547,7 @@ class Profile extends FrontAppController
         }
 
         // display response
-        return App::$View->render('search', [
+        return $this->view->render('search', [
             'model' => $model->filter(),
             'records' => $records,
             'pagination' => $pagination,

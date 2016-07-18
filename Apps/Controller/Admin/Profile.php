@@ -33,7 +33,7 @@ class Profile extends AdminController
         $query = new ProfileRecords();
 
         // set current page and offset
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)$this->request->query->get('page');
         $offset = $page * self::ITEM_PER_PAGE;
 
         // build pagination
@@ -48,7 +48,7 @@ class Profile extends AdminController
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         // display viewer
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'records' => $records,
             'pagination' => $pagination
         ]);
@@ -60,7 +60,7 @@ class Profile extends AdminController
      */
     public function actionDelete($id)
     {
-        App::$Response->redirect('user/delete/' . $id);
+        $this->response->redirect('user/delete/' . $id);
     }
 
     /**
@@ -97,7 +97,7 @@ class Profile extends AdminController
             App::$Session->getFlashBag()->add('success', __('Profile is updated'));
         }
 
-        return App::$View->render('update', [
+        return $this->view->render('update', [
             'model' => $model->filter(),
             'user' => $user,
             'profile' => $profile
@@ -114,7 +114,7 @@ class Profile extends AdminController
     {
         $records = ProfileField::all();
 
-        return App::$View->render('field_list', [
+        return $this->view->render('field_list', [
             'records' => $records
         ]);
     }
@@ -140,12 +140,12 @@ class Profile extends AdminController
         if ($model->send() && $model->validate()) {
             $model->save();
             if (true === $isNew) {
-                App::$Response->redirect('profile/fieldlist');
+                $this->response->redirect('profile/fieldlist');
             }
             App::$Session->getFlashBag()->add('success', __('Profile field was successful updated'));
         }
 
-        return App::$View->render('field_update', [
+        return $this->view->render('field_update', [
             'model' => $model->filter()
         ]);
     }
@@ -175,10 +175,10 @@ class Profile extends AdminController
         // if delete is submited - lets remove this record
         if ($model->send()) {
             $model->delete();
-            App::$Response->redirect('profile/fieldlist');
+            $this->response->redirect('profile/fieldlist');
         }
 
-        return App::$View->render('field_delete', [
+        return $this->view->render('field_delete', [
             'model' => $model->filter()
         ]);
     }
@@ -197,13 +197,13 @@ class Profile extends AdminController
             if ($model->validate()) {
                 $this->setConfigs($model->getAllProperties());
                 App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                App::$Response->redirect('profile/index');
+                $this->response->redirect('profile/index');
             } else {
                 App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
             }
         }
 
-        return App::$View->render('settings', [
+        return $this->view->render('settings', [
             'model' => $model->filter()
         ]);
     }

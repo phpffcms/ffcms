@@ -73,6 +73,9 @@ if (<?= $model->reg_cond == 0 ? '!' : null ?>preg_match('<?= $model->reg_exp ?>'
 </div>
 <?php endif; ?>
 
-<div class="col-md-9 col-md-offset-3"><?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?></div>
+<div class="col-md-9 col-md-offset-3">
+    <?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary']) ?>
+    <?= Url::link(['profile/fieldlist'], __('Cancel'), ['class' => 'btn btn-default']) ?>
+</div>
 
 <?= $form->finish() ?>

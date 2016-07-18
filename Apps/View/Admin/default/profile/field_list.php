@@ -67,5 +67,5 @@ $this->breadcrumbs = [
 ]);
     ?>
 <?php else: ?>
-    <p>No additional fields is added!</p>
+    <p class="alert alert-warning"><?= __('No additional fields is add yet!') ?></p>
 <?php endif; ?>

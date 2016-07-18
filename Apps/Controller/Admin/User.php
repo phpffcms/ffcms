@@ -40,7 +40,7 @@ class User extends AdminController
         $query = new UserRecords();
 
         // set current page and offset
-        $page = (int)App::$Request->query->get('page', 0);
+        $page = (int)$this->request->query->get('page', 0);
         $offset = $page * self::ITEM_PER_PAGE;
 
         // build pagination
@@ -55,7 +55,7 @@ class User extends AdminController
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         // display viewer
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'records' => $records,
             'pagination' => $pagination
         ]);
@@ -88,7 +88,7 @@ class User extends AdminController
         }
 
         // render viewer
-        return App::$View->render('user_update', [
+        return $this->view->render('user_update', [
             'model' => $model->filter()
         ]);
     }
@@ -105,7 +105,7 @@ class User extends AdminController
     {
         // check if id is passed or get data from GET as array ids
         if ($id === 0 || (int)$id < 1) {
-            $ids = App::$Request->query->get('selected');
+            $ids = $this->request->query->get('selected');
             if (Obj::isArray($ids) && Arr::onlyNumericValues($ids)) {
                 $id = $ids;
             } else {
@@ -127,11 +127,11 @@ class User extends AdminController
         if ($model->send() && $model->validate()) {
             $model->delete();
             App::$Session->getFlashBag()->add('success', __('Users and them data are successful removed'));
-            App::$Response->redirect('user/index');
+            $this->response->redirect('user/index');
         }
 
         // set view response
-        return App::$View->render('user_delete', [
+        return $this->view->render('user_delete', [
             'model' => $model
         ]);
     }
@@ -147,7 +147,7 @@ class User extends AdminController
         // get all roles
         $roles = Role::getAll();
 
-        return App::$View->render('group_list', [
+        return $this->view->render('group_list', [
             'records' => $roles
         ]);
     }
@@ -175,7 +175,7 @@ class User extends AdminController
         }
 
         // render view
-        return App::$View->render('group_update', [
+        return $this->view->render('group_update', [
             'model' => $model->filter()
         ]);
     }
@@ -195,14 +195,14 @@ class User extends AdminController
             if ($model->validate()) {
                 $this->setConfigs($model->getAllProperties());
                 App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                App::$Response->redirect('user/index');
+                $this->response->redirect('user/index');
             } else {
                 App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
             }
         }
 
         // render view
-        return App::$View->render('settings', [
+        return $this->view->render('settings', [
             'model' => $model->filter()
         ]);
     }
@@ -231,7 +231,7 @@ class User extends AdminController
         }
 
         // render view
-        return App::$View->render('invite', [
+        return $this->view->render('invite', [
             'model' => $model->filter()
         ]);
     }

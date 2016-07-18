@@ -40,12 +40,12 @@ class Content extends AdminController
     public function actionIndex()
     {
         // set current page and offset
-        $page = (int)App::$Request->query->get('page');
+        $page = (int)$this->request->query->get('page');
         $offset = $page * self::ITEM_PER_PAGE;
 
         $query = null;
         // get query type (trash, category, all)
-        $type = App::$Request->query->get('type');
+        $type = $this->request->query->get('type');
         if ($type === 'trash') {
             $query = ContentEntity::onlyTrashed();
         } elseif ($type === 'moderate') { // only items on moderate
@@ -69,7 +69,7 @@ class Content extends AdminController
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
 
-        return App::$View->render('index', [
+        return $this->view->render('index', [
             'records' => $records,
             'pagination' => $pagination,
             'type' => $type
@@ -101,13 +101,13 @@ class Content extends AdminController
         if ($model->send() && $model->validate()) {
             $model->save();
             if ($isNew === true) {
-                App::$Response->redirect('content/index');
+                $this->response->redirect('content/index');
             }
             App::$Session->getFlashBag()->add('success', __('Content is successful updated'));
         }
 
         // draw response
-        return App::$View->render('content_update', [
+        return $this->view->render('content_update', [
             'model' => $model->filter(['text' => '!secure'])
         ]);
     }
@@ -137,10 +137,10 @@ class Content extends AdminController
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Content is successful moved to trash'));
-            App::$Response->redirect('content/index');
+            $this->response->redirect('content/index');
         }
 
-        return App::$View->render('content_delete', [
+        return $this->view->render('content_delete', [
             'model' => $model->filter()
         ]);
     }
@@ -171,11 +171,11 @@ class Content extends AdminController
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Content are successful recovered'));
-            App::$Response->redirect('content/index');
+            $this->response->redirect('content/index');
         }
 
         // draw response
-        return App::$View->render('content_restore', [
+        return $this->view->render('content_restore', [
             'model' => $model->filter()
         ]);
     }
@@ -205,11 +205,11 @@ class Content extends AdminController
             // totally remove rows from db
             $records->forceDelete();
             App::$Session->getFlashBag()->add('success', __('Trashed content is cleanup'));
-            App::$Response->redirect('content/index');
+            $this->response->redirect('content/index');
         }
 
         // draw response
-        return App::$View->render('content_clear', [
+        return $this->view->render('content_clear', [
             'model' => $model->filter()
         ]);
     }
@@ -222,7 +222,7 @@ class Content extends AdminController
      */
     public function actionCategories()
     {
-        return App::$View->render('category_list', [
+        return $this->view->render('category_list', [
             'categories' => ContentCategory::getSortedAll()
         ]);
     }
@@ -255,11 +255,11 @@ class Content extends AdminController
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Category is successful removed'));
-            App::$Response->redirect('content/categories');
+            $this->response->redirect('content/categories');
         }
 
         // draw view
-        return App::$View->render('category_delete', [
+        return $this->view->render('category_delete', [
             'model' => $model->filter()
         ]);
     }
@@ -274,7 +274,7 @@ class Content extends AdminController
     public function actionCategoryupdate($id = null)
     {
         // get owner id for new rows
-        $parentId = (int)App::$Request->query->get('parent');
+        $parentId = (int)$this->request->query->get('parent');
 
         // get relation and pass to model
         $record = ContentCategory::findOrNew($id);
@@ -286,14 +286,14 @@ class Content extends AdminController
             $model->save();
             // if is new - redirect to list after submit
             if ($isNew) {
-                App::$Response->redirect('content/categories');
+                $this->response->redirect('content/categories');
             }
             // show notify message
             App::$Session->getFlashBag()->add('success', __('Category is successful updated'));
         }
 
         // draw response view and pass model properties
-        return App::$View->render('category_update', [
+        return $this->view->render('category_update', [
             'model' => $model->filter()
         ]);
     }
@@ -308,7 +308,7 @@ class Content extends AdminController
     public function actionGlobdelete()
     {
         // get content ids from request
-        $ids = App::$Request->query->get('selected');
+        $ids = $this->request->query->get('selected');
 
         // check if input is array
         if (!Obj::isArray($ids) || count($ids) < 1) {
@@ -329,11 +329,11 @@ class Content extends AdminController
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Content are successful removed'));
-            App::$Response->redirect('content/index');
+            $this->response->redirect('content/index');
         }
 
         // return response
-        return App::$View->render('content_glob_delete', [
+        return $this->view->render('content_glob_delete', [
             'model' => $model
         ]);
     }
@@ -348,7 +348,7 @@ class Content extends AdminController
     public function actionPublish()
     {
         // get ids as array from GET
-        $ids = App::$Request->query->get('selected');
+        $ids = $this->request->query->get('selected');
         if (!Obj::isArray($ids) || count($ids) < 1) {
             throw new NotFoundException(__('Items to publish is not found'));
         }
@@ -364,11 +364,11 @@ class Content extends AdminController
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Content is successful published'));
-            App::$Response->redirect('content/index');
+            $this->response->redirect('content/index');
         }
 
         // draw view output
-        return App::$View->render('publish', [
+        return $this->view->render('publish', [
             'records' => $records->get(),
             'model' => $model
         ]);
@@ -390,14 +390,14 @@ class Content extends AdminController
             if ($model->validate()) {
                 $this->setConfigs($model->getAllProperties());
                 App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                App::$Response->redirect('content/index');
+                $this->response->redirect('content/index');
             } else {
                 App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
             }
         }
 
         // draw response
-        return App::$View->render('settings', [
+        return $this->view->render('settings', [
             'model' => $model->filter()
         ]);
     }

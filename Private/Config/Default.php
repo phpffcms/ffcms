@@ -4,6 +4,7 @@
 	'basePath' => '/',
 	'passwordSalt' => '$2a$07$2NJgci5A7NI9m2J9Ii92a1I3DiH6$',
 	'timezone' => 'Europe/Moscow',
+	'adminEmail' => 'root@ffcms.app',
 	'debug' => [
 		'all' => false,
 		'cookie' => [
@@ -11,6 +12,7 @@
 			'value' => 'pOH1Kj18fHN7mk9a81F32eJbl9d3AeDjLC1g7poPGE22Ii6pI68P5B6O5hKMofnLPB0lFdpo2a2o78NhedjGA'
 		]
 	],
+	'userCron' => false,
 	'theme' => [
 		'Front' => 'default',
 		'Admin' => 'default'
@@ -25,7 +27,6 @@
 		'charset' => 'utf8',
 		'collation' => 'utf8_unicode_ci'
 	],
-	'adminEmail' => 'root@ffcms.app',
 	'baseLanguage' => 'en',
 	'multiLanguage' => true,
 	'singleLanguage' => 'en',

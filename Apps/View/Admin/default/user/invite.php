@@ -22,6 +22,9 @@ $this->breadcrumbs = [
 
 <?= $form->field('email', 'email', ['class' => 'form-control'], __('Specify user email')) ?>
 
-    <div class="col-md-offset-3 col-md-9"><?= $form->submitButton(__('Send'), ['class' => 'btn btn-primary']) ?></div>
+<div class="col-md-offset-3 col-md-9">
+    <?= $form->submitButton(__('Send'), ['class' => 'btn btn-primary']) ?>
+    <?= Url::link(['user/index'], __('Cancel'), ['class' => 'btn btn-default']) ?>
+</div>
 
 <?= $form->finish() ?>

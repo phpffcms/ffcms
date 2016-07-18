@@ -53,7 +53,7 @@ class User extends FrontAppController
                 App::$Event->run(static::EVENT_USER_LOGIN_SUCCESS, [
                     'model' => $loginForm
                 ]);
-                App::$Response->redirect('/'); // void header change & exit()
+                $this->response->redirect('/'); // void header change & exit()
             }
             App::$Session->getFlashBag()->add('error', __('User is never exist or password is incorrect!'));
             // initialize fail event
@@ -63,7 +63,7 @@ class User extends FrontAppController
         }
 
         // render view
-        return App::$View->render('login', [
+        return $this->view->render('login', [
             'model' => $loginForm->filter(),
             'useCaptcha' => $configs['captchaOnLogin'] === 1
         ]);
@@ -109,7 +109,7 @@ class User extends FrontAppController
         // check if user is always registered
         if ($model->identityExists()) {
             $model->makeAuth();
-            App::$Response->redirect('/');
+            $this->response->redirect('/');
             return null;
         }
         // its a new identify, check if finish register form is submited
@@ -118,14 +118,14 @@ class User extends FrontAppController
                 // registration is completed, lets open new session
                 $loginModel = new FormLogin();
                 $loginModel->openSession($model->_userObject);
-                App::$Response->redirect('/'); // session is opened, refresh page
+                $this->response->redirect('/'); // session is opened, refresh page
             } else { // something gonna wrong, lets notify user
                 App::$Session->getFlashBag()->add('error', __('Login or email is always used on website'));
             }
         }
 
         // render output view
-        return App::$View->render('social_signup', [
+        return $this->view->render('social_signup', [
             'model' => $model
         ]);
     }
@@ -151,8 +151,8 @@ class User extends FrontAppController
         // registration based on invite. Check conditions.
         if ($configs['registrationType'] === 0) {
             // get token and email
-            $inviteToken = App::$Request->query->get('token');
-            $inviteEmail = App::$Request->query->get('email');
+            $inviteToken = $this->request->query->get('token');
+            $inviteEmail = $this->request->query->get('email');
             // data sounds like a invalid?
             if (Str::length($inviteToken) < 32 || !Str::isEmail($inviteEmail)) {
                 throw new ForbiddenException(__('Registration allowed only if you have invite!'));
@@ -188,7 +188,7 @@ class User extends FrontAppController
                 if (!$activation) {
                     $loginModel = new FormLogin();
                     $loginModel->openSession($registerForm->_userObject);
-                    App::$Response->redirect('/'); // session is opened, refresh page
+                    $this->response->redirect('/'); // session is opened, refresh page
                 }
                 // send notification of successful registering
                 App::$Session->getFlashBag()->add('success', __('Your account is registered. You must confirm account via email'));
@@ -202,7 +202,7 @@ class User extends FrontAppController
         }
 
         // render view
-        return App::$View->render('signup', [
+        return $this->view->render('signup', [
             'model' => $registerForm->filter(),
             'config' => $configs,
             'useCaptcha' => $configs['captchaOnRegister'] === 1
@@ -255,7 +255,7 @@ class User extends FrontAppController
             // lets open user session with recovered data
             $loginModel = new FormLogin();
             $loginModel->openSession($rUser);
-            App::$Response->redirect('/'); // session is opened, refresh page
+            $this->response->redirect('/'); // session is opened, refresh page
         }
 
         // lets work with recovery form data
@@ -270,7 +270,7 @@ class User extends FrontAppController
         }
 
         // render visual form content
-        return App::$View->render('recovery', [
+        return $this->view->render('recovery', [
             'model' => $model->filter()
         ]);
     }
@@ -289,7 +289,7 @@ class User extends FrontAppController
         App::$Session->invalidate();
 
         // redirect to main
-        App::$Response->redirect('/');
+        $this->response->redirect('/');
     }
 
     /**
@@ -321,6 +321,6 @@ class User extends FrontAppController
         // open session and redirect to main
         $loginModel = new FormLogin();
         $loginModel->openSession($user);
-        App::$Response->redirect('/'); // session is opened, refresh page
+        $this->response->redirect('/'); // session is opened, refresh page
     }
 }
