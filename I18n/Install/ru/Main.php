@@ -50,7 +50,7 @@ return [
     'Set administrator password' => 'Укажите пароль для аккаунта администратора',
     'Repeat administrator password' => 'Повторите пароль администратора',
     'Main page' => 'Главная страница',
-    'Empty' => 'Пустая',
+    'Developer' => 'Для разработчика',
     'News list' => 'Список новостей',
     'About page' => 'О сайте',
     'Select what we should display on the main page. You can always change it in routing configurations' => 'Выберите что необходимо отображать на главной странице. Вы всегда сможете изменить этот парамтер в настройках маршрутизации'

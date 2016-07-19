@@ -5,7 +5,6 @@ namespace Extend\Core\Arch;
 use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Controller;
-use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -21,6 +20,10 @@ class FrontAppController extends Controller
     public $application;
     private $configs;
 
+    /**
+     * FrontAppController constructor. Check if app is enabled in database
+     * @throws ForbiddenException
+     */
     public function __construct()
     {
         if (!$this->isEnabled()) {
@@ -41,18 +44,9 @@ class FrontAppController extends Controller
     {
         $appName = App::$Request->getController();
         // if app class extend current class we can get origin name
-        $aliasName = Str::lastIn(get_class($this), '\\', true);
+        $nativeName = Str::lastIn(get_class($this), '\\', true);
         // check if this controller is enabled
-        $this->application = MemoryObject::instance()->get('cache.apps.' . $appName . $aliasName);
-        if ($this->application === null) {
-            $this->application = AppRecord::where('type', '=', 'app')
-                ->where('sys_name', '=', $appName)
-                ->orWhere('sys_name', '=', $aliasName)
-                ->first();
-            if ($this->application !== null) {
-                MemoryObject::instance()->set('cache.apps.' . $appName . $aliasName, $this->application);
-            }
-        }
+        $this->application = AppRecord::getItem('app', [$appName, $nativeName]);
 
         // not exist? false
         if ($this->application === null) {

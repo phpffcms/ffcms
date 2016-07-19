@@ -17,7 +17,7 @@ $form = new \Ffcms\Core\Helper\HTML\Form($model, ['class' => 'form-horizontal', 
 <?= $form->field('db.prefix', 'text', ['class' => 'form-control', 'placeHolder' => 'ffcms_'], __('Table prefix for multiple usage of single database (example: ffcms_)')) ?>
 
 <h2><?= __('General configurations') ?></h2>
-<?= $form->field('mainpage', 'radio', ['options' => ['none' => __('Empty'), 'news' => __('News list'), 'about' => __('About page')], 'optionsKey' => true], __('Select what we should display on the main page. You can always change it in routing configurations')) ?>
+<?= $form->field('mainpage', 'radio', ['options' => ['none' => __('Developer'), 'news' => __('News list'), 'about' => __('About page')], 'optionsKey' => true], __('Select what we should display on the main page. You can always change it in routing configurations')) ?>
 <?= $form->field('email', 'text', ['class' => 'form-control', 'placeHolder' => 'example@site.com'], __('Set your general email to use in sendFrom for mailing functions')) ?>
 <?= $form->field('singleLanguage', 'select', ['class' => 'form-control', 'options' => \App::$Translate->getAvailableLangs()], __('Default language of website')); ?>
 <?= $form->field('multiLanguage', 'checkbox', ['checked' => true], __('Must we use multi language system in site pathway')); ?>

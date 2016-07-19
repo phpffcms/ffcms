@@ -6,6 +6,8 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Serialize;
+use Ffcms\Core\Helper\Type\Arr;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -23,6 +25,8 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class App extends ActiveModel
 {
+    const CACHE_FULL_TABLE_NAME = 'activercord.apps.cache.all';
+
     /**
      * Get all objects with query caching
      * @return \Illuminate\Database\Eloquent\Collection|static
@@ -30,11 +34,11 @@ class App extends ActiveModel
      */
     public static function getAll()
     {
-        $object = MemoryObject::instance()->get('app.cache.all');
+        $object = MemoryObject::instance()->get(static::CACHE_FULL_TABLE_NAME);
         // empty?
         if ($object === null) {
             $object = self::all();
-            MemoryObject::instance()->set('app.cache.all', $object);
+            MemoryObject::instance()->set(static::CACHE_FULL_TABLE_NAME, $object);
         }
         
         if ($object === null) {
@@ -54,7 +58,7 @@ class App extends ActiveModel
     {
         $response = null;
         foreach (self::getAll() as $object) {
-            if ($object['type'] === $type) {
+            if ($object->type === $type) {
                 $response[] = $object;
             }
         }
@@ -65,15 +69,19 @@ class App extends ActiveModel
     /**
      * Get single row by defined type and sys_name with query caching
      * @param string $type
-     * @param string $sys_name
+     * @param string|array $sys_name
      * @return mixed|null
      * @throws SyntaxException
      */
     public static function getItem($type, $sys_name)
     {
         foreach (self::getAll() as $object) {
-            if ($object['type'] === $type && $object['sys_name'] === $sys_name) {
-                return $object;
+            if ($object->type === $type) { //&& $object->sys_name === $sys_name) {
+                if (Obj::isArray($sys_name) && Arr::in($object->sys_name, $sys_name)) { // many different app name - maybe alias or something else
+                    return $object;
+                } elseif (Obj::isString($sys_name) && $object->sys_name === $sys_name) {
+                    return $object;
+                }
             }
         }
 

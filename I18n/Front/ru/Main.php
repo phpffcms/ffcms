@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'Test text %a% var' => 'Обычный проверочный текст %a% переменная'
+    'Example of usage internalization in template. Test var: %var%' => 'Пример использования интернализации в шаблонах. Тестовая переменная: %var%'
 ];
