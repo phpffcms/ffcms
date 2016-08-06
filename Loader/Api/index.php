@@ -28,8 +28,8 @@ function __($text, array $params = []) {
 }
 
 try {
-    // prepare to run
-    \App::init([
+    // build app entry point factory instance
+    $app = \App::factory([
         'Database' => true,
         'Session' => true,
         'Debug' => false,
@@ -39,7 +39,7 @@ try {
         'Cache' => true
     ], $loader);
     // display output
-    \App::run();
+    $app->run();
 } catch (Exception $e) {
     (new \Ffcms\Core\Exception\NativeException($e->getMessage()))->display();
 }

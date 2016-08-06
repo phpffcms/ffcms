@@ -29,7 +29,7 @@ class App extends ActiveModel
 
     /**
      * Get all objects with query caching
-     * @return \Illuminate\Database\Eloquent\Collection|static
+     * @return \Illuminate\Database\Eloquent\Collection
      * @throws SyntaxException
      */
     public static function getAll()

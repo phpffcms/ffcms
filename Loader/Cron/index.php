@@ -31,7 +31,7 @@ function __($text, array $params = []) {
 
 try {
     // prepare to run
-    \App::init([
+    $app = \App::factory([
         'Database' => true,
         'User' => true,
         'Mailer' => true,

@@ -26,8 +26,7 @@ function __($text, array $params = []) {
 }
 
 try {
-    // prepare to run
-    \App::init([
+    $app = \App::factory([
         'Database' => true,
         'Session' => true,
         'Debug' => true,
@@ -35,9 +34,8 @@ try {
         'Mailer' => true,
         'Captcha' => true,
         'Cache' => true
-    ], $loader);
-    // display output
-    \App::run();
+    ]);
+    $app->run();
 } catch (Exception $e) {
     (new \Ffcms\Core\Exception\NativeException($e->getMessage()))->display();
 }

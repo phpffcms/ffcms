@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "69c6c41a683b9dae867aecd981a3e9df",
-    "content-hash": "acf3c6258b9a1eafe4eb06140f85caf5",
+    "hash": "74f0406c360c01c09d14f2eb80611bd5",
+    "content-hash": "c2cd37d05c4c72cb50e1c04c9644f749",
     "packages": [
         {
             "name": "bower-asset/blueimp-canvas-to-blob",
@@ -26,16 +26,16 @@
         },
         {
             "name": "bower-asset/blueimp-file-upload",
-            "version": "9.12.3",
+            "version": "9.12.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueimp/jQuery-File-Upload.git",
-                "reference": "c72c93c3c005bbd0c849c2e35d01daaf7d23ee51"
+                "reference": "b9e144b735ab95a598b975bdc8375e14a2e76157"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/c72c93c3c005bbd0c849c2e35d01daaf7d23ee51",
-                "reference": "c72c93c3c005bbd0c849c2e35d01daaf7d23ee51",
+                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/b9e144b735ab95a598b975bdc8375e14a2e76157",
+                "reference": "b9e144b735ab95a598b975bdc8375e14a2e76157",
                 "shasum": ""
             },
             "require": {
@@ -678,12 +678,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "7ec395833738b9059f829348ddc9a59d0118ac88"
+                "reference": "37f4bb5ebac312fac5b64939626ce43d7c3b7dfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/7ec395833738b9059f829348ddc9a59d0118ac88",
-                "reference": "7ec395833738b9059f829348ddc9a59d0118ac88",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/37f4bb5ebac312fac5b64939626ce43d7c3b7dfb",
+                "reference": "37f4bb5ebac312fac5b64939626ce43d7c3b7dfb",
                 "shasum": ""
             },
             "require": {
@@ -713,7 +713,7 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "http://laravel.com",
-            "time": "2016-05-29 02:18:23"
+            "time": "2016-06-29 01:58:50"
         },
         {
             "name": "illuminate/contracts",
@@ -759,16 +759,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "v5.2.32",
+            "version": "v5.2.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "5fbd370c687b5f428357982883eadf9fa33cf9a1"
+                "reference": "c0746930dc6a6ff9b72945152609d61a3b3829c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/5fbd370c687b5f428357982883eadf9fa33cf9a1",
-                "reference": "5fbd370c687b5f428357982883eadf9fa33cf9a1",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/c0746930dc6a6ff9b72945152609d61a3b3829c6",
+                "reference": "c0746930dc6a6ff9b72945152609d61a3b3829c6",
                 "shasum": ""
             },
             "require": {
@@ -815,7 +815,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2016-05-15 17:43:26"
+            "time": "2016-06-06 13:12:46"
         },
         {
             "name": "illuminate/support",
@@ -823,12 +823,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "6e86ac2b4e3d0c42c2dc846dbac3e74d378a812b"
+                "reference": "4ee7e1c254a76c226fd8f93ac517fdbaedbd0640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/6e86ac2b4e3d0c42c2dc846dbac3e74d378a812b",
-                "reference": "6e86ac2b4e3d0c42c2dc846dbac3e74d378a812b",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/4ee7e1c254a76c226fd8f93ac517fdbaedbd0640",
+                "reference": "4ee7e1c254a76c226fd8f93ac517fdbaedbd0640",
                 "shasum": ""
             },
             "require": {
@@ -837,6 +837,9 @@
                 "illuminate/contracts": "5.2.*",
                 "paragonie/random_compat": "~1.4",
                 "php": ">=5.5.9"
+            },
+            "replace": {
+                "tightenco/collect": "self.version"
             },
             "suggest": {
                 "illuminate/filesystem": "Required to use the composer class (5.2.*).",
@@ -871,7 +874,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2016-05-30 02:40:53"
+            "time": "2016-07-21 14:39:20"
         },
         {
             "name": "maximebf/debugbar",
@@ -936,16 +939,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.21.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7b08ec6f75791e130012f206e3f7b0e76e18e3d7"
+                "reference": "36c134b53c21a137d450c86a27046022d98574fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7b08ec6f75791e130012f206e3f7b0e76e18e3d7",
-                "reference": "7b08ec6f75791e130012f206e3f7b0e76e18e3d7",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/36c134b53c21a137d450c86a27046022d98574fd",
+                "reference": "36c134b53c21a137d450c86a27046022d98574fd",
                 "shasum": ""
             },
             "require": {
@@ -956,6 +959,11 @@
                 "phpunit/phpunit": "~4.0|~5.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.22-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Carbon\\": "src/Carbon/"
@@ -979,7 +987,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2015-11-04 20:07:17"
+            "time": "2016-06-27 17:44:29"
         },
         {
             "name": "paragonie/random_compat",
@@ -1150,16 +1158,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-console.git",
-                "reference": "4c5e4191a7df9334cb7f45fe7c5ceb3fc4e77a24"
+                "reference": "32a7a760c5286279e9cb307eaa2882d39931f3aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/4c5e4191a7df9334cb7f45fe7c5ceb3fc4e77a24",
-                "reference": "4c5e4191a7df9334cb7f45fe7c5ceb3fc4e77a24",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/32a7a760c5286279e9cb307eaa2882d39931f3aa",
+                "reference": "32a7a760c5286279e9cb307eaa2882d39931f3aa",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4",
+                "php": ">=5.5",
                 "phpffcms/ffcms-core": "dev-master"
             },
             "type": "library",
@@ -1186,7 +1194,7 @@
                 "ffcms",
                 "php"
             ],
-            "time": "2015-12-09 18:38:38"
+            "time": "2016-06-12 14:43:34"
         },
         {
             "name": "phpffcms/ffcms-core",
@@ -1194,12 +1202,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "e78af6810ecdb145cf7211c66d0603886acae611"
+                "reference": "2bf87e9bfbcacf4c2f6ec72464204f2be2e55498"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/e78af6810ecdb145cf7211c66d0603886acae611",
-                "reference": "e78af6810ecdb145cf7211c66d0603886acae611",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/2bf87e9bfbcacf4c2f6ec72464204f2be2e55498",
+                "reference": "2bf87e9bfbcacf4c2f6ec72464204f2be2e55498",
                 "shasum": ""
             },
             "require": {
@@ -1236,7 +1244,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2016-06-06 12:08:33"
+            "time": "2016-07-19 18:58:25"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1442,23 +1450,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.2",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1,<0.9.4"
+                "mockery/mockery": "~0.9.1"
             },
             "type": "library",
             "extra": {
@@ -1491,7 +1499,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:45:47"
+            "time": "2016-07-08 11:51:25"
         },
         {
             "name": "symfony/http-foundation",
@@ -1552,12 +1560,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "67f0d2b927796648c5c38cedb7a2c8f1cf14e7dc"
+                "reference": "8a6bdec191138e01c92ae026e5aacb7b3e66267d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/67f0d2b927796648c5c38cedb7a2c8f1cf14e7dc",
-                "reference": "67f0d2b927796648c5c38cedb7a2c8f1cf14e7dc",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/8a6bdec191138e01c92ae026e5aacb7b3e66267d",
+                "reference": "8a6bdec191138e01c92ae026e5aacb7b3e66267d",
                 "shasum": ""
             },
             "require": {
@@ -1603,7 +1611,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-26 01:13:28"
+            "time": "2016-06-29 14:58:48"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -1669,12 +1677,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "f22e1fd24bd6c6b2f2237947d013d44f6784a455"
+                "reference": "3c589e93013e2808758f61b02755afc113f3be44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/f22e1fd24bd6c6b2f2237947d013d44f6784a455",
-                "reference": "f22e1fd24bd6c6b2f2237947d013d44f6784a455",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/3c589e93013e2808758f61b02755afc113f3be44",
+                "reference": "3c589e93013e2808758f61b02755afc113f3be44",
                 "shasum": ""
             },
             "require": {
@@ -1725,7 +1733,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-06 11:53:30"
+            "time": "2016-06-29 05:43:10"
         },
         {
             "name": "symfony/var-dumper",
@@ -1733,12 +1741,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "64c842d6f254dd3f4327bd09b6ae574af3242bb6"
+                "reference": "1492e12700df1fac4af6575bc330bdb5c43cc513"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/64c842d6f254dd3f4327bd09b6ae574af3242bb6",
-                "reference": "64c842d6f254dd3f4327bd09b6ae574af3242bb6",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/1492e12700df1fac4af6575bc330bdb5c43cc513",
+                "reference": "1492e12700df1fac4af6575bc330bdb5c43cc513",
                 "shasum": ""
             },
             "require": {
@@ -1788,7 +1796,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-05-25 08:18:05"
+            "time": "2016-07-19 10:47:02"
         }
     ],
     "packages-dev": [],
@@ -1821,7 +1829,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4"
+        "php": ">=5.5"
     },
     "platform-dev": []
 }

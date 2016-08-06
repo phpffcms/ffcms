@@ -26,12 +26,12 @@ function __($text, array $params = []) {
 
 try {
     // prepare to run
-    \App::init([
+    $app = \App::factory([
         'Database' => true,
         'Session' => true
     ], $loader);
     // display output
-    \App::run();
+    $app->run();
 } catch (Exception $e) {
     (new \Ffcms\Core\Exception\NativeException($e->getMessage()))->display();
 }

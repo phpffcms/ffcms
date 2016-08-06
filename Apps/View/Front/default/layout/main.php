@@ -155,26 +155,32 @@ echo Navbar::display([
             ?>
         </div>
 		<div class="col-md-3">
-			<div class="panel panel-primary">
+            <?php if (Widgets\Front\Newcontent\Newcontent::enabled()): ?>
+            <div class="panel panel-primary">
 				<div class="panel-heading"><?= __('New content') ?></div>
 				<div class="panel-body">
                     <?= Widgets\Front\Newcontent\Newcontent::widget(); ?>
                 </div>
 			</div>
+            <?php endif; ?>
 
+            <?php if (Widgets\Front\Contenttag\Contenttag::enabled()): ?>
 			<div class="panel panel-primary">
 				<div class="panel-heading"><?= __('Content tags') ?></div>
 					<div class="panel-body">
                     <?= Widgets\Front\Contenttag\Contenttag::widget() ?>
                 </div>
 			</div>
+            <?php endif; ?>
 
+            <?php if (Widgets\Front\Newcomment\Newcomment::enabled()): ?>
 			<div class="panel panel-primary">
 				<div class="panel-heading"><?= __('New comments') ?></div>
 					<div class="panel-body">
                     <?= Widgets\Front\Newcomment\Newcomment::widget() ?>
                 </div>
 			</div>
+            <?php endif; ?>
 		</div>
 	</div>
 </div>
@@ -184,7 +190,7 @@ echo Navbar::display([
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<p>Copyright &copy; 2015. Powered on <a href="https://ffcms.org" target="_blank">ffcms</a>.</p>
+				<p>Copyright &copy; 2015. Powered by <a href="https://ffcms.org" target="_blank">ffcms</a>.</p>
 			</div>
 		</div>
 	</div>
