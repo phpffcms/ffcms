@@ -16,6 +16,7 @@ class User extends ApiController
      */
     public function actionAuth()
     {
+        $this->setJsonHeader();
         if (!App::$User->isAuth()) {
             throw new JsonException('No auth');
         }

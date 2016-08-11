@@ -13,6 +13,8 @@ use Apps\ActiveRecord\App as AppRecord;
     <meta charset="utf-8" />
     <meta http-equiv=X-UA-Compatible content="IE=edge">
 	<meta name=viewport content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
@@ -79,7 +81,6 @@ echo Navbar::display([
 </header>
 
 <div class="container body-container">
-
 	<!-- head logo and search panel -->
 	<div class="row header-block">
 		<!-- Image logo -->
@@ -98,12 +99,21 @@ echo Navbar::display([
 			<!-- search panel -->
 			<form method="get" action="<?= \Ffcms\Core\Helper\Url::to('search/index') ?>" style="padding-top: 20px;">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query" required>
+					<input id="search-line" type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query" autocomplete="off" required>
 					<span class="input-group-btn">
 						<button class="btn btn-default" id="search-submit" type="submit"><?php echo __('Find'); ?></button>
 					</span>
 				</div>
 			</form>
+            <div id="ajax-result-container" class="hidden" style="position: fixed;z-index: 9999;">
+                <div class="list-group col-md-6 col-xs-12" id="ajax-result-items"></div>
+                <div id="ajax-carcase-item" class="hidden">
+                    <a href="#" class="list-group-item" id="ajax-search-link">
+                        <div class="h4 list-group-item-heading" id="ajax-search-title"></div>
+                        <p class="list-group-item-text" id="ajax-search-snippet"></p>
+                    </a>
+                </div>
+            </div>
 		</div>
 	</div>
 
@@ -131,10 +141,9 @@ echo Navbar::display([
                     <?php if (Obj::isLikeInt($bUrl)): // only text ?>
                     <li class="active"><?= \App::$Security->strip_tags($bText) ?></li>
                     <?php else: ?>
-                    <li><a
-						href="<?= \App::$Security->strip_tags($bUrl) ?>">
-                            <?= \App::$Security->strip_tags($bText) ?>
-                        </a></li>
+                    <li>
+                        <a href="<?= \App::$Security->strip_tags($bUrl) ?>"><?= \App::$Security->strip_tags($bText) ?></a>
+                    </li>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </ol>
@@ -185,12 +194,12 @@ echo Navbar::display([
 	</div>
 </div>
 
-
+<!-- Website footer data. Please save us copyright's, it's all what we have ...  -->
 <footer>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<p>Copyright &copy; 2015. Powered by <a href="https://ffcms.org" target="_blank">ffcms</a>.</p>
+				<p>Copyright &copy; 2015-2016. Powered by <a href="https://ffcms.org" target="_blank">ffcms</a>.</p>
 			</div>
 		</div>
 	</div>
@@ -244,6 +253,36 @@ echo Navbar::display([
         ajaxNotify();
         // make autorefresh every 10 seconds
         loadPmInterval = setInterval('ajaxNotify()', 10000);
+        // make live search on user keypress in search input
+        $('#search-line').keypress(function(e){
+            // bind key code
+            var keycode = ((typeof e.keyCode !='undefined' && e.keyCode) ? e.keyCode : e.which);
+            // bind current complete query from input field
+            var query = $(this).val();
+            // check if pressed ESC button to hide dropdown results
+            if (keycode === 27) {
+                $('#ajax-result-container').addClass('hidden');
+                return;
+            }
+            if (query.length < 2)
+                return;
+            // cleanup & make AJAX query with building response
+            $('#ajax-result-items').empty();
+            $.getJSON(script_url+'/api/search/index?query='+query+'&lang='+script_lang, function (resp) {
+                if (resp.status !== 1 || resp.count < 1)
+                    return;
+                var searchHtml = $('#ajax-carcase-item').clone().removeClass('hidden');
+                $.each(resp.data, function(relevance, item) {
+                    var searchItem = searchHtml.clone();
+                    searchItem.find('#ajax-search-link').attr('href', '<?= \App::$Alias->baseUrl ?>'+item.uri);
+                    searchItem.find('#ajax-search-title').text(item.title);
+                    searchItem.find('#ajax-search-snippet').text(item.snippet);
+                    $('#ajax-result-items').append(searchItem.html());
+                    searchItem = null;
+                });
+                $('#ajax-result-container').removeClass('hidden');
+            });
+        });
     });
 </script>
 <?php
