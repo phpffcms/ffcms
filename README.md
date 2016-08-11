@@ -7,23 +7,30 @@ FFCMS - fast, flexibility content management system, based on MVC architecture. 
 
 REQUIREMENTS
 ------------
-FFCMS require support php 5.4 or newest. FFCMS include 2 native engine:
+FFCMS require support php 5.5 or newest. FFCMS include 2 native engine:
   * [ffcms-core](https://github.com/phpffcms/ffcms-core)
   * [ffcms-console](https://github.com/phpffcms/ffcms-console)
 
 INSTALLATION
 ------------
-To deploy ffcms software you must have composer and php-cli (don't working now, only developer installation is available):
+To deploy ffcms software you must have composer and php-cli (NOT AVAILABLE NOW, LOOK ON BETA/DEV trunks):
 ```bash
 composer global require "fxp/composer-asset-plugin:1.1.*"
 composer create-project phpffcms/ffcms ./path/to/document_root 3.0.0
 composer update
 php console.php main/install
 ```
+If you want to use **beta** (3.0.0-beta) version you should follow this instruction:
+```bash
+composer global require "fxp/composer-asset-plugin:1.1.*"
+composer create-project phpffcms/ffcms ./path/to/document_root --stability="beta" 3.0.0-beta
+composer update
+php console.php main/install
+```
 If you want to use **developer version** you must use "master" branch from developer repository with stability "-dev":
 ```bash
 composer global require "fxp/composer-asset-plugin:1.1.*"
-composer create-project phpffcms/ffcms ./ --stability="dev"
+composer create-project phpffcms/ffcms ./path/to/document_root --stability="dev"
 composer update
 php console.php main/install
 ```
