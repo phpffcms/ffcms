@@ -92,6 +92,7 @@ class FormCategoryUpdate extends Model
             'configs.showCategory' => __('Show category'),
             'configs.showRss' => __('Show RSS'),
             'configs.showSimilar' => __("Show similar items"),
+            'configs.showTags' => __('Keywords to tags')
         ];
     }
 
@@ -103,7 +104,7 @@ class FormCategoryUpdate extends Model
         $rules = [
             [['title', 'description', 'configs'], 'used'],
             [['configs.showDate', 'configs.showRating', 'configs.showAuthor', 'configs.showViews', 'configs.showComments'], 'in', ['0', '1']],
-            [['configs.showPoster', 'configs.showCategory', 'configs.showRss', 'configs.showSimilar'], 'in', ['0', '1']]
+            [['configs.showPoster', 'configs.showCategory', 'configs.showRss', 'configs.showSimilar', 'configs.showTags'], 'in', ['0', '1']]
         ];
 
         // general category

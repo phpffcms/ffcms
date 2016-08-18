@@ -165,12 +165,6 @@ class Content extends FrontAppController
      */
     public function actionTag($tagName)
     {
-        $configs = $this->getConfigs();
-        // check if tags is enabled
-        if ((int)$configs['keywordsAsTags'] !== 1) {
-            throw new NotFoundException(__('Tag system is disabled'));
-        }
-
         // remove spaces and other shits
         $tagName = trim($tagName);
 

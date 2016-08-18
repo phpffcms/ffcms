@@ -46,7 +46,8 @@ $properties = [
     'author' => (bool)$model->getCategory()->getProperty('showAuthor'),
     'views' => (bool)$model->getCategory()->getProperty('showViews'),
     'category' => (bool)$model->getCategory()->getProperty('showCategory'),
-    'rating' => (bool)$model->getCategory()->getProperty('showRating')
+    'rating' => (bool)$model->getCategory()->getProperty('showRating'),
+    'tags' => (bool)$model->getCategory()->getProperty('showTags')
 ];
 $showComments = (bool)$model->getCategory()->getProperty('showComments');
 $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
@@ -167,7 +168,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         	<?= \App::$View->render('content/_rateJs') ?>
     		</div>
     		<div class="pull-right">
-    		    <?php if ((int)$configs['keywordsAsTags'] === 1): ?>
+    		    <?php if ($properties['tags']): ?>
                 <div id="content-tags">
                     <?php
                     if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {

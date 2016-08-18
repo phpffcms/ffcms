@@ -69,6 +69,7 @@ if ((int)$model->id == '1') {
 <?= $form->field('configs.showViews', 'checkbox', null, __('Display information about content view count in this category?')) ?>
 <?= $form->field('configs.showComments', 'checkbox', null, __('Display comment list and comment form in this category?')) ?>
 <?= $form->field('configs.showPoster', 'checkbox', null, __('Display content poster from gallery in this category?')) ?>
+<?= $form->field('configs.showTags', 'checkbox', null, __('Display tag list, based on keywords data?')) ?>
 <?= $form->field('configs.showRss', 'checkbox', null, __('Allow display RSS 2.0 feed for this category?')) ?>
 
 <div class="col-md-9 col-md-offset-3">

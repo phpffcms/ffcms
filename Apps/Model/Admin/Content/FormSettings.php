@@ -9,7 +9,6 @@ class FormSettings extends Model
     public $itemPerCategory;
     public $userAdd;
     public $multiCategories;
-    public $keywordsAsTags;
     public $galleryResize;
     public $gallerySize;
     public $rss;
@@ -48,7 +47,6 @@ class FormSettings extends Model
             'itemPerCategory' => __('Content per page'),
             'userAdd' => __('User add'),
             'multiCategories' => __('Multi categories'),
-            'keywordsAsTags' => __('Keywords to tags'),
             'galleryResize' => __('Gallery resize'),
             'gallerySize' => __('Image size'),
             'rss' => __('Rss feed')
@@ -61,9 +59,9 @@ class FormSettings extends Model
     public function rules()
     {
         return [
-            [['itemPerCategory', 'userAdd', 'multiCategories', 'keywordsAsTags', 'galleryResize', 'rss', 'gallerySize'], 'required'],
-            [['itemPerCategory', 'userAdd', 'multiCategories', 'keywordsAsTags', 'galleryResize', 'rss', 'gallerySize'], 'int'],
-            [['userAdd', 'multiCategories', 'keywordsAsTags', 'rss', 'rssFull'], 'in', ['0', '1']]
+            [['itemPerCategory', 'userAdd', 'multiCategories', 'galleryResize', 'rss', 'gallerySize'], 'required'],
+            [['itemPerCategory', 'userAdd', 'multiCategories', 'galleryResize', 'rss', 'gallerySize'], 'int'],
+            [['userAdd', 'multiCategories', 'rss', 'rssFull'], 'in', ['0', '1']]
         ];
     }
 }

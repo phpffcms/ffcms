@@ -35,7 +35,6 @@ $configs->content = serialize([
     'itemPerCategory' => 10,
     'userAdd' => 0,
     'multiCategories' => 1,
-    'keywordsAsTags' => 1,
     'rss' => 1,
     'gallerySize' => 500,
     'galleryResize' => 150

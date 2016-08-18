@@ -25,7 +25,8 @@ $cat->News = [
         'showAuthor' => '1',
         'showViews' => '1',
         'showComments' => '1',
-        'showPoster' => '1'
+        'showPoster' => '1',
+        'showTags' => '1'
     ])
 ];
 
