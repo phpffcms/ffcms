@@ -39,7 +39,7 @@
     "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
     "bower-asset/jquery-ui": "1.11.*@stable",
     "bower-asset/components-font-awesome": "4.*@stable",
-    "bower-asset/blueimp-file-upload": "9.*@stable"
+    "npm-asset/blueimp-file-upload": "9.*@stable"
   },
   "authors": [
     {

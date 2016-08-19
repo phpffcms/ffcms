@@ -122,10 +122,10 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
 \App::$Alias->setCustomLibrary('css', \App::$Alias->currentViewUrl . '/assets/css/plugins/datapick/datapick.css');
 \App::$Alias->setCustomLibrary('js', \App::$Alias->currentViewUrl . '/assets/js/plugins/datapick.js');
 // load jquery-upload plugin
-\App::$Alias->setCustomLibrary('css', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/css/jquery.fileupload.css');
-\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/js/vendor/jquery.ui.widget.js');
-\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/js/jquery.iframe-transport.js');
-\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/bower/blueimp-file-upload/js/jquery.fileupload.js');
+\App::$Alias->setCustomLibrary('css', \App::$Alias->scriptUrl . '/vendor/npm/blueimp-file-upload/css/jquery.fileupload.css');
+\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/npm/blueimp-file-upload/js/vendor/jquery.ui.widget.js');
+\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/npm/blueimp-file-upload/js/jquery.iframe-transport.js');
+\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/npm/blueimp-file-upload/js/jquery.fileupload.js');
 ?>
 
 <!-- dom model for gallery items -->
