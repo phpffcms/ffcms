@@ -2,9 +2,7 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\App;
 use Ffcms\Core\Arch\ActiveModel;
-use Ffcms\Core\Helper\Date;
 
 /**
  * Class UserLog. Active record model.

@@ -2,7 +2,7 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\App;
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 
 /**
@@ -22,8 +22,8 @@ class Session extends ActiveModel
      */
     public static function getOnlineCount()
     {
-        if (App::$Memory->get('cache.users.online') !== null) {
-            return App::$Memory->get('cache.users.online');
+        if (MainApp::$Memory->get('cache.users.online') !== null) {
+            return MainApp::$Memory->get('cache.users.online');
         }
 
         // get online sessions now
@@ -32,7 +32,7 @@ class Session extends ActiveModel
         $count = $query->count();
 
         // save to memory
-        App::$Memory->set('cache.users.online', $count);
+        MainApp::$Memory->set('cache.users.online', $count);
 
         // return count
         return $count;
