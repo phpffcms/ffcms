@@ -123,7 +123,7 @@ class Content extends ApiController
 
         // get file object
         /** @var $file \Symfony\Component\HttpFoundation\File\UploadedFile */
-        $file = $this->request->files->get('gallery-files');
+        $file = $this->request->files->get('file');
         if ($file === null || $file->getError() !== 0) {
             throw new NativeException(__('Unexpected error in upload process'));
         }
@@ -147,6 +147,10 @@ class Content extends ApiController
         // lets make a new file name
         $fileName = App::$Security->simpleHash($file->getClientOriginalName() . $file->getSize());
         $fileNewName = $fileName . '.' . $file->guessExtension();
+        // check if image is already loaded
+        if (File::exist($originPath . $fileNewName)) {
+            throw new ForbiddenException(__('File is always exists!'));
+        }
         // save file from tmp to gallery origin directory
         $file->move(Normalize::diskFullPath($originPath), $fileNewName);
 
@@ -166,17 +170,12 @@ class Content extends ApiController
             ->save($thumbSaveName, 'jpg', 90);
         $thumb = null;
 
-        // dont ask me why there is 2nd lvl array (can contains multiply items to frontend response)
-        $output = [
+        $this->setJsonHeader();
+        return json_encode(['status' => 1, 'file' => [
             'thumbnailUrl' => '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg',
             'url' => '/upload/gallery/' . $id . '/orig/' . $fileNewName,
             'name' => $fileNewName
-        ];
-
-        $this->setJsonHeader();
-
-        // generate success response
-        return json_encode(['status' => 1, 'message' => 'ok', 'files' => [$output]]);
+        ]]);
     }
 
     /**
@@ -204,7 +203,7 @@ class Content extends ApiController
         }
 
         $files = Directory::scan($thumbDir, null, true);
-        if (!Obj::isArray($files) || count($files) < 1) {
+        if ($files === false || !Obj::isArray($files) || count($files) < 1) {
             throw new NotFoundException('Nothing found');
         }
 
@@ -215,12 +214,13 @@ class Content extends ApiController
             $output[] = [
                 'thumbnailUrl' => '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg',
                 'url' => '/upload/gallery/' . $id . '/orig/' . $file,
-                'name' => $file
+                'name' => $file,
+                'size' => File::size($file)
             ];
         }
 
         $this->setJsonHeader();
-        return json_encode(['files' => $output]);
+        return json_encode(['status' => 1, 'files' => $output]);
     }
 
     /**

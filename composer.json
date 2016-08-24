@@ -15,8 +15,12 @@
   "homepage": "https://ffcms.org",
   "license": "MIT",
   "minimum-stability": "beta",
+  "config": {
+    "process-timeout": 1800
+  },
   "require": {
     "php": ">=5.5",
+    "ext-mbstring": "*",
     "phpffcms/ffcms-core": "1.0.*",
     "phpffcms/ffcms-console": "1.0.*",
     "phpffcms/ffcms-ckeditor": "1.*@stable",
@@ -39,7 +43,7 @@
     "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
     "bower-asset/jquery-ui": "1.11.*@stable",
     "bower-asset/components-font-awesome": "4.*@stable",
-    "npm-asset/blueimp-file-upload": "9.*@stable"
+    "bower-asset/dropzone": "4.3.*@stable"
   },
   "authors": [
     {

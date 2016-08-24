@@ -37,7 +37,7 @@ $configs->content = serialize([
     'multiCategories' => 1,
     'rss' => 1,
     'gallerySize' => 500,
-    'galleryResize' => 150
+    'galleryResize' => 250
 ]);
 
 $configs->feedback = serialize([

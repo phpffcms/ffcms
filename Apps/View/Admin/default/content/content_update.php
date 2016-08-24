@@ -86,15 +86,10 @@ $otherTab .= $form->field('addRating', 'text', ['class' => 'form-control'], __('
 $galleryTab = '<div class="row" id="gallery-files"></div>
 
 <div class="row">
-<div class="col-md-4">
-            <span class="btn btn-success fileinput-button btn-block">
-                <i class="glyphicon glyphicon-plus"></i>
-                <span>' . __('Upload image') . '</span>
-                <!-- The file input field used as target for the file upload widget -->
-                <input id="fileupload" type="file" name="gallery-files" multiple>
-            </span>
-</div>
 <div class="col-md-8">
+    <div class="dropzone dropzone-previews" id="ffcms-dropzone"></div>
+</div>
+<div class="col-md-4">
     ' . $form->field('poster', 'select', ['options' => [__('Not selected...')], 'class' => 'form-control'], __('Select image from gallery as a poster for this content')) . '
 </div>
 </div><br/><br/>';
@@ -122,21 +117,10 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
 \App::$Alias->setCustomLibrary('css', \App::$Alias->currentViewUrl . '/assets/css/plugins/datapick/datapick.css');
 \App::$Alias->setCustomLibrary('js', \App::$Alias->currentViewUrl . '/assets/js/plugins/datapick.js');
 // load jquery-upload plugin
-\App::$Alias->setCustomLibrary('css', \App::$Alias->scriptUrl . '/vendor/npm/blueimp-file-upload/css/jquery.fileupload.css');
-\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/npm/blueimp-file-upload/js/vendor/jquery.ui.widget.js');
-\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/npm/blueimp-file-upload/js/jquery.iframe-transport.js');
-\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/npm/blueimp-file-upload/js/jquery.fileupload.js');
+\App::$Alias->setCustomLibrary('css', \App::$Alias->scriptUrl . '/vendor/bower/dropzone/dist/min/dropzone.min.css');
+\App::$Alias->setCustomLibrary('css', \App::$Alias->scriptUrl . '/vendor/bower/dropzone/dist/min/basic.min.css');
+\App::$Alias->setCustomLibrary('js', \App::$Alias->scriptUrl . '/vendor/bower/dropzone/dist/min/dropzone.min.js');
 ?>
-
-<!-- dom model for gallery items -->
-<div class="col-md-3 well hidden" id="gallery-item">
-    <div class="text-center"><strong id="item-title"></strong></div>
-    <img id="item-image" src="" class="img-responsive image-item"/>
-    <div class="text-center">
-        <a id="item-view-link" href="#" target="_blank" class="label label-info"><?= __('View') ?></a>
-        <a id="item-delete-link" href="javascript:void(0);" class="label label-danger delete-gallery-item"><?= __('Delete') ?></a>
-    </div>
-</div>
 
 <script>
     window.jQ.push(function(){
@@ -144,7 +128,6 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
             // onbeforeUnload hook
             var isChanged = false;
             var pathChanged = false;
-            var galleryItem = $('#gallery-item').clone().removeClass('hidden').removeAttr('id');
             // init ckeditor
             CKEDITOR.disableAutoInline = true;
             // init maxlength plugin
@@ -163,7 +146,6 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
                     url: script_url + '/api/user/auth?lang='+script_lang,
                     contentType: 'json',
                     success: function(response) {
-                        response = jQuery.parseJSON(response);
                         if (response.status === 1) {
                             is_fail = false;
                         }
@@ -197,74 +179,6 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
                 pathObject.val(translit($(this).val()));
             });
 
-            // gallery remove
-            $(document).on('click', '.delete-gallery-item', function() {
-                var itemId = (this.id);
-                $.getJSON(script_url+"/api/content/gallerydelete/<?= $model->galleryFreeId ?>/"+(this.id)+"?lang="+script_lang, function (data){
-                    if (data.status === 1) {
-                        document.getElementById('image-'+itemId).remove();
-                    } else {
-                        alert('Could not delete this image: ' + itemId);
-                    }
-                });
-            });
-
-            // gallery file listing
-            $.getJSON(script_url+"/api/content/gallerylist/<?= $model->galleryFreeId ?>?lang="+script_lang,
-                function (data) {
-                    $.each(data.files, function (index, file) {
-                        var gItem = galleryItem.clone();
-                        // make dom for gallery item
-                        gItem.attr('id', 'image-'+file.name);
-                        gItem.find('#item-title').text(file.name).removeAttr('id');
-                        gItem.find('#item-image').attr('src', script_url+file.thumbnailUrl).removeAttr('id');
-                        gItem.find('#item-view-link').attr('href', script_url + file.url).removeAttr('id');
-                        gItem.find('#item-delete-link').attr('id', file.name);
-                        $('#gallery-files').append(gItem);
-
-                        var option = '<option value="'+file.name+'">'+file.name+'</option>';
-                        if (file.name == '<?= $model->poster ?>') {
-                            option = '<option value="'+file.name+'" selected>'+file.name+'</option>';
-                        }
-                        $('#FormContentUpdate-poster').append(option);
-                    });
-                });
-
-            // gallery file upload
-            $('#fileupload').fileupload({
-                url: script_url+'/api/content/galleryupload/<?= $model->galleryFreeId ?>?lang='+script_lang,
-                dataType: 'json',
-                done: function (e, data) {
-                    if (data.result.status !== 1) {
-                        alert(data.result.message);
-                    }
-                    $.each(data.result.files, function (index, file) {
-                        var gItem = galleryItem.clone();
-                        // make dom for gallery item
-                        gItem.attr('id', 'image-'+file.name);
-                        gItem.find('#item-title').text(file.name).removeAttr('id');
-                        gItem.find('#item-image').attr('src', script_url+file.thumbnailUrl).removeAttr('id');
-                        gItem.find('#item-view-link').attr('href', script_url + file.url).removeAttr('id');
-                        gItem.find('#item-delete-link').attr('id', file.name);
-                        $('#gallery-files').append(gItem);
-
-                        var option = '<option value="'+file.name+'">'+file.name+'</option>';
-                        if (file.name == '<?= $model->poster ?>') {
-                            option = '<option value="'+file.name+'" selected>'+file.name+'</option>';
-                        }
-                        $('#FormContentUpdate-poster').append(option);
-                    });
-                },
-                progressall: function (e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $('#progress .progress-bar').css(
-                        'width',
-                        progress + '%'
-                    );
-                }
-            }).prop('disabled', !$.support.fileInput)
-                .parent().addClass($.support.fileInput ? undefined : 'disabled');
-
             window.onbeforeunload = function (evt) {
                 if (!isChanged) return;
                 var message = "Page is not saved!";
@@ -275,7 +189,62 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
                     evt.returnValue = message;
                 }
                 return message;
-            }
+            };
+
+            // gallery file listing
+            $.getJSON(script_url+"/api/content/gallerylist/<?= $model->galleryFreeId ?>?lang="+script_lang, function (data) {
+                if (data.status !== 1)
+                    return;
+                $.each(data.files, function (index, file) {
+                    var DropzoneObj = Dropzone.forElement('#ffcms-dropzone');
+                    var FileObj = {name: file.name, size: file.size, status: Dropzone.ADDED, accepted: true};
+                    DropzoneObj.emit('addedfile', FileObj);
+                    DropzoneObj.emit('thumbnail', FileObj, file.thumbnailUrl);
+                    DropzoneObj.emit('complete', FileObj);
+                    DropzoneObj.files.push(FileObj);
+
+                    var option = '<option value="' + file.name + '">' + file.name + '</option>';
+                    if (file.name == '<?= $model->poster ?>') {
+                        option = '<option value="' + file.name + '" selected>' + file.name + '</option>';
+                    }
+                    $('#FormContentUpdate-poster').append(option);
+                });
+            });
+
+            // initialize & configure dropzone file uploading
+            Dropzone.autoDiscover = false;
+            var DropzoneFiles = [];
+            $('#ffcms-dropzone').dropzone({
+                url: script_url+'/api/content/galleryupload/<?= $model->galleryFreeId ?>?lang='+script_lang,
+                dictDefaultMessage: '<?= __('Drop files here to upload in gallery') . '<br />' . __('(or click here)') ?>',
+                acceptedFiles: ".jpeg,.jpg,.png,.gif,.webp",
+                addRemoveLinks: true,
+                removedfile: function (file) { // file remove click, lets try to remove file from server & make visual changes
+                    var serverFile = DropzoneFiles[file.name] != null ? DropzoneFiles[file.name] : file.name;
+                    $.getJSON(script_url+"/api/content/gallerydelete/<?= $model->galleryFreeId ?>/"+serverFile+"?lang="+script_lang, function(data){
+                        if (data.status === 1) {
+                            if (file.previewElement != null)
+                                return file.previewElement.parentNode.removeChild(file.previewElement);
+                        }
+                        return void 0;
+                    });
+                },
+                success: function(file, response) { // upload is successful done. Lets try to check server response & build file list
+                    // save files as array ClientFileName => ServerFileName
+                    if (response.status !== 1) {
+                        if (file.previewElement != null)
+                            file.previewElement.parentNode.removeChild(file.previewElement);
+                        alert(response.message);
+                        return;
+                    }
+                    DropzoneFiles[file.name] = response.file.name;
+                    // add to <select> poster options
+                    var posterOption = '<option value="'+response.file.name+'">'+file.name+'</option>';
+                    $('#FormContentUpdate-poster').append(posterOption);
+
+                    console.log('Client file: ['+file.name +']/Server file:[' + response.file.name+']');
+                }
+            });
         });
     });
 </script>
