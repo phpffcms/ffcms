@@ -215,7 +215,7 @@ class Content extends ApiController
                 'thumbnailUrl' => '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg',
                 'url' => '/upload/gallery/' . $id . '/orig/' . $file,
                 'name' => $file,
-                'size' => File::size($file)
+                'size' => File::size('/upload/gallery/' . $id . '/orig/' . $file)
             ];
         }
 
