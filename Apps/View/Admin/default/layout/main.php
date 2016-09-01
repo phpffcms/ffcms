@@ -174,7 +174,7 @@ use Ffcms\Core\Helper\Url;
                         ]) ?>
                     </li>
                     <li<?= Arr::in(\App::$Request->getController(), $widgetControllers) ? ' class="active"' : null ?>>
-                        <a href="#"><i class="fa fa-plug fa-fw"></i> <?= __('Widgets') ?><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-puzzle-piece fa-fw"></i> <?= __('Widgets') ?><span class="fa arrow"></span></a>
                         <?php
                         echo Listing::display([
                             'type' => 'ul',
