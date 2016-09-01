@@ -11,6 +11,7 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Apps\Controller\Console\Db as DbController;
+use Symfony\Component\VarDumper\Caster\ConstStub;
 
 class Main
 {
@@ -125,7 +126,7 @@ class Main
             }
         }
 
-        return $errors === false ? 'Chmods are successful changed' : $errors;
+        return $errors === false ? Console::$Output->write('Chmods are successful changed') : $errors;
     }
 
     /**
@@ -138,6 +139,10 @@ class Main
         if (File::exist('/Private/Install/install.lock')) {
             throw new NativeException('Installation is locked! Please delete /Private/Install/install.lock');
         }
+
+        echo Console::$Output->writeHeader('License start');
+        echo File::read('/LICENSE') . PHP_EOL;
+        echo Console::$Output->writeHeader('License end');
 
         $config = Console::$Properties->get('database');
         $newConfig = [];

@@ -13,6 +13,7 @@ return [
     'Checking chmod' => 'Проверка chmod',
     'Path' => 'Путь',
     'Status' => 'Статус',
+    'Accept license' => 'Принять лицензию',
     'Start install' => 'Начать установку',
     'Check again' => 'Повторная проверка',
     'FFCMS installation' => 'Установка FFCMS',
