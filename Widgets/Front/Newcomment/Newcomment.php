@@ -15,9 +15,10 @@ class Newcomment extends AbstractWidget
 {
     use ClassTools;
 
-	public $snippet;
-	public $count;
-	public $cache;
+    public $snippet;
+    public $count;
+    public $cache;
+    public $lang;
 
     private $_cacheName;
 
@@ -38,6 +39,9 @@ class Newcomment extends AbstractWidget
     	if ($this->cache === null) {
     	    $this->cache = $cfg['cache'];
     	}
+        if ($this->lang === null) {
+            $this->lang = App::$Request->getLanguage();
+        }
 
         $this->_cacheName = 'widget.newcomment.' . $this->createStringClassSnapshotHash();
     }
@@ -82,8 +86,8 @@ class Newcomment extends AbstractWidget
      */
     private function makeQuery()
     {
-        $records = CommentPost::where('lang', '=', App::$Request->getLanguage())
-            ->where('moderate', '=', 0);
+        $records = CommentPost::where('lang', $this->lang)
+            ->where('moderate', 0);
 
         if ($records === null || $records->count() < 1) {
             return null;

@@ -4,9 +4,13 @@
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\Type\Str;
 
 foreach ($records as $record) {
     $title = Serialize::getDecodeLocale($record->title);
+    if (Str::likeEmpty($title)) {
+        continue;
+    }
     $title = Text::snippet($title, 50);
     $date = Date::humanize($record->created_at);
     $categoryUrl = \App::$Alias->baseUrl . '/content/list/' . $record->cpath;
