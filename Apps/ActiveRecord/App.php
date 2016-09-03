@@ -25,27 +25,35 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class App extends ActiveModel
 {
-    const CACHE_FULL_TABLE_NAME = 'activercord.apps.cache.all';
-
     /**
      * Get all objects with query caching
+     * @param $columns array
      * @return \Illuminate\Database\Eloquent\Collection
+     * @throws SyntaxException
+     */
+    public static function all($columns = ['*'])
+    {
+        $cacheName = 'activercord.app.all.' . implode('.', $columns);
+        $records = MemoryObject::instance()->get($cacheName);
+        if ($records === null) {
+            $records = parent::all($columns);
+            MemoryObject::instance()->set($cacheName, $records);
+        }
+
+        if ($records === null) {
+            throw new SyntaxException('Applications is not found in table "prefix_apps"!');
+        }
+        return $records;
+    }
+
+    /**
+     * @deprecated
+     * @return \Illuminate\Database\Eloquent\Collection|mixed
      * @throws SyntaxException
      */
     public static function getAll()
     {
-        $object = MemoryObject::instance()->get(static::CACHE_FULL_TABLE_NAME);
-        // empty?
-        if ($object === null) {
-            $object = self::all();
-            MemoryObject::instance()->set(static::CACHE_FULL_TABLE_NAME, $object);
-        }
-        
-        if ($object === null) {
-            throw new SyntaxException('Application table "prefix_app" is empty!!!');
-        }
-
-        return $object;
+        return self::all();
     }
 
     /**
@@ -57,7 +65,7 @@ class App extends ActiveModel
     public static function getAllByType($type)
     {
         $response = null;
-        foreach (self::getAll() as $object) {
+        foreach (self::all() as $object) {
             if ($object->type === $type) {
                 $response[] = $object;
             }
@@ -75,7 +83,7 @@ class App extends ActiveModel
      */
     public static function getItem($type, $sys_name)
     {
-        foreach (self::getAll() as $object) {
+        foreach (self::all() as $object) {
             if ($object->type === $type) { //&& $object->sys_name === $sys_name) {
                 if (Obj::isArray($sys_name) && Arr::in($object->sys_name, $sys_name)) { // many different app name - maybe alias or something else
                     return $object;
@@ -97,7 +105,7 @@ class App extends ActiveModel
      */
     public static function getConfigs($type, $name)
     {
-        foreach (self::getAll() as $row) {
+        foreach (self::all() as $row) {
             if ($row->type === $type && $row->sys_name === $name) {
                 return Serialize::decode($row->configs);
             }

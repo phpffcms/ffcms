@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -20,6 +21,23 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class ContentCategory extends ActiveModel
 {
+
+    /**
+     * Get all table rows as object
+     * @param array $columns
+     * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
+     */
+    public static function all($columns = ['*'])
+    {
+        $cacheName = 'activerecord.contentcategory.all.' . implode('.', $columns);
+        $records = MemoryObject::instance()->get($cacheName);
+        if ($records === null) {
+            $records = parent::all($columns);
+            MemoryObject::instance()->set($cacheName, $records);
+        }
+
+        return $records;
+    }
     /**
      * Get record via category path address
      * @param string $path
@@ -53,18 +71,12 @@ class ContentCategory extends ActiveModel
     }
 
     /**
-     * Get all rows as object
+     * @deprecated
      * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
      */
     public static function getAll()
     {
-        if (MainApp::$Memory->get('cache.content.category.all') !== null) {
-            return MainApp::$Memory->get('cache.content.category.all');
-        }
-
-        $record = self::all();
-        MainApp::$Memory->set('cache.content.category.all', $record);
-        return $record;
+        return self::all();
     }
 
     /**
@@ -101,7 +113,7 @@ class ContentCategory extends ActiveModel
      */
     public static function getSortedAll()
     {
-        $list = self::getAll();
+        $list = self::all();
         $response = [];
         foreach ($list as $row) {
             $response[$row->path] = $row;

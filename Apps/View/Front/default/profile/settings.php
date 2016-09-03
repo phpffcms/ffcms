@@ -32,7 +32,7 @@ $this->breadcrumbs = [
 <?= $form->field('phone', 'text', ['class' => 'form-control'], __('Enter your phone number without spaces, if you want to make it public for other users')) ?>
 <?= $form->field('url', 'text', ['class' => 'form-control'], __('If you have your own homepage - enter url there')) ?>
 <?php
-foreach (ProfileField::getAll() as $custom) {
+foreach (ProfileField::all() as $custom) {
     echo $form->field('custom_data.' . $custom->id, 'text', ['class' => 'form-control']);
 }
 ?>

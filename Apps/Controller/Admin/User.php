@@ -145,7 +145,7 @@ class User extends AdminController
     public function actionGrouplist()
     {
         // get all roles
-        $roles = Role::getAll();
+        $roles = Role::all();
 
         return $this->view->render('group_list', [
             'records' => $roles

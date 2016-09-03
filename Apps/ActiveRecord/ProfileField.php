@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Helper\Serialize;
 
 /**
@@ -21,18 +22,29 @@ class ProfileField extends ActiveModel
 {
 
     /**
-     * Get all fields using memory cache
+     * Get all table data using memory cache
+     * @param array $columns
+     * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
+     */
+    public static function all($columns = ['*'])
+    {
+        $cacheName = 'activerecord.profilefield.all.' . implode('.', $columns);
+        $records = MemoryObject::instance()->get($cacheName);
+        if ($records === null) {
+            $records = parent::all($columns);
+            MemoryObject::instance()->set($cacheName, $records);
+        }
+
+        return $records;
+    }
+
+    /**
+     * @deprecated
      * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
      */
     public static function getAll()
     {
-        if (MainApp::$Memory->get('custom.fields.all') !== null) {
-            return MainApp::$Memory->get('custom.fields.all');
-        }
-
-        $records = self::all();
-        MainApp::$Memory->set('custom.fields.all', $records);
-        return $records;
+        return self::all();
     }
 
     /**
@@ -42,7 +54,7 @@ class ProfileField extends ActiveModel
      */
     public static function getNameById($id)
     {
-        $all = self::getAll();
+        $all = self::all();
 
         $record = $all->find($id);
         if ($record === null || $record === false) {
@@ -59,7 +71,7 @@ class ProfileField extends ActiveModel
      */
     public static function getTypeById($id)
     {
-        $all = self::getAll();
+        $all = self::all();
 
         $record = $all->find($id);
         if ($record === null || $record === false) {

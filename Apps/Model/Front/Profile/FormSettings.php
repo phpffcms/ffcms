@@ -75,7 +75,7 @@ class FormSettings extends Model
         ];
 
         // labels for custom fields
-        foreach (ProfileField::getAll() as $custom) {
+        foreach (ProfileField::all() as $custom) {
             $labels['custom_data.' . $custom->id] = Serialize::getDecodeLocale($custom->name);
         }
 
@@ -99,7 +99,7 @@ class FormSettings extends Model
         ];
 
         // custom profile fields
-        foreach (ProfileField::getAll() as $custom) {
+        foreach (ProfileField::all() as $custom) {
             $rules[] = [
                 'custom_data.' . $custom->id,
                 'used'

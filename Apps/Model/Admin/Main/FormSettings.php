@@ -49,6 +49,10 @@ class FormSettings extends Model
     */
     public function before()
     {
+        $properties = App::$Properties->getAll();
+        if ($properties === false || !Obj::isArray($properties)) {
+            return;
+        }
         // set default values
         foreach (App::$Properties->getAll() as $key => $value) {
             if (property_exists($this, $key)) {

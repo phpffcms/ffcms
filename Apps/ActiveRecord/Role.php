@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -18,6 +19,22 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class Role extends ActiveModel
 {
+    /**
+     * Get all table data as object
+     * @param array $columns
+     * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
+     */
+    public static function all($columns = ['*'])
+    {
+        $cacheName = 'activerecords.role.all.' . implode('.', $columns);
+        $records = MemoryObject::instance()->get($cacheName);
+        if ($records === null) {
+            $records = parent::all($columns);
+            MemoryObject::instance()->set($cacheName, $records);
+        }
+
+        return $records;
+    }
 
     /**
      * Get role object via id
@@ -37,19 +54,12 @@ class Role extends ActiveModel
     }
 
     /**
-     * Get all roles as object
-     * @return static
+     * @deprecated
+     * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
      */
     public static function getAll()
     {
-        $list = MainApp::$Memory->get('user.roleall.cache');
-
-        if ($list === null) {
-            $list = self::all();
-            MainApp::$Memory->set('user.roleall.cache', $list);
-        }
-
-        return $list;
+        return self::all();
     }
 
     /**
@@ -58,7 +68,7 @@ class Role extends ActiveModel
      */
     public static function getIdNameAll()
     {
-        $all = self::getAll();
+        $all = self::all();
 
         $output = null;
         foreach ($all as $row) {

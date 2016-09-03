@@ -376,7 +376,7 @@ class Content extends FrontAppController
             $sitemap->add($uri, $content->created_at, 'weekly', 0.7);
         }
         // add categories
-        $categories = ContentCategory::getAll();
+        $categories = ContentCategory::all();
         foreach ($categories as $item) {
             if ((bool)$item->getProperty('showCategory')) {
                 $uri = '/content/list/' . $item->path;
