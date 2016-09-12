@@ -5,7 +5,6 @@ namespace Apps\Controller\Install;
 
 use Apps\Model\Install\Main\EntityCheck;
 use Apps\Model\Install\Main\FormInstall;
-use Ffcms\Core\App;
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
@@ -49,7 +48,7 @@ class Main extends Controller
     }
 
     /**
-     * Installation form
+     * Display installation form and process install
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
@@ -67,7 +66,7 @@ class Main extends Controller
         }
 
         return $this->view->render('install', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
