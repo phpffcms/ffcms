@@ -9,6 +9,10 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class Search. Search app front controller
+ * @package Apps\Controller\Front
+ */
 class Search extends Controller
 {
     const EVENT_SEARCH_RUNNED = 'search.run';

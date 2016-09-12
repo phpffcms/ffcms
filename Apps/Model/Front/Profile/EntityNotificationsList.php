@@ -19,7 +19,7 @@ class EntityNotificationsList extends Model
 {
     public $items;
 
-    /** @var UserNotification */
+    /** @var UserNotification|null */
     private $_records;
 
     /**
@@ -52,7 +52,7 @@ class EntityNotificationsList extends Model
             if (!$vars !== null && isset($vars['snippet'])) {
                 $vars['snippet'] = Url::standaloneLink($vars['snippet'], $record->uri, App::$Request->getLanguage());
             }
-            
+
             $text = App::$Translate->get('Profile', $record->msg, $vars);
 
             $this->items[] = [

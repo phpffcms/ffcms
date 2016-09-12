@@ -7,6 +7,10 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class FormFeedbackAdd. Add new feedback request business logic model
+ * @package Apps\Model\Front\Feedback
+ */
 class FormFeedbackAdd extends Model
 {
     public $name;
@@ -18,6 +22,10 @@ class FormFeedbackAdd extends Model
 
     private $_useCaptcha = true;
 
+    /**
+     * FormFeedbackAdd constructor. Pass captcha marker enabled inside
+     * @param bool $captcha
+     */
     public function __construct($captcha = true)
     {
         $this->_useCaptcha = (bool)$captcha;
@@ -26,8 +34,8 @@ class FormFeedbackAdd extends Model
 
 
     /**
-    * Set user data if he is logged in
-    */
+     * Set user data if he is logged in
+     */
     public function before()
     {
         if (App::$User->isAuth()) {
@@ -38,8 +46,9 @@ class FormFeedbackAdd extends Model
     }
 
     /**
-    * Labels to display form
-    */
+     * Labels to display form
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -51,8 +60,9 @@ class FormFeedbackAdd extends Model
     }
 
     /**
-    * Rules to validate send form
-    */
+     * Rules to validate send form
+     * @return array
+     */
     public function rules()
     {
         $rules = [
@@ -68,6 +78,10 @@ class FormFeedbackAdd extends Model
         return $rules;
     }
 
+    /**
+     * Process submit new request
+     * @return FeedbackPost
+     */
     public function make()
     {
         // calculate security hash to direct-on access

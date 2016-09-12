@@ -60,7 +60,7 @@ class Feedback extends Controller
 
         // render output view
         return $this->view->render('create', [
-            'model' => $model->filter(),
+            'model' => $model,
             'useCaptcha' => (int)$configs['useCaptcha'] === 1
         ]);
     }
@@ -102,8 +102,6 @@ class Feedback extends Controller
                 App::$Session->getFlashBag()->add('success', __('Your answer was added'));
                 $model->clearProperties();
             }
-            // secure display html data
-            $model = $model->filter();
         }
 
         // render output view
@@ -115,6 +113,7 @@ class Feedback extends Controller
     }
 
     /**
+     * Close feedback request from new answers.
      * @param int $id
      * @param string $hash
      * @return string

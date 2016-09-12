@@ -10,6 +10,10 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 
+/**
+ * Class FormRegister. User registration business logic model
+ * @package Apps\Model\Front\User
+ */
 class FormRegister extends Model
 {
     public $email;
@@ -25,7 +29,7 @@ class FormRegister extends Model
     public $_profileObject;
 
     /**
-     * Build model and set maker if captcha is enabled
+     * FormRegister constructor. Build model and set maker if captcha is enabled
      * @param bool $captcha
      */
     public function __construct($captcha = false)
@@ -76,6 +80,8 @@ class FormRegister extends Model
      * Try to insert user data in database
      * @param bool $activation
      * @return bool
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function tryRegister($activation = false)
     {

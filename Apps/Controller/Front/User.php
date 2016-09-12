@@ -10,14 +10,12 @@ use Apps\Model\Front\User\FormSocialAuth;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Apps\Model\Front\User\FormLogin;
-use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
-use Apps\ActiveRecord\UserLog;
 
 /**
  * Class User - standard user controller: login/signup/logout/etc
@@ -64,7 +62,7 @@ class User extends FrontAppController
 
         // render view
         return $this->view->render('login', [
-            'model' => $loginForm->filter(),
+            'model' => $loginForm,
             'useCaptcha' => $configs['captchaOnLogin'] === 1
         ]);
     }
@@ -203,7 +201,7 @@ class User extends FrontAppController
 
         // render view
         return $this->view->render('signup', [
-            'model' => $registerForm->filter(),
+            'model' => $registerForm,
             'config' => $configs,
             'useCaptcha' => $configs['captchaOnRegister'] === 1
         ]);
@@ -271,7 +269,7 @@ class User extends FrontAppController
 
         // render visual form content
         return $this->view->render('recovery', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 

@@ -44,8 +44,8 @@ class FormSocialAuth extends FormRegister
     }
 
     /**
-    * Parse user identifier to attributes
-    */
+     * Parse user identifier to attributes
+     */
     public function before()
     {
         // set unique user id from provider response

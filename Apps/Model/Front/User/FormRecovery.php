@@ -22,8 +22,9 @@ class FormRecovery extends Model
     public $captcha;
 
     /**
-    * Labels for visual display
-    */
+     * Labels for visual display
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -33,8 +34,9 @@ class FormRecovery extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         return [

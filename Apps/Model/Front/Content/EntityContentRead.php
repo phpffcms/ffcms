@@ -15,6 +15,10 @@ use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Type\Obj;
 
+/**
+ * Class EntityContentRead. Prepare record object data to display.
+ * @package Apps\Model\Front\Content
+ */
 class EntityContentRead extends Model
 {
     public $id;
@@ -47,7 +51,7 @@ class EntityContentRead extends Model
     private $_content;
 
     /**
-     * Pass active record objects
+     * EntityContentRead constructor. Pass active record objects
      * @param ContentCategory $category
      * @param Content $content
      */

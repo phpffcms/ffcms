@@ -7,6 +7,10 @@ use Ffcms\Core\Helper\HTML\System\Dom;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class EntitySearchMain. Search everything main business logic model
+ * @package Apps\Model\Front\Search
+ */
 class EntitySearchMain extends Model
 {
     public $results = [];

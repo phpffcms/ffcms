@@ -2,15 +2,17 @@
 
 namespace Apps\Model\Front\Profile;
 
-use Apps\ActiveRecord\Blacklist;
 use Apps\ActiveRecord\WallPost as WallRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Helper\Text;
-use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 
+/**
+ * Class FormWallPost. Add wall post business logic model
+ * @package Apps\Model\Front\Profile
+ */
 class FormWallPost extends Model
 {
     const MAX_MESSAGE_LENGTH = 500; // 500 symbols

@@ -263,7 +263,7 @@ class Feedback extends Controller
 
         // render view
         return $this->view->render('settings', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 

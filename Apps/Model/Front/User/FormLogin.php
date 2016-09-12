@@ -9,7 +9,7 @@ use Ffcms\Core\Interfaces\iUser;
 use Apps\ActiveRecord\UserLog;
 
 /**
- * Class FormLogin. User log in business logic model
+ * Class FormLogin. User login business logic model
  * @package Apps\Model\Front\User
  */
 class FormLogin extends Model
@@ -70,12 +70,10 @@ class FormLogin extends Model
     {
         $password = App::$Security->password_hash($this->password);
 
-        $search = App::$User
-            ->where('password', '=', $password)
-            ->where(function($query) {
-                $query->where('login', '=', $this->login)
-                    ->orWhere('email', '=', $this->login);
-            });
+        $search = App::$User->where('password', '=', $password)->where(function ($query) {
+            $query->where('login', '=', $this->login)
+                ->orWhere('email', '=', $this->login);
+        });
 
         if ($search->count() === 1) {
             $object = $search->first();

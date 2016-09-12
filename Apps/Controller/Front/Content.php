@@ -41,7 +41,7 @@ class Content extends FrontAppController
      */
     public function actionIndex()
     {
-        throw new NotFoundException();
+        throw new NotFoundException(__('This page is not exists'));
     }
 
     /**
@@ -340,7 +340,7 @@ class Content extends FrontAppController
 
         // render view output
         return $this->view->render('update', [
-            'model' => $model->filter(['text' => 'html']),
+            'model' => $model,
             'configs' => $configs
         ]);
     }

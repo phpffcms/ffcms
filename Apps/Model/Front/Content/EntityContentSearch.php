@@ -11,6 +11,10 @@ use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Apps\ActiveRecord\Content as ContentEntity;
 
+/**
+ * Class EntityContentSearch. Search similar content items.
+ * @package Apps\Model\Front\Content
+ */
 class EntityContentSearch extends Model
 {
     const MAX_ITEMS = 5;

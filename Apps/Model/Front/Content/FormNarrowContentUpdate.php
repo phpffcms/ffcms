@@ -128,6 +128,17 @@ class FormNarrowContentUpdate extends Model
     }
 
     /**
+     * Set attribute validation types
+     * @return array
+     */
+    public function types()
+    {
+        return [
+            'text' => 'html'
+        ];
+    }
+
+    /**
      * Save input data to database
      */
     public function make()
@@ -192,6 +203,10 @@ class FormNarrowContentUpdate extends Model
         return $response;
     }
 
+    /**
+     * Validate content item pathway
+     * @return bool
+     */
     public function validatePath()
     {
         // try to find this item

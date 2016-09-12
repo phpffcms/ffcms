@@ -29,7 +29,7 @@ class FormPasswordChange extends Model
     }
 
     /**
-     * Labels
+     * Form display labels
      * @return array
      */
     public function labels()

@@ -20,8 +20,9 @@ class FormAvatarUpload extends Model
     const COMPRESS_QUALITY = 90;
 
     /**
-    * Form text helper data with translation
-    */
+     * Form text helper data with translation
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -30,8 +31,9 @@ class FormAvatarUpload extends Model
     }
 
     /**
-    * Validation rules for avatar uploading
-    */
+     * Validation rules for avatar uploading
+     * @return array
+     */
     public function rules()
     {
         return [

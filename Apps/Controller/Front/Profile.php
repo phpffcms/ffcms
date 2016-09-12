@@ -30,7 +30,7 @@ use Ffcms\Core\Helper\Url;
 
 
 /**
- * Class Profile - user profiles interaction
+ * Class Profile. User profiles application front controller
  * @package Apps\Controller\Front
  */
 class Profile extends FrontAppController
@@ -175,7 +175,7 @@ class Profile extends FrontAppController
             'user' => $targetPersone,
             'viewer' => $viewerPersone,
             'isSelf' => ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id),
-            'wall' => !Obj::isObject($wallModel) ? null : $wallModel->filter(),
+            'wall' => $wallModel,
             'notify' => App::$Session->getFlashBag()->all(),
             'wallRecords' => $wallRecords,
             'pagination' => $wallPagination,
@@ -256,7 +256,7 @@ class Profile extends FrontAppController
 
         return $this->view->render('wall_delete', [
             'post' => $wallPost,
-            'model' => $wallModel->filter()
+            'model' => $wallModel
         ]);
     }
 
@@ -350,7 +350,7 @@ class Profile extends FrontAppController
 
         // render view
         return $this->view->render('settings', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -380,7 +380,7 @@ class Profile extends FrontAppController
 
         // set response output
         return $this->view->render('password', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -435,7 +435,7 @@ class Profile extends FrontAppController
 
         return $this->view->render('ignore', [
             'records' => $records->skip($offset)->take(self::BLOCK_PER_PAGE)->get(),
-            'model' => $model->filter(),
+            'model' => $model,
             'pagination' => $pagination
         ]);
     }
@@ -503,7 +503,7 @@ class Profile extends FrontAppController
         }
 
         return $this->view->render('unblock', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -520,7 +520,7 @@ class Profile extends FrontAppController
         $model->setSubmitMethod('GET');
 
         // get app configs
-        $cfgs = Serialize::decode($this->application->configs);
+        $cfgs = $this->getConfigs();
 
         $records = null;
         $pagination = null;
@@ -548,7 +548,7 @@ class Profile extends FrontAppController
 
         // display response
         return $this->view->render('search', [
-            'model' => $model->filter(),
+            'model' => $model,
             'records' => $records,
             'pagination' => $pagination,
             'ratingOn' => (int)$cfgs['rating']

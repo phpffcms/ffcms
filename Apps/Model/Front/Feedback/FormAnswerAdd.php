@@ -49,8 +49,9 @@ class FormAnswerAdd extends Model
     }
 
     /**
-    * Labels for display form
-    */
+     * Labels for display form
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -61,8 +62,9 @@ class FormAnswerAdd extends Model
     }
 
     /**
-    * Form validation rules
-    */
+     * Form validation rules
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -99,7 +101,7 @@ class FormAnswerAdd extends Model
         if ($targetId !== null && (int)$targetId > 0 && $targetId !== $this->_userId) {
             $notify = new EntityAddNotification($targetId);
             $uri = '/feedback/read/' . $this->_post->id . '/' . $this->_post->hash . '#feedback-answer-' . $record->id;
-            $notify->add($uri,  EntityAddNotification::MSG_ADD_FEEDBACKANSWER, [
+            $notify->add($uri, EntityAddNotification::MSG_ADD_FEEDBACKANSWER, [
                 'snippet' => Text::snippet(App::$Security->strip_tags($this->message), 50),
                 'post' => Text::snippet(App::$Security->strip_tags($this->_post->message), 50)
             ]);

@@ -41,8 +41,8 @@ class FormIgnoreAdd extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     */
     public function rules()
     {
         return [
