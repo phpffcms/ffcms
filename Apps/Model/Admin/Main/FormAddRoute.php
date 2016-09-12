@@ -21,8 +21,8 @@ class FormAddRoute extends Model
 
 
     /**
-    * Load default properties into the model
-    */
+     * Load default properties into the model
+     */
     public function before()
     {
         $this->cfg = App::$Properties->getAll('Routing');

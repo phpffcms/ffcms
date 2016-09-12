@@ -32,7 +32,7 @@ class Newcomment extends AdminController
         }
         
         return $this->view->render('index', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 }

@@ -16,11 +16,19 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Str;
+use Symfony\Component\HttpFoundation\Cookie;
 
+/**
+ * Class Main. Admin main controller - index page, settings, file manager, security and etc.
+ * @package Apps\Controller\Admin
+ */
 class Main extends AdminController
 {
     public $type = 'app';
 
+    /**
+     * Main constructor. Disable parent inheritance of typical app version checking
+     */
     public function __construct()
     {
         parent::__construct(false);
@@ -90,7 +98,7 @@ class Main extends AdminController
 
         // render output view
         return $this->view->render('settings', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -125,7 +133,7 @@ class Main extends AdminController
     {
         $cookieProperty = App::$Properties->get('debug');
         //$this->request->cookies->add([$cookieProperty['cookie']['key'] => $cookieProperty['cookie']['value']]); todo: fix me
-        setcookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], Integer::MAX, '/', null, null, true);
+        $this->response->headers->setCookie(new Cookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], strtotime('+1 month'), null, false, true));
         $this->response->redirect('/');
     }
 
@@ -162,7 +170,7 @@ class Main extends AdminController
         }
 
         return $this->view->render('add_route', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -185,7 +193,7 @@ class Main extends AdminController
         }
 
         return $this->view->render('delete_route', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 

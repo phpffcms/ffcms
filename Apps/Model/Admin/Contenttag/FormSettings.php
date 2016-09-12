@@ -4,26 +4,30 @@ namespace Apps\Model\Admin\Contenttag;
 
 use Ffcms\Core\Arch\Model;
 
+/**
+ * Class FormSettings. Content tags widget settings business logic model
+ * @package Apps\Model\Admin\Contenttag
+ */
 class FormSettings extends Model
 {
     public $count;
     public $cache;
-    
+
     private $_configs;
-    
+
     /**
      * FormSettings constructor. Pass configuration inside as factory.
      * @param array $configs
      */
-    public function __construct(array $configs)
+    public function __construct(array $configs = null)
     {
         $this->_configs = $configs;
         parent::__construct();
     }
 
     /**
-    * Set default model properties from global configuration
-    */
+     * Set default model properties from global configuration
+     */
     public function before()
     {
         $this->count = (int)$this->_configs['count'];
@@ -31,8 +35,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Form display labels 
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -42,8 +47,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         return [

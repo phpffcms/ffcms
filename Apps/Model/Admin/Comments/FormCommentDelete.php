@@ -4,11 +4,15 @@ namespace Apps\Model\Admin\Comments;
 
 use Ffcms\Core\Arch\Model;
 
+/**
+ * Class FormCommentDelete. Process comments and answers delete
+ * @package Apps\Model\Admin\Comments
+ */
 class FormCommentDelete extends Model
 {
     private $_record;
     private $_type;
-   
+
     /**
      * FormCommentDelete constructor. Pass active record and type of comment system inside.
      * @param object $record
@@ -32,10 +36,10 @@ class FormCommentDelete extends Model
                 $com->getAnswer()->delete();
             }
         }
-        
+
         $this->_record->delete();
     }
-    
+
     /**
      * Get records to delete as object
      * @return object

@@ -31,8 +31,8 @@ class FormUserGroupUpdate extends Model
     }
 
     /**
-    * Parse public attribute values from input object data
-    */
+     * Parse public attribute values from input object data
+     */
     public function before()
     {
         $this->name = $this->_role->name;
@@ -42,9 +42,9 @@ class FormUserGroupUpdate extends Model
     }
 
     /**
-    * Display labels data
+     * Form display labels
      * @return array
-    */
+     */
     public function labels()
     {
         return [

@@ -21,9 +21,12 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\HTML\SimplePagination;
-use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
+/**
+ * Class Content. Admin controller to manage & control contents
+ * @package Apps\Controller\Admin
+ */
 class Content extends AdminController
 {
     const VERSION = 0.1;
@@ -68,7 +71,6 @@ class Content extends AdminController
         // build listing objects
         $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
-
         return $this->view->render('index', [
             'records' => $records,
             'pagination' => $pagination,
@@ -108,7 +110,7 @@ class Content extends AdminController
 
         // draw response
         return $this->view->render('content_update', [
-            'model' => $model->filter(['text' => '!secure'])
+            'model' => $model
         ]);
     }
 
@@ -141,7 +143,7 @@ class Content extends AdminController
         }
 
         return $this->view->render('content_delete', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -176,12 +178,12 @@ class Content extends AdminController
 
         // draw response
         return $this->view->render('content_restore', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
     /**
-     * Clear the trashed items
+     * Clear all trashed items
      * @return string
      * @throws SyntaxException
      * @throws \Ffcms\Core\Exception\SyntaxException
@@ -193,24 +195,16 @@ class Content extends AdminController
         $records = ContentEntity::onlyTrashed();
 
         // init model
-        $model = new FormContentClear($records->count());
+        $model = new FormContentClear($records);
         if ($model->send() && $model->validate()) {
-            // remove all trashed items
-            foreach ($records->get() as $item) {
-                $galleryPath = '/upload/gallery/' . (int)$item->id;
-                if (Directory::exist($galleryPath)) {
-                    Directory::remove($galleryPath);
-                }
-            }
-            // totally remove rows from db
-            $records->forceDelete();
-            App::$Session->getFlashBag()->add('success', __('Trashed content is cleanup'));
+            $model->make();
+            App::$Session->getFlashBag()->add('success', __('Trash content is cleaned'));
             $this->response->redirect('content/index');
         }
 
         // draw response
         return $this->view->render('content_clear', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -260,7 +254,7 @@ class Content extends AdminController
 
         // draw view
         return $this->view->render('category_delete', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -294,7 +288,7 @@ class Content extends AdminController
 
         // draw response view and pass model properties
         return $this->view->render('category_update', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -398,7 +392,7 @@ class Content extends AdminController
 
         // draw response
         return $this->view->render('settings', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 }

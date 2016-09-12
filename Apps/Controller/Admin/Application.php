@@ -28,7 +28,6 @@ class Application extends AdminController
         parent::__construct(false);
     }
 
-
     /**
      * List of all installed applications
      * @return string
@@ -41,8 +40,7 @@ class Application extends AdminController
             'apps' => $this->applications
         ]);
     }
-
-
+    
     /**
      * Show installation for of applications
      * @return string
@@ -70,10 +68,18 @@ class Application extends AdminController
         }
 
         return $this->view->render('install', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
-    
+
+    /**
+     * Show and process update form for apps
+     * @param string $sys_name
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws NotFoundException
+     */
     public function actionUpdate($sys_name)
     {
         // get controller name and try to find app in db
@@ -95,7 +101,7 @@ class Application extends AdminController
 
         // render response
         return $this->view->render('update', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -117,10 +123,9 @@ class Application extends AdminController
             throw new ForbiddenException('App is not founded');
         }
 
-        $model = new FormTurn();
-
+        $model = new FormTurn($search);
         if ($model->send()) {
-            $model->update($search);
+            $model->update();
             App::$Session->getFlashBag()->add('success', __('Application status was changed'));
         }
 

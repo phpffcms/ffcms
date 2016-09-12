@@ -7,6 +7,10 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Serialize;
 
+/**
+ * Class FormFieldUpdate. Update additional field business logic model
+ * @package Apps\Model\Admin\Profile
+ */
 class FormFieldUpdate extends Model
 {
     public $type;
@@ -16,6 +20,10 @@ class FormFieldUpdate extends Model
 
     private $_record;
 
+    /**
+     * FormFieldUpdate constructor. Pass profile field record inside
+     * @param ProfileField $record
+     */
     public function __construct(ProfileField $record)
     {
         $this->_record = $record;
@@ -23,8 +31,8 @@ class FormFieldUpdate extends Model
     }
 
     /**
-    * Set defaults values
-    */
+     * Set defaults values
+     */
     public function before()
     {
         foreach ($this->_record->toArray() as $property => $value) {
@@ -33,14 +41,15 @@ class FormFieldUpdate extends Model
                     $this->name = Serialize::decode($value);
                     continue;
                 }
-                $this->$property = $value;
+                $this->{$property} = $value;
             }
         }
     }
 
     /**
-    * Labels
-    */
+     * Forum display labels
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -52,8 +61,9 @@ class FormFieldUpdate extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         $rules = [
@@ -87,6 +97,6 @@ class FormFieldUpdate extends Model
      */
     public function delete()
     {
-       $this->_record->delete();
+        $this->_record->delete();
     }
 }

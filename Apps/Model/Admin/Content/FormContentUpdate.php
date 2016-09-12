@@ -15,6 +15,10 @@ use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 use Apps\ActiveRecord\ContentTag;
 
+/**
+ * Class FormContentUpdate. Create and update content items business model
+ * @package Apps\Model\Admin\Content
+ */
 class FormContentUpdate extends Model
 {
     public $title = [];
@@ -33,10 +37,13 @@ class FormContentUpdate extends Model
 
     public $galleryFreeId;
 
-
     private $_content;
     private $_new = false;
 
+    /**
+     * FormContentUpdate constructor. Pass content active record inside
+     * @param Content $content
+     */
     public function __construct(Content $content)
     {
         $this->_content = $content;
@@ -44,8 +51,8 @@ class FormContentUpdate extends Model
     }
 
     /**
-    * Set model properties from active record data
-    */
+     * Set model properties from active record data
+     */
     public function before()
     {
         // is new item?
@@ -71,7 +78,7 @@ class FormContentUpdate extends Model
             $this->metaKeywords = Serialize::decode($this->_content->meta_keywords);
             $this->metaDescription = Serialize::decode($this->_content->meta_description);
             $this->display = $this->_content->display;
-            $this->source  = $this->_content->source;
+            $this->source = $this->_content->source;
             $this->createdAt = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
             $this->galleryFreeId = $this->_content->id;
         }
@@ -79,13 +86,14 @@ class FormContentUpdate extends Model
 
     /**
      * Validation rules
+     * @return array
      */
     public function rules()
     {
-        $res =  [
+        $res = [
             ['title.' . App::$Request->getLanguage(), 'required'],
-            ['text.' . App::$Request->getLanguage(), 'required', null, true, true],
-            ['text', 'used', null, true, true],
+            ['text.' . App::$Request->getLanguage(), 'required'],
+            ['text', 'used'],
             ['path', 'reverse_match', '/[\/\'~`\!@#\$%\^&\*\(\)+=\{\}\[\]\|;:"\<\>,\?\\\]/'],
             [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title'], 'required'],
             [['metaTitle', 'metaKeywords', 'metaDescription', 'poster', 'source', 'addRating', 'createdAt'], 'used'],
@@ -106,8 +114,20 @@ class FormContentUpdate extends Model
     }
 
     /**
-    * Labels
-    */
+     * Filtering attribute types
+     * @return array
+     */
+    public function types()
+    {
+        return [
+            'text' => '!secure'
+        ];
+    }
+
+    /**
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [

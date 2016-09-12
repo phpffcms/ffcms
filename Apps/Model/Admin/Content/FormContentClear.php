@@ -2,21 +2,33 @@
 
 namespace Apps\Model\Admin\Content;
 
+use Apps\ActiveRecord\Content;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\FileSystem\Directory;
+use Illuminate\Database\Eloquent\Collection;
 
 class FormContentClear extends Model
 {
     public $count = 0;
 
-    public function __construct($count = 0)
+    /** @var Content|Collection */
+    private $_records;
+
+    /**
+     * FormContentClear constructor. Pass content records collection object inside (can be empty collection)
+     * @param Content|Collection $records
+     */
+    public function __construct($records)
     {
-        $this->count = $count;
+        $this->_records = $records;
+        $this->count = $this->_records->count();
         parent::__construct();
     }
 
     /**
-    * Example of usage magic labels for future form helper usage
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -25,10 +37,19 @@ class FormContentClear extends Model
     }
 
     /**
-    * Typo rules
-    */
-    public function rules()
+     * Finally delete content item
+     */
+    public function make()
     {
-        return [];
+        // remove gallery files if exists
+        foreach ($this->_records->get() as $record) {
+            $galleryPath = '/upload/gallery/' . (int)$record->id;
+            if (Directory::exist($galleryPath)) {
+                Directory::remove($galleryPath);
+            }
+        }
+
+        // finally remove from db
+        $this->_records->forceDelete();
     }
 }

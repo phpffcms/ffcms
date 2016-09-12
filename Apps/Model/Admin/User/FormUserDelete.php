@@ -29,8 +29,8 @@ class FormUserDelete extends Model
     }
 
     /**
-    * Set user data to model property
-    */
+     * Set user data to model property
+     */
     public function before()
     {
         // try to find each user
@@ -43,7 +43,7 @@ class FormUserDelete extends Model
     }
 
     /**
-     * Default labels
+     * Form display labels
      * @return array
      */
     public function labels()

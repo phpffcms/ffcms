@@ -139,7 +139,7 @@ class Feedback extends Controller
 
         // render output view
         return $this->view->render('update', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 

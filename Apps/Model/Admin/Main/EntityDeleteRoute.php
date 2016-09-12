@@ -65,6 +65,7 @@ class EntityDeleteRoute extends Model
 
     /**
      * Define labels for entity
+     * @return array
      */
     public function labels()
     {

@@ -124,7 +124,7 @@ class Comments extends AdminController
 
         // render view
         return $this->view->render('edit', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -294,7 +294,7 @@ class Comments extends AdminController
 
         // render view
         return $this->view->render('settings', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 

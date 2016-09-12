@@ -13,7 +13,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
- * Class Widget - control installed and not-installed widgets.
+ * Class Widget. Control installed and not-installed widgets.
  * @package Apps\Controller\Admin
  */
 class Widget extends AdminController
@@ -68,7 +68,7 @@ class Widget extends AdminController
         }
 
         return $this->view->render('install', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -102,7 +102,7 @@ class Widget extends AdminController
 
         // render response
         return $this->view->render('update', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -116,23 +116,25 @@ class Widget extends AdminController
      */
     public function actionTurn($controllerName)
     {
+        // get controller name & find object in db
         $controllerName = ucfirst(Str::lowerCase($controllerName));
+        $record = \Apps\ActiveRecord\App::where('sys_name', '=', $controllerName)->where('type', '=', 'widget')->first();
 
-        $search = \Apps\ActiveRecord\App::where('sys_name', '=', $controllerName)->where('type', '=', 'widget')->first();
-
-        if ($search === null || (int)$search->id < 1) {
-            throw new ForbiddenException('App is not founded');
+        // check if widget admin controller exists
+        if ($record === null || (int)$record->id < 1) {
+            throw new ForbiddenException('Widget is not founded');
         }
 
-        $model = new FormTurn();
-
+        // initialize turn on/off model
+        $model = new FormTurn($record);
         if ($model->send()) {
-            $model->update($search);
+            $model->update();
             App::$Session->getFlashBag()->add('success', __('Widget status was changed'));
         }
 
+        // render view
         return $this->view->render('turn', [
-            'widget' => $search,
+            'widget' => $record,
             'model' => $model
         ]);
     }

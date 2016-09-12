@@ -17,6 +17,12 @@ class Search extends AdminController
 
     public $type = 'app';
 
+    /**
+     * Show search settings
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
+     */
     public function actionIndex()
     {
         // initialize model and pass configs inside
@@ -36,7 +42,7 @@ class Search extends AdminController
 
         // render output view
         return $this->view->render('settings', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 

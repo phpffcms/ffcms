@@ -4,6 +4,10 @@ namespace Apps\Model\Admin\Profile;
 
 use Ffcms\Core\Arch\Model;
 
+/**
+ * Class FormSettings. Admin profile settings business logic
+ * @package Apps\Model\Admin\Profile
+ */
 class FormSettings extends Model
 {
     public $guestView;
@@ -13,24 +17,35 @@ class FormSettings extends Model
     public $usersOnPage;
     public $ratingDelay;
 
+    private $_configs;
+
     /**
      * Construct model with default values
-     * @param array $configs
+     * @param array|null $configs
      */
-    public function __construct(array $configs)
+    public function __construct(array $configs = null)
     {
-        foreach ($configs as $property => $value) {
-            if (property_exists($this, $property)) {
-                $this->$property = $value;
-            }
-        }
-
+        $this->_configs = $configs;
         parent::__construct();
     }
 
+    public function before()
+    {
+        if ($this->_configs === null) {
+            return;
+        }
+
+        foreach ($this->_configs as $property => $value) {
+            if (property_exists($this, $property)) {
+                $this->{$property} = $value;
+            }
+        }
+    }
+
     /**
-    * Labels
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -44,8 +59,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         return [

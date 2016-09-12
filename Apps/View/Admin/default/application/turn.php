@@ -4,9 +4,9 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Table;
 use Ffcms\Core\Helper\Url;
-/** @var $app object */
-/** @var $this object */
-/** @var $model object */
+/** @var \Apps\ActiveRecord\App $app */
+/** @var \Ffcms\Core\Arch\View $this */
+/** @var \Apps\Model\Admin\Application\FormTurn $model */
 
 $this->title = __('Turn on/off');
 
@@ -32,7 +32,7 @@ $this->breadcrumbs = [
         'items' => [
             [['text' => __('Name')], ['text' => $app->getLocaleName()]],
             [['text' => __('System name')], ['text' => $app->sys_name]],
-            [['text' => __('Last update')], ['text' => Date::convertToDatetime($app->updated_at, DATE::FORMAT_TO_SECONDS)]],
+            [['text' => __('Last update')], ['text' => Date::convertToDatetime($app->updated_at, Date::FORMAT_TO_SECONDS)]],
             [['text' => __('Status')], ['text' => ((int)$app->disabled === 0) ? 'On' : 'Off'], 'property' => ['class' =>  ((int)$app->disabled === 0) ? 'alert-success' : 'alert-danger']]
         ]
     ]

@@ -8,6 +8,10 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
 use Apps\ActiveRecord\App as AppRecord;
 
+/**
+ * Class FormInstall. Install new app model
+ * @package Apps\Model\Admin\Application
+ */
 class FormInstall extends Model
 {
     public $sysname;
@@ -22,7 +26,7 @@ class FormInstall extends Model
      * @param string $type
      * @throws SyntaxException
      */
-    public function __construct($apps, $type)
+    public function __construct(array $apps = null, $type)
     {
         $this->_apps = $apps;
         // check if passed type is allowed to use
@@ -57,8 +61,9 @@ class FormInstall extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -67,6 +72,10 @@ class FormInstall extends Model
         ];
     }
 
+    /**
+     * Make app installation
+     * @return bool
+     */
     public function make()
     {
         $cName = ucfirst(Str::lowerCase($this->sysname));

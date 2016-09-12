@@ -103,6 +103,7 @@ return [
     'Trashed content' => 'Количество в корзине',
     'Count of content items to total remove' => 'Количество элементов контента для удаления',
     'Total remove' => 'Полное удаление',
+    'Trash content is cleaned' => 'Контент из корзины полностью удален',
     'Content settings' => 'Настройки контента',
     'Remove all' => 'Очистить корзину',
     'Drop files here to upload in gallery' => 'Перетащите файлы сюда для загрузки в галерею',

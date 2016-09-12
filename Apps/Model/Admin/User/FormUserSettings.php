@@ -4,6 +4,10 @@ namespace Apps\Model\Admin\User;
 
 use Ffcms\Core\Arch\Model;
 
+/**
+ * Class FormUserSettings. Settings of user app business logic model
+ * @package Apps\Model\Admin\User
+ */
 class FormUserSettings extends Model
 {
     public $registrationType;
@@ -12,7 +16,11 @@ class FormUserSettings extends Model
 
     private $_config;
 
-    public function __construct(array $config)
+    /**
+     * FormUserSettings constructor. Pass configs inside the model
+     * @param array|null $config
+     */
+    public function __construct(array $config = null)
     {
         $this->_config = $config;
         parent::__construct();
@@ -23,6 +31,9 @@ class FormUserSettings extends Model
     */
     public function before()
     {
+        if ($this->_config === null) {
+            return;
+        }
         foreach ($this->_config as $property => $value) {
             if (property_exists($this, $property)) {
                 $this->$property = $value;
@@ -31,8 +42,9 @@ class FormUserSettings extends Model
     }
 
     /**
-    * Example of usage magic labels for future form helper usage
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -43,8 +55,9 @@ class FormUserSettings extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validate()
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         return [

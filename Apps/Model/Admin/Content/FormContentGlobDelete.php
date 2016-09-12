@@ -3,19 +3,26 @@
 namespace Apps\Model\Admin\Content;
 
 
+use Apps\ActiveRecord\Content;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Serialize;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class FormContentGlobDelete. Mass delete content items from passed active record collection
+ * @package Apps\Model\Admin\Content
+ */
 class FormContentGlobDelete extends Model
 {
+    /** @var Content[]|Collection */
     private $_records;
 
     public $data = [];
 
     /**
      * FormContentGlobDelete constructor. Pass records inside.
-     * @param $records
+     * @param Content[]|Collection $records
      */
     public function __construct($records)
     {

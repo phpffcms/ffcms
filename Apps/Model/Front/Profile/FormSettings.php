@@ -38,8 +38,8 @@ class FormSettings extends Model
     }
 
     /**
-    * Set default data
-    */
+     * Set default data
+     */
     public function before()
     {
         $profile = $this->_user->getProfile()->toArray(); // object to array (property's is protected of access)
@@ -60,11 +60,12 @@ class FormSettings extends Model
     }
 
     /**
-    * Form display labels
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
-        $labels =  [
+        $labels = [
             'nick' => __('Nickname'),
             'sex' => __('Sex'),
             'birthday' => __('Birthday'),
@@ -83,8 +84,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Rules for validation
-    */
+     * Rules for validation
+     * @return array
+     */
     public function rules()
     {
         $rules = [

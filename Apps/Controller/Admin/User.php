@@ -71,9 +71,6 @@ class User extends AdminController
     public function actionUpdate($id)
     {
         $user = UserRecords::findOrNew($id);
-
-        // find user identify object
-        //$user = App::$User->identity($id);
         // generate model data based on user object
         $model = new FormUserUpdate($user);
 
@@ -89,7 +86,7 @@ class User extends AdminController
 
         // render viewer
         return $this->view->render('user_update', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -176,7 +173,7 @@ class User extends AdminController
 
         // render view
         return $this->view->render('group_update', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -203,7 +200,7 @@ class User extends AdminController
 
         // render view
         return $this->view->render('settings', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -232,7 +229,7 @@ class User extends AdminController
 
         // render view
         return $this->view->render('invite', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 }

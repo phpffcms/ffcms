@@ -15,6 +15,9 @@ use Ffcms\Core\Helper\Text;
  */
 class FormAnswerAdd extends FrontAnswer
 {
+    /**
+     * @inheritdoc
+     */
     public function make()
     {
         // update readed marker
@@ -37,9 +40,10 @@ class FormAnswerAdd extends FrontAnswer
         if ((int)$this->_post->user_id > 0 && $this->_userId !== (int)$this->_post->user_id) {
             $notify = new EntityAddNotification((int)$this->_post->user_id);
             $uri = '/feedback/read/' . $this->_post->id . '/' . $this->_post->hash . '#feedback-answer-' . $record->id;
-            $notify->add($uri,  EntityAddNotification::MSG_ADD_FEEDBACKANSWER, [
-                'snippet' => Text::snippet(App::$Security->strip_tags($this->message), 50),
-                'post' => Text::snippet(App::$Security->strip_tags($this->_post->message), 50)
+
+            $notify->add($uri, EntityAddNotification::MSG_ADD_FEEDBACKANSWER, [
+                'snippet' => Text::snippet($this->message, 50),
+                'post' => Text::snippet($this->_post->message, 50)
             ]);
         }
 

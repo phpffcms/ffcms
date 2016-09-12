@@ -4,28 +4,32 @@ namespace Apps\Model\Admin\Comments;
 
 use Ffcms\Core\Arch\Model;
 
+/**
+ * Class FormCommentUpdate. Model for display & update comments and answers
+ * @package Apps\Model\Admin\Comments
+ */
 class FormCommentUpdate extends Model
 {
     public $message;
     public $guestName;
-    
-    /** @var Apps\ActiveRecord\CommentPost|Apps\ActiveRecord\CommentAnswer $_record */
+
+    /** @var \Apps\ActiveRecord\CommentPost|\Apps\ActiveRecord\CommentAnswer $_record */
     private $_record;
     private $type;
-    
+
     /**
      * FormCommentUpdate constructor. Pass record inside the model.
-     * @param Apps\ActiveRecord\CommentPost|Apps\ActiveRecord\CommentAnswer $record
+     * @param \Apps\ActiveRecord\CommentPost|\Apps\ActiveRecord\CommentAnswer $record
      */
     public function __construct($record, $type = 'comment')
     {
         $this->_record = $record;
         parent::__construct();
     }
-    
+
     /**
-    * Set default values from active record data
-    */
+     * Set default values from active record data
+     */
     public function before()
     {
         $this->message = $this->_record->message;
@@ -33,8 +37,8 @@ class FormCommentUpdate extends Model
     }
 
     /**
-    * Labels to display in view
-    */
+     * Labels to display in view
+     */
     public function labels()
     {
         return [
@@ -44,8 +48,8 @@ class FormCommentUpdate extends Model
     }
 
     /**
-    * Validation rules for comment body
-    */
+     * Validation rules for comment body
+     */
     public function rules()
     {
         return [
@@ -54,7 +58,19 @@ class FormCommentUpdate extends Model
             ['guestName', 'length_max', 100]
         ];
     }
-    
+
+    /**
+     * Filtering attribute types
+     * @return array
+     */
+    public function types()
+    {
+        return [
+            'message' => 'html',
+            'guestName' => 'text'
+        ];
+    }
+
     /**
      * Save updated data to database
      */
@@ -64,14 +80,14 @@ class FormCommentUpdate extends Model
         $this->_record->guest_name = $this->guestName;
         $this->_record->save();
     }
-    
+
     public function getCommentId()
     {
         $id = $this->_record->id;
         if ($this->type === 'answer') {
             $id = $this->_record->getCommentPost()->id;
         }
-        
+
         return $id;
     }
 }

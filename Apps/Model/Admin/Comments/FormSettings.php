@@ -5,7 +5,7 @@ namespace Apps\Model\Admin\Comments;
 use Ffcms\Core\Arch\Model;
 
 /**
- * Class FormSettings. Model for settings of comments
+ * Class FormSettings. Model for settings of comments application
  * @package Apps\Model\Admin\Comments
  */
 class FormSettings extends Model
@@ -18,13 +18,14 @@ class FormSettings extends Model
     public $guestModerate;
     public $onlyLocale;
 
+    /** @var array|null */
     private $_configs;
 
     /**
      * FormSettings constructor. Pass array configs from controller.
-     * @param array $configs
+     * @param array|null $configs
      */
-    public function __construct(array $configs)
+    public function __construct(array $configs = null)
     {
         $this->_configs = $configs;
         parent::__construct();
@@ -35,16 +36,21 @@ class FormSettings extends Model
      */
     public function before()
     {
+        if ($this->_configs === null) {
+            return;
+        }
+
         foreach ($this->_configs as $property => $value) {
             if (property_exists($this, $property)) {
-                $this->$property = $value;
+                $this->{$property} = $value;
             }
         }
     }
 
     /**
-    * Labels for form
-    */
+     * Labels for form
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -59,8 +65,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Validation rules for comments settings
-    */
+     * Validation rules for comments settings
+     * @return array
+     */
     public function rules()
     {
         return [

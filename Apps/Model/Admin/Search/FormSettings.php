@@ -13,24 +13,34 @@ class FormSettings extends Model
     public $itemPerApp;
     public $minLength;
 
+    private $_configs;
+
     /**
-     * Construct model with default values
-     * @param array $configs
+     * ForumSettings constructor. Construct model with default values
+     * @param array|null $configs
      */
-    public function __construct(array $configs)
+    public function __construct(array $configs = null)
     {
-        foreach ($configs as $property => $value) {
+        $this->_configs = $configs;
+        parent::__construct();
+    }
+
+    public function before()
+    {
+        if ($this->_configs === null) {
+            return;
+        }
+        foreach ($this->_configs as $property => $value) {
             if (property_exists($this, $property)) {
                 $this->$property = $value;
             }
         }
-
-        parent::__construct();
     }
 
     /**
-    * Labels for admin settings form
-    */
+     * Labels for admin settings form
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -40,8 +50,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     * @return @array
+     */
     public function rules()
     {
         return [

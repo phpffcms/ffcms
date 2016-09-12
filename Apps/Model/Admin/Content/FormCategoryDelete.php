@@ -9,6 +9,10 @@ use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Serialize;
 
+/**
+ * Class FormCategoryDelete. Delete category business logic model
+ * @package Apps\Model\Admin\Content
+ */
 class FormCategoryDelete extends Model
 {
     public $title;
@@ -19,7 +23,7 @@ class FormCategoryDelete extends Model
     private $_record;
 
     /**
-     * Pass record object
+     * ForumCategoryDelete constructor. Pass active record object inside
      * @param ContentCategory $record
      */
     public function __construct(ContentCategory $record)
@@ -29,8 +33,8 @@ class FormCategoryDelete extends Model
     }
 
     /**
-    * Pass properties from record construction
-    */
+     * Set model public attributes from record object
+     */
     public function before()
     {
         $this->title = Serialize::getDecodeLocale($this->_record->title);
@@ -38,8 +42,9 @@ class FormCategoryDelete extends Model
     }
 
     /**
-    * Form labels
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -50,8 +55,9 @@ class FormCategoryDelete extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -108,7 +114,7 @@ class FormCategoryDelete extends Model
     {
         $data = ContentCategory::getSortedCategories();
         $response = [];
-        foreach ($data as $key=>$val) {
+        foreach ($data as $key => $val) {
             if ($this->_record->id !== $key) {
                 $response[] = (string)$key;
             }

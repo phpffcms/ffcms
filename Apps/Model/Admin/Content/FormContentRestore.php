@@ -6,6 +6,10 @@ use Apps\ActiveRecord\Content;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Serialize;
 
+/**
+ * Class FormContentRestore. Restore deleted content item from active record trash state
+ * @package Apps\Model\Admin\Content
+ */
 class FormContentRestore extends Model
 {
     public $id;
@@ -13,6 +17,10 @@ class FormContentRestore extends Model
 
     private $_record;
 
+    /**
+     * FormContentRestore constructor. Pass active record object inside
+     * @param Content $record
+     */
     public function __construct(Content $record)
     {
         $this->_record = $record;
@@ -20,8 +28,8 @@ class FormContentRestore extends Model
     }
 
     /**
-    * Pass properties
-    */
+     * Set public attributes from active record object
+     */
     public function before()
     {
         $this->id = $this->_record->id;
@@ -29,21 +37,14 @@ class FormContentRestore extends Model
     }
 
     /**
-    * Form label
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
             'title' => __('Title')
         ];
-    }
-
-    /**
-    * Typical rules
-    */
-    public function rules()
-    {
-        return [];
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace Apps\Model\Admin\Comments;
 
+use Apps\ActiveRecord\CommentAnswer;
+use Apps\ActiveRecord\CommentPost;
 use Ffcms\Core\Arch\Model;
 
 class FormCommentModerate extends Model
@@ -11,7 +13,7 @@ class FormCommentModerate extends Model
 
     /**
      * FormCommentModerate constructor. Pass active record and type of comment system inside.
-     * @param object $record
+     * @param CommentPost|CommentAnswer $records
      * @param string $type
      */
     public function __construct($records, $type)

@@ -6,6 +6,10 @@ use Apps\Model\Front\Sitemap\EntityIndexList;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 
+/**
+ * Class Sitemap. Admin controller of sitemap app
+ * @package Apps\Controller\Admin
+ */
 class Sitemap extends AdminController
 {
     const VERSION = 0.1;

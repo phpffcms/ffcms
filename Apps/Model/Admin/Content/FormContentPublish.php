@@ -2,16 +2,22 @@
 
 namespace Apps\Model\Admin\Content;
 
+use Apps\ActiveRecord\Content;
 use Ffcms\Core\Arch\Model;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class FormContentPublish. Make content record public - set marker in active record object
+ * @package Apps\Model\Admin\Content
+ */
 class FormContentPublish extends Model
 {
-    /** @var \Apps\ActiveRecord\Content */
+    /** @var Content|Collection */
     private $_records;
 
     /**
      * FormContentPublish constructor. Pass records inside
-     * @param $records
+     * @param Content[]|Collection $records
      */
     public function __construct($records)
     {

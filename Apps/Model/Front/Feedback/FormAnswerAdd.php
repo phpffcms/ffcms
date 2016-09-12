@@ -18,7 +18,7 @@ class FormAnswerAdd extends Model
     public $email;
     public $message;
 
-    /** @var \Apps\ActiveRecord\FeedbackPost $_post */
+    /** @var \Apps\ActiveRecord\FeedbackPost */
     protected $_post;
     protected $_userId;
     protected $_ip;

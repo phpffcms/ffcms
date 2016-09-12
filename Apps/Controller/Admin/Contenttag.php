@@ -6,6 +6,10 @@ use Ffcms\Core\App;
 use Extend\Core\Arch\AdminController;
 use Apps\Model\Admin\Contenttag\FormSettings;
 
+/**
+ * Class Contenttag. Admin controller of widget content tags
+ * @package Apps\Controller\Admin
+ */
 class Contenttag extends AdminController
 {
     const VERSION = 0.1;
@@ -31,7 +35,7 @@ class Contenttag extends AdminController
         
         // render view output
         return $this->view->render('index', [
-           'model' => $model->filter()
+           'model' => $model
         ]);
     }
 }

@@ -2,20 +2,26 @@
 
 namespace Apps\Model\Admin\Feedback;
 
-use Ffcms\Core\App;
+use Apps\ActiveRecord\FeedbackAnswer;
+use Apps\ActiveRecord\FeedbackPost;
 use Ffcms\Core\Arch\Model;
 
+/**
+ * Class FormUpdate. Update feedback post or answer business logic model
+ * @package Apps\Model\Admin\Feedback
+ */
 class FormUpdate extends Model
 {
     public $name;
     public $email;
     public $message;
 
+    /** @var FeedbackAnswer|FeedbackPost */
     private $_record;
 
     /**
      * FormUpdate constructor. Pass active record inside the model.
-     * @param $record
+     * @param FeedbackPost|FeedbackAnswer $record
      */
     public function __construct($record)
     {
@@ -34,8 +40,9 @@ class FormUpdate extends Model
     }
 
     /**
-    * Labels to display edit form
-    */
+     * Labels to display edit form
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -46,8 +53,9 @@ class FormUpdate extends Model
     }
 
     /**
-    * Rules to validate changes
-    */
+     * Rules to validate changes
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -63,9 +71,9 @@ class FormUpdate extends Model
      */
     public function make()
     {
-        $this->_record->name = App::$Security->strip_tags($this->name);
-        $this->_record->email = App::$Security->strip_tags($this->email);
-        $this->_record->message = App::$Security->strip_tags($this->message);
+        $this->_record->name = $this->name;
+        $this->_record->email = $this->email;
+        $this->_record->message = $this->message;
         $this->_record->save();
     }
 }

@@ -14,6 +14,10 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Obj;
 
+/**
+ * Class Profile. Admin controller of profile application.
+ * @package Apps\Controller\Admin
+ */
 class Profile extends AdminController
 {
     const VERSION = 0.1;
@@ -98,7 +102,7 @@ class Profile extends AdminController
         }
 
         return $this->view->render('update', [
-            'model' => $model->filter(),
+            'model' => $model,
             'user' => $user,
             'profile' => $profile
         ]);
@@ -146,7 +150,7 @@ class Profile extends AdminController
         }
 
         return $this->view->render('field_update', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -179,7 +183,7 @@ class Profile extends AdminController
         }
 
         return $this->view->render('field_delete', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 
@@ -204,7 +208,7 @@ class Profile extends AdminController
         }
 
         return $this->view->render('settings', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 

@@ -9,6 +9,10 @@ use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Date;
 
+/**
+ * Class FormUpdate. Process applications and widgets update
+ * @package Apps\Model\Admin\Application
+ */
 class FormUpdate extends Model
 {
     public $name;
@@ -21,6 +25,10 @@ class FormUpdate extends Model
     /** @var string $_callback */
     private $_callback;
 
+    /**
+     * FormUpdate constructor. Pass app record object inside
+     * @param AppRecord $record
+     */
     public function __construct(AppRecord $record)
     {
         $this->_record = $record;
@@ -28,8 +36,8 @@ class FormUpdate extends Model
     }
 
     /**
-    * Magic method before
-    */
+     * Magic method before
+     */
     public function before()
     {
         // get full name of update object

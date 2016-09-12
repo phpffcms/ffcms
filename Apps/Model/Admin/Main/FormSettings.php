@@ -10,7 +10,7 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
 /**
- * Class FormSettings. Admin settings business logic
+ * Class FormSettings. Admin system settings business logic
  * @package Apps\Model\Admin\Main
  */
 class FormSettings extends Model
@@ -139,6 +139,7 @@ class FormSettings extends Model
 
     /**
      * Save model properties as configurations
+     * @return bool
      */
     public function makeSave()
     {

@@ -10,6 +10,10 @@ use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class FormCategoryUpdate. Category update business logic model
+ * @package Apps\Model\Admin\Content
+ */
 class FormCategoryUpdate extends Model
 {
     public $id;
@@ -26,7 +30,7 @@ class FormCategoryUpdate extends Model
     private $_new = false;
 
     /**
-     * Pass record object on construction
+     * FormCategoryUpdate constructor. Pass record object inside model
      * @param ContentCategory $record
      * @param int|null $dependId
      */
@@ -38,8 +42,8 @@ class FormCategoryUpdate extends Model
     }
 
     /**
-    * Pass properties from default record values
-    */
+     * Set model attributes from record object
+     */
     public function before()
     {
         if ($this->_record->id === null) {
@@ -74,8 +78,9 @@ class FormCategoryUpdate extends Model
     }
 
     /**
-    * Form labels
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -97,8 +102,9 @@ class FormCategoryUpdate extends Model
     }
 
     /**
-    * Validation rules
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         $rules = [

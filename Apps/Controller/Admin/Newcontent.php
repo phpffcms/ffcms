@@ -8,11 +8,12 @@ use Apps\Model\Admin\Newcontent\FormSettings;
 
 /**
  * Class Newcontent. Admin controller of new content widget.
+ * @package Apps\Controller\Admin
  */
 class Newcontent extends AdminController
 {
     const VERSION = 0.1;
-    
+
     public $type = 'widget';
 
     /**
@@ -25,16 +26,16 @@ class Newcontent extends AdminController
     {
         // init settings model
         $model = new FormSettings($this->getConfigs());
-        
+
         // check if request is submited
         if ($model->send() && $model->validate()) {
-            $this->setConfigs($model->getResult());
+            $this->setConfigs($model->getAllProperties());
             App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
         }
-        
+
         // render viewer
         return $this->view->render('index', [
-            'model' => $model->filter()
+            'model' => $model
         ]);
     }
 }

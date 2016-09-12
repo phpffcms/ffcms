@@ -4,27 +4,31 @@ namespace Apps\Model\Admin\Newcomment;
 
 use Ffcms\Core\Arch\Model;
 
+/**
+ * Class FormSettings. New content widget settings business logic
+ * @package Apps\Model\Admin\Newcomment
+ */
 class FormSettings extends Model
 {
     public $count;
     public $snippet;
     public $cache;
-    
+
     private $_configs;
-    
+
     /**
      * FormSettings constructor. Pass configs inside from controller
-     * @param array $configs
+     * @param array|null $configs
      */
-    public function __construct(array $configs)
+    public function __construct(array $configs = null)
     {
         $this->_configs = $configs;
         parent::__construct();
     }
 
     /**
-    * Set default values from configs
-    */
+     * Set default values from configs
+     */
     public function before()
     {
         $this->snippet = (int)$this->_configs['snippet'];
@@ -33,8 +37,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Labels for form display
-    */
+     * Labels for form display
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -45,8 +50,9 @@ class FormSettings extends Model
     }
 
     /**
-    * Settings validation rules
-    */
+     * Settings validation rules
+     * @return array
+     */
     public function rules()
     {
         return [

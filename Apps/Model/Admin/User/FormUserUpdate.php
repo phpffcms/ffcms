@@ -25,11 +25,11 @@ class FormUserUpdate extends Model
 
     private $_approve_tmp;
 
-    // constructor link to user identity
+    /** @var iUser */
     public $_user;
 
     /**
-     * Allow send user object
+     * FormUserUpdate constructor. Pass user object inside the model
      * @param iUser $user
      */
     public function __construct(iUser $user)
@@ -39,8 +39,8 @@ class FormUserUpdate extends Model
     }
 
     /**
-    * Load user data on before method
-    */
+     * Load user data on before method
+     */
     public function before()
     {
         foreach ($this->getAllProperties() as $property => $old_data) {
@@ -105,7 +105,7 @@ class FormUserUpdate extends Model
                 if ($this->newpassword !== null && Str::length($this->newpassword) >= 3) {
                     $this->_user->password = App::$Security->password_hash($this->newpassword);
                 }
-            } elseif($property === 'approve_token') {
+            } elseif ($property === 'approve_token') {
                 if ($value == "1") {
                     $this->_user->approve_token = '0';
                 } else {

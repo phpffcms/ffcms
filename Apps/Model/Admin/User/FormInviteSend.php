@@ -7,20 +7,28 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class FormInviteSend. Send user invitation to email
+ * @package Apps\Model\Admin\User
+ */
 class FormInviteSend extends Model
 {
-    public $email;
-
     const TOKEN_VALID_TIME = 604800; // 7 days
 
+    public $email;
+
+    /**
+     * Before execute method. Cleanup deprecated invites
+     */
     public function before()
     {
         Invite::clean();
     }
 
     /**
-    * Example of usage magic labels for future form helper usage
-    */
+     * Form display labels
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -29,8 +37,9 @@ class FormInviteSend extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validate()
-    */
+     * Validation rules
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -40,6 +49,12 @@ class FormInviteSend extends Model
         ];
     }
 
+    /**
+     * Send invite to email
+     * @return int
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
+     */
     public function make()
     {
         $token = $this->makeInvite();
@@ -65,6 +80,10 @@ class FormInviteSend extends Model
         return App::$Mailer->send($mailMessage);
     }
 
+    /**
+     * Generate unique invite string
+     * @return string
+     */
     private function makeInvite()
     {
         $token = Str::randomLatinNumeric(mt_rand(32, 128));

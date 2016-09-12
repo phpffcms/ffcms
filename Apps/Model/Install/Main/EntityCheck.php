@@ -9,6 +9,10 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
 
+/**
+ * Class EntityCheck. Main admin business logic model of statistics and environment status
+ * @package Apps\Model\Install\Main
+ */
 class EntityCheck extends Model
 {
     public $phpVersion;
