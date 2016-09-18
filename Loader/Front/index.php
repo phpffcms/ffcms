@@ -34,7 +34,7 @@ try {
         'Mailer' => true,
         'Captcha' => true,
         'Cache' => true
-    ]);
+    ], $loader);
     $app->run();
 } catch (Exception $e) {
     (new \Ffcms\Core\Exception\NativeException($e->getMessage()))->display();
