@@ -44,7 +44,7 @@ foreach (\App::$Properties->get('languages') as $lang) {
 
 <?= Nav::display([
     'property' => ['class' => 'nav-pills'],
-    'blockProperty' => ['class' => 'nav-locale-block'],
+    'blockProperty' => ['class' => 'nav-locale-block nav-border'],
     'tabAnchor' => 'category-update-locale',
     'items' => $items
 ]) ?>

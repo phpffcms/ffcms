@@ -295,3 +295,10 @@
 .nav-tabs .nav-tabs.nav-justified > .active > a {
     border-bottom-color: #1a7ab9;
 }
+
+.nav-border > .tab-content {
+    background-color: rgba(230, 245, 255, 0.15);
+    border: 1px solid rgba(66, 139, 202, 0.5);
+    margin-bottom:5px;
+    padding: 5px 5px 0 0;
+}
