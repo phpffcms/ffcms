@@ -4,8 +4,8 @@ namespace Apps\Model\Front\Content;
 
 
 use Apps\ActiveRecord\Content;
-use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\Content as ContentRecord;
+use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
@@ -13,7 +13,6 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
@@ -194,7 +193,7 @@ class EntityCategoryList extends Model
      */
     private function buildCategory()
     {
-        $catConfigs = Serialize::decode($this->_currentCategory->configs);
+        $catConfigs = $this->_currentCategory->configs;
         // prepare rss url link for current category if enabled
         $rssUrl = false;
         if ((int)$this->_configs['rss'] === 1 && (int)$catConfigs['showRss'] === 1) {
@@ -215,8 +214,8 @@ class EntityCategoryList extends Model
 
         // prepare current category data to output (unserialize locales and strip tags)
         $this->category = [
-            'title' => App::$Security->strip_tags($this->_currentCategory->getLocaled('title')),
-            'description' => App::$Security->strip_tags($this->_currentCategory->getLocaled('description')),
+            'title' => $this->_currentCategory->getLocaled('title'),
+            'description' => $this->_currentCategory->getLocaled('description'),
             'configs' => $catConfigs,
             'path' => $this->_currentCategory->path,
             'rss' => $rssUrl,
@@ -245,9 +244,8 @@ class EntityCategoryList extends Model
         $nullItems = 0;
         foreach ($records as $row) {
             /** @var Content $row */
-
             // check title length on current language locale
-            $localeTitle = App::$Security->strip_tags($row->getLocaled('title'));
+            $localeTitle = $row->getLocaled('title');
             if (Str::likeEmpty($localeTitle)) {
                 ++$nullItems;
                 continue;

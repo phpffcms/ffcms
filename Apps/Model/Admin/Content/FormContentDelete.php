@@ -4,7 +4,6 @@ namespace Apps\Model\Admin\Content;
 
 use Apps\ActiveRecord\Content;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Serialize;
 
 /**
  * Class FormContentDelete. Delete content item business logic
@@ -33,7 +32,7 @@ class FormContentDelete extends Model
     public function before()
     {
         $this->id = $this->_record->id;
-        $this->title = Serialize::getDecodeLocale($this->_record->title);
+        $this->title = $this->_record->getLocaled('title');
     }
 
     /**

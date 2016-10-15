@@ -4,16 +4,14 @@ namespace Apps\Model\Admin\Content;
 
 use Apps\ActiveRecord\Content;
 use Apps\ActiveRecord\ContentCategory;
+use Apps\ActiveRecord\ContentTag;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
-use Apps\ActiveRecord\ContentTag;
 
 /**
  * Class FormContentUpdate. Create and update content items business model
@@ -68,15 +66,15 @@ class FormContentUpdate extends Model
                 $this->categoryId = 1;
             }
         } else { // is edit of exist item? define available data
-            $this->title = Serialize::decode($this->_content->title);
-            $this->text = Serialize::decode($this->_content->text);
+            $this->title = $this->_content->title;
+            $this->text = $this->_content->text;
             $this->path = $this->_content->path;
             $this->poster = $this->_content->poster;
             $this->categoryId = $this->_content->category_id;
             $this->authorId = $this->_content->author_id;
-            $this->metaTitle = Serialize::decode($this->_content->meta_title);
-            $this->metaKeywords = Serialize::decode($this->_content->meta_keywords);
-            $this->metaDescription = Serialize::decode($this->_content->meta_description);
+            $this->metaTitle = $this->_content->meta_title;
+            $this->metaKeywords = $this->_content->meta_keywords;
+            $this->metaDescription = $this->_content->meta_description;
             $this->display = $this->_content->display;
             $this->source = $this->_content->source;
             $this->createdAt = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
@@ -152,15 +150,15 @@ class FormContentUpdate extends Model
      */
     public function save()
     {
-        $this->_content->title = Serialize::encode($this->title);
-        $this->_content->text = Serialize::encode($this->text);
+        $this->_content->title = $this->title;
+        $this->_content->text = $this->text;
         $this->_content->path = $this->path;
         $this->_content->category_id = $this->categoryId;
         $this->_content->author_id = $this->authorId;
         $this->_content->display = $this->display;
-        $this->_content->meta_title = Serialize::encode($this->metaTitle);
-        $this->_content->meta_keywords = Serialize::encode($this->metaKeywords);
-        $this->_content->meta_description = Serialize::encode($this->metaDescription);
+        $this->_content->meta_title = $this->metaTitle;
+        $this->_content->meta_keywords = $this->metaKeywords;
+        $this->_content->meta_description = $this->metaDescription;
         $this->_content->source = $this->source;
         // check if rating is changed
         if ((int)$this->addRating !== 0) {

@@ -4,10 +4,10 @@ namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\WallPost as WallRecords;
 use Ffcms\Core\App;
-use Ffcms\Core\Helper\Text;
-use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\Text;
+use Ffcms\Core\Interfaces\iUser;
 
 /**
  * Class FormWallPost. Add wall post business logic model
@@ -58,7 +58,7 @@ class FormWallPost extends Model
         $record = new WallRecords();
         $record->target_id = $target->id;
         $record->sender_id = $viewer->id;
-        $record->message = App::$Security->strip_tags($this->message);
+        $record->message = $this->message;
         $record->save();
 
         // add user notification

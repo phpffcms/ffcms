@@ -5,7 +5,6 @@ namespace Apps\Model\Admin\Profile;
 use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Serialize;
 
 /**
  * Class FormFieldUpdate. Update additional field business logic model
@@ -37,10 +36,6 @@ class FormFieldUpdate extends Model
     {
         foreach ($this->_record->toArray() as $property => $value) {
             if (property_exists($this, $property)) {
-                if ($property === 'name') {
-                    $this->name = Serialize::decode($value);
-                    continue;
-                }
                 $this->{$property} = $value;
             }
         }
@@ -84,7 +79,7 @@ class FormFieldUpdate extends Model
      */
     public function save()
     {
-        $this->_record->name = Serialize::encode($this->name);
+        $this->_record->name = $this->name;
         $this->_record->reg_exp = $this->reg_exp;
         $this->_record->reg_cond = $this->reg_cond;
         $this->_record->type = $this->type;

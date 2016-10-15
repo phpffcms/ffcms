@@ -1,7 +1,5 @@
 <?php
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Helper\Url;
 
 /** @var $useCaptcha bool */
 /** @var $model \Apps\Model\Front\User\FormLogin */

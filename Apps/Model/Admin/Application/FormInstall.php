@@ -2,11 +2,11 @@
 
 namespace Apps\Model\Admin\Application;
 
+use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
-use Apps\ActiveRecord\App as AppRecord;
 
 /**
  * Class FormInstall. Install new app model

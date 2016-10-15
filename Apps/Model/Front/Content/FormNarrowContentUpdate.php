@@ -2,13 +2,12 @@
 
 namespace Apps\Model\Front\Content;
 
+use Apps\ActiveRecord\Content;
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\Normalize;
-use Ffcms\Core\Helper\Serialize;
-use Apps\ActiveRecord\Content;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Gregwar\Image\Image;
@@ -49,8 +48,8 @@ class FormNarrowContentUpdate extends Model
     public function before()
     {
         // set data from db record
-        $this->title = Serialize::decode($this->_record->title);
-        $this->text = Serialize::decode($this->_record->text);
+        $this->title = $this->_record->title;
+        $this->text = $this->_record->text;
         $this->path = $this->_record->path;
         $this->categoryId = $this->_record->category_id;
 
@@ -144,8 +143,8 @@ class FormNarrowContentUpdate extends Model
     public function make()
     {
         // save data to db
-        $this->_record->title = Serialize::encode(App::$Security->strip_tags($this->title));
-        $this->_record->text = Serialize::encode(App::$Security->secureHtml($this->text));
+        $this->_record->title = $this->title;
+        $this->_record->text = $this->text;
         $this->_record->path = $this->path;
         $this->_record->category_id = (int)$this->categoryId;
         $this->_record->display = 0; // set to premoderation

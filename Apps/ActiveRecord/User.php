@@ -2,11 +2,11 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\Arch\ActiveModel;
-use Ffcms\Core\Interfaces\iUser;
 use Ffcms\Core\App as MainApp;
+use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Interfaces\iUser;
 
 /**
  * Class User. Active record model for user auth data

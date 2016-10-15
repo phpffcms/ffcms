@@ -1,6 +1,6 @@
 <?php
-use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Url;
 
 $socialInstance = \App::$User->getOpenidInstance();
 ?>

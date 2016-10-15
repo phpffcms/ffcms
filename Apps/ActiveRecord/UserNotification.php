@@ -12,13 +12,18 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property int $user_id
  * @property string $msg
  * @property string $uri
- * @property string $vars
- * @property int $readed
+ * @property array $vars
+ * @property bool $readed
  * @property string $created_at
  * @property string $updated_at
  */
 class UserNotification extends ActiveModel
 {
+    public $casts = [
+        'vars' => 'serialize',
+        'readed' => 'boolean'
+    ];
+
     /**
      * Get user object as relation
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

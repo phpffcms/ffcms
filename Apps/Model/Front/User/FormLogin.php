@@ -2,11 +2,11 @@
 
 namespace Apps\Model\Front\User;
 
+use Apps\ActiveRecord\UserLog;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
-use Apps\ActiveRecord\UserLog;
 
 /**
  * Class FormLogin. User login business logic model

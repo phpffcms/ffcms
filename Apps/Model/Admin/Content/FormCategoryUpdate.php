@@ -6,8 +6,6 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -68,11 +66,11 @@ class FormCategoryUpdate extends Model
                 $this->path = $path;
             }
 
-            // set serialized decoded data
-            $this->title = Serialize::decode($this->_record->title);
-            $this->description = Serialize::decode($this->_record->description);
+            // set data from record
+            $this->title = $this->_record->title;
+            $this->description = $this->_record->description;
             if ($this->_record->configs !== null && !Str::likeEmpty($this->_record->configs)) {
-                $this->configs = Serialize::decode($this->_record->configs);
+                $this->configs = $this->_record->configs;
             }
         }
     }
@@ -134,11 +132,11 @@ class FormCategoryUpdate extends Model
      */
     public function save()
     {
-        $this->_record->title = Serialize::encode(App::$Security->strip_tags($this->title));
-        $this->_record->description = Serialize::encode(App::$Security->strip_tags($this->description));
+        $this->_record->title = $this->title;
+        $this->_record->description = $this->description;
         $savePath = trim($this->_pathNested . '/' . $this->path, '/');
         $this->_record->path = $savePath;
-        $this->_record->configs = Serialize::encode($this->configs);
+        $this->_record->configs = $this->configs;
         $this->_record->save();
     }
 

@@ -3,9 +3,9 @@
 namespace Apps\Model\Admin\User;
 
 use Apps\ActiveRecord\Role;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\App;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 

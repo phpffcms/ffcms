@@ -2,13 +2,13 @@
 
 namespace Apps\ActiveRecord;
 
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
-use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iProfile;
-use Ffcms\Core\App as MainApp;
 
 /**
  * Class Profile. Active record model for user profile data store
@@ -23,12 +23,15 @@ use Ffcms\Core\App as MainApp;
  * @property int $rating
  * @property string $phone
  * @property string $url
- * @property string $custom_data
+ * @property array $custom_data
  * @property string $created_at
  * @property string $updated_at
  */
 class Profile extends ActiveModel implements iProfile
 {
+    protected $casts = [
+        'custom_data' => 'serialize'
+    ];
 
     /**
      * Get user profile via user_id like object (!!! profile.id !== user.id !!!)

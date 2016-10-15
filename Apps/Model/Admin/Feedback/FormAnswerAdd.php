@@ -27,9 +27,9 @@ class FormAnswerAdd extends FrontAnswer
         // add new answer row in database
         $record = new FeedbackAnswer();
         $record->feedback_id = $this->_post->id;
-        $record->name = App::$Security->strip_tags($this->name);
-        $record->email = App::$Security->strip_tags($this->email);
-        $record->message = App::$Security->strip_tags($this->message);
+        $record->name = $this->name;
+        $record->email = $this->email;
+        $record->message = $this->message;
         $record->user_id = $this->_userId;
         $record->is_admin = 1;
 

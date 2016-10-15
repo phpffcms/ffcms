@@ -9,7 +9,6 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\JsonException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Exception\ForbiddenException;
 
 /**
  * Class CommentPostAdd. Model to parse and insert input comment post data.

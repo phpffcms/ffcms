@@ -2,9 +2,9 @@
 
 namespace Apps\Controller\Admin;
 
-use Ffcms\Core\App;
-use Extend\Core\Arch\AdminController;
 use Apps\Model\Admin\Newcontent\FormSettings;
+use Extend\Core\Arch\AdminController;
+use Ffcms\Core\App;
 
 /**
  * Class Newcontent. Admin controller of new content widget.

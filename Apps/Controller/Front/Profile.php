@@ -3,6 +3,7 @@
 namespace Apps\Controller\Front;
 
 use Apps\ActiveRecord\Blacklist;
+use Apps\ActiveRecord\Profile as ProfileRecords;
 use Apps\ActiveRecord\UserLog;
 use Apps\ActiveRecord\UserNotification;
 use Apps\ActiveRecord\WallPost;
@@ -13,19 +14,16 @@ use Apps\Model\Front\Profile\FormIgnoreDelete;
 use Apps\Model\Front\Profile\FormPasswordChange;
 use Apps\Model\Front\Profile\FormSettings;
 use Apps\Model\Front\Profile\FormUserSearch;
-use Apps\Model\Front\Profile\FormWallPostDelete;
 use Apps\Model\Front\Profile\FormWallPost;
+use Apps\Model\Front\Profile\FormWallPostDelete;
 use Apps\Model\Front\Sitemap\EntityBuildMap;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
-use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
-use Apps\ActiveRecord\Profile as ProfileRecords;
 use Ffcms\Core\Helper\Url;
 
 
@@ -53,7 +51,7 @@ class Profile extends FrontAppController
 
         // set current page and offset
         $page = (int)$this->request->query->get('page', 0);
-        $cfgs = Serialize::decode($this->application->configs);
+        $cfgs = $this->application->configs;
         $userPerPage = (int)$cfgs['usersOnPage'];
         if ($userPerPage < 1) {
             $userPerPage = 1;
@@ -122,7 +120,7 @@ class Profile extends FrontAppController
      */
     public function actionShow($userId)
     {
-        $cfg = Serialize::decode($this->application->configs);
+        $cfg = $this->application->configs;
         if ((int)$cfg['guestView'] !== 1 && !App::$User->isAuth()) {
             throw new ForbiddenException(__('You must login to view other profile'));
         }

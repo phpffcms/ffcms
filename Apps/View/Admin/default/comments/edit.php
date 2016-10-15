@@ -1,6 +1,6 @@
-<?php 
-use Ffcms\Core\Helper\Url;
+<?php
 use Ffcms\Core\Helper\HTML\Form;
+use Ffcms\Core\Helper\Url;
 
 /** @var Apps\Model\Admin\Comments\FormCommentUpdate $model */
 /** @var string $type */
@@ -26,7 +26,7 @@ echo Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysi-comments', 
 <?= $form->start() ?>
 
 <?= $form->field('guestName', 'text', ['class' => 'form-control'], __('Guest name for this comment or answer if defined')) ?>
-<?= $form->field('message', 'textarea', ['class' => 'form-control wysi-comments'], __('Comment message text')) ?>
+<?= $form->field('message', 'textarea', ['class' => 'form-control wysi-comments', 'html' => true], __('Comment message text')) ?>
 
 <?= $form->submitButton(__('Save'), ['class' => 'btn btn-primary'])?>
 

@@ -68,7 +68,7 @@ class FormIgnoreAdd extends Model
         $record = new Blacklist();
         $record->user_id = $this->_user->getId();
         $record->target_id = $this->id;
-        $record->comment = App::$Security->strip_tags($this->comment);
+        $record->comment = $this->comment;
         $record->save();
 
         return true;

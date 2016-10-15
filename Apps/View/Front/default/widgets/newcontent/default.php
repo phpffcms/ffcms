@@ -1,20 +1,19 @@
 <?php
 /** @var object $records */
 
-use Ffcms\Core\Helper\Text;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 
 foreach ($records as $record) {
-    $title = Serialize::getDecodeLocale($record->title);
+    $title = \App::$Translate->getLocaleText($record->title);
     if (Str::likeEmpty($title)) {
         continue;
     }
     $title = Text::snippet($title, 50);
     $date = Date::humanize($record->created_at);
     $categoryUrl = \App::$Alias->baseUrl . '/content/list/' . $record->cpath;
-    $categoryLink = '<a href="' . $categoryUrl . '">' . Serialize::getDecodeLocale($record->ctitle) . '</a>';
+    $categoryLink = '<a href="' . $categoryUrl . '">' . \App::$Translate->getLocaleText($record->ctitle) . '</a>';
     $newsLink = \App::$Alias->baseUrl . '/content/read/' . $record->cpath;
     $newsLink = rtrim($newsLink, '/') . '/' . $record->path;
     

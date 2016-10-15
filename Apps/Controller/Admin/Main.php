@@ -13,8 +13,6 @@ use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Environment;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Str;
 use Symfony\Component\HttpFoundation\Cookie;
 

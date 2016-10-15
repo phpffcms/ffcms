@@ -1,8 +1,6 @@
 <?php
 
-use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
-use Ffcms\Core\Helper\HTML\Table;
 use Ffcms\Core\Helper\Url;
 
 /** @var \Apps\Model\Admin\Feedback\FormUpdate $model */

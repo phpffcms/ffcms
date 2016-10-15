@@ -122,8 +122,8 @@ class CommentAnswerAdd extends Model
         if ($commentPost !== null && (int)$commentPost->user_id !== 0 && (int)$commentPost->user_id !== $this->_userId) {
             $notify = new EntityAddNotification((int)$commentPost->user_id);
             $notify->add($commentPost->pathway, EntityAddNotification::MSG_ADD_COMMENTANSWER, [
-                'snippet' => Text::snippet(App::$Security->strip_tags($this->message), 50),
-                'post' => Text::snippet(App::$Security->strip_tags($commentPost->message), 50)
+                'snippet' => Text::snippet($this->message, 50),
+                'post' => Text::snippet($commentPost->message, 50)
             ]);
         }
 

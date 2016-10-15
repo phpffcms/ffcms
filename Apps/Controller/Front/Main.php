@@ -3,8 +3,6 @@
 namespace Apps\Controller\Front;
 
 use Extend\Core\Arch\Controller;
-use Apps\Model\Front\User;
-use Ffcms\Core\App;
 
 
 class Main extends Controller

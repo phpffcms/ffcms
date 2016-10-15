@@ -66,7 +66,7 @@ class FrontAppController extends Controller
         if ($this->configs !== null) {
             return $this->configs;
         }
-        $configs = (array)unserialize($this->application->configs); // data always stored like a "string" objects
+        $configs = (array)$this->application->configs;
         foreach ($configs as $cfg => $value) {
             if (Obj::isLikeInt($value)) {
                 $configs[$cfg] = (int)$value; // convert string 1 "1" to int 1 1

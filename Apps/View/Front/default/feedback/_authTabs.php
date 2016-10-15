@@ -1,5 +1,6 @@
 <?php
 use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
+
 if (!\App::$User->isAuth()) {
     return null;
 }

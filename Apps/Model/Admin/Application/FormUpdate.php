@@ -5,7 +5,6 @@ namespace Apps\Model\Admin\Application;
 use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Date;
 

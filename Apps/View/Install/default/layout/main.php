@@ -1,6 +1,7 @@
 <?php
 /** @var $body string */
 use Ffcms\Core\Helper\Type\Obj;
+
 ?>
 <!DOCTYPE html>
 <html>

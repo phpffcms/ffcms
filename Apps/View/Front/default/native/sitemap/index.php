@@ -1,6 +1,5 @@
 <?php
     /** @var $model \Apps\Model\Front\Sitemap\EntityIndexList */
-use Ffcms\Core\Helper\Type\Obj;
 
 ?>
 <?= '<?xml version="1.0" encoding="UTF-8"?>'?>

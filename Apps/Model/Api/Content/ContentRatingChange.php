@@ -2,11 +2,11 @@
 
 namespace Apps\Model\Api\Content;
 
-use Ffcms\Core\Arch\Model;
+use Apps\ActiveRecord\Content;
 use Apps\ActiveRecord\ContentRating;
 use Ffcms\Core\App;
+use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Interfaces\iUser;
-use Apps\ActiveRecord\Content;
 
 class ContentRatingChange extends Model
 {

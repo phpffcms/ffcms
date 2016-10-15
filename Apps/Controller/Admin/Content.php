@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Admin;
 
+use Apps\ActiveRecord\Content as ContentEntity;
 use Apps\ActiveRecord\ContentCategory;
 use Apps\Model\Admin\Content\FormCategoryDelete;
 use Apps\Model\Admin\Content\FormCategoryUpdate;
@@ -14,12 +15,10 @@ use Apps\Model\Admin\Content\FormContentUpdate;
 use Apps\Model\Admin\Content\FormSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
-use Apps\ActiveRecord\Content as ContentEntity;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Obj;
 
@@ -90,11 +89,6 @@ class Content extends AdminController
         // get item with trashed objects
         $record = ContentEntity::withTrashed()->findOrNew($id);
         $isNew = $record->id === null;
-
-        // create empty object if its new
-        if ($isNew === true) {
-            $record = new ContentEntity();
-        }
 
         // init model
         $model = new FormContentUpdate($record);

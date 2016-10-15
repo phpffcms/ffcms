@@ -1,10 +1,9 @@
 <?php
 /** @var $body string */
+use Apps\ActiveRecord\App as AppRecord;
+use Ffcms\Core\Helper\HTML\Bootstrap\Navbar;
 use Ffcms\Core\Helper\Type\Obj;
 use Widgets\Basic\LanguageSwitcher;
-use Ffcms\Core\Arch\Widget;
-use Ffcms\Core\Helper\HTML\Bootstrap\Navbar;
-use Apps\ActiveRecord\App as AppRecord;
 
 ?>
 <!DOCTYPE html>

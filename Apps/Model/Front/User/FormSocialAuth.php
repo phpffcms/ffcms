@@ -5,14 +5,13 @@ namespace Apps\Model\Front\User;
 use Apps\ActiveRecord\UserProvider;
 use Apps\Model\Front\Profile\FormAvatarUpload;
 use Ffcms\Core\App;
-use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Interfaces\iUser;
-use \Symfony\Component\HttpFoundation\File\File as FileObject;
+use Symfony\Component\HttpFoundation\File\File as FileObject;
 
 /**
  * Class FormSocialAuth. Model of social authorization and registering on top layer of register model.

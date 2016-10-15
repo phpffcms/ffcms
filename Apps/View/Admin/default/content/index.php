@@ -7,7 +7,6 @@
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
@@ -93,8 +92,8 @@ foreach ($records as $content) {
     $items[] = [
         'property' => ['class' => 'checkbox-row' . (!(bool)$content->display ? ' alert-warning' : null)],
         1 => ['text' => $content->id, 'html' => true, '!secure' => true],
-        2 => ['text' => (!(bool)$content->display ? '<i class="fa fa-exclamation text-warning"></i> ' : null) . Url::link(['content/update', $content->id], Serialize::getDecodeLocale($content->title)), 'html' => true],
-        3 => ['text' => Serialize::getDecodeLocale($content->getCategory()->title)],
+        2 => ['text' => (!(bool)$content->display ? '<i class="fa fa-exclamation text-warning"></i> ' : null) . Url::link(['content/update', $content->id], $content->getLocaled('title')), 'html' => true],
+        3 => ['text' => $content->getCategory()->getLocaled('title')],
         4 =>['text' => '<a href="' . $frontLink . '" target="_blank">' . $frontPath . '</a>', 'html' => true],
         5 => ['text' => Date::convertToDatetime($content->updated_at, Date::FORMAT_TO_SECONDS)],
         6 => ['text' => $actionIcons, 'html' => true, 'property' => ['class' => 'text-center']]

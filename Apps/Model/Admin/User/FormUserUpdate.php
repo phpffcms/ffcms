@@ -4,11 +4,11 @@ namespace Apps\Model\Admin\User;
 
 use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
-use Ffcms\Core\App;
 
 /**
  * Class FormUserUpdate. Update user data business logic model

@@ -5,7 +5,7 @@ use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
 
 /** @var $post \Apps\ActiveRecord\WallPost */
-/** @var $model \Apps\Model\Front\FormWallPostDelete */
+/** @var $model \Apps\Model\Front\Profile\FormWallPostDelete */
 /** @var $this \Ffcms\Core\Arch\View */
 
 $this->title = __('Delete post');
@@ -23,12 +23,12 @@ $this->breadcrumbs = [
 <?php
 /** @var $referObject object */
 $referObject = \App::$User->identity($post->sender_id);
-$referNickname = ($referObject->getProfile()->nick == null ? __('No name') : \App::$Security->strip_tags($referObject->getProfile()->nick));
+$referNickname = \Ffcms\Core\Helper\Simplify::parseUserNick($post->sender_id);
 ?>
 <div class="row wall-post" id="wall-post-<?= $post->id ?>">
     <div class="col-md-2">
-        <div class="text-center"><img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>"
-                                      src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
+        <div class="text-center">
+            <img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>" src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
         </div>
     </div>
     <div class="col-md-10">

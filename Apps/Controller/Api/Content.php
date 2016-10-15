@@ -2,10 +2,14 @@
 
 namespace Apps\Controller\Api;
 
-use Extend\Core\Arch\ApiController;
 use Apps\ActiveRecord\App as AppRecord;
+use Apps\ActiveRecord\Content as ContentRecord;
+use Apps\Model\Api\Content\ContentRatingChange;
+use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
+use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
+use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\FileSystem\Normalize;
@@ -13,10 +17,6 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Gregwar\Image\Image;
-use Apps\ActiveRecord\Content as ContentRecord;
-use Apps\Model\Api\Content\ContentRatingChange;
-use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Exception\NotFoundException;
 
 class Content extends ApiController
 {

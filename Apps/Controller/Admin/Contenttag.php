@@ -2,9 +2,9 @@
 
 namespace Apps\Controller\Admin;
 
-use Ffcms\Core\App;
-use Extend\Core\Arch\AdminController;
 use Apps\Model\Admin\Contenttag\FormSettings;
+use Extend\Core\Arch\AdminController;
+use Ffcms\Core\App;
 
 /**
  * Class Contenttag. Admin controller of widget content tags

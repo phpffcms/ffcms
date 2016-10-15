@@ -12,16 +12,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Content. Active record object for content items with relation to category active record
  * @package Apps\ActiveRecord
  * @property int $id
- * @property string $title
- * @property string $text
+ * @property array $title
+ * @property array $text
  * @property string $path
  * @property int $category_id
  * @property int $author_id
  * @property string $poster
- * @property int $display
- * @property string $meta_title
- * @property string $meta_keywords
- * @property string $meta_description
+ * @property bool $display
+ * @property array $meta_title
+ * @property array $meta_keywords
+ * @property array $meta_description
  * @property int $views
  * @property int $rating
  * @property string $source
@@ -34,13 +34,21 @@ class Content extends ActiveModel
 {
     use SoftDeletes, SearchableTrait;
 
-    /** @var string $title */
-
     protected $searchable = [
         'columns' => [
             'title' => 4,
             'text' => 2
         ]
+    ];
+
+    protected $casts = [
+        'title' => 'serialize',
+        'text' => 'serialize',
+        'meta_title' => 'serialize',
+        'meta_keywords' => 'serialize',
+        'meta_description' => 'serialize',
+        'display' => 'boolean',
+        ''
     ];
 
     /**

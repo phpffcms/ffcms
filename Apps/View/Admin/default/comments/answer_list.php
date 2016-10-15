@@ -1,10 +1,10 @@
 <?php
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Table;
+use Ffcms\Core\Helper\Simplify;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
-use Ffcms\Core\Helper\Simplify;
 
 /** @var \Ffcms\Core\Arch\View $this */
 /** @var \Apps\ActiveRecord\CommentAnswer $records */
@@ -35,7 +35,6 @@ $moderateIsFound = false;
 foreach ($records as $item) {
     $commentObject = $item->getCommentPost();
     $message = Text::cut(\App::$Security->strip_tags($item->message), 0, 75);
-
     $moderate = (bool)$item->moderate;
     if ($moderate) {
         $moderateIsFound = true;

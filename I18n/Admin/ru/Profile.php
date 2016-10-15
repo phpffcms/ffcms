@@ -32,7 +32,7 @@ return [
     'How it work' => 'Как это работает',
     'Define field name, which be displayed for user for current language locale' => 'Укажите название поля, которое увидит пользователь в зависимости от языковой локали',
     'Select type of additional field' => 'Выберите тип дополнительного поля',
-    'Set regular expression to validate input data from user for this field. Example: /^[0-9]/*$' => 'Укажите регулярное выражение для проверки входящих данных от пользователя для данного поля. Пример: /^[0-9]/*$',
+    'Set regular expression to validate input data from user for this field. Example: /^[0-9]*$/' => 'Укажите регулярное выражение для проверки входящих данных от пользователя для данного поля. Пример: /^[0-9]*$/',
     'Specify condition type of validation expression. Direct - if(cond), reverse - if(!cond)' => 'Укажите тип проверки регулярного выражения. Прямой - if(cond), обратный - if(!cond)',
     'Reverse (exclude) condition' => 'Обратное(исключение) условие',
     'Direct (include) condition' => 'Прямое(включение) условие',

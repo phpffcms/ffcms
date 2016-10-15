@@ -2,14 +2,13 @@
 
 namespace Apps\Model\Front\Content;
 
+use Apps\ActiveRecord\Content as ContentEntity;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\NotFoundException;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
-use Apps\ActiveRecord\Content as ContentEntity;
 
 /**
  * Class EntityContentSearch. Search similar content items.
@@ -74,7 +73,7 @@ class EntityContentSearch extends Model
         foreach ($this->_records as $item) {
             /** @var \Apps\ActiveRecord\Content $item */
             // full text
-            $text = Serialize::getDecodeLocale($item->text);
+            $text = $item->getLocaled('text');
             // remove html
             $text = App::$Security->strip_tags($text);
             // build items

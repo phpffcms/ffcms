@@ -1,10 +1,9 @@
 <?php
 
-use Ffcms\Core\Helper\Serialize;
+use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
-use \Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Url;
 
 /** @var $pagination object */
@@ -78,7 +77,7 @@ var contentItemList = {path: {}}
             <span class="spaced"><i class="fa fa-list"></i>
                 <?= Url::link(
                     ['content/list', $item['category']->path],
-                    Serialize::getDecodeLocale($item['category']->title),
+                    \App::$Translate->getLocaleText($item['category']->title),
                     ['itemprop' => 'genre']
                 ) ?>
             </span>
@@ -136,7 +135,6 @@ var contentItemList = {path: {}}
                 <span class="spaced"><i class="fa fa-tags hidden-xs"></i>
                 <?php
                     foreach ($item['tags'] as $tag) {
-                        $tag = \App::$Security->strip_tags(trim($tag));
                         echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
                     }
                 ?>

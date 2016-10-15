@@ -31,7 +31,7 @@ class Search extends Controller
         // get search query value from GET headers
         $query = (string)$this->request->query->get('query', null);
         // strip html tags
-        $query = App::$Security->strip_tags($query);
+        $query = App::$Security->strip_tags(trim($query));
         // get configs
         $configs = $this->getConfigs();
 

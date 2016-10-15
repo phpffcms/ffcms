@@ -5,7 +5,6 @@ use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Simplify;
 use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
@@ -21,7 +20,7 @@ use Ffcms\Core\Helper\Url;
 
 // $user is a target profile depended object(not current user!!!)
 
-$name = \App::$Security->strip_tags($user->getProfile()->nick);
+$name = $user->getProfile()->nick;
 
 if (Str::likeEmpty($name)) {
     $name = __('No name');
@@ -145,29 +144,29 @@ $this->breadcrumbs = [
                         ?>
                     </td>
                 </tr>
-                <?php if ($user->getProfile()->phone !== null && Str::length($user->getProfile()->phone) > 0): ?>
+                <?php if (!Str::likeEmpty($user->getProfile()->phone)): ?>
                 <tr>
                     <td><?= __('Phone'); ?></td>
-                    <td><?= \App::$Security->strip_tags($user->getProfile()->phone); ?></td>
+                    <td><?= $user->getProfile()->phone ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->url !== null && Str::length($user->getProfile()->url) > 0): ?>
+                <?php if (!Str::likeEmpty($user->getProfile()->url)): ?>
                 <tr>
                     <td><?= __('Website'); ?></td>
                     <td>
-                        <a rel="nofollow" target="_blank" href="<?= \App::$Security->strip_tags($user->getProfile()->url); ?>"><?= __('Visit'); ?></a>
+                        <a rel="nofollow" target="_blank" href="<?= $user->getProfile()->url ?>"><?= __('Visit'); ?></a>
                     </td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->city !== null && Str::length($user->getProfile()->city) > 0):
-                    $city = \App::$Security->strip_tags($user->getProfile()->city);
+                <?php if (!Str::likeEmpty($user->getProfile()->city)):
+                    $city = trim($user->getProfile()->city);
                 ?>
                 <tr>
                     <td><?= __('City') ?></td>
-                    <td><?= Url::link(['profile/index', 'city', trim($city, ' ')], $city) ?></td>
+                    <td><?= Url::link(['profile/index', 'city', $city], $city) ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if ($user->getProfile()->hobby !== null && Str::length($user->getProfile()->hobby) > 0): ?>
+                <?php if (!Str::likeEmpty($user->getProfile()->hobby)): ?>
                 <tr>
                     <td><?= __('Interests'); ?></td>
                     <td>
@@ -175,7 +174,7 @@ $this->breadcrumbs = [
                         $hobbyArray = explode(',', $user->getProfile()->hobby);
                         foreach ($hobbyArray as $item) {
                             $item = \App::$Security->strip_tags($item);
-                            if ($item !== null && Str::length($item) > 1) {
+                            if (!Str::likeEmpty($item)) {
                                 echo Url::link(['profile/index', 'hobby', trim($item, ' ')], $item, ['class' => 'label label-success']) . ' ';
                             }
                         }
@@ -184,7 +183,7 @@ $this->breadcrumbs = [
                 </tr>
                 <?php endif; ?>
                 <?php
-                $custom_fields = Serialize::decode($user->getProfile()->custom_data);
+                $custom_fields = $user->getProfile()->custom_data;
                 if ($custom_fields !== null && Obj::isArray($custom_fields) && count($custom_fields) > 0): ?>
                     <?php foreach ($custom_fields as $cid => $value): ?>
                         <?php if (!Str::likeEmpty($value)): ?>
@@ -247,7 +246,7 @@ $this->breadcrumbs = [
                             <small class="pull-right"><?= Date::humanize($post->updated_at); ?></small>
                         </h5>
                         <div class="object-text">
-                            <?= \App::$Security->strip_tags($post->message); ?>
+                            <?= $post->message ?>
                         </div>
                         <hr style="margin: 5px;" />
                         <div><i class="fa fa-comment-o"></i>

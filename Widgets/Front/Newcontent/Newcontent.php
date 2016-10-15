@@ -3,7 +3,6 @@ namespace Widgets\Front\Newcontent;
 
 use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as Widget;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Traits\ClassTools;
 use Apps\ActiveRecord\Content;
@@ -30,7 +29,7 @@ class Newcontent extends Widget
         $cfg = $this->getConfigs();
         // check if categories is empty
         if ($this->categories === null) {
-            $this->categories = Serialize::decode($cfg['categories']);
+            $this->categories = $cfg['categories'];
         }
         // check cache is defined
         if ($this->cache === null || !Obj::isLikeInt($this->cache)) {

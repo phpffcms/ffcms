@@ -60,14 +60,13 @@ class FormCommentUpdate extends Model
     }
 
     /**
-     * Filtering attribute types
+     * Set attribute validation types
      * @return array
      */
     public function types()
     {
         return [
-            'message' => 'html',
-            'guestName' => 'text'
+            'message' => 'html'
         ];
     }
 

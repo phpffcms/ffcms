@@ -38,7 +38,7 @@ return [
     'Message' => 'Сообщение',
     'Guest name for this comment or answer if defined' => 'Гостевое имя для этого комментария, если задано',
     'Comment message text' => 'Текст комментария',
-    'Comment or answer is successful update' => 'Комментарий или ответ успешно отредактированы',
+    'Comment or answer is successful updated' => 'Комментарий или ответ успешно отредактированы',
     'Comments or answers are successful deleted!' => 'Комментарии или ответы успешно удалены!',
     'No comments found for this condition' => 'По данному запросу ничего не найдено',
     'Delete comments' => 'Удаление комментариев',

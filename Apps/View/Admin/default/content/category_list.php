@@ -3,8 +3,6 @@
 /** @var $this \Ffcms\Core\Arch\View */
 /** @var $categories array */
 
-use Apps\ActiveRecord\ContentCategory;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
@@ -58,7 +56,7 @@ $this->breadcrumbs = [
                     <div class="row">
                         <div class="col-md-<?= $offset ?> col-xs-<?= $offset+2 ?>" style="padding-top: 8px;border-bottom: 2px solid #8a8a8a"></div>
                         <div class="col-md-<?= $set ?> col-xs-<?= $set-2 ?>">
-                            <?= Serialize::getDecodeLocale($row->title) ?>
+                            <?= $row->getLocaled('title') ?>
                             <sup>id: <?= $row->id ?></sup>
                             <span class="label label-info">/<?= $row->path ?></span>
                         </div>

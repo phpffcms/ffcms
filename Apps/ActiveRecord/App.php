@@ -5,7 +5,6 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -25,6 +24,11 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class App extends ActiveModel
 {
+    public $casts = [
+        'configs' => 'serialize',
+        'name' => 'serialize'
+    ];
+
     /**
      * Get all objects with query caching
      * @param $columns array
@@ -107,7 +111,7 @@ class App extends ActiveModel
     {
         foreach (self::all() as $row) {
             if ($row->type === $type && $row->sys_name === $name) {
-                return Serialize::decode($row->configs);
+                return $row->configs;
             }
         }
 
@@ -142,9 +146,7 @@ class App extends ActiveModel
             throw new SyntaxException('Application object is not founded');
         }
 
-        $nameObject = Serialize::decode($this->name);
-        $lang = \Ffcms\Core\App::$Request->getLanguage();
-        $name = $nameObject[$lang];
+        $name = $this->getLocaled('name');
         if (Str::likeEmpty($name)) {
             $name = $this->sys_name;
         }

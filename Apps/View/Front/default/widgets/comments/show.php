@@ -1,6 +1,5 @@
 <?php
 /** @var array $configs */
-use Ffcms\Core\Helper\Security;
 
 ?>
 

@@ -4,11 +4,9 @@ namespace Apps\Model\Front\User;
 
 use Apps\ActiveRecord\Profile;
 use Apps\ActiveRecord\User;
-use Apps\Model\Front\User\FormLogin;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Interfaces\iUser;
 
 /**
  * Class FormRegister. User registration business logic model

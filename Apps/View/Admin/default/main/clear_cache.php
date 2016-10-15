@@ -1,6 +1,5 @@
 <?php
 
-use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
 
 /** @var \Ffcms\Core\Arch\View $this */

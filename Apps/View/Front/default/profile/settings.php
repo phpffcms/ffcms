@@ -1,8 +1,8 @@
 <?php
 
+use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
-use Apps\ActiveRecord\ProfileField;
 
 /** @var $model Apps\Model\Front\Profile\FormSettings */
 /** @var $this object */

@@ -5,7 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
-use Ffcms\Core\Helper\Serialize;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -21,6 +21,11 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class ContentCategory extends ActiveModel
 {
+    protected $casts = [
+        'title' => 'serialize',
+        'description' => 'serialize',
+        'configs' => 'serialize'
+    ];
 
     /**
      * Get all table rows as object
@@ -99,7 +104,7 @@ class ContentCategory extends ActiveModel
                 }
             }
             // add canonical title from db
-            $title .= ' ' . Serialize::getDecodeLocale($data->title);
+            $title .= ' ' . $data->getLocaled('title');
             // set response as array [id => title, ... ]
             $response[$data->id] = $title;
         }
@@ -131,11 +136,10 @@ class ContentCategory extends ActiveModel
     {
         $properties = $this->configs;
         // check if properties is defined
-        if (Str::likeEmpty($properties)) {
+        if (!Obj::isArray($properties) || !array_key_exists($key, $properties)) {
             return false;
         }
 
-        $properties = Serialize::decode($properties);
         return $properties[$key];
     }
 

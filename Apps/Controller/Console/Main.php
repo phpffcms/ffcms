@@ -2,7 +2,7 @@
 
 namespace Apps\Controller\Console;
 
-use Apps\ActiveRecord\App;
+use Apps\Controller\Console\Db as DbController;
 use Ffcms\Console\Console;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\Directory;
@@ -10,8 +10,6 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
-use Apps\Controller\Console\Db as DbController;
-use Symfony\Component\VarDumper\Caster\ConstStub;
 
 class Main
 {

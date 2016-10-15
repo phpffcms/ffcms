@@ -4,7 +4,6 @@ namespace Apps\Controller\Admin;
 
 use Apps\Model\Front\Sitemap\EntityIndexList;
 use Extend\Core\Arch\AdminController;
-use Ffcms\Core\App;
 
 /**
  * Class Sitemap. Admin controller of sitemap app

@@ -2,12 +2,12 @@
 
 namespace Apps\Controller\Admin;
 
+use Apps\ActiveRecord\Profile as ProfileRecords;
 use Apps\ActiveRecord\ProfileField;
 use Apps\Model\Admin\Profile\FormFieldUpdate;
 use Apps\Model\Admin\Profile\FormSettings;
 use Apps\Model\Front\Profile\FormSettings as FrontFormSettings;
 use Extend\Core\Arch\AdminController;
-use Apps\ActiveRecord\Profile as ProfileRecords;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
@@ -130,7 +130,7 @@ class Profile extends AdminController
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
      */
-    public function actionFieldupdate($id)
+    public function actionFieldupdate($id = null)
     {
         // get current record or new and init form DI
         $record = ProfileField::findOrNew($id);

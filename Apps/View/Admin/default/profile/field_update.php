@@ -50,7 +50,7 @@ foreach (\App::$Properties->get('languages') as $lang) {
 ]); ?>
 
 <?= $form->field('type', 'select', ['class' => 'form-control', 'options' => ['text', 'link']], __('Select type of additional field')) ?>
-<?= $form->field('reg_exp', 'text', ['class' => 'form-control'], __('Set regular expression to validate input data from user for this field. Example: /^[0-9]/*$')) ?>
+<?= $form->field('reg_exp', 'text', ['class' => 'form-control'], __('Set regular expression to validate input data from user for this field. Example: /^[0-9]*$/')) ?>
 <?= $form->field(
     'reg_cond', 'select',
     ['class' => 'form-control', 'options' => ['0' => __('Reverse (exclude) condition'), '1' => __('Direct (include) condition')], 'optionsKey' => true],

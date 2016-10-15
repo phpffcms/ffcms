@@ -2,7 +2,6 @@
 
 use Ffcms\Core\Helper\HTML\Table;
 use Ffcms\Core\Helper\Url;
-use Ffcms\Core\Helper\Serialize;
 
 /** @var $this object */
 /** @var $records Apps\ActiveRecord\ProfileField */
@@ -37,7 +36,7 @@ $this->breadcrumbs = [
         }
         $items[] = [
             ['text' => $row->id],
-            ['text' => Serialize::getDecodeLocale($row->name)],
+            ['text' => $row->getLocaled('name')],
             ['text' => '<span class="' . $labelClass . '">' . $row->type . '</span>', 'html' => true],
             ['text' => '<code>' . ($row->reg_cond == 0 ? '!' : null) . 'preg_match("' . $row->reg_exp . '", input)' . '</code>', 'html' => true],
             [

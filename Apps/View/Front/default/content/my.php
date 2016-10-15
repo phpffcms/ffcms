@@ -1,9 +1,7 @@
 <?php
 
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Table;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Helper\Url;
 
 /** @var $this \Ffcms\Core\Arch\View */
@@ -30,7 +28,7 @@ if ($records->count() < 1) {
 $items = [];
 foreach ($records as $record) {
     $moderate = (int)$record->display === 0;
-    $title = Serialize::getDecodeLocale($record->title);
+    $title = $record->getLocaled('title');
     if ($moderate) {
         $title = Url::link(['content/update', $record->id], $title) . ' <i class="fa fa-pencil"></i>';
     }

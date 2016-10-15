@@ -6,7 +6,6 @@ use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\Str;
 
 /**
  * Class Role. Active model for user roles with RBAC permissions.

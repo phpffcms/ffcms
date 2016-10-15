@@ -2,25 +2,25 @@
 
 namespace Apps\Controller\Front;
 
-use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\Content as ContentEntity;
+use Apps\ActiveRecord\Content as ContentRecord;
+use Apps\ActiveRecord\ContentCategory;
+use Apps\Model\Front\Content\EntityCategoryList;
+use Apps\Model\Front\Content\EntityContentRead;
 use Apps\Model\Front\Content\EntityContentSearch;
+use Apps\Model\Front\Content\FormNarrowContentUpdate;
 use Apps\Model\Front\Sitemap\EntityBuildMap;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
-use Apps\Model\Front\Content\EntityCategoryList;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
-use Apps\Model\Front\Content\EntityContentRead;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
-use Ffcms\Core\Helper\Type\Arr;
-use Apps\Model\Front\Content\FormNarrowContentUpdate;
-use Apps\ActiveRecord\Content as ContentRecord;
 
 /**
  * Class Content. Controller of content app - content and categories.
@@ -166,7 +166,7 @@ class Content extends FrontAppController
     public function actionTag($tagName)
     {
         // remove spaces and other shits
-        $tagName = trim($tagName);
+        $tagName = App::$Security->strip_tags(trim($tagName));
 
         // check if tag is not empty
         if (Str::likeEmpty($tagName) || Str::length($tagName) < 2) {
@@ -188,7 +188,7 @@ class Content extends FrontAppController
         // render response
         return $this->view->render('tag', [
             'records' => $records->get(),
-            'tag' => App::$Security->strip_tags($tagName)
+            'tag' => $tagName
         ]);
     }
 

@@ -4,7 +4,6 @@ namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\WallPost;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Exception\ForbiddenException;
 
 /**
  * Class FormWallPostDelete. Delete wall post business logic model

@@ -87,9 +87,9 @@ class FormAnswerAdd extends Model
         // add new answer row in database
         $record = new FeedbackAnswer();
         $record->feedback_id = $this->_post->id;
-        $record->name = App::$Security->strip_tags($this->name);
-        $record->email = App::$Security->strip_tags($this->email);
-        $record->message = App::$Security->strip_tags($this->message);
+        $record->name = $this->name;
+        $record->email = $this->email;
+        $record->message = $this->message;
         if ($this->_userId > 0) {
             $record->user_id = $this->_userId;
         }
@@ -102,8 +102,8 @@ class FormAnswerAdd extends Model
             $notify = new EntityAddNotification($targetId);
             $uri = '/feedback/read/' . $this->_post->id . '/' . $this->_post->hash . '#feedback-answer-' . $record->id;
             $notify->add($uri, EntityAddNotification::MSG_ADD_FEEDBACKANSWER, [
-                'snippet' => Text::snippet(App::$Security->strip_tags($this->message), 50),
-                'post' => Text::snippet(App::$Security->strip_tags($this->_post->message), 50)
+                'snippet' => Text::snippet($this->message, 50),
+                'post' => Text::snippet($this->_post->message, 50)
             ]);
         }
 

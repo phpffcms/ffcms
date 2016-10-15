@@ -3,10 +3,8 @@
 namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\ProfileField;
-use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Serialize;
 use Ffcms\Core\Interfaces\iUser;
 
 /**
@@ -50,11 +48,7 @@ class FormSettings extends Model
                     $this->birthday = Date::convertToDatetime($value, Date::FORMAT_TO_DAY);
                     continue;
                 }
-                if ($property === 'custom_data') {
-                    $this->custom_data = Serialize::decode($value);
-                    continue;
-                }
-                $this->$property = $value;
+                $this->{$property} = $value;
             }
         }
     }
@@ -77,7 +71,7 @@ class FormSettings extends Model
 
         // labels for custom fields
         foreach (ProfileField::all() as $custom) {
-            $labels['custom_data.' . $custom->id] = Serialize::getDecodeLocale($custom->name);
+            $labels['custom_data.' . $custom->id] = $custom->getLocaled('name');
         }
 
         return $labels;
@@ -123,17 +117,17 @@ class FormSettings extends Model
     {
         $profile = $this->_user->getProfile();
 
-        $profile->nick = App::$Security->strip_tags($this->nick);
+        $profile->nick = $this->nick;
         $profile->sex = $this->sex;
         $newBirthday = Date::convertToDatetime($this->birthday, Date::FORMAT_SQL_DATE);
         if (false !== $newBirthday) {
             $profile->birthday = $newBirthday;
         }
-        $profile->city = App::$Security->strip_tags($this->city);
-        $profile->hobby = App::$Security->strip_tags($this->hobby);
+        $profile->city = $this->city;
+        $profile->hobby = $this->hobby;
         $profile->phone = $this->phone;
-        $profile->url = App::$Security->strip_tags($this->url);
-        $profile->custom_data = Serialize::encode(App::$Security->strip_tags($this->custom_data));
+        $profile->url = $this->url;
+        $profile->custom_data = $this->custom_data;
 
         $profile->save();
     }

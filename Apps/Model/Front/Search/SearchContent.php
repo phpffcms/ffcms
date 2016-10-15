@@ -4,10 +4,10 @@
 namespace Apps\Model\Front\Search;
 
 
+use Apps\ActiveRecord\Content;
 use Apps\Model\Front\Search\Interfaces\SearchContainer;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Apps\ActiveRecord\Content;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 

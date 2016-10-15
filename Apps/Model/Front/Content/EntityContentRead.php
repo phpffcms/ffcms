@@ -7,13 +7,12 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Type\Obj;
+use Ffcms\Core\Helper\Type\Str;
 
 /**
  * Class EntityContentRead. Prepare record object data to display.
@@ -69,8 +68,8 @@ class EntityContentRead extends Model
     public function before()
     {
         $this->id = $this->_content->id;
-        $this->title = Serialize::getDecodeLocale($this->_content->title);
-        $this->text = Serialize::getDecodeLocale($this->_content->text);
+        $this->title = $this->_content->getLocaled('title');
+        $this->text = $this->_content->getLocaled('text');
 
         // check if title and text are exists
         if (Str::length($this->title) < 1 || Str::length($this->text) < 1) {
@@ -78,17 +77,17 @@ class EntityContentRead extends Model
         }
 
         // get meta data
-        $this->metaTitle = Serialize::getDecodeLocale($this->_content->meta_title);
+        $this->metaTitle = $this->_content->getLocaled('meta_title');
         if (Str::likeEmpty($this->metaTitle)) {
             $this->metaTitle = $this->title;
         }
-        $this->metaDescription = Serialize::getDecodeLocale($this->_content->meta_description);
-        $tmpKeywords = Serialize::getDecodeLocale($this->_content->meta_keywords);
+        $this->metaDescription = $this->_content->getLocaled('meta_description');
+        $tmpKeywords = $this->_content->getLocaled('meta_keywords');
         $this->metaKeywords = explode(',', $tmpKeywords);
 
         // set content date, category data
         $this->createDate = Date::humanize($this->_content->created_at);
-        $this->catName = Serialize::getDecodeLocale($this->_category->title);
+        $this->catName = $this->_category->getLocaled('title');
         $this->catPath = $this->_category->path;
 
         // set user data
@@ -114,7 +113,7 @@ class EntityContentRead extends Model
                 if ($record !== null && $record->count() > 0) {
                     // if founded - add to nesting data
                     $this->catNesting[] = [
-                        'name' => Serialize::getDecodeLocale($record->title),
+                        'name' => $record->getLocaled('title'),
                         'path' => $record->path
                     ];
                 }

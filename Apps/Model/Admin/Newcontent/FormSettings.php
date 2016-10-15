@@ -2,9 +2,8 @@
 
 namespace Apps\Model\Admin\Newcontent;
 
-use Ffcms\Core\Arch\Model;
 use Apps\ActiveRecord\ContentCategory;
-use Ffcms\Core\Helper\Serialize;
+use Ffcms\Core\Arch\Model;
 
 /**
  * Class FormSettings. New content widget settings business logic
@@ -36,7 +35,7 @@ class FormSettings extends Model
         if ($this->_configs === null) {
             return;
         }
-        $this->categories = Serialize::decode($this->_configs['categories']);
+        $this->categories = $this->_configs['categories'];
         $this->count = (int)$this->_configs['count'];
         $this->cache = (int)$this->_configs['cache'];
     }

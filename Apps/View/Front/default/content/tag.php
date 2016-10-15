@@ -1,7 +1,5 @@
 <?php
 
-use Ffcms\Core\Helper\Serialize;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 /** @var \Apps\ActiveRecord\Content $records */
@@ -22,7 +20,7 @@ $items = [];
 foreach ($records as $item) {
     /** @var \Apps\ActiveRecord\Content $item*/
     $items[] = [
-        'text' => Serialize::getDecodeLocale($item->title),
+        'text' => $item->getLocaled('title'),
         'link' => \App::$Alias->baseUrl . '/content/read/' . $item->getPath()
     ];
 }

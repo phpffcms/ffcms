@@ -6,7 +6,6 @@ namespace Apps\Model\Admin\Content;
 use Apps\ActiveRecord\Content;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Serialize;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -39,7 +38,7 @@ class FormContentGlobDelete extends Model
         foreach ($this->_records as $row) {
             $this->data[] = [
                 'id' => $row->id,
-                'title' => Serialize::getDecodeLocale($row->title),
+                'title' => $row->getLocaled('title'),
                 'date' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_HOUR)
             ];
         }

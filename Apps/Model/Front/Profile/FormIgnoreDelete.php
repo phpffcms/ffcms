@@ -3,7 +3,6 @@
 namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\Blacklist;
-use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Interfaces\iUser;
 

@@ -4,7 +4,6 @@ namespace Apps\Model\Install\Main;
 
 use Apps\ActiveRecord\Profile;
 use Apps\ActiveRecord\User;
-use Apps\Controller\Console\Db;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;

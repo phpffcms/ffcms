@@ -89,9 +89,9 @@ class FormFeedbackAdd extends Model
 
         // init new row and set row data
         $record = new FeedbackPost();
-        $record->name = App::$Security->strip_tags($this->name);
-        $record->email = App::$Security->strip_tags($this->email);
-        $record->message = App::$Security->strip_tags($this->message);
+        $record->name = $this->name;
+        $record->email = $this->email;
+        $record->message = $this->message;
         $record->hash = $hash;
         if (App::$User->isAuth()) {
             $record->user_id = App::$User->identity()->getId();

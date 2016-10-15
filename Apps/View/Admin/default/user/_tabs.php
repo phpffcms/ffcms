@@ -1,5 +1,6 @@
 <?php
-    use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
+use Ffcms\Core\Helper\HTML\Bootstrap\Nav;
+
 ?>
 
 <?= Nav::display([

@@ -144,7 +144,7 @@ class AdminController extends Controller
      */
     public function getConfigs()
     {
-        return $this->type === 'widget' ? (array)Serialize::decode($this->widget->configs) : (array)Serialize::decode($this->application->configs);
+        return $this->type === 'widget' ? (array)$this->widget->configs : (array)$this->application->configs;
     }
 
     /**
@@ -166,8 +166,6 @@ class AdminController extends Controller
             $id = $this->widget->id;
         }
 
-        // serialize configs
-        $serialized = Serialize::encode($configs);
         // get active record relation for this id
         $obj = \Apps\ActiveRecord\App::find($id);
 
@@ -176,7 +174,7 @@ class AdminController extends Controller
         }
 
         // save data in db
-        $obj->configs = $serialized;
+        $obj->configs = $configs;
         $obj->save();
         return true;
     }

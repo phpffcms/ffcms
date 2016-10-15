@@ -5,16 +5,16 @@ namespace Apps\Controller\Admin;
 
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\CommentPost;
+use Apps\Model\Admin\Comments\FormCommentDelete;
+use Apps\Model\Admin\Comments\FormCommentModerate;
+use Apps\Model\Admin\Comments\FormCommentUpdate;
 use Apps\Model\Admin\Comments\FormSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Arr;
-use Apps\Model\Admin\Comments\FormCommentUpdate;
 use Ffcms\Core\Helper\Type\Obj;
-use Apps\Model\Admin\Comments\FormCommentDelete;
-use Apps\Model\Admin\Comments\FormCommentModerate;
 
 /**
  * Class Comments. Admin controller for management user comments.

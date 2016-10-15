@@ -7,7 +7,6 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Serialize;
 
 /**
  * Class FormCategoryDelete. Delete category business logic model
@@ -37,7 +36,7 @@ class FormCategoryDelete extends Model
      */
     public function before()
     {
-        $this->title = Serialize::getDecodeLocale($this->_record->title);
+        $this->title = $this->_record->getLocaled('title');
         $this->path = $this->_record->path;
     }
 

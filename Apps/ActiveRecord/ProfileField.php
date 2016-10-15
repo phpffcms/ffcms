@@ -2,10 +2,8 @@
 
 namespace Apps\ActiveRecord;
 
-use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
-use Ffcms\Core\Helper\Serialize;
 
 /**
  * Class ProfileField. Active record model for additional profile fields management
@@ -20,6 +18,9 @@ use Ffcms\Core\Helper\Serialize;
  */
 class ProfileField extends ActiveModel
 {
+    protected $casts = [
+        'name' => 'serialize'
+    ];
 
     /**
      * Get all table data using memory cache
@@ -61,7 +62,7 @@ class ProfileField extends ActiveModel
             return null;
         }
 
-        return Serialize::getDecodeLocale($record->name);
+        return $record->getLocaled('name');
     }
 
     /**

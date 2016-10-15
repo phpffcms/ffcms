@@ -2,13 +2,13 @@
 
 namespace Apps\Model\Front\User;
 
+use Apps\ActiveRecord\UserLog;
 use Apps\ActiveRecord\UserRecovery;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
-use Apps\ActiveRecord\UserLog;
 
 /**
  * Class FormRecovery. Model of business logic for user password recovery

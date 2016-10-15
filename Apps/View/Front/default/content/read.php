@@ -11,12 +11,12 @@ use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 // set meta title
-$this->title = \App::$Security->strip_tags($model->metaTitle);
+$this->title = $model->metaTitle;
 if (Str::likeEmpty($this->title)) {
-    $this->title = \App::$Security->strip_tags($model->title);
+    $this->title = $model->title;
 }
 // set meta description
-$this->description = \App::$Security->strip_tags($model->metaDescription);
+$this->description = $model->metaDescription;
 // set meta keywords
 if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
     $this->keywords = implode(', ', $model->metaKeywords);
@@ -55,7 +55,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
 ?>
 
 <article class="article-item" itemscope="itemscope" itemtype="https://schema.org/NewsArticle">
-    <h1><?= \App::$Security->strip_tags($model->title); ?></h1>
+    <h1><?= $model->title ?></h1>
     <?php if (Arr::in(true, $properties)): ?>
     <div class="meta">
         <?php if ($properties['category'] === true): ?>
@@ -87,7 +87,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
     <div id="content-text">
         <?php if ($showPoster === true && $model->posterFull !== null && $model->posterThumb !== null): ?>
             <a href="#showPoster" data-toggle="modal" data-target="#showPoster">
-                <img alt="<?= __('Poster for') ?>: <?= Str::lowerCase(\App::$Security->strip_tags($model->title)) ?>" src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" />
+                <img alt="<?= __('Poster for') ?>: <?= Str::lowerCase($model->title) ?>" src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" />
             </a>
 
             <!-- Modal poster pop-up -->
@@ -174,7 +174,6 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                     if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
                         echo '<i class="fa fa-tags hidden-xs"></i> ';
                         foreach ($model->metaKeywords as $tag) {
-                            $tag = \App::$Security->strip_tags(trim($tag));
                             echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
                         }
                     }
@@ -187,7 +186,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
     <?php if (!Str::likeEmpty($model->source)): ?>
     <div id="content-source" style="padding-top: 5px;">
         <?php
-        $sourceUrl = \App::$Security->strip_tags($model->source);
+        $sourceUrl = $model->source;
         $parseUrl = parse_url($sourceUrl);
         $sourceHost = $parseUrl['host'];
         ?>

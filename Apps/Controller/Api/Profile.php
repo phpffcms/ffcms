@@ -11,16 +11,15 @@ use Apps\ActiveRecord\WallPost;
 use Apps\Model\Front\Profile\EntityAddNotification;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
+use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NativeException;
+use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Interfaces\iUser;
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Ffcms\Core\Exception\NativeException;
-use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Exception\NotFoundException;
 
 class Profile extends ApiController
 {
@@ -101,9 +100,9 @@ class Profile extends ApiController
             $response[] = [
                 'answer_id' => $answer->id,
                 'user_id' => $answer->user_id,
-                'user_nick' => App::$Security->strip_tags($profile->getNickname()),
+                'user_nick' => $profile->getNickname(),
                 'user_avatar' => $profile->getAvatarUrl('small'),
-                'answer_message' => App::$Security->strip_tags($answer->message),
+                'answer_message' => $answer->message,
                 'answer_date' => Date::humanize($answer->created_at)
             ];
         }
@@ -298,7 +297,7 @@ class Profile extends ApiController
 
             $response[] = [
                 'user_id' => $user_id,
-                'user_nick' => App::$Security->strip_tags($identity->getProfile()->getNickname()),
+                'user_nick' => $identity->getProfile()->getNickname(),
                 'user_avatar' => $identity->getProfile()->getAvatarUrl('small'),
                 'message_new' => Arr::in($user_id, $unreadList),
                 'user_block' => !Blacklist::check($user->id, $identity->id)
@@ -427,7 +426,7 @@ class Profile extends ApiController
             $response[] = [
                 'id' => $msg->id,
                 'my' => $msg->sender_id === $user->id,
-                'message' => App::$Security->strip_tags($msg->message),
+                'message' => $msg->message,
                 'date' => Date::convertToDatetime($msg->created_at, Date::FORMAT_TO_SECONDS),
                 'readed' => $msg->readed
             ];

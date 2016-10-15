@@ -5,7 +5,6 @@ namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\UserNotification;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Serialize;
 
 /**
  * Class EntityAddNotification. Add user notification in database table
@@ -45,7 +44,7 @@ class EntityAddNotification extends Model
         $record->uri = $uri;
         $record->msg = $msg;
         if ($vars !== null) {
-            $record->vars = Serialize::encode($vars);
+            $record->vars = $vars;
         }
 
         $record->save();
