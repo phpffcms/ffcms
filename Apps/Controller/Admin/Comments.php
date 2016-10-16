@@ -23,7 +23,7 @@ use Ffcms\Core\Helper\Type\Obj;
  */
 class Comments extends AdminController
 {
-    const VERSION = 0.1;
+    const VERSION = '1.0.0';
     const ITEM_PER_PAGE = 10;
 
     const TYPE_COMMENT = 'comment';

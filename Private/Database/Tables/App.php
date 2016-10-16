@@ -7,7 +7,7 @@ Illuminate\Database\Capsule\Manager::schema($connectName)->create('apps', functi
     $table->text('name');
     $table->binary('configs')->nullable();
     $table->boolean('disabled')->default(false);
-    $table->double('version', 6, 1)->default(0.1); // from 0.1 to 99999.9
+    $table->string('version', 32)->default('1.0.0'); // symantic version style
     $table->timestamps();
 });
 
@@ -129,14 +129,14 @@ $names->sitemap = serialize([
 
 
 Illuminate\Database\Capsule\Manager::connection($connectName)->table('apps')->insert([
-    ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Search', 'name' => $names->search, 'configs' => $configs->search, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'app', 'sys_name' => 'Sitemap', 'name' => $names->sitemap, 'configs' => '', 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Contenttag', 'name' => $names->contenttag, 'configs' => $configs->contenttag, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now],
-    ['type' => 'widget', 'sys_name' => 'Newcomment', 'name' => $names->newcomment, 'configs' => $configs->newcomment, 'version' => 0.1, 'created_at' => $now, 'updated_at' => $now]
+    ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Search', 'name' => $names->search, 'configs' => $configs->search, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'app', 'sys_name' => 'Sitemap', 'name' => $names->sitemap, 'configs' => '', 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Contenttag', 'name' => $names->contenttag, 'configs' => $configs->contenttag, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
+    ['type' => 'widget', 'sys_name' => 'Newcomment', 'name' => $names->newcomment, 'configs' => $configs->newcomment, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now]
 ]);

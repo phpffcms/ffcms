@@ -86,9 +86,9 @@ class FormInstall extends Model
         }
 
         // get ext version
-        $cVersion = (float)constant($cPath . '::VERSION');
-        if ($cVersion < 0.1) {
-            $cVersion = 0.1;
+        $cVersion = constant($cPath . '::VERSION');
+        if ($cVersion === null || Str::likeEmpty($cVersion)) {
+            $cVersion = '1.0.0';
         }
 
         // save row to db

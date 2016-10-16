@@ -12,7 +12,7 @@ use Ffcms\Core\App;
  */
 class Contenttag extends AdminController
 {
-    const VERSION = 0.1;
+    const VERSION = '1.0.0';
     
     public $type = 'widget';
 

@@ -11,7 +11,7 @@ use Extend\Core\Arch\AdminController;
  */
 class Sitemap extends AdminController
 {
-    const VERSION = 0.1;
+    const VERSION = '1.0.0';
 
     public $type = 'app';
 

@@ -6,3 +6,6 @@ build:
         before:
             - sudo composer self-update && composer --version
             - composer global require "fxp/composer-asset-plugin:1.*"
+filter:
+    excluded_paths:
+        - tests/*
