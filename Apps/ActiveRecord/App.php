@@ -18,7 +18,7 @@ use Ffcms\Core\Helper\Type\Str;
  * @property string $name
  * @property string $configs
  * @property int $disabled
- * @property float $version
+ * @property string $version
  * @property string $created_at
  * @property string $updated_at
  */
@@ -166,12 +166,12 @@ class App extends ActiveModel
 
         $scriptVersion = $this->getScriptVersion();
 
-        return $scriptVersion === (float)$this->version;
+        return version_compare($scriptVersion, $this->version) === 0;
     }
 
     /**
      * Get extension script version if exists
-     * @return bool|float
+     * @return string
      */
     public function getScriptVersion()
     {
@@ -184,7 +184,7 @@ class App extends ActiveModel
             return false;
         }
 
-        return (float)constant($class . '::VERSION');
+        return constant($class . '::VERSION');
     }
 
 }
