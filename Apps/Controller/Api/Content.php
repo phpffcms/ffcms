@@ -231,8 +231,11 @@ class Content extends ApiController
      * @throws NativeException
      * @return string
      */
-    public function actionGallerydelete($id, $file)
+    public function actionGallerydelete($id, $file = null)
     {
+        if ($file === null || Str::likeEmpty($file)) {
+            $file = (string)$this->request->query->get('file', null);
+        }
         // check passed data
         if (Str::likeEmpty($file) || !Obj::isLikeInt($id)) {
             throw new NativeException('Wrong input data');

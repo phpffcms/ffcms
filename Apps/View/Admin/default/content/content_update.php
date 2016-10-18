@@ -221,7 +221,7 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
                 addRemoveLinks: true,
                 removedfile: function (file) { // file remove click, lets try to remove file from server & make visual changes
                     var serverFile = DropzoneFiles[file.name] != null ? DropzoneFiles[file.name] : file.name;
-                    $.getJSON(script_url+"/api/content/gallerydelete/<?= $model->galleryFreeId ?>/"+serverFile+"?lang="+script_lang, function(data){
+                    $.getJSON(script_url+"/api/content/gallerydelete/<?= $model->galleryFreeId ?>?lang="+script_lang+"&file="+serverFile, function(data){
                         if (data.status === 1) {
                             if (file.previewElement != null)
                                 return file.previewElement.parentNode.removeChild(file.previewElement);
