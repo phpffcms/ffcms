@@ -11,8 +11,8 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $name
  * @property string $email
  * @property string $message
- * @property int $readed
- * @property int $closed
+ * @property bool $readed
+ * @property bool $closed
  * @property string $hash
  * @property int $user_id
  * @property string $ip
@@ -21,6 +21,17 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class FeedbackPost extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'email' => 'string',
+        'message' => 'string',
+        'readed' => 'boolean',
+        'closed' => 'boolean',
+        'hash' => 'string',
+        'user_id' => 'integer',
+        'ip' => 'string'
+    ];
 
     /**
      * Get all answers for this feedback post id

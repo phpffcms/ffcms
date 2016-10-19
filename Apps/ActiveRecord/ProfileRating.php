@@ -16,5 +16,10 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class ProfileRating extends ActiveModel
 {
-
+    protected $casts = [
+        'id' => 'integer',
+        'target_id' => 'integer',
+        'sender_id' => 'integer',
+        'type' => 'string'
+    ];
 }

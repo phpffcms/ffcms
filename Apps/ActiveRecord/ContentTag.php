@@ -14,5 +14,10 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class ContentTag extends ActiveModel
 {
-    
+    protected $casts = [
+        'id' => 'integer',
+        'content_id' => 'integer',
+        'lang' => 'string',
+        'tag' => 'string'
+    ];
 }

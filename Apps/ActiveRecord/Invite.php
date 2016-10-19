@@ -16,8 +16,13 @@ use Ffcms\Core\Helper\Date;
  */
 class Invite extends ActiveModel
 {
-
     const TOKEN_VALID_TIME = 604800; // 7 days
+
+    protected $casts = [
+        'id' => 'integer',
+        'token' => 'string',
+        'email' => 'string'
+    ];
 
     /**
      * Cleanup old invites

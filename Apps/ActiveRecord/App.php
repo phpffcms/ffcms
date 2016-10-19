@@ -17,16 +17,21 @@ use Ffcms\Core\Helper\Type\Str;
  * @property string $sys_name
  * @property string $name
  * @property string $configs
- * @property int $disabled
+ * @property bool $disabled
  * @property string $version
  * @property string $created_at
  * @property string $updated_at
  */
 class App extends ActiveModel
 {
-    public $casts = [
+    protected $casts = [
+        'id' => 'integer',
+        'type' => 'string',
+        'sys_name' => 'string',
+        'name' => 'serialize',
         'configs' => 'serialize',
-        'name' => 'serialize'
+        'disabled' => 'boolean',
+        'version' => 'string'
     ];
 
     /**

@@ -5,6 +5,6 @@ Illuminate\Database\Capsule\Manager::schema($connectName)->create('user_recoveri
     $table->integer('user_id')->unsigned();
     $table->string('password', 512);
     $table->string('token', 128)->nullable();
-    $table->boolean('archive')->default(0);
+    $table->boolean('archive')->default(false);
     $table->timestamps();
 });

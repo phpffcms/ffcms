@@ -20,6 +20,16 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class CommentAnswer extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'comment_id' => 'integer',
+        'user_id' => 'integer',
+        'guest_name' => 'string',
+        'message' => 'string',
+        'lang' => 'string',
+        'ip' => 'string',
+        'moderate' => 'boolean'
+    ];
 
     /**
      * Get user identity

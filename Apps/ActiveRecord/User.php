@@ -22,6 +22,14 @@ use Ffcms\Core\Interfaces\iUser;
  */
 class User extends ActiveModel implements iUser
 {
+    protected $casts = [
+        'id' => 'integer',
+        'login' => 'string',
+        'email' => 'string',
+        'role_id' => 'integer',
+        'approve_token' => 'string'
+    ];
+
     private $openidProvider;
 
     /**

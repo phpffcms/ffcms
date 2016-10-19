@@ -22,6 +22,8 @@ use Ffcms\Core\Helper\Type\Str;
 class ContentCategory extends ActiveModel
 {
     protected $casts = [
+        'id' => 'integer',
+        'path' => 'string',
         'title' => 'serialize',
         'description' => 'serialize',
         'configs' => 'serialize'

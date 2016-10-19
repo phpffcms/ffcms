@@ -16,6 +16,12 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class WallAnswer extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'post_id' => 'integer',
+        'user_id' => 'integer',
+        'message' => 'string'
+    ];
 
     /**
      * Get user identity

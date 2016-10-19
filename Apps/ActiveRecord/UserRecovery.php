@@ -11,11 +11,18 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property int $user_id
  * @property string $password
  * @property string $token
- * @property int $archive
+ * @property bool $archive
  * @property string $created_at
  * @property string $updated_at
  */
 class UserRecovery extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'password' => 'string',
+        'token' => 'string',
+        'archive' => 'boolean'
+    ];
 
 }

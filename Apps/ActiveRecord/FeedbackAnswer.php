@@ -13,7 +13,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $name
  * @property string $email
  * @property string $message
- * @property int $is_admin
+ * @property bool $is_admin
  * @property int $user_id
  * @property string $ip
  * @property string $created_at
@@ -21,6 +21,17 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class FeedbackAnswer extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'feedback_id' => 'integer',
+        'name' => 'string',
+        'email' => 'string',
+        'message' => 'string',
+        'is_admin' => 'boolean',
+        'user_id' => 'integer',
+        'ip' => 'string'
+    ];
+
     /**
      * Get post relation
      * @return FeedbackPost|null

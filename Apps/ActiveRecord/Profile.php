@@ -30,6 +30,16 @@ use Ffcms\Core\Interfaces\iProfile;
 class Profile extends ActiveModel implements iProfile
 {
     protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'nick' => 'string',
+        'sex' => 'integer', // tinyInteger 0|1|2
+        'birthday' => 'string',
+        'city' => 'string',
+        'hobby' => 'string',
+        'rating' => 'integer',
+        'phone' => 'string',
+        'url' => 'string',
         'custom_data' => 'serialize'
     ];
 

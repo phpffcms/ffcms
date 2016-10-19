@@ -17,6 +17,12 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class Blacklist extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'target_id' => 'integer',
+        'comment' => 'string'
+    ];
 
     /**
      * Check if current user have in blacklist target_id user

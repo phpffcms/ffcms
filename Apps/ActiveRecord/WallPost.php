@@ -16,6 +16,12 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class WallPost extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'target_id' => 'integer',
+        'sender_id' => 'integer',
+        'message' => 'string'
+    ];
 
     /**
      * Get wall post answers relation

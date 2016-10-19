@@ -23,6 +23,16 @@ class CommentPost extends ActiveModel
 {
     use SearchableTrait;
 
+    protected $casts = [
+        'id' => 'integer',
+        'pathway' => 'string',
+        'user_id' => 'integer',
+        'guest_name' => 'string',
+        'message' => 'string',
+        'lang' => 'string',
+        'moderate' => 'boolean'
+    ];
+
     protected $searchable = [
         'columns' => [
             'message' => 1

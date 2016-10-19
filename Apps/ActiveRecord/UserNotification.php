@@ -20,6 +20,10 @@ use Ffcms\Core\Arch\ActiveModel;
 class UserNotification extends ActiveModel
 {
     public $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'msg' => 'string',
+        'uri' => 'string',
         'vars' => 'serialize',
         'readed' => 'boolean'
     ];

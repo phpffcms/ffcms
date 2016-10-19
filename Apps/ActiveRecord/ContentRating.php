@@ -16,5 +16,11 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class ContentRating extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'content_id' => 'integer',
+        'user_id' => 'integer',
+        'type' => 'string'
+    ];
         
 }

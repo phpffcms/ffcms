@@ -42,13 +42,20 @@ class Content extends ActiveModel
     ];
 
     protected $casts = [
+        'id' => 'integer',
         'title' => 'serialize',
         'text' => 'serialize',
+        'path' => 'string',
+        'category_id' => 'integer',
+        'author_id' => 'integer',
+        'poster' => 'string',
+        'display' => 'boolean',
         'meta_title' => 'serialize',
         'meta_keywords' => 'serialize',
         'meta_description' => 'serialize',
-        'display' => 'boolean',
-        ''
+        'views' => 'integer',
+        'rating' => 'integer',
+        'source' => 'string'
     ];
 
     /**

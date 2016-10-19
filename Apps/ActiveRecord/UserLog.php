@@ -15,6 +15,13 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class UserLog extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'type' => 'string',
+        'message' => 'string'
+    ];
+
     /**
      * Get user object as relation
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -17,6 +17,13 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class UserProvider extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'provider_name' => 'string',
+        'provider_id' => 'string'
+    ];
+
     /**
      * Define relation from openid providers to user table
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

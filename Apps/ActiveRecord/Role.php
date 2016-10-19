@@ -18,6 +18,12 @@ use Ffcms\Core\Helper\Type\Arr;
  */
 class Role extends ActiveModel
 {
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'permissions' => 'string'
+    ];
+
     /**
      * Get all table data as object
      * @param array $columns

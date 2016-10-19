@@ -8,7 +8,7 @@ Illuminate\Database\Capsule\Manager::schema($connectName)->create('contents', fu
     $table->integer('category_id');
     $table->integer('author_id');
     $table->string('poster', 255)->nullable();
-    $table->boolean('display')->default(1);
+    $table->boolean('display')->default(true);
     $table->text('meta_title')->nullable();
     $table->text('meta_keywords')->nullable();
     $table->text('meta_description')->nullable();

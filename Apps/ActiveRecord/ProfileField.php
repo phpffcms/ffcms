@@ -19,7 +19,11 @@ use Ffcms\Core\Cache\MemoryObject;
 class ProfileField extends ActiveModel
 {
     protected $casts = [
-        'name' => 'serialize'
+        'id' => 'integer',
+        'type' => 'string',
+        'name' => 'serialize',
+        'reg_exp' => 'string',
+        'reg_cond' => 'string'
     ];
 
     /**
