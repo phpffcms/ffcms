@@ -8,6 +8,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Url;
 
 class Main extends ApiController
 {
@@ -90,5 +91,26 @@ class Main extends ApiController
 
         $this->setJsonHeader();
         return json_encode($response);
+    }
+
+    /**
+     * Download news from ffcms.org server and show it with caching & saving
+     * @return string|null
+     */
+    public function actionNews()
+    {
+        $this->setJsonHeader();
+        // get ffcms news if cache is not available
+        $news = null;
+        if (App::$Cache->get('download.ffcms.api.news.'.$this->lang) !== null) {
+            $news = App::$Cache->get('download.ffcms.api.news.'.$this->lang);
+        } else {
+            $news = Url::download('https://ffcms.org/api/api/news?lang=' . $this->lang);
+            if ($news !== null && !Str::likeEmpty($news)) {
+                App::$Cache->set('download.ffcms.api.news.'.$this->lang, $news, 3600 * 12);
+            }
+        }
+
+        return $news;
     }
 }

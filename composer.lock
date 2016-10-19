@@ -4,139 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "74f0406c360c01c09d14f2eb80611bd5",
-    "content-hash": "c2cd37d05c4c72cb50e1c04c9644f749",
+    "hash": "99d89679d68e8f8a6baa34c56f3b7e08",
+    "content-hash": "58678120d0b802422956e1285c0e275c",
     "packages": [
         {
-            "name": "bower-asset/blueimp-canvas-to-blob",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/blueimp/JavaScript-Canvas-to-Blob.git",
-                "reference": "cb5add6fd18abba567c4824a601f57b9a9e30e04"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/JavaScript-Canvas-to-Blob/zipball/cb5add6fd18abba567c4824a601f57b9a9e30e04",
-                "reference": "cb5add6fd18abba567c4824a601f57b9a9e30e04",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "time": "2016-02-24 20:22:57"
-        },
-        {
-            "name": "bower-asset/blueimp-file-upload",
-            "version": "9.12.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/blueimp/jQuery-File-Upload.git",
-                "reference": "b9e144b735ab95a598b975bdc8375e14a2e76157"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/jQuery-File-Upload/zipball/b9e144b735ab95a598b975bdc8375e14a2e76157",
-                "reference": "b9e144b735ab95a598b975bdc8375e14a2e76157",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/blueimp-canvas-to-blob": ">=2.1.1",
-                "bower-asset/blueimp-load-image": ">=1.13.0",
-                "bower-asset/blueimp-tmpl": ">=2.5.4",
-                "bower-asset/jquery": ">=1.6"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "js/jquery.fileupload.js"
-                ],
-                "bower-asset-ignore": [
-                    "/*.*",
-                    "/cors",
-                    "css/demo-ie8.css",
-                    "css/demo.css",
-                    "css/style.css",
-                    "js/app.js",
-                    "js/main.js",
-                    "server",
-                    "test"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images.",
-            "keywords": [
-                "bootstrap",
-                "chunk",
-                "cross-domain",
-                "cross-site",
-                "drag",
-                "drop",
-                "file",
-                "gae",
-                "go",
-                "jquery",
-                "multiple",
-                "php",
-                "preview",
-                "progress",
-                "python",
-                "resume",
-                "selection",
-                "upload",
-                "widget"
-            ]
-        },
-        {
-            "name": "bower-asset/blueimp-load-image",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/blueimp/JavaScript-Load-Image.git",
-                "reference": "da2e77837e81a2a0a143a77034dc01604173790a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/JavaScript-Load-Image/zipball/da2e77837e81a2a0a143a77034dc01604173790a",
-                "reference": "da2e77837e81a2a0a143a77034dc01604173790a",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "time": "2016-03-21 15:49:39"
-        },
-        {
-            "name": "bower-asset/blueimp-tmpl",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/blueimp/JavaScript-Templates.git",
-                "reference": "9dc414739a4d23663018575c5036b88e0de2ba4d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/JavaScript-Templates/zipball/9dc414739a4d23663018575c5036b88e0de2ba4d",
-                "reference": "9dc414739a4d23663018575c5036b88e0de2ba4d",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "time": "2016-04-11 21:26:22"
-        },
-        {
             "name": "bower-asset/bootstrap",
-            "version": "v3.3.5",
+            "version": "v3.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "16b48259a62f576e52c903c476bd42b90ab22482"
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16b48259a62f576e52c903c476bd42b90ab22482",
-                "reference": "16b48259a62f576e52c903c476bd42b90ab22482",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/jquery": ">=1.9.1"
+                "bower-asset/jquery": ">=1.9.1,<4.0"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -209,6 +95,34 @@
             "description": "Font Awesome, the iconic font designed for use with Twitter Bootstrap."
         },
         {
+            "name": "bower-asset/dropzone",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/enyo/dropzone.git",
+                "reference": "d8ef7a82e6ab5447c1f2d9512c8e1bfd4de5ac9e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/enyo/dropzone/zipball/d8ef7a82e6ab5447c1f2d9512c8e1bfd4de5ac9e",
+                "reference": "d8ef7a82e6ab5447c1f2d9512c8e1bfd4de5ac9e",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "dist/min/dropzone.min.css",
+                    "dist/min/dropzone.min.js"
+                ],
+                "bower-asset-ignore": [
+                    "*",
+                    "!dist",
+                    "!dist/**/*"
+                ]
+            },
+            "description": "Dropzone is an easy to use drag'n'drop library. It supports image previews and shows nice progress bars."
+        },
+        {
             "name": "bower-asset/jquery",
             "version": "2.1.4",
             "source": {
@@ -279,16 +193,16 @@
         },
         {
             "name": "bower-asset/jquery-validation",
-            "version": "1.15.0",
+            "version": "1.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jzaefferer/jquery-validation.git",
-                "reference": "1621cadc940900a4a7809fe29f2b568328be4340"
+                "reference": "b88e234662b3050fc69b1723a87b6c1645c870bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jzaefferer/jquery-validation/zipball/1621cadc940900a4a7809fe29f2b568328be4340",
-                "reference": "1621cadc940900a4a7809fe29f2b568328be4340",
+                "url": "https://api.github.com/repos/jzaefferer/jquery-validation/zipball/b88e234662b3050fc69b1723a87b6c1645c870bc",
+                "reference": "b88e234662b3050fc69b1723a87b6c1645c870bc",
                 "shasum": ""
             },
             "require": {
@@ -372,16 +286,16 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "dev-master",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "803a2ed9fea02f9ca47cd45395089fe78769a392"
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/803a2ed9fea02f9ca47cd45395089fe78769a392",
-                "reference": "803a2ed9fea02f9ca47cd45395089fe78769a392",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/90b2128806bfde671b6952ab8bea493942c1fdae",
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +349,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2016-05-12 17:23:41"
+            "time": "2015-11-06 14:35:42"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -483,17 +397,17 @@
         },
         {
             "name": "gregwar/cache",
-            "version": "v1.0.10",
+            "version": "v1.0.12",
             "target-dir": "Gregwar/Cache",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gregwar/Cache.git",
-                "reference": "0a1a02e4943e95f491b3d2395609247385975622"
+                "reference": "305d0f5a12c0beecbbd7e1de236f59f39e0c0ac3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/Cache/zipball/0a1a02e4943e95f491b3d2395609247385975622",
-                "reference": "0a1a02e4943e95f491b3d2395609247385975622",
+                "url": "https://api.github.com/repos/Gregwar/Cache/zipball/305d0f5a12c0beecbbd7e1de236f59f39e0c0ac3",
+                "reference": "305d0f5a12c0beecbbd7e1de236f59f39e0c0ac3",
                 "shasum": ""
             },
             "require": {
@@ -522,7 +436,7 @@
                 "file-system",
                 "system"
             ],
-            "time": "2014-09-24 11:23:30"
+            "time": "2016-09-23 08:16:04"
         },
         {
             "name": "gregwar/captcha",
@@ -674,26 +588,26 @@
         },
         {
             "name": "illuminate/container",
-            "version": "5.2.x-dev",
+            "version": "v5.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "37f4bb5ebac312fac5b64939626ce43d7c3b7dfb"
+                "reference": "8047b47e1f731c975d9aa0fe0b269064d3f1346d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/37f4bb5ebac312fac5b64939626ce43d7c3b7dfb",
-                "reference": "37f4bb5ebac312fac5b64939626ce43d7c3b7dfb",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/8047b47e1f731c975d9aa0fe0b269064d3f1346d",
+                "reference": "8047b47e1f731c975d9aa0fe0b269064d3f1346d",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "5.2.*",
-                "php": ">=5.5.9"
+                "illuminate/contracts": "5.3.*",
+                "php": ">=5.6.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.2-dev"
+                    "dev-master": "5.3-dev"
                 }
             },
             "autoload": {
@@ -708,34 +622,34 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylor@laravel.com"
                 }
             ],
             "description": "The Illuminate Container package.",
-            "homepage": "http://laravel.com",
-            "time": "2016-06-29 01:58:50"
+            "homepage": "https://laravel.com",
+            "time": "2016-10-02 01:14:30"
         },
         {
             "name": "illuminate/contracts",
-            "version": "5.2.x-dev",
+            "version": "v5.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5"
+                "reference": "ce5d73c6015b2054d32f3f8530767847b358ae4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5",
-                "reference": "f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/ce5d73c6015b2054d32f3f8530767847b358ae4e",
+                "reference": "ce5d73c6015b2054d32f3f8530767847b358ae4e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.6.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.2-dev"
+                    "dev-master": "5.3-dev"
                 }
             },
             "autoload": {
@@ -750,46 +664,46 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylor@laravel.com"
                 }
             ],
             "description": "The Illuminate Contracts package.",
-            "homepage": "http://laravel.com",
-            "time": "2016-05-31 21:36:13"
+            "homepage": "https://laravel.com",
+            "time": "2016-09-26 20:36:27"
         },
         {
             "name": "illuminate/database",
-            "version": "v5.2.37",
+            "version": "v5.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "c0746930dc6a6ff9b72945152609d61a3b3829c6"
+                "reference": "c3adc9e07796d718df9f49ab325bda672a7c344a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/c0746930dc6a6ff9b72945152609d61a3b3829c6",
-                "reference": "c0746930dc6a6ff9b72945152609d61a3b3829c6",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/c3adc9e07796d718df9f49ab325bda672a7c344a",
+                "reference": "c3adc9e07796d718df9f49ab325bda672a7c344a",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "5.2.*",
-                "illuminate/contracts": "5.2.*",
-                "illuminate/support": "5.2.*",
+                "illuminate/container": "5.3.*",
+                "illuminate/contracts": "5.3.*",
+                "illuminate/support": "5.3.*",
                 "nesbot/carbon": "~1.20",
-                "php": ">=5.5.9"
+                "php": ">=5.6.4"
             },
             "suggest": {
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (~2.4).",
                 "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4).",
-                "illuminate/console": "Required to use the database commands (5.2.*).",
-                "illuminate/events": "Required to use the observers with Eloquent (5.2.*).",
-                "illuminate/filesystem": "Required to use the migrations (5.2.*).",
-                "illuminate/pagination": "Required to paginate the result set (5.2.*)."
+                "illuminate/console": "Required to use the database commands (5.3.*).",
+                "illuminate/events": "Required to use the observers with Eloquent (5.3.*).",
+                "illuminate/filesystem": "Required to use the migrations (5.3.*).",
+                "illuminate/pagination": "Required to paginate the result set (5.3.*)."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.2-dev"
+                    "dev-master": "5.3-dev"
                 }
             },
             "autoload": {
@@ -804,54 +718,52 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylor@laravel.com"
                 }
             ],
             "description": "The Illuminate Database package.",
-            "homepage": "http://laravel.com",
+            "homepage": "https://laravel.com",
             "keywords": [
                 "database",
                 "laravel",
                 "orm",
                 "sql"
             ],
-            "time": "2016-06-06 13:12:46"
+            "time": "2016-10-04 01:41:20"
         },
         {
             "name": "illuminate/support",
-            "version": "5.2.x-dev",
+            "version": "v5.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "4ee7e1c254a76c226fd8f93ac517fdbaedbd0640"
+                "reference": "aa685c61c88a69b2e0e86310e65ef5ad2ebf2448"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/4ee7e1c254a76c226fd8f93ac517fdbaedbd0640",
-                "reference": "4ee7e1c254a76c226fd8f93ac517fdbaedbd0640",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/aa685c61c88a69b2e0e86310e65ef5ad2ebf2448",
+                "reference": "aa685c61c88a69b2e0e86310e65ef5ad2ebf2448",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "~1.0",
                 "ext-mbstring": "*",
-                "illuminate/contracts": "5.2.*",
-                "paragonie/random_compat": "~1.4",
-                "php": ">=5.5.9"
+                "illuminate/contracts": "5.3.*",
+                "paragonie/random_compat": "~1.4|~2.0",
+                "php": ">=5.6.4"
             },
             "replace": {
                 "tightenco/collect": "self.version"
             },
             "suggest": {
                 "illuminate/filesystem": "Required to use the composer class (5.2.*).",
-                "jeremeamia/superclosure": "Required to be able to serialize closures (~2.2).",
-                "symfony/polyfill-php56": "Required to use the hash_equals function on PHP 5.5 (~1.0).",
-                "symfony/process": "Required to use the composer class (2.8.*|3.0.*).",
-                "symfony/var-dumper": "Improves the dd function (2.8.*|3.0.*)."
+                "symfony/process": "Required to use the composer class (3.1.*).",
+                "symfony/var-dumper": "Required to use the dd function (3.1.*)."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.2-dev"
+                    "dev-master": "5.3-dev"
                 }
             },
             "autoload": {
@@ -869,25 +781,25 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylor@laravel.com"
                 }
             ],
             "description": "The Illuminate Support package.",
-            "homepage": "http://laravel.com",
-            "time": "2016-07-21 14:39:20"
+            "homepage": "https://laravel.com",
+            "time": "2016-10-02 01:14:47"
         },
         {
             "name": "maximebf/debugbar",
-            "version": "v1.12.0",
+            "version": "v1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "e634fbd32cd6bc3fa0e8c972b52d4bf49bab3988"
+                "reference": "5f49a5ed6cfde81d31d89378806670d77462526e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/e634fbd32cd6bc3fa0e8c972b52d4bf49bab3988",
-                "reference": "e634fbd32cd6bc3fa0e8c972b52d4bf49bab3988",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/5f49a5ed6cfde81d31d89378806670d77462526e",
+                "reference": "5f49a5ed6cfde81d31d89378806670d77462526e",
                 "shasum": ""
             },
             "require": {
@@ -906,7 +818,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.12-dev"
+                    "dev-master": "1.13-dev"
                 }
             },
             "autoload": {
@@ -935,20 +847,20 @@
                 "debug",
                 "debugbar"
             ],
-            "time": "2016-05-15 13:11:34"
+            "time": "2016-09-15 14:01:59"
         },
         {
             "name": "nesbot/carbon",
-            "version": "dev-master",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "36c134b53c21a137d450c86a27046022d98574fd"
+                "reference": "7b08ec6f75791e130012f206e3f7b0e76e18e3d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/36c134b53c21a137d450c86a27046022d98574fd",
-                "reference": "36c134b53c21a137d450c86a27046022d98574fd",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7b08ec6f75791e130012f206e3f7b0e76e18e3d7",
+                "reference": "7b08ec6f75791e130012f206e3f7b0e76e18e3d7",
                 "shasum": ""
             },
             "require": {
@@ -959,11 +871,6 @@
                 "phpunit/phpunit": "~4.0|~5.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.22-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Carbon\\": "src/Carbon/"
@@ -987,20 +894,20 @@
                 "datetime",
                 "time"
             ],
-            "time": "2016-06-27 17:44:29"
+            "time": "2015-11-04 20:07:17"
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v1.x-dev",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "1115ffa06bad72d01735d91f51eb022db556e205"
+                "reference": "c0125896dbb151380ab47e96c621741e79623beb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/1115ffa06bad72d01735d91f51eb022db556e205",
-                "reference": "1115ffa06bad72d01735d91f51eb022db556e205",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c0125896dbb151380ab47e96c621741e79623beb",
+                "reference": "c0125896dbb151380ab47e96c621741e79623beb",
                 "shasum": ""
             },
             "require": {
@@ -1035,7 +942,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-04-03 05:47:09"
+            "time": "2016-10-17 15:23:22"
         },
         {
             "name": "phpfastcache/phpfastcache",
@@ -1154,21 +1061,21 @@
         },
         {
             "name": "phpffcms/ffcms-console",
-            "version": "dev-master",
+            "version": "1.0.0-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-console.git",
-                "reference": "32a7a760c5286279e9cb307eaa2882d39931f3aa"
+                "reference": "dc0021eaeaa2b3bcb19a51ede1b58b5a1f0a0dab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/32a7a760c5286279e9cb307eaa2882d39931f3aa",
-                "reference": "32a7a760c5286279e9cb307eaa2882d39931f3aa",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/dc0021eaeaa2b3bcb19a51ede1b58b5a1f0a0dab",
+                "reference": "dc0021eaeaa2b3bcb19a51ede1b58b5a1f0a0dab",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5",
-                "phpffcms/ffcms-core": "dev-master"
+                "phpffcms/ffcms-core": "1.0.*"
             },
             "type": "library",
             "autoload": {
@@ -1194,20 +1101,20 @@
                 "ffcms",
                 "php"
             ],
-            "time": "2016-06-12 14:43:34"
+            "time": "2016-08-11 14:36:17"
         },
         {
             "name": "phpffcms/ffcms-core",
-            "version": "dev-master",
+            "version": "1.0.0-beta2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "2bf87e9bfbcacf4c2f6ec72464204f2be2e55498"
+                "reference": "2830319bd1477b955952926753d2327d5658931c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/2bf87e9bfbcacf4c2f6ec72464204f2be2e55498",
-                "reference": "2bf87e9bfbcacf4c2f6ec72464204f2be2e55498",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/2830319bd1477b955952926753d2327d5658931c",
+                "reference": "2830319bd1477b955952926753d2327d5658931c",
                 "shasum": ""
             },
             "require": {
@@ -1216,7 +1123,7 @@
                 "gregwar/captcha": "1.*@stable",
                 "illuminate/database": "5.*@stable",
                 "maximebf/debugbar": "1.*@stable",
-                "php": ">=5.4",
+                "php": ">=5.5",
                 "swiftmailer/swiftmailer": "5.4.*@stable",
                 "symfony/http-foundation": "2.8@stable"
             },
@@ -1244,7 +1151,7 @@
                 "mvc",
                 "php"
             ],
-            "time": "2016-07-19 18:58:25"
+            "time": "2016-10-15 08:30:11"
         },
         {
             "name": "phpffcms/ffcms-elfinder",
@@ -1359,16 +1266,16 @@
         },
         {
             "name": "psr/log",
-            "version": "dev-master",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
-                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "shasum": ""
             },
             "require": {
@@ -1402,7 +1309,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-01-06 21:40:42"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "suin/php-rss-writer",
@@ -1556,16 +1463,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "dev-master",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "8a6bdec191138e01c92ae026e5aacb7b3e66267d"
+                "reference": "dff51f72b0706335131b00a7f49606168c582594"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/8a6bdec191138e01c92ae026e5aacb7b3e66267d",
-                "reference": "8a6bdec191138e01c92ae026e5aacb7b3e66267d",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/dff51f72b0706335131b00a7f49606168c582594",
+                "reference": "dff51f72b0706335131b00a7f49606168c582594",
                 "shasum": ""
             },
             "require": {
@@ -1611,11 +1518,11 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-06-29 14:58:48"
+            "time": "2016-05-18 14:26:46"
         },
         {
             "name": "symfony/polyfill-php54",
-            "version": "dev-master",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php54.git",
@@ -1673,16 +1580,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "dev-master",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "3c589e93013e2808758f61b02755afc113f3be44"
+                "reference": "93013a18d272e59dab8e67f583155b78c68947eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/3c589e93013e2808758f61b02755afc113f3be44",
-                "reference": "3c589e93013e2808758f61b02755afc113f3be44",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/93013a18d272e59dab8e67f583155b78c68947eb",
+                "reference": "93013a18d272e59dab8e67f583155b78c68947eb",
                 "shasum": ""
             },
             "require": {
@@ -1706,7 +1613,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -1733,20 +1640,20 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:43:10"
+            "time": "2016-09-06 11:02:40"
         },
         {
             "name": "symfony/var-dumper",
-            "version": "dev-master",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "1492e12700df1fac4af6575bc330bdb5c43cc513"
+                "reference": "70bfe927b86ba9999aeebd829715b0bb2cd39a10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/1492e12700df1fac4af6575bc330bdb5c43cc513",
-                "reference": "1492e12700df1fac4af6575bc330bdb5c43cc513",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/70bfe927b86ba9999aeebd829715b0bb2cd39a10",
+                "reference": "70bfe927b86ba9999aeebd829715b0bb2cd39a10",
                 "shasum": ""
             },
             "require": {
@@ -1762,7 +1669,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -1796,15 +1703,13 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-07-19 10:47:02"
+            "time": "2016-09-29 14:13:09"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "beta",
     "stability-flags": {
-        "phpffcms/ffcms-core": 20,
-        "phpffcms/ffcms-console": 20,
         "phpffcms/ffcms-ckeditor": 0,
         "phpffcms/searchable": 0,
         "phpffcms/language-flags": 0,
@@ -1824,12 +1729,13 @@
         "bower-asset/jquery-validation": 0,
         "bower-asset/jquery-ui": 0,
         "bower-asset/components-font-awesome": 0,
-        "bower-asset/blueimp-file-upload": 0
+        "bower-asset/dropzone": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5"
+        "php": ">=5.5",
+        "ext-mbstring": "*"
     },
     "platform-dev": []
 }

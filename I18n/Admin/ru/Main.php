@@ -123,5 +123,6 @@ return [
     'Are you sure to clear all website cache? Cache size: %size%mb' => 'Вы уверены что хотите очистить весь кэш сайта? Размер кэша: %size%mb',
     'Cache cleared successfully' => 'Кэш успешно очищен',
     'Clean sessions' => 'Очистка сессий',
-    'Are you sure to clear all sessions information? All authorization sessions will be dropped down! Sessions count: %count%' => 'Вы уверены что хотите очистить всю информацию о сессиях? Все данные сессий авторизации будут сброшены! Количество сессий: %count%'
+    'Are you sure to clear all sessions information? All authorization sessions will be dropped down! Sessions count: %count%' => 'Вы уверены что хотите очистить всю информацию о сессиях? Все данные сессий авторизации будут сброшены! Количество сессий: %count%',
+    'Official website' => 'Официальный сайт'
 ];

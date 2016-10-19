@@ -80,9 +80,14 @@ $this->breadcrumbs = [
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
-            <div class="panel-heading"><?= __('FFCMS News') ?></div>
+            <div class="panel-heading">
+                <?= __('FFCMS News') ?>
+                <a href="https://ffcms.org" class="label label-success" target="_blank"><?= __('Official website') ?></a>
+            </div>
             <div class="panel-body">
-
+                <ul id="ffcms-news-list">
+                    <li>No internet connection</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -115,6 +120,27 @@ $this->breadcrumbs = [
         </div>
     </div>
 </div>
+<script>
+    window.jQ.push(function(){
+        $(function () {
+           $.getJSON(script_url + '/api/main/news?lang=' + script_lang, function (resp) {
+               if (resp.status !== 1) {
+                   return;
+               }
+
+               $('#ffcms-news-list').empty();
+
+               $.each(resp.data, function(key,news){
+                   $('<li>').html($('<a>', {
+                       href: news.url,
+                       target: '_blank',
+                       text: news.title
+                   })).appendTo('#ffcms-news-list');
+               });
+           });
+        });
+    });
+</script>
 <script>
 (function(w,d,s,g,js,fs){
   g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
