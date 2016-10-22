@@ -3,9 +3,9 @@
 # composer vendors
 /vendor
 # ignore personal configurations, cache and sessions
-/Private/Config
-/Private/Sessions
-/Private/Cache
-/Private/Install
+/Private/Config/
+/Private/Sessions/
+/Private/Cache/
+/Private/Install/
 # ignore composer build
 composer.lock
