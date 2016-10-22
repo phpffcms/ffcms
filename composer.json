@@ -19,7 +19,10 @@
   },
   "require": {
     "php": ">=5.5",
+    "lib-curl": "*",
     "ext-mbstring": "*",
+    "ext-gd": "*",
+    "ext-zip": "*",
     "phpffcms/ffcms-core": "1.0.*",
     "phpffcms/ffcms-console": "1.0.*",
     "phpffcms/ffcms-ckeditor": "1.*@stable",

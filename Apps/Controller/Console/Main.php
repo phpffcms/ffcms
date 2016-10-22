@@ -3,6 +3,7 @@
 namespace Apps\Controller\Console;
 
 use Apps\Controller\Console\Db as DbController;
+use Extend\Version;
 use Ffcms\Console\Console;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\FileSystem\Directory;
@@ -52,7 +53,7 @@ class Main
         $text = "Information about FFCMS package and environment:" . PHP_EOL;
         $text .= "\t PHP version: " . phpversion() . PHP_EOL;
         $text .= "\t Dist path: " . root . PHP_EOL;
-        $text .= "\t Used version: " . Console::$Properties->version['num'] . ' [build: ' . Console::$Properties->version['date'] . ']' . PHP_EOL;
+        $text .= "\t Used version: " . Version::VERSION . ' [build: ' . Version::DATE . ']' . PHP_EOL;
         $text .= "Information about FFCMS cmf packages:" . PHP_EOL;
 
         $composerInfo = File::read('/composer.lock');

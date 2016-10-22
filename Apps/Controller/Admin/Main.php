@@ -4,17 +4,21 @@ namespace Apps\Controller\Admin;
 
 use Apps\ActiveRecord\Session;
 use Apps\Model\Admin\Main\EntityDeleteRoute;
+use Apps\Model\Admin\Main\EntityUpdate;
 use Apps\Model\Admin\Main\FormAddRoute;
 use Apps\Model\Admin\Main\FormSettings;
+use Apps\Model\Admin\Main\FormUpdateDatabase;
+use Apps\Model\Admin\Main\FormUpdateDownload;
 use Apps\Model\Install\Main\EntityCheck;
 use Extend\Core\Arch\AdminController;
+use Extend\Version;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Environment;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
-use Symfony\Component\HttpFoundation\Cookie;
+use Ffcms\Core\Helper\Url;
 
 /**
  * Class Main. Admin main controller - index page, settings, file manager, security and etc.
@@ -54,7 +58,7 @@ class Main extends AdminController
 
         // prepare system statistic
         $stats = [
-            'ff_version' => App::$Properties->version['num'] . ' (' . App::$Properties->version['date'] . ')',
+            'ff_version' => Version::VERSION . ' (' . Version::DATE . ')',
             'php_version' => Environment::phpVersion() . ' (' . Environment::phpSAPI() . ')',
             'os_name' => Environment::osName(),
             'database_name' => App::$Database->connection()->getDatabaseName() . ' (' . App::$Database->connection()->getDriverName() . ')',
@@ -247,6 +251,45 @@ class Main extends AdminController
         // render output view
         return $this->view->render('clear_sessions', [
             'count' => $sessions->count()
+        ]);
+    }
+
+    /**
+     * Make system update
+     * @return string
+     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\NativeException
+     */
+    public function actionUpdates()
+    {
+        // initialize models - entity, database, download
+        $entityModel = new EntityUpdate();
+        $dbModel = new FormUpdateDatabase($entityModel->dbVersion, $entityModel->scriptVersion);
+        $downloadModel = new FormUpdateDownload($entityModel->lastInfo['download_url'], $entityModel->lastVersion);
+
+        // find files with sql queries to update if required
+        if (!$entityModel->versionsEqual) {
+            $dbModel->findUpdateFiles();
+            // if submit is pressed make update
+            if ($dbModel->send() && $dbModel->validate()) {
+                $dbModel->make();
+                App::$Session->getFlashBag()->add('success', __('Database updates are successful installed'));
+                App::$Response->redirect(Url::to(['main/updates']));
+            }
+        } elseif ($entityModel->haveRemoteNew) { // download full compiled .zip archive & extract files
+            if ($downloadModel->send()) {
+                if ($downloadModel->make()) {
+                    App::$Session->getFlashBag()->add('success', __('Archive with new update are successful downloaded and extracted. Please refresh this page and update database if required'));
+                } else {
+                    App::$Session->getFlashBag()->add('error', __('In process of downloading and extracting update archive error is occurred. Something gonna wrong'));
+                }
+            }
+        }
+
+        return $this->view->render('updates', [
+            'entityModel' => $entityModel,
+            'dbModel' => $dbModel,
+            'downloadModel' => $downloadModel
         ]);
     }
 }

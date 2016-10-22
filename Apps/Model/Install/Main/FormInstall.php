@@ -3,7 +3,9 @@
 namespace Apps\Model\Install\Main;
 
 use Apps\ActiveRecord\Profile;
+use Apps\ActiveRecord\System;
 use Apps\ActiveRecord\User;
+use Extend\Version;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;
@@ -101,6 +103,10 @@ class FormInstall extends Model
         // import database tables
         $connectName = 'install';
         include(root . '/Private/Database/install.php');
+        // set installation version
+        $system = System::getVar('version');
+        $system->data = Version::VERSION;
+        $system->save();
 
         // insert admin user
         $user = new User();

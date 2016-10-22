@@ -22,6 +22,7 @@ require_once(root . '/Private/Database/Tables/ProfileField.php');
 require_once(root . '/Private/Database/Tables/ProfileRating.php');
 require_once(root . '/Private/Database/Tables/Role.php');
 require_once(root . '/Private/Database/Tables/Session.php');
+require_once(root . '/Private/Database/Tables/System.php');
 require_once(root . '/Private/Database/Tables/User.php');
 require_once(root . '/Private/Database/Tables/UserLog.php');
 require_once(root . '/Private/Database/Tables/UserNotification.php');

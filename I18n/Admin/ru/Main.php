@@ -124,5 +124,19 @@ return [
     'Cache cleared successfully' => 'Кэш успешно очищен',
     'Clean sessions' => 'Очистка сессий',
     'Are you sure to clear all sessions information? All authorization sessions will be dropped down! Sessions count: %count%' => 'Вы уверены что хотите очистить всю информацию о сессиях? Все данные сессий авторизации будут сброшены! Количество сессий: %count%',
-    'Official website' => 'Официальный сайт'
+    'Official website' => 'Официальный сайт',
+    'Updates' => 'Обновления',
+    'Update manager' => 'Менеджер обновлений',
+    'Scripts version' => 'Версия файлов',
+    'Database version' => 'Версия базы данных',
+    'Last version' => 'Последняя версия системы',
+    'Seems like scripts and database of your website have different versions. You should do update right now or your website can working unstable' => 'Похоже, что версия базы данных и файлов не совпадают для вашего сайта. Вы должны выполнить обновление базы данных немедленно или ваш сайт будет работать с ошибками',
+    'This updates for database will be applied:' => 'Будут применены следующие обновления для базы данных:',
+    'The newest version: <b>%version%</b> with title &laquo;<em>%title%</em>&raquo; is available to update. You can start update right now' => 'Новая версия: <b>%version%</b> под названием &laquo;<em>%title%</em>&raquo; доступна для обновления. Вы можете начать обновление прямо сейчас',
+    'Update database' => 'Обновить базу данных',
+    'Download update' => 'Загрузить обновление',
+    'Your system is up to date. No updates is available' => 'Установлена последняя версия системы. Обновления не найдены',
+    'Database updates are successful installed' => 'Обновления для базы данных успешно установлены',
+    'Archive with new update are successful downloaded and extracted. Please refresh this page and update database if required' => 'Архив с обновлением успешно загружен и распакован. Пожалуйста, обновите данную страницу и выполните обновление базы данных',
+    'In process of downloading and extracting update archive error is occurred. Something gonna wrong' => 'В процессе загрузки и распаковки архива с обновлениями произошла ошибка. Что то пошло не так :('
 ];
