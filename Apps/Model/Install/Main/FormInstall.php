@@ -103,10 +103,6 @@ class FormInstall extends Model
         // import database tables
         $connectName = 'install';
         include(root . '/Private/Database/install.php');
-        // set installation version
-        $system = System::getVar('version');
-        $system->data = Version::VERSION;
-        $system->save();
 
         // insert admin user
         $user = new User();
@@ -121,6 +117,13 @@ class FormInstall extends Model
         $profile->setConnection('install');
         $profile->user_id = $user->id;
         $profile->save();
+
+        // set installation version
+        $system = new System();
+        $system->setConnection('install');
+        $system->var = 'version';
+        $system->data = Version::VERSION;
+        $system->save();
 
         // write config data
         App::$Properties->writeConfig('default', $cfg);
