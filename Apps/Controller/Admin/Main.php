@@ -137,7 +137,7 @@ class Main extends AdminController
         // awesome bullshit in symfony: you can't set cookie headers in (new RedirectResponse) before send().
         // never mind what did you do, this is a easy way to do this without bug
         //$this->response->headers->setCookie(new Cookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], strtotime('+1 month'), null, false, true));
-        setcookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], strtotime('+1 month'), null, null, null, true);
+        setcookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], strtotime('+1 month'), '/', null, null, true);
         $this->response->redirect('/');
     }
 
