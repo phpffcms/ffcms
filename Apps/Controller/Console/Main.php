@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Console;
 
+use Apps\ActiveRecord\System;
 use Apps\Controller\Console\Db as DbController;
 use Extend\Version;
 use Ffcms\Console\Console;
@@ -212,6 +213,13 @@ class Main
         // import db data
         $dbController = new DbController();
         echo $dbController->actionImportAll('install');
+
+        // add system info about current install version
+        $system = new System();
+        $system->setConnection('install');
+        $system->var = 'version';
+        $system->data = Version::VERSION;
+        $system->save();
 
         // set website send from email from input
         $emailConfig = Console::$Properties->get('adminEmail');
