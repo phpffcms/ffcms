@@ -32,13 +32,17 @@ class FrontWidget extends NativeWidget
 
     /**
      * Check if widget is enabled
-     * @param string|null $name
+     * @param string|null $class
      * @return bool
      */
-    public static function enabled($name = null)
+    public static function enabled($class = null)
     {
-        // get widget class-namespace callback and single class name
-        self::$class = get_called_class();
+        self::$class = ($class !== null ? $class : get_called_class()); // get widget classname from passed data or from stacttrace
+        if (!class_exists(self::$class)) {
+            App::$Debug->addMessage(__('Widget autoload is disabled for class: %class%', ['class' => self::$class]));
+            return false;
+        }
+        // get widget name
         self::$name = Str::lastIn(self::$class, '\\', true);
 
         $wData = AppRecord::getItem('widget', self::$name);
@@ -47,7 +51,7 @@ class FrontWidget extends NativeWidget
             if (App::$Debug !== null) {
                 App::$Debug->addMessage(__('Widget with name %name%[%class%] is not found', ['name' => self::$name, 'class' => self::$class]));
             }
-            return null;
+            return false;
         }
 
         // if widget is disabled - lets return nothing
