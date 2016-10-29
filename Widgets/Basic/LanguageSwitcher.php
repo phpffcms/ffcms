@@ -55,7 +55,7 @@ class LanguageSwitcher extends Widget
             $items[] = [
                 'type' => 'link',
                 'link' => App::$Alias->baseUrlNoLang . '/' . $lang . App::$Request->getPathInfo(),
-                'text' => '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="flag flag-'.$lang.'" />',
+                'text' => '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="flag flag-'.$lang.'" alt="'.$lang.'"/>',
                 'html' => true,
                 '!secure' => true
             ];
