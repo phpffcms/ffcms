@@ -109,14 +109,18 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
     </div>
     <?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
         <div class="row">
+        <?php $i = 1; ?>
         <?php foreach ($model->galleryItems as $thumbPic => $fullPic): ?>
             <div class="col-md-2 well">
-                <a href="#showGallery" class="modalGallery" content="<?= \App::$Alias->scriptUrl . $fullPic ?>"><img src="<?= \App::$Alias->scriptUrl . $thumbPic ?>" class="img-responsive image-item" /></a>
+                <a href="#showGallery" class="modalGallery" content="<?= \App::$Alias->scriptUrl . $fullPic ?>" id="gallery-<?= $i ?>">
+                    <img src="<?= \App::$Alias->scriptUrl . $thumbPic ?>" class="img-responsive image-item" />
+                </a>
             </div>
+            <?php $i++ ?>
         <?php endforeach; ?>
         </div>
         <div class="modal fade" id="showGallery" tabindex="-1" role="dialog" aria-labelledby="showshowGallery">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-max" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -208,13 +212,66 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
 <?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
 <script>
     window.jQ.push(function(){
+        var galleryPos = 1;
         $('.modalGallery').on('click', function() {
+            galleryPos = parseInt($(this).attr('id').replace('gallery-', ''));
+
             var picture = $(this).attr('content');
             if (picture != null && picture.length > 0) {
-                $('#modal-gallery-body').html('<img class="img-responsive" alt="Picture" style="margin: 0 auto;" src="' + picture + '"/>');
+                var gallerySelector = $('#modal-gallery-body');
+                gallerySelector.html('<img class="img-responsive gallery-img" alt="Picture" style="margin: 0 auto;" src="' + picture + '"/>');
+                gallerySelector.append('<hr />');
+                // add previous & next buttons
+                var gSelectors = '<p class="text-center">';
+                gSelectors += '<a href="#showGallery" id="gallery-show-prev"><i class="fa fa-arrow-left fa-2x"></i></a> ';
+                gSelectors += '<a href="#showGallery" id="gallery-show-next"><i class="fa fa-arrow-right fa-2x"></i></a>';
+                gSelectors += '</p>';
+                gallerySelector.append(gSelectors);
                 $('#showGallery').modal('show');
             }
         });
+
+        // click next image in gallery
+        $(document).on('click', '#gallery-show-next', function() {
+            galleryPos += 1;
+            var imgSel = $('#gallery-'+galleryPos);
+            if (imgSel.length < 1) {
+                galleryPos -= 1;
+                return;
+            }
+
+            var newImg = imgSel.attr('content');
+            $(this).parent().parent().find('.gallery-img').fadeOut('fast').attr('src', newImg).fadeIn('fast');
+        });
+
+        // click previous image in gallery
+        $(document).on('click', '#gallery-show-prev', function(){
+            galleryPos -= 1;
+            var imgSel = $('#gallery-'+galleryPos);
+            if (imgSel.length < 1) {
+                galleryPos += 1;
+                return;
+            }
+            var newImg = imgSel.attr('content');
+            $(this).parent().parent().find('.gallery-img').fadeOut('fast').attr('src', newImg).fadeIn('fast');
+
+        });
+        // bind keydown (left * right arrows)
+        $(document).keydown(function(e){
+            var modalActive = $('#showGallery').hasClass('in');
+            switch (e.which) {
+                case 37: // left arrow
+                    if (modalActive) {
+                        $('#gallery-show-prev').trigger('click');
+                    }
+                    break;
+                case 39: // right arrow
+                    if (modalActive) {
+                        $('#gallery-show-next').trigger('click');
+                    }
+                    break;
+            }
+        })
     });
 </script>
 <?php endif; ?>

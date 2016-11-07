@@ -385,6 +385,11 @@ label.error {
     background-color: #ffe1a5;
 }
 
+/** Modal full screen */
+.modal-max {
+    width: 98%;
+}
+
 /**
  * Notification style
  * @link http://bootsnipp.com/snippets/featured/simple-card-alerts
