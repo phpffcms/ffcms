@@ -71,7 +71,7 @@ class FormSettings extends Model
         return [
             [['itemPerCategory', 'userAdd', 'multiCategories', 'galleryResize', 'rss', 'gallerySize'], 'required'],
             [['itemPerCategory', 'userAdd', 'multiCategories', 'galleryResize', 'rss', 'gallerySize'], 'int'],
-            [['userAdd', 'multiCategories', 'rss', 'rssFull'], 'in', ['0', '1']]
+            [['userAdd', 'multiCategories', 'rss', 'rssFull'], 'in', [0, 1]]
         ];
     }
 }

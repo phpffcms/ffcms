@@ -107,8 +107,8 @@ class FormCategoryUpdate extends Model
     {
         $rules = [
             [['title', 'description', 'configs'], 'used'],
-            [['configs.showDate', 'configs.showRating', 'configs.showAuthor', 'configs.showViews', 'configs.showComments'], 'in', ['0', '1']],
-            [['configs.showPoster', 'configs.showCategory', 'configs.showRss', 'configs.showSimilar', 'configs.showTags'], 'in', ['0', '1']]
+            [['configs.showDate', 'configs.showRating', 'configs.showAuthor', 'configs.showViews', 'configs.showComments'], 'in', [0, 1]],
+            [['configs.showPoster', 'configs.showCategory', 'configs.showRss', 'configs.showSimilar', 'configs.showTags'], 'in', [0, 1]]
         ];
 
         // general category

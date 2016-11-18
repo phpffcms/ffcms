@@ -63,7 +63,7 @@ class FormFieldUpdate extends Model
     {
         $rules = [
             [['type', 'reg_exp', 'reg_cond'], 'required'],
-            ['reg_cond', 'in', ['0', '1']]
+            ['reg_cond', 'in', [0, 1]]
         ];
 
         foreach (App::$Properties->get('languages') as $lang) {

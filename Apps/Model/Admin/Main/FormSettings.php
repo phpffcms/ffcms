@@ -111,7 +111,7 @@ class FormSettings extends Model
             ['adminEmail', 'email'],
             ['timezone', 'string'],
             ['baseProto', 'in', ['http', 'https']],
-            ['userCron', 'in', ['0', '1']]
+            ['userCron', 'in', [0, 1]]
         ];
     }
 

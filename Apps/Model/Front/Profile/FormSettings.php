@@ -88,7 +88,7 @@ class FormSettings extends Model
             [['city', 'hobby', 'phone', 'url', 'nick', 'birthday'], 'used'],
             ['nick', 'length_max', '50'],
             ['city', 'length_max', '50'],
-            ['sex', 'in', ['0', '1', '2']],
+            ['sex', 'in', [0, 1, 2]],
             ['hobby', 'length_max', '50'],
             ['phone', 'phone'],
             ['url', 'url']

@@ -189,17 +189,13 @@ class FormNarrowContentUpdate extends Model
     }
 
     /**
-     * Get allowed category ids as array (string values for validation)
+     * Get allowed category ids as array
      * @return array
      */
     public function categoryIds()
     {
         $data = ContentCategory::getSortedCategories();
-        $response = [];
-        foreach ($data as $key=>$val) {
-            $response[] = (string)$key;
-        }
-        return $response;
+        return array_keys($data);
     }
 
     /**

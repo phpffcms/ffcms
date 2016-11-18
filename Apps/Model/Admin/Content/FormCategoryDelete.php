@@ -106,16 +106,17 @@ class FormCategoryDelete extends Model
 
 
     /**
-     * Get allowed category ids as array (string values for validation)
+     * Get allowed category ids as array
      * @return array
      */
     public function categoryIds()
     {
         $data = ContentCategory::getSortedCategories();
-        $response = [];
-        foreach ($data as $key => $val) {
-            if ($this->_record->id !== $key) {
-                $response[] = (string)$key;
+        $response = array_keys($data);
+        // remove current category id from 'moveTo" list
+        foreach ($response as $k => $v) {
+            if ($this->_record->id === $v) {
+                unset($response[$k]);
             }
         }
         return $response;

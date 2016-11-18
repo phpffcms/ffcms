@@ -96,7 +96,7 @@ class FormContentUpdate extends Model
             [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title'], 'required'],
             [['metaTitle', 'metaKeywords', 'metaDescription', 'poster', 'source', 'addRating', 'createdAt'], 'used'],
             [['addRating', 'authorId', 'display'], 'int'],
-            ['display', 'in', ['0', '1']],
+            ['display', 'in', [0, 1]],
             ['categoryId', 'in', $this->categoryIds()],
             ['path', '\Apps\Model\Admin\Content\FormContentUpdate::validatePath'],
             ['authorId', '\App::$User::isExist']
@@ -214,17 +214,13 @@ class FormContentUpdate extends Model
     }
 
     /**
-     * Get allowed category ids as array (string values for validation)
+     * Get allowed category ids as array
      * @return array
      */
     public function categoryIds()
     {
         $data = ContentCategory::getSortedCategories();
-        $response = [];
-        foreach ($data as $key=>$val) {
-            $response[] = (string)$key;
-        }
-        return $response;
+        return array_keys($data);
     }
 
     /**
