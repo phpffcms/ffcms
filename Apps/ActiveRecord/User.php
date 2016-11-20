@@ -34,33 +34,27 @@ class User extends ActiveModel implements iUser
 
     /**
      * Get user object relation. If $user_id is null - get current session user
-     * @param int|null $user_id
+     * @param int|null $id
      * @return self|null
      */
-    public static function identity($user_id = null)
+    public static function identity($id = null)
     {
-        if ($user_id === null) {
-            $user_id = MainApp::$Session->get('ff_user_id');
+        if ($id === null) {
+            $id = MainApp::$Session->get('ff_user_id');
         }
 
         // convert id to real integer
-        $user_id = (int)$user_id;
-
-        if (!Obj::isInt($user_id) || $user_id < 1) {
+        $id = (int)$id;
+        if (!Obj::isInt($id) || $id < 1) {
             return null;
         }
 
         // check in memory cache object
-        if (MainApp::$Memory->get('user.object.cache.' . $user_id) !== null) {
-            return MainApp::$Memory->get('user.object.cache.' . $user_id);
+        if (MainApp::$Memory->get('user.object.cache.' . $id) !== null) {
+            return MainApp::$Memory->get('user.object.cache.' . $id);
         }
         // not founded in memory? lets make query
-        $user = self::find($user_id);
-        // no rows? lets end this shit ;)
-        if ($user === null || $user->id < 1) {
-            return null;
-        }
-
+        $user = self::find($id);
         // store cache and return object
         MainApp::$Memory->set('user.object.cache.' . $user->id, $user);
         return $user;
@@ -112,7 +106,7 @@ class User extends ActiveModel implements iUser
             return false;
         }
 
-        return ((int)$identity->id > 0 && (int)$identity->id === $sessionUserId);
+        return ($identity->id > 0 && $identity->id === $sessionUserId);
     }
 
     /**
@@ -186,7 +180,7 @@ class User extends ActiveModel implements iUser
      */
     public function getWall()
     {
-        return $this->hasMany('Apps\\ActiveRecord\\WallPost', 'target_id');
+        return $this->hasMany('Apps\ActiveRecord\WallPost', 'target_id');
     }
 
     /**
@@ -222,7 +216,7 @@ class User extends ActiveModel implements iUser
      */
     public function getLogs()
     {
-        return $this->hasMany('Apps\\ActiveRecord\\UserLog', 'user_id');
+        return $this->hasMany('Apps\ActiveRecord\UserLog', 'user_id');
     }
 
     /**
