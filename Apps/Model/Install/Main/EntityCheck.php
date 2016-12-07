@@ -2,7 +2,7 @@
 
 namespace Apps\Model\Install\Main;
 
-use Apps\Controller\Console\Main;
+use Apps\Console\MainChmodCommand;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
@@ -34,7 +34,7 @@ class EntityCheck extends Model
 
         // autoload is disabled, lets get chmod file & dirs from console app data
         File::inc('/Apps/Controller/Console/Main.php');
-        $this->_chmodDirs = Main::$installDirs;
+        $this->_chmodDirs = MainChmodCommand::$installDirs;
         // for each file or directory in list - check permissions
         foreach ($this->_chmodDirs as $object) {
             if (Str::endsWith('.php', $object)) { // sounds like a file

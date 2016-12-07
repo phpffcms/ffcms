@@ -1,6 +1,11 @@
 #!/usr/bin/env php
 <?php
 define('root', __DIR__);
-error_reporting(E_ALL ^ E_NOTICE);
 
-require_once(root . '/Loader/Console/index.php');
+// make autoload - intit app class and load exist commands
+require __DIR__.'/Loader/Console/index.php';
+\Ffcms\Console\Console::factory([
+    'Database' => true
+]);
+// execute run
+$app->run();

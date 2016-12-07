@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Install\Main;
 
+use Apps\ActiveRecord\Migration;
 use Apps\ActiveRecord\Profile;
 use Apps\ActiveRecord\System;
 use Apps\ActiveRecord\User;
@@ -10,6 +11,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Security;
 
 /**
  * Class FormInstall. System installation business logic model
@@ -100,9 +102,25 @@ class FormInstall extends Model
         $cfg['debug']['cookie']['key'] = 'fdebug_' . Str::randomLatinNumeric(mt_rand(4, 16));
         $cfg['debug']['cookie']['value'] = Str::randomLatinNumeric(mt_rand(32, 128));
 
-        // import database tables
-        $connectName = 'install';
-        include(root . '/Private/Database/install.php');
+        // initialize migrations table
+        App::$Database->getConnection('install')->getSchemaBuilder()->create('migrations', function ($table){
+            $table->increments('id');
+            $table->string('migration', 128)->unique();
+            $table->timestamps();
+        });
+
+        // run migrations to import all database tables
+        $migrations = File::listFiles('/Private/Migrations/', ['.php'], true);
+        foreach ($migrations as $migrate) {
+            $name = Str::cleanExtension($migrate);
+            $class = Str::firstIn($name, '-');
+            File::inc('/Private/Migrations/' . $migrate, false, false);
+            if (Str::startsWith('install_', $name) && class_exists($class) && is_a($class, 'Ffcms\Core\Migrations\MigrationInterface', true)) {
+                $object = new $class($name, 'install');
+                $object->up();
+                $object->seed();
+            }
+        }
 
         // insert admin user
         $user = new User();
@@ -110,7 +128,7 @@ class FormInstall extends Model
         $user->login = $this->user['login'];
         $user->email = $this->user['email'];
         $user->role_id = 4;
-        $user->password = App::$Security->password_hash($this->user['password'], $cfg['passwordSalt']);
+        $user->password = Security::password_hash($this->user['password'], $cfg['passwordSalt']);
         $user->save();
 
         $profile = new Profile();
@@ -159,10 +177,9 @@ class FormInstall extends Model
 
     /**
      * Check database connection filter
-     * @param array $cfg
      * @return bool
      */
-    public function filterCheckDb($cfg = [])
+    public function filterCheckDb()
     {
         App::$Database->addConnection($this->db, 'install');
 
