@@ -27,6 +27,7 @@ $baseTab .= $form->field('adminEmail', 'email', ['class' => 'form-control'], __(
 $baseTab .= $form->field('timezone', 'select', ['class' => 'form-control', 'options' => DateTimeZone::listIdentifiers()], __('Define website default timezone id'));
 $baseTab .= $form->field('userCron', 'checkbox', null, __('Initialize cron manager when user load website? Enable this option if you are not configured cron tasks in your operation system'));
 $baseTab .= $form->field('debug.all', 'checkbox', null, __('Enable debug bar panel for all visitors? Recommended only on development environment'));
+$baseTab .= $form->field('testSuite', 'checkbox', null, __('Enable codeception test suite adapter? Use this option ONLY to run codeception tests! Disable this option on production'));
 
 $themeTab = $form->field('theme.Front', 'select', ['class' => 'form-control', 'options' => $model->getAvailableThemes('Front')]);
 $themeTab .= $form->field('theme.Admin', 'select', ['class' => 'form-control', 'options' => $model->getAvailableThemes('Admin')]);

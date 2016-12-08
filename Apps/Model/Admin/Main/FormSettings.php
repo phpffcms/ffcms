@@ -24,6 +24,7 @@ class FormSettings extends Model
     public $adminEmail;
     public $debug;
     public $userCron;
+    public $testSuite;
 
     // theme & database configs
     public $theme;
@@ -75,6 +76,7 @@ class FormSettings extends Model
             'timezone' => __('Timezone'),
             'userCron' => __('User run cron'),
             'debug.all' => __('Debug for all'),
+            'testSuite' => __('Test suite'),
             'singleLanguage' => __('Default language'),
             'languages' => __('Available languages'),
             'multiLanguage' => __('Multi-languages'),
@@ -104,14 +106,14 @@ class FormSettings extends Model
     {
         return [
             [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy', 'languages', 'userCron'], 'used'],
-            [['baseProto', 'baseDomain', 'basePath', 'singleLanguage', 'adminEmail', 'timezone'], 'required'],
+            [['baseProto', 'baseDomain', 'basePath', 'singleLanguage', 'adminEmail', 'timezone', 'testSuite'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
             [['database.driver', 'database.database'], 'required'],
             ['adminEmail', 'email'],
             ['timezone', 'string'],
             ['baseProto', 'in', ['http', 'https']],
-            ['userCron', 'in', [0, 1]]
+            [['userCron', 'testSuite'], 'in', [0, 1]],
         ];
     }
 

@@ -1,10 +1,17 @@
 <?php
 
-namespace %namespace%;
+namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
 
+/**
+ * Class %name%. Active record model
+ * @package Apps\ActiveRecord
+ * @property int $id
+ */
 class %name% extends ActiveModel
 {
-
+    protected $casts = [
+        'id' => 'integer'
+    ];
 }

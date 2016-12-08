@@ -4,6 +4,10 @@ namespace %namespace%;
 
 use Ffcms\Core\Arch\Model;
 
+/**
+ * Class %name%
+ * @package %namespace%
+ */
 class %name% extends Model
 {
     public $test;
@@ -17,8 +21,9 @@ class %name% extends Model
     }
 
     /**
-    * Example of usage magic labels for future form helper usage
-    */
+     * Example of usage magic labels for future form helper usage
+     * @return array
+     */
     public function labels()
     {
         return [
@@ -27,8 +32,9 @@ class %name% extends Model
     }
 
     /**
-    * Example of usage magic rules for future usage in condition $model->validate()
-    */
+     * Example of usage magic rules for future usage in condition $model->validate()
+     * @return array
+     */
     public function rules()
     {
         return [

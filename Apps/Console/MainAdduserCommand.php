@@ -62,6 +62,12 @@ class MainAdduserCommand extends Command
             throw new \Exception('RoleId is not found');
         }
 
+        // check if user is always exists
+        if (User::isLoginExist($login) || User::isMailExist($email)) {
+            $output->writeln('User is always exists');
+            return;
+        }
+
         // create new user instance in prefix_users table
         $salt = Console::$Properties->get('passwordSalt');
         $user = new User();

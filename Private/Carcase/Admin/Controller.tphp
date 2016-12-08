@@ -1,11 +1,20 @@
 <?php
 
-namespace %namespace%;
+namespace Apps\Controller\Admin;
 
 use Extend\Core\Arch\AdminController;
 
+/**
+ * Class %name%. Admin controller
+ * @package Apps\Controller\Admin
+ */
 class %name% extends AdminController
 {
+
+    /**
+     * Index action
+     * @return string
+     */
     public function actionIndex()
     {
         return 'Welcome index demo action of %name%';

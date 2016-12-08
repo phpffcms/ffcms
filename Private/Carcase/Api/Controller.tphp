@@ -1,11 +1,19 @@
 <?php
 
-namespace %namespace%;
+namespace Apps\Controller\Api;
 
 use Extend\Core\Arch\ApiController;
 
+/**
+ * Class %name%. Front controller
+ * @package Apps\Controller\Api
+ */
 class %name% extends ApiController
 {
+    /**
+     * Index action with json response
+     * @return string
+     */
     public function actionIndex()
     {
         $this->setJsonHeader();
