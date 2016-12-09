@@ -15,9 +15,10 @@ extensions:
     enabled:
         - Codeception\Extension\RunFailed
 modules:
-    config:
-        Db:
-            dsn: ''
-            user: ''
-            password: ''
+    enabled:
+        - Db:
+            dsn: 'mysql:host=127.0.0.1;dbname=ffcms'
+            user: 'mysql'
+            password: 'mysql'
             dump: tests/_data/dump.sql
+            populate: true

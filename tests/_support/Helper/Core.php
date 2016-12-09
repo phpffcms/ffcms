@@ -22,4 +22,16 @@ class Core
 
         return md5_file($root . '/Private/Config/Default.php');
     }
+
+    /**
+     * Get config value from ffcms default configs
+     * @param string|array $key
+     * @return mixed
+     */
+    public static function getConfig($key)
+    {
+        $root = realpath(__DIR__ . '/../../../');
+        $configs = include ($root . '/Private/Config/Default.php');
+        return $configs[$key];
+    }
 }
