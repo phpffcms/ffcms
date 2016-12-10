@@ -43,7 +43,7 @@ class MigrationUpCommand extends Command
         if ($this->dbConnection !== null) {
             $records->setConnection($this->dbConnection);
         }
-        $skipped = Arr::ploke('migration', $records->get()->toArray());
+        $skipped = Arr::pluck('migration', $records->get()->toArray());
         // scan all available migrations
         $migrations = File::listFiles('/Private/Migrations', ['.php'], true);
         if (!Obj::isArray($migrations) || count($migrations) < 1) {

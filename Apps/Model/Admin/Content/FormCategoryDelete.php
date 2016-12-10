@@ -81,7 +81,7 @@ class FormCategoryDelete extends Model
 
         // get all depended category ids
         $cats = ContentCategory::where('path', 'like', $this->_record->path . '%')->get(['id'])->toArray();
-        $allCategoryIds = Arr::ploke('id', $cats);
+        $allCategoryIds = Arr::pluck('id', $cats);
 
         // update category_id in content
         $find = Content::whereIn('category_id', $allCategoryIds);

@@ -126,7 +126,7 @@ class EntityCategoryList extends Model
         $result = $query->get();
 
         // extract ids from result as array by key id
-        $this->_catIds = Arr::ploke('id', $result->toArray());
+        $this->_catIds = Arr::pluck('id', $result->toArray());
 
         // get current category matching
         foreach ($result as $row) {

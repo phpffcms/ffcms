@@ -57,7 +57,7 @@ class MainAdduserCommand extends Command
         $password = $this->optionOrAsk('password', 'User password');
         $roleId = (int)$this->optionOrAsk('role', 'RoleId', '1');
         $records = Role::all()->toArray();
-        $roles = Arr::ploke('id', $records);
+        $roles = Arr::pluck('id', $records);
         if (!Arr::in($roleId, $roles)) {
             throw new \Exception('RoleId is not found');
         }

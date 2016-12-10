@@ -10,7 +10,7 @@ paths:
 settings:
     bootstrap: _bootstrap.php
     colors: false
-    memory_limit: 1024M
+    memory_limit: 512M
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
