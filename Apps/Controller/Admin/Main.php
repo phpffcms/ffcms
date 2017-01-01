@@ -47,7 +47,7 @@ class Main extends AdminController
         // cache some data
         $rootSize = App::$Cache->get('root.size');
         if ($rootSize === null) {
-            $rootSize = round(Directory::getSize('/') / (1024*1000), 2) . ' mb';
+            $rootSize = round(Directory::size('/') / (1024*1000), 2) . ' mb';
             App::$Cache->set('root.size', $rootSize, 86400); // 24 hours caching = 60 * 60 * 24
         }
         $loadAvg = App::$Cache->get('load.average');
