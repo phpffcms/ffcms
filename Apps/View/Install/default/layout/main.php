@@ -22,11 +22,11 @@ use Ffcms\Core\Helper\Type\Obj;
         echo '<style>' . $customCssCode . '</style>';
     } ?>
     <script>
-        window.jQ = [];
         var script_url = '<?= \App::$Alias->scriptUrl ?>';
         var script_lang = '<?= \App::$Request->getLanguage() ?>';
         var site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
+    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
 </head>
 <body>
     <div class="container">
@@ -57,11 +57,7 @@ use Ffcms\Core\Helper\Type\Obj;
     <script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
     <script src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
     <?php echo \App::$View->showCodeLink('js'); ?>
-    <script>
-        $.each(window.jQ, function(index, fn) {
-            fn();
-        });
-    </script>
+    <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
     <?php
     $customJsCode = \App::$View->showPlainCode('js');
     if ($customJsCode !== null) {

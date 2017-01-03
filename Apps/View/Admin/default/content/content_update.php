@@ -123,128 +123,126 @@ $galleryTab = '<div class="row" id="gallery-files"></div>
 ?>
 
 <script>
-    window.jQ.push(function(){
-        $(function(){
-            // onbeforeUnload hook
-            var isChanged = false;
-            var pathChanged = false;
-            // init ckeditor
-            CKEDITOR.disableAutoInline = true;
-            // init maxlength plugin
-            $('input[maxlength]').maxlength();
-            // init datapick plugin
-            $('.datapick').datepicker({
-                format: 'dd.mm.yyyy'
-            });
+    $(document).ready(function () {
+        // onbeforeUnload hook
+        var isChanged = false;
+        var pathChanged = false;
+        // init ckeditor
+        CKEDITOR.disableAutoInline = true;
+        // init maxlength plugin
+        $('input[maxlength]').maxlength();
+        // init datapick plugin
+        $('.datapick').datepicker({
+            format: 'dd.mm.yyyy'
+        });
 
-            // prevent sending form if session is closed
-            $('form').submit(function() {
-                var is_fail = true;
-                $.ajax({
-                    async: false,
-                    type: 'GET',
-                    url: script_url + '/api/user/auth?lang='+script_lang,
-                    contentType: 'json',
-                    success: function(response) {
-                        if (response.status === 1) {
-                            is_fail = false;
-                        }
+        // prevent sending form if session is closed
+        $('form').submit(function () {
+            var is_fail = true;
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: script_url + '/api/user/auth?lang=' + script_lang,
+                contentType: 'json',
+                success: function (response) {
+                    if (response.status === 1) {
+                        is_fail = false;
                     }
-                });
-                if(is_fail) {
-                    alert('<?= __('Attention! Your session is deprecated. You need to make auth in new window!') ?>');
-                    return false;
                 }
-                window.onbeforeunload = null;
             });
-            // if something in form is changed - lets set isChanged
-            $('input,textarea').keyup(function(){
-                isChanged = true;
-            });
-
-            var pathObject = $('#FormContentUpdate-path');
-            if (pathObject.val().length > 1) {
-                pathChanged = true;
+            if (is_fail) {
+                alert('<?= __('Attention! Your session is deprecated. You need to make auth in new window!') ?>');
+                return false;
             }
-            pathObject.on('keyup', function(){
-				pathChanged = true;
-            });
+            window.onbeforeunload = null;
+        });
+        // if something in form is changed - lets set isChanged
+        $('input,textarea').keyup(function () {
+            isChanged = true;
+        });
+
+        var pathObject = $('#FormContentUpdate-path');
+        if (pathObject.val().length > 1) {
+            pathChanged = true;
+        }
+        pathObject.on('keyup', function () {
+            pathChanged = true;
+        });
 
 
-            // pathway from title
-            $('#FormContentUpdate-title-<?= \App::$Request->getLanguage() ?>').on('keyup', function() {
-                if (pathChanged === true) {
-                    return false;
+        // pathway from title
+        $('#FormContentUpdate-title-<?= \App::$Request->getLanguage() ?>').on('keyup', function () {
+            if (pathChanged === true) {
+                return false;
+            }
+            pathObject.val(translit($(this).val()));
+        });
+
+        window.onbeforeunload = function (evt) {
+            if (!isChanged) return;
+            var message = "Page is not saved!";
+            if (typeof evt == "undefined") {
+                evt = window.event;
+            }
+            if (evt) {
+                evt.returnValue = message;
+            }
+            return message;
+        };
+
+        // gallery file listing
+        $.getJSON(script_url + "/api/content/gallerylist/<?= $model->galleryFreeId ?>?lang=" + script_lang, function (data) {
+            if (data.status !== 1)
+                return;
+            $.each(data.files, function (index, file) {
+                var DropzoneObj = Dropzone.forElement('#ffcms-dropzone');
+                var FileObj = {name: file.name, size: file.size, status: Dropzone.ADDED, accepted: true};
+                DropzoneObj.emit('addedfile', FileObj);
+                DropzoneObj.emit('thumbnail', FileObj, file.thumbnailUrl);
+                DropzoneObj.emit('complete', FileObj);
+                DropzoneObj.files.push(FileObj);
+
+                var option = '<option value="' + file.name + '">' + file.name + '</option>';
+                if (file.name == '<?= $model->poster ?>') {
+                    option = '<option value="' + file.name + '" selected>' + file.name + '</option>';
                 }
-                pathObject.val(translit($(this).val()));
+                $('#FormContentUpdate-poster').append(option);
             });
+        });
 
-            window.onbeforeunload = function (evt) {
-                if (!isChanged) return;
-                var message = "Page is not saved!";
-                if (typeof evt == "undefined") {
-                    evt = window.event;
-                }
-                if (evt) {
-                    evt.returnValue = message;
-                }
-                return message;
-            };
-
-            // gallery file listing
-            $.getJSON(script_url+"/api/content/gallerylist/<?= $model->galleryFreeId ?>?lang="+script_lang, function (data) {
-                if (data.status !== 1)
-                    return;
-                $.each(data.files, function (index, file) {
-                    var DropzoneObj = Dropzone.forElement('#ffcms-dropzone');
-                    var FileObj = {name: file.name, size: file.size, status: Dropzone.ADDED, accepted: true};
-                    DropzoneObj.emit('addedfile', FileObj);
-                    DropzoneObj.emit('thumbnail', FileObj, file.thumbnailUrl);
-                    DropzoneObj.emit('complete', FileObj);
-                    DropzoneObj.files.push(FileObj);
-
-                    var option = '<option value="' + file.name + '">' + file.name + '</option>';
-                    if (file.name == '<?= $model->poster ?>') {
-                        option = '<option value="' + file.name + '" selected>' + file.name + '</option>';
-                    }
-                    $('#FormContentUpdate-poster').append(option);
-                });
-            });
-
-            // initialize & configure dropzone file uploading
-            Dropzone.autoDiscover = false;
-            var DropzoneFiles = [];
-            $('#ffcms-dropzone').dropzone({
-                url: script_url+'/api/content/galleryupload/<?= $model->galleryFreeId ?>?lang='+script_lang,
-                dictDefaultMessage: '<?= __('Drop files here to upload in gallery') . '<br />' . __('(or click here)') ?>',
-                acceptedFiles: ".jpeg,.jpg,.png,.gif,.webp",
-                addRemoveLinks: true,
-                removedfile: function (file) { // file remove click, lets try to remove file from server & make visual changes
-                    var serverFile = DropzoneFiles[file.name] != null ? DropzoneFiles[file.name] : file.name;
-                    $.getJSON(script_url+"/api/content/gallerydelete/<?= $model->galleryFreeId ?>?lang="+script_lang+"&file="+serverFile, function(data){
-                        if (data.status === 1) {
-                            if (file.previewElement != null)
-                                return file.previewElement.parentNode.removeChild(file.previewElement);
-                        }
-                        return void 0;
-                    });
-                },
-                success: function(file, response) { // upload is successful done. Lets try to check server response & build file list
-                    // save files as array ClientFileName => ServerFileName
-                    if (response.status !== 1) {
+        // initialize & configure dropzone file uploading
+        Dropzone.autoDiscover = false;
+        var DropzoneFiles = [];
+        $('#ffcms-dropzone').dropzone({
+            url: script_url + '/api/content/galleryupload/<?= $model->galleryFreeId ?>?lang=' + script_lang,
+            dictDefaultMessage: '<?= __('Drop files here to upload in gallery') . '<br />' . __('(or click here)') ?>',
+            acceptedFiles: ".jpeg,.jpg,.png,.gif,.webp",
+            addRemoveLinks: true,
+            removedfile: function (file) { // file remove click, lets try to remove file from server & make visual changes
+                var serverFile = DropzoneFiles[file.name] != null ? DropzoneFiles[file.name] : file.name;
+                $.getJSON(script_url + "/api/content/gallerydelete/<?= $model->galleryFreeId ?>?lang=" + script_lang + "&file=" + serverFile, function (data) {
+                    if (data.status === 1) {
                         if (file.previewElement != null)
-                            file.previewElement.parentNode.removeChild(file.previewElement);
-                        alert(response.message);
-                        return;
+                            return file.previewElement.parentNode.removeChild(file.previewElement);
                     }
-                    DropzoneFiles[file.name] = response.file.name;
-                    // add to <select> poster options
-                    var posterOption = '<option value="'+response.file.name+'">'+file.name+'</option>';
-                    $('#FormContentUpdate-poster').append(posterOption);
-
-                    console.log('Client file: ['+file.name +']/Server file:[' + response.file.name+']');
+                    return void 0;
+                });
+            },
+            success: function (file, response) { // upload is successful done. Lets try to check server response & build file list
+                // save files as array ClientFileName => ServerFileName
+                if (response.status !== 1) {
+                    if (file.previewElement != null)
+                        file.previewElement.parentNode.removeChild(file.previewElement);
+                    alert(response.message);
+                    return;
                 }
-            });
+                DropzoneFiles[file.name] = response.file.name;
+                // add to <select> poster options
+                var posterOption = '<option value="' + response.file.name + '">' + file.name + '</option>';
+                $('#FormContentUpdate-poster').append(posterOption);
+
+                console.log('Client file: [' + file.name + ']/Server file:[' + response.file.name + ']');
+            }
         });
     });
 </script>

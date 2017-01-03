@@ -121,23 +121,21 @@ $this->breadcrumbs = [
     </div>
 </div>
 <script>
-    window.jQ.push(function(){
-        $(function () {
-           $.getJSON(script_url + '/api/main/news?lang=' + script_lang, function (resp) {
-               if (resp.status !== 1) {
-                   return;
-               }
+    $(document).ready(function(){
+        $.getJSON(script_url + '/api/main/news?lang=' + script_lang, function (resp) {
+            if (resp.status !== 1) {
+                return;
+            }
 
-               $('#ffcms-news-list').empty();
+            $('#ffcms-news-list').empty();
 
-               $.each(resp.data, function(key,news){
-                   $('<li>').html($('<a>', {
-                       href: news.url,
-                       target: '_blank',
-                       text: news.title
-                   })).appendTo('#ffcms-news-list');
-               });
-           });
+            $.each(resp.data, function (key, news) {
+                $('<li>').html($('<a>', {
+                    href: news.url,
+                    target: '_blank',
+                    text: news.title
+                })).appendTo('#ffcms-news-list');
+            });
         });
     });
 </script>

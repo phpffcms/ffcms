@@ -19,6 +19,6 @@ if ($rating > 0) {
 	<?php endif; ?>
 	<span class="label <?= $cssRatingClass ?>" data-toggle="tooltip" title="<?= __('Current content rating') ?>" id="rate-value-<?= $id ?>"><?= $numericRating ?></span>
 	<?php if ($canRate === true):?>
-	<span class="change-rate plus hide-rate-<?= $id?> label label-success" id="content-<?= $id ?>" data-toggle="tooltip" title="<?= __('Like this') ?>"><i class="fa fa-arrow-up"></i></span>
+	<span class="change-rate plus hide-rate-<?= $id?> label label-success" id="content-<?= $id ?>" data-toggle="tooltip" title="<?= __('Like this') ?>"><i class="fa fa-arrow-up"></i></span>&nbsp;
 	<?php endif; ?>
 </span>

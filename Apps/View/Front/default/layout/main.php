@@ -27,11 +27,12 @@ use Widgets\Basic\LanguageSwitcher;
         echo '<style>' . $customCssCode . '</style>';
     } ?>
     <script>
-        window.jQ = [];
         var script_url = '<?= \App::$Alias->scriptUrl ?>';
         var script_lang = '<?= \App::$Request->getLanguage() ?>';
         var site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
+    <!-- jquery usage after-load logic -->
+    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
 </head>
 <body>
 <header class="container nopadding">
@@ -204,54 +205,50 @@ echo Navbar::display([
 	</div>
 </footer>
 <script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
-<script src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
-<script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/ffcms.js"></script>
+<script defer src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
+<script defer src="<?= \App::$Alias->currentViewUrl ?>/assets/js/ffcms.js"></script>
 <?php echo \App::$View->showCodeLink('js'); ?>
 <script>
-    $.each(window.jQ, function(index, fn) {
-        fn();
-    });
-</script>
-	<script>
-    // notification function for user pm count block (class="pm-count-block")
-    var loadPmInterval = false;
-    var summaryBlock = $('#summary-count-block');
-    var msgBlock = $('#pm-count-block');
-    var notifyBlock = $('#notify-count-block');
-    function ajaxNotify() {
-        $.getJSON(script_url+'/api/profile/notifications?lang='+script_lang, function(resp){
-            if (resp.status === 1) {
-                if (resp.summary > 0) {
-                    summaryBlock.addClass('alert-danger', 1000).text(resp.summary);
-                    // set new messages count
-                    if (resp.messages > 0) {
-                        msgBlock.text(resp.messages).addClass('alert-danger', 1000);
+    $(document).ready(function(){
+        // notification function for user pm count block (class="pm-count-block")
+        var loadPmInterval = false;
+        var summaryBlock = $('#summary-count-block');
+        var msgBlock = $('#pm-count-block');
+        var notifyBlock = $('#notify-count-block');
+        function ajaxNotify() {
+            $.getJSON(script_url+'/api/profile/notifications?lang='+script_lang, function(resp){
+                if (resp.status === 1) {
+                    if (resp.summary > 0) {
+                        summaryBlock.addClass('alert-danger', 1000).text(resp.summary);
+                        // set new messages count
+                        if (resp.messages > 0) {
+                            msgBlock.text(resp.messages).addClass('alert-danger', 1000);
+                        } else {
+                            msgBlock.removeClass('alert-danger', 1000).text(0);
+                        }
+                        // set new notifications count
+                        if (resp.notify > 0) {
+                            notifyBlock.text(resp.notify).addClass('alert-danger', 1000);
+                        } else {
+                            notifyBlock.removeClass('alert-danger', 1000).text(0);
+                        }
                     } else {
-                        msgBlock.removeClass('alert-danger', 1000).text(0);
+                        summaryBlock.removeClass('alert-danger', 1000).text(0);
                     }
-                    // set new notifications count
-                    if (resp.notify > 0) {
-                        notifyBlock.text(resp.notify).addClass('alert-danger', 1000);
-                    } else {
-                        notifyBlock.removeClass('alert-danger', 1000).text(0);
-                    }
-                } else {
-                    summaryBlock.removeClass('alert-danger', 1000).text(0);
+                    setNotificationNumber(resp.summary);
+                } else if (loadPmInterval !== false) { // remove autorefresh
+                    clearInterval(loadPmInterval);
                 }
-                setNotificationNumber(resp.summary);
-            } else if (loadPmInterval !== false) { // remove autorefresh
-                clearInterval(loadPmInterval);
-            }
-        }).fail(function(){
-            if (loadPmInterval !== false)
-                clearInterval(loadPmInterval);
-        });
-    }
-    $(function(){
+            }).fail(function(){
+                if (loadPmInterval !== false)
+                    clearInterval(loadPmInterval);
+            });
+        }
+
         // instantly run counter
         ajaxNotify();
         // make autorefresh every 10 seconds
-        loadPmInterval = setInterval('ajaxNotify()', 10000);
+        loadPmInterval = setInterval(ajaxNotify, 10000);
         // make live search on user keypress in search input
         $('#search-line').keypress(function(e){
             // bind key code
@@ -292,5 +289,6 @@ if ($customJsCode !== null) {
 // render google analytics code here
 echo \App::$View->render('blocks/googleanalytics');
 ?>
+<script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
 </body>
 </html>

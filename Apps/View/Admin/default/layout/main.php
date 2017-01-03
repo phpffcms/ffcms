@@ -27,10 +27,10 @@ use Ffcms\Core\Helper\Url;
         echo '<style>' . $customCssCode . '</style>';
     } ?>
     <script>
-        window.jQ = [];
         var script_url = '<?= \App::$Alias->scriptUrl ?>';
         var script_lang = '<?= \App::$Request->getLanguage() ?>';
     </script>
+    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
 </head>
 <body>
 
@@ -244,10 +244,8 @@ use Ffcms\Core\Helper\Url;
 <script src="<?= \App::$Alias->currentViewUrl; ?>/assets/js/sb-admin-2.js"></script>
 <script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/ffcms.js"></script>
 <?php echo \App::$View->showCodeLink('js'); ?>
+<script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
 <script>
-    $.each(window.jQ, function(index, fn) {
-        fn();
-    });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })

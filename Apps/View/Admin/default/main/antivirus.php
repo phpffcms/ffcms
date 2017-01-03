@@ -11,8 +11,8 @@ $this->breadcrumbs = [
 ?>
 
 <script>
-window.jQ.push(function() {
-    $.fn.runscan = function (first) {
+$(document).ready(function() {
+    runscan = function (first) {
         $.getJSON(script_url+'/api/main/antivirus?lang='+script_lang, function (data) {
             if (first) {
                 totalScan = data.left;
@@ -26,8 +26,8 @@ window.jQ.push(function() {
             $("#detected").text(parseInt($("#detected").text()) + data.detect);
         }).done(function (data) {
             if (data.left > 0) {
-                $.fn.loadResults();
-                $.fn.runscan(false);
+                loadResults();
+                runscan(false);
             } else {
                 $("#runscan").text("Done!");
             }
@@ -36,22 +36,20 @@ window.jQ.push(function() {
 });
 
 // jquery init of scan
-window.jQ.push(function () {
-    $(function () {
-        $("#runscan").on("click", function () {
-            $.get(script_url+'/api/main/antivirusclear?lang='+script_lang, function () {});
-            $(this).addClass("disabled");
-            $(this).text("Working ...");
-            $("#scanlog").removeClass("hidden");
-            $("#pbar-main").removeClass("hidden");
-            $.fn.runscan(true);
-        })
-    });
+$(document).ready(function () {
+    $("#runscan").on("click", function () {
+        $.get(script_url + '/api/main/antivirusclear?lang=' + script_lang);
+        $(this).addClass("disabled");
+        $(this).text("Working ...");
+        $("#scanlog").removeClass("hidden");
+        $("#pbar-main").removeClass("hidden");
+        runscan(true);
+    })
 });
 
 // jquery load results via json
-window.jQ.push(function () {
-    $.fn.loadResults = function () {
+$(document).ready(function () {
+    loadResults = function () {
         $.getJSON(script_url + '/api/main/antivirusresults?lang=' + script_lang, function(data) {
             if (data.status != 1) {
                 $("#scanresult").addClass('hidden');
@@ -62,6 +60,10 @@ window.jQ.push(function () {
             }
             // cleanup ;)
             $("#scanresult tbody").empty();
+            if (typeof data.data === 'undefined') {
+                return;
+            }
+
             $.each(data.data, function(file, logs) {
                 content = "<td>"+file+"</td>"+
                     "<td>"+logs[0].length+"</td>"+
@@ -84,14 +86,11 @@ window.jQ.push(function () {
     }
 });
 
-
-window.jQ.push(function() {
-    $(function(){
-        $("#loadresults").on("click", function(){
-            $.fn.loadResults();
-        });
-        $.fn.loadResults();
-    })
+$(document).ready(function () {
+    $("#loadresults").on("click", function () {
+        loadResults();
+    });
+    loadResults();
 });
 var totalScan = 2000;
 </script>

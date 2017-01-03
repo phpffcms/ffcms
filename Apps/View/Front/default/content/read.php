@@ -211,7 +211,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
 <?php endif; ?>
 <?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
 <script>
-    window.jQ.push(function(){
+    $(document).ready(function(){
         var galleryPos = 1;
         $('.modalGallery').on('click', function() {
             galleryPos = parseInt($(this).attr('id').replace('gallery-', ''));

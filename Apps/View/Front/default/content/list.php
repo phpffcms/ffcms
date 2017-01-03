@@ -156,7 +156,7 @@ var contentItemList = {path: {}}
 </div>
 
 <script>
-window.jQ.push(function() {
+$(document).ready(function() {
 	if (typeof contentItemList === 'object' || Ojbect.keys(contentItemList).length > 0) {
 		$.getJSON(script_url + '/api/comments/count?lang='+script_lang, contentItemList, function(json){
 			// check if response is success
@@ -168,7 +168,6 @@ window.jQ.push(function() {
 			for (var itemId in json.count) {
 				$('#comment-count-' + itemId).text(json.count[itemId]);
 			}
-
 		});
 	}
 })

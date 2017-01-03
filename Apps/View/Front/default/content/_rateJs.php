@@ -1,8 +1,25 @@
 <script>
-window.jQ.push(function(){
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+
+    // change rating ajax function
+    changeRating = function(type, contentId) {
+        // change rating function definition
+        $.getJSON(script_url + '/api/content/changerate/' + type + '/' + contentId + '?lang='+script_lang, function(json){
+            // check if response is success
+            if (json.status !== 1) {
+                alert(json.message);
+                return null;
+            }
+
+            var newRate = json.rating;
+            if (newRate > 0) {
+                newRate = '+'+newRate;
+            }
+            // set new rate count to DOM
+            $('#rate-value-'+contentId).text(newRate);
+        });
+    };
 
 	// if user vote new rating for item
 	$('.change-rate').click(function() {
@@ -17,29 +34,10 @@ window.jQ.push(function(){
         
     	// get type of rating vote
     	if (this.className.indexOf('minus') > 0) {
-        	$.fn.changeRating('minus', id);
+        	changeRating('minus', id);
         } else if(this.className.indexOf('plus') > 0) {
-        	$.fn.changeRating('plus', id);
+        	changeRating('plus', id);
         }
     });
-
-	// change rating ajax function
-	$.fn.changeRating = function(type, contentId) {
-		// change rating function definition
-	   	$.getJSON(script_url + '/api/content/changerate/' + type + '/' + contentId + '?lang='+script_lang, function(json){
-			// check if response is success
-		    if (json.status !== 1) {
-		    	alert(json.message);
-		    	return null;
-		    }
-		    
-		    var newRate = json.rating;
-		    if (newRate > 0) {
-		    	newRate = '+'+newRate;
-		    }
-		    // set new rate count to DOM
-		    $('#rate-value-'+contentId).text(newRate);
-		});
-	};
 });
 </script>

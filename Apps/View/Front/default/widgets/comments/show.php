@@ -102,7 +102,7 @@
 <?php endif ?>
 
 <script>
-    window.jQ.push(function() {
+    $(document).ready(function() {
         $(function () {
             var comOffset = 0;
             var comPath = '<?= \App::$Request->getPathInfo() ?>';
@@ -116,7 +116,7 @@
             var commentData = [];
             var answersLoaded = [];
 
-            $.fn.buildCommentDOM = function (data) {
+            buildCommentDOM = function (data) {
                 // comment is always loaded (can be ajax-add from user in after position or something else)
                 if (data.id in commentData) {
                     $('#comment-item-'+data.id).remove();
@@ -158,7 +158,7 @@
                 return commentDom;
             };
 
-            $.fn.buildAnswerDOM = function (data) {
+            buildAnswerDOM = function (data) {
                 var ansDom = answStructure.clone();
                 if (data.moderate === 1) {
                 	ansDom.find('#answer-text').addClass('premoderate-comment');
@@ -181,7 +181,7 @@
             };
 
             // load comments posts via JSON and add to current DOM
-            $.fn.loadCommentList = function() {
+            loadCommentList = function() {
                 $.getJSON(script_url+'/api/comments/list/' + comOffset +'?path=' + comPath + '&lang='+script_lang, function (json) {
                     if (json.status !== 1) {
                         var errorNotify = $('<p></p>').text(json.message).attr('id', 'comments-empty-notify');
@@ -195,7 +195,7 @@
                     // if json response is done lets foreach rows
                     $.each(json.data, function(index,row) {
                         // add comment to document DOM model
-                        var domHtmlComment = $.fn.buildCommentDOM(row);
+                        var domHtmlComment = buildCommentDOM(row);
                         // find current hidden selector and add data before it
                         targetElem.find('#load-comments').before(domHtmlComment.show('slow'));
                     });
@@ -210,7 +210,7 @@
                 comOffset++;
             };
 
-            $.fn.loadAnswerList = function (comId) {
+            loadAnswerList = function (comId) {
                 var targetElement = $('#comment-answers-' + comId);
                 if (answersLoaded[comId] === true) {
                     targetElement.toggle('slow');
@@ -229,7 +229,7 @@
                         if (row == null) {
                             return null;
                         }
-                        var domHtmlAnswer = $.fn.buildAnswerDOM(row);
+                        var domHtmlAnswer = buildAnswerDOM(row);
 
                         // append to target comment post
                         targetElement.append(domHtmlAnswer);
@@ -243,17 +243,17 @@
             };
 
             // load first N comments
-            $.fn.loadCommentList();
+            loadCommentList();
 
             $('#comment-show-more').on('click', function(){
-                $.fn.loadCommentList();
+                loadCommentList();
             });
 
             // show answers for comment
             $(document).on('click', '.show-comment-answers', function(){
                 var comId = this.id.replace('comment-id-', '');
                 if (comId > 0)
-                    $.fn.loadAnswerList(comId);
+                    loadAnswerList(comId);
             });
 
             // add 'replayTo' field for sending form
@@ -293,18 +293,18 @@
                     if (res.status === 1) {
                         // its a new comment post item
                         if (res.data.type === 'post') {
-                            var domHtmlComment = $.fn.buildCommentDOM(res.data);
+                            var domHtmlComment = buildCommentDOM(res.data);
                             formData.trigger('reset');
-                            $.fn.ckCleanup();
+                            ckCleanup();
                             // remove error notifications
                             targetElem.find('#comments-empty-notify').remove();
                             // add comment dom content element
                             targetElem.find('#load-comments').after(domHtmlComment);
                         } else if (res.data.type === 'answer') { // looks like a new answer to comment post item
-                            var domHtmlAnswer = $.fn.buildAnswerDOM(res.data);
+                            var domHtmlAnswer = buildAnswerDOM(res.data);
                             var targetCommentDom = $('#comment-answers-' + res.data.comment_id);
                             formData.trigger('reset');
-                            $.fn.ckCleanup();
+                            ckCleanup();
                             targetCommentDom.append(domHtmlAnswer).hide().removeClass('hidden').show('slow');
                         }
                     } else {
@@ -313,7 +313,7 @@
                 });
             });
 
-            $.fn.ckCleanup = function () {
+            ckCleanup = function () {
                 for (var ckInstance in CKEDITOR.instances ) {
                     CKEDITOR.instances[ckInstance].updateElement();
                     CKEDITOR.instances[ckInstance].setData('');

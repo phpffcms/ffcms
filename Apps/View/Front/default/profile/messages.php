@@ -134,7 +134,7 @@ $this->breadcrumbs = [
     var last_msg = [];
     var first_msg = [];
 
-    window.jQ.push(function(){
+    $(document).ready(function(){
         $(function(){
             var userListDom = $('#msg-user').clone();
             var dialogPanelDom = $('#dialog-title').clone();
@@ -142,7 +142,7 @@ $this->breadcrumbs = [
             var remMsgDom = $('#msg-remote').clone();
 
             // load users with active dialog
-            $.fn.loadDialogUsers = function() {
+            loadDialogUsers = function() {
                 $.getJSON(script_url+'/api/profile/listmessagedialog/'+dialog_offset+'/'+new_dialog+'/?lang='+script_lang, function(response){
                     if (response.status === 1) {
                         if (response.data.length < 1) {
@@ -203,12 +203,12 @@ $this->breadcrumbs = [
                         dialogDom.find('#msg-user-link').attr('href', profile_link + '/' + current_user.user_id).removeAttr('id');
                         $('#dialog-user-streak').html(dialogDom.html());
                         // load 'now' dialog messages
-                        $.fn.loadMessageDialog('now');
+                        loadMessageDialog('now');
                         $('.message-add-container').removeClass('hidden');
                     }
                 });
             };
-            $.fn.loadMessageDialog = function (type) {
+            loadMessageDialog = function (type) {
                 // prevent empty cycles
                 if (active_dialog_id < 1) {
                     return false;
@@ -284,9 +284,9 @@ $this->breadcrumbs = [
             active_dialog_id = new_dialog;
             <?php endif; ?>
             // load dialogs when page ready
-            $.fn.loadDialogUsers();
+            loadDialogUsers();
             // set scheduled loader
-            window.setInterval($.fn.loadDialogUsers, 15 * 1000);
+            window.setInterval(loadDialogUsers, 15 * 1000);
             // callback for user onclick -> show dialogs
             $(document).on('click', '.media-person', function() {
                 var selected_dialog_id = this.id.replace('msg-user-', '');
@@ -313,14 +313,14 @@ $this->breadcrumbs = [
                 dialogDom.find('#msg-user-link').attr('href', profile_link + '/' + current_user.user_id).removeAttr('id');
                 $('#dialog-user-streak').html(dialogDom.html());
                 // load 'now' dialog messages
-                $.fn.loadMessageDialog('now');
+                loadMessageDialog('now');
                 $('.message-add-container').removeClass('hidden');
             });
             $(document).on('click', '#message-load-before', function(){
-                $.fn.loadMessageDialog('before');
+                loadMessageDialog('before');
             });
             // set schedule to show new messages
-            window.setInterval(function(){$.fn.loadMessageDialog('after')}, 15 * 1000);
+            window.setInterval(function(){loadMessageDialog('after')}, 15 * 1000);
 
             // if clicked "show more" - increase offset and load permamently
             $('#show-more-dialogs').on('click', function(){
@@ -330,7 +330,7 @@ $this->breadcrumbs = [
                     obj.removeClass('disabled');
                 }, 5000);
                 dialog_offset += 1;
-                $.fn.loadDialogUsers();
+                loadDialogUsers();
             });
 
             // if click to btn send message to target
@@ -345,13 +345,13 @@ $this->breadcrumbs = [
 
                 $.post(script_url+'/api/profile/messagesend/'+active_dialog_id+'?lang='+script_lang, {message: msgText}, function(resp){
                     if (resp.status === 1) {
-                        $.fn.loadMessageDialog('after');
+                        loadMessageDialog('after');
                         $('#msg-text').val(null);
                     }
                 }, 'json').complete(function(){
                     if (active_dialog_id == new_dialog) {
                         new_dialog = 0;
-                        $.fn.loadMessageDialog('now');
+                        loadMessageDialog('now');
                     }
                 });
             });

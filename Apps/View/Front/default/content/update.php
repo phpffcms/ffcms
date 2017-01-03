@@ -62,11 +62,7 @@ echo Nav::display([
 <?= $form->finish() ?>
 
 <script>
-window.jQ.push(function(){
-    $(function(){
-        CKEDITOR.disableAutoInline = true;
-
-    });
+$(document).ready(function(){
+    CKEDITOR.disableAutoInline = true;
 });
-
 </script>
