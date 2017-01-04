@@ -42,7 +42,7 @@
         <div class="col-md-12" style="padding-bottom: 15px;">
             <div class="pull-right">
                 <a href="#showReplay" class="btn btn-info btn-sm comment-hook-replay" id="replay-to-0">
-                    <i class="fa fa-plus-circle"></i> <?= __('Replay') ?>
+                    <i class="glyphicon glyphicon-plus"></i> <?= __('Replay') ?>
                 </a>
             </div>
         </div>
@@ -94,7 +94,7 @@
     <div class="col-md-12">
         <span class="label label-primary hidden" id="replay-to-text"><?= __('Replay to') ?>:
             <span id="replay-to-user">user</span>
-            <i class="fa fa-close"></i>
+            <i class="glyphicon glyphicon-remove"></i>
         </span>
         <button class="btn btn-success pull-right" id="add-new-comment"><?= __('Send') ?></button>
     </div>

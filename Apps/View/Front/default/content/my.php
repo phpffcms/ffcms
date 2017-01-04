@@ -30,7 +30,7 @@ foreach ($records as $record) {
     $moderate = (int)$record->display === 0;
     $title = $record->getLocaled('title');
     if ($moderate) {
-        $title = Url::link(['content/update', $record->id], $title) . ' <i class="fa fa-pencil"></i>';
+        $title = Url::link(['content/update', $record->id], $title) . ' <i class="glyphicon glyphicon-pencil"></i>';
     }
 
     $items[] = [

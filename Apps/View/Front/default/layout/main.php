@@ -15,7 +15,6 @@ use Widgets\Basic\LanguageSwitcher;
     <link rel="shortcut icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
     <?php echo \App::$View->showCodeLink('css'); ?>
     <title><?php echo \App::$Security->escapeQuotes($this->title) ?></title>
@@ -43,7 +42,7 @@ if (\App::$User->isAuth()) {
     $userId = \App::$User->identity()->getId();
     // show 'add content' button if current controller is Content and user add is enabled
     if (\App::$Request->getController() === 'Content' && (bool)AppRecord::getConfig('app', 'Content', 'userAdd')) {
-        $items[] = ['type' => 'link', 'link' => ['content/update'], 'text' => '<i class="fa fa-plus"></i> ' . __('Add content'), 'html' => true, 'position' => 'right'];
+        $items[] = ['type' => 'link', 'link' => ['content/update'], 'text' => '<i class="glyphicon glyphicon-plus"></i> ' . __('Add content'), 'html' => true, 'position' => 'right'];
     }
     $accountDropdown[] = ['link' => ['profile/show', $userId], 'text' => __('My profile')];
     $accountDropdown[] = ['link' => ['profile/messages'], 'text' => __('Messages') . ' <span class="badge" id="pm-count-block">0</span>', 'html' => true, '!secure' => true];
@@ -55,19 +54,19 @@ if (\App::$User->isAuth()) {
 
     $items[] = [
         'type' => 'dropdown',
-        'text' => '<i class="fa fa-user"></i> ' . __('Account') . ' <span class="badge" id="summary-count-block">0</span>',
+        'text' => '<i class="glyphicon glyphicon-user"></i> ' . __('Account') . ' <span class="badge" id="summary-count-block">0</span>',
         'html' => true,
         '!secure' => true,
         'position' => 'right',
         'items' => $accountDropdown
     ];
     if (\App::$User->identity()->getRole()->can('Admin/Main/Index')) {
-        $items[] = ['type' => 'link', 'link' => \App::$Alias->scriptUrl . '/admin/', 'text' => '<i class="fa fa-cogs"></i> Admin', 'position' => 'right', 'html' => true];
+        $items[] = ['type' => 'link', 'link' => \App::$Alias->scriptUrl . '/admin/', 'text' => '<i class="glyphicon glyphicon-cog"></i> Admin', 'position' => 'right', 'html' => true];
     }
-    $items[] = ['type' => 'link', 'link' => ['user/logout'], 'text' => '<i class="fa fa-user-times"></i> ' . __('Logout'), 'html' => true, 'position' => 'right'];
+    $items[] = ['type' => 'link', 'link' => ['user/logout'], 'text' => '<i class="glyphicon glyphicon-log-out"></i> ' . __('Logout'), 'html' => true, 'position' => 'right'];
 } else {
-    $items[] = ['type' => 'link', 'link' => ['user/login'], 'text' => '<i class="fa fa-sign-in"></i> ' . __('Sign in'), 'position' => 'right', 'html' => true];
-    $items[] = ['type' => 'link', 'link' => ['user/signup'], 'text' => '<i class="fa fa-check-square-o"></i> ' . __('Sign up'), 'position' => 'right', 'html' => true];
+    $items[] = ['type' => 'link', 'link' => ['user/login'], 'text' => '<i class="glyphicon glyphicon-log-in"></i> ' . __('Sign in'), 'position' => 'right', 'html' => true];
+    $items[] = ['type' => 'link', 'link' => ['user/signup'], 'text' => '<i class="glyphicon glyphicon-check"></i> ' . __('Sign up'), 'position' => 'right', 'html' => true];
 }
 
 echo Navbar::display([

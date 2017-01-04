@@ -33,7 +33,7 @@ $referNickname = \Ffcms\Core\Helper\Simplify::parseUserNick($post->sender_id);
     </div>
     <div class="col-md-10">
         <h5 style="margin-top: 0;">
-            <i class="fa fa-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
+            <i class="glyphicon glyphicon-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
             <small class="pull-right"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
         </h5>
         <div class="wall-post-text">

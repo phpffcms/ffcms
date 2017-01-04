@@ -6,6 +6,7 @@ $socialInstance = \App::$User->getOpenidInstance();
 ?>
 
 <?php if ($socialInstance !== null): ?>
+    <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'fa'); ?>"/>
     <div class="row" style="padding-bottom: 5px;">
         <div class="col-md-offset-3 col-md-9">
             <?php foreach ($socialInstance->getProviders() as $provider => $connected): ?>

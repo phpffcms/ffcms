@@ -35,7 +35,7 @@ $this->breadcrumbs = [
         </div>
         <div class="message-scroll-body hidden">
             <div class="col-md-12">
-                <p class="text-center"><a href="javascript:void(0);" id="message-load-before"><i class="fa fa-caret-up"></i> <?= __('Load previous') ?></a></p>
+                <p class="text-center"><a href="javascript:void(0);" id="message-load-before"><?= __('Load previous') ?></a></p>
             </div>
             <div id="messages-before"></div>
             <div id="messages-now"></div>
@@ -51,7 +51,7 @@ $this->breadcrumbs = [
         <div id="message-user-list" style="padding-bottom: 10px;"></div>
         <div class="row">
             <div class="col-md-12">
-                <a href="#" class="btn btn-primary btn-block btn-sm" id="show-more-dialogs"><i class="fa fa-caret-down"></i> <?= __('Show more') ?></a>
+                <a href="#" class="btn btn-primary btn-block btn-sm" id="show-more-dialogs"><?= __('Show more') ?></a>
             </div>
         </div>
 
@@ -67,7 +67,7 @@ $this->breadcrumbs = [
                 <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="pull-left img-responsive img-circle" style="max-height: 50px;padding-right: 5px;" />
                 <div style="padding-top: 12px;">
                     <span class="media-person-uname" id="msg-user-name"><?= __('Unknown') ?></span>
-                    <span class="hidden" id="msg-user-isnew"><i class="fa fa-envelope"></i></span>
+                    <span class="hidden" id="msg-user-isnew"><i class="glyphicon glyphicon-envelope"></i></span>
                 </div>
             </div>
         </div>

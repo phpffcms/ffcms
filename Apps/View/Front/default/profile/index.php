@@ -52,7 +52,7 @@ $this->breadcrumbs = [
             </h3>
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>
             <?php if (\App::$User->identity() !== null && $profile->user_id !== \App::$User->identity()->getId()): ?>
-                <?= Url::link(['profile/messages', null, null, ['newdialog' => $profile->user_id]], '<i class="fa fa-pencil-square-o"></i> '  . __('New message'), ['class' => 'btn btn-info']) ?>
+                <?= Url::link(['profile/messages', null, null, ['newdialog' => $profile->user_id]], '<i class="glyphicon glyphicon-envelope"></i> '  . __('New message'), ['class' => 'btn btn-info']) ?>
             <?php endif; ?>
         </div>
         <div class="col-md-2">

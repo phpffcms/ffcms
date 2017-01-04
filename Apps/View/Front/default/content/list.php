@@ -41,12 +41,12 @@ var contentItemList = {path: {}}
 <h1>
 <?= $model->category['title'] ?>
 <?php if (!Str::likeEmpty($model->category['rss'])): ?>
-	<small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fa fa-rss"></i></a></small>
+	<small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="glyphicon glyphicon-volume-up"></i></a></small>
 <?php endif; ?>
 	<div class="pull-right">
 		<div class="btn-group">
 			<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fa fa-sort-amount-desc "></i> <?= __('Sorting')?> <span class="caret"></span>
+				<i class="glyphicon glyphicon-sort-by-alphabet"></i> <?= __('Sorting')?> <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">
 				<li><a href="<?= $model->category['sort']['newest'] ?>"><?= __('Newest') ?> </a></li>
@@ -74,7 +74,7 @@ var contentItemList = {path: {}}
         <?php if (Arr::in(true, $catMeta)): ?>
         <div class="meta">
             <?php if ($catConfigs['showCategory'] === true): ?>
-            <span class="spaced"><i class="fa fa-list"></i>
+            <span class="spaced"><i class="glyphicon glyphicon-list"></i>
                 <?= Url::link(
                     ['content/list', $item['category']->path],
                     \App::$Translate->getLocaleText($item['category']->title),
@@ -83,14 +83,14 @@ var contentItemList = {path: {}}
             </span>
             <?php endif; ?>
             <?php if ($catConfigs['showDate'] === true): ?>
-            <span class="spaced"><i class="fa fa-calendar"></i>
+            <span class="spaced"><i class="glyphicon glyphicon-calendar"></i>
                 <time datetime="<?= date('c', Date::convertToTimestamp($item['date'])) ?>" itemprop="datePublished">
                     <?= $item['date'] ?>
                 </time>
             </span>
             <?php endif; ?>
             <?php if ($catConfigs['showAuthor'] === true): ?>
-            <span class="spaced"><i class="fa fa-user"></i>
+            <span class="spaced"><i class="glyphicon glyphicon-user"></i>
                 <?php
                 $ownerNick = $item['author']->getProfile()->getNickname();
                 if ($item['author']->getId() < 1) {
@@ -102,7 +102,7 @@ var contentItemList = {path: {}}
             </span>
             <?php endif; ?>
             <?php if ($catConfigs['showViews'] === true): ?>
-            <span class="spaced"><i class="fa fa-eye"></i> <?= $item['views'] ?></span>
+            <span class="spaced"><i class="glyphicon glyphicon-eye-open"></i> <?= $item['views'] ?></span>
             <?php endif; ?>
         </div>
         <?php else: ?>
@@ -127,12 +127,12 @@ var contentItemList = {path: {}}
         	    ]);
         	} ?>
 
-        	<span class="spaced hidden-xs"><i class="fa fa-comments"></i>
+        	<span class="spaced hidden-xs"><i class="glyphicon glyphicon-comment"></i>
                 <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>#comments-list"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
             <span class="pull-right">
             <?php if ((int)$catConfigs['showTags'] === 1 && $item['tags'] !== null && Obj::isArray($item['tags'])): ?>
-                <span class="spaced"><i class="fa fa-tags hidden-xs"></i>
+                <span class="spaced"><i class="glyphicon glyphicon-tags hidden-xs"></i>
                 <?php
                     foreach ($item['tags'] as $tag) {
                         echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";

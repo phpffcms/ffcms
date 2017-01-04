@@ -18,8 +18,8 @@ $data = (new EntityCommentData($comment, false))->make();
 <ul class="media-list">
 	<li class="media">
 		<ul class="list-inline list-info">
-			<li><i class="fa fa-calendar"></i> <?= Date::humanize($data['date']) ?></li>
-			<li><i class="fa fa-user"></i>
+			<li><i class="glyphicon glyphicon-calendar"></i> <?= Date::humanize($data['date']) ?></li>
+			<li><i class="glyphicon glyphicon-user"></i>
 			<?php if ((int)$data['user']['id'] > 0): ?>
 				<?= Url::link(['profile/show', $data['user']['id']], $data['user']['name']) ?>
 			<?php else: ?>

@@ -87,19 +87,19 @@ $this->breadcrumbs = [
         $userMenu = null;
         if (true === $isSelf) {
             $userMenu = [
-                ['type' => 'link', 'link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Avatar'), 'html' => true],
-                ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
-                ['type' => 'link', 'link' => ['profile/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]
+                ['type' => 'link', 'link' => ['profile/avatar'], 'text' => '<i class="glyphicon glyphicon-camera"></i> ' . __('Avatar'), 'html' => true],
+                ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="glyphicon glyphicon-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
+                ['type' => 'link', 'link' => ['profile/settings'], 'text' => '<i class="glyphicon glyphicon-cog"></i> ' . __('Settings'), 'html' => true]
             ];
         } elseif (\App::$User->isAuth()) {
             $userMenu = [
                 [
                     'type' => 'link', 'link' => Url::to('profile/messages', null, null, ['newdialog' => $user->id]),
-                    'text' => '<i class="fa fa-pencil-square-o"></i> ' . __('Write message'), 'html' => true
+                    'text' => '<i class="glyphicon glyphicon-envelope"></i> ' . __('Write message'), 'html' => true
                 ],
                 [
                     'type' => 'link', 'link' => Url::to('profile/ignore', null, null, ['id' => $user->id]),
-                    'text' => '<i class="fa fa-user-times"></i> ' . __('Block'), 'html' => true, 'property' => ['class' => 'alert-danger']
+                    'text' => '<i class="glyphicon glyphicon-ban-circle"></i> ' . __('Block'), 'html' => true, 'property' => ['class' => 'alert-danger']
                 ]
             ];
         }
@@ -242,14 +242,14 @@ $this->breadcrumbs = [
                     </div>
                     <div class="col-xs-8 col-md-10">
                         <h5 style="margin-top: 0;">
-                            <i class="fa fa-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
+                            <i class="glyphicon glyphicon-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
                             <small class="pull-right"><?= Date::humanize($post->updated_at); ?></small>
                         </h5>
                         <div class="object-text">
                             <?= $post->message ?>
                         </div>
                         <hr style="margin: 5px;" />
-                        <div><i class="fa fa-comment-o"></i>
+                        <div><i class="glyphicon glyphicon-comment"></i>
                             <a href="#wall-post-<?= $post->id ?>" id="wall-post-response-<?= $post->id ?>" class="show-wall-response">
                                 <?= __('Answers') ?> (<span id="wall-post-response-count-<?= $post->id ?>">0</span>)
                             </a>
@@ -286,7 +286,7 @@ $this->breadcrumbs = [
             <div class="answer-header">
                 <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
                 <small class="pull-right"><span id="wall-answer-date">01.01.1970</span>
-                    <a href="#send-wall-object" class="delete-answer hidden" id="delete-answer"><i class="fa fa-lg fa-times"></i></a>
+                    <a href="#send-wall-object" class="delete-answer hidden" id="delete-answer"><i class="glyphicon glyphicon-remove"></i></a>
                 </small>
             </div>
             <div id="wall-answer-text"></div>
@@ -297,177 +297,175 @@ $this->breadcrumbs = [
 
 <script>
     var hideAnswers = [];
-    window.jQ.push(function(){
-        $(function(){
-            var elements = $('.object-lightborder');
-            var viewer_id = 0;
-            var target_id = 0;
-            var is_self_profile = <?= $isSelf === true ? 'true' : 'false' ?>;
-            <?php if (\App::$User->isAuth()): ?>
-            viewer_id = <?= $viewer->getId() ?>;
-            <?php endif; ?>
-            target_id = <?= $user->getId() ?>;
-            var postIds = [];
-            $.each(elements, function(key, val) {
-                postIds.push(val.id.replace('wall-post-', ''));
-            });
+    $(document).ready(function () {
+        var elements = $('.object-lightborder');
+        var viewer_id = 0;
+        var target_id = 0;
+        var is_self_profile = <?= $isSelf === true ? 'true' : 'false' ?>;
+        <?php if (\App::$User->isAuth()): ?>
+        viewer_id = <?= $viewer->getId() ?>;
+        <?php endif; ?>
+        target_id = <?= $user->getId() ?>;
+        var postIds = [];
+        $.each(elements, function (key, val) {
+            postIds.push(val.id.replace('wall-post-', ''));
+        });
 
-            // load answers count via JSON
-            if (postIds.length > 0) {
-                $.getJSON(script_url+'/api/profile/wallanswercount/' + postIds.join(',') + '?lang='+script_lang, function (json) {
-                    // data is successful loaded, pharse
-                    if (json.status === 1) {
-                        $.each(json.data, function(key, val){
-                            $('#wall-post-response-count-'+key).text(val);
-                        });
+        // load answers count via JSON
+        if (postIds.length > 0) {
+            $.getJSON(script_url + '/api/profile/wallanswercount/' + postIds.join(',') + '?lang=' + script_lang, function (json) {
+                // data is successful loaded, pharse
+                if (json.status === 1) {
+                    $.each(json.data, function (key, val) {
+                        $('#wall-post-response-count-' + key).text(val);
+                    });
+                }
+            });
+        }
+
+        // load answers via JSON and add to current DOM
+        loadAnswers = function (postId) {
+            $.getJSON(script_url + '/api/profile/showwallanswers/' + postId + '?lang=' + script_lang, function (json) {
+                if (json.status !== 1) {
+                    return null;
+                }
+
+                var answerField = $('#add-answer-field').clone();
+                var answerDom = $('#show-answer-list').clone();
+                answerField.removeAttr('id').removeClass('hidden');
+                answerDom.removeAttr('id').removeClass('hidden');
+                // add hidden div with wall post object id
+                answerField.prepend($('<div></div>').attr('id', 'send-wall-object-' + postId));
+                // set make answer wall post object id
+                answerField.find('#make-answer').attr('id', 'make-answer-' + postId);
+                // build send submit button - set id and href to wall post object anchor
+                answerField.find('#send-wall').attr('id', 'send-wall-' + postId).attr('href', '#wall-post-' + postId);
+                // build counter (max chars in input = 200)
+                answerField.find('#answer-counter').attr('id', 'answer-counter-' + postId);
+
+                var addAnswerField = '';
+                if (viewer_id > 0) {
+                    addAnswerField = answerField.html();
+                }
+
+                var answers = '';
+                $.each(json.data, function (idx, row) {
+                    // clone general dom element
+                    var dom = answerDom.clone();
+                    // set avatar src
+                    dom.find('#wall-answer-avatar').attr('src', row.user_avatar).removeAttr('id');
+                    // set user link
+                    dom.find('#wall-answer-userlink').attr('href', '<?= Url::to('profile/show') ?>/' + row.user_id).text(row.user_nick).removeAttr('id');
+                    // set date
+                    dom.find('#wall-answer-date').text(row.answer_date).removeAttr('id');
+                    // set message text
+                    dom.find('#wall-answer-text').text(row.answer_message);
+                    // check if this user can remove answers - answer writer or target user profile
+                    if (is_self_profile || row.user_id === viewer_id) {
+                        dom.find('#delete-answer').attr('href', '#send-wall-object-' + postId).attr('id', 'delete-answer-' + row.answer_id + '-' + postId).removeClass('hidden');
                     }
+
+                    answers += dom.html();
                 });
+                $('#wall-answer-dom-' + postId).html(addAnswerField + answers);
+            })
+        };
+
+        addAnswer = function (postId, message) {
+            $.post(script_url + '/api/profile/sendwallanswer/' + postId + '?lang=' + script_lang, {message: message}, function (response) {
+                if (response.status === 1) {
+                    loadAnswers(postId);
+                }
+            }, 'json').done(function () {
+                return true;
+            });
+            return false;
+        };
+
+
+        // if clicked on "Answers" - show it and send form
+        $('.show-wall-response').on('click', function () {
+            var postId = this.id.replace('wall-post-response-', '');
+            // control hide-display on clicking to "Answers" link
+            if (hideAnswers[postId] === true) {
+                hideAnswers[postId] = false;
+                $('#wall-answer-dom-' + postId).addClass('hidden');
+                return null;
+            } else {
+                hideAnswers[postId] = true;
+                $('#wall-answer-dom-' + postId).removeClass('hidden');
+            }
+            // load data and set html
+            loadAnswers(postId);
+        });
+
+        // calc entered symbols
+        $(document).on('keyup', '.wall-answer-text', function () {
+            var postId = this.id.replace('make-answer-', '');
+            var msglimit = 200;
+            var msglength = $(this).val().length;
+
+            var limitObject = $('#answer-counter-' + postId);
+
+            if (msglength >= msglimit) {
+                limitObject.html('<span class="label label-danger">0</span>');
+            } else {
+                limitObject.text(msglimit - msglength);
+            }
+        });
+
+        $(document).on('click', '.delete-answer', function () {
+            var answerIdPostId = this.id.replace('delete-answer-', '').split('-');
+            $.getJSON(script_url + '/api/profile/deleteanswerowner/' + answerIdPostId[0] + '?lang=' + script_lang, function (response) {
+                loadAnswers(answerIdPostId[1]);
+            });
+        });
+
+        // delegate live event simple for add-ed dom element
+        $(document).on('click', '.send-wall-answer', function () {
+            var answerToId = this.id.replace('send-wall-', '');
+            var message = $('#make-answer-' + answerToId).val();
+            if (message == null || message.length < 3) {
+                alert('<?= __('Message is too short') ?>');
+                return null;
             }
 
-            // load answers via JSON and add to current DOM
-            $.fn.loadAnswers = function(postId) {
-                $.getJSON(script_url+'/api/profile/showwallanswers/' + postId +'?lang='+script_lang, function (json) {
-                    if (json.status !== 1) {
-                        return null;
-                    }
+            var result = addAnswer(answerToId, message);
+            // sending going wrong !
+            if (false === result) {
+                $('#send-wall-object-' + answerToId).html('<p class="alert alert-warning"><?= __('Comment send was failed! Try to send it later.') ?></p>');
+            }
+        });
 
-                    var answerField = $('#add-answer-field').clone();
-                    var answerDom = $('#show-answer-list').clone();
-                    answerField.removeAttr('id').removeClass('hidden');
-                    answerDom.removeAttr('id').removeClass('hidden');
-                    // add hidden div with wall post object id
-                    answerField.prepend($('<div></div>').attr('id', 'send-wall-object-'+postId));
-                    // set make answer wall post object id
-                    answerField.find('#make-answer').attr('id', 'make-answer-'+postId);
-                    // build send submit button - set id and href to wall post object anchor
-                    answerField.find('#send-wall').attr('id', 'send-wall-'+postId).attr('href', '#wall-post-'+postId);
-                    // build counter (max chars in input = 200)
-                    answerField.find('#answer-counter').attr('id', 'answer-counter-'+postId);
-
-                    var addAnswerField = '';
-                    if (viewer_id > 0) {
-                        addAnswerField = answerField.html();
-                    }
-
-                    var answers = '';
-                    $.each(json.data, function(idx, row) {
-                        // clone general dom element
-                        var dom = answerDom.clone();
-                        // set avatar src
-                        dom.find('#wall-answer-avatar').attr('src', row.user_avatar).removeAttr('id');
-                        // set user link
-                        dom.find('#wall-answer-userlink').attr('href', '<?= Url::to('profile/show') ?>/'+row.user_id).text(row.user_nick).removeAttr('id');
-                        // set date
-                        dom.find('#wall-answer-date').text(row.answer_date).removeAttr('id');
-                        // set message text
-                        dom.find('#wall-answer-text').text(row.answer_message);
-                        // check if this user can remove answers - answer writer or target user profile
-                        if (is_self_profile || row.user_id === viewer_id) {
-                            dom.find('#delete-answer').attr('href', '#send-wall-object-'+postId).attr('id', 'delete-answer-'+row.answer_id+'-'+postId).removeClass('hidden');
-                        }
-
-                        answers += dom.html();
-                    });
-                    $('#wall-answer-dom-'+postId).html(addAnswerField + answers);
-                })
-            };
-
-            $.fn.addAnswer = function(postId, message) {
-                $.post(script_url+'/api/profile/sendwallanswer/'+postId+'?lang='+script_lang, {message: message}, function(response){
-                    if (response.status === 1) {
-                        $.fn.loadAnswers(postId);
-                    }
-                }, 'json').done(function() {
-                    return true;
-                });
+        // work with + and - rating clicks
+        changeRating = function (type) {
+            // prevent some shits
+            if (is_self_profile || viewer_id == 0) {
                 return false;
-            };
+            }
 
-
-            // if clicked on "Answers" - show it and send form
-            $('.show-wall-response').on('click', function(){
-                var postId = this.id.replace('wall-post-response-', '');
-                // control hide-display on clicking to "Answers" link
-                if (hideAnswers[postId] === true) {
-                    hideAnswers[postId] = false;
-                    $('#wall-answer-dom-'+postId).addClass('hidden');
-                    return null;
-                } else {
-                    hideAnswers[postId] = true;
-                    $('#wall-answer-dom-'+postId).removeClass('hidden');
-                }
-                // load data and set html
-                $.fn.loadAnswers(postId);
-            });
-
-            // calc entered symbols
-            $(document).on('keyup', '.wall-answer-text', function() {
-                var postId = this.id.replace('make-answer-', '');
-                var msglimit = 200;
-                var msglength = $(this).val().length;
-
-                var limitObject = $('#answer-counter-' + postId);
-
-                if (msglength >= msglimit) {
-                    limitObject.html('<span class="label label-danger">0</span>');
-                } else {
-                    limitObject.text(msglimit-msglength);
-                }
-            });
-
-            $(document).on('click', '.delete-answer', function(){
-                var answerIdPostId = this.id.replace('delete-answer-', '').split('-');
-                $.getJSON(script_url+'/api/profile/deleteanswerowner/'+answerIdPostId[0]+'?lang='+script_lang, function(response){
-                    $.fn.loadAnswers(answerIdPostId[1]);
-                });
-            });
-
-            // delegate live event simple for add-ed dom element
-            $(document).on('click', '.send-wall-answer', function(){
-                var answerToId = this.id.replace('send-wall-', '');
-                var message = $('#make-answer-'+answerToId).val();
-                if (message == null || message.length < 3) {
-                    alert('<?= __('Message is too short') ?>');
-                    return null;
-                }
-
-                var result = $.fn.addAnswer(answerToId, message);
-                // sending going wrong !
-                if (false === result) {
-                    $('#send-wall-object-'+answerToId).html('<p class="alert alert-warning"><?= __('Comment send was failed! Try to send it later.') ?></p>');
-                }
-            });
-
-            // work with + and - rating clicks
-            $.fn.changeRating = function(type) {
-                // prevent some shits
-                if (is_self_profile || viewer_id == 0) {
-                    return false;
-                }
-
-                $.post(script_url+'/api/profile/changerating?lang='+script_lang, {type: type, target: target_id}, function(resp){
-                    if (resp.status === 1) {
-                        var rV = parseInt($('#ratingValue').text());
-                        if (type == '+') {
-                            $('#ratingValue').text(rV+1);
-                        } else {
-                            $('#ratingValue').text(rV-1);
-                        }
-                        alert('<?= __('Rating was successful changed') ?>');
+            $.post(script_url + '/api/profile/changerating?lang=' + script_lang, {type: type, target: target_id}, function (resp) {
+                if (resp.status === 1) {
+                    var rV = parseInt($('#ratingValue').text());
+                    if (type == '+') {
+                        $('#ratingValue').text(rV + 1);
                     } else {
-                        alert('<?= __('Rating cannot be changed') ?>');
+                        $('#ratingValue').text(rV - 1);
                     }
-                    $('#addRating').addClass('disabled');
-                    $('#reduceRating').addClass('disabled');
-                }, 'json');
-            };
+                    alert('<?= __('Rating was successful changed') ?>');
+                } else {
+                    alert('<?= __('Rating cannot be changed') ?>');
+                }
+                $('#addRating').addClass('disabled');
+                $('#reduceRating').addClass('disabled');
+            }, 'json');
+        };
 
-            $('#addRating').on('click', function(){
-                $.fn.changeRating('+');
-            });
-            $('#reduceRating').on('click', function(){
-                $.fn.changeRating('-');
-            });
+        $('#addRating').on('click', function () {
+            changeRating('+');
+        });
+        $('#reduceRating').on('click', function () {
+            changeRating('-');
         });
     });
 </script>

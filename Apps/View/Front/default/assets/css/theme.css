@@ -408,3 +408,13 @@ label.error {
     border-color: #45ABCD;
     background-color: #f4e3e5;
 }
+
+/**
+ * Glyphicons size 2x, 3x
+ */
+.glyphicon-2x {
+    font-size: 2em;
+}
+.glyphicon-3x {
+    font-size: 3em;
+}

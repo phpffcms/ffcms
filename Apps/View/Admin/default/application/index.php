@@ -18,7 +18,7 @@ $this->breadcrumbs = [
 <div class="row">
     <div class="col-md-12">
         <div class="pull-right">
-            <?= Url::link(['application/install'], '<i class="fa fa-tasks"></i> ' . __('Install'), ['class' => 'btn btn-primary']) ?>
+            <?= Url::link(['application/install'], '<i class="glyphicon glyphicon-tasks"></i> ' . __('Install'), ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
 </div>
@@ -35,12 +35,12 @@ foreach ($apps as $app) {
     $actions = \App::$View->render('native/macro/app_actions', ['controller' => $app->sys_name]);
     // set action icons based on app status
     if ((int)$app->disabled !== 0) {
-        $icoStatus = ' <i class="fa fa-pause" style="color: #ff0000;"></i>';
+        $icoStatus = ' <i class="glyphicon glyphicon-pause" style="color: #ff0000;"></i>';
     } elseif ($app->checkVersion() !== true) {
-        $icoStatus = ' <i class="fa fa-exclamation" style="color: #ffbd26;"></i>';
-        $actions = Url::link(['application/update', $app->sys_name], '<i class="fa fa-wrench"></i>');
+        $icoStatus = ' <i class="glyphicon glyphicon-exclamation-sign" style="color: #ffbd26;"></i>';
+        $actions = Url::link(['application/update', $app->sys_name], '<i class="glyphicon glyphicon-wrench"></i>');
     } else {
-        $icoStatus = ' <i class="fa fa-check" style="color: #008000;"></i>';
+        $icoStatus = ' <i class="glyphicon glyphicon-check" style="color: #008000;"></i>';
     }
 
     $appTableItems[] = [

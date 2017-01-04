@@ -46,7 +46,7 @@ $this->breadcrumbs = [
             ['text' => Url::link(['profile/show', $row->target_id], $userNick, ['target' => '_blank']), 'html' => true],
             ['text' => $row->comment],
             ['text' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_DAY)],
-            ['text' => Url::link(['profile/unblock', $row->target_id], '<i class="fa fa-times"></i>'), 'html' => true, 'property' => ['class' => 'text-center']]
+            ['text' => Url::link(['profile/unblock', $row->target_id], '<i class="glyphicon glyphicon-remove"></i>'), 'html' => true, 'property' => ['class' => 'text-center']]
         ];
     }
     ?>
