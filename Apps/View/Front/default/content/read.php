@@ -178,6 +178,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                     if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
                         echo '<i class="glyphicon glyphicon-tags hidden-xs"></i> ';
                         foreach ($model->metaKeywords as $tag) {
+                            $tag = trim($tag);
                             echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
                         }
                     }

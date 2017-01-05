@@ -135,6 +135,7 @@ var contentItemList = {path: {}}
                 <span class="spaced"><i class="glyphicon glyphicon-tags hidden-xs"></i>
                 <?php
                     foreach ($item['tags'] as $tag) {
+                        $tag = trim($tag);
                         echo Url::link(['content/tag', $tag], $tag, ['class' => 'label label-default']) . "&nbsp;";
                     }
                 ?>
