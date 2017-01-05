@@ -92,7 +92,7 @@ SOFTWARE.
     <?= \Ffcms\Core\Helper\Url::link('main/index', __('Check again'), ['class' => 'btn btn-warning btn-block']) ?>
 <?php endif; ?>
 <script>
-    document.ready(function () {
+    $(document).ready(function () {
         $('#agree-license').change(function () {
             if ($(this).is(':checked')) {
                 $('#install-link').attr('disabled', false).attr('href', '<?= \Ffcms\Core\Helper\Url::to('main/install') ?>');
