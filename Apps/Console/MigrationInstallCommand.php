@@ -38,7 +38,7 @@ class MigrationInstallCommand extends Command
         }
         DatabaseManager::schema($this->dbConnection)->create('migrations', function ($table){
             $table->increments('id');
-            $table->string('migration', 1024)->unique();
+            $table->string('migration', 127)->unique();
             $table->timestamps();
         });
 

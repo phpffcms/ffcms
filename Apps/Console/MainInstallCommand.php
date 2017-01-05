@@ -103,7 +103,6 @@ Good luck ;)");
         $migrationUp->setDbConnection('install');
         $migrationUp->run(new ArrayInput([]), $output);
 
-
         // add system info about current install version
         $system = new System();
         $system->setConnection('install');
@@ -136,6 +135,8 @@ Good luck ;)");
         }
         File::write('/Private/Install/install.lock', 'Install is locked');
         $output->writeln('Congratulations! FFCMS are successful installed. Used version: ' . Version::VERSION . ' since ' . Version::DATE);
+        $output->writeln('');
+        $output->writeln('> Please, use "php console.php main:adduser" to add admin account(set role=4) or you are unavailable to manage cms.');
     }
 
 }

@@ -201,10 +201,13 @@ class User extends ActiveModel implements iUser
         // lets find profile identity via current user id
         $object = Profile::identity($this->getId());
         // is not exist? Hmmm, lets create it!
-        if ($object === null && $this->getId() > 0) {
+        if ($object === null) {
+            // profile is exists, create real model
             $object = new Profile();
-            $object->user_id = $this->getId();
-            $object->save();
+            if ($this->getId() > 0) {
+                $object->user_id = $this->getId();
+                $object->save();
+            }
         }
         // return result ;)
         return $object;
