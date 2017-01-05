@@ -408,3 +408,13 @@ table.dataTable thead .sorting:after {
     color: #333;
     background-color: #e6e6e6;
 }
+
+/**
+ * Glyphicons size 2x, 3x
+ */
+.glyphicon-2x {
+    font-size: 2em;
+}
+.glyphicon-3x {
+    font-size: 3em;
+}

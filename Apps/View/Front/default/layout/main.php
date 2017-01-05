@@ -15,8 +15,6 @@ use Widgets\Basic\LanguageSwitcher;
     <link rel="shortcut icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo \App::$Alias->getVendor('css', 'bootstrap'); ?>"/>
-    <link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.css"/>
-    <?php echo \App::$View->showCodeLink('css'); ?>
     <title><?php echo \App::$Security->escapeQuotes($this->title) ?></title>
     <meta name="keywords" content="<?php echo \App::$Security->escapeQuotes($this->keywords); ?>"/>
     <meta name="description" content="<?php echo \App::$Security->escapeQuotes($this->description); ?>"/>
@@ -203,9 +201,11 @@ echo Navbar::display([
 		</div>
 	</div>
 </footer>
+<link rel="stylesheet" href="<?php echo \App::$Alias->currentViewUrl ?>/assets/css/theme.min.css"/>
 <script src="<?php echo \App::$Alias->getVendor('js', 'jquery'); ?>"></script>
 <script defer src="<?php echo \App::$Alias->getVendor('js', 'bootstrap'); ?>"></script>
-<script defer src="<?= \App::$Alias->currentViewUrl ?>/assets/js/ffcms.js"></script>
+<script defer src="<?= \App::$Alias->currentViewUrl ?>/assets/js/ffcms.min.js"></script>
+<?php echo \App::$View->showCodeLink('css') ?>
 <?php echo \App::$View->showCodeLink('js'); ?>
 <script>
     $(document).ready(function(){
