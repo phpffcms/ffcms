@@ -13,7 +13,7 @@
   "type": "project",
   "homepage": "https://ffcms.org",
   "license": "MIT",
-  "minimum-stability": "beta",
+  "minimum-stability": "stable",
   "config": {
     "process-timeout": 1800
   },
