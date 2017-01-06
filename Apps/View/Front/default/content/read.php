@@ -4,7 +4,6 @@
 /** @var Apps\Model\Front\Content\EntityContentSearch $search */
 /** @var \Ffcms\Core\Arch\View $this */
 /** @var bool $trash */
-/** @var bool $display */
 /** @var array $configs */
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
@@ -12,7 +11,7 @@ use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 // check if content is trashed or hidden from display and show it only for admin with content.index permissions
-if (($trash || !$display) && (!\App::$User->isAuth() || !\App::$User->identity()->getRole()->can('Admin/Content/Index'))) {
+if (($trash || !$model->display) && (!\App::$User->isAuth() || !\App::$User->identity()->getRole()->can('Admin/Content/Index'))) {
     throw new \Ffcms\Core\Exception\NotFoundException(__('Page not found'));
 }
 
@@ -90,7 +89,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
     <?php if ($trash): ?>
     <p class="alert alert-danger"><i class="glyphicon glyphicon-trash"></i> <?= __('This content is placed in trash') ?></p>
     <?php endif; ?>
-    <?php if (!$display): ?>
+    <?php if (!$model->display): ?>
     <p class="alert alert-warning"><i class="glyphicon glyphicon-pencil"></i> <?= __('This content now is on moderation stage') ?></p>
     <?php endif; ?>
     <div id="content-text">

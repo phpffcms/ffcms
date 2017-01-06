@@ -152,7 +152,6 @@ class Content extends FrontAppController
             'model' => $model,
             'search' => $search,
             'trash' => $trash,
-            'display' => (bool)$contentRecord->display,
             'configs' => $this->getConfigs()
         ]);
     }

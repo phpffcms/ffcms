@@ -24,6 +24,7 @@ class EntityContentRead extends Model
     public $title;
     public $path;
     public $text;
+    public $display;
     public $createDate;
     public $editDate;
     public $catName;
@@ -70,6 +71,7 @@ class EntityContentRead extends Model
         $this->id = $this->_content->id;
         $this->title = $this->_content->getLocaled('title');
         $this->text = $this->_content->getLocaled('text');
+        $this->display = (bool)$this->_content->display;
 
         // check if title and text are exists
         if (Str::length($this->title) < 1 || Str::length($this->text) < 1) {
