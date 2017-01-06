@@ -110,11 +110,12 @@ class Content extends FrontAppController
 
         // if no categories are available for this path - throw exception
         if ($categoryRecord === null || $categoryRecord->count() < 1) {
-            throw new NotFoundException();
+            throw new NotFoundException(__('Page not found'));
         }
 
         // try to find content entity record
-        $contentRecord = ContentEntity::where('path', '=', $contentPath)->where('category_id', '=', $categoryRecord->id);
+        $contentRecord = ContentEntity::where('path', '=', $contentPath)
+            ->where('category_id', '=', $categoryRecord->id);
         $trash = false;
 
         // if no entity is founded for this path lets try to find on trashed
@@ -151,6 +152,7 @@ class Content extends FrontAppController
             'model' => $model,
             'search' => $search,
             'trash' => $trash,
+            'display' => (bool)$contentRecord->display,
             'configs' => $this->getConfigs()
         ]);
     }

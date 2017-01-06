@@ -38,7 +38,7 @@ class FrontWidget extends NativeWidget
     public static function enabled($class = null)
     {
         self::$class = ($class !== null ? $class : get_called_class()); // get widget classname from passed data or from stacttrace
-        if (!class_exists(self::$class)) {
+        if (!class_exists(self::$class) && App::$Debug !== null) {
             App::$Debug->addMessage(__('Widget autoload is disabled for class: %class%', ['class' => self::$class]));
             return false;
         }

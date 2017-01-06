@@ -2,6 +2,7 @@
 
 return [
     'This content is placed in trash' => 'Данный контент находится в корзине',
+    'This content now is on moderation stage' => 'Данный контент находится в стадии модерации',
     'Source' => 'Источник',
     'View poster' => 'Просмотр постера',
     'Poster image' => 'Картинка-постер',
@@ -43,5 +44,6 @@ return [
     'No' => 'Нет',
     'Remember you can edit content only on moderate stage!' => 'Помните, вы можете редактировать материал только на стадии модерации!',
     'Only authorized users can manage content' => 'Только авторизованные пользователи могут управлять контентом',
-    'Content successfully updated' => 'Контент успешно обновлен'
+    'Content successfully updated' => 'Контент успешно обновлен',
+    'Page not found' => 'Страница не найдена'
 ];
