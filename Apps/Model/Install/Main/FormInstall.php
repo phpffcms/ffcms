@@ -12,6 +12,7 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Security;
+use Ffcms\Core\Managers\MigrationsManager;
 
 /**
  * Class FormInstall. System installation business logic model
@@ -109,18 +110,10 @@ class FormInstall extends Model
             $table->timestamps();
         });
 
-        // run migrations to import all database tables
-        $migrations = File::listFiles('/Private/Migrations/', ['.php'], true);
-        foreach ($migrations as $migrate) {
-            $name = Str::cleanExtension($migrate);
-            $class = Str::firstIn($name, '-');
-            File::inc('/Private/Migrations/' . $migrate, false, false);
-            if (Str::startsWith('install_', $name) && class_exists($class) && is_a($class, 'Ffcms\Core\Migrations\MigrationInterface', true)) {
-                $object = new $class($name, 'install');
-                $object->up();
-                $object->seed();
-            }
-        }
+        // import migrations
+        $manager = new MigrationsManager(null, 'install');
+        $search = $manager->search(null, false);
+        $manager->makeUp($search);
 
         // insert admin user
         $user = new User();

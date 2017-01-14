@@ -10,6 +10,7 @@ use Ffcms\Console\Console;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Managers\MigrationsManager;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -99,9 +100,9 @@ Good luck ;)");
         $migrationInstall->setDbConnection('install');
         $migrationInstall->run(new ArrayInput([]), $output);
 
-        $migrationUp = $this->getApplication()->find('migration:up');
-        $migrationUp->setDbConnection('install');
-        $migrationUp->run(new ArrayInput([]), $output);
+        $migrationManager = new MigrationsManager(null, 'install');
+        $search = $migrationManager->search(null, false);
+        $migrationManager->makeUp($search);
 
         // add system info about current install version
         $system = new System();

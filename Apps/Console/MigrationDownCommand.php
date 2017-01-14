@@ -6,7 +6,9 @@ namespace Apps\Console;
 use Apps\ActiveRecord\Migration;
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Managers\MigrationsManager;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,7 +26,7 @@ class MigrationDownCommand extends Command
     {
         $this->setName('migration:down')
             ->setDescription('Revert single migration by name or date or search query')
-            ->addArgument('name', InputArgument::REQUIRED, 'Migration name or date(Y-m-d format) to find all installed migrations');
+            ->addArgument('name', InputArgument::OPTIONAL, 'Migration name or date(Y-m-d format) to find all installed migrations');
     }
 
     /**
@@ -37,34 +39,30 @@ class MigrationDownCommand extends Command
     {
         // get search migration name
         $name = $input->getArgument('name');
-        // find in migration table by name
-        $query = new Migration();
-        if ($this->dbConnection !== null) {
-            $query->setConnection($this->dbConnection);
-        }
-        $query = $query->where('migration', 'like', '%' . $name . '%');
-        if ($query->count() < 1) {
-            $output->writeln('No migrations found by this name');
+        // initialize migration manager
+        $manager = new MigrationsManager(null, $this->dbConnection);
+        $search = $manager->search($name, true);
+        if (!Obj::isArray($search) || count($search) < 1) {
+            $output->writeln('No migrations found');
             return;
         }
 
-        // list all found migrations and aks to revert it
-        foreach ($query->get() as $item) {
-            /** @var Migration $item */
-            $fullName = $item->migration;
-            if ($this->confirm('Are you sure to revert: ' . $fullName)) {
-                $path = '/Private/Migrations/' . $fullName . '.php';
-                File::inc($path, false, false);
-                $className = Str::firstIn($fullName, '-');
-                // check if migration class exist and run "down" method
-                if (class_exists($className) && is_a($className, 'Ffcms\Core\Migrations\MigrationInterface', true)) {
-                    $class = new $className($fullName);
-                    $class->down();
-                    $output->writeln('Migration are successful revert: ' . $fullName);
-                } else {
-                    $output->writeln('Migration revert failed: ' . $fullName);
-                }
+        // list found migrations and ask to revert each one
+        $fired = false;
+        foreach ($search as $migration) {
+            if (!$this->confirm('Are you sure to revert: ' . $migration)) {
+                continue;
             }
+            // run down migration
+            $manager->makeDown($migration);
+            $fired = true;
+        }
+
+        // check if anyone executed
+        if ($fired) {
+            $output->writeln('Migrations are successful revert');
+        } else {
+            $output->writeln('No migrations to revert');
         }
     }
 }

@@ -9,6 +9,7 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Managers\MigrationsManager;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,55 +39,28 @@ class MigrationUpCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $name = $input->getArgument('name');
-        // get all installed migrations from db
-        $records = new Migration();
-        if ($this->dbConnection !== null) {
-            $records->setConnection($this->dbConnection);
-        }
-        $skipped = Arr::pluck('migration', $records->get()->toArray());
-        // scan all available migrations
-        $migrations = File::listFiles('/Private/Migrations', ['.php'], true);
-        if (!Obj::isArray($migrations) || count($migrations) < 1) {
+        // run migration manager - find migrations
+        $manager = new MigrationsManager(null, $this->dbConnection);
+        $search = $manager->search($name, false);
+        if (!Obj::isArray($search) || count($search) < 1) {
             $output->writeln('No migrations found');
             return;
         }
 
-        // list migrations
+        // require confirmation from user each ever migration file
         $fired = false;
-        foreach ($migrations as $migration) {
-            // parse migration fullname and classname
-            $fullName = Str::cleanExtension($migration);
-            $className = Str::firstIn($fullName, '-');
-            // if used search by migration name/date - lets filter this
-            if ($name !== null && !Str::likeEmpty($name)) {
-                // check if current migration name contains search name
-                if (!Str::contains($name, $fullName)) {
-                    continue;
-                }
+        foreach ($search as $migration) {
+            if (!$this->confirm('Are you sure to apply migration: ' . $migration, true)) {
+                continue;
             }
-            File::inc('/Private/Migrations/' . $migration, false, false);
-            // check migration compatability
-            if (class_exists($className) && !Arr::in($fullName, $skipped) && is_a($className, 'Ffcms\Core\Migrations\MigrationInterface', true)) {
-                if ($name !== null && !Str::likeEmpty($name)) {
-                    // require user submit
-                    if (!$this->confirm('Are you sure to apply migration: ' . $fullName, true)) {
-                        continue;
-                    }
-                }
-                // initialize migration class & run up/seed methods
-                $class = new $className($fullName, $this->dbConnection);
-                $class->up();
-                $class->seed();
-
-                $output->writeln('Apply migration(' . $className . '): ' . $migration);
-                $fired = true;
-            }
+            $manager->makeUp($migration);
+            $fired =  true;
         }
 
         if ($fired) {
             $output->writeln('All available migrations applied. Done.');
         } else {
-            $output->writeln('No new migrations found.');
+            $output->writeln('No migrations executed.');
         }
     }
 }
