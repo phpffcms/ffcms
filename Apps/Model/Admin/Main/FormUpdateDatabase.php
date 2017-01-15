@@ -7,6 +7,7 @@ use Apps\ActiveRecord\System;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Managers\MigrationsManager;
 
 /**
  * Class FormUpdateDatabase. Update database business logic model
@@ -36,13 +37,16 @@ class FormUpdateDatabase extends Model
     public function findUpdateFiles()
     {
         // find all file with update sql queries between $dbVersion<->scriptVersion (dbVer <= x <= scriptVer)
-        $all = File::listFiles('/Private/Database/Updates/', ['.php'], true);
-        foreach ($all as $file) {
-            $file = Str::cleanExtension(basename($file));
-            // $file="3.0.0-3.0.1" become to $start = 3.0.0,$end=3.0.1
-            list($start,$end) = explode('-', $file);
-            // true: start <= db & script >= $end
-            if (version_compare($this->dbVersion, $start) !== 1 &&  version_compare($this->scriptVersion, $end) !== -1) {
+        $migrations = new MigrationsManager('/Private/Migrations/Updates/');
+        $search = $migrations->search('update');
+        foreach ($search as $file) {
+            $fullName = Str::cleanExtension(basename($file));
+            $name = Str::firstIn($fullName, '-');
+            // get update version number from migration name
+            list($type, $obj, $version) = explode('_', $name);
+            $intVersion = (int)Str::replace('.', '', $this->dbVersion);
+            // if migration version > db version - implement it
+            if ($version > $intVersion) {
                 $this->updateQueries[] = $file;
             }
         }
@@ -54,10 +58,9 @@ class FormUpdateDatabase extends Model
      */
     public function make()
     {
-        // run update queries from included files
-        foreach ($this->updateQueries as $file) {
-            @include root . '/Private/Database/Updates/' . $file . '.php';
-        }
+        // run update queries from migrations
+        $migration = new MigrationsManager('/Private/Migrations/Updates/');
+        $migration->makeUp($this->updateQueries);
         // update version in db table
         $row = System::getVar('version');
         $row->data = $this->scriptVersion;
