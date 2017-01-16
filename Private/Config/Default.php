@@ -27,6 +27,7 @@
 		'charset' => 'utf8',
 		'collation' => 'utf8_unicode_ci'
 	],
+    'testSuite' => false,
 	'baseLanguage' => 'en',
 	'multiLanguage' => true,
 	'singleLanguage' => 'en',

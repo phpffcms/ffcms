@@ -274,7 +274,7 @@ class Main extends AdminController
             if ($dbModel->send() && $dbModel->validate()) {
                 $dbModel->make();
                 App::$Session->getFlashBag()->add('success', __('Database updates are successful installed'));
-                App::$Response->redirect(Url::to(['main/updates']));
+                App::$Response->redirect(Url::to('main/updates'));
             }
         } elseif ($entityModel->haveRemoteNew) { // download full compiled .zip archive & extract files
             if ($downloadModel->send()) {

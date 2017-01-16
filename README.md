@@ -19,13 +19,7 @@ composer create-project phpffcms/ffcms ./path/to/document_root 3.0.0 --keep-vcs
 composer update
 php console.php main/install
 ```
-If you want to use **beta** (3.0.0-beta) version you should follow this instruction:
-```bash
-composer global require "fxp/composer-asset-plugin:1.2.*"
-composer create-project phpffcms/ffcms ./path/to/document_root --stability="beta" 3.0.0-beta --keep-vcs
-composer update
-php console.php main/install
-```
+
 If you want to use **developer version** you must use "master" branch from developer repository with stability "-dev":
 ```bash
 composer global require "fxp/composer-asset-plugin:1.2.*"
