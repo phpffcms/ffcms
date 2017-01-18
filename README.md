@@ -17,7 +17,7 @@ To deploy ffcms software you must have composer and php-cli:
 composer global require "fxp/composer-asset-plugin:1.2.*"
 composer create-project phpffcms/ffcms ./path/to/document_root 3.0.0 --keep-vcs --prefer-dist
 composer update
-php console.php main/install
+php console.php main:install
 ```
 
 If you want to use **developer version** you must use "master" branch from developer repository with stability "-dev":
@@ -25,7 +25,7 @@ If you want to use **developer version** you must use "master" branch from devel
 composer global require "fxp/composer-asset-plugin:1.2.*"
 composer create-project phpffcms/ffcms ./path/to/document_root --stability="dev" --keep-vcs --prefer-dist
 composer update
-php console.php main/install
+php console.php main:install
 ```
 
 Authors
