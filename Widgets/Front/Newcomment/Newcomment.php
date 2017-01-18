@@ -2,6 +2,7 @@
 
 namespace Widgets\Front\Newcomment;
 
+use Apps\Model\Api\Comments\EntityCommentData;
 use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as AbstractWidget;
 use Ffcms\Core\Traits\ClassTools;
@@ -73,9 +74,14 @@ class Newcomment extends AbstractWidget
             return __('Comments not yet found');
         }
 
+        $commentEntity = null;
+        foreach ($records as $record) {
+            $commentEntity[] = (new EntityCommentData($record, false))->make();
+        }
+
         // render view
     	return App::$View->render('widgets/newcomment/default', [
-    	    'records' => $records,
+    	    'comments' => $commentEntity,
     	    'snippet' => $this->snippet
     	]);
     }
