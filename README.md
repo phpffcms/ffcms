@@ -12,10 +12,10 @@ FFCMS require support php 5.5 or newest. FFCMS include 2 native engine:
 
 INSTALLATION
 ------------
-To deploy ffcms software you must have composer and php-cli (NOT AVAILABLE NOW, LOOK ON BETA/DEV trunks):
+To deploy ffcms software you must have composer and php-cli:
 ```bash
 composer global require "fxp/composer-asset-plugin:1.2.*"
-composer create-project phpffcms/ffcms ./path/to/document_root 3.0.0 --keep-vcs
+composer create-project phpffcms/ffcms ./path/to/document_root 3.0.0 --keep-vcs --prefer-dist
 composer update
 php console.php main/install
 ```
@@ -23,7 +23,7 @@ php console.php main/install
 If you want to use **developer version** you must use "master" branch from developer repository with stability "-dev":
 ```bash
 composer global require "fxp/composer-asset-plugin:1.2.*"
-composer create-project phpffcms/ffcms ./path/to/document_root --stability="dev" --keep-vcs
+composer create-project phpffcms/ffcms ./path/to/document_root --stability="dev" --keep-vcs --prefer-dist
 composer update
 php console.php main/install
 ```
@@ -39,7 +39,7 @@ License (MIT)
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 FFCMS, Mihail Pyatinskyi
+Copyright (c) 2013-2017 FFCMS, Mihail Pyatinskyi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
