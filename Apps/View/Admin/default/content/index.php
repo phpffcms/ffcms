@@ -68,6 +68,10 @@ if ($records->count() < 1) {
 $items = [];
 $moderate = false;
 foreach ($records as $content) {
+    // prevent display items with broken category id
+    if ($content->getCategory() === null) {
+        continue;
+    }
     $frontLink = \App::$Alias->scriptUrl . '/content/read';
     $frontPath = null;
     if (!Str::likeEmpty($content->getCategory()->path)) {

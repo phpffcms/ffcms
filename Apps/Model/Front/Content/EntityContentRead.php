@@ -75,7 +75,7 @@ class EntityContentRead extends Model
 
         // check if title and text are exists
         if (Str::length($this->title) < 1 || Str::length($this->text) < 1) {
-            throw new ForbiddenException();
+            throw new ForbiddenException('Content of this page is empty!');
         }
 
         // get meta data

@@ -45,5 +45,6 @@ return [
     'Remember you can edit content only on moderate stage!' => 'Помните, вы можете редактировать материал только на стадии модерации!',
     'Only authorized users can manage content' => 'Только авторизованные пользователи могут управлять контентом',
     'Content successfully updated' => 'Контент успешно обновлен',
-    'Page not found' => 'Страница не найдена'
+    'Page not found' => 'Страница не найдена',
+    'Content of this page is empty!' => 'Содержимое этой страницы пустое!'
 ];
