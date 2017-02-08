@@ -145,4 +145,20 @@ class ContentCategory extends ActiveModel
         return $properties[$key];
     }
 
+    /**
+     * Get parent category object
+     * @return ContentCategory|null|object
+     */
+    public function getParent()
+    {
+        $path = $this->path;
+        if (!Str::contains('/', $path)) {
+            return null;
+        }
+
+        $arr = explode('/', $path);
+        array_pop($arr);
+        $parentPath = trim(implode('/', $arr), '/');
+        return self::getByPath($parentPath);
+    }
 }
