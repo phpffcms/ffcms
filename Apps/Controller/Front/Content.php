@@ -213,6 +213,9 @@ class Content extends FrontAppController
             throw new ForbiddenException(__('Rss feed is disabled for this category'));
         }
 
+        // set rss/xml header
+        $this->response->headers->set('Content-Type', 'application/rss+xml');
+
         // initialize rss feed objects
         $feed = new Feed();
         $channel = new Channel();
