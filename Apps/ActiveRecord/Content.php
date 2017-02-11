@@ -36,7 +36,7 @@ class Content extends ActiveModel
 
     protected $searchable = [
         'columns' => [
-            'title' => 4,
+            'title' => 10,
             'text' => 2
         ]
     ];
@@ -73,7 +73,7 @@ class Content extends ActiveModel
      */
     public function getRating()
     {
-        return $this->hasMany('Apps\\ActiveRecord\\ContentRating', 'content_id');
+        return $this->hasMany('Apps\ActiveRecord\ContentRating', 'content_id');
     }
 
     /**
@@ -82,7 +82,7 @@ class Content extends ActiveModel
      */
     public function getTags()
     {
-        return $this->hasMany('Apps\\ActiveRecord\\ContentTag', 'content_id');
+        return $this->hasMany('Apps\ActiveRecord\ContentTag', 'content_id');
     }
 
     /**

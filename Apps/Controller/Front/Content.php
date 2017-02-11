@@ -139,7 +139,7 @@ class Content extends FrontAppController
         $search = null;
         // check if similar search is enabled for item category
         if ((int)$model->getCategory()->getProperty('showSimilar') === 1 && $trash === false) {
-            $search = new EntityContentSearch($model->title, $model->id);
+            $search = new EntityContentSearch($model->title, $model->id, $model->getCategory()->id);
         }
 
         // define read event

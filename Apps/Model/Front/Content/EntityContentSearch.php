@@ -18,21 +18,26 @@ class EntityContentSearch extends Model
 {
     const MAX_ITEMS = 5;
     const MIN_QUERY_LENGTH = 2;
+    const SEARCH_BY_WORDS_COUNT = 3;
+    const CACHE_TIME = 120; // seconds
 
     public $items;
 
     private $_terms;
     private $_skip = [0];
+    private $_categoryId;
     private $_records;
 
     /**
      * EntityContentSearch constructor. Pass search terms (query string) to model and used items to skip it by id.
      * @param $terms
      * @param int|array $skipIds
+     * @param int|null $categoryId
      */
-    public function __construct($terms, $skipIds = 0)
+    public function __construct($terms, $skipIds = 0, $categoryId = null)
     {
         $this->_terms = App::$Security->strip_tags(trim($terms, ' '));
+        $this->_categoryId = $categoryId;
         if (Obj::isLikeInt($skipIds)) {
             $this->_skip = [$skipIds];
         } elseif (Obj::isArray($skipIds)) {
@@ -52,11 +57,22 @@ class EntityContentSearch extends Model
             throw new NotFoundException(__('Search terms is too short'));
         }
 
+        // try to get this slow query from cache
+        $records = App::$Cache->get('entity.content.search.index.' . $this->_skip);
+        if ($records === null) {
+            $records = ContentEntity::whereNotIn('id', $this->_skip)
+                ->where('display', 1);
+            if ($this->_categoryId !== null && Obj::isInt($this->_categoryId) && $this->_categoryId > 0) {
+                $records = $records->where('category_id', $this->_categoryId);
+            }
+            $records = $records->search($this->_terms, null, static::SEARCH_BY_WORDS_COUNT)
+                ->take(self::MAX_ITEMS)
+                ->get();
+            App::$Cache->set('entity.content.search.index.' . $this->_skip, $records, static::CACHE_TIME);
+        }
+
         // lets make active record building
-        $this->_records = ContentEntity::whereNotIn('id', $this->_skip)
-            ->search($this->_terms)
-            ->take(self::MAX_ITEMS)
-            ->get();
+        $this->_records = $records;
         $this->buildContent();
         parent::before();
     }
