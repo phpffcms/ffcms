@@ -57,8 +57,9 @@ class EntityContentSearch extends Model
             throw new NotFoundException(__('Search terms is too short'));
         }
 
+        $index = implode('-', $this->_skip);
         // try to get this slow query from cache
-        $records = App::$Cache->get('entity.content.search.index.' . $this->_skip);
+        $records = App::$Cache->get('entity.content.search.index.' . $index);
         if ($records === null) {
             $records = ContentEntity::whereNotIn('id', $this->_skip)
                 ->where('display', 1);
@@ -68,7 +69,7 @@ class EntityContentSearch extends Model
             $records = $records->search($this->_terms, null, static::SEARCH_BY_WORDS_COUNT)
                 ->take(self::MAX_ITEMS)
                 ->get();
-            App::$Cache->set('entity.content.search.index.' . $this->_skip, $records, static::CACHE_TIME);
+            App::$Cache->set('entity.content.search.index.' . $index, $records, static::CACHE_TIME);
         }
 
         // lets make active record building
