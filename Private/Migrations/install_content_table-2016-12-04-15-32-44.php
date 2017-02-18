@@ -14,7 +14,6 @@ class install_content_table extends Migration implements MigrationInterface
      */
     public function up()
     {
-        // @todo: develop migration up features
         $this->getSchema()->create('contents', function($table) {
             $table->increments('id');
             $table->text('title');
@@ -29,7 +28,7 @@ class install_content_table extends Migration implements MigrationInterface
             $table->text('meta_description')->nullable();
             $table->integer('views')->default(0);
             $table->integer('rating')->default(0);
-            $table->string('source', 1024);
+            $table->string('source', 1024)->nullable();
             $table->string('comment_hash', 128)->nullable();
             $table->timestamps();
             $table->softDeletes();
