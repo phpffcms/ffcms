@@ -70,6 +70,9 @@ var contentItemList = {path: {}}
             <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>">
                 <?= $item['title'] ?>
             </a>
+            <?php if ($item['important']): ?>
+                <i class="glyphicon glyphicon-fire"></i>
+            <?php endif; ?>
         </h2>
         <?php if (Arr::in(true, $catMeta)): ?>
         <div class="meta">

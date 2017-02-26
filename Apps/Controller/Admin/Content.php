@@ -68,7 +68,7 @@ class Content extends AdminController
         ]);
 
         // build listing objects
-        $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
+        $records = $query->orderBy('important', 'DESC')->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
 
         return $this->view->render('index', [
             'records' => $records,

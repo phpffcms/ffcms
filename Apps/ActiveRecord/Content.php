@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $author_id
  * @property string $poster
  * @property bool $display
+ * @property bool $important
  * @property array $meta_title
  * @property array $meta_keywords
  * @property array $meta_description
@@ -55,7 +56,8 @@ class Content extends ActiveModel
         'meta_description' => 'serialize',
         'views' => 'integer',
         'rating' => 'integer',
-        'source' => 'string'
+        'source' => 'string',
+        'important' => 'boolean'
     ];
 
     /**

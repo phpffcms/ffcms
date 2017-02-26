@@ -31,6 +31,8 @@ return [
     'Enter meta param description for this content. Recommended is 100-150 characters' => 'Укажите meta параметр описания для данного материала. Рекомендуется использовать 100-150 символов',
     'Public display' => 'Публикация материала',
     'Can users view this content or it only available for administrators?' => 'Могут ли пользователи просматривать данный материал, или доступ к нему в режиме черновика возможен только администраторами?',
+    'Make important' => 'Назначить важным',
+    'Make this material important and stack it on top of all news?' => 'Сделать данный материал важным и закрепить его сверху всех новостей?',
     'Publish date' => 'Дата публикации',
     'Set the date of creation or less this field empty to set current' => 'Укажите дату публикации или оставьте данное поле пустым, чтобы назначить текущее время',
     'Author identity' => 'Идентификатор автора',

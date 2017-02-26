@@ -32,6 +32,7 @@ class FormContentUpdate extends Model
     public $source;
     public $addRating = 0;
     public $createdAt;
+    public $important;
 
     public $galleryFreeId;
 
@@ -79,6 +80,7 @@ class FormContentUpdate extends Model
             $this->source = $this->_content->source;
             $this->createdAt = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
             $this->galleryFreeId = $this->_content->id;
+            $this->important = $this->_content->important;
         }
     }
 
@@ -93,10 +95,10 @@ class FormContentUpdate extends Model
             ['text.' . App::$Request->getLanguage(), 'required'],
             ['text', 'used'],
             ['path', 'reverse_match', '/[\/\'~`\!@#\$%\^&\*\(\)+=\{\}\[\]\|;:"\<\>,\?\\\]/'],
-            [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title'], 'required'],
+            [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title', 'important'], 'required'],
             [['metaTitle', 'metaKeywords', 'metaDescription', 'poster', 'source', 'addRating', 'createdAt'], 'used'],
             [['addRating', 'authorId', 'display'], 'int'],
-            ['display', 'in', [0, 1]],
+            [['important', 'display'], 'in', [0, 1]],
             ['categoryId', 'in', $this->categoryIds()],
             ['path', '\Apps\Model\Admin\Content\FormContentUpdate::validatePath'],
             ['authorId', '\App::$User::isExist']
@@ -137,6 +139,7 @@ class FormContentUpdate extends Model
             'metaKeywords' => __('Meta keywords'),
             'metaDescription' => __('Meta description'),
             'display' => __('Public display'),
+            'important' => __('Make important'),
             'createdAt' => __('Publish date'),
             'authorId' => __('Author identity'),
             'source' => __('Source URL'),
@@ -160,6 +163,7 @@ class FormContentUpdate extends Model
         $this->_content->meta_keywords = $this->metaKeywords;
         $this->_content->meta_description = $this->metaDescription;
         $this->_content->source = $this->source;
+        $this->_content->important = (int)$this->important;
         // check if rating is changed
         if ((int)$this->addRating !== 0) {
             $this->_content->rating += (int)$this->addRating;

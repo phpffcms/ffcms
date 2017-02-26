@@ -174,7 +174,7 @@ class EntityCategoryList extends Model
                 $query = $query->orderBy('views', 'DESC');
                 break;
             default:
-                $query = $query->orderBy('created_at', 'DESC');
+                $query = $query->orderBy('important', 'DESC')->orderBy('created_at', 'DESC');
                 break;
         }
 
@@ -302,7 +302,8 @@ class EntityCategoryList extends Model
                 'canRate' => $canRate,
                 'category' => $this->categories[$row->category_id],
                 'uri' => '/content/read/' . $itemPath,
-                'tags' => $tags
+                'tags' => $tags,
+                'important' => (bool)$row->important
             ];
         }
 

@@ -78,6 +78,7 @@ $propertiesTab .= Nav::display([
 ]);
 
 $otherTab = $form->field('display', 'checkbox', null, __('Can users view this content or it only available for administrators?'));
+$otherTab .= $form->field('important', 'checkbox', null, __('Make this material important and stack it on top of all news?'));
 $otherTab .= $form->field('createdAt', 'text', ['class' => 'form-control datapick'], __('Set the date of creation or less this field empty to set current'));
 $otherTab .= $form->field('authorId', 'text', ['class' => 'form-control'], __('Enter user id to change author of this content'));
 $otherTab .= $form->field('source', 'text', ['class' => 'form-control'], __('Set the source URL if this content is copied from someone other url'));
