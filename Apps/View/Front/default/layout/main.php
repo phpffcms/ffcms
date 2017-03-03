@@ -93,17 +93,17 @@ echo Navbar::display([
 		</div>
 		<!-- Search/language panel -->
 		<div class="col-md-4">
-			<!-- search panel -->
-			<form method="get" action="<?= \Ffcms\Core\Helper\Url::to('search/index') ?>" style="padding-top: 20px;">
-				<div class="input-group">
-					<input id="search-line" type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query" autocomplete="off" required>
-					<span class="input-group-btn">
-						<button class="btn btn-default" id="search-submit" type="submit"><?php echo __('Find'); ?></button>
-					</span>
-				</div>
-			</form>
+            <!-- search panel -->
+            <form method="get" action="<?= \Ffcms\Core\Helper\Url::to('search/index') ?>" style="padding-top: 20px;">
+                <div class="input-group">
+                    <input id="search-line" type="text" class="form-control" placeholder="<?php echo __('search query...'); ?>" name="query" autocomplete="off" required>
+                    <span class="input-group-btn">
+					    <button class="btn btn-default" id="search-submit" type="submit"><?php echo __('Find'); ?></button>
+                    </span>
+                </div>
+            </form>
             <div id="ajax-result-container" class="hidden" style="position: fixed;z-index: 9999;">
-                <div class="list-group col-md-6 col-xs-12" id="ajax-result-items"></div>
+                <div class="list-group col-lg-8 col-md-12" id="ajax-result-items"></div>
                 <div id="ajax-carcase-item" class="hidden">
                     <a href="#" class="list-group-item" id="ajax-search-link">
                         <div class="h4 list-group-item-heading" id="ajax-search-title"></div>
@@ -208,77 +208,7 @@ echo Navbar::display([
 <?php echo \App::$View->showCodeLink('css') ?>
 <?php echo \App::$View->showCodeLink('js'); ?>
 <script>
-    $(document).ready(function(){
-        // notification function for user pm count block (class="pm-count-block")
-        var loadPmInterval = false;
-        var summaryBlock = $('#summary-count-block');
-        var msgBlock = $('#pm-count-block');
-        var notifyBlock = $('#notify-count-block');
-        function ajaxNotify() {
-            $.getJSON(script_url+'/api/profile/notifications?lang='+script_lang, function(resp){
-                if (resp.status === 1) {
-                    if (resp.summary > 0) {
-                        summaryBlock.addClass('alert-danger', 1000).text(resp.summary);
-                        // set new messages count
-                        if (resp.messages > 0) {
-                            msgBlock.text(resp.messages).addClass('alert-danger', 1000);
-                        } else {
-                            msgBlock.removeClass('alert-danger', 1000).text(0);
-                        }
-                        // set new notifications count
-                        if (resp.notify > 0) {
-                            notifyBlock.text(resp.notify).addClass('alert-danger', 1000);
-                        } else {
-                            notifyBlock.removeClass('alert-danger', 1000).text(0);
-                        }
-                    } else {
-                        summaryBlock.removeClass('alert-danger', 1000).text(0);
-                    }
-                    setNotificationNumber(resp.summary);
-                } else if (loadPmInterval !== false) { // remove autorefresh
-                    clearInterval(loadPmInterval);
-                }
-            }).fail(function(){
-                if (loadPmInterval !== false)
-                    clearInterval(loadPmInterval);
-            });
-        }
 
-        // instantly run counter
-        ajaxNotify();
-        // make autorefresh every 10 seconds
-        loadPmInterval = setInterval(ajaxNotify, 10000);
-        // make live search on user keypress in search input
-        $('#search-line').keypress(function(e){
-            // bind key code
-            var keycode = ((typeof e.keyCode !='undefined' && e.keyCode) ? e.keyCode : e.which);
-            // bind current complete query from input field
-            var query = $(this).val();
-            // check if pressed ESC button to hide dropdown results
-            if (keycode === 27) {
-                $('#ajax-result-container').addClass('hidden');
-                return;
-            }
-            if (query.length < 2)
-                return;
-            // cleanup & make AJAX query with building response
-            $('#ajax-result-items').empty();
-            $.getJSON(script_url+'/api/search/index?query='+query+'&lang='+script_lang, function (resp) {
-                if (resp.status !== 1 || resp.count < 1)
-                    return;
-                var searchHtml = $('#ajax-carcase-item').clone().removeClass('hidden');
-                $.each(resp.data, function(relevance, item) {
-                    var searchItem = searchHtml.clone();
-                    searchItem.find('#ajax-search-link').attr('href', '<?= \App::$Alias->baseUrl ?>'+item.uri);
-                    searchItem.find('#ajax-search-title').text(item.title);
-                    searchItem.find('#ajax-search-snippet').text(item.snippet);
-                    $('#ajax-result-items').append(searchItem.html());
-                    searchItem = null;
-                });
-                $('#ajax-result-container').removeClass('hidden');
-            });
-        });
-    });
 </script>
 <?php
 $customJsCode = \App::$View->showPlainCode('js');
