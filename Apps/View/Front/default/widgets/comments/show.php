@@ -134,6 +134,10 @@
                 if (data.user.id > 0) {
                     commentDom.find('#comment-user-avatar').attr('src', data.user.avatar).removeAttr('id');
                     var userLink = $('<a></a>').attr('href', site_url + '/profile/show/'+data.user.id).text(data.user.name);
+                    // check if user has custom group color
+                    if (data.user.color !== 0) {
+                        userLink.attr('style', 'color: ' + data.user.color);
+                    }
                     commentDom.find('#comment-user-nick').html(userLink);
                 } else {
                     commentDom.find('#comment-user-nick').text(data.user.name);
@@ -168,6 +172,9 @@
 
                 if (data.user.id > 0) { // registered user, link required
                     var userLink = $('<a></a>').attr('href', site_url + '/profile/show/'+data.user.id).text(data.user.name);
+                    if (data.user.color !== 0) {
+                        userLink.attr('style', 'color: ' + data.user.color);
+                    }
                     ansDom.find('#answer-user-name').html(userLink).removeAttr('id');
                     ansDom.find('#answer-user-avatar').attr('src', data.user.avatar).removeAttr('id');
                 } else { // its a guest, display only nickname

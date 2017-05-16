@@ -240,13 +240,14 @@ $this->breadcrumbs = [
                 ?>
                 <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
                     <div class="col-xs-4 col-md-2">
-                        <div class="text-center"><img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>"
-                             src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
+                        <div class="text-center">
+                            <img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>" src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
                         </div>
                     </div>
                     <div class="col-xs-8 col-md-10">
-                        <h5 style="margin-top: 0;">
-                            <i class="glyphicon glyphicon-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
+                        <h5 style="margin-top: 0;margin-bottom: 5px;">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <?= Url::link(['profile/show', $post->sender_id], $referNickname, ['style' => 'color: ' . $referObject->getRole()->color]) ?>
                             <small class="pull-right"><?= Date::humanize($post->updated_at); ?></small>
                         </h5>
                         <div class="object-text">
@@ -318,7 +319,7 @@ $this->breadcrumbs = [
         // load answers count via JSON
         if (postIds.length > 0) {
             $.getJSON(script_url + '/api/profile/wallanswercount/' + postIds.join(',') + '?lang=' + script_lang, function (json) {
-                // data is successful loaded, pharse
+                // data is successful loaded, lets parse it and set to exist dom elements as text value
                 if (json.status === 1) {
                     $.each(json.data, function (key, val) {
                         $('#wall-post-response-count-' + key).text(val);
@@ -357,16 +358,24 @@ $this->breadcrumbs = [
                     // clone general dom element
                     var dom = answerDom.clone();
                     // set avatar src
-                    dom.find('#wall-answer-avatar').attr('src', row.user_avatar).removeAttr('id');
+                    dom.find('#wall-answer-avatar')
+                        .attr('src', row.user_avatar)
+                        .removeAttr('id');
                     // set user link
-                    dom.find('#wall-answer-userlink').attr('href', '<?= Url::to('profile/show') ?>/' + row.user_id).text(row.user_nick).removeAttr('id');
+                    dom.find('#wall-answer-userlink')
+                        .attr('href', '<?= Url::to('profile/show') ?>/' + row.user_id).text(row.user_nick)
+                        .attr('style', 'color: '+row.user_color)
+                        .removeAttr('id');
                     // set date
                     dom.find('#wall-answer-date').text(row.answer_date).removeAttr('id');
                     // set message text
                     dom.find('#wall-answer-text').text(row.answer_message);
                     // check if this user can remove answers - answer writer or target user profile
                     if (is_self_profile || row.user_id === viewer_id) {
-                        dom.find('#delete-answer').attr('href', '#send-wall-object-' + postId).attr('id', 'delete-answer-' + row.answer_id + '-' + postId).removeClass('hidden');
+                        dom.find('#delete-answer')
+                            .attr('href', '#send-wall-object-' + postId)
+                            .attr('id', 'delete-answer-' + row.answer_id + '-' + postId)
+                            .removeClass('hidden');
                     }
 
                     answers += dom.html();

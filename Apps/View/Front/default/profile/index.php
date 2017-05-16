@@ -48,7 +48,11 @@ $this->breadcrumbs = [
         </div>
         <div class="col-md-8">
             <h3>
-                <?= Url::link(['profile/show', $profile->user_id], Str::likeEmpty($profile->nick) ? __('No name') . '(id' . $profile->user_id . ')' : $profile->nick) ?>
+                <?= Url::link(
+                    ['profile/show', $profile->user_id],
+                    (Str::likeEmpty($profile->nick) ? __('No name') . '(id' . $profile->user_id . ')' : $profile->nick),
+                    ['style' => 'color: ' . $profile->User()->getRole()->color]
+                ) ?>
             </h3>
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>
             <?php if (\App::$User->identity() !== null && $profile->user_id !== \App::$User->identity()->getId()): ?>

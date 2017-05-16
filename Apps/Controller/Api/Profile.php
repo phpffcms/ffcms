@@ -88,8 +88,10 @@ class Profile extends ApiController
         $result = $object->getAnswer()->orderBy('id', 'DESC')->take(200)->get();
         $response = [];
 
+        /** @var WallAnswer[] $result */
         foreach ($result as $answer) {
             // get user object and profile
+            /** @var \Apps\ActiveRecord\User $user */
             $user = $answer->getUser();
             $profile = $user->getProfile();
             // check if user exist
@@ -102,11 +104,13 @@ class Profile extends ApiController
                 'user_id' => $answer->user_id,
                 'user_nick' => $profile->getNickname(),
                 'user_avatar' => $profile->getAvatarUrl('small'),
+                'user_color' => $user->getRole()->color,
                 'answer_message' => $answer->message,
                 'answer_date' => Date::humanize($answer->created_at)
             ];
         }
 
+        // encode and show json result
         return json_encode(['status' => 1, 'data' => $response]);
     }
 

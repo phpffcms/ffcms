@@ -91,7 +91,7 @@ class Comments extends ApiController
             ->where('moderate', '=', 0);
 
         // check if comments is depend of language locale
-        if ((int)$configs['onlyLocale'] === 1) {
+        if ((bool)$configs['onlyLocale'] === true) {
             $query = $query->where('lang', '=', $this->request->getLanguage());
         }
 
