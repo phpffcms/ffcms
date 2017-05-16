@@ -17,6 +17,7 @@ class FormUserGroupUpdate extends Model
 {
     public $name;
     public $permissions;
+    public $color;
 
     private $_role;
 
@@ -36,6 +37,7 @@ class FormUserGroupUpdate extends Model
     public function before()
     {
         $this->name = $this->_role->name;
+        $this->color = $this->_role->color;
         if ($this->_role->permissions !== null) {
             $this->permissions = explode(';', $this->_role->permissions);
         }
@@ -49,7 +51,8 @@ class FormUserGroupUpdate extends Model
     {
         return [
             'name' => __('Name'),
-            'permissions' => __('Permissions')
+            'permissions' => __('Permissions'),
+            'color' => __('Group color')
         ];
     }
 
@@ -62,7 +65,9 @@ class FormUserGroupUpdate extends Model
         return [
             ['name', 'required'],
             ['name', 'length_min', 3],
-            ['permissions', 'used']
+            ['permissions', 'used'],
+            ['color', 'used'],
+            ['color', 'length_max', 7]
         ];
     }
 
@@ -87,6 +92,7 @@ class FormUserGroupUpdate extends Model
     public function save()
     {
         $this->_role->name = $this->name;
+        $this->_role->color = $this->color;
         if (Str::likeEmpty($this->permissions) || !Str::contains(';', $this->permissions)) {
             $this->_role->permissions = '';
         } else {

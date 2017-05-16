@@ -13,6 +13,7 @@ use Ffcms\Core\Helper\Type\Arr;
  * @property int $id
  * @property string $name
  * @property string $permissions
+ * @property string $color
  * @property string $created_at
  * @property string $updated_at
  */
@@ -21,7 +22,8 @@ class Role extends ActiveModel
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'permissions' => 'string'
+        'permissions' => 'string',
+        'color' => 'string'
     ];
 
     /**

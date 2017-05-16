@@ -31,6 +31,8 @@ return [
     'Manage group' => 'Управление группой',
     'Add group' => 'Добавить группу',
     'Set the name of the group' => 'Укажите название группы',
+    'Group color' => 'Цвет группы',
+    'Set color, used to display user group and user name. Use standard RGB hex color scheme' => 'Укажите цвет, используемый для подсветки названия группы пользователя и его имени. Исползуйте стандартную RGB схему в hex представлении',
     'Add user' => 'Добавить пользователя',
     'Send invite' => 'Выслать приглашение',
     'Invite to %web%' => 'Приглашение на %web%',

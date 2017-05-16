@@ -22,6 +22,7 @@ $this->breadcrumbs = [
 <?= $form->start() ?>
 
 <?= $form->field('name', 'text', ['class' => 'form-control'], __('Set the name of the group')) ?>
+<?= $form->field('color', 'text', ['class' => 'form-control'], __('Set color, used to display user group and user name. Use standard RGB hex color scheme')) ?>
 <?= $form->field('permissions', 'checkboxes', ['options' => $model->getAllPermissions()]) ?>
 
 <div class="col-md-offset-3 col-md-9">

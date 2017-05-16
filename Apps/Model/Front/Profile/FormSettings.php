@@ -91,7 +91,8 @@ class FormSettings extends Model
             ['sex', 'in', [0, 1, 2]],
             ['hobby', 'length_max', '50'],
             ['phone', 'phone'],
-            ['url', 'url']
+            ['url', 'url'],
+            ['nick', 'notequal', $this->_user->login]
         ];
 
         // custom profile fields

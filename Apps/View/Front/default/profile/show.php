@@ -115,6 +115,10 @@ $this->breadcrumbs = [
         <div class="table-responsive">
             <table class="table table-striped">
                 <tr>
+                    <td><?= __('Group') ?></td>
+                    <td><span class="label label-default" style="background-color: <?= $user->getRole()->color ?>;"><?= $user->getRole()->name ?></span></td>
+                </tr>
+                <tr>
                     <td><?= __('Join date'); ?></td>
                     <td><?= Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY); ?></td>
                 </tr>

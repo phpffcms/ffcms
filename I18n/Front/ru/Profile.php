@@ -102,6 +102,7 @@ return [
     'Date' => 'Дата',
     'You must login to view other profile' => 'Вы должны быть авторизованы для просмотра профиля пользователя',
     'You' => 'Вы',
+    'Group' => 'Группа',
     'New message' => 'Написать',
     'You are in blacklist of this user. Your access is limited.' => 'Вы находитесь в черном списке данного пользователя. Ваши права доступа ограничены.',
     'Notifications' => 'Уведомления',

@@ -152,7 +152,7 @@ class Profile extends FrontAppController
             }
         }
 
-        $query = $targetPersone->getWall(); // relation hasMany from users to walls
+        $query = $targetPersone->getWall(); // relation hasMany to user wall records
         // pagination and query params
         $wallPage = (int)$this->request->query->get('page');
         $wallItems = (int)$cfg['wallPostOnPage'];
