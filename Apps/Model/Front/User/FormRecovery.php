@@ -40,10 +40,11 @@ class FormRecovery extends Model
     public function rules()
     {
         return [
-            [['email', 'captcha'], 'required'],
+            ['email', 'required'],
             ['email', 'email'],
+            ['captcha', 'used'],
             ['captcha', 'App::$Captcha::validate'],
-            ['email', 'App::$User::isMailExist'],
+            ['email', 'App::$User::isMailExist']
         ];
     }
 
