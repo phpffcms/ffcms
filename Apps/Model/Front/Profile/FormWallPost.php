@@ -7,6 +7,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Text;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Interfaces\iUser;
 
 /**
@@ -46,10 +47,14 @@ class FormWallPost extends Model
             return false;
         }
 
+        if (!Obj::isLikeInt($delay) || $delay < 0) {
+            $delay = static::POST_GLOBAL_DELAY;
+        }
+
         $find = WallRecords::where('sender_id', '=', $viewer->id)->orderBy('updated_at', 'desc')->first();
         if ($find !== null) {
             $lastPostTime = Date::convertToTimestamp($find->updated_at);
-            if (time() - $lastPostTime < static::POST_GLOBAL_DELAY) { // past time was less then default delay
+            if (time() - $lastPostTime < $delay) { // break execution, passed time is less then default delay
                 return false;
             }
         }
