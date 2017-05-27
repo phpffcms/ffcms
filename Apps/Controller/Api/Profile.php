@@ -259,11 +259,11 @@ class Profile extends ApiController
         // get user person
         $user = App::$User->identity();
 
-        $records = Message::select('*', Capsule::raw('max(created_at) as cmax'), Capsule::raw('min(readed) as tread'))
+        $records = Message::select('target_id', 'sender_id', Capsule::raw('max(`created_at`) as cmax'), Capsule::raw('min(`readed`) as tread'))
             ->where('target_id', '=', $user->id)
             ->orWhere('sender_id', '=', $user->id)
             ->orderBy('cmax', 'DESC')
-            ->groupBy(['target_id', 'sender_id']) // group by ignore orderBy ... make some shit
+            ->groupBy(['sender_id', 'target_id']) // multiple order's can throw exception on some kind of database engines
             ->take($offset * self::MSG_USER_LIST)
             ->get();
 

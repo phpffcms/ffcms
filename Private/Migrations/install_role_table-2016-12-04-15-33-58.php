@@ -32,8 +32,8 @@ class install_role_table extends Migration implements MigrationInterface
     public function seed()
     {
         $this->getConnection()->table('roles')->insert([
-            ['name' => 'OnlyRead', 'permissions' => '', 'created_at' => $this->now, 'updated_at' => $this->now],
-            ['name' => 'User', 'permissions' => 'global/write;global/file', 'created_at' => $this->now, 'updated_at' => $this->now],
+            ['name' => 'OnlyRead', 'permissions' => '', 'color' =>  '#777777', 'created_at' => $this->now, 'updated_at' => $this->now],
+            ['name' => 'User', 'permissions' => 'global/write;global/file', 'color' =>  '#777777', 'created_at' => $this->now, 'updated_at' => $this->now],
             ['name' => 'Moderator', 'permissions' => 'global/write;global/modify;global/file', 'color' => '#598de7', 'created_at' => $this->now, 'updated_at' => $this->now],
             ['name' => 'Admin', 'permissions' => 'global/all', 'color' => '#ff0000', 'created_at' => $this->now, 'updated_at' => $this->now]
         ]);
