@@ -15,7 +15,7 @@ INSTALLATION
 To deploy ffcms software you must have composer and php-cli:
 ```bash
 composer global require "fxp/composer-asset-plugin:1.2.*"
-composer create-project phpffcms/ffcms ./path/to/document_root 3.0.0 --keep-vcs --prefer-dist
+composer create-project phpffcms/ffcms ./path/to/document_root 3.0.1 --keep-vcs --prefer-dist
 composer update
 php console.php main:install
 ```
