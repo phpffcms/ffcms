@@ -8,6 +8,7 @@ use Extend\Version;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
 /**
@@ -17,6 +18,10 @@ use Ffcms\Core\Helper\Type\Obj;
 class EntityUpdate extends Model
 {
     const API_LATEST_RELEASE = 'https://api.github.com/repos/phpffcms/ffcms/releases/latest';
+    public static $apiZipTypes = [
+        'application/zip',
+        'application/x-zip-compressed'
+    ];
 
     public $scriptVersion;
     public $dbVersion;
@@ -62,7 +67,7 @@ class EntityUpdate extends Model
         $download = null;
         if (Obj::isArray($git['assets'])) {
             foreach ($git['assets'] as $asset) {
-                if ($asset['content_type'] === 'application/zip' && $asset['state'] === 'uploaded') {
+                if (Arr::in($asset['content_type'], static::$apiZipTypes) && $asset['state'] === 'uploaded') {
                     $download = $asset['browser_download_url'];
                 }
             }
