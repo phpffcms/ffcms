@@ -14,11 +14,9 @@ class install_userrecovery_table extends Migration implements MigrationInterface
      */
     public function up()
     {
-        // @todo: develop migration up features
         $this->getSchema()->create('user_recoveries', function($table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('password', 512);
             $table->string('token', 128)->nullable();
             $table->boolean('archive')->default(false);
             $table->timestamps();
@@ -30,10 +28,7 @@ class install_userrecovery_table extends Migration implements MigrationInterface
      * Seed created table via up() method with some data
      * @return void
      */
-    public function seed()
-    {
-
-    }
+    public function seed() {}
 
     /**
      * Execute actions when migration is down

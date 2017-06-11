@@ -74,15 +74,12 @@ class FormRecovery extends Model
             }
         }
 
-        // generate pwd, token and pwdCrypt
-        $newPwd = Str::randomLatinNumeric(mt_rand(8, 16));
-        $pwdCrypt = App::$Security->password_hash($newPwd);
-        $token = Str::randomLatinNumeric(mt_rand(64, 128));
+        // generate random token key chr[128]
+        $token = Str::randomLatinNumeric(mt_rand(64, 127));
 
         // write new data to recovery table
         $rObject = new UserRecovery();
         $rObject->user_id = $user->id;
-        $rObject->password = $pwdCrypt;
         $rObject->token = $token;
         $rObject->save();
 
@@ -97,7 +94,6 @@ class FormRecovery extends Model
         $mailTemplate = App::$View->render('user/mail/recovery', [
             'login' => $user->login,
             'email' => $this->email,
-            'password' => $newPwd,
             'token' => $token,
             'id' => $rObject->id
         ]);

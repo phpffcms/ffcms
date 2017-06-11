@@ -5,6 +5,7 @@ namespace Apps\Controller\Front;
 use Apps\ActiveRecord\Invite;
 use Apps\ActiveRecord\UserRecovery;
 use Apps\Model\Front\User\FormLogin;
+use Apps\Model\Front\User\FormPasswordChange;
 use Apps\Model\Front\User\FormRecovery;
 use Apps\Model\Front\User\FormRegister;
 use Apps\Model\Front\User\FormSocialAuth;
@@ -27,6 +28,7 @@ class User extends FrontAppController
     const EVENT_USER_LOGIN_FAIL = 'user.login.fail';
     const EVENT_USER_REGISTER_SUCCESS = 'user.signup.success';
     const EVENT_USER_REGISTER_FAIL = 'user.signup.fail';
+    const EVENT_USER_RECOVERY_SUCCESS = 'user.recovery.success';
 
     /**
      * View login form and process submit action
@@ -37,7 +39,7 @@ class User extends FrontAppController
     public function actionLogin()
     {
         if (App::$User->isAuth()) { // always auth? get the f*ck out
-            throw new ForbiddenException();
+            throw new ForbiddenException(__('You are always authorized on website'));
         }
 
         $configs = $this->getConfigs();
@@ -137,7 +139,7 @@ class User extends FrontAppController
     public function actionSignup()
     {
         if (App::$User->isAuth()) { // always auth? prevent any actions
-            throw new ForbiddenException();
+            throw new ForbiddenException(__('You are always authorized on website, registration not allowed'));
         }
 
         // load configs
@@ -220,43 +222,57 @@ class User extends FrontAppController
     public function actionRecovery($id = null, $token = null)
     {
         if (App::$User->isAuth()) { // always auth? prevent any actions
-            throw new ForbiddenException();
+            throw new ForbiddenException(__('You are always authorized on website, recovery is rejected'));
         }
 
         // is recovery submit?
         if (Obj::isLikeInt($id) && Str::length($token) >= 64) {
-            $rObject = UserRecovery::where('id', '=', $id)
-                ->where('token', '=', $token)
-                ->where('archive', '=', false);
+            $rObject = UserRecovery::where('id', $id)
+                ->where('token', $token)
+                ->where('archive', false);
+
             // check if recovery row exist
             if ($rObject->count() !== 1) {
-                throw new NotFoundException('This recovery data is not found');
+                throw new NotFoundException(__('This recovery data is not found'));
             }
 
+            /** @var UserRecovery $rData */
             $rData = $rObject->first();
             // check if user with this "user_id" in recovery row exist
             $rUser = App::$User->identity($rData->user_id);
             if ($rUser === null) {
-                throw new NotFoundException('User is not found');
+                throw new NotFoundException(__('User is not found'));
             }
 
-            // all is ok, lets set new pwd
-            $rUser->password = $rData->password;
-            $rUser->save();
+            // email link valid, show new password set form
+            $modelPwd = new FormPasswordChange($rUser);
+            // process new password submit
+            if ($modelPwd->send() && $modelPwd->validate()) {
+                // new password is valid, update user data
+                $modelPwd->make();
+                // set password change token as archived row
+                $rData->archive = true;
+                $rData->save();
+                // add event notification
+                // add success event
+                App::$Event->run(static::EVENT_USER_RECOVERY_SUCCESS, [
+                    'model' => $modelPwd
+                ]);
+                // add notification
+                App::$Session->getFlashBag()->add('success', __('Your account password is successful changed!'));
 
-            $rData->archive = true;
-            $rData->save();
+                // lets open user session with recovered data
+                $loginModel = new FormLogin();
+                $loginModel->openSession($rUser);
+                $this->response->redirect('/'); // session is opened, refresh page
+            }
 
-            // add notification
-            App::$Session->getFlashBag()->add('success', __('Your account are successful recovered. We recommend you change password'));
-
-            // lets open user session with recovered data
-            $loginModel = new FormLogin();
-            $loginModel->openSession($rUser);
-            $this->response->redirect('/'); // session is opened, refresh page
+            return $this->view->render('password_recovery', [
+                'model' => $modelPwd
+            ]);
         }
 
-        // lets work with recovery form data
+        // initialize and process recovery form data
         $model = new FormRecovery(true);
         if ($model->send()) {
             if ($model->validate()) {
@@ -280,7 +296,7 @@ class User extends FrontAppController
     public function actionLogout()
     {
         if (!App::$User->isAuth()) { // not auth? what you wanna?
-            throw new ForbiddenException();
+            throw new ForbiddenException(__('You are not authorized user'));
         }
 
         // unset session data
@@ -300,7 +316,7 @@ class User extends FrontAppController
     {
         // sounds like a not valid token
         if (App::$User->isAuth() || Str::length($token) < 32 || !Str::isEmail($email)) {
-            throw new ForbiddenException();
+            throw new ForbiddenException(__('Wrong recovery data'));
         }
         // lets find token&email
         $find = App::$User->where('approve_token', '=', $token)
