@@ -93,7 +93,7 @@ class FormUserGroupUpdate extends Model
     {
         $this->_role->name = $this->name;
         $this->_role->color = $this->color;
-        if (Str::likeEmpty($this->permissions) || !Str::contains(';', $this->permissions)) {
+        if (!Obj::isArray($this->permissions) || count($this->permissions) < 1) {
             $this->_role->permissions = '';
         } else {
             $this->_role->permissions = implode(';', $this->permissions);
