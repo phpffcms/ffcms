@@ -35,6 +35,7 @@ class Profile extends FrontAppController
 {
     const BLOCK_PER_PAGE = 10;
     const NOTIFY_PER_PAGE = 25;
+    const EVENT_CHANGE_PASSWORD = 'profile.changepassword.success';
 
     /**
      * List user profiles on website by defined filter
@@ -373,6 +374,10 @@ class Profile extends FrontAppController
         // check if form is submited and validation is passed
         if ($model->send() && $model->validate()) {
             $model->make();
+            App::$Event->run(static::EVENT_CHANGE_PASSWORD, [
+                'model' => $model
+            ]);
+
             App::$Session->getFlashBag()->add('success', __('Password is successful changed'));
         }
 
