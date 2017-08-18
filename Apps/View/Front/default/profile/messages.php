@@ -41,6 +41,7 @@ $this->breadcrumbs = [
             <div id="messages-now"></div>
             <div id="messages-after"></div>
             <div id="messages-blocked-user" class="hidden alert alert-danger"><?= __('This user are in your black list or you are in blacklist!') ?></div>
+            <div id="message-end-position"></div>
         </div>
         <div class="message-add-container hidden" style="padding-top: 10px;">
             <textarea class="form-control" id="msg-text" maxlength="1000" required></textarea>
@@ -268,12 +269,12 @@ $this->breadcrumbs = [
                     });
                     if (type == 'now') {
                         $('#messages-now').html(msgBody);
-                        $(".message-scroll-body").animate({ scrollTop: $(document).height() }, "slow");
+                        $(".message-scroll-body").animate({ scrollTop: 100000 }, "fast");
                     } else if(type == 'before') {
                         $('#messages-before').prepend(msgBody);
                     } else if (type == 'after') {
                         $('#messages-now').append(msgBody);
-                        $(".message-scroll-body").animate({ scrollTop: $(document).height() }, "slow");
+                        $(".message-scroll-body").animate({ scrollTop: 100000 }, "fast");
                     }
                 });
             };
