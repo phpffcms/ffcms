@@ -117,7 +117,12 @@ class Comments extends ApiController
         }
 
         // calculate comments left count
-        $count = CommentPost::where('pathway', '=', $path)->where('moderate', '=', 0)->count();
+        $countQuery = CommentPost::where('pathway', '=', $path)->where('moderate', '=', 0);
+        // check if comments is depend of language locale
+        if ((bool)$configs['onlyLocale'] === true) {
+            $countQuery = $countQuery->where('lang', '=', $this->request->getLanguage());
+        }
+        $count = $countQuery->count();
         $count -= $offset + $perPage;
         if ($count < 0) {
             $count = 0;
