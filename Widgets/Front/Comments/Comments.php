@@ -20,6 +20,10 @@ class Comments extends Ckeditor
     {
         parent::init();
 
+        if (App::$Request->getLanguage() !== 'en') {
+            App::$Translate->append('/I18n/Front/' . App::$Request->getLanguage() . '/CommentWidget.php');
+        }
+
         if ($this->pathway === null) {
             $this->pathway = App::$Request->getPathInfo();
         }
