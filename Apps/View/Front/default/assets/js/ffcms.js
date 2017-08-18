@@ -38,6 +38,24 @@ var setNotificationNumber = function (num)
 	}
 };
 
+if (typeof(CKEDITOR) !== 'undefined') {
+    CKEDITOR.on('dialogDefinition', function (ev) {
+        // Take the dialog name and its definition from the event data.
+        var dialogName = ev.data.name;
+        var dialogDefinition = ev.data.definition;
+
+        // Check if the definition is from the dialog window you are interested in (the "Link" dialog window).
+        if (dialogName == 'link') {
+            // Get a reference to the "Link Info" tab.
+            var infoTab = dialogDefinition.getContents('target');
+
+            // Set the default value for the URL field.
+            var targetField = infoTab.get('linkTargetType');
+            targetField['default'] = '_blank';
+        }
+    });
+}
+
 // jquery features
 $(document).ready(function(){
     // notification function for user pm count block (class="pm-count-block")
