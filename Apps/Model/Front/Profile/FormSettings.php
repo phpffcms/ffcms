@@ -5,6 +5,7 @@ namespace Apps\Model\Front\Profile;
 use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 
 /**
@@ -44,8 +45,12 @@ class FormSettings extends Model
         foreach ($profile as $property => $value) {
             // if property exist - lets pass data to model
             if (property_exists($this, $property)) {
-                if ($property === 'birthday' && null !== $value) {
-                    $this->birthday = Date::convertToDatetime($value, Date::FORMAT_TO_DAY);
+                if ($property === 'birthday') {
+                    if (Str::likeEmpty($value)) {
+                        $this->birthday = null;
+                    } else {
+                        $this->birthday = Date::convertToDatetime($value, Date::FORMAT_TO_DAY);
+                    }
                     continue;
                 }
                 $this->{$property} = $value;
@@ -117,13 +122,9 @@ class FormSettings extends Model
     public function save()
     {
         $profile = $this->_user->getProfile();
-
         $profile->nick = $this->nick;
         $profile->sex = $this->sex;
-        $newBirthday = Date::convertToDatetime($this->birthday, Date::FORMAT_SQL_DATE);
-        if (false !== $newBirthday) {
-            $profile->birthday = $newBirthday;
-        }
+        $profile->birthday = (Str::likeEmpty($this->birthday) ? null : Date::convertToDatetime($this->birthday, Date::FORMAT_SQL_DATE));
         $profile->city = $this->city;
         $profile->hobby = $this->hobby;
         $profile->phone = $this->phone;

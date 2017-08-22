@@ -371,6 +371,11 @@ label.error {
     max-height: 250px;
 }
 
+.comment-text img {
+    max-height: 150px;
+    max-width: 150px;
+}
+
 .premoderate-comment {
 	color: #e3516a;
 }
