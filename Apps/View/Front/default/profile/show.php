@@ -87,6 +87,7 @@ $this->breadcrumbs = [
         $userMenu = null;
         if (true === $isSelf) {
             $userMenu = [
+                ['type' => 'link', 'link' => ['profile/feed'], 'text' => '<i class="glyphicon glyphicon-fire"></i> ' . __('Feed'), 'html' => true],
                 ['type' => 'link', 'link' => ['profile/avatar'], 'text' => '<i class="glyphicon glyphicon-camera"></i> ' . __('Avatar'), 'html' => true],
                 ['type' => 'link', 'link' => ['profile/messages'], 'text' => '<i class="glyphicon glyphicon-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true],
                 ['type' => 'link', 'link' => ['profile/settings'], 'text' => '<i class="glyphicon glyphicon-cog"></i> ' . __('Settings'), 'html' => true]
@@ -222,8 +223,9 @@ $this->breadcrumbs = [
                 ['base' => 'profile/form/wall_base']
             ); ?>
             <?= $form->start() ?>
-            <?= $form->field('message', 'textarea', ['class' => 'form-control']); ?>
+            <?= $form->field('message', 'textarea', ['class' => 'form-control wysiwyg']); ?>
             <div class="text-right"><?= $form->submitButton(__('Send'), ['class' => 'btn btn-default']); ?></div>
+            <?= Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysiwyg', 'config' => 'config-small', 'jsConfig' => ['height' => '80']]); ?>
             <?= $form->finish(); ?>
             <?php \App::$Alias->addPlainCode('js', "$('#" . $wall->getFormName() . "').on('change keyup keydown paste cut', 'textarea', function () { $(this).height(0).height(this.scrollHeight);}).find('textarea').change();") ?>
         <?php endif; ?>
@@ -388,11 +390,10 @@ $this->breadcrumbs = [
             $.post(script_url + '/api/profile/sendwallanswer/' + postId + '?lang=' + script_lang, {message: message}, function (response) {
                 if (response.status === 1) {
                     loadAnswers(postId);
+                } else {
+                    $('#send-wall-object-' + postId).html('<p class="alert alert-warning"><?= __('Comment send was failed! Try to send it later.') ?></p>');
                 }
-            }, 'json').done(function () {
-                return true;
-            });
-            return false;
+            }, 'json');
         };
 
 
@@ -443,11 +444,7 @@ $this->breadcrumbs = [
                 return null;
             }
 
-            var result = addAnswer(answerToId, message);
-            // sending going wrong !
-            if (false === result) {
-                $('#send-wall-object-' + answerToId).html('<p class="alert alert-warning"><?= __('Comment send was failed! Try to send it later.') ?></p>');
-            }
+            addAnswer(answerToId, message);
         });
 
         // work with + and - rating clicks

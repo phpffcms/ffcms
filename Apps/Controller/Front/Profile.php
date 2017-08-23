@@ -183,6 +183,45 @@ class Profile extends FrontAppController
     }
 
     /**
+     * Show all users feed activity from wall posts
+     * @return string
+     */
+    public function actionFeed()
+    {
+        $cfg = $this->application->configs;
+        // get pagination page id and calc offset
+        $page = (int)$this->request->query->get('page');
+        $items = 10;
+        if ((int)$cfg['wallPostOnFeed'] >= 1) {
+            $items = (int)$cfg['wallPostOnFeed'];
+        }
+        $offset = $page * $items;
+
+        // total wall posts count
+        $total = WallPost::count();
+
+        // build pagination
+        $pagination = new SimplePagination([
+            'url' => ['profile/feed'],
+            'page' => $page,
+            'step' => $items,
+            'total' => $total
+        ]);
+
+        // get records from database as object
+        $records = WallPost::orderBy('id', 'DESC')
+            ->skip($offset)
+            ->take($items)
+            ->get();
+
+        // render output view
+        return $this->view->render('feed', [
+            'records' => $records,
+            'pagination' => $pagination
+        ]);
+    }
+
+    /**
      * User avatar management
      * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException

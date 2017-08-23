@@ -113,5 +113,6 @@ return [
     'New post on the wall: &laquo;%snippet%&raquo;' => 'Новое сообщение на стене: &laquo;%snippet%&raquo;',
     'New answer &laquo;%snippet%&raquo; for wall post &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; к сообщению на стене &laquo;%post%&raquo;',
     'New answer &laquo;%snippet%&raquo; to your comment &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш комментарий &laquo;%post%&raquo;',
-    'New answer &laquo;%snippet%&raquo; to your feedback request &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш запрос обратной связи &laquo;%post%&raquo;'
+    'New answer &laquo;%snippet%&raquo; to your feedback request &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш запрос обратной связи &laquo;%post%&raquo;',
+    'Profile stream' => 'Новости пользователей'
 ];

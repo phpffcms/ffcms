@@ -16,7 +16,7 @@ use Ffcms\Core\Interfaces\iUser;
  */
 class FormWallPost extends Model
 {
-    const MAX_MESSAGE_LENGTH = 500; // 500 symbols
+    const MAX_MESSAGE_LENGTH = 5000; // 5000 symbols
     const POST_GLOBAL_DELAY = 30; // delay between 2 posts from 1 user in seconds
 
     public $message;
@@ -28,9 +28,16 @@ class FormWallPost extends Model
     public function rules()
     {
         return [
-            ['message', 'required'],
-            ['message', 'length_min', 5],
-            ['message', 'length_max', self::MAX_MESSAGE_LENGTH]
+            ['message', 'required', null, true, true],
+            ['message', 'length_min', 5, null, true, true],
+            ['message', 'length_max', self::MAX_MESSAGE_LENGTH, null, true, true]
+        ];
+    }
+
+    public function types()
+    {
+        return [
+            'message' => 'html'
         ];
     }
 

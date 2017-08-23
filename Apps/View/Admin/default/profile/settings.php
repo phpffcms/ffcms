@@ -26,7 +26,8 @@ $this->breadcrumbs = [
 
 <?= $form->field('usersOnPage', 'text', ['class' => 'form-control'], __('How many users will be displayed per one list page?')) ?>
 <?= $form->field('guestView', 'checkbox', null, __('Allow guests view user profiles?')) ?>
-<?= $form->field('wallPostOnPage', 'text', ['class' => 'form-control'], __('How many wall posts must be displayed per one page?')) ?>
+<?= $form->field('wallPostOnPage', 'text', ['class' => 'form-control'], __('How many wall posts must be displayed in one page of profile?')) ?>
+<?= $form->field('wallPostOnFeed', 'text', ['class' => 'form-control'], __('How many wall posts must be displayed on one page of feed list?')) ?>
 <?= $form->field('delayBetweenPost', 'text', ['class' => 'form-control'], __('Delay between 2 posts on wall from one user in seconds')) ?>
 <?= $form->field('rating', 'checkbox', null, __('Enable user rating system?')) ?>
 <?= $form->field('ratingDelay', 'text', ['class' => 'form-control'], __('Delay in seconds between repeat change of rating from one user(model: one to one)')) ?>

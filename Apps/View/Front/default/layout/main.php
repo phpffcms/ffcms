@@ -44,6 +44,7 @@ if (\App::$User->isAuth()) {
     }
     $accountDropdown[] = ['link' => ['profile/show', $userId], 'text' => __('My profile')];
     $accountDropdown[] = ['link' => ['profile/messages'], 'text' => __('Messages') . ' <span class="badge" id="pm-count-block">0</span>', 'html' => true, '!secure' => true];
+    $accountDropdown[] = ['link' => ['profile/feed'], 'text' => __('Feed')];
     $accountDropdown[] = ['link' => ['profile/notifications'], 'text' => __('Notifications') . ' <span class="badge" id="notify-count-block">0</span>', 'html' => true, '!secure' => true];
     if ((bool)AppRecord::getConfig('app', 'Content', 'userAdd')) {
         $accountDropdown[] = ['link' => ['content/my'], 'text' => __('My content')];

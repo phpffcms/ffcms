@@ -12,6 +12,7 @@ class FormSettings extends Model
 {
     public $guestView;
     public $wallPostOnPage;
+    public $wallPostOnFeed;
     public $delayBetweenPost;
     public $rating;
     public $usersOnPage;
@@ -50,7 +51,8 @@ class FormSettings extends Model
     {
         return [
             'guestView' => __('Guest view'),
-            'wallPostOnPage' => __('Post on page'),
+            'wallPostOnPage' => __('Posts in profile'),
+            'wallPostOnFeed' => __('Posts on feed'),
             'delayBetweenPost' => __('Post delay'),
             'rating' => __('Rating'),
             'usersOnPage' => __('User per page'),
@@ -65,8 +67,8 @@ class FormSettings extends Model
     public function rules()
     {
         return [
-            [['guestView', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay'], 'required'],
-            [['guestView', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay'], 'int'],
+            [['guestView', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed'], 'required'],
+            [['guestView', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed'], 'int'],
             [['guestView', 'rating'], 'in', [0, 1]]
         ];
     }
