@@ -17,6 +17,9 @@ $this->breadcrumbs = [
 ?>
 <h1><?= $this->title ?></h1>
 <hr />
+<?php if ($records->count() === 0): ?>
+<p class="alert alert-warning"><?= __('No user wall post found yet') ?></p>
+<?php endif; ?>
 <?php foreach ($records as $post): ?>
     <?php
     $referObject = \App::$User->identity($post->sender_id);

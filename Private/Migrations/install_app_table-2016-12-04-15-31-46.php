@@ -47,6 +47,7 @@ class install_app_table extends Migration implements MigrationInterface
         $configs->profile = serialize([
             'guestView' => 1,
             'wallPostOnPage' => 5,
+            'wallPostOnFeed' => 10,
             'delayBetweenPost' => 30,
             'rating' => 1,
             'ratingDelay' => 60 * 60 * 24,
