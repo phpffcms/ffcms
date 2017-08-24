@@ -8,6 +8,6 @@ namespace Extend;
  */
 class Version
 {
-    const VERSION = '3.0.1'; // symantic version nums
-    const DATE = '28.05.2017'; // date in format d.m.Y
+    const VERSION = '3.0.2'; // symantic version nums
+    const DATE = '24.08.2017'; // date in format d.m.Y
 }

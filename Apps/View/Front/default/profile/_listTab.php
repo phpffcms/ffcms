@@ -12,6 +12,7 @@ if ($rating === 1) {
     $items[] = ['type' => 'link', 'link' => ['profile/index', 'rating'], 'text' => __('Rating')];
 }
 $items[] = ['type' => 'link', 'link' => ['profile/search'], 'text' => __('Search')];
+$items[] = ['type' => 'link', 'link' => ['profile/feed'], 'text' => __('Feed'), 'property' => ['class' => 'pull-right']];
 ?>
 
 <?= Nav::display([
