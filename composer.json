@@ -13,9 +13,7 @@
   "type": "project",
   "homepage": "https://ffcms.org",
   "license": "MIT",
-  "config": {
-    "process-timeout": 1800
-  },
+  "optimize-autoloader": true,
   "require": {
     "php": ">=5.5",
     "lib-curl": "*",
@@ -33,20 +31,24 @@
     "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
     "bower-asset/jquery-ui": "1.11.*@stable",
     "bower-asset/components-font-awesome": "4.*@stable",
-    "bower-asset/dropzone": "4.3.*@stable"
+    "bower-asset/dropzone": "4.3.*@stable",
+    "phpffcms/ffcms-forum": "1.0.*@stable"
   },
   "authors": [
     {
       "name": "Mihail Pyatinskyi",
       "email": "zenn1989@gmail.com",
       "homepage": "http://ffcms.ru",
-      "role": "Developer"
+      "role": "Maintainer"
     }
   ],
-  "extra": {
-    "asset-installer-paths": {
-      "npm-asset-library": "vendor/npm",
-      "bower-asset-library": "vendor/bower"
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "installer-paths": {
+        "npm-asset-library": "vendor/npm",
+        "bower-asset-library": "vendor/bower"
+      }
     }
   }
 }
