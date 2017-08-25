@@ -31,8 +31,7 @@
     "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
     "bower-asset/jquery-ui": "1.11.*@stable",
     "bower-asset/components-font-awesome": "4.*@stable",
-    "bower-asset/dropzone": "4.3.*@stable",
-    "phpffcms/ffcms-forum": "1.0.*@stable"
+    "bower-asset/dropzone": "4.3.*@stable"
   },
   "authors": [
     {
