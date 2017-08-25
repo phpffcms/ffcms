@@ -101,7 +101,7 @@ class FormRecovery extends Model
         $sender = App::$Properties->get('adminEmail');
 
         // format SWIFTMailer format
-        $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Profile', 'Account recovery on %site%', ['site' => App::$Request->getHost()]))
+        $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]))
             ->setFrom([$sender])
             ->setTo([$this->email])
             ->setBody($mailTemplate, 'text/html');

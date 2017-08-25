@@ -81,7 +81,7 @@ return [
     'No any attentions will be displayed!' => 'Больше не будет показано никаких предупреждений!',
     'Remove' => 'Удалить',
     'This user are in your black list or you are in blacklist!' => 'Этот пользователь в вашем черном списке или вы добавлены в черный список пользователя!',
-    'Account recovery on %site%' => 'Восстановление аккаунта на %site%',
+    '%site% - account recovery' => '%site% - восстановление аккаунта',
     'No users in blacklist!' => 'Пользователи не обнаружены в черном списке!',
     'Change password' => 'Смена пароля',
     'Password' => 'Пароль',
