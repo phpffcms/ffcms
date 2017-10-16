@@ -115,7 +115,7 @@ echo $this->render('feedback/_tabs');
             </div>
         </div>
     <?php endforeach; ?>
-<?endif; ?>
+<?php endif; ?>
 
 <?php if ($model !== null): ?>
     <h3><?= __('Add answer') ?></h3>
