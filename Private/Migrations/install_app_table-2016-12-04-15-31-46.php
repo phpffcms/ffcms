@@ -19,7 +19,7 @@ class install_app_table extends Migration implements MigrationInterface
             $table->enum('type', ['widget', 'app']);
             $table->string('sys_name');
             $table->text('name');
-            $table->binary('configs')->nullable();
+            $table->text('configs')->nullable();
             $table->boolean('disabled')->default(false);
             $table->string('version', 32)->default('1.0.0'); // symantic version style
             $table->timestamps();

@@ -19,7 +19,7 @@ class install_contentcategory_table extends Migration implements MigrationInterf
             $table->string('path', 200)->unique();
             $table->text('title');
             $table->text('description')->nullable();
-            $table->binary('configs')->nullable();
+            $table->text('configs')->nullable();
             $table->timestamps();
         });
         parent::up();

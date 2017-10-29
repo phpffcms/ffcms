@@ -80,12 +80,12 @@ class Contenttag extends AbstractWidget
     private function makeQuery()
     {
         return TagRecord::select([
-    	    App::$Database->getConnection()->raw('SQL_CALC_FOUND_ROWS tag'),
-    	    App::$Database->getConnection()->raw('COUNT(*) AS count')
+    	    'tag',
+    	    App::$Database->getConnection()->raw('COUNT(tag) AS count')
     	])->where('lang', '=', $this->_lang)
             ->groupBy('tag')
         	->orderBy('count', 'DESC')
         	->take($this->count)
-        	->get();
+            ->get();
     }
 }

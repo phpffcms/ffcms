@@ -18,7 +18,7 @@ class install_system_table extends Migration implements MigrationInterface
         $this->getSchema()->create('systems', function($table) {
             $table->increments('id');
             $table->string('var', 1024);
-            $table->binary('data');
+            $table->text('data');
             $table->timestamps();
         });
         parent::up();

@@ -19,7 +19,7 @@ class install_usernotification_table extends Migration implements MigrationInter
             $table->string('user_id');
             $table->string('msg', 2048);
             $table->string('uri', 2048);
-            $table->binary('vars')->nullable();
+            $table->text('vars')->nullable();
             $table->boolean('readed')->default(false);
             $table->timestamps();
         });

@@ -20,6 +20,7 @@ use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\MySqlConnection;
 
 class Profile extends ApiController
 {
@@ -259,9 +260,11 @@ class Profile extends ApiController
         // get user person
         $user = App::$User->identity();
 
-        $records = Message::select('target_id', 'sender_id', Capsule::raw('max(`created_at`) as cmax'), Capsule::raw('min(`readed`) as tread'))
+
+        $records = Message::select('target_id', 'sender_id', Capsule::raw('max(created_at) as cmax'))
             ->where('target_id', '=', $user->id)
             ->orWhere('sender_id', '=', $user->id)
+            // ->orderBy('readed', 'DESC') - error happens, cuz readed is boolean in pgsql
             ->orderBy('cmax', 'DESC')
             ->groupBy(['sender_id', 'target_id']) // multiple order's can throw exception on some kind of database engines
             ->take($offset * self::MSG_USER_LIST)
