@@ -82,8 +82,8 @@ class Feedback extends Controller
         }
 
         // get feedback post record from database
-        $recordPost = FeedbackPost::where('id', '=', $id)
-            ->where('hash', '=', $hash)
+        $recordPost = FeedbackPost::where('id', $id)
+            ->where('hash', $hash)
             ->first();
 
         if ($recordPost === null) {
