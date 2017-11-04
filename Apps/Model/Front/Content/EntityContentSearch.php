@@ -61,13 +61,14 @@ class EntityContentSearch extends Model
         // try to get this slow query from cache
         $records = App::$Cache->get('entity.content.search.index.' . $index);
         if ($records === null) {
-            $records = ContentEntity::whereNotIn('id', $this->_skip)
-                ->where('display', 1);
+            $records = new ContentEntity();
+            $records = $records->search($this->_terms, null, static::SEARCH_BY_WORDS_COUNT)
+                ->whereNotIn('id', $this->_skip)
+                ->where('display', true);
             if ($this->_categoryId !== null && Obj::isInt($this->_categoryId) && $this->_categoryId > 0) {
                 $records = $records->where('category_id', $this->_categoryId);
             }
-            $records = $records->search($this->_terms, null, static::SEARCH_BY_WORDS_COUNT)
-                ->take(self::MAX_ITEMS)
+            $records = $records->take(self::MAX_ITEMS)
                 ->get();
             App::$Cache->set('entity.content.search.index.' . $index, $records, static::CACHE_TIME);
         }
