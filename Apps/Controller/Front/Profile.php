@@ -77,7 +77,7 @@ class Profile extends FrontAppController
                 if (Str::likeEmpty($filter_value)) {
                     throw new NotFoundException();
                 }
-                $records = (new ProfileRecords())->where('city', '=', $filter_value);
+                $records = (new ProfileRecords())->where('city', $filter_value);
                 break;
             case 'born':
                 if ($filter_value === null || !Obj::isLikeInt($filter_value)) {
@@ -477,7 +477,7 @@ class Profile extends FrontAppController
         }
 
         // get blocked users
-        $records = Blacklist::where('user_id', '=', $user->getId());
+        $query = Blacklist::where('user_id', '=', $user->getId());
 
         $page = (int)$this->request->query->get('page');
         $offset = $page * self::BLOCK_PER_PAGE;
@@ -487,11 +487,17 @@ class Profile extends FrontAppController
             'url' => ['profile/ignore'],
             'page' => $page,
             'step' => self::BLOCK_PER_PAGE,
-            'total' => $records->count()
+            'total' => $query->count()
         ]);
 
+        // get records as object
+        $records = $query->skip($offset)
+            ->take(self::BLOCK_PER_PAGE)
+            ->get();
+
+        // render output view
         return $this->view->render('ignore', [
-            'records' => $records->skip($offset)->take(self::BLOCK_PER_PAGE)->get(),
+            'records' => $records,
             'model' => $model,
             'pagination' => $pagination
         ]);
@@ -511,15 +517,13 @@ class Profile extends FrontAppController
             throw new ForbiddenException();
         }
 
-        // get user object
-        $user = App::$User->identity();
-
         // get log records
-        $records = $user->getLogs();
+        $records = UserLog::where('user_id', App::$User->identity()->getId());
         if ($records !== null && $records->count() > 0) {
             $records = $records->orderBy('id', 'DESC');
         }
 
+        // render output view
         return $this->view->render('log', [
             'records' => $records
         ]);
@@ -599,8 +603,9 @@ class Profile extends FrontAppController
                 'total' => $records->count()
             ]);
             // make query finally
-            $records = $records->skip($offset)->take($userPerPage)->get();
-
+            $records = $records->skip($offset)
+                ->take($userPerPage)
+                ->get();
         }
 
         // display response

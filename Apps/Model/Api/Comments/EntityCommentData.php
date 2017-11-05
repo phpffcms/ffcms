@@ -54,12 +54,11 @@ class EntityCommentData extends Model
         // build user data
         $userName = __('Unknown');
         $userAvatar = App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
-        $userObject = $this->_record->getUser();
         $userColor = 0;
-        if ($userObject !== null) {
-            $userName = $userObject->getProfile()->getNickname();
-            $userAvatar = $userObject->getProfile()->getAvatarUrl('small');
-            $userColor = $userObject->getRole()->color;
+        if ($this->_record->user !== null && $this->_record->user->id > 0) {
+            $userName = $this->_record->user->profile->getNickname();
+            $userAvatar = $this->_record->user->profile->getAvatarUrl('small');
+            $userColor = $this->_record->user->role->color;
         } else {
             if (!Str::likeEmpty($this->_record->guest_name)) {
                 $userName = App::$Security->strip_tags($this->_record->guest_name);

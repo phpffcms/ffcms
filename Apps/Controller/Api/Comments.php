@@ -96,7 +96,8 @@ class Comments extends ApiController
         }
 
         // get comments with offset and limit
-        $records = $query->skip($offset)
+        $records = $query->with(['user', 'user.profile', 'user.role'])
+            ->skip($offset)
             ->take($perPage)
             ->get();
 
@@ -154,7 +155,8 @@ class Comments extends ApiController
         $configs = AppRecord::getConfigs('widget', 'Comments');
 
         // get data from db by comment id
-        $records = CommentAnswer::where('comment_id', '=', $commentId)
+        $records = CommentAnswer::with(['user', 'user.profile', 'user.role'])
+            ->where('comment_id', '=', $commentId)
             ->where('moderate', '=', 0);
         if ((int)$configs['onlyLocale'] === 1) {
             $records = $records->where('lang', '=', $this->request->getLanguage());

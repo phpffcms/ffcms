@@ -22,6 +22,10 @@ use Ffcms\Core\Helper\Type\Str;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\MySqlConnection;
 
+/**
+ * Class Profile. Api controller provide ajax/json for user profile features
+ * @package Apps\Controller\Api
+ */
 class Profile extends ApiController
 {
     const ITEM_PER_PAGE = 10;
@@ -82,30 +86,32 @@ class Profile extends ApiController
         // try to find this post
         $object = WallPost::find($postId);
 
+        // check if post is exist
         if ($object === null || $object === false) {
             throw new NativeException('Wrong input data');
         }
 
-        $result = $object->getAnswer()->orderBy('id', 'DESC')->take(200)->get();
-        $response = [];
+        // get answer object with relation to user, profile and role table
+        $answers = WallAnswer::with(['user', 'user.profile', 'user.role'])
+            ->where('post_id', $postId)
+            ->orderBy('id', 'DESC')
+            ->take(200)
+            ->get();
 
-        /** @var WallAnswer[] $result */
-        foreach ($result as $answer) {
-            // get user object and profile
-            /** @var \Apps\ActiveRecord\User $user */
-            $user = $answer->getUser();
-            $profile = $user->getProfile();
+        $response = [];
+        /** @var WallAnswer[] $answers */
+        foreach ($answers as $answer) {
             // check if user exist
-            if ($user === null || $user->id < 1) {
+            if ($answer->user === null || $answer->user->id < 1) {
                 continue;
             }
             // generate response array
             $response[] = [
                 'answer_id' => $answer->id,
                 'user_id' => $answer->user_id,
-                'user_nick' => $profile->getNickname(),
-                'user_avatar' => $profile->getAvatarUrl('small'),
-                'user_color' => $user->getRole()->color,
+                'user_nick' => $answer->user->profile->getNickname(),
+                'user_avatar' => $answer->user->profile->getAvatarUrl('small'),
+                'user_color' => $answer->user->role->color,
                 'answer_message' => $answer->message,
                 'answer_date' => Date::humanize($answer->created_at)
             ];
@@ -210,8 +216,8 @@ class Profile extends ApiController
             throw new NativeException('Wrong input data');
         }
 
+        /** @var WallAnswer $findAnswer */
         $findAnswer = WallAnswer::find($answerId);
-
         // check if this answer id exist
         if (null === $findAnswer || false === $findAnswer) {
             throw new NotFoundException('Wrong input data');
@@ -220,7 +226,7 @@ class Profile extends ApiController
         // get current viewer
         $viewer = App::$User->identity();
         // get post info
-        $postInfo = $findAnswer->getWallPost();
+        $postInfo = $findAnswer->post;
 
         // if not a target user of answer and not answer owner - lets throw exception
         if($postInfo->target_id !== $viewer->id && $findAnswer->user_id !== $viewer->id) {
@@ -261,12 +267,12 @@ class Profile extends ApiController
         $user = App::$User->identity();
 
 
-        $records = Message::select('target_id', 'sender_id', Capsule::raw('max(created_at) as cmax'))
+        $records = Message::select('readed', 'target_id', 'sender_id', Capsule::raw('max(created_at) as cmax'))
             ->where('target_id', '=', $user->id)
             ->orWhere('sender_id', '=', $user->id)
-            // ->orderBy('readed', 'DESC') - error happens, cuz readed is boolean in pgsql
+            ->orderBy('readed', 'ASC') //- error happens, cuz readed is boolean in pgsql
             ->orderBy('cmax', 'DESC')
-            ->groupBy(['sender_id', 'target_id']) // multiple order's can throw exception on some kind of database engines
+            ->groupBy(['sender_id', 'target_id', 'readed']) // multiple order's can throw exception on some kind of database engines
             ->take($offset * self::MSG_USER_LIST)
             ->get();
 
@@ -286,7 +292,7 @@ class Profile extends ApiController
             // sender is not myself? then i'm - target (remote user is sender user->to_me)
             if ($row->sender_id !== $user->id) {
                 $userList[] = $row->sender_id;
-                if ((int)$row->tread === 0) {
+                if ((bool)$row->readed !== true) {
                     $unreadList[] = $row->sender_id;
                 }
             }
@@ -304,8 +310,8 @@ class Profile extends ApiController
 
             $response[] = [
                 'user_id' => $user_id,
-                'user_nick' => $identity->getProfile()->getNickname(),
-                'user_avatar' => $identity->getProfile()->getAvatarUrl('small'),
+                'user_nick' => $identity->profile->getNickname(),
+                'user_avatar' => $identity->profile->getAvatarUrl('small'),
                 'message_new' => Arr::in($user_id, $unreadList),
                 'user_block' => !Blacklist::check($user->id, $identity->id)
             ];
@@ -424,12 +430,12 @@ class Profile extends ApiController
         // check if messages exist
         if ($messages->count() < 1) {
             return json_encode(['status' => 0, 'text' => 'No messages']);
-            return;
         }
 
         // build response
         $response = null;
         foreach ($messages->get() as $msg) {
+            /** @var Message $msg */
             $response[] = [
                 'id' => $msg->id,
                 'my' => $msg->sender_id === $user->id,
@@ -437,9 +443,10 @@ class Profile extends ApiController
                 'date' => Date::convertToDatetime($msg->created_at, Date::FORMAT_TO_SECONDS),
                 'readed' => $msg->readed
             ];
+
             // update status to readed
-            if ($msg->readed !== 1 && $msg->sender_id !== $user->id) {
-                $msg->readed = 1;
+            if ((bool)$msg->readed !== true && $msg->sender_id !== $user->id) {
+                $msg->readed = true;
                 $msg->save();
             }
         }
@@ -535,10 +542,10 @@ class Profile extends ApiController
         }
 
         // check delay
-        $diff = Date::convertToTimestamp(time() - $cfg['ratingDelay'], Date::FORMAT_SQL_TIMESTAMP);
+        $diff = Date::convertToDatetime(time() - $cfg['ratingDelay'], Date::FORMAT_SQL_TIMESTAMP);
 
-        $query = ProfileRating::where('target_id', '=', $target->getId())
-            ->where('sender_id', '=', $sender->getId())
+        $query = ProfileRating::where('target_id', $target->getId())
+            ->where('sender_id', $sender->getId())
             ->where('created_at', '>=', $diff)
             ->orderBy('id', 'DESC');
         if ($query !== null && $query->count() > 0) {
@@ -552,14 +559,12 @@ class Profile extends ApiController
         $record->type = $type;
         $record->save();
 
-        // update target profile
-        $profile = $target->getProfile();
         if ($type === '+') {
-            $profile->rating += 1;
+            $target->profile->rating += 1;
         } else {
-            $profile->rating -= 1;
+            $target->profile->rating -= 1;
         }
-        $profile->save();
+        $target->profile->save();
 
         return json_encode(['status' => 1, 'data' => 'ok']);
     }

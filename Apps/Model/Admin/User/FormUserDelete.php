@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Admin\User;
 
+use Apps\ActiveRecord\User;
 use Apps\ActiveRecord\WallPost;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
@@ -61,7 +62,7 @@ class FormUserDelete extends Model
     public function delete()
     {
         foreach ($this->users as $user) {
-            /** @var iUser $user */
+            /** @var User $user */
             $uid = $user->getParam('id');
             // delete wall records
             WallPost::where('target_id', '=', $uid)
@@ -73,9 +74,9 @@ class FormUserDelete extends Model
             File::remove('/upload/user/avatar/small/' . $uid . '.jpg');
             File::remove('/upload/user/avatar/original/' . $uid . '.jpg');
             // delete user profile and auth data
-            $user->getProfile()->delete();
+            $user->profile->delete();
             // delete user provider data
-            $user->getProviders()->delete();
+            $user->provider->delete();
             // delete user object
             $user->delete();
         }

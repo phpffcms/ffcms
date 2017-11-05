@@ -13,6 +13,8 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $message
  * @property string $created_at
  * @property string $updated_at
+ * @property User $user
+ * @property WallPost $post
  */
 class WallAnswer extends ActiveModel
 {
@@ -24,8 +26,27 @@ class WallAnswer extends ActiveModel
     ];
 
     /**
+     * Get user object relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\User', 'user_id');
+    }
+
+    /**
+     * Get wall post object relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function post()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\WallPost', 'post_id');
+    }
+
+    /**
      * Get user identity
      * @return User|null
+     * @deprecated
      */
     public function getUser()
     {
@@ -35,6 +56,7 @@ class WallAnswer extends ActiveModel
     /**
      * Get wall post object
      * @return WallPost|null
+     * @deprecated
      */
     public function getWallPost()
     {

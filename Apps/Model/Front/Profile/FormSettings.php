@@ -41,7 +41,7 @@ class FormSettings extends Model
      */
     public function before()
     {
-        $profile = $this->_user->getProfile()->toArray(); // object to array (property's is protected of access)
+        $profile = $this->_user->profile->toArray(); // object to array (property's is protected of access)
         foreach ($profile as $property => $value) {
             // if property exist - lets pass data to model
             if (property_exists($this, $property)) {
@@ -121,7 +121,7 @@ class FormSettings extends Model
      */
     public function save()
     {
-        $profile = $this->_user->getProfile();
+        $profile = $this->_user->profile;
         $profile->nick = $this->nick;
         $profile->sex = $this->sex;
         $profile->birthday = (Str::likeEmpty($this->birthday) ? null : Date::convertToDatetime($this->birthday, Date::FORMAT_SQL_DATE));

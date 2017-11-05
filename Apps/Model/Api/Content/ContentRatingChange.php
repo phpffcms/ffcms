@@ -80,13 +80,12 @@ class ContentRatingChange extends Model
         if ($authorId > 0 && App::$User->isExist($authorId)) {
             $authorObject = App::$User->identity($authorId);
             if ($authorObject !== null) {
-                $profile = $authorObject->getProfile();
                 if ($this->_type === 'plus') {
-                    $profile->rating += 1;
+                    $authorObject->profile->rating += 1;
                 } else {
-                    $profile->rating -= 1;
+                    $authorObject->profile->rating -= 1;
                 }
-                $profile->save();
+                $authorObject->profile->save();
             }
         }
         return true;

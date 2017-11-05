@@ -16,6 +16,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property User $user
  * @property User $senderUser
  * @property User $targetUser
+ * @property WallAnswer[] $answers
  */
 class WallPost extends ActiveModel
 {
@@ -30,28 +31,36 @@ class WallPost extends ActiveModel
      * Get wall post answers relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getAnswer()
+    public function answers()
     {
-        return $this->hasMany('Apps\\ActiveRecord\\WallAnswer', 'post_id');
+        return $this->hasMany('Apps\ActiveRecord\WallAnswer', 'post_id');
     }
 
+    /**
+     * Get sender user object relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function senderUser()
     {
         return $this->belongsTo('Apps\ActiveRecord\User', 'sender_id');
     }
 
+    /**
+     * Get target user object relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function targetUser()
     {
         return $this->belongsTo('Apps\ActiveRecord\User', 'target_id');
     }
 
     /**
-     * Get relation for user object
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @deprecated
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function user()
+    public function getWallAnswer()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User');
+        return $this->answer();
     }
 
 }

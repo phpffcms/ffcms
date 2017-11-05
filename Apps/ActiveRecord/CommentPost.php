@@ -18,6 +18,8 @@ use Ffcms\Core\Traits\SearchableTrait;
  * @property boolean $moderate
  * @property string $created_at
  * @property string $updated_at
+ * @property User $user
+ * @property CommentAnswer[] $answers
  */
 class CommentPost extends ActiveModel
 {
@@ -40,8 +42,27 @@ class CommentPost extends ActiveModel
     ];
 
     /**
+     * Get user relation object
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\User', 'user_id');
+    }
+
+    /**
+     * Get answers relation objects
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
+    {
+        return $this->hasMany('Apps\ActiveRecord\CommentAnswer', 'comment_id');
+    }
+
+    /**
      * Get user identity
      * @return User|null
+     * @deprecated
      */
     public function getUser()
     {
@@ -51,10 +72,11 @@ class CommentPost extends ActiveModel
     /**
      * Get comment post->answers relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @deprecated
      */
     public function getAnswer()
     {
-        return $this->hasMany('Apps\\ActiveRecord\\CommentAnswer', 'comment_id');
+        return $this->answers();
     }
 
     /**
