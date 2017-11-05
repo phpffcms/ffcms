@@ -51,7 +51,7 @@ $this->breadcrumbs = [
                 <?= Url::link(
                     ['profile/show', $profile->user_id],
                     (Str::likeEmpty($profile->nick) ? __('No name') . '(id' . $profile->user_id . ')' : $profile->nick),
-                    ['style' => 'color: ' . $profile->User()->getRole()->color]
+                    ['style' => 'color: ' . $profile->user->role->color]
                 ) ?>
             </h3>
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>

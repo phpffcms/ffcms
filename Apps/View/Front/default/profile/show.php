@@ -8,24 +8,19 @@ use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
-/** @var $user Apps\ActiveRecord\User */
-/** @var $viewer Apps\ActiveRecord\User */
-/** @var $wall Apps\ActiveRecord\WallPost|null */
-/** @var $notify array|null */
-/** @var $wallRecords object */
-/** @var $pagination Ffcms\Core\Helper\HTML\SimplePagination */
-/** @var $isSelf bool */
-/** @var $ratingOn bool */
-/** @var $this Ffcms\Core\Arch\View */
+/** @var Apps\ActiveRecord\User $user Target user object */
+/** @var Apps\ActiveRecord\User $viewer Viewer user object */
+/** @var Apps\ActiveRecord\WallPost $wallRecords */
+/** @var \Apps\Model\Front\Profile\FormWallPost $wall */
+/** @var array $notify */
+/** @var Ffcms\Core\Helper\HTML\SimplePagination $pagination */
+/** @var bool $isSelf */
+/** @var bool $ratingOn */
+/** @var Ffcms\Core\Arch\View $this */
 
 // $user is a target profile depended object(not current user!!!)
 
-$name = $user->getProfile()->nick;
-
-if (Str::likeEmpty($name)) {
-    $name = __('No name');
-}
-
+$name = $user->profile->getNickname();
 $this->title = __('Profile') . ': ' . $name;
 
 $this->breadcrumbs = [
@@ -45,14 +40,14 @@ $this->breadcrumbs = [
 <?php endif; ?>
 <div class="row">
     <div class="col-md-4">
-        <img src="<?= $user->getProfile()->getAvatarUrl('big') ?>" class="img-responsive center-block img-rounded" />
+        <img src="<?= $user->profile->getAvatarUrl('big') ?>" class="img-responsive center-block img-rounded" />
         <?php
         if ($ratingOn):
             $rateClass = 'btn-default';
-            $rateValue = (int)$user->getProfile()->rating;
-            if ($user->getProfile()->rating > 0) {
+            $rateValue = (int)$user->profile->rating;
+            if ($user->profile->rating > 0) {
                 $rateClass = 'btn-info';
-            } elseif ($user->getProfile()->rating < 0) {
+            } elseif ($user->profile->rating < 0) {
                 $rateClass = 'btn-warning';
             }
         ?>
@@ -117,24 +112,24 @@ $this->breadcrumbs = [
             <table class="table table-striped">
                 <tr>
                     <td><?= __('Group') ?></td>
-                    <td><span class="label label-default" style="background-color: <?= $user->getRole()->color ?>;"><?= $user->getRole()->name ?></span></td>
+                    <td><span class="label label-default" style="background-color: <?= $user->role->color ?>;"><?= $user->role->name ?></span></td>
                 </tr>
                 <tr>
                     <td><?= __('Join date'); ?></td>
                     <td><?= Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY); ?></td>
                 </tr>
-                <?php if ($user->getProfile()->birthday !== null && !Str::startsWith('0000-', $user->getProfile()->birthday)): ?>
+                <?php if ($user->profile->birthday !== null && !Str::startsWith('0000-', $user->profile->birthday)): ?>
                 <tr>
                     <td><?= __('Birthday'); ?></td>
                     <td>
                         <?= Url::link(
-                            ['profile/index', 'born', Date::convertToDatetime($user->getProfile()->birthday, 'Y')],
-                            Date::convertToDatetime($user->getProfile()->birthday, Date::FORMAT_TO_DAY)
+                            ['profile/index', 'born', Date::convertToDatetime($user->profile->birthday, 'Y')],
+                            Date::convertToDatetime($user->profile->birthday, Date::FORMAT_TO_DAY)
                             ) ?>
                     </td>
                 </tr>
                 <?php endif; ?>
-                <?php $sex = $user->getProfile()->sex ?>
+                <?php $sex = $user->profile->sex ?>
                 <tr>
                     <td><?= __('Sex'); ?></td>
                     <td>
@@ -149,34 +144,34 @@ $this->breadcrumbs = [
                         ?>
                     </td>
                 </tr>
-                <?php if (!Str::likeEmpty($user->getProfile()->phone)): ?>
+                <?php if (!Str::likeEmpty($user->profile->phone)): ?>
                 <tr>
                     <td><?= __('Phone'); ?></td>
-                    <td><?= $user->getProfile()->phone ?></td>
+                    <td><?= $user->profile->phone ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if (!Str::likeEmpty($user->getProfile()->url)): ?>
+                <?php if (!Str::likeEmpty($user->profile->url)): ?>
                 <tr>
                     <td><?= __('Website'); ?></td>
                     <td>
-                        <a rel="nofollow" target="_blank" href="<?= $user->getProfile()->url ?>"><?= __('Visit'); ?></a>
+                        <a rel="nofollow" target="_blank" href="<?= $user->profile->url ?>"><?= __('Visit'); ?></a>
                     </td>
                 </tr>
                 <?php endif; ?>
-                <?php if (!Str::likeEmpty($user->getProfile()->city)):
-                    $city = trim($user->getProfile()->city);
+                <?php if (!Str::likeEmpty($user->profile->city)):
+                    $city = trim($user->profile->city);
                 ?>
                 <tr>
                     <td><?= __('City') ?></td>
                     <td><?= Url::link(['profile/index', 'city', $city], $city) ?></td>
                 </tr>
                 <?php endif; ?>
-                <?php if (!Str::likeEmpty($user->getProfile()->hobby)): ?>
+                <?php if (!Str::likeEmpty($user->profile->hobby)): ?>
                 <tr>
                     <td><?= __('Interests'); ?></td>
                     <td>
                         <?php
-                        $hobbyArray = explode(',', $user->getProfile()->hobby);
+                        $hobbyArray = explode(',', $user->profile->hobby);
                         foreach ($hobbyArray as $item) {
                             $item = \App::$Security->strip_tags($item);
                             if (!Str::likeEmpty($item)) {
@@ -188,9 +183,9 @@ $this->breadcrumbs = [
                 </tr>
                 <?php endif; ?>
                 <?php
-                $custom_fields = $user->getProfile()->custom_data;
-                if ($custom_fields !== null && Obj::isArray($custom_fields) && count($custom_fields) > 0): ?>
-                    <?php foreach ($custom_fields as $cid => $value): ?>
+                $customFields = $user->profile->custom_data;
+                if ($customFields !== null && Obj::isArray($customFields) && count($customFields) > 0): ?>
+                    <?php foreach ($customFields as $cid => $value): ?>
                         <?php if (!Str::likeEmpty($value)): ?>
                             <tr>
                                 <td><?= ProfileField::getNameById($cid) ?></td>
@@ -232,24 +227,18 @@ $this->breadcrumbs = [
         <?php
         if ($wallRecords !== null):
             foreach ($wallRecords as $post):
-                /** @var $referObject object */
-                $referObject = \App::$User->identity($post->sender_id);
-                if ($referObject === null) { // caster not founded? skip ...
-                    continue;
-                }
-
-                $referNickname = Simplify::parseUserNick($post->sender_id);
+                /** @var \Apps\ActiveRecord\WallPost $post */
                 ?>
                 <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
                     <div class="col-xs-4 col-md-2">
                         <div class="text-center">
-                            <img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>" src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
+                            <img class="img-responsive img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
                         </div>
                     </div>
                     <div class="col-xs-8 col-md-10">
                         <h5 style="margin-top: 0;margin-bottom: 5px;">
                             <i class="glyphicon glyphicon-user"></i>
-                            <?= Url::link(['profile/show', $post->sender_id], $referNickname, ['style' => 'color: ' . $referObject->getRole()->color]) ?>
+                            <?= Url::link(['profile/show', $post->sender_id], $post->senderUser->profile->getNickname(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
                             <small class="pull-right"><?= Date::humanize($post->updated_at); ?></small>
                         </h5>
                         <div class="object-text">

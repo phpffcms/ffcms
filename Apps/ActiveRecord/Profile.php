@@ -26,6 +26,7 @@ use Ffcms\Core\Interfaces\iProfile;
  * @property array $custom_data
  * @property string $created_at
  * @property string $updated_at
+ * @property User $user
  */
 class Profile extends ActiveModel implements iProfile
 {
@@ -45,35 +46,35 @@ class Profile extends ActiveModel implements iProfile
 
     /**
      * Get user profile via user_id like object (!!! profile.id !== user.id !!!)
-     * @param int|null $user_id
+     * @param int|null $userId
      * @return self|null
      */
-    public static function identity($user_id = null)
+    public static function identity($userId = null)
     {
-        if ($user_id === null) {
-            $user_id = MainApp::$Session->get('ff_user_id');
+        if ($userId === null) {
+            $userId = MainApp::$Session->get('ff_user_id');
         }
 
-        if ($user_id === null || !Obj::isLikeInt($user_id) || $user_id < 1) {
+        if ($userId === null || !Obj::isLikeInt($userId) || $userId < 1) {
             return null;
         }
 
         // check in cache
-        if (MainApp::$Memory->get('profile.object.cache.' . $user_id) !== null) {
-            return MainApp::$Memory->get('profile.object.cache.' . $user_id);
+        if (MainApp::$Memory->get('profile.object.cache.' . $userId) !== null) {
+            return MainApp::$Memory->get('profile.object.cache.' . $userId);
         }
 
         // find row
-        $profile = self::where('user_id', '=', $user_id);
+        $profile = self::where('user_id', $userId);
 
         // empty? lets return null
-        if (false === $profile || null === $profile || $profile->count() !== 1) {
+        if ($profile === null || $profile === false || $profile->count() !== 1) {
             return null;
         }
 
         $object = $profile->first();
 
-        MainApp::$Memory->set('profile.object.cache.' . $user_id, $object);
+        MainApp::$Memory->set('profile.object.cache.' . $userId, $object);
         return $object;
     }
 
@@ -112,11 +113,11 @@ class Profile extends ActiveModel implements iProfile
     }
 
     /**
-     * Get user identity for current object
-     * @return User|null
+     * Get user active record object relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function User()
+    public function user()
     {
-        return User::identity($this->user_id);
+        return $this->belongsTo('Apps\ActiveRecord\User', 'user_id');
     }
 }

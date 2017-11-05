@@ -19,6 +19,11 @@ use Ffcms\Core\Interfaces\iUser;
  * @property string $approve_token
  * @property string $created_at
  * @property string $updated_at
+ * @property WallPost $wall
+ * @property Profile $profile
+ * @property Role $role
+ * @property UserLog $log
+ * @property UserProvider $provider
  */
 class User extends ActiveModel implements iUser
 {
@@ -175,49 +180,37 @@ class User extends ActiveModel implements iUser
     }
 
     /**
-     * Get relation one-to-many for user wall posts. Ex: User::find(1)->getWall()->offset()
+     * Get user wall post relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getWall()
+    public function wall()
     {
         return $this->hasMany('Apps\ActiveRecord\WallPost', 'target_id');
     }
 
     /**
-     * Get user role object
-     * @return \Apps\ActiveRecord\Role|null
+     * Get user role relation object.
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function getRole()
+    public function role()
     {
-        return Role::get($this->role_id);
+        return $this->hasOne('Apps\ActiveRecord\Role', 'id', 'role_id');
     }
 
     /**
-     * Get user profile data as relation of user table. Ex: User::find(1)->getProfile()->nick
-     * @return \Apps\ActiveRecord\Profile
+     * Get user profile relation object.
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function getProfile()
+    public function profile()
     {
-        // lets find profile identity via current user id
-        $object = Profile::identity($this->getId());
-        // is not exist? Hmmm, lets create it!
-        if ($object === null) {
-            // profile is exists, create real model
-            $object = new Profile();
-            if ($this->getId() > 0) {
-                $object->user_id = $this->getId();
-                $object->save();
-            }
-        }
-        // return result ;)
-        return $object;
+        return $this->hasOne('Apps\ActiveRecord\Profile', 'user_id', 'id');
     }
 
     /**
-     * Get user logs
-     * @return \Apps\ActiveRecord\UserLog
+     * Get user logs relation object
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getLogs()
+    public function log()
     {
         return $this->hasMany('Apps\ActiveRecord\UserLog', 'user_id');
     }
@@ -226,7 +219,7 @@ class User extends ActiveModel implements iUser
      * Get user social providers data
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getProviders()
+    public function provider()
     {
         return $this->hasMany('Apps\ActiveRecord\UserProvider', 'user_id');
     }
@@ -257,5 +250,68 @@ class User extends ActiveModel implements iUser
     public function getOpenidInstance()
     {
         return $this->openidProvider;
+    }
+
+    // Below - list of deprecated functions.
+    // All will be removed in 3.1.0 release
+    // @todo: remove me
+
+    /**
+     * @deprecated
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getWall()
+    {
+        return $this->wall;
+    }
+
+    /**
+     * @deprecated
+     * @return Role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Get user profile data as relation of user table. Ex: User::find(1)->getProfile()->nick
+     * @deprecated
+     * @return \Apps\ActiveRecord\Profile
+     */
+    public function getProfile()
+    {
+        // lets find profile identity via current user id
+        $object = Profile::identity($this->getId());
+        // is not exist? Hmmm, lets create it!
+        if ($object === null) {
+            // profile is exists, create real model
+            $object = new Profile();
+            if ($this->getId() > 0) {
+                $object->user_id = $this->getId();
+                $object->save();
+            }
+        }
+        // return result ;)
+        return $object;
+    }
+
+    /**
+     * Get user logs
+     * @deprecated
+     * @return \Apps\ActiveRecord\UserLog
+     */
+    public function getLogs()
+    {
+        return $this->logs();
+    }
+
+    /**
+     * @deprecated
+     * @return UserProvider
+     */
+    public function getProviders()
+    {
+        return $this->provider;
     }
 }

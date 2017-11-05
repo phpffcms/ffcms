@@ -13,6 +13,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $provider_id
  * @property string $created_at
  * @property string $updated_at
+ * @property User $user
  * @package Apps\ActiveRecord
  */
 class UserProvider extends ActiveModel

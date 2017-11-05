@@ -21,19 +21,11 @@ $this->breadcrumbs = [
 <p class="alert alert-warning"><?= __('No user wall post found yet') ?></p>
 <?php endif; ?>
 <?php foreach ($records as $post): ?>
-    <?php
-    $referObject = \App::$User->identity($post->sender_id);
-    if ($referObject === null) { // caster not founded? skip ...
-        continue;
-    }
-
-    $referNickname = Simplify::parseUserNick($post->sender_id);
-    ?>
     <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
         <div class="col-xs-4 col-md-2">
             <div class="text-center">
-                <?= Url::link(['profile/show', $post->sender_id], $referNickname, ['style' => 'color: ' . $referObject->getRole()->color]) ?>
-                <img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>" src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
+                <?= Url::link(['profile/show', $post->sender_id], $post->senderUser->profile->getNickname(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
+                <img class="img-responsive img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
                 <small><?= Date::humanize($post->updated_at); ?></small>
             </div>
         </div>

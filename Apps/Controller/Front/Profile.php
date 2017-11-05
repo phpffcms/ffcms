@@ -101,8 +101,15 @@ class Profile extends FrontAppController
             'total' => $records->count()
         ]);
 
+        // get profile list with relation for user and role tables in 1 query
+        $profiles = $records->with(['user', 'user.role'])
+            ->skip($offset)
+            ->take($userPerPage)
+            ->get();
+
+        // render output view
         return $this->view->render('index', [
-            'records' => $records->skip($offset)->take($userPerPage)->get(),
+            'records' => $profiles,
             'pagination' => $pagination,
             'id' => $filter_name,
             'add' => $filter_value,
@@ -135,7 +142,7 @@ class Profile extends FrontAppController
 
         $wallModel = null;
         // if current user is auth - allow to post messages on wall current user
-        if (App::$User->isAuth() && $viewerPersone->getRole()->can('global/write')) {
+        if (App::$User->isAuth() && $viewerPersone->role->can('global/write')) {
             $wallModel = new FormWallPost();
             // check if request post is done and rules validated
             if ($wallModel->send() && $wallModel->validate()) {
@@ -153,23 +160,30 @@ class Profile extends FrontAppController
             }
         }
 
-        $query = $targetPersone->getWall(); // relation hasMany to user wall records
         // pagination and query params
         $wallPage = (int)$this->request->query->get('page');
         $wallItems = (int)$cfg['wallPostOnPage'];
         $wallOffset = $wallPage * $wallItems;
+
+        // get wall posts by target user_id
+        $wallQuery = WallPost::where('target_id', $targetPersone->getId());
 
         // build pagination
         $wallPagination = new SimplePagination([
             'url' => ['profile/show', $userId, null],
             'page' => $wallPage,
             'step' => $wallItems,
-            'total' => $query->count()
+            'total' => $wallQuery->count()
         ]);
 
-        // get wall messages
-        $wallRecords = $query->orderBy('id', 'desc')->skip($wallOffset)->take($wallItems)->get();
+        // get wall messages as object
+        $wallRecords = $wallQuery->with(['senderUser', 'senderUser.profile', 'senderUser.role'])
+            ->orderBy('id', 'desc')
+            ->skip($wallOffset)
+            ->take($wallItems)
+            ->get();
 
+        // render output view
         return $this->view->render('show', [
             'user' => $targetPersone,
             'viewer' => $viewerPersone,
@@ -198,18 +212,19 @@ class Profile extends FrontAppController
         $offset = $page * $items;
 
         // total wall posts count
-        $total = WallPost::count();
+        $query = new WallPost();
 
         // build pagination
         $pagination = new SimplePagination([
             'url' => ['profile/feed'],
             'page' => $page,
             'step' => $items,
-            'total' => $total
+            'total' => $query->count()
         ]);
 
-        // get records from database as object
-        $records = WallPost::orderBy('id', 'DESC')
+        // get records from database as object related with User, Role, Profile objects
+        $records = $query->with(['senderUser', 'senderUser.role', 'senderUser.profile'])
+            ->orderBy('id', 'DESC')
             ->skip($offset)
             ->take($items)
             ->get();

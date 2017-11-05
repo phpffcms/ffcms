@@ -13,6 +13,9 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $message
  * @property string $created_at
  * @property string $updated_at
+ * @property User $user
+ * @property User $senderUser
+ * @property User $targetUser
  */
 class WallPost extends ActiveModel
 {
@@ -30,6 +33,25 @@ class WallPost extends ActiveModel
     public function getAnswer()
     {
         return $this->hasMany('Apps\\ActiveRecord\\WallAnswer', 'post_id');
+    }
+
+    public function senderUser()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\User', 'sender_id');
+    }
+
+    public function targetUser()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\User', 'target_id');
+    }
+
+    /**
+     * Get relation for user object
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\User');
     }
 
 }

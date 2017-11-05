@@ -16,6 +16,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property bool $readed
  * @property string $created_at
  * @property string $updated_at
+ * @property User $user
  */
 class UserNotification extends ActiveModel
 {

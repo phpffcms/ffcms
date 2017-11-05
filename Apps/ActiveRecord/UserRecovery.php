@@ -13,6 +13,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property bool $archive
  * @property string $created_at
  * @property string $updated_at
+ * @property User $user
  */
 class UserRecovery extends ActiveModel
 {
@@ -22,5 +23,14 @@ class UserRecovery extends ActiveModel
         'token' => 'string',
         'archive' => 'boolean'
     ];
+
+    /**
+     * Get relation to user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\User');
+    }
 
 }
