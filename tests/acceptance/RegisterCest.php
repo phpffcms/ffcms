@@ -12,6 +12,7 @@ class RegisterCest
         $I->fillField('FormRegister[repassword]', 'test3');
         $I->fillField('FormRegister[captcha]', \Helper\Core::getCaptcha());
         $I->click('FormRegister[submit]');
+        $I->wait(1);
         $I->see('Your account is registered. You must confirm account via email');
     }
 }

@@ -19,7 +19,8 @@ class ProfileCest
         $i->see('Profile data', 'h2');
         $i->see('Settings', 'a');
 
-        $i->fillField('FormWallPost[message]', 'Hello! I am a codecept test and i wanna test wall!');
+        $i->executeJS('$(\'textarea[id=FormWallPost-message]\').val(\'Hello! I am a codecept test and i wanna test wall!\');');
+        $i->wait(1);
         $i->click('Send');
 
         $i->see('The message was successful posted!');
@@ -124,6 +125,7 @@ class ProfileCest
 
         // load dialogs
         $i->amOnPage('/profile/messages');
+        $i->wait(1);
         $i->click('//*[@id="msg-user-' . $test1Id . '"]');
         $i->wait(1);
 
