@@ -12,7 +12,7 @@ $this->title = __('Delete post');
 
 $this->breadcrumbs = [
     Url::to('main/index') => __('Home'),
-    Url::to('profile/index') => __('Users'),
+    Url::to('profile/show', App::$User->identity()->getId()) => __('Profile'),
     __('Delete post')
 ];
 
@@ -20,20 +20,15 @@ $this->breadcrumbs = [
 <h1><?= __('Delete wall post') ?></h1>
 <hr />
 <p><?= __('Are you sure to delete this post? No more attention will be displayed!') ?></p>
-<?php
-/** @var $referObject object */
-$referObject = \App::$User->identity($post->sender_id);
-$referNickname = \Ffcms\Core\Helper\Simplify::parseUserNick($post->sender_id);
-?>
 <div class="row wall-post" id="wall-post-<?= $post->id ?>">
     <div class="col-md-2">
         <div class="text-center">
-            <img class="img-responsive img-rounded" alt="Avatar of <?= $referNickname ?>" src="<?= $referObject->getProfile()->getAvatarUrl('small') ?>" />
+            <img class="img-responsive img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
         </div>
     </div>
     <div class="col-md-10">
         <h5 style="margin-top: 0;">
-            <i class="glyphicon glyphicon-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $referNickname) ?>
+            <i class="glyphicon glyphicon-pencil"></i> <?= Url::link(['profile/show', $post->sender_id], $post->senderUser->profile->getNickname()) ?>
             <small class="pull-right"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
         </h5>
         <div class="wall-post-text">

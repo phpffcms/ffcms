@@ -14,6 +14,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $comment
  * @property string $created_at
  * @property string $updated_at
+ * @property User $targetUser
  */
 class Blacklist extends ActiveModel
 {
@@ -56,12 +57,21 @@ class Blacklist extends ActiveModel
     }
 
     /**
+     * Get target user object relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function targetUser()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\User', 'target_id');
+    }
+
+    /**
      * Get target user for current record
      * @return bool|\Illuminate\Support\Collection|null|static
+     * @deprecated
      */
     public function getUser()
     {
-        return MainApp::$User->identity($this->target_id);
+        return $this->targetUser();
     }
-
 }

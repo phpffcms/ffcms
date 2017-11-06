@@ -33,7 +33,7 @@ $this->breadcrumbs = [
         <div class="text-right"><strong><?= __('Profile data') ?></strong></div>
     </div>
     <div class="col-md-9">
-        <?= Url::link(['profile/update', $model->_user->getProfile()->id], __('Edit profile data')); ?>
+        <?= Url::link(['profile/update', $model->_user->profile->id], __('Edit profile data')); ?>
     </div>
 </div>
 <br />

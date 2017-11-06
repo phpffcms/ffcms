@@ -59,7 +59,7 @@ if (\App::$User->isAuth()) {
         'position' => 'right',
         'items' => $accountDropdown
     ];
-    if (\App::$User->identity()->getRole()->can('Admin/Main/Index')) {
+    if (\App::$User->identity()->role->can('Admin/Main/Index')) {
         $items[] = ['type' => 'link', 'link' => \App::$Alias->scriptUrl . '/admin/', 'text' => '<i class="glyphicon glyphicon-cog"></i> Admin', 'position' => 'right', 'html' => true];
     }
     $items[] = ['type' => 'link', 'link' => ['user/logout'], 'text' => '<i class="glyphicon glyphicon-log-out"></i> ' . __('Logout'), 'html' => true, 'position' => 'right'];

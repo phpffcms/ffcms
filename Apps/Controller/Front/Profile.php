@@ -289,6 +289,7 @@ class Profile extends FrontAppController
         }
 
         // try to find the wall post
+        /** @var WallPost $wallPost */
         $wallPost = WallPost::find($postId);
         if (null === $wallPost || false === $wallPost) {
             throw new NotFoundException();
@@ -491,7 +492,8 @@ class Profile extends FrontAppController
         ]);
 
         // get records as object
-        $records = $query->skip($offset)
+        $records = $query->with(['targetUser', 'targetUser.profile'])
+            ->skip($offset)
             ->take(self::BLOCK_PER_PAGE)
             ->get();
 

@@ -40,8 +40,9 @@ $this->breadcrumbs = [
     <?php
     $items = [];
     foreach ($records as $row) {
-        $userProfile = $row->getUser()->getProfile();
-        $userNick = \Ffcms\Core\Helper\Simplify::parseUserNick($userProfile->user_id, __('No name'));
+        /** @var \Apps\ActiveRecord\Blacklist $row */
+        $userProfile = $row->targetUser->profile;
+        $userNick = $userProfile->getNickname();
         $items[] = [
             ['text' => Url::link(['profile/show', $row->target_id], $userNick, ['target' => '_blank']), 'html' => true],
             ['text' => $row->comment],

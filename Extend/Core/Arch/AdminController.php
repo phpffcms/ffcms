@@ -94,7 +94,7 @@ class AdminController extends Controller
         $permission = env_name . '/' . App::$Request->getController() . '/' . App::$Request->getAction();
 
         // doesn't have permission? get the f*ck out
-        if (!$user->getRole()->can($permission)) {
+        if (!$user->role->can($permission)) {
             App::$Session->invalidate();
 
             $redirectUrl = App::$Alias->scriptUrl . '/user/login';

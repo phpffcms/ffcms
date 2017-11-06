@@ -79,7 +79,7 @@ echo $this->render('feedback/_tabs');
                 if ((int)$record->user_id > 0) {
                     $user = \App::$User->identity($record->user_id);
                     if ($user !== null && $user->getId() > 0) {
-                        $uInfo = Url::link(['user/update', $user->getId()], $user->getProfile()->getNickname());
+                        $uInfo = Url::link(['user/update', $user->getId()], $user->profile->getNickname());
                     }
                 }
                 ?>
@@ -99,8 +99,8 @@ echo $this->render('feedback/_tabs');
     </div>
 </div>
 
-<?php if ($record->getAnswers()->count() > 0): ?>
-    <?php foreach ($record->getAnswers()->get() as $answer): ?>
+<?php if ($record->answers->count() > 0): ?>
+    <?php foreach ($record->answers->get() as $answer): ?>
         <div class="panel <?= (int)$answer->is_admin === 1 ? 'panel-success' : 'panel-default' ?>">
             <div class="panel-heading">
                 <?= __('From') ?>: <?= $answer->name . '(' . $answer->email . ')' . ((int)$answer->user_id > 0 ? Url::link(['user/update', $answer->user_id], '[id' . $answer->user_id . ']') : null) ?>,

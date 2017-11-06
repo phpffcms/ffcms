@@ -112,7 +112,7 @@ class Content extends ApiController
         }
 
         // check if user have permission to access there
-        if (!App::$User->isAuth() || !App::$User->identity()->getRole()->can('global/file')) {
+        if (!App::$User->isAuth() || !App::$User->identity()->role->can('global/file')) {
             throw new NativeException(__('Permissions to upload is denied'));
         }
 
@@ -193,7 +193,7 @@ class Content extends ApiController
         }
 
         // check if user have permission to access there
-        if (!App::$User->isAuth() || !App::$User->identity()->getRole()->can('global/file')) {
+        if (!App::$User->isAuth() || !App::$User->identity()->role->can('global/file')) {
             throw new NativeException('Permission denied');
         }
 

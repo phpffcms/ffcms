@@ -31,7 +31,7 @@ foreach ($model->users as $user) {
         ['text' => $user->getParam('id')],
         ['text' => $user->getParam('email')],
         ['text' => $user->getParam('login')],
-        ['text' => $user->getProfile()->getNickname()],
+        ['text' => $user->profile->getNickname()],
         ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_HOUR)]
     ];
 }

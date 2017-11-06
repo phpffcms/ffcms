@@ -30,6 +30,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $created_at
  * @property string $updated_at
  * @property string|null $deleted_at
+ * @property ContentCategory $category
+ * @property ContentRating[] $ratings
+ * @property ContentTag[] $tags
+ * @property User $user
  */
 class Content extends ActiveModel
 {
@@ -61,30 +65,39 @@ class Content extends ActiveModel
     ];
 
     /**
-     * Get category relation of this content id
-     * @return \Apps\ActiveRecord\ContentCategory|null
+     * Get content category object relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function getCategory()
+    public function category()
     {
-        return ContentCategory::getById($this->category_id);
+        return $this->belongsTo('Apps\ActiveRecord\ContentCategory', 'category_id');
     }
 
     /**
-     * Get content_rating relation one-to-many
+     * Get content rating objects relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getRating()
+    public function ratings()
     {
         return $this->hasMany('Apps\ActiveRecord\ContentRating', 'content_id');
     }
 
     /**
-     * Get content_tags relation one-to-many
+     * Get content tag objects relation
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getTags()
+    public function tags()
     {
         return $this->hasMany('Apps\ActiveRecord\ContentTag', 'content_id');
+    }
+
+    /**
+     * Get user object relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Apps\ActiveRecord\User', 'author_id');
     }
 
     /**
@@ -98,7 +111,7 @@ class Content extends ActiveModel
         }
 
         // get category pathway
-        $path = $this->getCategory()->path;
+        $path = $this->category->path;
         if (!Str::likeEmpty($path)) {
             $path .= '/';
         }
@@ -149,5 +162,35 @@ class Content extends ActiveModel
         }
 
         return $path;
+    }
+
+    /**
+     * Get category relation of this content id
+     * @return \Apps\ActiveRecord\ContentCategory|null
+     * @deprecated
+     */
+    public function getCategory()
+    {
+        return ContentCategory::getById($this->category_id);
+    }
+
+    /**
+     * Get content_rating relation one-to-many
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @deprecated
+     */
+    public function getRating()
+    {
+        return $this->ratings();
+    }
+
+    /**
+     * Get content_tags relation one-to-many
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @deprecated
+     */
+    public function getTags()
+    {
+        return $this->tags();
     }
 }

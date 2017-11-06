@@ -95,7 +95,7 @@ class EntityContentRead extends Model
         // set user data
         if (App::$User->isExist($this->_content->author_id)) {
             $this->authorId = $this->_content->author_id;
-            $profile = App::$User->identity($this->authorId)->getProfile();
+            $profile = App::$User->identity($this->authorId)->profile;
             $this->authorName = $profile->getNickname();
         }
 

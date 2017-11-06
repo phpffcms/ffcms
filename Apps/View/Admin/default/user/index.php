@@ -28,7 +28,7 @@ $this->breadcrumbs = [
             1 => ['text' => $user->id],
             2 => ['text' => $user->email],
             3 => ['text' => $user->login],
-            4 => ['text' => $user->getRole()->name],
+            4 => ['text' => $user->role->name],
             5 => ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
             6 => ['text' => Url::link(['user/update', $user->id], '<i class="fa fa-pencil fa-lg"></i>') .
                 Url::link(['user/delete', $user->id], ' <i class="fa fa-trash-o fa-lg"></i>'),

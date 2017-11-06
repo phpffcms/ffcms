@@ -18,6 +18,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $ip
  * @property string $created_at
  * @property string $updated_at
+ * @property FeedbackAnswer[] $answers
  */
 class FeedbackPost extends ActiveModel
 {
@@ -34,16 +35,21 @@ class FeedbackPost extends ActiveModel
     ];
 
     /**
-     * Get all answers for this feedback post id
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany|null
+     * Get feedback answers relation object
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function getAnswers()
+    public function answers()
     {
-        if ($this->id === null) {
-            return null;
-        }
-
         return $this->hasMany('Apps\ActiveRecord\FeedbackAnswer', 'feedback_id');
     }
 
+    /**
+     * Get all answers for this feedback post id
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany|null
+     * @deprecated
+     */
+    public function getAnswers()
+    {
+        return $this->answers();
+    }
 }

@@ -42,7 +42,7 @@ class FormAnswerAdd extends Model
     {
         if ($this->_userId > 0) {
             $user = App::$User->identity($this->_userId);
-            $this->name = $user->getProfile()->nick;
+            $this->name = $user->profile->nick;
             $this->email = $user->getParam('email');
         }
         $this->_ip = App::$Request->getClientIp();

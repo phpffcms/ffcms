@@ -124,7 +124,7 @@ class Content extends FrontAppController
         // if no entity is founded for this path lets try to find on trashed
         if ($contentRecord === null || $contentRecord->count() !== 1) {
             // check if user can access to content list on admin panel
-            if (!App::$User->isAuth() || !App::$User->identity()->getRole()->can('Admin/Content/Index')) {
+            if (!App::$User->isAuth() || !App::$User->identity()->role->can('Admin/Content/Index')) {
                 throw new NotFoundException();
             }
             // lets try to find in trashed
@@ -178,7 +178,9 @@ class Content extends FrontAppController
         }
 
         // get equal rows order by creation date
-        $records = ContentEntity::where('meta_keywords', 'like', '%' . $tagName . '%')->orderBy('created_at', 'DESC')->take(self::TAG_PER_PAGE);
+        $records = ContentEntity::where('meta_keywords', 'like', '%' . $tagName . '%')
+            ->orderBy('created_at', 'DESC')
+            ->take(self::TAG_PER_PAGE);
         // check if result is not empty
         if ($records->count() < 1) {
             throw new NotFoundException(__('Nothing founded'));

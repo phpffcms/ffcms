@@ -160,7 +160,8 @@ class EntityCategoryList extends Model
         $offset = $this->_page * $itemPerPage;
 
         // get all items from categories
-        $query = ContentRecord::whereIn('category_id', $this->_catIds)
+        $query = ContentRecord::with(['user', 'user.profile'])
+            ->whereIn('category_id', $this->_catIds)
             ->where('display', '=', 1);
         // save count
         $this->_contentCount = $query->count();
@@ -268,7 +269,7 @@ class EntityCategoryList extends Model
                 $tags = null;
             }
 
-            $owner = App::$User->identity($row->author_id);
+            $owner = $row->user;
             // make a fake if user is not exist over id
             if ($owner === null) {
                 $owner = new User();

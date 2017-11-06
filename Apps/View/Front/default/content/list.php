@@ -95,7 +95,7 @@ var contentItemList = {path: {}}
             <?php if ($catConfigs['showAuthor'] === true): ?>
             <span class="spaced"><i class="glyphicon glyphicon-user"></i>
                 <?php
-                $ownerNick = $item['author']->getProfile()->getNickname();
+                $ownerNick = $item['author']->profile->getNickname();
                 if ($item['author']->getId() < 1) {
                     echo '<s>' . $ownerNick . '</s>';
                 } else {

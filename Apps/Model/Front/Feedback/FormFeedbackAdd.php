@@ -40,7 +40,7 @@ class FormFeedbackAdd extends Model
     {
         if (App::$User->isAuth()) {
             $data = App::$User->identity();
-            $this->name = $data->getProfile()->nick;
+            $this->name = $data->profile->nick;
             $this->email = $data->email;
         }
     }

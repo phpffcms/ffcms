@@ -11,7 +11,7 @@ use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
 // check if content is trashed or hidden from display and show it only for admin with content.index permissions
-if (($trash || !$model->display) && (!\App::$User->isAuth() || !\App::$User->identity()->getRole()->can('Admin/Content/Index'))) {
+if (($trash || !$model->display) && (!\App::$User->isAuth() || !\App::$User->identity()->role->can('Admin/Content/Index'))) {
     throw new \Ffcms\Core\Exception\NotFoundException(__('Page not found'));
 }
 
@@ -79,7 +79,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         <?php if ($properties['views'] === true): ?>
         <span class="spaced"><i class="glyphicon glyphicon-eye-open"></i> <?= $model->views ?></span>
         <?php endif ?>
-        <?php if (\App::$User->isAuth() && \App::$User->identity()->getRole()->can('Admin/Content/Update')): ?>
+        <?php if (\App::$User->isAuth() && \App::$User->identity()->role->can('Admin/Content/Update')): ?>
         <span class="pull-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="glyphicon glyphicon-pencil" style="color: #ff0000;"></i></a></span>
         <?php endif; ?>
     </div>
