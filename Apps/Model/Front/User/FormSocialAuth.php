@@ -158,7 +158,7 @@ class FormSocialAuth extends FormRegister
         }
 
         // try to get image binary data
-        $imageContent = Url::download($url);
+        $imageContent = File::getFromUrl($url);
         if ($imageContent === null || Str::likeEmpty($imageContent)) {
             return;
         }

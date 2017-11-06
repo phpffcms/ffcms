@@ -42,8 +42,8 @@ class SearchContent extends Model implements SearchContainer
     public function getResult()
     {
         // relevant search by string query
-        $records = Content::where('display', '=', 1)
-            ->search($this->query)
+        $records = Content::search($this->query)
+            ->where('display', '=', 1)
             ->take($this->limit)
             ->get();
 

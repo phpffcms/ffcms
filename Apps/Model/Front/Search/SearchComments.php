@@ -40,8 +40,8 @@ class SearchComments extends Model implements SearchContainer
     public function getResult()
     {
         // search in comments post
-        $query = CommentPost::where('moderate', '=', 0)
-            ->search($this->query)
+        $query = CommentPost::search($this->query)
+            ->where('moderate', '=', 0)
             ->take($this->limit)
             ->get();
 

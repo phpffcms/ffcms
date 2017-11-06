@@ -105,7 +105,7 @@ class Main extends ApiController
         if (App::$Cache->get('download.ffcms.api.news.'.$this->lang) !== null) {
             $news = App::$Cache->get('download.ffcms.api.news.'.$this->lang);
         } else {
-            $news = Url::download('https://ffcms.org/api/api/news?lang=' . $this->lang);
+            $news = File::getFromUrl('https://ffcms.org/api/api/news?lang=' . $this->lang);
             if ($news !== null && !Str::likeEmpty($news)) {
                 App::$Cache->set('download.ffcms.api.news.'.$this->lang, $news, 3600 * 12);
             }

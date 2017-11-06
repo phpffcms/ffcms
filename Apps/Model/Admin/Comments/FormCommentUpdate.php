@@ -84,7 +84,7 @@ class FormCommentUpdate extends Model
     {
         $id = $this->_record->id;
         if ($this->type === 'answer') {
-            $id = $this->_record->getCommentPost()->id;
+            $id = $this->_record->post->id;
         }
 
         return $id;

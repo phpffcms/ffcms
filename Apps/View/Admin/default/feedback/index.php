@@ -33,7 +33,7 @@ foreach ($records as $item) {
     $items[] = [
         ['text' => $item->id . ((int)$item->readed !== 1 ? ' <i class="fa fa-bell alert-info"></i>'  : null), 'html' => true],
         ['text' => Url::link(['feedback/read', $item->id], Text::snippet($item->message, 40, false)), 'html' => true],
-        ['text' => $item->getAnswers()->count()],
+        ['text' => $item->answers->count()],
         ['text' => $item->email],
         ['text' =>
             (int)$item->closed === 1 ?

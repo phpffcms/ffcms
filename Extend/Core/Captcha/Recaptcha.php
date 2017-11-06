@@ -3,6 +3,7 @@
 namespace Extend\Core\Captcha;
 
 use Ffcms\Core\App;
+use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Interfaces\iCaptcha;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +66,7 @@ class Recaptcha implements iCaptcha
 
         // make request and parse response
         $url = $request->getSchemeAndHttpHost() . $request->getRequestUri();
-        $response = Url::download($url);
+        $response = File::getFromUrl($url);
         $object = json_decode($response);
 
         return $object->success;

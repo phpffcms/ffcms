@@ -43,7 +43,7 @@ $this->breadcrumbs = [
     </div>
 </div>
 <?php
-$answers = $record->getAnswer();
+$answers = $record->answers;
 if ($answers === null || $answers->count() < 1) {
     return null;
 }
@@ -51,7 +51,7 @@ if ($answers === null || $answers->count() < 1) {
 
 <h2><?= __('Comment answers') ?></h2>
 <?php
-foreach ($answers->get() as $answer):
+foreach ($answers as $answer):
 /** @var \Apps\ActiveRecord\CommentAnswer $answer */
 ?>
 <div class="panel panel-default" id="answer-<?= $answer->id ?>">

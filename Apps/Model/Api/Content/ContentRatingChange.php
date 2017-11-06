@@ -34,7 +34,7 @@ class ContentRatingChange extends Model
      */
     public function isAlreadyRated()
     {
-        return $this->_content->getRating()->where('user_id', '=', $this->_user->getId())->count() > 0;
+        return $this->_content->ratings->where('user_id', '=', $this->_user->getId())->count() > 0;
     }
     
     /**

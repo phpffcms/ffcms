@@ -1,7 +1,8 @@
 <?php
 
-/** @var $model Apps\Model\Admin\User\FormUserDelete */
-/** @var $this object */
+/** @var Apps\Model\Admin\User\FormUserDelete $model */
+/** @var \Ffcms\Core\Arch\View $this */
+
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Table;
@@ -26,12 +27,13 @@ $this->breadcrumbs = [
 <?php
 $items = [];
 foreach ($model->users as $user) {
-/** @var \Apps\ActiveRecord\User $user */
+    /** @var \Apps\ActiveRecord\User $user */
+    $nickname = ($user->profile === null ? 'unknown' : $user->profile->getNickname());
     $items[] = [
         ['text' => $user->getParam('id')],
         ['text' => $user->getParam('email')],
         ['text' => $user->getParam('login')],
-        ['text' => $user->profile->getNickname()],
+        ['text' => $nickname],
         ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_HOUR)]
     ];
 }

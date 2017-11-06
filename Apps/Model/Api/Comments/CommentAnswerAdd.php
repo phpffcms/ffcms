@@ -118,7 +118,7 @@ class CommentAnswerAdd extends Model
         $record->save();
 
         // add notification for comment post owner
-        $commentPost = $record->getCommentPost();
+        $commentPost = $record->post;
         if ($commentPost !== null && (int)$commentPost->user_id !== 0 && (int)$commentPost->user_id !== $this->_userId) {
             $notify = new EntityAddNotification((int)$commentPost->user_id);
             $notify->add($commentPost->pathway, EntityAddNotification::MSG_ADD_COMMENTANSWER, [
