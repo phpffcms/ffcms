@@ -13,6 +13,7 @@ class FormWallPostDelete extends Model
 {
     public $id;
 
+    /** @var WallPost */
     private $_post;
 
     /**
@@ -38,7 +39,7 @@ class FormWallPostDelete extends Model
      */
     public function make()
     {
-        $this->_post->getAnswer()->delete();
+        $this->_post->answers()->delete();
         $this->_post->delete();
     }
 

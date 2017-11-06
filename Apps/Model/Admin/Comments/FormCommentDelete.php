@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Admin\Comments;
 
+use Apps\ActiveRecord\CommentPost;
 use Ffcms\Core\Arch\Model;
 
 /**
@@ -15,7 +16,7 @@ class FormCommentDelete extends Model
 
     /**
      * FormCommentDelete constructor. Pass active record and type of comment system inside.
-     * @param object $record
+     * @param CommentPost[] $record
      * @param string $type
      */
     public function __construct($record, $type)
@@ -32,8 +33,9 @@ class FormCommentDelete extends Model
     {
         // also delete all answers
         if ($this->_type === 'comment') {
-            foreach ($this->_record->get() as $com) {
-                $com->getAnswer()->delete();
+            foreach ($this->getRecord() as $com) {
+                /** @var CommentPost $com */
+                $com->answers()->delete();
             }
         }
 
