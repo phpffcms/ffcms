@@ -37,7 +37,7 @@ class Feedback extends Controller
         $offset = $page * self::ITEM_PER_PAGE;
 
         // get feedback posts AR table
-        $query = new FeedbackPost();
+        $query = FeedbackPost::with(['answers']);
 
         // build pagination
         $pagination = new SimplePagination([
@@ -68,7 +68,8 @@ class Feedback extends Controller
     public function actionRead($id)
     {
         // find feedback post by id
-        $record = FeedbackPost::find($id);
+        $record = FeedbackPost::with(['user', 'user.profile'])
+            ->find($id);
         if ($record === null || $record === false) {
             throw new NotFoundException(__('The feedback message is not founded'));
         }

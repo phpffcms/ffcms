@@ -100,7 +100,7 @@ echo $this->render('feedback/_tabs');
 </div>
 
 <?php if ($record->answers->count() > 0): ?>
-    <?php foreach ($record->answers->get() as $answer): ?>
+    <?php foreach ($record->answers as $answer): ?>
         <div class="panel <?= (int)$answer->is_admin === 1 ? 'panel-success' : 'panel-default' ?>">
             <div class="panel-heading">
                 <?= __('From') ?>: <?= $answer->name . '(' . $answer->email . ')' . ((int)$answer->user_id > 0 ? Url::link(['user/update', $answer->user_id], '[id' . $answer->user_id . ']') : null) ?>,

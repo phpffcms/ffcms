@@ -34,7 +34,7 @@ class Profile extends AdminController
     public function actionIndex()
     {
         // init Active Record
-        $query = new ProfileRecords();
+        $query = ProfileRecords::with(['user']);
 
         // set current page and offset
         $page = (int)$this->request->query->get('page');
@@ -49,7 +49,10 @@ class Profile extends AdminController
         ]);
 
         // build listing objects
-        $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
+        $records = $query->orderBy('id', 'desc')
+            ->skip($offset)
+            ->take(self::ITEM_PER_PAGE)
+            ->get();
 
         // display viewer
         return $this->view->render('index', [
@@ -92,10 +95,8 @@ class Profile extends AdminController
             throw new NotFoundException();
         }
 
-        // get user object from profile
-        $user = $profile->User();
-        $model = new FrontFormSettings($user);
-
+        // initialize settings form and process it
+        $model = new FrontFormSettings($profile->user);
         if ($model->send() && $model->validate()) {
             $model->save();
             App::$Session->getFlashBag()->add('success', __('Profile is updated'));
@@ -103,7 +104,6 @@ class Profile extends AdminController
 
         return $this->view->render('update', [
             'model' => $model,
-            'user' => $user,
             'profile' => $profile
         ]);
     }

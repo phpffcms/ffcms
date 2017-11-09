@@ -19,6 +19,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $created_at
  * @property string $updated_at
  * @property FeedbackAnswer[] $answers
+ * @property User|null $user
  */
 class FeedbackPost extends ActiveModel
 {
@@ -41,6 +42,15 @@ class FeedbackPost extends ActiveModel
     public function answers()
     {
         return $this->hasMany('Apps\ActiveRecord\FeedbackAnswer', 'feedback_id');
+    }
+
+    /**
+     * Get user object relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne('Apps\ActiveRecord\User', 'id', 'user_id');
     }
 
     /**

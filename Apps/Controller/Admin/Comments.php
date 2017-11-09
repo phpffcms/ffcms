@@ -55,7 +55,10 @@ class Comments extends AdminController
         ]);
 
         // get result as active records object with offset
-        $records = $query->orderBy('id', 'desc')->skip($offset)->take(self::ITEM_PER_PAGE)->get();
+        $records = $query->orderBy('id', 'desc')
+            ->skip($offset)
+            ->take(self::ITEM_PER_PAGE)
+            ->get();
 
         // render output view
         return $this->view->render('index', [

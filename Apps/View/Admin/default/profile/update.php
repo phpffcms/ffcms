@@ -3,10 +3,9 @@
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\Url;
 
-/** @var $model Apps\Model\Front\Profile\FormSettings */
-/** @var $this object */
-/** @var $user object */
-/** @var $profile object */
+/** @var Apps\Model\Front\Profile\FormSettings $model */
+/** @var \Ffcms\Core\Arch\View $this*/
+/** @var \Apps\ActiveRecord\Profile $profile */
 
 $this->title = __('Profile edit');
 
@@ -40,7 +39,7 @@ $this->breadcrumbs = [
             <div class="text-right"><strong><?= __('Account data') ?></strong></div>
         </div>
         <div class="col-md-9">
-            <?= Url::link(['user/update', $user->id], __('Edit account data')); ?>
+            <?= Url::link(['user/update', $profile->user->id], __('Edit account data')); ?>
         </div>
     </div>
     <br />
