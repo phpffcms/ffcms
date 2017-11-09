@@ -58,8 +58,11 @@ class User extends ActiveModel implements iUser
         if (MainApp::$Memory->get('user.object.cache.' . $id) !== null) {
             return MainApp::$Memory->get('user.object.cache.' . $id);
         }
+
         // not founded in memory? lets make query
-        $user = self::find($id);
+        $user = self::with(['profile', 'role'])
+            ->find($id);
+
         // store cache and return object
         MainApp::$Memory->set('user.object.cache.' . $user->id, $user);
         return $user;

@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Admin\User;
 
+use Apps\ActiveRecord\Profile;
 use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
 use Ffcms\Core\App;
@@ -119,7 +120,16 @@ class FormUserUpdate extends Model
             }
         }
 
+        // get user id before save to determine "add" action
+        $id = $this->_user->id;
+        // safe user row
         $this->_user->save();
+        // if new user - add profile link
+        if ($id < 1) {
+            $profile = new Profile();
+            $profile->user_id = $this->_user->id;
+            $profile->save();
+        }
     }
 
     /**
