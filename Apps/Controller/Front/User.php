@@ -46,6 +46,11 @@ class User extends FrontAppController
         // load login model
         $loginForm = new FormLogin($configs['captchaOnLogin'] === 1);
 
+        $redirectRoute = '/';
+        if ($this->request->query->has('r') && !preg_match('/[^A-Za-z0-9\/]/i', $this->request->query->get('r'))) {
+            $redirectRoute = $this->request->query->get('r');
+        }
+
         // check if data is send and valid
         if ($loginForm->send() && $loginForm->validate()) {
             if ($loginForm->tryAuth()) {
@@ -53,7 +58,7 @@ class User extends FrontAppController
                 App::$Event->run(static::EVENT_USER_LOGIN_SUCCESS, [
                     'model' => $loginForm
                 ]);
-                $this->response->redirect('/'); // void header change & exit()
+                $this->response->redirect($redirectRoute); // void header change & exit()
             }
             App::$Session->getFlashBag()->add('error', __('User is never exist or password is incorrect!'));
             // initialize fail event
@@ -65,7 +70,8 @@ class User extends FrontAppController
         // render view
         return $this->view->render('login', [
             'model' => $loginForm,
-            'useCaptcha' => $configs['captchaOnLogin'] === 1
+            'useCaptcha' => $configs['captchaOnLogin'] === 1,
+            'redirect' => $redirectRoute
         ]);
     }
 

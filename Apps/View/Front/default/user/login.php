@@ -1,17 +1,16 @@
 <?php
 use Ffcms\Core\Helper\HTML\Form;
 
-/** @var $useCaptcha bool */
-/** @var $model \Apps\Model\Front\User\FormLogin */
+/** @var bool $useCaptcha */
+/** @var \Apps\Model\Front\User\FormLogin $model */
+/** @var \Ffcms\Core\Arch\View $this  */
+/** @var string $redirect */
 
-/** @var $this \Ffcms\Core\Arch\View */
 $this->title = __('Log In');
 ?>
 <h1 class="text-center"><?= $this->title; ?></h1>
-<?= $this->render('user/_tabs'); ?>
-
+<?= $this->render('user/_tabs', ['r' => $redirect]); ?>
 <br/>
-
 <?php $form = new Form($model, ['class' => 'form-horizontal', 'method' => 'post', 'action' => '']); ?>
 
 <?= $form->start() ?>
