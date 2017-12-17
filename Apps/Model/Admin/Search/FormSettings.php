@@ -41,7 +41,7 @@ class FormSettings extends Model
      * Labels for admin settings form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'itemPerApp' => __('Search count'),
@@ -53,7 +53,7 @@ class FormSettings extends Model
      * Validation rules
      * @return @array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['itemPerApp', 'minLength'], 'required'],

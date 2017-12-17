@@ -44,16 +44,19 @@ class Main extends AdminController
      */
     public function actionIndex()
     {
-        // cache some data
-        $rootSize = App::$Cache->get('root.size');
-        if ($rootSize === null) {
-            $rootSize = round(Directory::size('/') / (1024*1000), 2) . ' mb';
-            App::$Cache->set('root.size', $rootSize, 86400); // 24 hours caching = 60 * 60 * 24
+        // get cached statistics
+        $rootSize = App::$Cache->getItem('root.size');
+        $loadAvg = App::$Cache->getItem('load.avarage');
+        if (!$rootSize->isHit()) {
+            $calcSize = round(Directory::size('/') / (1024*1000), 2) . ' mb';
+            $rootSize->set($calcSize);
+            $rootSize->expiresAfter(86400);
+            App::$Cache->save($rootSize);
         }
-        $loadAvg = App::$Cache->get('load.average');
-        if ($loadAvg === null) {
-            $loadAvg = Environment::loadAverage();
-            App::$Cache->set('load.average', $loadAvg, 60*5); // 5 min cache
+        if (!$loadAvg->isHit()) {
+            $loadAvg->set(Environment::loadAverage());
+            $loadAvg->expiresAfter(300);
+            App::$Cache->save($loadAvg);
         }
 
         // prepare system statistic
@@ -62,8 +65,8 @@ class Main extends AdminController
             'php_version' => Environment::phpVersion() . ' (' . Environment::phpSAPI() . ')',
             'os_name' => Environment::osName(),
             'database_name' => App::$Database->connection()->getDatabaseName() . ' (' . App::$Database->connection()->getDriverName() . ')',
-            'file_size' => $rootSize,
-            'load_avg' => $loadAvg
+            'file_size' => $rootSize->get(),
+            'load_avg' => $loadAvg->get()
         ];
         // check directory chmods and other environment features
         $model = new EntityCheck();

@@ -66,7 +66,7 @@ class FormSettings extends Model
      * Set form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'baseDomain' => __('Base domain'),
@@ -102,7 +102,7 @@ class FormSettings extends Model
      * Config validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy', 'languages', 'userCron'], 'used'],

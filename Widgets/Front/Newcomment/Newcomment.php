@@ -59,12 +59,12 @@ class Newcomment extends AbstractWidget
         // work with cache and make query
         $records = null;
         if ((int)$this->cache > 0) {
-            if (App::$Cache->get($this->_cacheName) !== null) {
-                $records = App::$Cache->get($this->_cacheName);
-            } else {
-                $records = $this->makeQuery();
-                App::$Cache->set($this->_cacheName, $records, $this->cache);
-            }
+            // process caching data
+            $cache = App::$Cache->getItem($this->_cacheName);
+            if (!$cache->isHit())
+                $cache->set($this->makeQuery())->expiresAfter($this->cache);
+
+            $records = $cache->get();
         } else {
             $records = $this->makeQuery();
         }

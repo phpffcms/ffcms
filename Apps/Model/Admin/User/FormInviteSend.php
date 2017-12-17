@@ -29,7 +29,7 @@ class FormInviteSend extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'email' => __('Email')
@@ -40,7 +40,7 @@ class FormInviteSend extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['email', 'required'],

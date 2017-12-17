@@ -16,7 +16,7 @@ class FormUserSearch extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'query' => __('Nickname')
@@ -27,7 +27,7 @@ class FormUserSearch extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['query', 'required'],

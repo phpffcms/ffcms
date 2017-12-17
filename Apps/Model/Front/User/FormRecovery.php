@@ -25,7 +25,7 @@ class FormRecovery extends Model
      * Labels for visual display
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'email' => __('Email'),
@@ -37,7 +37,7 @@ class FormRecovery extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['email', 'required'],

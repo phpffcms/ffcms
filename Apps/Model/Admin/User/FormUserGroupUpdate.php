@@ -47,7 +47,7 @@ class FormUserGroupUpdate extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'name' => __('Name'),
@@ -60,7 +60,7 @@ class FormUserGroupUpdate extends Model
      * Form validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['name', 'required'],

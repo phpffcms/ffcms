@@ -23,7 +23,7 @@ class FormAvatarUpload extends Model
      * Form text helper data with translation
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'file' => __('Select avatar')
@@ -34,7 +34,7 @@ class FormAvatarUpload extends Model
      * Validation rules for avatar uploading
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['file', 'required'],
@@ -47,7 +47,7 @@ class FormAvatarUpload extends Model
      * Input data sources
      * @return array
      */
-    public function sources()
+    public function sources(): array
     {
         return [
             'file' => 'file'

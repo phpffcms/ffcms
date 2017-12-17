@@ -72,7 +72,7 @@ class FormNarrowContentUpdate extends Model
      * {@inheritDoc}
      * @see \Ffcms\Core\Arch\Model::sources()
      */
-    public function sources()
+    public function sources(): array
     {
         return [
             'poster' => 'file',
@@ -87,7 +87,7 @@ class FormNarrowContentUpdate extends Model
     * Form labels
     * @return array
     */
-    public function labels()
+    public function labels(): array
     {
         return [
             'title' => __('Title'),
@@ -102,7 +102,7 @@ class FormNarrowContentUpdate extends Model
     * Content update form validation rules
     * @return array
     */
-    public function rules()
+    public function rules(): array
     {
         $r = [
             [['path', 'categoryId'], 'required'],
@@ -130,7 +130,7 @@ class FormNarrowContentUpdate extends Model
      * Set attribute validation types
      * @return array
      */
-    public function types()
+    public function types(): array
     {
         return [
             'text' => 'html'

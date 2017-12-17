@@ -47,7 +47,7 @@ class FormSettings extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['guestAdd', 'useCaptcha'], 'required'],
@@ -59,7 +59,7 @@ class FormSettings extends Model
      * Labels to display in form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'guestAdd' => __('Guest add'),

@@ -58,13 +58,11 @@ class Newcontent extends Widget
             $query = $this->makeQuery();
         } else {
             // try get query result from cache
-            $query = App::$Cache->get($this->_cacheName);
-            if ($query === null) {
-                // if query is not cached make it
-                $query = $this->makeQuery();
-                // and save result to cache
-                App::$Cache->set($this->_cacheName, $query, $this->cache);
-            }
+            $cache = App::$Cache->getItem($this->_cacheName);
+            if (!$cache->isHit())
+                $cache->set($this->makeQuery())->expiresAfter($this->cache);
+
+            $query = $cache->get();
         }
         
         // check if response is not empty

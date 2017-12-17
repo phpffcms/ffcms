@@ -41,7 +41,7 @@ class FormIgnoreDelete extends Model
      * Display labels in form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'id' => __('User ID'),

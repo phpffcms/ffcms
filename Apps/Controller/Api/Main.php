@@ -60,7 +60,7 @@ class Main extends ApiController
      * Remove previous scan files
      * @return string
      */
-    public function actionAntivirusclear()
+    public function actionAntivirusclear(): string
     {
         File::remove('/Private/Antivirus/Infected.json');
         File::remove('/Private/Antivirus/ScanFiles.json');
@@ -73,7 +73,7 @@ class Main extends ApiController
      * Show scan results
      * @return string
      */
-    public function actionAntivirusresults()
+    public function actionAntivirusresults(): string
     {
         $response = null;
         if (!File::exist('/Private/Antivirus/Infected.json')) {
@@ -97,19 +97,16 @@ class Main extends ApiController
      * Download news from ffcms.org server and show it with caching & saving
      * @return string|null
      */
-    public function actionNews()
+    public function actionNews(): ?string
     {
         $this->setJsonHeader();
         // get ffcms news if cache is not available
-        $news = null;
-        if (App::$Cache->get('download.ffcms.api.news.'.$this->lang) !== null) {
-            $news = App::$Cache->get('download.ffcms.api.news.'.$this->lang);
-        } else {
-            $news = File::getFromUrl('https://ffcms.org/api/api/news?lang=' . $this->lang);
-            if ($news !== null && !Str::likeEmpty($news)) {
-                App::$Cache->set('download.ffcms.api.news.'.$this->lang, $news, 3600 * 12);
-            }
+        $cache = App::$Cache->getItem('download.ffcms.api.news.' . $this->lang);
+        if ($cache->isHit()) {
+            $cache->set(File::getFromUrl('https://ffcms.org/api/api/news?lang=' . $this->lang))
+                ->expiresAfter(1440);
         }
+        $news = $cache->get();
 
         return $news;
     }

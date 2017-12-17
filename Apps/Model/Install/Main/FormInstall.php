@@ -44,7 +44,7 @@ class FormInstall extends Model
      * Labels for installation form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'db.driver' => __('Database type'),
@@ -68,7 +68,7 @@ class FormInstall extends Model
      * Installation post data validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['db.driver', 'db.host', 'db.username', 'db.password', 'db.database', 'db.prefix', 'email', 'singleLanguage', 'mainpage'], 'required'],

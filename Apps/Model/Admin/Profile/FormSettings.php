@@ -47,7 +47,7 @@ class FormSettings extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'guestView' => __('Guest view'),
@@ -64,7 +64,7 @@ class FormSettings extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['guestView', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed'], 'required'],

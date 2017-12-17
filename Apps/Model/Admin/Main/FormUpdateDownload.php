@@ -43,7 +43,7 @@ class FormUpdateDownload extends Model
             $zip->extractTo(root);
             $zip->close();
             // cleanup cache
-            App::$Cache->clean();
+            App::$Cache->clear();
             return true;
         }
 

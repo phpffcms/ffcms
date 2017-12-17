@@ -53,7 +53,7 @@ class FormInstall extends Model
      * Label form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'sysname' => __('System name')
@@ -64,7 +64,7 @@ class FormInstall extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['sysname', 'required'],

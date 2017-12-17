@@ -51,7 +51,7 @@ class FormSettings extends Model
      * Labels for form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'perPage' => __('Comments count'),
@@ -68,7 +68,7 @@ class FormSettings extends Model
      * Validation rules for comments settings
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['perPage', 'delay', 'minLength', 'maxLength', 'guestAdd', 'guestModerate', 'onlyLocale'], 'required'],

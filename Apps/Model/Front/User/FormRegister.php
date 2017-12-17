@@ -41,7 +41,7 @@ class FormRegister extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             [['login', 'password', 'repassword', 'email'], 'required'],
@@ -63,7 +63,7 @@ class FormRegister extends Model
      * Labels for form items
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'login' => __('Login'),

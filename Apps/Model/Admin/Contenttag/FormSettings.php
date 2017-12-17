@@ -38,7 +38,7 @@ class FormSettings extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'count' => __('Count'),
@@ -50,7 +50,7 @@ class FormSettings extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['count', 'cache'], 'required'],

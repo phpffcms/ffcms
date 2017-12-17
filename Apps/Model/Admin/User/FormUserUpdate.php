@@ -59,7 +59,7 @@ class FormUserUpdate extends Model
      * Form labels to display
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'email' => __('Email'),
@@ -74,7 +74,7 @@ class FormUserUpdate extends Model
      * Validation rules for input data
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['email', 'login', 'role_id', 'approve_token'], 'required'],

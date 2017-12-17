@@ -45,7 +45,7 @@ class FormFieldUpdate extends Model
      * Forum display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'name' => __('Title'),
@@ -59,7 +59,7 @@ class FormFieldUpdate extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             [['type', 'reg_exp', 'reg_cond'], 'required'],

@@ -50,7 +50,7 @@ class FormSettings extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'itemPerCategory' => __('Content per page'),
@@ -66,7 +66,7 @@ class FormSettings extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['itemPerCategory', 'userAdd', 'multiCategories', 'galleryResize', 'rss', 'gallerySize'], 'required'],

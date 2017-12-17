@@ -49,8 +49,9 @@ class EntityContentSearch extends Model
     /**
      * Prepare conditions to build content list
      * @throws NotFoundException
+     * @return void
      */
-    public function before()
+    public function before(): void
     {
         // check length of passed terms
         if (!Obj::isString($this->_terms) || Str::length($this->_terms) < self::MIN_QUERY_LENGTH) {
@@ -59,30 +60,24 @@ class EntityContentSearch extends Model
 
         $index = implode('-', $this->_skip);
         // try to get this slow query from cache
-        $records = App::$Cache->get('entity.content.search.index.' . $index);
-        if ($records === null) {
-            $records = new ContentEntity();
-            $records = $records->search($this->_terms, null, static::SEARCH_BY_WORDS_COUNT)
-                ->whereNotIn('id', $this->_skip)
-                ->where('display', true);
-            if ($this->_categoryId !== null && Obj::isInt($this->_categoryId) && $this->_categoryId > 0) {
-                $records = $records->where('category_id', $this->_categoryId);
-            }
-            $records = $records->take(self::MAX_ITEMS)
-                ->get();
-            App::$Cache->set('entity.content.search.index.' . $index, $records, static::CACHE_TIME);
+        $cache = App::$Cache->getItem('entity.content.search.index.' . $index);
+        if (!$cache->isHit()) {
+            $cache->set($this->makeSearch());
+            $cache->expiresAfter(static::CACHE_TIME);
+            App::$Cache->save($cache);
         }
+        $this->_records = $cache->get();
 
         // lets make active record building
-        $this->_records = $records;
         $this->buildContent();
         parent::before();
     }
 
     /**
      * Build content items as array
+     * @return void
      */
-    private function buildContent()
+    private function buildContent(): void
     {
         if ($this->_records->count() < 1) {
             return;
@@ -104,6 +99,21 @@ class EntityContentSearch extends Model
         }
     }
 
-
+    /**
+     * Search records in database and get object result
+     * @return ContentEntity[]
+     */
+    private function makeSearch()
+    {
+        $records = new ContentEntity();
+        $records = $records->search($this->_terms, null, static::SEARCH_BY_WORDS_COUNT)
+            ->whereNotIn('id', $this->_skip)
+            ->where('display', true);
+        if ($this->_categoryId !== null && Obj::isInt($this->_categoryId) && $this->_categoryId > 0) {
+            $records = $records->where('category_id', $this->_categoryId);
+        }
+        return $records->take(self::MAX_ITEMS)
+            ->get();
+    }
 
 }

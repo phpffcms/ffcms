@@ -32,7 +32,7 @@ class FormIgnoreAdd extends Model
      * Labels for form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'id' => __('User ID'),
@@ -43,7 +43,7 @@ class FormIgnoreAdd extends Model
     /**
      * Validation rules
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['id', 'required'],

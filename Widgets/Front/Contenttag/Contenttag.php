@@ -55,11 +55,11 @@ class Contenttag extends AbstractWidget
     	if ($this->cache === 0) {
     	    $records = $this->makeQuery();
     	} else {
-    	    $records = App::$Cache->get($this->_cacheName);
-            if ($records === null) {
-    	        $records = $this->makeQuery();
-    	        App::$Cache->set($this->_cacheName, $records, $this->cache);
-    	    }
+            $cache = App::$Cache->getItem($this->_cacheName);
+            if (!$cache->isHit()) {
+                $cache->set($this->makeQuery())->expiresAfter($this->cache);
+            }
+            $records = $cache->get();
     	}
 
     	// check if result is not empty

@@ -32,7 +32,7 @@ class FormAddRoute extends Model
      * Define labels for form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'loader' => __('Loader environment'),
@@ -46,7 +46,7 @@ class FormAddRoute extends Model
      * Define validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['type', 'loader', 'source', 'target'], 'required'],

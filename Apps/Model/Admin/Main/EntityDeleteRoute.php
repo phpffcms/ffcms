@@ -67,7 +67,7 @@ class EntityDeleteRoute extends Model
      * Define labels for entity
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'loader' => __('Loader environment'),

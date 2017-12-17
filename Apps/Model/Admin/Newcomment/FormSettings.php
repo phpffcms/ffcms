@@ -40,7 +40,7 @@ class FormSettings extends Model
      * Labels for form display
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'snippet' => __('Max length'),
@@ -53,7 +53,7 @@ class FormSettings extends Model
      * Settings validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['snippet', 'count', 'cache'], 'required'],

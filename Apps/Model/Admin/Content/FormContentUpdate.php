@@ -88,7 +88,7 @@ class FormContentUpdate extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $res = [
             ['title.' . App::$Request->getLanguage(), 'required'],
@@ -117,7 +117,7 @@ class FormContentUpdate extends Model
      * Filtering attribute types
      * @return array
      */
-    public function types()
+    public function types(): array
     {
         return [
             'text' => '!secure'
@@ -128,7 +128,7 @@ class FormContentUpdate extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'title' => __('Content title'),

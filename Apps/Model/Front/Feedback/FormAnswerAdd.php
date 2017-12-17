@@ -52,7 +52,7 @@ class FormAnswerAdd extends Model
      * Labels for display form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'name' => __('Name'),
@@ -65,7 +65,7 @@ class FormAnswerAdd extends Model
      * Form validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['name', 'email', 'message'], 'required'],

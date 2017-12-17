@@ -39,7 +39,7 @@ class FormCommentUpdate extends Model
     /**
      * Labels to display in view
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'message' => __('Message'),
@@ -50,7 +50,7 @@ class FormCommentUpdate extends Model
     /**
      * Validation rules for comment body
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['message', 'required'],
@@ -63,7 +63,7 @@ class FormCommentUpdate extends Model
      * Set attribute validation types
      * @return array
      */
-    public function types()
+    public function types(): array
     {
         return [
             'message' => 'html'

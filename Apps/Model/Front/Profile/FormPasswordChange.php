@@ -32,7 +32,7 @@ class FormPasswordChange extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'current' => __('Current password'),
@@ -45,7 +45,7 @@ class FormPasswordChange extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['current', 'new', 'renew'], 'required'],

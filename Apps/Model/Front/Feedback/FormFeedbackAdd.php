@@ -49,7 +49,7 @@ class FormFeedbackAdd extends Model
      * Labels to display form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'name' => __('Name'),
@@ -63,7 +63,7 @@ class FormFeedbackAdd extends Model
      * Rules to validate send form
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             [['name', 'email', 'message'], 'required'],

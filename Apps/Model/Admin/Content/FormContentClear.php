@@ -29,7 +29,7 @@ class FormContentClear extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'count' => __('Trashed content')

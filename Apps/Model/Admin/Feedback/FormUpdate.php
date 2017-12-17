@@ -43,7 +43,7 @@ class FormUpdate extends Model
      * Labels to display edit form
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'name' => __('Name'),
@@ -56,7 +56,7 @@ class FormUpdate extends Model
      * Rules to validate changes
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['name', 'email', 'message'], 'required'],

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 use phpFastCache\CacheManager;
+use phpFastCache\Core\phpFastCache;
 
 // define timezone
 date_default_timezone_set(App::$Properties->get('timezone'));
@@ -64,19 +65,16 @@ return [
         return new Apps\ActiveRecord\User();
     },
     'Mailer' => function () {
-        $swiftTransport = Swift_MailTransport::newInstance();
-        return Swift_Mailer::newInstance($swiftTransport);
+        $swiftTransport = new Swift_SendmailTransport();
+        return (new Swift_Mailer($swiftTransport));
     },
     'Captcha' => function () {
         return new Extend\Core\Captcha\Gregwar();
     },
     'Cache' => function () {
-        // initialize cache manager. You can use redis, memcache or anything else. Look at: phpfastcache.com
-        CacheManager::setup([
-            'storage' => 'files',
-            'path' => root . '/Private/Cache'
-        ]);
-        return CacheManager::getInstance('files');
+        // initialize symfony cache manager
+        $cache = new \Symfony\Component\Cache\Adapter\FilesystemAdapter('web', 3600, root . '/Private/Cache');
+        return $cache;
     },
     '_hybridauth' => function() {
         /** Uncomment code below to enable social oauth

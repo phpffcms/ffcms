@@ -44,7 +44,7 @@ class FormSettings extends Model
      * Labels for form display
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'categories' => __('Categories'),
@@ -57,7 +57,7 @@ class FormSettings extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['count', 'categories'], 'required'],

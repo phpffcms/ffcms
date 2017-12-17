@@ -44,7 +44,7 @@ class FormCategoryDelete extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'title' => __('Title'),
@@ -57,7 +57,7 @@ class FormCategoryDelete extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['moveTo', 'required'],

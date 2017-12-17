@@ -36,7 +36,7 @@ class FormPasswordChange extends Model
      * Define model rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['password', 'repassword'], 'required'],
@@ -50,7 +50,7 @@ class FormPasswordChange extends Model
      * Define view display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'password' => __('New password'),

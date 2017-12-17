@@ -25,7 +25,7 @@ class FormWallPost extends Model
      * Validate rules for message field
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['message', 'required', null, true, true],
@@ -34,7 +34,7 @@ class FormWallPost extends Model
         ];
     }
 
-    public function types()
+    public function types(): array
     {
         return [
             'message' => 'html'

@@ -45,7 +45,7 @@ class FormUserSettings extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'registrationType' => __('Registration type'),
@@ -58,7 +58,7 @@ class FormUserSettings extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['registrationType', 'captchaOnLogin'], 'required']

@@ -79,7 +79,7 @@ class FormCategoryUpdate extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'title' => __('Title'),
@@ -103,7 +103,7 @@ class FormCategoryUpdate extends Model
      * Validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             [['title', 'description', 'configs'], 'used'],

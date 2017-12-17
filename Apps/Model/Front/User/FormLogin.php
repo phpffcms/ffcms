@@ -35,7 +35,7 @@ class FormLogin extends Model
      * Login validation rules
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             [['login', 'password'], 'required'],
@@ -53,7 +53,7 @@ class FormLogin extends Model
      * Form labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         return [
             'login' => __('Login or email'),

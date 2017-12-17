@@ -62,7 +62,7 @@ class FormSettings extends Model
      * Form display labels
      * @return array
      */
-    public function labels()
+    public function labels(): array
     {
         $labels = [
             'nick' => __('Nickname'),
@@ -86,7 +86,7 @@ class FormSettings extends Model
      * Rules for validation
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             ['sex', 'required'],
