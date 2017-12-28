@@ -30,7 +30,7 @@ php console.php main:install
 
 Developer run
 ------------
-Sience ffcms 3.1 version support native php built-in developer server. You can easy run ffcms as standalone app:
+Since ffcms 3.1 version support native php built-in developer server. You can easy run ffcms as standalone app:
 ```bash
 php -S 127.0.0.1:8000 index.php
 ```
