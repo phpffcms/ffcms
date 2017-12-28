@@ -6,7 +6,7 @@ FFCMS - fast, flexibility content management system, based on MVC architecture. 
 
 REQUIREMENTS
 ------------
-FFCMS require support php 5.5 or newest. FFCMS include 2 native engine:
+FFCMS (sience 3.1 version) require php 7.1 or newest. FFCMS include 2 native engine:
   * [ffcms-core](https://github.com/phpffcms/ffcms-core)
   * [ffcms-console](https://github.com/phpffcms/ffcms-console)
 
@@ -28,6 +28,14 @@ composer update
 php console.php main:install
 ```
 
+Developer run
+------------
+Sience ffcms 3.1 version support native php built-in developer server. You can easy run ffcms as standalone app:
+```bash
+php -S 127.0.0.1:8000 index.php
+```
+and ffcms will be available on address http://127.0.0.1:8000
+
 Authors
 ------------
 Owner: Pyatinskyi Mihail, Russian Federation.
@@ -39,7 +47,7 @@ License (MIT)
 ```
 The MIT License (MIT)
 
-Copyright (c) 2013-2017 FFCMS, Mihail Pyatinskyi
+Copyright (c) 2013-2018 FFCMS, Mihail Pyatinskyi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
