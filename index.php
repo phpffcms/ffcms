@@ -11,6 +11,21 @@ define('root', __DIR__);
 // get current URI path
 $uriRequest = $_SERVER['REQUEST_URI'];
 
+// check if SAPI client == cli (php built-in dev server)
+if (php_sapi_name() === 'cli-server') {
+    $path = root . DIRECTORY_SEPARATOR . ltrim($uriRequest, '/');
+    // if static file exist
+    if (is_file($path)) {
+        // check if it looks like standalone php script
+        if (strtolower(substr($path, -4)) == '.php') {
+            include($path);
+            return true;
+        }
+        return false;
+    }
+}
+
+
 // get configs to prepare posible route to switch environment
 $configs = require(root . '/Private/Config/Default.php');
 // remove base path
