@@ -3,6 +3,8 @@
 namespace Apps\Controller\Api;
 
 use Apps\Model\Basic\Antivirus;
+use elFinder;
+use elFinderConnector;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -26,18 +28,18 @@ class Main extends ApiController
     {
         $user = App::$User->identity();
 
-        if ($user === null || !$user->isAuth() || !$user->role->can('admin/main/files')) {
+        if ($user === null || !$user->isAuth() || !$user->getRole()->can('admin/main/files'))
             throw new ForbiddenException('This action is not allowed!');
-        }
 
-        // legacy lib can throw some shits
-        error_reporting(0);
         $this->setJsonHeader();
-
-        $connector = new \elFinderConnector(new \elFinder([
+        $connector = new elFinderConnector(new elFinder([
             'locale' => '',
             'roots' => [
-                ['driver' => 'LocalFileSystem', 'path' => root . '/upload/', 'URL' => App::$Alias->scriptUrl . '/upload/']
+                [
+                    'driver' => 'LocalFileSystem',
+                    'path' => root . '/upload/',
+                    'URL' => App::$Alias->scriptUrl . '/upload/'
+                ]
             ]
         ]));
 
