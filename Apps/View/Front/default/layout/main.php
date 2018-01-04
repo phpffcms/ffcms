@@ -2,6 +2,7 @@
 /** @var $body string */
 use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\Helper\HTML\Bootstrap\Navbar;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Widgets\Basic\LanguageSwitcher;
 
@@ -133,10 +134,10 @@ echo Navbar::display([
 
     <div class="row">
 		<div class="col-md-9 content-container">
-            <?php if ($this->breadcrumbs !== null && Obj::isArray($this->breadcrumbs)) : ?>
+            <?php if ($this->breadcrumbs && Any::isArray($this->breadcrumbs)) : ?>
             <ol class="breadcrumb">
                 <?php foreach ($this->breadcrumbs as $bUrl => $bText): ?>
-                    <?php if (Obj::isLikeInt($bUrl)): // only text ?>
+                    <?php if (Any::isInt($bUrl)): // only text ?>
                     <li class="active"><?= \App::$Security->strip_tags($bText) ?></li>
                     <?php else: ?>
                     <li>
@@ -150,7 +151,7 @@ echo Navbar::display([
             if ($body != null) {
                 // display notify if not used in views
                 $notify = \App::$Session->getFlashBag()->all();
-                if (Obj::isArray($notify) && count($notify) > 0) {
+                if (Any::isArray($notify) && count($notify) > 0) {
                     echo \App::$View->render('native/macro/notify', ['notify' => $notify]);
                 }
 

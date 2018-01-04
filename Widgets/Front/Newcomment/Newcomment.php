@@ -31,18 +31,18 @@ class Newcomment extends AbstractWidget
     public function init()
     {
     	$cfg = $this->getConfigs();
-    	if ($this->snippet === null) {
+    	if (!$this->snippet)
     	    $this->snippet = $cfg['snippet'];
-    	}
-    	if ($this->count === null) {
+
+    	if (!$this->count)
     	    $this->count = $cfg['count'];
-    	}
-    	if ($this->cache === null) {
-    	    $this->cache = $cfg['cache'];
-    	}
-        if ($this->lang === null) {
+
+    	if (!$this->cache)
+    	    $this->cache = (int)$cfg['cache'];
+
+        if (!$this->lang)
             $this->lang = App::$Request->getLanguage();
-        }
+
 
         $this->_cacheName = 'widget.newcomment.' . $this->createStringClassSnapshotHash();
     }
@@ -70,9 +70,8 @@ class Newcomment extends AbstractWidget
         }
 
         // check if records is found
-        if ($records === null) {
+        if (!$records)
             return __('Comments not yet found');
-        }
 
         $commentEntity = null;
         foreach ($records as $record) {

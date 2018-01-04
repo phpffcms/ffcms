@@ -13,6 +13,7 @@ use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
@@ -101,13 +102,11 @@ class User extends AdminController
     public function actionDelete($id = null)
     {
         // check if id is passed or get data from GET as array ids
-        if ($id === 0 || (int)$id < 1) {
+        if ((int)$id < 1) {
             $ids = $this->request->query->get('selected');
-            if (Obj::isArray($ids) && Arr::onlyNumericValues($ids)) {
-                $id = $ids;
-            } else {
+            if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids))
                 throw new NotFoundException('Bad conditions');
-            }
+            $id = $ids;
         } else {
             $id = [$id];
         }

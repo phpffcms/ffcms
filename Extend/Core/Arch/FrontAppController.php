@@ -6,6 +6,7 @@ use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Controller;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -23,22 +24,22 @@ class FrontAppController extends Controller
     /**
      * FrontAppController constructor. Check if app is enabled in database
      * @throws ForbiddenException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function __construct()
     {
-        if (!$this->isEnabled()) {
+        if (!$this->isEnabled())
             throw new ForbiddenException(__('This application is disabled or not installed!'));
-        }
 
         // add localizations
         App::$Translate->append(App::$Alias->currentViewPath . '/I18n/' . App::$Request->getLanguage() . '.php');
-
         parent::__construct();
     }
 
     /**
      * Check is current instance of application is enabled and can be executed
      * @return bool
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function isEnabled()
     {
@@ -49,12 +50,11 @@ class FrontAppController extends Controller
         $this->application = AppRecord::getItem('app', [$appName, $nativeName]);
 
         // not exist? false
-        if ($this->application === null) {
+        if (!$this->application)
             return false;
-        }
 
         // check if disabled (0 = enabled, anything else = on)
-        return (int)$this->application->disabled === 0;
+        return !(bool)$this->application->disabled;
     }
 
     /**
@@ -63,14 +63,13 @@ class FrontAppController extends Controller
      */
     public function getConfigs()
     {
-        if ($this->configs !== null) {
+        if ($this->configs !== null)
             return $this->configs;
-        }
+
         $configs = (array)$this->application->configs;
         foreach ($configs as $cfg => $value) {
-            if (Obj::isLikeInt($value)) {
-                $configs[$cfg] = (int)$value; // convert string 1 "1" to int 1 1
-            }
+            if (Any::isInt($value))
+                $configs[$cfg] = $value; // convert string 1 "1" to int 1 1
         }
         $this->configs = $configs;
 

@@ -8,6 +8,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\Normalize;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Gregwar\Image\Image;
@@ -56,9 +57,8 @@ class FormNarrowContentUpdate extends Model
         // set current user id
         $this->authorId = App::$User->identity()->getId();
         // set true if it is a new content item
-        if ($this->_record->id === null || (int)$this->_record->id < 1) {
+        if ($this->_record->id === null || (int)$this->_record->id < 1)
             $this->_new = true;
-        }
 
         // set random path slug if not defined
         if ($this->path === null || Str::likeEmpty($this->path)) {
@@ -149,9 +149,8 @@ class FormNarrowContentUpdate extends Model
         $this->_record->category_id = (int)$this->categoryId;
         $this->_record->display = 0; // set to premoderation
         $this->_record->author_id = (int)$this->authorId;
-        if ($this->_new === true) {
+        if ($this->_new)
             $this->_record->comment_hash = $this->generateCommentHash();
-        }
 
         $this->_record->save();
 
@@ -160,12 +159,11 @@ class FormNarrowContentUpdate extends Model
             // lets move poster from tmp to gallery
             $originDir = '/upload/gallery/' . $this->_record->id . '/orig/';
             $thumbDir = '/upload/gallery/' . $this->_record->id . '/thumb/';
-            if (!Directory::exist($originDir)) {
+            if (!Directory::exist($originDir))
                 Directory::create($originDir);
-            }
-            if (!Directory::exist($thumbDir)) {
+
+            if (!Directory::exist($thumbDir))
                 Directory::create($thumbDir);
-            }
 
             $fileName = App::$Security->simpleHash($this->poster->getClientOriginalName() . $this->poster->getSize());
             $newFullName = $fileName . '.' . $this->poster->guessExtension();
@@ -207,9 +205,8 @@ class FormNarrowContentUpdate extends Model
         // try to find this item
         $find = Content::where('path', '=', $this->path);
         // exclude self id
-        if ($this->_record->id !== null && Obj::isLikeInt($this->_record->id)) {
+        if ($this->_record->id && Any::isInt($this->_record->id))
             $find->where('id', '!=', $this->_record->id);
-        }
 
         // limit only current category id
         $find->where('category_id', '=', $this->categoryId);
@@ -225,10 +222,9 @@ class FormNarrowContentUpdate extends Model
     {
         $hash = Str::randomLatinNumeric(mt_rand(32, 128));
         $find = Content::where('comment_hash', '=', $hash)->count();
-        // hmmm, is always exist? Chance of it is TOOOO low, but lets recursion re-generate
-        if ($find !== 0) {
+        // hmmm, hash is always exist? Chance of this is too low, but lets recursion re-generate
+        if ($find !== 0)
             return $this->generateCommentHash();
-        }
 
         return $hash;
     }

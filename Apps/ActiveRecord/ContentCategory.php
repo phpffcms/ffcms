@@ -5,6 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -15,7 +16,7 @@ use Ffcms\Core\Helper\Type\Str;
  * @property string $path
  * @property string $title
  * @property string $description
- * @property string $configs
+ * @property array $configs
  * @property string $created_at
  * @property string $updated_at
  */
@@ -138,7 +139,7 @@ class ContentCategory extends ActiveModel
     {
         $properties = $this->configs;
         // check if properties is defined
-        if (!Obj::isArray($properties) || !array_key_exists($key, $properties)) {
+        if (!Any::isArray($properties) || !array_key_exists($key, $properties)) {
             return false;
         }
 

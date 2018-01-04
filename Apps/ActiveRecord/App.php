@@ -5,6 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -86,17 +87,17 @@ class App extends ActiveModel
     /**
      * Get single row by defined type and sys_name with query caching
      * @param string $type
-     * @param string|array $sys_name
+     * @param string|array $name
      * @return mixed|null
      * @throws SyntaxException
      */
-    public static function getItem($type, $sys_name)
+    public static function getItem($type, $name)
     {
         foreach (self::all() as $object) {
             if ($object->type === $type) { //&& $object->sys_name === $sys_name) {
-                if (Obj::isArray($sys_name) && Arr::in($object->sys_name, $sys_name)) { // many different app name - maybe alias or something else
+                if (Any::isArray($name) && Arr::in($object->sys_name, $name)) { // many different app name - maybe alias or something else
                     return $object;
-                } elseif (Obj::isString($sys_name) && $object->sys_name === $sys_name) {
+                } elseif (Any::isStr($name) && $object->sys_name === $name) {
                     return $object;
                 }
             }

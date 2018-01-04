@@ -1,12 +1,15 @@
 <?php
-use Ffcms\Core\Helper\Type\Obj;
+
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 
 $code = \App::$Properties->get('gaTrackId');
-if (!Obj::isString($code) || Str::length($code) < 3) {
+
+if (!Any::isStr($code) || Str::length($code) < 3) {
     return null;
 }
 ?>
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

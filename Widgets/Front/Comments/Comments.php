@@ -32,7 +32,6 @@ class Comments extends Ckeditor
     /**
      * Display comment view
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function display()

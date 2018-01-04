@@ -6,6 +6,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
@@ -51,14 +52,13 @@ class FormSettings extends Model
     public function before()
     {
         $properties = App::$Properties->getAll();
-        if ($properties === false || !Obj::isArray($properties)) {
+        if (!$properties || !Any::isArray($properties))
             return;
-        }
+
         // set default values
         foreach (App::$Properties->getAll() as $key => $value) {
-            if (property_exists($this, $key)) {
+            if (property_exists($this, $key))
                 $this->{$key} = $value;
-            }
         }
     }
 
@@ -125,9 +125,8 @@ class FormSettings extends Model
     public function getAvailableThemes($env_name)
     {
         $path = root . '/Apps/View/' . $env_name . '/';
-        if (!Directory::exist($path)) {
+        if (!Directory::exist($path))
             return [];
-        }
 
         $scan = Directory::scan($path);
         $response = [];

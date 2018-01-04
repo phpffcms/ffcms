@@ -13,6 +13,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\FileSystem\Normalize;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -54,9 +55,8 @@ class Content extends ApiController
     public function actionChangerate($type, $id)
     {
         // check input params
-        if (!Arr::in($type, ['plus', 'minus']) || !Obj::isLikeInt($id)) {
+        if (!Arr::in($type, ['plus', 'minus']) || !Any::isInt($id))
             throw new NativeException('Bad conditions');
-        }
         
         // get current user and check is authed
         $user = App::$User->identity();
@@ -203,9 +203,8 @@ class Content extends ApiController
         }
 
         $files = Directory::scan($thumbDir, null, true);
-        if ($files === false || !Obj::isArray($files) || count($files) < 1) {
+        if (!$files || !Any::isArray($files) || count($files) < 1)
             throw new NotFoundException('Nothing found');
-        }
 
         $output = [];
         foreach ($files as $file) {
@@ -233,13 +232,12 @@ class Content extends ApiController
      */
     public function actionGallerydelete($id, $file = null)
     {
-        if ($file === null || Str::likeEmpty($file)) {
+        if (!$file || Str::likeEmpty($file))
             $file = (string)$this->request->query->get('file', null);
-        }
+
         // check passed data
-        if (Str::likeEmpty($file) || !Obj::isLikeInt($id)) {
+        if (Str::likeEmpty($file) || !Any::isInt($id))
             throw new NativeException('Wrong input data');
-        }
 
         // check passed file extension
         $fileExt = Str::lastIn($file, '.', true);

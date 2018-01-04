@@ -22,6 +22,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
@@ -39,14 +40,13 @@ class Profile extends FrontAppController
 
     /**
      * List user profiles on website by defined filter
-     * @param string $filter_name
-     * @param null|string|int $filter_value
+     * @param string $name
+     * @param null|string|int $value
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionIndex($filter_name, $filter_value = null)
+    public function actionIndex($name, $value = null)
     {
         $records = null;
 
@@ -59,7 +59,7 @@ class Profile extends FrontAppController
         }
         $offset = $page * $userPerPage;
 
-        switch ($filter_name) {
+        switch ($name) {
             case 'rating': // rating list, order by rating DESC
                 // check if rating is enabled
                 if ((int)$cfgs['rating'] !== 1) {
@@ -68,22 +68,22 @@ class Profile extends FrontAppController
                 $records = (new ProfileRecords())->orderBy('rating', 'DESC');
                 break;
             case 'hobby': // search by hobby
-                if (Str::likeEmpty($filter_value)) {
+                if (Str::likeEmpty($value)) {
                     throw new NotFoundException();
                 }
-                $records = (new ProfileRecords())->where('hobby', 'like', '%' . $filter_value . '%');
+                $records = (new ProfileRecords())->where('hobby', 'like', '%' . $value . '%');
                 break;
             case 'city':
-                if (Str::likeEmpty($filter_value)) {
+                if (Str::likeEmpty($value)) {
                     throw new NotFoundException();
                 }
-                $records = (new ProfileRecords())->where('city', $filter_value);
+                $records = (new ProfileRecords())->where('city', $value);
                 break;
             case 'born':
-                if ($filter_value === null || !Obj::isLikeInt($filter_value)) {
+                if ($value === null || !Any::isInt($value)) {
                     throw new NotFoundException();
                 }
-                $records = (new ProfileRecords())->where('birthday', 'like', $filter_value . '-%');
+                $records = (new ProfileRecords())->where('birthday', 'like', $value . '-%');
                 break;
             case 'all':
                 $records = (new ProfileRecords())->orderBy('id', 'DESC');
@@ -95,7 +95,7 @@ class Profile extends FrontAppController
 
         // build pagination
         $pagination = new SimplePagination([
-            'url' => ['profile/index', $filter_name, $filter_value],
+            'url' => ['profile/index', $name, $value],
             'page' => $page,
             'step' => $userPerPage,
             'total' => $records->count()
@@ -111,8 +111,8 @@ class Profile extends FrontAppController
         return $this->view->render('index', [
             'records' => $profiles,
             'pagination' => $pagination,
-            'id' => $filter_name,
-            'add' => $filter_value,
+            'id' => $name,
+            'add' => $value,
             'ratingOn' => (int)$cfgs['rating']
         ]);
     }
@@ -122,20 +122,18 @@ class Profile extends FrontAppController
      * @param int $userId
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      * @throws ForbiddenException
      */
     public function actionShow($userId)
     {
         $cfg = $this->application->configs;
-        if ((int)$cfg['guestView'] !== 1 && !App::$User->isAuth()) {
+        if (!(bool)$cfg['guestView'] && !App::$User->isAuth())
             throw new ForbiddenException(__('You must login to view other profile'));
-        }
+
         // check if target exists
-        if (!App::$User->isExist($userId)) {
+        if (!App::$User->isExist($userId))
             throw new NotFoundException(__('This profile is not exist'));
-        }
 
         $targetPersone = App::$User->identity($userId); // target user object instance of Apps\ActiveRecord\User
         $viewerPersone = App::$User->identity(); // current user object(viewer) instance of Apps\ActiveRecord\User
@@ -199,6 +197,8 @@ class Profile extends FrontAppController
     /**
      * Show all users feed activity from wall posts
      * @return string
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionFeed()
     {
@@ -206,9 +206,9 @@ class Profile extends FrontAppController
         // get pagination page id and calc offset
         $page = (int)$this->request->query->get('page');
         $items = 10;
-        if ((int)$cfg['wallPostOnFeed'] >= 1) {
+        if ((int)$cfg['wallPostOnFeed'] >= 1)
             $items = (int)$cfg['wallPostOnFeed'];
-        }
+
         $offset = $page * $items;
 
         // total wall posts count
@@ -240,12 +240,12 @@ class Profile extends FrontAppController
      * User avatar management
      * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws ForbiddenException
      */
     public function actionAvatar()
     {
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException('You must be authorized user!');
-        }
 
         // get user identity and model object
         $user = App::$User->identity();
@@ -279,27 +279,23 @@ class Profile extends FrontAppController
     public function actionWalldelete($postId)
     {
         // is user auth?
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException();
-        }
 
         // is postId is integer?
-        if (!Obj::isLikeInt($postId) || $postId < 1) {
+        if (!Any::isInt($postId) || $postId < 1)
             throw new NotFoundException();
-        }
 
         // try to find the wall post
         /** @var WallPost $wallPost */
         $wallPost = WallPost::find($postId);
-        if (null === $wallPost || false === $wallPost) {
+        if (!$wallPost)
             throw new NotFoundException();
-        }
 
         // get user and check if he can delete this post
         $user = App::$User->identity();
-        if ($wallPost->sender_id !== $user->id && $wallPost->target_id !== $user->id) {
+        if ($wallPost->sender_id !== $user->id && $wallPost->target_id !== $user->id)
             throw new ForbiddenException();
-        }
 
         // check if submit sended
         $wallModel = new FormWallPostDelete($wallPost);
@@ -323,9 +319,8 @@ class Profile extends FrontAppController
      */
     public function actionMessages()
     {
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException();
-        }
 
         return $this->view->render('messages');
     }
@@ -340,9 +335,8 @@ class Profile extends FrontAppController
      */
     public function actionNotifications($type = 'all')
     {
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException();
-        }
 
         // get page index and current user object
         $page = (int)$this->request->query->get('page', 0);
@@ -352,9 +346,8 @@ class Profile extends FrontAppController
         // try to find notifications in database as active record
         $query = UserNotification::where('user_id', '=', $user->id)
             ->orderBy('created_at', 'DESC');
-        if ($type === 'unread') {
+        if ($type === 'unread')
             $query = $query->where('readed', '=', 0);
-        }
 
         $pagination = new SimplePagination([
             'url' => ['profile/notifications'],
@@ -388,9 +381,9 @@ class Profile extends FrontAppController
     public function actionSettings()
     {
         // check if auth
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException();
-        }
+
         // get user object
         $user = App::$User->identity();
         // create model and pass user object
@@ -418,9 +411,8 @@ class Profile extends FrontAppController
     public function actionPassword()
     {
         // check if user is authed
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException();
-        }
 
         // get user object and create model with user object
         $user = App::$User->identity();
@@ -452,9 +444,8 @@ class Profile extends FrontAppController
     public function actionIgnore()
     {
         // check if not auth
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException();
-        }
 
         // get user object and init model of it
         $user = App::$User->identity();
@@ -463,9 +454,8 @@ class Profile extends FrontAppController
         // set user id from ?id= get param if form not sended
         if (!$model->send()) {
             $uid = (int)$this->request->query->get('id');
-            if ($uid > 0) {
+            if ($uid > 0)
                 $model->id = $uid;
-            }
         }
 
         // sended new block add?
@@ -515,15 +505,13 @@ class Profile extends FrontAppController
     public function actionLog()
     {
         // check if user is authorized
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException();
-        }
 
         // get log records
         $records = UserLog::where('user_id', App::$User->identity()->getId());
-        if ($records !== null && $records->count() > 0) {
+        if ($records->count() > 0)
             $records = $records->orderBy('id', 'DESC');
-        }
 
         // render output view
         return $this->view->render('log', [
@@ -533,33 +521,30 @@ class Profile extends FrontAppController
 
     /**
      * Unblock always blocked user
-     * @param string $target_id
+     * @param string $targetId
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws NotFoundException
      */
-    public function actionUnblock($target_id)
+    public function actionUnblock($targetId)
     {
         // check if user is auth
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException();
-        }
 
         // check if target is defined
-        if (!Obj::isLikeInt($target_id) || $target_id < 1 || !App::$User->isExist($target_id)) {
+        if (!Any::isInt($targetId) || $targetId < 1 || !App::$User->isExist($targetId))
             throw new NotFoundException();
-        }
 
         $user = App::$User->identity();
 
         // check if target user in blacklist of current user
-        if (!Blacklist::have($user->getId(), $target_id)) {
+        if (!Blacklist::have($user->getId(), $targetId))
             throw new NotFoundException();
-        }
 
-        $model = new FormIgnoreDelete($user, $target_id);
+        $model = new FormIgnoreDelete($user, $targetId);
         if ($model->send() && $model->validate()) {
             $model->make();
             $this->response->redirect(Url::to('profile/ignore'));
@@ -593,9 +578,9 @@ class Profile extends FrontAppController
             $records = ProfileRecords::where('nick', 'like', '%' . $model->query . '%');
             $page = (int)$this->request->query->get('page');
             $userPerPage = (int)$cfgs['usersOnPage'];
-            if ($userPerPage < 1) {
+            if ($userPerPage < 1)
                 $userPerPage = 1;
-            }
+
             $offset = $page * $userPerPage;
             // build pagination
             $pagination = new SimplePagination([

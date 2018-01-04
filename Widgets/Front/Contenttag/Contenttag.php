@@ -4,6 +4,7 @@ namespace Widgets\Front\Contenttag;
 
 use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as AbstractWidget;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Traits\ClassTools;
 use Ffcms\Core\Helper\Type\Obj;
 use Apps\ActiveRecord\ContentTag as TagRecord;
@@ -29,13 +30,12 @@ class Contenttag extends AbstractWidget
     {
         $cfg = $this->getConfigs();
         // check cache is defined
-        if ($this->cache === null || !Obj::isLikeInt($this->cache)) {
-            $this->cache = (int)$cfg['cache'];
-        }
+        if (!$this->cache|| !Any::isInt($this->cache))
+            $this->cache = $cfg['cache'];
+
         // check tag count is defined
-        if ($this->count === null || !Obj::isLikeInt($this->count)) {
-            $this->count = (int)$cfg['count'];
-        }
+        if (!$this->count || !Any::isInt($this->count))
+            $this->count = $cfg['count'];
 
         $this->_lang = App::$Request->getLanguage();
         $this->_cacheName = 'widget.contenttag.' . $this->createStringClassSnapshotHash();
@@ -63,9 +63,8 @@ class Contenttag extends AbstractWidget
     	}
 
     	// check if result is not empty
-        if ($records === null || $records->count() < 1) {
+        if (!$records || $records->count() < 1)
             return __('Content tags is not found');
-        }
 
         // render view
     	return App::$View->render($this->tpl, [

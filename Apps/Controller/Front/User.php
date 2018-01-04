@@ -15,6 +15,7 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -38,18 +39,18 @@ class User extends FrontAppController
      */
     public function actionLogin()
     {
-        if (App::$User->isAuth()) { // always auth? get the f*ck out
+        // check if user is always authorized
+        if (App::$User->isAuth())
             throw new ForbiddenException(__('You are always authorized on website'));
-        }
 
         $configs = $this->getConfigs();
         // load login model
         $loginForm = new FormLogin($configs['captchaOnLogin'] === 1);
 
+        // build redirect back route
         $redirectRoute = '/';
-        if ($this->request->query->has('r') && !preg_match('/[^A-Za-z0-9\/]/i', $this->request->query->get('r'))) {
+        if ($this->request->query->has('r') && !preg_match('/[^A-Za-z0-9\/]/i', $this->request->query->get('r')))
             $redirectRoute = $this->request->query->get('r');
-        }
 
         // check if data is send and valid
         if ($loginForm->send() && $loginForm->validate()) {
@@ -92,9 +93,8 @@ class User extends FrontAppController
         // get hybridauth instance
         /** @var \Hybrid_Auth $instance */
         $instance = App::$User->getOpenidInstance();
-        if ($instance === null) {
+        if (!$instance)
             throw new ForbiddenException(__('OpenID auth is disabled'));
-        }
 
         // try to get user identity data from remove service
         $userIdentity = null;
@@ -106,9 +106,8 @@ class User extends FrontAppController
         }
 
         // check if openid data provided
-        if ($userIdentity === null || Str::likeEmpty($userIdentity->identifier)) {
+        if (!$userIdentity || Str::likeEmpty($userIdentity->identifier))
             throw new ForbiddenException(__('User data not provided!'));
-        }
 
         // initialize model and pass user identity
         $model = new FormSocialAuth($provider, $userIdentity);
@@ -144,9 +143,9 @@ class User extends FrontAppController
      */
     public function actionSignup()
     {
-        if (App::$User->isAuth()) { // always auth? prevent any actions
+        // check if user is authorized
+        if (App::$User->isAuth())
             throw new ForbiddenException(__('You are always authorized on website, registration not allowed'));
-        }
 
         // load configs
         $configs = $this->getConfigs();
@@ -159,24 +158,24 @@ class User extends FrontAppController
             // get token and email
             $inviteToken = $this->request->query->get('token');
             $inviteEmail = $this->request->query->get('email');
-            // data sounds like a invalid?
-            if (Str::length($inviteToken) < 32 || !Str::isEmail($inviteEmail)) {
+            // check if token length & email is valid format
+            if (Str::length($inviteToken) < 32 || !Str::isEmail($inviteEmail))
                 throw new ForbiddenException(__('Registration allowed only if you have invite!'));
-            }
-            // remove oldest data
+
+            // remove deprecated data
             Invite::clean();
             // try to find token
             $find = Invite::where('token', '=', $inviteToken)
-                ->where('email', '=', $inviteEmail)->count();
+                ->where('email', '=', $inviteEmail)
+                ->count();
 
             // token not foud? invalid invite key
-            if ($find !== 1) {
+            if ($find !== 1)
                 throw new ForbiddenException(__('Your invite token is invalid! Contact with administrator'));
-            }
+
             // notify the invite token is accepted
-            if (!$registerForm->send()) {
+            if (!$registerForm->send())
                 App::$Session->getFlashBag()->add('success', __('Invite was accepted! Continue registration'));
-            }
 
             // set email from token data
             $registerForm->email = $inviteEmail;
@@ -227,28 +226,25 @@ class User extends FrontAppController
      */
     public function actionRecovery($id = null, $token = null)
     {
-        if (App::$User->isAuth()) { // always auth? prevent any actions
+        if (App::$User->isAuth())
             throw new ForbiddenException(__('You are always authorized on website, recovery is rejected'));
-        }
 
-        // is recovery submit?
-        if (Obj::isLikeInt($id) && Str::length($token) >= 64) {
+        // check if recovery token and user_id is passed and validate it
+        if (Any::isInt($id) && Str::length($token) >= 64) {
             $rObject = UserRecovery::where('id', $id)
                 ->where('token', $token)
                 ->where('archive', false);
 
             // check if recovery row exist
-            if ($rObject->count() !== 1) {
+            if ($rObject->count() !== 1)
                 throw new NotFoundException(__('This recovery data is not found'));
-            }
 
             /** @var UserRecovery $rData */
             $rData = $rObject->first();
             // check if user with this "user_id" in recovery row exist
             $rUser = App::$User->identity($rData->user_id);
-            if ($rUser === null) {
+            if ($rUser === null)
                 throw new NotFoundException(__('User is not found'));
-            }
 
             // email link valid, show new password set form
             $modelPwd = new FormPasswordChange($rUser);
@@ -301,9 +297,9 @@ class User extends FrontAppController
      */
     public function actionLogout()
     {
-        if (!App::$User->isAuth()) { // not auth? what you wanna?
+        // check if user authorized
+        if (!App::$User->isAuth())
             throw new ForbiddenException(__('You are not authorized user'));
-        }
 
         // unset session data
         App::$Session->invalidate();
@@ -320,21 +316,20 @@ class User extends FrontAppController
      */
     public function actionApprove($email, $token)
     {
-        // sounds like a not valid token
-        if (App::$User->isAuth() || Str::length($token) < 32 || !Str::isEmail($email)) {
+        // validate token length and email format
+        if (App::$User->isAuth() || Str::length($token) < 32 || !Str::isEmail($email))
             throw new ForbiddenException(__('Wrong recovery data'));
-        }
+
         // lets find token&email
-        $find = App::$User->where('approve_token', '=', $token)
-            ->where('email', '=', $email);
+        $user = App::$User->where('approve_token', $token)
+            ->where('email', '=', $email)
+            ->first();
 
-        // not found? exit
-        if ($find->count() !== 1) {
+        // check if record is exist by token and email
+        if (!$user)
             throw new ForbiddenException();
-        }
 
-        // get row and update approve information
-        $user = $find->first();
+        // update approve_token value to confirmed
         $user->approve_token = '0';
         $user->save();
 

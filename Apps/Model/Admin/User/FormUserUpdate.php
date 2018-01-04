@@ -7,6 +7,7 @@ use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
@@ -45,14 +46,12 @@ class FormUserUpdate extends Model
     public function before()
     {
         foreach ($this->getAllProperties() as $property => $old_data) {
-            if ($this->_user->{$property} !== null) {
+            if ($this->_user->{$property})
                 $this->{$property} = $this->_user->{$property};
-            }
         }
         $this->_approve_tmp = $this->approve_token;
-        if ($this->approve_token == '0') {
+        if ($this->approve_token == '0')
             $this->approve_token = 1;
-        }
     }
 
     /**
@@ -103,16 +102,16 @@ class FormUserUpdate extends Model
         foreach ($this->getAllProperties() as $property => $value) {
             if ($property === 'password' || $property === 'newpassword') {
                 // update password only if new is set and length >= 3
-                if ($this->newpassword !== null && Str::length($this->newpassword) >= 3) {
+                if ($this->newpassword && Str::length($this->newpassword) >= 3) {
                     $this->_user->password = App::$Security->password_hash($this->newpassword);
                 }
             } elseif ($property === 'approve_token') {
                 if ($value == "1") {
                     $this->_user->approve_token = '0';
                 } else {
-                    if ($this->_approve_tmp === '0') {
+                    if ($this->_approve_tmp === '0')
                         $this->_approve_tmp = Str::randomLatinNumeric(mt_rand(32, 128));
-                    }
+
                     $this->_user->approve_token = $this->_approve_tmp;
                 }
             } else {
@@ -142,9 +141,8 @@ class FormUserUpdate extends Model
     {
         $find = User::where('email', '=', $email);
 
-        if ($userId !== null && Obj::isLikeInt($userId)) {
+        if ($userId && Any::isInt($userId))
             $find->where('id', '!=', $userId);
-        }
 
         return $find->count() === 0;
     }
@@ -159,9 +157,8 @@ class FormUserUpdate extends Model
     {
         $find = User::where('login', '=', $login);
 
-        if ($userId !== null && Obj::isLikeInt($userId)) {
+        if ($userId && Any::isInt($userId))
             $find->where('id', '!=', $userId);
-        }
 
         return $find->count() === 0;
     }

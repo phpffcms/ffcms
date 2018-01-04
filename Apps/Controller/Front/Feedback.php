@@ -10,6 +10,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -41,9 +42,8 @@ class Feedback extends Controller
     {
         // get configs
         $configs = $this->getConfigs();
-        if (!App::$User->isAuth() && (int)$configs['guestAdd'] !== 1) {
+        if (!App::$User->isAuth() && !(bool)$configs['guestAdd'])
             throw new ForbiddenException(__('Feedback available only for authorized users'));
-        }
 
         // initialize model
         $model = new FormFeedbackAdd((int)$configs['useCaptcha'] === 1);
@@ -77,23 +77,21 @@ class Feedback extends Controller
      */
     public function actionRead($id, $hash)
     {
-        if (!Obj::isLikeInt($id) || Str::length($hash) < 16 || Str::length($hash) > 64) {
+        if (!Any::isInt($id) || Str::length($hash) < 16 || Str::length($hash) > 64)
             throw new ForbiddenException(__('The feedback request is not founded'));
-        }
 
         // get feedback post record from database
         $recordPost = FeedbackPost::where('id', $id)
             ->where('hash', $hash)
             ->first();
 
-        if ($recordPost === null) {
+        if (!$recordPost)
             throw new ForbiddenException(__('The feedback request is not founded'));
-        }
 
         $userId = App::$User->isAuth() ? App::$User->identity()->getId() : 0;
         $model = null;
         // check if feedback post is not closed for answers
-        if ((int)$recordPost->closed === 0) {
+        if (!(bool)$recordPost->closed) {
             // init new answer add model
             $model = new FormAnswerAdd($recordPost, $userId);
             // if answer is sender lets try to make it model
@@ -130,9 +128,8 @@ class Feedback extends Controller
             ->first();
 
         // check does we found it
-        if ($record === null) {
+        if (!$record)
             throw new ForbiddenException(__('The feedback request is not founded'));
-        }
 
         // check if action is submited
         if ($this->request->request->get('closeRequest', false)) {
@@ -171,9 +168,8 @@ class Feedback extends Controller
         $offset = $page * self::ITEM_PER_PAGE;
 
         // check if user is authorized or throw exception
-        if (!App::$User->isAuth()) {
+        if (!App::$User->isAuth())
             throw new ForbiddenException(__('Feedback listing available only for authorized users'));
-        }
 
         // get current user object
         $user = App::$User->identity();
@@ -198,5 +194,4 @@ class Feedback extends Controller
             'pagination' => $pagination,
         ]);
     }
-
 }

@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
@@ -39,25 +40,21 @@ class User extends ActiveModel implements iUser
 
     /**
      * Get user object relation. If $user_id is null - get current session user
-     * @param int|null $id
+     * @param string|int|null $id
      * @return self|null
      */
-    public static function identity($id = null)
+    public static function identity(?string $id = null): ?self
     {
-        if ($id === null) {
+        if ($id === null)
             $id = MainApp::$Session->get('ff_user_id');
-        }
 
-        // convert id to real integer
-        $id = (int)$id;
-        if (!Obj::isInt($id) || $id < 1) {
+        // check if id is looks like integer
+        if (!Any::isInt($id) || (int)$id < 1)
             return null;
-        }
 
         // check in memory cache object
-        if (MainApp::$Memory->get('user.object.cache.' . $id) !== null) {
+        if (MainApp::$Memory->get('user.object.cache.' . $id) !== null)
             return MainApp::$Memory->get('user.object.cache.' . $id);
-        }
 
         // not founded in memory? lets make query
         $user = self::with(['profile', 'role'])
@@ -70,9 +67,9 @@ class User extends ActiveModel implements iUser
 
     /**
      * Get current user id if auth
-     * @return int
+     * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return (int)$this->id;
     }
@@ -83,24 +80,23 @@ class User extends ActiveModel implements iUser
      * @param null|string $defaultValue
      * @return string|int|null
      */
-    public function getParam($param, $defaultValue = null)
+    public function getParam(string $param, ?string $defaultValue = null): ?string
     {
-        return $this->{$param} === null ? $defaultValue : $this->{$param};
+        return $this->{$param} ?? $defaultValue;
     }
 
     /**
      * Check if current user session is auth
      * @return bool
      */
-    public static function isAuth()
+    public static function isAuth(): bool
     {
         // get data from session
         $sessionUserId = (int)MainApp::$Session->get('ff_user_id', 0);
 
         // check if session contains user id data
-        if ($sessionUserId < 1) {
+        if ($sessionUserId < 1)
             return false;
-        }
 
         // find user identity
         $identity = self::identity($sessionUserId);
@@ -110,30 +106,25 @@ class User extends ActiveModel implements iUser
         }
 
         // check if user is approved. Default value: 0, can be null, '' or the same.
-        if ($identity->approve_token !== '0' && Str::length($identity->approve_token) > 0) {
+        if ($identity->approve_token !== '0' && Str::length($identity->approve_token) > 0)
             return false;
-        }
 
         return ($identity->id > 0 && $identity->id === $sessionUserId);
     }
 
     /**
      * Check if user with $id exist
-     * @param int $id
+     * @param string|int|null $id
      * @return bool
      */
-    public static function isExist($id)
+    public static function isExist(?string $id = null): bool
     {
-        if (!Obj::isLikeInt($id) || $id < 1) {
+        if (!$id || !Any::isInt($id))
             return false;
-        }
-
-        // convert id to real integer
-        $id = (int)$id;
 
         $find = MainApp::$Memory->get('user.counter.cache.' . $id);
-        if ($find === null) {
-            $find = self::where('id', '=', $id)->count();
+        if (!$find) {
+            $find = self::where('id', $id)->count();
             MainApp::$Memory->set('user.counter.cache.' . $id, $find);
         }
 
@@ -145,11 +136,10 @@ class User extends ActiveModel implements iUser
      * @param string $email
      * @return bool
      */
-    public static function isMailExist($email)
+    public static function isMailExist(?string $email = null): bool
     {
-        if (!Obj::isString($email) || !Str::isEmail($email)) {
+        if (!Any::isStr($email) || !Str::isEmail($email))
             return false;
-        }
 
         return self::where('email', '=', $email)->count() > 0;
     }
@@ -159,27 +149,25 @@ class User extends ActiveModel implements iUser
      * @param string $login
      * @return bool
      */
-    public static function isLoginExist($login)
+    public static function isLoginExist(?string $login = null): bool
     {
-        if (!Obj::isString($login) || Str::length($login) < 1) {
+        if (!Any::isStr($login) || Any::isEmpty($login) || Str::length($login) < 2)
             return false;
-        }
 
-        return self::where('login', '=', $login)->count() > 0;
+        return self::where('login', $login)->count() > 0;
     }
 
     /**
      * Get user person like a object via email
-     * @param string $email
-     * @return null|static
+     * @param string|null $email
+     * @return null|self
      */
-    public static function getIdentityViaEmail($email)
+    public static function getIdentityViaEmail(?string $email = null)
     {
-        if (!self::isMailExist($email)) {
+        if (!self::isMailExist($email))
             return null;
-        }
 
-        return self::where('email', '=', $email)->first();
+        return self::where('email', $email)->first();
     }
 
     /**
@@ -229,12 +217,15 @@ class User extends ActiveModel implements iUser
 
     /**
      * Check if target user in blacklist
-     * @param int $target_id
+     * @param string|int|null $target
      * @return bool
      */
-    public function inBlacklist($target_id)
+    public function inBlacklist(?string $target = null): bool
     {
-        return Blacklist::have($this->getId(), $target_id);
+        if ($target === null || (int)$target < 1)
+            return false;
+
+        return Blacklist::have($this->getId(), $target);
     }
 
     /**
@@ -253,68 +244,5 @@ class User extends ActiveModel implements iUser
     public function getOpenidInstance()
     {
         return $this->openidProvider;
-    }
-
-    // Below - list of deprecated functions.
-    // All will be removed in 3.1.0 release
-    // @todo: remove me
-
-    /**
-     * @deprecated
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function getWall()
-    {
-        return $this->wall;
-    }
-
-    /**
-     * @deprecated
-     * @return Role
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Get user profile data as relation of user table. Ex: User::find(1)->getProfile()->nick
-     * @deprecated
-     * @return \Apps\ActiveRecord\Profile
-     */
-    public function getProfile()
-    {
-        // lets find profile identity via current user id
-        $object = Profile::identity($this->getId());
-        // is not exist? Hmmm, lets create it!
-        if ($object === null) {
-            // profile is exists, create real model
-            $object = new Profile();
-            if ($this->getId() > 0) {
-                $object->user_id = $this->getId();
-                $object->save();
-            }
-        }
-        // return result ;)
-        return $object;
-    }
-
-    /**
-     * Get user logs
-     * @deprecated
-     * @return \Apps\ActiveRecord\UserLog
-     */
-    public function getLogs()
-    {
-        return $this->logs();
-    }
-
-    /**
-     * @deprecated
-     * @return UserProvider
-     */
-    public function getProviders()
-    {
-        return $this->provider;
     }
 }

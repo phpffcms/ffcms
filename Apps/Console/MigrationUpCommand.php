@@ -6,6 +6,7 @@ namespace Apps\Console;
 use Apps\ActiveRecord\Migration;
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -42,7 +43,7 @@ class MigrationUpCommand extends Command
         // run migration manager - find migrations
         $manager = new MigrationsManager(null, $this->dbConnection);
         $search = $manager->search($name, false);
-        if (!Obj::isArray($search) || count($search) < 1) {
+        if (!Any::isArray($search) || count($search) < 1) {
             $output->writeln('No migrations found');
             return;
         }

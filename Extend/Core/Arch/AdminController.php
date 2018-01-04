@@ -7,6 +7,7 @@ use Ffcms\Core\App;
 use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Serialize;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -119,9 +120,9 @@ class AdminController extends Controller
      */
     public function getTypeTable($type = null)
     {
-        if ($type === null) {
+        if (!$type)
             $type = $this->type;
-        }
+
         return $type === 'widget' ? $this->widgets : $this->applications;
     }
 
@@ -132,9 +133,9 @@ class AdminController extends Controller
      */
     public function getTypeItem($type = null)
     {
-        if ($type === null) {
+        if (!$type)
             $type = $this->type;
-        }
+
         return $type === 'widget' ? $this->widget : $this->application;
     }
 
@@ -152,11 +153,10 @@ class AdminController extends Controller
      * @param array $configs
      * @return bool
      */
-    public function setConfigs(array $configs = null)
+    public function setConfigs(array $configs = null): bool
     {
-        if ($configs === null || !Obj::isArray($configs) || count($configs) < 1) {
+        if ($configs === null || !Any::isArray($configs) || count($configs) < 1)
             return false;
-        }
 
         // get extension is based on it type
         $id = 0;
@@ -169,9 +169,8 @@ class AdminController extends Controller
         // get active record relation for this id
         $obj = \Apps\ActiveRecord\App::find($id);
 
-        if ($obj === null) {
+        if (!$obj)
             return false;
-        }
 
         // save data in db
         $obj->configs = $configs;

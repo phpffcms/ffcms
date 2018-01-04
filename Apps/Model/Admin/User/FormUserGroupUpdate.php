@@ -6,6 +6,7 @@ use Apps\ActiveRecord\Role;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -38,9 +39,8 @@ class FormUserGroupUpdate extends Model
     {
         $this->name = $this->_role->name;
         $this->color = $this->_role->color;
-        if ($this->_role->permissions !== null) {
+        if ($this->_role->permissions)
             $this->permissions = explode(';', $this->_role->permissions);
-        }
     }
 
     /**
@@ -79,9 +79,8 @@ class FormUserGroupUpdate extends Model
     public function getAllPermissions()
     {
         $p = App::$Properties->getAll('permissions');
-        if ($p === false || !Obj::isArray($p)) {
+        if (!$p || !Any::isArray($p))
             throw new SyntaxException('User permissions settings is not founded: /Private/Config/Permissions.php');
-        }
 
         return $p;
     }
@@ -93,7 +92,7 @@ class FormUserGroupUpdate extends Model
     {
         $this->_role->name = $this->name;
         $this->_role->color = $this->color;
-        if (!Obj::isArray($this->permissions) || count($this->permissions) < 1) {
+        if (!Any::isArray($this->permissions) || count($this->permissions) < 1) {
             $this->_role->permissions = '';
         } else {
             $this->_role->permissions = implode(';', $this->permissions);

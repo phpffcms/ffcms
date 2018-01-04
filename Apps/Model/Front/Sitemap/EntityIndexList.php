@@ -8,6 +8,7 @@ use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -40,16 +41,15 @@ class EntityIndexList extends Model
      */
     public function before()
     {
-        if (!Directory::exist(static::INDEX_PATH)) {
+        if (!Directory::exist(static::INDEX_PATH))
             throw new SyntaxException(__('Directory %dir% for sitemaps is not exists', ['dir' => static::INDEX_PATH]));
-        }
 
         $scan = File::listFiles(static::INDEX_PATH, ['.xml'], true);
-        if (Obj::isArray($scan)) {
+        if (Any::isArray($scan)) {
             foreach ($scan as $file) {
-                if ($this->_lang !== null && !Str::contains('.' . $this->_lang, $file)) {
+                if ($this->_lang !== null && !Str::contains('.' . $this->_lang, $file))
                     continue;
-                }
+
                 $this->files[] = static::INDEX_PATH . '/' . $file;
             }
         }
@@ -60,9 +60,8 @@ class EntityIndexList extends Model
      */
     public function make()
     {
-        if (!Obj::isArray($this->files)) {
+        if (!Any::isArray($this->files))
             return;
-        }
 
         // build file information data
         foreach ($this->files as $file) {
@@ -79,9 +78,6 @@ class EntityIndexList extends Model
      */
     public function getInfo()
     {
-        if (!Obj::isArray($this->info)) {
-            return [];
-        }
-        return $this->info;
+        return (Any::isArray($this->info) ? $this->info : []);
     }
 }

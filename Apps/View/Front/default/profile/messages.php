@@ -1,4 +1,6 @@
 <?php
+
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Url;
 
@@ -280,7 +282,7 @@ $this->breadcrumbs = [
             };
             <?php // check if defined ?newdialog=userid
             $dialogId = \App::$Request->query->get('newdialog', false);
-            if (false !== $dialogId && Obj::isLikeInt($dialogId) && $dialogId > 0) : ?>
+            if ($dialogId && Any::isInt($dialogId) && $dialogId > 0) : ?>
             new_dialog = <?= $dialogId ?>;
             active_dialog_id = new_dialog;
             <?php endif; ?>

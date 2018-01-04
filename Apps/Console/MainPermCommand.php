@@ -5,6 +5,7 @@ namespace Apps\Console;
 
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -50,7 +51,7 @@ class MainPermCommand extends Command
             // read as plain text
             $byte = File::read($file);
             preg_match_all('/public function action(\w*?)\(/', $byte, $matches); // matches[0] contains all methods ;)
-            if (Obj::isArray($matches[1]) && count($matches[1]) > 0) {
+            if (Any::isArray($matches[1]) && count($matches[1]) > 0) {
                 foreach ($matches[1] as $perm) {
                     $fullPerm = 'Admin/' . $className . '/' . $perm;
                     $permissions[] = $fullPerm;

@@ -14,6 +14,7 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Text;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -146,16 +147,14 @@ class EntityCategoryList extends Model
      */
     private function findItems()
     {
-        if (!Obj::isArray($this->_catIds) || count($this->_catIds) < 1) {
+        if (!Any::isArray($this->_catIds) || count($this->_catIds) < 1)
             throw new NotFoundException(__('Category is not founded'));
-        }
 
         // calculate selection offset
         $itemPerPage = (int)$this->_configs['itemPerCategory'];
         // check if custom itemlimit defined over model api
-        if ($this->_customItemLimit !== false) {
+        if ($this->_customItemLimit !== false)
             $itemPerPage = (int)$this->_customItemLimit;
-        }
 
         $offset = $this->_page * $itemPerPage;
 
@@ -204,9 +203,9 @@ class EntityCategoryList extends Model
 
         // prepare sorting urls
         $catSortParams = [];
-        if (App::$Request->query->get('page') !== null) {
+        if (App::$Request->query->get('page'))
             $catSortParams['page'] = (int)App::$Request->query->get('page');
-        }
+
         $catSortUrls = [
             'views' => Url::to('content/list', $this->_currentCategory->path, null, Arr::merge($catSortParams, ['sort' => 'views']), false),
             'rating' => Url::to('content/list', $this->_currentCategory->path, null, Arr::merge($catSortParams, ['sort' => 'rating']), false),
@@ -224,9 +223,8 @@ class EntityCategoryList extends Model
         ];
 
         // check if this category is hidden
-        if ((int)$this->category['configs']['showCategory'] !== 1) {
+        if (!(bool)$this->category['configs']['showCategory'])
             throw new ForbiddenException(__('This category is not available to view'));
-        }
 
         // make sorted tree of categories to display in breadcrumbs
         foreach ($this->_allCategories as $cat) {
@@ -237,7 +235,6 @@ class EntityCategoryList extends Model
     /**
      * Build content data to model properties
      * @param $records
-     * @throws ForbiddenException
      * @throws NotFoundException
      */
     private function buildContent($records)
@@ -271,16 +268,15 @@ class EntityCategoryList extends Model
 
             $owner = $row->user;
             // make a fake if user is not exist over id
-            if ($owner === null) {
+            if (!$owner)
                 $owner = new User();
-            }
 
             // check if current user can rate item
             $ignoredRate = App::$Session->get('content.rate.ignore');
             $canRate = true;
-            if (Obj::isArray($ignoredRate) && Arr::in((string)$row->id, $ignoredRate)) {
+            if (Any::isArray($ignoredRate) && Arr::in((string)$row->id, $ignoredRate))
                 $canRate = false;
-            }
+
             if (!App::$User->isAuth()) {
                 $canRate = false;
             } elseif ($owner->getId() === App::$User->identity()->getId()) { // own item
@@ -308,9 +304,8 @@ class EntityCategoryList extends Model
             ];
         }
 
-        if ($nullItems === $this->_contentCount) {
+        if ($nullItems === $this->_contentCount)
             throw new NotFoundException(__('Content is not founded'));
-        }
     }
 
     /**

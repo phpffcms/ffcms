@@ -7,6 +7,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Url;
 
@@ -30,9 +31,9 @@ class EntityBuildMap extends Model
 
         if ($data !== null && count($data) > 0) {
             foreach ($data as $item) {
-                if (!Obj::isArray($item) || !isset($item['uri'], $item['lastmod'])) {
+                if (!Any::isArray($item) || !isset($item['uri'], $item['lastmod']))
                     continue;
-                }
+
                 $this->add($item['uri'], $item['lastmod'], $item['freq'], $item['priority']);
             }
         }
@@ -49,7 +50,7 @@ class EntityBuildMap extends Model
     public function add($uri, $lastmod, $freq = 'weekly', $priority = 0.5)
     {
         // generate multi-language files
-        if ($this->langs !== null && Obj::isArray($this->langs) && count($this->langs) > 0) {
+        if ($this->langs !== null && Any::isArray($this->langs) && count($this->langs) > 0) {
             foreach ($this->langs as $lang) {
                 // set data to local attribute
                 $this->data[$lang][] = [
@@ -79,9 +80,8 @@ class EntityBuildMap extends Model
     public function save($uniqueName)
     {
         // check if data exists
-        if ($this->data === null || !Obj::isArray($this->data)) {
+        if ($this->data === null || !Any::isArray($this->data))
             return false;
-        }
 
         // list data each every language, render xml output and write into file
         foreach ($this->data as $lang => $items) {
@@ -93,5 +93,4 @@ class EntityBuildMap extends Model
         }
         return true;
     }
-
 }

@@ -5,6 +5,8 @@
 /** @var \Ffcms\Core\Arch\View $this */
 /** @var bool $trash */
 /** @var array $configs */
+
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
@@ -23,7 +25,7 @@ if (Str::likeEmpty($this->title)) {
 // set meta description
 $this->description = $model->metaDescription;
 // set meta keywords
-if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
+if (Any::isArray($model->metaKeywords) && count($model->metaKeywords) > 0) {
     $this->keywords = implode(', ', $model->metaKeywords);
 }
 
@@ -32,7 +34,7 @@ if (!\App::$Request->isPathInjected() && (bool)$model->getCategory()->getPropert
     $breadcrumbs = [
             Url::to('/') => __('Home')
     ];
-    if (Obj::isArray($model->catNesting)) {
+    if (Any::isArray($model->catNesting)) {
         foreach ($model->catNesting as $cat) {
             if (Str::likeEmpty($cat['path'])) {
                 $breadcrumbs[Url::to('content/list', $cat['path'])] = __('Contents');
@@ -115,7 +117,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         <?php endif ;?>
         <?= $model->text ?>
     </div>
-    <?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
+    <?php if ($model->galleryItems !== null && Any::isArray($model->galleryItems)): ?>
         <div class="row">
         <?php $i = 1; ?>
         <?php foreach ($model->galleryItems as $thumbPic => $fullPic): ?>
@@ -141,7 +143,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
             </div>
         </div>
     <?php endif; ?>
-    <?php if ($search->items !== null && Obj::isArray($search->items)): ?>
+    <?php if ($search->items !== null && Any::isArray($search->items)): ?>
         <div class="h3"><?= __('Similar content') ?></div>
         <div class="panel-group">
         <?php $idx = 1; ?>
@@ -183,7 +185,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
     		    <?php if ($properties['tags']): ?>
                 <div id="content-tags">
                     <?php
-                    if (Obj::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
+                    if (Any::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
                         echo '<i class="glyphicon glyphicon-tags hidden-xs"></i> ';
                         foreach ($model->metaKeywords as $tag) {
                             $tag = trim($tag);
@@ -218,7 +220,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
     </div>
 </div>
 <?php endif; ?>
-<?php if ($model->galleryItems !== null && Obj::isArray($model->galleryItems)): ?>
+<?php if ($model->galleryItems !== null && Any::isArray($model->galleryItems)): ?>
 <script>
     $(document).ready(function(){
         var galleryPos = 1;

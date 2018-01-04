@@ -1,5 +1,6 @@
 <?php
 
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Url;
 
 /** @var \Ffcms\Core\Arch\View $this */
@@ -29,7 +30,7 @@ $this->breadcrumbs = [
 <?php
 $results = $model->getRelevanceSortedResult();
 
-if (!\Ffcms\Core\Helper\Type\Obj::isArray($results) || count($results) < 1) {
+if (!Any::isArray($results) || count($results) < 1) {
     echo '<p class="alert alert-warning">' . __('Matches not founded') . '</p>';
     return;
 }

@@ -7,6 +7,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Text;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Interfaces\iUser;
 
@@ -50,20 +51,19 @@ class FormWallPost extends Model
      */
     public function makePost(iUser $target, iUser $viewer, $delay = 60)
     {
-        if ($target === null || $viewer === null) {
+        if (!$target || !$viewer)
             return false;
-        }
 
-        if (!Obj::isLikeInt($delay) || $delay < 0) {
+        if (!Any::isInt($delay) || $delay < 0)
             $delay = static::POST_GLOBAL_DELAY;
-        }
 
-        $find = WallRecords::where('sender_id', '=', $viewer->id)->orderBy('updated_at', 'desc')->first();
-        if ($find !== null) {
+        $find = WallRecords::where('sender_id', '=', $viewer->id)
+            ->orderBy('updated_at', 'desc')
+            ->first();
+        if (!$find) {
             $lastPostTime = Date::convertToTimestamp($find->updated_at);
-            if (time() - $lastPostTime < $delay) { // break execution, passed time is less then default delay
+            if (time() - $lastPostTime < $delay) // break execution, passed time is less then default delay
                 return false;
-            }
         }
 
         // save new post to db
@@ -81,9 +81,6 @@ class FormWallPost extends Model
 
         // cleanup message
         $this->message = null;
-
         return true;
     }
-
-
 }

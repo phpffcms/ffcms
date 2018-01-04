@@ -3,6 +3,7 @@ namespace Widgets\Front\Newcontent;
 
 use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as Widget;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Traits\ClassTools;
 use Apps\ActiveRecord\Content;
@@ -28,17 +29,16 @@ class Newcontent extends Widget
     {
         $cfg = $this->getConfigs();
         // check if categories is empty
-        if ($this->categories === null) {
+        if (!$this->categories)
             $this->categories = $cfg['categories'];
-        }
+
         // check cache is defined
-        if ($this->cache === null || !Obj::isLikeInt($this->cache)) {
+        if (!$this->cache || !Any::isInt($this->cache))
             $this->cache = (int)$cfg['cache'];
-        }
+
         // check item count is defined
-        if ($this->count === null || !Obj::isLikeInt($this->count)) {
+        if (!$this->count|| !Any::isInt($this->count))
             $this->count = (int)$cfg['count'];
-        }
 
         $this->_cacheName = 'widget.newcontent.' . $this->createStringClassSnapshotHash();
     }
@@ -66,9 +66,8 @@ class Newcontent extends Widget
         }
         
         // check if response is not empty
-        if ($query->count() < 1) {
+        if (!$query || $query->count() < 1)
             return __('Content is not founded');
-        }
         
         // render view
         return App::$View->render($this->tpl, [

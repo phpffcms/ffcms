@@ -8,6 +8,7 @@ use Extend\Version;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
@@ -56,20 +57,18 @@ class EntityUpdate extends Model
     {
         // get remote api with json response
         $gitJson = File::getFromUrl(static::API_LATEST_RELEASE);
-        if ($gitJson === null || $gitJson === false) {
+        if (!$gitJson)
             return;
-        }
 
         // parse api response to model attributes
         $git = json_decode($gitJson, true);
         $this->lastVersion = $git['tag_name'];
         // get download url to full compiled distributive (uploaded to each release as .zip archive, placed in release.assets)
         $download = null;
-        if (Obj::isArray($git['assets'])) {
+        if (Any::isArray($git['assets'])) {
             foreach ($git['assets'] as $asset) {
-                if (Arr::in($asset['content_type'], static::$apiZipTypes) && $asset['state'] === 'uploaded') {
+                if (Arr::in($asset['content_type'], static::$apiZipTypes) && $asset['state'] === 'uploaded')
                     $download = $asset['browser_download_url'];
-                }
             }
         }
         $this->lastInfo = [

@@ -4,6 +4,7 @@ namespace Apps\Model\Front\Search;
 
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\HTML\System\Dom;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -53,9 +54,9 @@ class EntitySearchMain extends Model
         $result = [];
         // each every content type
         foreach ($this->results as $type => $items) {
-            if (!Obj::isArray($items)) {
+            if (!Any::isArray($items))
                 continue;
-            }
+
             // each every element
             foreach ($items as $item) {
                 /** @var AbstractSearchResult $item */

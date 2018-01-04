@@ -7,6 +7,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Text;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -38,9 +39,9 @@ class EntityContentSearch extends Model
     {
         $this->_terms = App::$Security->strip_tags(trim($terms, ' '));
         $this->_categoryId = $categoryId;
-        if (Obj::isLikeInt($skipIds)) {
+        if (Any::isInt($skipIds)) {
             $this->_skip = [$skipIds];
-        } elseif (Obj::isArray($skipIds)) {
+        } elseif (Any::isArray($skipIds)) {
             $this->_skip = $skipIds;
         }
         parent::__construct();
@@ -54,9 +55,8 @@ class EntityContentSearch extends Model
     public function before(): void
     {
         // check length of passed terms
-        if (!Obj::isString($this->_terms) || Str::length($this->_terms) < self::MIN_QUERY_LENGTH) {
+        if (!Any::isStr($this->_terms) || Str::length($this->_terms) < self::MIN_QUERY_LENGTH)
             throw new NotFoundException(__('Search terms is too short'));
-        }
 
         $index = implode('-', $this->_skip);
         // try to get this slow query from cache
@@ -79,9 +79,8 @@ class EntityContentSearch extends Model
      */
     private function buildContent(): void
     {
-        if ($this->_records->count() < 1) {
+        if (!$this->_records || $this->_records->count() < 1)
             return;
-        }
 
         foreach ($this->_records as $item) {
             /** @var \Apps\ActiveRecord\Content $item */
@@ -109,11 +108,11 @@ class EntityContentSearch extends Model
         $records = $records->search($this->_terms, null, static::SEARCH_BY_WORDS_COUNT)
             ->whereNotIn('id', $this->_skip)
             ->where('display', true);
-        if ($this->_categoryId !== null && Obj::isInt($this->_categoryId) && $this->_categoryId > 0) {
+
+        if ($this->_categoryId && Any::isInt($this->_categoryId) && $this->_categoryId > 0)
             $records = $records->where('category_id', $this->_categoryId);
-        }
+
         return $records->take(self::MAX_ITEMS)
             ->get();
     }
-
 }

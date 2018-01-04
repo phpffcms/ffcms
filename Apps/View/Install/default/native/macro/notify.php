@@ -1,6 +1,7 @@
 <?php
 /** @var $notify array */
 
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 
 /**
@@ -27,7 +28,7 @@ function type2html($type)
     return $htmlType;
 }
 
-if (Obj::isArray($notify) && count($notify) > 0) {
+if (Any::isArray($notify) && count($notify) > 0) {
     foreach ($notify as $type => $messages) {
         foreach ($messages as $message) {
             echo '<p class="alert ' . type2html($type) . '">

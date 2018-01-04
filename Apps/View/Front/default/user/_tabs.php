@@ -1,9 +1,10 @@
 <?php
-use Ffcms\Core\Helper\Type\Obj;
+
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 
 $args = [];
-if (isset($r) && Obj::isString($r) && Str::length($r) > 1)
+if (isset($r) && Any::isStr($r) && Str::length($r) > 1)
     $args['r'] = $r;
 
 echo \Ffcms\Core\Helper\HTML\Bootstrap\Nav::display([

@@ -1,6 +1,7 @@
 <?php
 
 use Ffcms\Core\Helper\HTML\Table;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Url;
 
@@ -23,9 +24,9 @@ $this->title = __('Routing');
         <?php
         $staticItems = [];
         $dynamicItems = [];
-        if (Obj::isArray($routes['Alias'])) {
+        if (Any::isArray($routes['Alias'])) {
             foreach ($routes['Alias'] as $env => $route) {
-                if (Obj::isArray($route)) {
+                if (Any::isArray($route)) {
                     foreach ($route as $source => $target) {
                         $staticItems[] = [
                             ['text' => $env],
@@ -40,9 +41,9 @@ $this->title = __('Routing');
                 }
             }
         }
-        if (Obj::isArray($routes['Callback'])) {
+        if (Any::isArray($routes['Callback'])) {
             foreach ($routes['Callback'] as $env => $route) {
-                if (Obj::isArray($route)) {
+                if (Any::isArray($route)) {
                     foreach ($route as $source => $target) {
                         $dynamicItems[] = [
                             ['text' => $env],

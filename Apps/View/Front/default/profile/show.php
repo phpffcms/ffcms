@@ -4,6 +4,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\HTML\Form;
 use Ffcms\Core\Helper\HTML\Listing;
 use Ffcms\Core\Helper\Simplify;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
@@ -184,7 +185,7 @@ $this->breadcrumbs = [
                 <?php endif; ?>
                 <?php
                 $customFields = $user->profile->custom_data;
-                if ($customFields !== null && Obj::isArray($customFields) && count($customFields) > 0): ?>
+                if ($customFields !== null && Any::isArray($customFields) && count($customFields) > 0): ?>
                     <?php foreach ($customFields as $cid => $value): ?>
                         <?php if (!Str::likeEmpty($value)): ?>
                             <tr>
@@ -208,7 +209,7 @@ $this->breadcrumbs = [
         <?php if ($wall !== null): ?>
             <?php
             // show notification if exist
-            if (Obj::isArray($notify) && count($notify) > 0) {
+            if (Any::isArray($notify) && count($notify) > 0) {
                 echo $this->render('native/macro/notify', ['notify' => $notify]);
             }
             ?>

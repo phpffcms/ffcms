@@ -13,6 +13,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -142,14 +143,14 @@ class Comments extends ApiController
      * @return string
      * @throws ForbiddenException
      * @throws NotFoundException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionShowanswers($commentId)
     {
         $this->setJsonHeader();
         // check input data
-        if (!Obj::isLikeInt($commentId) || (int)$commentId < 1) {
+        if (!Any::isInt($commentId) || $commentId < 1)
             throw new ForbiddenException('Input data is incorrect');
-        }
 
         // get configs
         $configs = AppRecord::getConfigs('widget', 'Comments');
@@ -182,8 +183,9 @@ class Comments extends ApiController
 
     /**
      * Get commentaries count for pathway. Pathway should be array [itemId => pathway]
-     * @throws NativeException
      * @return string
+     * @throws NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionCount()
     {
@@ -193,9 +195,8 @@ class Comments extends ApiController
         $configs = AppRecord::getConfigs('widget', 'Comments');
         // get path array from request
         $path = $this->request->query->get('path');
-        if (!Obj::isArray($path) || count($path) < 1) {
+        if (!Any::isArray($path) || count($path) < 1)
             throw new NativeException('Wrong query params');
-        }
 
         $count = [];
         // for each item in path array calculate comments count
