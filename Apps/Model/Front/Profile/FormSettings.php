@@ -3,6 +3,7 @@
 namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\ProfileField;
+use Apps\ActiveRecord\User;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
@@ -28,7 +29,7 @@ class FormSettings extends Model
 
     /**
      * FormSettings constructor. Pass user object inside
-     * @param iUser $user
+     * @param iUser|User $user
      */
     public function __construct(iUser $user)
     {

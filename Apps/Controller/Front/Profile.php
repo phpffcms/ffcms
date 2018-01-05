@@ -20,7 +20,9 @@ use Apps\Model\Front\Sitemap\EntityBuildMap;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
+use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
@@ -375,7 +377,6 @@ class Profile extends FrontAppController
      * User profile settings
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      */
     public function actionSettings()
@@ -405,7 +406,6 @@ class Profile extends FrontAppController
      * Action change user password
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      */
     public function actionPassword()
