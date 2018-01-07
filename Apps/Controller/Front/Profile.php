@@ -199,7 +199,6 @@ class Profile extends FrontAppController
     /**
      * Show all users feed activity from wall posts
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionFeed()
@@ -240,7 +239,6 @@ class Profile extends FrontAppController
 
     /**
      * User avatar management
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws ForbiddenException
      */
@@ -274,7 +272,6 @@ class Profile extends FrontAppController
      * @param int $postId
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws NotFoundException
      */
@@ -331,7 +328,6 @@ class Profile extends FrontAppController
      * Show user notifications
      * @param string $type
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */

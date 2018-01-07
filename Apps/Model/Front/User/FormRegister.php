@@ -109,7 +109,7 @@ class FormRegister extends Model
             $sender = App::$Properties->get('adminEmail');
 
             // format SWIFTMailer format
-            $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Default', 'Registration approve', []))
+            $mailMessage = (new \Swift_Message(App::$Translate->get('Default', 'Registration approve', [])))
                 ->setFrom([$sender])
                 ->setTo([$this->email])
                 ->setBody($template, 'text/html');

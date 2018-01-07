@@ -121,9 +121,10 @@ class FormFeedbackAdd extends Model
 
         // get website default email
         $sender = App::$Properties->get('adminEmail');
+        $subject = App::$Translate->get('Feedback', 'Request #%id% is created', ['id' => $record->id]);
 
         // build swift mailer handler
-        $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Feedback', 'Request #%id% is created', ['id' => $record->id]))
+        $mailMessage = (new \Swift_Message($subject))
             ->setFrom([$sender])
             ->setTo([$record->email])
             ->setBody($template, 'text/html');

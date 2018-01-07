@@ -58,7 +58,6 @@ class FormAnswerAdd extends FrontAnswer
      * Send notification to post owner
      * @param FeedbackPost $record
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function sendEmail($record)
     {
@@ -69,9 +68,10 @@ class FormAnswerAdd extends FrontAnswer
 
         // get website default email
         $sender = App::$Properties->get('adminEmail');
+        $subject = App::$Translate->get('Feedback', 'New answer in request #%id%', ['id' => $record->id]);
 
         // build swift mailer handler
-        $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Feedback', 'New answer in request #%id%', ['id' => $record->id]))
+        $mailMessage = (new \Swift_Message($subject))
             ->setFrom([$sender])
             ->setTo([$record->email])
             ->setBody($template, 'text/html');

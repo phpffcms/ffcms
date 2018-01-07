@@ -40,7 +40,6 @@ class Main extends AdminController
      * Index page of admin dashboard
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {
@@ -81,8 +80,7 @@ class Main extends AdminController
     /**
      * Manage settings in web
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws SyntaxException
      */
     public function actionSettings()
     {
@@ -110,8 +108,7 @@ class Main extends AdminController
     /**
      * Manage files via elFinder
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws SyntaxException
      */
     public function actionFiles()
     {
@@ -123,8 +120,7 @@ class Main extends AdminController
     /**
      * Show antivirus view
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws SyntaxException
      */
     public function actionAntivirus()
     {
@@ -147,8 +143,7 @@ class Main extends AdminController
     /**
      * List available routes
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws SyntaxException
      */
     public function actionRouting()
     {
@@ -162,8 +157,7 @@ class Main extends AdminController
     /**
      * Show add form for routing
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws SyntaxException
      */
     public function actionAddroute()
     {
@@ -185,7 +179,6 @@ class Main extends AdminController
      * Delete scheme route
      * @throws SyntaxException
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionDeleteroute()
     {
@@ -207,7 +200,6 @@ class Main extends AdminController
     /**
      * Clear cached data
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws SyntaxException
      */
     public function actionCache()
@@ -234,7 +226,6 @@ class Main extends AdminController
     /**
      * Clear all sessions data
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws SyntaxException
      */
     public function actionSessions()
@@ -261,7 +252,6 @@ class Main extends AdminController
      * Make system update
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionUpdates()
     {

@@ -31,6 +31,9 @@ class FormSettings extends Model
     public $theme;
     public $database;
 
+    // mail configs
+    public $mail;
+
     // lang cfgs
     public $baseLanguage = 'en';
     public $multiLanguage;
@@ -90,6 +93,11 @@ class FormSettings extends Model
             'database.charset' => __('Charset'),
             'database.collation' => __('Collation'),
             'database.prefix' => __('Tables prefix'),
+            'mail.host' => __('Host'),
+            'mail.port' => __('Port'),
+            'mail.encrypt' => __('Encryption'),
+            'mail.user' => __('User'),
+            'mail.password' => __('Password'),
             'debug.cookie.key' => __('Debug cookie key'),
             'debug.cookie.value' => __('Debug cookie value'),
             'gaClientId' => __('GA Client ID'),
@@ -106,11 +114,14 @@ class FormSettings extends Model
     {
         return [
             [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy', 'languages', 'userCron'], 'used'],
-            [['baseProto', 'baseDomain', 'basePath', 'singleLanguage', 'adminEmail', 'timezone', 'testSuite'], 'required'],
+            [['baseProto', 'baseDomain', 'basePath', 'singleLanguage', 'timezone', 'testSuite'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
-            [['database.driver', 'database.database'], 'required'],
-            ['adminEmail', 'email'],
+            [['database.driver', 'database.database', 'database.host', 'database.username', 'database.password', 'database.prefix'], 'required'],
+            [['database.charset', 'database.collation'], 'used'],
+            [['mail.host', 'mail.port'], 'required'],
+            [['mail.encrypt', 'mail.user', 'mail.password'], 'used'],
+            ['mail.user', 'email'],
             ['timezone', 'string'],
             ['baseProto', 'in', ['http', 'https']],
             [['userCron', 'testSuite'], 'in', [0, 1]],

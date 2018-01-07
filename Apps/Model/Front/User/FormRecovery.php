@@ -51,7 +51,6 @@ class FormRecovery extends Model
     /**
      * After validation generate new pwd, recovery token and send email
      * @throws SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function make()
     {
@@ -99,9 +98,10 @@ class FormRecovery extends Model
         ]);
 
         $sender = App::$Properties->get('adminEmail');
+        $subject = App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]);
 
         // format SWIFTMailer format
-        $mailMessage = \Swift_Message::newInstance(App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]))
+        $mailMessage = (new \Swift_Message($subject))
             ->setFrom([$sender])
             ->setTo([$this->email])
             ->setBody($mailTemplate, 'text/html');
