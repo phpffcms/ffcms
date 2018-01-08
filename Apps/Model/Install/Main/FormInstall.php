@@ -21,7 +21,7 @@ use Ffcms\Core\Managers\MigrationsManager;
 class FormInstall extends Model
 {
     public $db = [];
-    public $email;
+    public $mail = [];
     public $multiLanguage;
     public $singleLanguage;
     public $user = [];
@@ -53,7 +53,11 @@ class FormInstall extends Model
             'db.password' => __('User password'),
             'db.database' => __('Database name'),
             'db.prefix' => __('Table prefix'),
-            'email' => __('SendFrom email'),
+            'mail.host' => __('Host'),
+            'mail.port' => __('Port'),
+            'mail.encrypt' => __('Encryption'),
+            'mail.user' => __('User'),
+            'mail.password' => __('Password'),
             'singleLanguage' => __('Default language'),
             'multiLanguage' => __('Multi language'),
             'user.login' => __('Login'),
@@ -71,15 +75,19 @@ class FormInstall extends Model
     public function rules(): array
     {
         return [
-            [['db.driver', 'db.host', 'db.username', 'db.password', 'db.database', 'db.prefix', 'email', 'singleLanguage', 'mainpage'], 'required'],
+            [['db.driver', 'db.host', 'db.username', 'db.password', 'db.database', 'db.prefix', 'singleLanguage', 'mainpage'], 'required'],
             [['user.login', 'user.email', 'user.password', 'user.repassword'], 'required'],
+            [['mail.host', 'mail.port', 'mail.user'], 'required'],
+            [['mail.encrypt', 'mail.password'], 'used'],
+            ['mail.user', 'email'],
+            ['mail.port', 'int'],
+            ['mail.encrypt', 'in', ['ssl', 'tls', 'none']],
             ['mainpage', 'in', ['none', 'news', 'about']],
             [['user.login', 'user.password'], 'length_min', 4],
             ['user.repassword', 'equal', $this->getRequest('user.password', $this->getSubmitMethod())],
             ['user.email', 'email'],
             ['multiLanguage', 'used'],
             ['db.driver', 'in', ['mysql', 'pgsql', 'sqlite']],
-            ['email', 'email'],
             ['singleLanguage', 'in', App::$Translate->getAvailableLangs()],
             ['db', 'Apps\Model\Install\Main\FormInstall::filterCheckDb']
         ];
@@ -96,12 +104,12 @@ class FormInstall extends Model
         $this->before();
         $cfg['baseDomain'] = $this->baseDomain;
         $cfg['database'] = $this->db;
-        $cfg['adminEmail'] = $this->email;
         $cfg['singleLanguage'] = $this->singleLanguage;
         $cfg['multiLanguage'] = (bool)$this->multiLanguage;
         $cfg['passwordSalt'] = '$2a$07$' . Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
         $cfg['debug']['cookie']['key'] = 'fdebug_' . Str::randomLatinNumeric(mt_rand(4, 16));
         $cfg['debug']['cookie']['value'] = Str::randomLatinNumeric(mt_rand(32, 128));
+        $cfg['mail'] = $this->mail;
 
         // initialize migrations table
         App::$Database->getConnection('install')->getSchemaBuilder()->create('migrations', function ($table){

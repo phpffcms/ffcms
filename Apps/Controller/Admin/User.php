@@ -207,7 +207,6 @@ class User extends AdminController
      * Send invite to user by email
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionInvite()
     {

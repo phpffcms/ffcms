@@ -48,34 +48,11 @@ class FormAnswerAdd extends FrontAnswer
         }
 
         // send email notification
-        $this->sendEmail($this->_post);
+        App::$Mailer->tpl('feedback/mail/newanswer', [
+            'record' => $record
+        ])->send($record->email, App::$Translate->get('Feedback', 'New answer in request #%id%', ['id' => $record->id]));
 
         // unset message data
         $this->message = null;
-    }
-
-    /**
-     * Send notification to post owner
-     * @param FeedbackPost $record
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function sendEmail($record)
-    {
-        // prepare email template
-        $template = App::$View->render('feedback/mail/newanswer', [
-            'record' => $record
-        ]);
-
-        // get website default email
-        $sender = App::$Properties->get('adminEmail');
-        $subject = App::$Translate->get('Feedback', 'New answer in request #%id%', ['id' => $record->id]);
-
-        // build swift mailer handler
-        $mailMessage = (new \Swift_Message($subject))
-            ->setFrom([$sender])
-            ->setTo([$record->email])
-            ->setBody($template, 'text/html');
-        // send message over swift instance
-        App::$Mailer->send($mailMessage);
     }
 }

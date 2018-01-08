@@ -51,9 +51,7 @@ class FormInviteSend extends Model
 
     /**
      * Send invite to email
-     * @return int
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
+     * @return bool
      */
     public function make()
     {
@@ -64,20 +62,10 @@ class FormInviteSend extends Model
         $invObj->token = $token;
         $invObj->save();
 
-        // get mailing template
-        $template = App::$View->render('user/_inviteMail', [
+        return App::$Mailer->tpl('user/_inviteMail', [
             'invite' => $token,
             'email' => $this->email
-        ]);
-        $sender = App::$Properties->get('adminEmail');
-
-        // format SWIFTMailer format
-        $mailMessage = (new \Swift_Message(App::$Translate->get('Default', 'You got invite', [])))
-            ->setFrom([$sender])
-            ->setTo([$this->email])
-            ->setBody($template, 'text/html');
-        // send message
-        return App::$Mailer->send($mailMessage);
+        ])->send($this->email, App::$Translate->get('Default', 'You got invite', []));
     }
 
     /**

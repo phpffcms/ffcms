@@ -65,8 +65,22 @@ return [
         return new Apps\ActiveRecord\User();
     },
     'Mailer' => function () {
-        $swiftTransport = new Swift_SendmailTransport();
-        return (new Swift_Mailer($swiftTransport));
+        $mCfg = App::$Properties->get('mail');
+        // initialize swiftmailer transporter
+        $transport = (new Swift_SmtpTransport($mCfg['host'], $mCfg['port']))
+            ->setUsername($mCfg['user']);
+
+        // set auth password if exist
+        if ($mCfg['password'] !== null && strlen($mCfg['password']) > 0)
+            $transport->setPassword($mCfg['password']);
+
+        // set encryption method
+        if (\Ffcms\Core\Helper\Type\Arr::in($mCfg['encrypt'], ['tls', 'ssl']))
+            $transport->setEncryption($mCfg['encrypt']);
+
+        // initialize mailer instance
+        $swift = (new Swift_Mailer($transport));
+        return \Ffcms\Core\Helper\Mailer::factory($swift, $mCfg['user']);
     },
     'Captcha' => function () {
         return new Extend\Core\Captcha\Gregwar();

@@ -55,12 +55,11 @@ class FormRecovery extends Model
     public function make()
     {
         $user = App::$User->getIdentityViaEmail($this->email);
-        if ($user === null) {
+        if ($user === null)
             throw new SyntaxException('Email not found');
-        }
-        if ($user->approve_token !== '0' && Str::length($user->approve_token) > 0) {
+
+        if ($user->approve_token !== '0' && Str::length($user->approve_token) > 0)
             throw new SyntaxException('You must approve your account');
-        }
 
         $rows = UserRecovery::where('user_id', '=', $user->getId())
             ->orderBy('id', 'DESC')
@@ -68,9 +67,8 @@ class FormRecovery extends Model
 
         if ($rows !== null && $rows !== false) {
             // prevent spam of recovery messages
-            if (Date::convertToTimestamp($rows->created_at) > time() - self::DELAY) {
+            if (Date::convertToTimestamp($rows->created_at) > time() - self::DELAY)
                 return;
-            }
         }
 
         // generate random token key chr[128]
@@ -89,23 +87,12 @@ class FormRecovery extends Model
         $log->message = __('Password recovery is initialized from: %ip%', ['ip' => App::$Request->getClientIp()]);
         $log->save();
 
-        // generate mail template
-        $mailTemplate = App::$View->render('user/mail/recovery', [
+        // send recovery email
+        App::$Mailer->tpl('user/mail/recovery', [
             'login' => $user->login,
             'email' => $this->email,
             'token' => $token,
             'id' => $rObject->id
-        ]);
-
-        $sender = App::$Properties->get('adminEmail');
-        $subject = App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]);
-
-        // format SWIFTMailer format
-        $mailMessage = (new \Swift_Message($subject))
-            ->setFrom([$sender])
-            ->setTo([$this->email])
-            ->setBody($mailTemplate, 'text/html');
-        // send message
-        App::$Mailer->send($mailMessage);
+        ])->send($this->email, App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]));
     }
 }

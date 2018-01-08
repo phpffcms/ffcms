@@ -23,16 +23,14 @@ class Main extends Controller
      */
     public function before()
     {
-        if (File::exist('/Private/Install/final.lock')) {
+        if (File::exist('/Private/Install/final.lock'))
             throw new NativeException('Page is not founded!');
-        }
     }
 
     /**
      * Show environment check form
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {
@@ -51,13 +49,11 @@ class Main extends Controller
      * Display installation form and process install
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionInstall()
     {
-        if (File::exist('/Private/Install/install.lock')) {
+        if (File::exist('/Private/Install/install.lock'))
             throw new ForbiddenException(__('installer is blocked! If you want to continue delete file /Private/Installer/install.lock'));
-        }
 
         $model = new FormInstall();
         if ($model->send() && $model->validate()) {
@@ -73,7 +69,6 @@ class Main extends Controller
     /**
      * Display view of success process finish
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionSuccess()
     {

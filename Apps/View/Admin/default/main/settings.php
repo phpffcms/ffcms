@@ -52,12 +52,11 @@ $databaseTab .= $form->field('database.collation', 'text', ['class' => 'form-con
 $databaseTab .= $form->field('database.prefix', 'text', ['class' => 'form-control'], __('Database tables prefix'));
 
 $mailTab = '<p>' . __('Configure sendmail over smtp server. You should set host:port and auth data for your smtp server') . '</p>';
-$mailTab .= $form->field('mail.host', 'text', ['class' => 'form-control'], __('Set smtp server hostname or ip'));
-$mailTab .= $form->field('mail.port', 'text', ['class' => 'form-control'], __('Set smtp server connection port'));
-$mailTab .= $form->field('mail.encrypt', 'select', ['class' => 'form-control', 'options' => ['tls', 'ssl', 'none']], __('Set encryption method for your smtp server. For remote service we are strongly recommend use tls/ssl encryption'));
-$mailTab .= $form->field('mail.user', 'text', ['class' => 'form-control'], __('Set auth user name if required'));
+$mailTab .= $form->field->text('mail.host', ['class' => 'form-control'], __('Set SMTP hostname or ip'));
+$mailTab .= $form->field->text('mail.port', ['class' => 'form-control'], __('Set SMTP connection port'));
+$mailTab .= $form->field->select('mail.encrypt', ['class' => 'form-control', 'options' => ['tls', 'ssl', 'none']], __('Set encryption method for your smtp server. For remote service we are strongly recommend use tls/ssl encryption'));
+$mailTab .= $form->field->text('mail.user', ['class' => 'form-control'], __('Set auth user name if required'));
 $mailTab .= $form->field->text('mail.password', ['class' => 'form-control'], __('Set auth user password if exist'));
-//$mailTab .= $form->field('mail.password', 'text', ['class' => 'form-control'], __('Set auth user password if required'));
 
 $otherTab = '<p>' . __('There you can change specified configs depends of other platforms. GA = google analytics.') . '</p>';
 $otherTab .= $form->field('gaClientId', 'text', ['class' => 'form-control'], __('Google oAuth2 client id. This id will be used to display google.analytics info. Client ID looks like: xxxxxx.apps.googleusercontent.com'));

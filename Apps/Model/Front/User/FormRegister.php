@@ -78,8 +78,6 @@ class FormRegister extends Model
      * Try to insert user data in database
      * @param bool $activation
      * @return bool
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function tryRegister($activation = false)
     {
@@ -100,21 +98,11 @@ class FormRegister extends Model
         if ($activation) {
             $user->approve_token = Str::randomLatinNumeric(mt_rand(32, 128)); // random token for validation url
             // send email
-            $template = App::$View->render('user/mail/approve', [
+            App::$Mailer->tpl('user/mail/approve', [
                 'token' => $user->approve_token,
                 'email' => $user->email,
                 'login' => $user->login
-            ]);
-
-            $sender = App::$Properties->get('adminEmail');
-
-            // format SWIFTMailer format
-            $mailMessage = (new \Swift_Message(App::$Translate->get('Default', 'Registration approve', [])))
-                ->setFrom([$sender])
-                ->setTo([$this->email])
-                ->setBody($template, 'text/html');
-            // send message
-            App::$Mailer->send($mailMessage);
+            ])->send($this->email, (new \Swift_Message(App::$Translate->get('Default', 'Registration approve', []))));
         }
         // save row
         $user->save();

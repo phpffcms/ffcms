@@ -93,43 +93,19 @@ class FormFeedbackAdd extends Model
         $record->email = $this->email;
         $record->message = $this->message;
         $record->hash = $hash;
-        if (App::$User->isAuth()) {
+        if (App::$User->isAuth())
             $record->user_id = App::$User->identity()->getId();
-        }
 
         $record->ip = App::$Request->getClientIp();
         // save row to db
         $record->save();
 
         // send notification to email
-        $this->sendEmail($record);
+        App::$Mailer->tpl('feedback/mail/created', [
+            'record' => $record
+        ])->send($record->email, App::$Translate->get('Feedback', 'Request #%id% is created', ['id' => $record->id]));
 
         return $record;
-    }
-
-    /**
-     * Send email notification after feedback request creation
-     * @param $record
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    private function sendEmail($record)
-    {
-        // prepare email template
-        $template = App::$View->render('feedback/mail/created', [
-            'record' => $record
-        ]);
-
-        // get website default email
-        $sender = App::$Properties->get('adminEmail');
-        $subject = App::$Translate->get('Feedback', 'Request #%id% is created', ['id' => $record->id]);
-
-        // build swift mailer handler
-        $mailMessage = (new \Swift_Message($subject))
-            ->setFrom([$sender])
-            ->setTo([$record->email])
-            ->setBody($template, 'text/html');
-        // send message over swift instance
-        App::$Mailer->send($mailMessage);
     }
 
     /**
