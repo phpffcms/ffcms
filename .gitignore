@@ -7,5 +7,3 @@
 /Private/Sessions/
 /Private/Cache/
 /Private/Install/
-# ignore composer build
-composer.lock
