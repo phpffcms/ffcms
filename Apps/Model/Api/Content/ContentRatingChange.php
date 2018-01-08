@@ -64,7 +64,7 @@ class ContentRatingChange extends Model
         App::$Session->set('content.rate.ignore', $ignored);
         
         // save rating changes to database
-        switch($this->_type) {
+        switch ($this->_type) {
             case 'plus':
                 $this->_content->rating += 1;
                 break;

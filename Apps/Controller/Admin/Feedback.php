@@ -267,5 +267,4 @@ class Feedback extends Controller
             'model' => $model
         ]);
     }
-
 }

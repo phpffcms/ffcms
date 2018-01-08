@@ -52,22 +52,26 @@ class Profile extends ActiveModel implements iProfile
      */
     public static function identity($userId = null)
     {
-        if ($userId === null)
+        if ($userId === null) {
             $userId = MainApp::$Session->get('ff_user_id');
+        }
 
-        if ($userId === null || !Any::isInt($userId) || $userId < 1)
+        if ($userId === null || !Any::isInt($userId) || $userId < 1) {
             return null;
+        }
 
         // check in cache
-        if (MainApp::$Memory->get('profile.object.cache.' . $userId) !== null)
+        if (MainApp::$Memory->get('profile.object.cache.' . $userId) !== null) {
             return MainApp::$Memory->get('profile.object.cache.' . $userId);
+        }
 
         // find row
         $profile = self::where('user_id', $userId);
 
         // empty? lets return null
-        if ($profile->count() !== 1)
+        if ($profile->count() !== 1) {
             return null;
+        }
 
         $object = $profile->first();
 

@@ -22,5 +22,4 @@ class ContentRating extends ActiveModel
         'user_id' => 'integer',
         'type' => 'string'
     ];
-        
 }

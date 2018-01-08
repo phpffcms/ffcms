@@ -134,5 +134,4 @@ class FormSettings extends Model
 
         $profile->save();
     }
-
 }

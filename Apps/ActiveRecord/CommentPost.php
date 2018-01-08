@@ -97,5 +97,4 @@ class CommentPost extends ActiveModel
         MainApp::$Memory->set('commentpost.answer.count.' . $this->id, $count);
         return $count;
     }
-
 }

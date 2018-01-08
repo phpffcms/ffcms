@@ -55,11 +55,13 @@ class FormRecovery extends Model
     public function make()
     {
         $user = App::$User->getIdentityViaEmail($this->email);
-        if ($user === null)
+        if ($user === null) {
             throw new SyntaxException('Email not found');
+        }
 
-        if ($user->approve_token !== '0' && Str::length($user->approve_token) > 0)
+        if ($user->approve_token !== '0' && Str::length($user->approve_token) > 0) {
             throw new SyntaxException('You must approve your account');
+        }
 
         $rows = UserRecovery::where('user_id', '=', $user->getId())
             ->orderBy('id', 'DESC')
@@ -67,8 +69,9 @@ class FormRecovery extends Model
 
         if ($rows !== null && $rows !== false) {
             // prevent spam of recovery messages
-            if (Date::convertToTimestamp($rows->created_at) > time() - self::DELAY)
+            if (Date::convertToTimestamp($rows->created_at) > time() - self::DELAY) {
                 return;
+            }
         }
 
         // generate random token key chr[128]

@@ -57,5 +57,4 @@ class FrontWidget extends NativeWidget
         // if widget is disabled - lets return nothing
         return !(bool)$wData->disabled;
     }
-
 }

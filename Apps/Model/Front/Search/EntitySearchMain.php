@@ -54,8 +54,9 @@ class EntitySearchMain extends Model
         $result = [];
         // each every content type
         foreach ($this->results as $type => $items) {
-            if (!Any::isArray($items))
+            if (!Any::isArray($items)) {
                 continue;
+            }
 
             // each every element
             foreach ($items as $item) {
@@ -92,13 +93,11 @@ class EntitySearchMain extends Model
         $queries = explode(' ', $this->query);
         $dom = new Dom();
         foreach ($queries as $query) {
-            $highlight = $dom->{$tag}(function() use ($query) {
+            $highlight = $dom->{$tag}(function () use ($query) {
                 return $query;
             }, $properties);
             $text = Str::ireplace($query, $highlight, $text);
         }
         return $text;
     }
-
-
 }

@@ -23,25 +23,29 @@ class Newcomment extends AbstractWidget
 
     private $_cacheName;
 
-	/**
-	 * Set default configs if not passed
-	 * {@inheritDoc}
-	 * @see \Ffcms\Core\Arch\Widget::init()
-	 */
+    /**
+     * Set default configs if not passed
+     * {@inheritDoc}
+     * @see \Ffcms\Core\Arch\Widget::init()
+     */
     public function init()
     {
-    	$cfg = $this->getConfigs();
-    	if (!$this->snippet)
-    	    $this->snippet = $cfg['snippet'];
+        $cfg = $this->getConfigs();
+        if (!$this->snippet) {
+            $this->snippet = $cfg['snippet'];
+        }
 
-    	if (!$this->count)
-    	    $this->count = $cfg['count'];
+        if (!$this->count) {
+            $this->count = $cfg['count'];
+        }
 
-    	if (!$this->cache)
-    	    $this->cache = (int)$cfg['cache'];
+        if (!$this->cache) {
+            $this->cache = (int)$cfg['cache'];
+        }
 
-        if (!$this->lang)
+        if (!$this->lang) {
             $this->lang = App::$Request->getLanguage();
+        }
 
 
         $this->_cacheName = 'widget.newcomment.' . $this->createStringClassSnapshotHash();
@@ -61,8 +65,9 @@ class Newcomment extends AbstractWidget
         if ((int)$this->cache > 0) {
             // process caching data
             $cache = App::$Cache->getItem($this->_cacheName);
-            if (!$cache->isHit())
+            if (!$cache->isHit()) {
                 $cache->set($this->makeQuery())->expiresAfter($this->cache);
+            }
 
             $records = $cache->get();
         } else {
@@ -70,8 +75,9 @@ class Newcomment extends AbstractWidget
         }
 
         // check if records is found
-        if (!$records)
+        if (!$records) {
             return __('Comments not yet found');
+        }
 
         $commentEntity = null;
         foreach ($records as $record) {
@@ -79,10 +85,10 @@ class Newcomment extends AbstractWidget
         }
 
         // render view
-    	return App::$View->render('widgets/newcomment/default', [
-    	    'comments' => $commentEntity,
-    	    'snippet' => $this->snippet
-    	]);
+        return App::$View->render('widgets/newcomment/default', [
+            'comments' => $commentEntity,
+            'snippet' => $this->snippet
+        ]);
     }
 
     /**

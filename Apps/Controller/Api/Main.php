@@ -28,8 +28,9 @@ class Main extends ApiController
     {
         $user = App::$User->identity();
 
-        if (!$user || !$user->role->can('admin/main/files'))
+        if (!$user || !$user->role->can('admin/main/files')) {
             throw new ForbiddenException('This action is not allowed!');
+        }
 
         $this->setJsonHeader();
         $connector = new elFinderConnector(new elFinder([

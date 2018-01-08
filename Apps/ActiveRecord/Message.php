@@ -24,5 +24,4 @@ class Message extends ActiveModel
         'message' => 'string',
         'readed' => 'boolean'
     ];
-
 }

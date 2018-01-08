@@ -93,8 +93,9 @@ class FormFeedbackAdd extends Model
         $record->email = $this->email;
         $record->message = $this->message;
         $record->hash = $hash;
-        if (App::$User->isAuth())
+        if (App::$User->isAuth()) {
             $record->user_id = App::$User->identity()->getId();
+        }
 
         $record->ip = App::$Request->getClientIp();
         // save row to db

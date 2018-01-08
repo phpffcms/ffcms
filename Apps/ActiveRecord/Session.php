@@ -37,5 +37,4 @@ class Session extends ActiveModel
         // return count
         return $count;
     }
-
 }

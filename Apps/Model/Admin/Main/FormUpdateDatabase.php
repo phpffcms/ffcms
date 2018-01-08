@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Admin\Main;
 
-
 use Apps\ActiveRecord\System;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;

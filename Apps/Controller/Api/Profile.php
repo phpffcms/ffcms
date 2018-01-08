@@ -46,14 +46,16 @@ class Profile extends ApiController
         // set header
         $this->setJsonHeader();
         // check query length
-        if (Any::isEmpty($postIds))
+        if (Any::isEmpty($postIds)) {
             throw new NativeException('Wrong input count');
+        }
 
         $list = explode(',', $postIds);
         $itemCount = count($list);
         // empty or is biggest then limit?
-        if ($itemCount < 1 || $itemCount > self::ITEM_PER_PAGE)
+        if ($itemCount < 1 || $itemCount > self::ITEM_PER_PAGE) {
             throw new NativeException('Wrong input count');
+        }
 
         // prepare response
         $response = [];
@@ -78,15 +80,17 @@ class Profile extends ApiController
     public function actionShowwallanswers($postId)
     {
         // check input post id num
-        if (!Any::isInt($postId) || $postId < 1)
+        if (!Any::isInt($postId) || $postId < 1) {
             throw new NativeException('Wrong input data');
+        }
 
         // try to find this post
         $object = WallPost::find($postId);
 
         // check if post is exist
-        if (!$object)
+        if (!$object) {
             throw new NativeException('Wrong input data');
+        }
 
         // get answer object with relation to user, profile and role table
         $answers = WallAnswer::with(['user', 'user.profile', 'user.role'])
@@ -129,12 +133,14 @@ class Profile extends ApiController
     public function actionSendwallanswer($postId)
     {
         // not auth? what are you doing there? ;)
-        if (!App::$User->isAuth())
+        if (!App::$User->isAuth()) {
             throw new ForbiddenException('Auth required');
+        }
 
         // no post id? wtf you doing man!
-        if (!Any::isInt($postId) || $postId < 1)
+        if (!Any::isInt($postId) || $postId < 1) {
             throw new NativeException('Wrong input data');
+        }
 
         // get current(sender) user object
         $viewer = App::$User->identity();
@@ -142,19 +148,22 @@ class Profile extends ApiController
         // get message from post and validate minlength
         $message = $this->request->get('message');
         $message = App::$Security->strip_tags($message);
-        if (!Any::isStr($message) || Str::length($message) < 3)
+        if (!Any::isStr($message) || Str::length($message) < 3) {
             throw new ForbiddenException('Wrong input data');
+        }
 
         // try to find this post
         $wallPost = WallPost::where('id', '=', $postId);
-        if ($wallPost->count() < 1)
+        if ($wallPost->count() < 1) {
             throw new NativeException('Wrong input data');
+        }
 
         $wallRow = $wallPost->first();
         $target_id = $wallRow->target_id;
         // check if in blacklist
-        if (!Blacklist::check($viewer->id, $target_id))
+        if (!Blacklist::check($viewer->id, $target_id)) {
             throw new ForbiddenException('User is blocked!');
+        }
 
         // check delay between user last post and current
         $lastAnswer = WallAnswer::where('user_id', '=', App::$User->identity()->getId())
@@ -165,8 +174,9 @@ class Profile extends ApiController
             $answerTime = Date::convertToTimestamp($lastAnswer->created_at);
             $cfgs = \Apps\ActiveRecord\App::getConfigs('app', 'Profile');
             // hmm, maybe past less then delay required?
-            if ($now - (int)$cfgs['delayBetweenPost'] < $answerTime)
+            if ($now - (int)$cfgs['delayBetweenPost'] < $answerTime) {
                 throw new ForbiddenException('Delay between answers not pass');
+            }
         }
 
         // make new row ;)
@@ -203,18 +213,21 @@ class Profile extends ApiController
     {
         $this->setJsonHeader();
         // hello script kiddy, you must be auth ;)
-        if (!App::$User->isAuth())
+        if (!App::$User->isAuth()) {
             throw new ForbiddenException('Auth required');
+        }
 
         // answer id must be an unsigned integer
-        if (!Any::isInt($answerId) || $answerId < 1)
+        if (!Any::isInt($answerId) || $answerId < 1) {
             throw new NativeException('Wrong input data');
+        }
 
         /** @var WallAnswer $findAnswer */
         $findAnswer = WallAnswer::find($answerId);
         // check if this answer id exist
-        if (!$findAnswer)
+        if (!$findAnswer) {
             throw new NotFoundException('Wrong input data');
+        }
 
         // get current viewer
         $viewer = App::$User->identity();
@@ -222,8 +235,9 @@ class Profile extends ApiController
         $postInfo = $findAnswer->post;
 
         // if not a target user of answer and not answer owner - lets throw exception
-        if($postInfo->target_id !== $viewer->id && $findAnswer->user_id !== $viewer->id)
+        if ($postInfo->target_id !== $viewer->id && $findAnswer->user_id !== $viewer->id) {
             throw new ForbiddenException('Access declined!');
+        }
 
         // all is ok, lets remove this answer ;)
         $findAnswer->delete();
@@ -250,8 +264,9 @@ class Profile extends ApiController
         $this->setJsonHeader();
 
         // check is offset is int
-        if ($offset !== 0 && !Any::isInt($offset))
+        if ($offset !== 0 && !Any::isInt($offset)) {
             $offset = 0;
+        }
         ++$offset;
 
         // get user person
@@ -269,20 +284,23 @@ class Profile extends ApiController
         $userList = [];
         $unreadList = [];
 
-        if (Any::isInt($new) && $new > 0 && App::$User->isExist($new))
+        if (Any::isInt($new) && $new > 0 && App::$User->isExist($new)) {
             $userList[] = $new;
+        }
 
         // there is 2 way of messages: me->user; user->me, try to parse it
         foreach ($records as $row) {
             // target is not myself? then i'm - sender (remote user is target: my->to_user)
-            if ($row->target_id !== $user->id)
+            if ($row->target_id !== $user->id) {
                 $userList[] = $row->target_id;
+            }
 
             // sender is not myself? then i'm - target (remote user is sender user->to_me)
             if ($row->sender_id !== $user->id) {
                 $userList[] = $row->sender_id;
-                if ((bool)$row->readed !== true)
+                if ((bool)$row->readed !== true) {
                     $unreadList[] = $row->sender_id;
+                }
             }
         }
 
@@ -316,8 +334,9 @@ class Profile extends ApiController
     public function actionNotifications()
     {
         // check if authed
-        if (!App::$User->isAuth())
+        if (!App::$User->isAuth()) {
             throw new ForbiddenException('Auth required');
+        }
 
         $this->setJsonHeader();
 
@@ -350,11 +369,13 @@ class Profile extends ApiController
      */
     public function actionMessageList($cor_id)
     {
-        if (!App::$User->isAuth())
+        if (!App::$User->isAuth()) {
             throw new ForbiddenException('Auth required');
+        }
 
-        if (!Any::isInt($cor_id) || $cor_id < 1)
+        if (!Any::isInt($cor_id) || $cor_id < 1) {
             throw new NotFoundException('Corresponded id is wrong');
+        }
 
         // get special types for this action
         $queryType = $this->request->get('type');
@@ -362,8 +383,9 @@ class Profile extends ApiController
         // get current user object
         $user = App::$User->identity();
 
-        if (Arr::in($queryType, ['before', 'after']) && (!Any::isInt($queryId) || $queryId < 1))
+        if (Arr::in($queryType, ['before', 'after']) && (!Any::isInt($queryId) || $queryId < 1)) {
             throw new NativeException('Bad input data');
+        }
 
         $messages = null;
         // sounds like a Hindi code, but we need more closures to organize where conditions
@@ -374,10 +396,10 @@ class Profile extends ApiController
             case 'after':
                 $messages = Message::where('id', '>', $queryId)
                     ->where(function ($query) use ($cor_id, $user) {
-                        $query->where(function ($q) use ($cor_id, $user){
+                        $query->where(function ($q) use ($cor_id, $user) {
                             $q->where('target_id', '=', $user->getId())
                                 ->where('sender_id', '=', $cor_id);
-                        })->orWhere(function ($q) use ($cor_id, $user){
+                        })->orWhere(function ($q) use ($cor_id, $user) {
                             $q->where('target_id', '=', $cor_id)
                                 ->where('sender_id', '=', $user->getId());
                         });
@@ -386,20 +408,20 @@ class Profile extends ApiController
             case 'before':
                 $messages = Message::where('id', '<', $queryId)
                     ->where(function ($query) use ($cor_id, $user) {
-                        $query->where(function ($q) use ($cor_id, $user){
+                        $query->where(function ($q) use ($cor_id, $user) {
                             $q->where('target_id', '=', $user->getId())
                                 ->where('sender_id', '=', $cor_id);
-                        })->orWhere(function ($q) use ($cor_id, $user){
+                        })->orWhere(function ($q) use ($cor_id, $user) {
                             $q->where('target_id', '=', $cor_id)
                                 ->where('sender_id', '=', $user->getId());
                         });
                     });
                 break;
             default:
-                $messages = Message::where(function($query) use ($cor_id, $user) {
+                $messages = Message::where(function ($query) use ($cor_id, $user) {
                     $query->where('target_id', '=', $user->getId())
                         ->where('sender_id', '=', $cor_id);
-                })->orWhere(function($query) use ($cor_id, $user) {
+                })->orWhere(function ($query) use ($cor_id, $user) {
                     $query->where('target_id', '=', $cor_id)
                         ->where('sender_id', '=', $user->getId());
                 });
@@ -413,8 +435,9 @@ class Profile extends ApiController
             ->take(self::MSG_TEXT_LIST);
 
         // check if messages exist
-        if ($messages->count() < 1)
+        if ($messages->count() < 1) {
             return json_encode(['status' => 0, 'text' => 'No messages']);
+        }
 
         // build response
         $response = null;
@@ -452,18 +475,21 @@ class Profile extends ApiController
     public function actionMessagesend($targetId)
     {
         // check if user is auth
-        if (!App::$User->isAuth())
+        if (!App::$User->isAuth()) {
             throw new ForbiddenException('Auth required');
+        }
 
         // get current user object and check in blacklist
         $user = App::$User->identity();
-        if (!Blacklist::check($user->id, $targetId))
+        if (!Blacklist::check($user->id, $targetId)) {
             throw new ForbiddenException('In blacklist');
+        }
 
         // check input params
         $msg = App::$Security->strip_tags($this->request->get('message'));
-        if (!Any::isInt($targetId) || $targetId < 1 || Str::length($msg) < 1)
+        if (!Any::isInt($targetId) || $targetId < 1 || Str::length($msg) < 1) {
             throw new NativeException('Wrong input data');
+        }
 
         $this->setJsonHeader();
 
@@ -487,8 +513,9 @@ class Profile extends ApiController
      */
     public function actionChangerating()
     {
-        if (!App::$User->isAuth())
+        if (!App::$User->isAuth()) {
             throw new ForbiddenException('Auth required');
+        }
 
         $this->setJsonHeader();
 
@@ -497,25 +524,29 @@ class Profile extends ApiController
         $type = $this->request->get('type');
 
         // check type of query
-        if ($type !== '+' && $type !== '-')
+        if ($type !== '+' && $type !== '-') {
             throw new NativeException('Wrong data');
+        }
 
         // check if passed user id is exist
-        if (!Any::isInt($targetId) || $targetId < 1 || !App::$User->isExist($targetId))
+        if (!Any::isInt($targetId) || $targetId < 1 || !App::$User->isExist($targetId)) {
             throw new NotFoundException('Wrong user info');
+        }
 
         $cfg = \Apps\ActiveRecord\App::getConfigs('app', 'Profile');
         // check if rating is enabled for website
-        if (!(bool)$cfg['rating'])
+        if (!(bool)$cfg['rating']) {
             throw new NativeException('Rating is disabled');
+        }
 
         // get target and sender objects
         $target = App::$User->identity($targetId);
         $sender = App::$User->identity();
 
         // disable self-based changes ;)
-        if ($target->getId() === $sender->getId())
+        if ($target->getId() === $sender->getId()) {
             throw new ForbiddenException('Self change prevented');
+        }
 
         // check delay
         $diff = Date::convertToDatetime(time() - $cfg['ratingDelay'], Date::FORMAT_SQL_TIMESTAMP);
@@ -524,8 +555,9 @@ class Profile extends ApiController
             ->where('sender_id', $sender->getId())
             ->where('created_at', '>=', $diff)
             ->orderBy('id', 'DESC');
-        if ($query->count() > 0)
+        if ($query->count() > 0) {
             throw new ForbiddenException('Delay required');
+        }
 
         // delay is ok, lets insert a row
         $record = new ProfileRating();

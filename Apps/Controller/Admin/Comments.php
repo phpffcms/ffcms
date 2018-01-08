@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Admin;
 
-
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\CommentPost;
 use Apps\Model\Admin\Comments\FormCommentDelete;
@@ -146,8 +145,9 @@ class Comments extends AdminController
         // sounds like a multiply delete definition
         if ($id === 0 || (int)$id < 1) {
             $ids = $this->request->query->get('selected');
-            if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids))
+            if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids)) {
                 throw new NotFoundException('Bad conditions');
+            }
 
             $id = $ids;
         } else {
@@ -200,8 +200,9 @@ class Comments extends AdminController
         // check if it multiple accept ids
         if ($id === 0 || (int)$id < 1) {
             $ids = $this->request->query->get('selected');
-            if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids))
+            if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids)) {
                 throw new NotFoundException('Bad conditions');
+            }
             $id = $ids;
         } else {
             $id = [$id];
@@ -298,8 +299,4 @@ class Comments extends AdminController
             'model' => $model
         ]);
     }
-
-
-
-
 }

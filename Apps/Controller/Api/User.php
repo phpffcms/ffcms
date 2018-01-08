@@ -34,5 +34,4 @@ class User extends ApiController
     {
         \Hybrid_Endpoint::process();
     }
-
 }

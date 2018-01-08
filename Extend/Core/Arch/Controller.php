@@ -28,5 +28,4 @@ class Controller extends AbstractController
             App::$Memory->set('table.apps', $this->table);
         }
     }
-
 }

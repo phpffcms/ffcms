@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Api\Comments;
 
-
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\CommentPost;
 use Apps\Model\Front\Profile\EntityAddNotification;
@@ -129,5 +128,4 @@ class CommentAnswerAdd extends Model
 
         return $record;
     }
-
 }

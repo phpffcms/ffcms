@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Install;
 
-
 use Apps\Model\Install\Main\EntityCheck;
 use Apps\Model\Install\Main\FormInstall;
 use Ffcms\Core\Arch\Controller;
@@ -23,8 +22,9 @@ class Main extends Controller
      */
     public function before()
     {
-        if (File::exist('/Private/Install/final.lock'))
+        if (File::exist('/Private/Install/final.lock')) {
             throw new NativeException('Page is not founded!');
+        }
     }
 
     /**
@@ -52,8 +52,9 @@ class Main extends Controller
      */
     public function actionInstall()
     {
-        if (File::exist('/Private/Install/install.lock'))
+        if (File::exist('/Private/Install/install.lock')) {
             throw new ForbiddenException(__('installer is blocked! If you want to continue delete file /Private/Installer/install.lock'));
+        }
 
         $model = new FormInstall();
         if ($model->send() && $model->validate()) {

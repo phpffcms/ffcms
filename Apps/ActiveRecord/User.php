@@ -45,16 +45,19 @@ class User extends ActiveModel implements iUser
      */
     public static function identity(?string $id = null): ?self
     {
-        if ($id === null)
+        if ($id === null) {
             $id = MainApp::$Session->get('ff_user_id');
+        }
 
         // check if id is looks like integer
-        if (!Any::isInt($id) || (int)$id < 1)
+        if (!Any::isInt($id) || (int)$id < 1) {
             return null;
+        }
 
         // check in memory cache object
-        if (MainApp::$Memory->get('user.object.cache.' . $id) !== null)
+        if (MainApp::$Memory->get('user.object.cache.' . $id) !== null) {
             return MainApp::$Memory->get('user.object.cache.' . $id);
+        }
 
         // not founded in memory? lets make query
         $user = self::with(['profile', 'role'])
@@ -95,8 +98,9 @@ class User extends ActiveModel implements iUser
         $sessionUserId = (int)MainApp::$Session->get('ff_user_id', 0);
 
         // check if session contains user id data
-        if ($sessionUserId < 1)
+        if ($sessionUserId < 1) {
             return false;
+        }
 
         // find user identity
         $identity = self::identity($sessionUserId);
@@ -106,8 +110,9 @@ class User extends ActiveModel implements iUser
         }
 
         // check if user is approved. Default value: 0, can be null, '' or the same.
-        if ($identity->approve_token !== '0' && Str::length($identity->approve_token) > 0)
+        if ($identity->approve_token !== '0' && Str::length($identity->approve_token) > 0) {
             return false;
+        }
 
         return ($identity->id > 0 && $identity->id === $sessionUserId);
     }
@@ -119,8 +124,9 @@ class User extends ActiveModel implements iUser
      */
     public static function isExist(?string $id = null): bool
     {
-        if (!$id || !Any::isInt($id))
+        if (!$id || !Any::isInt($id)) {
             return false;
+        }
 
         $find = MainApp::$Memory->get('user.counter.cache.' . $id);
         if (!$find) {
@@ -138,8 +144,9 @@ class User extends ActiveModel implements iUser
      */
     public static function isMailExist(?string $email = null): bool
     {
-        if (!Any::isStr($email) || !Str::isEmail($email))
+        if (!Any::isStr($email) || !Str::isEmail($email)) {
             return false;
+        }
 
         return self::where('email', '=', $email)->count() > 0;
     }
@@ -151,8 +158,9 @@ class User extends ActiveModel implements iUser
      */
     public static function isLoginExist(?string $login = null): bool
     {
-        if (!Any::isStr($login) || Any::isEmpty($login) || Str::length($login) < 2)
+        if (!Any::isStr($login) || Any::isEmpty($login) || Str::length($login) < 2) {
             return false;
+        }
 
         return self::where('login', $login)->count() > 0;
     }
@@ -164,8 +172,9 @@ class User extends ActiveModel implements iUser
      */
     public static function getIdentityViaEmail(?string $email = null)
     {
-        if (!self::isMailExist($email))
+        if (!self::isMailExist($email)) {
             return null;
+        }
 
         return self::where('email', $email)->first();
     }
@@ -222,8 +231,9 @@ class User extends ActiveModel implements iUser
      */
     public function inBlacklist(?string $target = null): bool
     {
-        if ($target === null || (int)$target < 1)
+        if ($target === null || (int)$target < 1) {
             return false;
+        }
 
         return Blacklist::have($this->getId(), $target);
     }

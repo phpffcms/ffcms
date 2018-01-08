@@ -9,7 +9,7 @@ if (PHP_SAPI !== 'cli' || !defined('root')) {
     die();
 }
 
-require_once (root . '/Loader/Autoload.php');
+require_once(root . '/Loader/Autoload.php');
 
 // initialize console app
 $app = new Symfony\Component\Console\Application('FFCMS', '3.0.0');

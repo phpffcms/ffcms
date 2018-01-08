@@ -29,16 +29,19 @@ class Newcontent extends Widget
     {
         $cfg = $this->getConfigs();
         // check if categories is empty
-        if (!$this->categories)
+        if (!$this->categories) {
             $this->categories = $cfg['categories'];
+        }
 
         // check cache is defined
-        if (!$this->cache || !Any::isInt($this->cache))
+        if (!$this->cache || !Any::isInt($this->cache)) {
             $this->cache = (int)$cfg['cache'];
+        }
 
         // check item count is defined
-        if (!$this->count|| !Any::isInt($this->count))
+        if (!$this->count|| !Any::isInt($this->count)) {
             $this->count = (int)$cfg['count'];
+        }
 
         $this->_cacheName = 'widget.newcontent.' . $this->createStringClassSnapshotHash();
     }
@@ -59,19 +62,21 @@ class Newcontent extends Widget
         } else {
             // try get query result from cache
             $cache = App::$Cache->getItem($this->_cacheName);
-            if (!$cache->isHit())
+            if (!$cache->isHit()) {
                 $cache->set($this->makeQuery())->expiresAfter($this->cache);
+            }
 
             $query = $cache->get();
         }
         
         // check if response is not empty
-        if (!$query || $query->count() < 1)
+        if (!$query || $query->count() < 1) {
             return __('Content is not founded');
+        }
         
         // render view
         return App::$View->render($this->tpl, [
-           'records' => $query 
+           'records' => $query
         ]);
     }
     

@@ -16,5 +16,4 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class StaticContent extends ActiveModel
 {
-
 }

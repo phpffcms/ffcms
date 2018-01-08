@@ -10,5 +10,4 @@ use Ffcms\Apps\Api\Ckeditor\Editor;
  */
 class Ckbrowser extends Editor
 {
-
 }

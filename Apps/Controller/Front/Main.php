@@ -4,10 +4,8 @@ namespace Apps\Controller\Front;
 
 use Extend\Core\Arch\Controller;
 
-
 class Main extends Controller
 {
-
     public function before()
     {
         //self::$layout = 'other.php';

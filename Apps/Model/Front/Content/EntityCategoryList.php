@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Front\Content;
 
-
 use Apps\ActiveRecord\Content;
 use Apps\ActiveRecord\Content as ContentRecord;
 use Apps\ActiveRecord\ContentCategory;
@@ -147,14 +146,16 @@ class EntityCategoryList extends Model
      */
     private function findItems()
     {
-        if (!Any::isArray($this->_catIds) || count($this->_catIds) < 1)
+        if (!Any::isArray($this->_catIds) || count($this->_catIds) < 1) {
             throw new NotFoundException(__('Category is not founded'));
+        }
 
         // calculate selection offset
         $itemPerPage = (int)$this->_configs['itemPerCategory'];
         // check if custom itemlimit defined over model api
-        if ($this->_customItemLimit !== false)
+        if ($this->_customItemLimit !== false) {
             $itemPerPage = (int)$this->_customItemLimit;
+        }
 
         $offset = $this->_page * $itemPerPage;
 
@@ -203,8 +204,9 @@ class EntityCategoryList extends Model
 
         // prepare sorting urls
         $catSortParams = [];
-        if (App::$Request->query->get('page'))
+        if (App::$Request->query->get('page')) {
             $catSortParams['page'] = (int)App::$Request->query->get('page');
+        }
 
         $catSortUrls = [
             'views' => Url::to('content/list', $this->_currentCategory->path, null, Arr::merge($catSortParams, ['sort' => 'views']), false),
@@ -223,8 +225,9 @@ class EntityCategoryList extends Model
         ];
 
         // check if this category is hidden
-        if (!(bool)$this->category['configs']['showCategory'])
+        if (!(bool)$this->category['configs']['showCategory']) {
             throw new ForbiddenException(__('This category is not available to view'));
+        }
 
         // make sorted tree of categories to display in breadcrumbs
         foreach ($this->_allCategories as $cat) {
@@ -268,14 +271,16 @@ class EntityCategoryList extends Model
 
             $owner = $row->user;
             // make a fake if user is not exist over id
-            if (!$owner)
+            if (!$owner) {
                 $owner = new User();
+            }
 
             // check if current user can rate item
             $ignoredRate = App::$Session->get('content.rate.ignore');
             $canRate = true;
-            if (Any::isArray($ignoredRate) && Arr::in((string)$row->id, $ignoredRate))
+            if (Any::isArray($ignoredRate) && Arr::in((string)$row->id, $ignoredRate)) {
                 $canRate = false;
+            }
 
             if (!App::$User->isAuth()) {
                 $canRate = false;
@@ -304,8 +309,9 @@ class EntityCategoryList extends Model
             ];
         }
 
-        if ($nullItems === $this->_contentCount)
+        if ($nullItems === $this->_contentCount) {
             throw new NotFoundException(__('Content is not founded'));
+        }
     }
 
     /**

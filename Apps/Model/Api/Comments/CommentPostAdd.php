@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Api\Comments;
 
-
 use Apps\ActiveRecord\CommentPost;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;

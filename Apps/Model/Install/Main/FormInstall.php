@@ -112,7 +112,7 @@ class FormInstall extends Model
         $cfg['mail'] = $this->mail;
 
         // initialize migrations table
-        App::$Database->getConnection('install')->getSchemaBuilder()->create('migrations', function ($table){
+        App::$Database->getConnection('install')->getSchemaBuilder()->create('migrations', function ($table) {
             $table->increments('id');
             $table->string('migration', 128)->unique();
             $table->timestamps();

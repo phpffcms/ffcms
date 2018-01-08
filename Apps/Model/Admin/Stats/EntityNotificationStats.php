@@ -56,5 +56,4 @@ class EntityNotificationStats extends Model
         $this->comments = CommentPost::where('moderate', '=', 1)->count();
         $this->comments += CommentAnswer::where('moderate', '=', 1)->count();
     }
-
 }

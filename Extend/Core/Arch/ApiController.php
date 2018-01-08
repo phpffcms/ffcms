@@ -28,5 +28,4 @@ class ApiController extends Controller
     {
         $this->response->headers->set('Content-Type', 'application/json');
     }
-
 }

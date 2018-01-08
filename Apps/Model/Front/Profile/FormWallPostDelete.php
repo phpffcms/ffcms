@@ -42,6 +42,4 @@ class FormWallPostDelete extends Model
         $this->_post->answers()->delete();
         $this->_post->delete();
     }
-
-
 }

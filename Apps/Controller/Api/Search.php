@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Api;
 
-
 use Apps\Model\Front\Search\EntitySearchMain;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\Exception\JsonException;

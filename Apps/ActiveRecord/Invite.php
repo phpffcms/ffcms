@@ -33,5 +33,4 @@ class Invite extends ActiveModel
         $timestamp = Date::convertToDatetime($date, Date::FORMAT_SQL_TIMESTAMP);
         self::where('created_at', '<=', $timestamp)->delete();
     }
-
 }

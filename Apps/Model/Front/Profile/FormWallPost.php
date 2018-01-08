@@ -51,19 +51,22 @@ class FormWallPost extends Model
      */
     public function makePost(iUser $target, iUser $viewer, $delay = 60)
     {
-        if (!$target || !$viewer)
+        if (!$target || !$viewer) {
             return false;
+        }
 
-        if (!Any::isInt($delay) || $delay < 0)
+        if (!Any::isInt($delay) || $delay < 0) {
             $delay = static::POST_GLOBAL_DELAY;
+        }
 
         $find = WallRecords::where('sender_id', '=', $viewer->id)
             ->orderBy('updated_at', 'desc')
             ->first();
         if (!$find) {
             $lastPostTime = Date::convertToTimestamp($find->updated_at);
-            if (time() - $lastPostTime < $delay) // break execution, passed time is less then default delay
+            if (time() - $lastPostTime < $delay) { // break execution, passed time is less then default delay
                 return false;
+            }
         }
 
         // save new post to db

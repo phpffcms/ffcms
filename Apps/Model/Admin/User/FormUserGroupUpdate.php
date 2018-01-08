@@ -39,8 +39,9 @@ class FormUserGroupUpdate extends Model
     {
         $this->name = $this->_role->name;
         $this->color = $this->_role->color;
-        if ($this->_role->permissions)
+        if ($this->_role->permissions) {
             $this->permissions = explode(';', $this->_role->permissions);
+        }
     }
 
     /**
@@ -79,8 +80,9 @@ class FormUserGroupUpdate extends Model
     public function getAllPermissions()
     {
         $p = App::$Properties->getAll('permissions');
-        if (!$p || !Any::isArray($p))
+        if (!$p || !Any::isArray($p)) {
             throw new SyntaxException('User permissions settings is not founded: /Private/Config/Permissions.php');
+        }
 
         return $p;
     }

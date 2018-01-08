@@ -57,7 +57,7 @@ class Application extends AdminController
             if ($model->validate()) {
                 // try to run ::install method from remoute controller
                 if ($model->make()) {
-                        App::$Session->getFlashBag()->add('success', __('Application "%app%" is successful installed!', ['app' => $model->sysname]));
+                    App::$Session->getFlashBag()->add('success', __('Application "%app%" is successful installed!', ['app' => $model->sysname]));
                     $this->response->redirect('application/index');
                 } else {
                     App::$Session->getFlashBag()->add('error', __('During the installation process an error has occurred! Please contact with application developer.'));

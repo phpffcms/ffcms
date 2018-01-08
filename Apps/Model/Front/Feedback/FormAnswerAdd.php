@@ -106,6 +106,5 @@ class FormAnswerAdd extends Model
                 'post' => Text::snippet($this->_post->message, 50)
             ]);
         }
-
     }
 }

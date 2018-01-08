@@ -55,8 +55,9 @@ class EntityContentSearch extends Model
     public function before(): void
     {
         // check length of passed terms
-        if (!Any::isStr($this->_terms) || Str::length($this->_terms) < self::MIN_QUERY_LENGTH)
+        if (!Any::isStr($this->_terms) || Str::length($this->_terms) < self::MIN_QUERY_LENGTH) {
             throw new NotFoundException(__('Search terms is too short'));
+        }
 
         $index = implode('-', $this->_skip);
         // try to get this slow query from cache
@@ -79,8 +80,9 @@ class EntityContentSearch extends Model
      */
     private function buildContent(): void
     {
-        if (!$this->_records || $this->_records->count() < 1)
+        if (!$this->_records || $this->_records->count() < 1) {
             return;
+        }
 
         foreach ($this->_records as $item) {
             /** @var \Apps\ActiveRecord\Content $item */
@@ -109,8 +111,9 @@ class EntityContentSearch extends Model
             ->whereNotIn('id', $this->_skip)
             ->where('display', true);
 
-        if ($this->_categoryId && Any::isInt($this->_categoryId) && $this->_categoryId > 0)
+        if ($this->_categoryId && Any::isInt($this->_categoryId) && $this->_categoryId > 0) {
             $records = $records->where('category_id', $this->_categoryId);
+        }
 
         return $records->take(self::MAX_ITEMS)
             ->get();

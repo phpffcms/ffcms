@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Front\Search;
 
-
 use Ffcms\Core\Helper\Date;
 
 /**

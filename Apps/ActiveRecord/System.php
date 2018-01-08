@@ -2,7 +2,6 @@
 
 namespace Apps\ActiveRecord;
 
-
 use Ffcms\Core\Arch\ActiveModel;
 
 /**
@@ -29,5 +28,4 @@ class System extends ActiveModel
     {
         return self::where('var', $name)->first();
     }
-
 }

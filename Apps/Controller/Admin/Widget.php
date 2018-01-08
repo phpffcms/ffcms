@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Admin;
 
-
 use Apps\Model\Admin\Application\FormInstall;
 use Apps\Model\Admin\Application\FormTurn;
 use Apps\Model\Admin\Application\FormUpdate;
@@ -138,5 +137,4 @@ class Widget extends AdminController
             'model' => $model
         ]);
     }
-
 }

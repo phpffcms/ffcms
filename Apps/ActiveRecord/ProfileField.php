@@ -85,5 +85,4 @@ class ProfileField extends ActiveModel
 
         return $record->type;
     }
-
 }

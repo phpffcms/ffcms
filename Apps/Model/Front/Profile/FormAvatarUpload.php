@@ -68,7 +68,6 @@ class FormAvatarUpload extends Model
             $this->resizeAndSave($upload, $user->id, 'big');
             $this->resizeAndSave($upload, $user->id, 'medium');
             $this->resizeAndSave($upload, $user->id, 'small');
-
         } catch (\Exception $e) {
             if (App::$Debug) {
                 App::$Debug->addException($e);

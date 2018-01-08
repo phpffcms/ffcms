@@ -81,6 +81,4 @@ class FormUserDelete extends Model
             $user->delete();
         }
     }
-
-
 }

@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Admin\Content;
 
-
 use Apps\ActiveRecord\Content;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
@@ -53,6 +52,4 @@ class FormContentGlobDelete extends Model
             $record->delete();
         }
     }
-
-
 }

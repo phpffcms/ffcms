@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Api\Comments;
 
-
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\CommentPost;
 use Ffcms\Core\App;
@@ -89,5 +88,4 @@ class EntityCommentData extends Model
 
         return $res;
     }
-
 }

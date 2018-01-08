@@ -41,14 +41,16 @@ class EntityIndexList extends Model
      */
     public function before()
     {
-        if (!Directory::exist(static::INDEX_PATH))
+        if (!Directory::exist(static::INDEX_PATH)) {
             throw new SyntaxException(__('Directory %dir% for sitemaps is not exists', ['dir' => static::INDEX_PATH]));
+        }
 
         $scan = File::listFiles(static::INDEX_PATH, ['.xml'], true);
         if (Any::isArray($scan)) {
             foreach ($scan as $file) {
-                if ($this->_lang !== null && !Str::contains('.' . $this->_lang, $file))
+                if ($this->_lang !== null && !Str::contains('.' . $this->_lang, $file)) {
                     continue;
+                }
 
                 $this->files[] = static::INDEX_PATH . '/' . $file;
             }
@@ -60,8 +62,9 @@ class EntityIndexList extends Model
      */
     public function make()
     {
-        if (!Any::isArray($this->files))
+        if (!Any::isArray($this->files)) {
             return;
+        }
 
         // build file information data
         foreach ($this->files as $file) {

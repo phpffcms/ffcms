@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Front\Sitemap;
 
-
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
@@ -31,8 +30,9 @@ class EntityBuildMap extends Model
 
         if ($data !== null && count($data) > 0) {
             foreach ($data as $item) {
-                if (!Any::isArray($item) || !isset($item['uri'], $item['lastmod']))
+                if (!Any::isArray($item) || !isset($item['uri'], $item['lastmod'])) {
                     continue;
+                }
 
                 $this->add($item['uri'], $item['lastmod'], $item['freq'], $item['priority']);
             }
@@ -80,8 +80,9 @@ class EntityBuildMap extends Model
     public function save($uniqueName)
     {
         // check if data exists
-        if ($this->data === null || !Any::isArray($this->data))
+        if ($this->data === null || !Any::isArray($this->data)) {
             return false;
+        }
 
         // list data each every language, render xml output and write into file
         foreach ($this->data as $lang => $items) {

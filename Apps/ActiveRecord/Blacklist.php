@@ -45,10 +45,10 @@ class Blacklist extends ActiveModel
      */
     public static function check($user1, $user2)
     {
-        $query = self::where(function($query) use ($user1, $user2){
+        $query = self::where(function ($query) use ($user1, $user2) {
             $query->where('user_id', '=', $user1)
                 ->where('target_id', '=', $user2);
-        })->orWhere(function($query) use ($user1, $user2){
+        })->orWhere(function ($query) use ($user1, $user2) {
             $query->where('user_id', '=', $user2)
                 ->where('target_id', '=', $user1);
         });

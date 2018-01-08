@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Front\Search;
 
-
 use Apps\ActiveRecord\CommentPost;
 use Apps\Model\Front\Search\Interfaces\SearchContainer;
 use Ffcms\Core\App;

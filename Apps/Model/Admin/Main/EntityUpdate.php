@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Admin\Main;
 
-
 use Apps\ActiveRecord\System;
 use Extend\Version;
 use Ffcms\Core\Arch\Model;
@@ -57,8 +56,9 @@ class EntityUpdate extends Model
     {
         // get remote api with json response
         $gitJson = File::getFromUrl(static::API_LATEST_RELEASE);
-        if (!$gitJson)
+        if (!$gitJson) {
             return;
+        }
 
         // parse api response to model attributes
         $git = json_decode($gitJson, true);
@@ -67,8 +67,9 @@ class EntityUpdate extends Model
         $download = null;
         if (Any::isArray($git['assets'])) {
             foreach ($git['assets'] as $asset) {
-                if (Arr::in($asset['content_type'], static::$apiZipTypes) && $asset['state'] === 'uploaded')
+                if (Arr::in($asset['content_type'], static::$apiZipTypes) && $asset['state'] === 'uploaded') {
                     $download = $asset['browser_download_url'];
+                }
             }
         }
         $this->lastInfo = [

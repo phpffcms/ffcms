@@ -149,8 +149,9 @@ class Comments extends ApiController
     {
         $this->setJsonHeader();
         // check input data
-        if (!Any::isInt($commentId) || $commentId < 1)
+        if (!Any::isInt($commentId) || $commentId < 1) {
             throw new ForbiddenException('Input data is incorrect');
+        }
 
         // get configs
         $configs = AppRecord::getConfigs('widget', 'Comments');
@@ -195,8 +196,9 @@ class Comments extends ApiController
         $configs = AppRecord::getConfigs('widget', 'Comments');
         // get path array from request
         $path = $this->request->query->get('path');
-        if (!Any::isArray($path) || count($path) < 1)
+        if (!Any::isArray($path) || count($path) < 1) {
             throw new NativeException('Wrong query params');
+        }
 
         $count = [];
         // for each item in path array calculate comments count

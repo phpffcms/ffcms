@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Front\Search\Interfaces;
 
-
 interface SearchContainer
 {
     /**

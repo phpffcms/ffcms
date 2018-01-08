@@ -58,14 +58,17 @@ class FormContentUpdate extends Model
         // is new item?
         if ($this->_content->id === null) {
             $this->_new = true;
-            if (!$this->galleryFreeId)
+            if (!$this->galleryFreeId) {
                 $this->galleryFreeId = '_tmp_' . Str::randomLatin(mt_rand(16, 32));
+            }
 
-            if (!$this->authorId)
+            if (!$this->authorId) {
                 $this->authorId = App::$User->identity()->getId();
+            }
 
-            if (!$this->categoryId)
+            if (!$this->categoryId) {
                 $this->categoryId = 1;
+            }
         } else { // is edit of exist item? define available data
             $this->title = $this->_content->title;
             $this->text = $this->_content->text;
@@ -169,8 +172,9 @@ class FormContentUpdate extends Model
             $this->_content->rating += (int)$this->addRating;
         }
         // check if special comment hash is exist
-        if ($this->_new || Str::length($this->_content->comment_hash) < 32)
+        if ($this->_new || Str::length($this->_content->comment_hash) < 32) {
             $this->_content->comment_hash = $this->generateCommentHash();
+        }
 
         // check if date is updated
         if (!Str::likeEmpty($this->createdAt) && !Str::startsWith('0000', Date::convertToDatetime($this->createdAt, Date::FORMAT_SQL_TIMESTAMP))) {
@@ -179,8 +183,9 @@ class FormContentUpdate extends Model
 
         // save poster data
         $posterPath = '/upload/gallery/' . $this->galleryFreeId . '/orig/' . $this->poster;
-        if (File::exist($posterPath))
+        if (File::exist($posterPath)) {
             $this->_content->poster = $this->poster;
+        }
 
         // get temporary gallery id
         $tmpGalleryId = $this->galleryFreeId;
@@ -207,7 +212,7 @@ class FormContentUpdate extends Model
                 }
             }
         }
-        // insert tags 
+        // insert tags
         ContentTag::insert($insertData);
 
         // move files
@@ -235,8 +240,9 @@ class FormContentUpdate extends Model
         // try to find this item
         $find = Content::where('path', '=', $this->path);
         // exclude self id
-        if ($this->_content->id !== null && Any::isInt($this->_content->id))
+        if ($this->_content->id !== null && Any::isInt($this->_content->id)) {
             $find->where('id', '!=', $this->_content->id);
+        }
 
         // limit only current category id
         $find->where('category_id', '=', $this->categoryId);
@@ -253,8 +259,9 @@ class FormContentUpdate extends Model
         $hash = Str::randomLatinNumeric(mt_rand(32, 128));
         $find = Content::where('comment_hash', '=', $hash)->count();
         // hmmm, is always exist? Chance of it is TOOOO low, but lets recursion re-generate
-        if ($find !== 0)
+        if ($find !== 0) {
             return $this->generateCommentHash();
+        }
 
         return $hash;
     }

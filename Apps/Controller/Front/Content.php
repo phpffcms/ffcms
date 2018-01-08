@@ -51,7 +51,6 @@ class Content extends FrontAppController
      * List category content
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @return string
      */
     public function actionList()
@@ -96,7 +95,6 @@ class Content extends FrontAppController
      * Show content item
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @return string
      */
     public function actionRead()
@@ -165,7 +163,6 @@ class Content extends FrontAppController
      * @return string
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionTag($tagName)
     {
@@ -265,7 +262,6 @@ class Content extends FrontAppController
      * @throws ForbiddenException
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws NativeException
      */
     public function actionMy()
     {
@@ -309,7 +305,6 @@ class Content extends FrontAppController
      * @return string
      * @throws ForbiddenException
      * @throws NotFoundException
-     * @throws NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionUpdate($id = null)

@@ -192,5 +192,4 @@ class App extends ActiveModel
 
         return constant($class . '::VERSION');
     }
-
 }

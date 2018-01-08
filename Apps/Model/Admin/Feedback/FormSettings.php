@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Admin\Feedback;
 
-
 use Ffcms\Core\Arch\Model;
 
 /**
@@ -66,5 +65,4 @@ class FormSettings extends Model
             'useCaptcha' => __('Use captcha')
         ];
     }
-
 }

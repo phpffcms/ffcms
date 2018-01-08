@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Admin;
 
-
 use Apps\Model\Admin\Search\FormSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
@@ -45,5 +44,4 @@ class Search extends AdminController
             'model' => $model
         ]);
     }
-
 }

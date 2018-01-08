@@ -81,17 +81,20 @@ class Profile extends AdminController
      */
     public function actionUpdate($id)
     {
-        if (!Any::isInt($id) || $id < 1)
+        if (!Any::isInt($id) || $id < 1) {
             throw new NotFoundException();
+        }
 
         // get user profile via id
         $profile = ProfileRecords::find($id);
-        if (!$profile)
+        if (!$profile) {
             throw new NotFoundException();
+        }
 
         // check if user id for this profile_id is exist
-        if (!App::$User->isExist($profile->user_id))
+        if (!App::$User->isExist($profile->user_id)) {
             throw new NotFoundException();
+        }
 
         // initialize settings form and process it
         $model = new FrontFormSettings($profile->user);
@@ -163,13 +166,15 @@ class Profile extends AdminController
      */
     public function actionFielddelete($id)
     {
-        if (!Any::isInt($id) || $id < 1)
+        if (!Any::isInt($id) || $id < 1) {
             throw new ForbiddenException();
+        }
 
         // check if record with $id is exist
         $record = ProfileField::find($id);
-        if (!$record)
+        if (!$record) {
             throw new ForbiddenException();
+        }
 
         $model = new FormFieldUpdate($record);
         // if delete is submited - lets remove this record

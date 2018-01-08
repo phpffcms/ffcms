@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Front\User;
 
-
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Interfaces\iUser;
@@ -66,5 +65,4 @@ class FormPasswordChange extends Model
         $this->_user->password = $hash;
         $this->_user->save();
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Front\Profile;
 
-
 use Apps\ActiveRecord\UserNotification;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
@@ -61,5 +60,4 @@ class EntityNotificationsList extends Model
             ];
         }
     }
-
 }

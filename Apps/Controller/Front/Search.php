@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Front;
 
-
 use Apps\Model\Front\Search\EntitySearchMain;
 use Extend\Core\Arch\FrontAppController as Controller;
 use Ffcms\Core\App;
@@ -61,5 +60,4 @@ class Search extends Controller
             'query' => $query
         ]);
     }
-
 }

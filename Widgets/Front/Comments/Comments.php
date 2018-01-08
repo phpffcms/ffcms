@@ -44,6 +44,4 @@ class Comments extends Ckeditor
             'configs' => $configs
         ]);
     }
-
-
 }

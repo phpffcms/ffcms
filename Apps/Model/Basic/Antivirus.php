@@ -8,7 +8,6 @@ use Ffcms\Core\Helper\FileSystem\File;
 
 class Antivirus
 {
-
     const EXECUTE_LIMIT = 5; // in seconds
     const DEPRECATED_TIME = 3600; // actuality of scan list
     // file extensions to be scanned

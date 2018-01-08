@@ -2,7 +2,6 @@
 
 namespace Widgets\Basic;
 
-
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Widget;
 use Ffcms\Core\Helper\HTML\Listing;
@@ -29,8 +28,9 @@ class LanguageSwitcher extends Widget
         $this->multiLangEnabled = App::$Properties->get('multiLanguage');
         $this->langs = App::$Properties->get('languages');
 
-        if ($this->multiLangEnabled)
+        if ($this->multiLangEnabled) {
             App::$Alias->setCustomLibrary('css', '/vendor/phpffcms/language-flags/flags.css');
+        }
     }
 
     /**
@@ -40,12 +40,14 @@ class LanguageSwitcher extends Widget
     public function display()
     {
         // prevent loading on disabled multi-language property
-        if ($this->multiLangEnabled !== true)
+        if ($this->multiLangEnabled !== true) {
             return null;
+        }
 
         // check if languages is defined and count more then 1
-        if (!Any::isArray($this->langs) || count($this->langs) < 2)
+        if (!Any::isArray($this->langs) || count($this->langs) < 2) {
             return null;
+        }
 
         // build output items for listing
         $items = [];
@@ -59,8 +61,9 @@ class LanguageSwitcher extends Widget
             ];
         }
 
-        if ($this->onlyArrayItems)
+        if ($this->onlyArrayItems) {
             return $items;
+        }
 
         return Listing::display([
             'type' => 'ul',

@@ -17,7 +17,6 @@ use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
 
-
 /**
  * Class User. Admin controller of user application.
  * @package Apps\Controller\Admin
@@ -104,8 +103,9 @@ class User extends AdminController
         // check if id is passed or get data from GET as array ids
         if ((int)$id < 1) {
             $ids = $this->request->query->get('selected');
-            if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids))
+            if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids)) {
                 throw new NotFoundException('Bad conditions');
+            }
             $id = $ids;
         } else {
             $id = [$id];

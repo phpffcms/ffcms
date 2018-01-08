@@ -81,8 +81,9 @@ class EntityContentRead extends Model
 
         // get meta data
         $this->metaTitle = $this->_content->getLocaled('meta_title');
-        if (Any::isEmpty($this->metaTitle))
+        if (Any::isEmpty($this->metaTitle)) {
             $this->metaTitle = $this->title;
+        }
 
         $this->metaDescription = $this->_content->getLocaled('meta_description');
         $tmpKeywords = $this->_content->getLocaled('meta_keywords');
@@ -120,9 +121,9 @@ class EntityContentRead extends Model
                         'path' => $record->path
                     ];
                 }
-                if (!Str::likeEmpty($catNestingPath))
+                if (!Str::likeEmpty($catNestingPath)) {
                     $catNestingPath .= '/';
-
+                }
             }
         }
 
@@ -142,16 +143,18 @@ class EntityContentRead extends Model
                 // original poster
                 $posterName = $this->_content->poster;
                 $this->posterFull = $galleryPath . '/orig/' . $posterName;
-                if (!File::exist($this->posterFull))
+                if (!File::exist($this->posterFull)) {
                     $this->posterFull = null;
+                }
 
                 // thumb poster
                 $posterSplit = explode('.', $posterName);
                 array_pop($posterSplit);
                 $posterCleanName = implode('.', $posterSplit);
                 $this->posterThumb = $galleryPath . '/thumb/' . $posterCleanName . '.jpg';
-                if (!File::exist($this->posterThumb))
+                if (!File::exist($this->posterThumb)) {
                     $this->posterThumb = null;
+                }
             }
 
             // generate full gallery
@@ -160,12 +163,14 @@ class EntityContentRead extends Model
                 array_pop($imageSplit);
                 $imageClearName = implode('.', $imageSplit);
                 // skip image used in poster
-                if (Str::startsWith($imageClearName, $this->_content->poster))
+                if (Str::startsWith($imageClearName, $this->_content->poster)) {
                     continue;
+                }
 
                 $thumbPath = $galleryPath . '/thumb/' . $imageClearName . '.jpg';
-                if (File::exist($thumbPath))
+                if (File::exist($thumbPath)) {
                     $this->galleryItems[$thumbPath] = $galleryPath . '/orig/' . $image;
+                }
             }
         }
         

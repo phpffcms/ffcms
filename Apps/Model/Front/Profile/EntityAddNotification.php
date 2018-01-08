@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Front\Profile;
 
-
 use Apps\ActiveRecord\UserNotification;
 use Ffcms\Core\Arch\Model;
 

@@ -28,8 +28,9 @@ class FrontAppController extends Controller
      */
     public function __construct()
     {
-        if (!$this->isEnabled())
+        if (!$this->isEnabled()) {
             throw new ForbiddenException(__('This application is disabled or not installed!'));
+        }
 
         // add localizations
         App::$Translate->append(App::$Alias->currentViewPath . '/I18n/' . App::$Request->getLanguage() . '.php');
@@ -50,8 +51,9 @@ class FrontAppController extends Controller
         $this->application = AppRecord::getItem('app', [$appName, $nativeName]);
 
         // not exist? false
-        if (!$this->application)
+        if (!$this->application) {
             return false;
+        }
 
         // check if disabled (0 = enabled, anything else = on)
         return !(bool)$this->application->disabled;
@@ -63,13 +65,15 @@ class FrontAppController extends Controller
      */
     public function getConfigs()
     {
-        if ($this->configs !== null)
+        if ($this->configs !== null) {
             return $this->configs;
+        }
 
         $configs = (array)$this->application->configs;
         foreach ($configs as $cfg => $value) {
-            if (Any::isInt($value))
-                $configs[$cfg] = $value; // convert string 1 "1" to int 1 1
+            if (Any::isInt($value)) {
+                $configs[$cfg] = $value;
+            } // convert string 1 "1" to int 1 1
         }
         $this->configs = $configs;
 

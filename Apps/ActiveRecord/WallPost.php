@@ -62,5 +62,4 @@ class WallPost extends ActiveModel
     {
         return $this->answer();
     }
-
 }

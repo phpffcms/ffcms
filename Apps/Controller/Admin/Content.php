@@ -120,13 +120,15 @@ class Content extends AdminController
      */
     public function actionDelete($id)
     {
-        if (!Any::isInt($id) || $id < 1)
+        if (!Any::isInt($id) || $id < 1) {
             throw new NotFoundException();
+        }
 
         // get content record and check availability
         $record = ContentEntity::find($id);
-        if ($record === null)
+        if ($record === null) {
             throw new NotFoundException();
+        }
 
         // init delete model
         $model = new FormContentDelete($record);
@@ -151,13 +153,15 @@ class Content extends AdminController
      */
     public function actionRestore($id)
     {
-        if (!Any::isInt($id) || $id < 1)
+        if (!Any::isInt($id) || $id < 1) {
             throw new NotFoundException();
+        }
 
         // get removed object
         $record = ContentEntity::onlyTrashed()->find($id);
-        if (!$record)
+        if (!$record) {
             throw new NotFoundException();
+        }
 
         // init model
         $model = new FormContentRestore($record);
@@ -224,13 +228,15 @@ class Content extends AdminController
     public function actionCategorydelete($id)
     {
         // check id
-        if (!Any::isInt($id) || $id < 2)
+        if (!Any::isInt($id) || $id < 2) {
             throw new ForbiddenException();
+        }
 
         // get object relation
         $record = ContentCategory::find($id);
-        if (!$record)
+        if (!$record) {
             throw new ForbiddenException();
+        }
 
         // init model with object relation
         $model = new FormCategoryDelete($record);
@@ -295,13 +301,15 @@ class Content extends AdminController
         $ids = $this->request->query->get('selected');
 
         // check if input is array
-        if (!Any::isArray($ids) || count($ids) < 1)
+        if (!Any::isArray($ids) || count($ids) < 1) {
             throw new NotFoundException(__('Nothing to delete is founded'));
+        }
 
         // get all records as object from db
         $records = ContentEntity::find($ids);
-        if ($records->count() < 1)
+        if ($records->count() < 1) {
             throw new NotFoundException(__('Nothing to delete is founded'));
+        }
 
         // init model and pass objects
         $model = new FormContentGlobDelete($records);
@@ -330,13 +338,15 @@ class Content extends AdminController
     {
         // get ids as array from GET
         $ids = $this->request->query->get('selected');
-        if (!Any::isArray($ids) || count($ids) < 1)
+        if (!Any::isArray($ids) || count($ids) < 1) {
             throw new NotFoundException(__('Items to publish is not found'));
+        }
 
         // try to find items in db
         $records = ContentEntity::whereIn('id', $ids)->where('display', '=', 0);
-        if ($records->count() < 1)
+        if ($records->count() < 1) {
             throw new NotFoundException(__('Items to publish is not found'));
+        }
 
         // initialize model and operate submit
         $model = new FormContentPublish($records);
