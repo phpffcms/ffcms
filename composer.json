@@ -1,5 +1,6 @@
 {
   "name": "phpffcms/ffcms",
+  "minimum-stability": "dev",
   "description": "FFCMS 3 version based on MVC core ffcms-core.",
   "keywords": [
     "php",
@@ -20,14 +21,14 @@
     "ext-mbstring": "*",
     "ext-gd": "*",
     "ext-zip": "*",
-    "phpffcms/ffcms-core": "dev-master",
-    "phpffcms/ffcms-console": "dev-master",
+    "phpffcms/ffcms-core": "@dev",
+    "phpffcms/ffcms-console": "@dev",
     "phpffcms/ffcms-ckeditor": "1.*@stable",
     "phpffcms/searchable": "1.*@stable",
     "phpffcms/language-flags": "1.*@stable",
-    "bower-asset/jquery": "2.1.*@stable | 1.12.*@stable",
+    "bower-asset/jquery": "2.1.*@stable",
     "bower-asset/jquery-validation": "1.*@stable",
-    "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
+    "bower-asset/bootstrap": "3.3.*",
     "bower-asset/jquery-ui": "1.12.*@stable",
     "bower-asset/components-font-awesome": "4.*@stable",
     "bower-asset/dropzone": "4.3.*@stable",
@@ -42,7 +43,6 @@
     }
   ],
   "config": {
-    "process-timeout": 1800,
     "fxp-asset": {
       "installer-paths": {
         "npm-asset-library": "vendor/npm",
