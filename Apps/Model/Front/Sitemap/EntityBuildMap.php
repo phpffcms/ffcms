@@ -74,7 +74,6 @@ class EntityBuildMap extends Model
      * Build xml output and save it into sitemap folder
      * @param string $uniqueName
      * @return bool
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function save($uniqueName)
