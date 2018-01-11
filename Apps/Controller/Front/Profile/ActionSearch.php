@@ -11,7 +11,6 @@ use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Network\Response;
 use Ffcms\Core\Network\Request;
 
-
 /**
  * Trait ActionSearch
  * @package Apps\Controller\Front\Profile

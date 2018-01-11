@@ -6,6 +6,7 @@
 /** @var bool $trash */
 /** @var array $configs */
 
+use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
@@ -69,7 +70,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         <span class="spaced"><i class="glyphicon glyphicon-list"></i> <?= Url::link(['content/list', $model->catPath, null, [], false], $model->catName, ['itemprop' => 'genre']) ?></span>
         <?php endif; ?>
         <?php if ($properties['date'] === true): ?>
-        <span class="spaced"><i class="glyphicon glyphicon-calendar"></i> <time datetime="<?= date('c', $model->createDate) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
+        <span class="spaced"><i class="glyphicon glyphicon-calendar"></i> <time datetime="<?= date('c', Date::convertToTimestamp($model->getRecord()->created_at)) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
         <?php endif; ?>
         <?php if ($properties['author'] === true): ?>
             <?php if ($model->authorId !== null && $model->authorId > 0): ?>

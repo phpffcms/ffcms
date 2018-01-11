@@ -2,21 +2,15 @@
 
 namespace Apps\Controller\Front;
 
-use Apps\ActiveRecord\Blacklist;
 use Apps\ActiveRecord\Profile as ProfileRecords;
 use Apps\ActiveRecord\UserLog;
 use Apps\ActiveRecord\UserNotification;
-use Apps\Model\Front\Profile\FormIgnoreDelete;
-use Apps\Model\Front\Profile\FormPasswordChange;
 use Apps\Model\Front\Profile\FormSettings;
 use Apps\Model\Front\Sitemap\EntityBuildMap;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Url;
 
 /**
  * Class Profile. User profiles application front controller
@@ -26,6 +20,7 @@ class Profile extends FrontAppController
 {
     const BLOCK_PER_PAGE = 10;
     const EVENT_CHANGE_PASSWORD = 'profile.changepassword.success';
+    const NOTIFY_PER_PAGE = 25;
 
     /**
      * Fatty action like actionIndex(), actionShow() are located in standalone traits.
@@ -62,6 +57,14 @@ class Profile extends FrontAppController
 
     use Profile\ActionSearch {
         search as actionSearch;
+    }
+
+    use Profile\ActionUnblock {
+        unblock as actionUnblock;
+    }
+
+    use Profile\ActionPassword {
+        password as actionPassword;
     }
 
 
@@ -111,39 +114,6 @@ class Profile extends FrontAppController
     }
 
     /**
-     * Action change user password
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws ForbiddenException
-     */
-    public function actionPassword()
-    {
-        // check if user is authed
-        if (!App::$User->isAuth()) {
-            throw new ForbiddenException();
-        }
-
-        // get user object and create model with user object
-        $user = App::$User->identity();
-        $model = new FormPasswordChange($user);
-
-        // check if form is submited and validation is passed
-        if ($model->send() && $model->validate()) {
-            $model->make();
-            App::$Event->run(static::EVENT_CHANGE_PASSWORD, [
-                'model' => $model
-            ]);
-
-            App::$Session->getFlashBag()->add('success', __('Password is successful changed'));
-        }
-
-        // set response output
-        return $this->view->render('password', [
-            'model' => $model
-        ]);
-    }
-
-    /**
      * Show user logs
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
@@ -165,45 +135,6 @@ class Profile extends FrontAppController
         // render output view
         return $this->view->render('log', [
             'records' => $records
-        ]);
-    }
-
-    /**
-     * Unblock always blocked user
-     * @param string $targetId
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws ForbiddenException
-     * @throws NotFoundException
-     * @throws \Exception
-     */
-    public function actionUnblock($targetId)
-    {
-        // check if user is auth
-        if (!App::$User->isAuth()) {
-            throw new ForbiddenException();
-        }
-
-        // check if target is defined
-        if (!Any::isInt($targetId) || $targetId < 1 || !App::$User->isExist($targetId)) {
-            throw new NotFoundException();
-        }
-
-        $user = App::$User->identity();
-
-        // check if target user in blacklist of current user
-        if (!Blacklist::have($user->getId(), $targetId)) {
-            throw new NotFoundException();
-        }
-
-        $model = new FormIgnoreDelete($user, $targetId);
-        if ($model->send() && $model->validate()) {
-            $model->make();
-            $this->response->redirect(Url::to('profile/ignore'));
-        }
-
-        return $this->view->render('unblock', [
-            'model' => $model
         ]);
     }
 
@@ -232,7 +163,8 @@ class Profile extends FrontAppController
 
         try {
             $sitemap->save('profile');
-        } catch (SyntaxException $e){}
+        } catch (SyntaxException $e) {
+        }
     }
 
     /**
@@ -245,6 +177,7 @@ class Profile extends FrontAppController
         try {
             UserNotification::where('created_at', '<=', $date)->delete();
             UserLog::where('created_at', '<=', $date)->delete();
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
     }
 }

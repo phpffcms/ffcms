@@ -20,8 +20,6 @@ use Ffcms\Core\Network\Request;
  */
 trait ActionIgnore
 {
-    private $_blockPerPage;
-
     /**
      * Show users in blacklist and allow add new users
      * @return string
@@ -60,20 +58,20 @@ trait ActionIgnore
         $query = Blacklist::where('user_id', '=', $user->getId());
 
         $page = (int)$this->request->query->get('page');
-        $offset = $page * $this->_blockPerPage;
+        $offset = $page * static::BLOCK_PER_PAGE;
 
         // build pagination
         $pagination = new SimplePagination([
             'url' => ['profile/ignore'],
             'page' => $page,
-            'step' => $this->_blockPerPage,
+            'step' => static::BLOCK_PER_PAGE,
             'total' => $query->count()
         ]);
 
         // get records as object
         $records = $query->with(['targetUser', 'targetUser.profile'])
             ->skip($offset)
-            ->take($this->_blockPerPage)
+            ->take(static::BLOCK_PER_PAGE)
             ->get();
 
         // render output view

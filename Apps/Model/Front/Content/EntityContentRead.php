@@ -193,6 +193,15 @@ class EntityContentRead extends Model
     }
 
     /**
+     * Get content record obj
+     * @return Content
+     */
+    public function getRecord()
+    {
+        return $this->_content;
+    }
+
+    /**
      * Get category relation of this content
      * @return ContentCategory
      */

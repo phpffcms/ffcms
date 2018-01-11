@@ -8,7 +8,6 @@ use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 
-
 /**
  * Trait ActionFeed
  * @package Apps\Controller\Front\Profile
@@ -62,5 +61,4 @@ trait ActionFeed
             'pagination' => $pagination
         ]);
     }
-
 }

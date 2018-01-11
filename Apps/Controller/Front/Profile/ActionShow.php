@@ -1,6 +1,7 @@
 <?php
 
 namespace Apps\Controller\Front\Profile;
+
 use Apps\ActiveRecord\Blacklist;
 use Apps\ActiveRecord\WallPost;
 use Apps\Model\Front\Profile\FormWallPost;

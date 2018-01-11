@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Front\Profile;
 
-
 use Apps\ActiveRecord\WallPost;
 use Apps\Model\Front\Profile\FormWallPostDelete;
 use Ffcms\Core\App;
@@ -65,5 +64,4 @@ trait ActionWallDelete
             'model' => $wallModel
         ]);
     }
-
 }

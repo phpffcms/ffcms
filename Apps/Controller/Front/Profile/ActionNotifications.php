@@ -8,7 +8,6 @@
 
 namespace Apps\Controller\Front\Profile;
 
-
 use Apps\ActiveRecord\UserNotification;
 use Apps\Model\Front\Profile\EntityNotificationsList;
 use Ffcms\Core\App;
@@ -27,7 +26,6 @@ use Ffcms\Core\Network\Response;
  */
 trait ActionNotifications
 {
-    private $_notifyPerPage = 25;
     /**
      * Show user notifications
      * @param string $type
@@ -43,7 +41,7 @@ trait ActionNotifications
 
         // get page index and current user object
         $page = (int)$this->request->query->get('page', 0);
-        $offset = $page * $this->_notifyPerPage;
+        $offset = $page * static::NOTIFY_PER_PAGE;
         $user = App::$User->identity();
 
         // try to find notifications in database as active record
@@ -56,12 +54,12 @@ trait ActionNotifications
         $pagination = new SimplePagination([
             'url' => ['profile/notifications'],
             'page' => $page,
-            'step' => $this->_notifyPerPage,
+            'step' => static::NOTIFY_PER_PAGE,
             'total' => $query->count()
         ]);
 
         // get current records as object and build response
-        $records = $query->skip($offset)->take($this->_notifyPerPage);
+        $records = $query->skip($offset)->take(static::NOTIFY_PER_PAGE);
         $data = $records->get();
         $model = new EntityNotificationsList($data);
         $model->make();
