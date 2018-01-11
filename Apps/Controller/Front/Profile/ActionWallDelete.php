@@ -21,13 +21,13 @@ trait ActionWallDelete
 {
     /**
      * Allow post owners and targets delete
-     * @param int $postId
+     * @param string $postId
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws ForbiddenException
      * @throws NotFoundException
      */
-    public function wallDelete($postId)
+    public function wallDelete(string $postId): ?string
     {
         // user is auth?
         if (!App::$User->isAuth()) {

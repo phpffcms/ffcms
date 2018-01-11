@@ -23,13 +23,13 @@ trait ActionShow
 
     /**
      * Show user profile: data, wall posts, other features
-     * @param int $userId
+     * @param string $userId
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws NotFoundException
      * @throws ForbiddenException
      */
-    public function show($userId)
+    public function show(string $userId): ?string
     {
         $cfg = $this->application->configs;
         if (!(bool)$cfg['guestView'] && !App::$User->isAuth()) {

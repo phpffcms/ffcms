@@ -28,7 +28,7 @@ trait ActionRss
      * @return string
      * @throws ForbiddenException
      */
-    public function rss()
+    public function rss(): ?string
     {
         $path = $this->request->getPathWithoutControllerAction();
         $configs = $this->getConfigs();

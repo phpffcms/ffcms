@@ -23,13 +23,13 @@ trait ActionUpdate
 {
     /**
      * Update personal content items or add new content item
-     * @param int|null $id
+     * @param string|null $id
      * @return null|string
      * @throws ForbiddenException
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function update($id = null)
+    public function update(?string $id = null): ?string
     {
         // check if user is auth
         if (!App::$User->isAuth()) {

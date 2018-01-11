@@ -21,7 +21,6 @@ class Search extends Controller
     /**
      * Main search method
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */

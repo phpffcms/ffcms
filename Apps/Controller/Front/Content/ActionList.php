@@ -25,7 +25,7 @@ trait ActionList
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @return string
      */
-    public function listing()
+    public function listing(): ?string
     {
         $path = $this->request->getPathWithoutControllerAction();
         $configs = $this->getConfigs();

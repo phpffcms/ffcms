@@ -29,7 +29,7 @@ trait ActionUnblock
      * @throws NotFoundException
      * @throws \Exception
      */
-    public function unblock($targetId)
+    public function unblock(string $targetId): ?string
     {
         // check if user is auth
         if (!App::$User->isAuth()) {

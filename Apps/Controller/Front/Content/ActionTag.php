@@ -28,7 +28,7 @@ trait ActionTag
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function tag($name)
+    public function tag($name): ?string
     {
         // remove spaces and other sh@ts
         $name = App::$Security->strip_tags(trim($name));

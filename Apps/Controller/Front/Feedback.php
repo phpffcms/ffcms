@@ -11,7 +11,6 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -26,7 +25,7 @@ class Feedback extends Controller
      * This action is not allowed there
      * @throws NotFoundException
      */
-    public function actionIndex()
+    public function actionIndex(): ?string
     {
         throw new NotFoundException('Nothing there...');
     }
@@ -34,11 +33,10 @@ class Feedback extends Controller
     /**
      * Add new feedback message action
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionCreate()
+    public function actionCreate(): ?string
     {
         // get configs
         $configs = $this->getConfigs();
@@ -69,14 +67,13 @@ class Feedback extends Controller
 
     /**
      * Read feedback message and answers and work with add answer model
-     * @param int $id
+     * @param string $id
      * @param string $hash
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionRead($id, $hash)
+    public function actionRead(string $id, string $hash): ?string
     {
         if (!Any::isInt($id) || Str::length($hash) < 16 || Str::length($hash) > 64) {
             throw new ForbiddenException(__('The feedback request is not founded'));
@@ -115,14 +112,13 @@ class Feedback extends Controller
 
     /**
      * Close feedback request from new answers.
-     * @param int $id
+     * @param string $id
      * @param string $hash
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionClose($id, $hash)
+    public function actionClose(string $id, string $hash): ?string
     {
         // get feedback post record from database
         $record = FeedbackPost::where('id', '=', $id)
@@ -161,11 +157,10 @@ class Feedback extends Controller
     /**
      * List feedback requests messages from authorized user
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionList()
+    public function actionList(): ?string
     {
         // set current page and offset
         $page = (int)$this->request->query->get('page');

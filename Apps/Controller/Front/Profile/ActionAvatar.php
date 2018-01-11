@@ -24,7 +24,7 @@ trait ActionAvatar
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws ForbiddenException
      */
-    public function avatar()
+    public function avatar(): ?string
     {
         if (!App::$User->isAuth()) {
             throw new ForbiddenException('You must be authorized user!');

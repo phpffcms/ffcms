@@ -29,7 +29,7 @@ trait ActionMy
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function my()
+    public function my(): ?string
     {
         // check if user is auth
         if (!App::$User->isAuth()) {

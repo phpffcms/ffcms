@@ -26,7 +26,7 @@ trait ActionSearch
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function search()
+    public function search(): ?string
     {
         // create model object
         $model = new FormUserSearch();

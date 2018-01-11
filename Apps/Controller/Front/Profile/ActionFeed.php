@@ -24,7 +24,7 @@ trait ActionFeed
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function feed()
+    public function feed(): ?string
     {
         /** @var array $cfg */
         $cfg = $this->application->configs;

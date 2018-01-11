@@ -27,7 +27,7 @@ trait ActionPassword
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws ForbiddenException
      */
-    public function password()
+    public function password(): ?string
     {
         // check if user is authed
         if (!App::$User->isAuth()) {

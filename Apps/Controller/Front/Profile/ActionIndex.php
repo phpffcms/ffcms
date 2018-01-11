@@ -26,7 +26,7 @@ trait ActionIndex
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function index($name, $value = null)
+    public function index(string $name, ?string $value = null): ?string
     {
         $records = null;
         // set current page and offset

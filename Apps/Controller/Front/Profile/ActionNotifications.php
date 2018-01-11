@@ -33,7 +33,7 @@ trait ActionNotifications
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function notifications($type = 'all')
+    public function notifications(?string $type = 'all'): ?string
     {
         if (!App::$User->isAuth()) {
             throw new ForbiddenException();

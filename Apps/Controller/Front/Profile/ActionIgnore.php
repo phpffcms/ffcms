@@ -26,7 +26,7 @@ trait ActionIgnore
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws ForbiddenException
      */
-    public function ignore()
+    public function ignore(): ?string
     {
         // check if not auth
         if (!App::$User->isAuth()) {

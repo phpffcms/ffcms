@@ -26,7 +26,6 @@ class Sitemap extends FrontAppController
     /**
      * List available sitemap index links
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()

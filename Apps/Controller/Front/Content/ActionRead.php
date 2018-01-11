@@ -28,7 +28,7 @@ trait ActionRead
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @return string
      */
-    public function read()
+    public function read(): ?string
     {
         // get raw path without controller-action
         $rawPath = $this->request->getPathWithoutControllerAction();
