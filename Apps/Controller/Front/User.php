@@ -2,22 +2,9 @@
 
 namespace Apps\Controller\Front;
 
-use Apps\ActiveRecord\Invite;
-use Apps\ActiveRecord\UserRecovery;
-use Apps\Model\Front\User\FormLogin;
-use Apps\Model\Front\User\FormPasswordChange;
-use Apps\Model\Front\User\FormRecovery;
-use Apps\Model\Front\User\FormRegister;
-use Apps\Model\Front\User\FormSocialAuth;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Exception\NativeException;
-use Ffcms\Core\Exception\NotFoundException;
-use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Type\Str;
 
 /**
  * Class User - standard user controller: login/signup/logout/etc
