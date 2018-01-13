@@ -2,23 +2,13 @@
 
 namespace Apps\Controller\Admin;
 
-use Apps\ActiveRecord\Session;
 use Apps\Model\Admin\Main\EntityDeleteRoute;
-use Apps\Model\Admin\Main\EntityUpdate;
 use Apps\Model\Admin\Main\FormAddRoute;
-use Apps\Model\Admin\Main\FormSettings;
-use Apps\Model\Admin\Main\FormUpdateDatabase;
-use Apps\Model\Admin\Main\FormUpdateDownload;
-use Apps\Model\Install\Main\EntityCheck;
 use Extend\Core\Arch\AdminController;
-use Extend\Version;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Environment;
-use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Helper\Url;
 
 /**
  * Class Main. Admin main controller - index page, settings, file manager, security and etc.
@@ -27,6 +17,23 @@ use Ffcms\Core\Helper\Url;
 class Main extends AdminController
 {
     public $type = 'app';
+
+    // import heavy actions
+    use Main\ActionIndex {
+        index as actionIndex;
+    }
+
+    use Main\ActionSettings {
+        settings as actionSettings;
+    }
+
+    use Main\ActionUpdates {
+        updates as actionUpdates;
+    }
+
+    use Main\ActionSessions {
+        sessions as actionSessions;
+    }
 
     /**
      * Main constructor. Disable parent inheritance of typical app version checking
@@ -37,80 +44,11 @@ class Main extends AdminController
     }
 
     /**
-     * Index page of admin dashboard
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function actionIndex()
-    {
-        // get cached statistics
-        $rootSize = App::$Cache->getItem('root.size');
-        $loadAvg = App::$Cache->getItem('load.avarage');
-        if (!$rootSize->isHit()) {
-            $calcSize = round(Directory::size('/') / (1024*1000), 2) . ' mb';
-            $rootSize->set($calcSize);
-            $rootSize->expiresAfter(86400);
-            App::$Cache->save($rootSize);
-        }
-        if (!$loadAvg->isHit()) {
-            $loadAvg->set(Environment::loadAverage());
-            $loadAvg->expiresAfter(300);
-            App::$Cache->save($loadAvg);
-        }
-
-        // prepare system statistic
-        $stats = [
-            'ff_version' => Version::VERSION . ' (' . Version::DATE . ')',
-            'php_version' => Environment::phpVersion() . ' (' . Environment::phpSAPI() . ')',
-            'os_name' => Environment::osName(),
-            'database_name' => App::$Database->connection()->getDatabaseName() . ' (' . App::$Database->connection()->getDriverName() . ')',
-            'file_size' => $rootSize->get(),
-            'load_avg' => $loadAvg->get()
-        ];
-        // check directory chmods and other environment features
-        $model = new EntityCheck();
-
-        // render view output
-        return $this->view->render('index', [
-            'stats' => $stats,
-            'check' => $model
-        ]);
-    }
-
-    /**
-     * Manage settings in web
-     * @return string
-     * @throws SyntaxException
-     */
-    public function actionSettings()
-    {
-        // init settings model and process post send
-        $model = new FormSettings(true);
-        if ($model->send()) {
-            if ($model->validate()) {
-                if ($model->makeSave()) {
-                    // show message about successful save and take system some time ;)
-                    return $this->view->render('settings_save');
-                } else {
-                    App::$Session->getFlashBag()->add('error', __('Configuration file is not writable! Check /Private/Config/ dir and files'));
-                }
-            } else {
-                App::$Session->getFlashBag()->add('error', __('Validation of form data is failed!'));
-            }
-        }
-
-        // render output view
-        return $this->view->render('settings', [
-            'model' => $model
-        ]);
-    }
-
-    /**
      * Manage files via elFinder
      * @return string
      * @throws SyntaxException
      */
-    public function actionFiles()
+    public function actionFiles(): ?string
     {
         return $this->view->render('files', [
             'connector' => App::$Alias->scriptUrl . '/api/main/files?lang=' . $this->request->getLanguage()
@@ -122,7 +60,7 @@ class Main extends AdminController
      * @return string
      * @throws SyntaxException
      */
-    public function actionAntivirus()
+    public function actionAntivirus(): ?string
     {
         return $this->view->render('antivirus');
     }
@@ -130,12 +68,9 @@ class Main extends AdminController
     /**
      * Set debugging cookie to current user session
      */
-    public function actionDebugcookie()
+    public function actionDebugcookie(): void
     {
         $cookieProperty = App::$Properties->get('debug');
-        // awesome bullshit in symfony: you can't set cookie headers in (new RedirectResponse) before send().
-        // never mind what did you do, this is a easy way to do this without bug
-        //$this->response->headers->setCookie(new Cookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], strtotime('+1 month'), null, false, true));
         setcookie($cookieProperty['cookie']['key'], $cookieProperty['cookie']['value'], strtotime('+1 month'), '/', null, null, true);
         $this->response->redirect('/');
     }
@@ -145,7 +80,7 @@ class Main extends AdminController
      * @return string
      * @throws SyntaxException
      */
-    public function actionRouting()
+    public function actionRouting(): ?string
     {
         $routingMap = App::$Properties->getAll('Routing');
 
@@ -159,7 +94,7 @@ class Main extends AdminController
      * @return string
      * @throws SyntaxException
      */
-    public function actionAddroute()
+    public function actionAddroute(): ?string
     {
         $model = new FormAddRoute(true);
         
@@ -180,7 +115,7 @@ class Main extends AdminController
      * @throws SyntaxException
      * @return string
      */
-    public function actionDeleteroute()
+    public function actionDeleteroute(): ?string
     {
         $type = (string)$this->request->query->get('type');
         $loader = (string)$this->request->query->get('loader');
@@ -202,12 +137,8 @@ class Main extends AdminController
      * @return string
      * @throws SyntaxException
      */
-    public function actionCache()
+    public function actionCache(): ?string
     {
-        $stats = App::$Cache->stats();
-        // get size in mb from cache stats
-        $size = round((int)$stats['size'] / (1024*1024), 2);
-
         // check if submited
         if ($this->request->request->get('clearcache', false)) {
             // clear cache
@@ -218,71 +149,6 @@ class Main extends AdminController
         }
 
         // render output view
-        return $this->view->render('clear_cache', [
-            'size' => $size
-        ]);
-    }
-
-    /**
-     * Clear all sessions data
-     * @return string
-     * @throws SyntaxException
-     */
-    public function actionSessions()
-    {
-        // get all sessions data
-        $sessions = Session::all();
-
-        // check if action is submited
-        if ($this->request->request->get('clearsessions', false)) {
-            // truncate table
-            App::$Database->table('sessions')->truncate();
-            // add notification and make redirect to main
-            App::$Session->getFlashBag()->add('success', __('Sessions cleared successfully'));
-            $this->response->redirect('/');
-        }
-
-        // render output view
-        return $this->view->render('clear_sessions', [
-            'count' => $sessions->count()
-        ]);
-    }
-
-    /**
-     * Make system update
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function actionUpdates()
-    {
-        // initialize models - entity, database, download
-        $entityModel = new EntityUpdate();
-        $dbModel = new FormUpdateDatabase($entityModel->dbVersion, $entityModel->scriptVersion);
-        $downloadModel = new FormUpdateDownload($entityModel->lastInfo['download_url'], $entityModel->lastVersion);
-
-        // find files with sql queries to update if required
-        if (!$entityModel->versionsEqual) {
-            $dbModel->findUpdateFiles();
-            // if submit is pressed make update
-            if ($dbModel->send() && $dbModel->validate()) {
-                $dbModel->make();
-                App::$Session->getFlashBag()->add('success', __('Database updates are successful installed'));
-                App::$Response->redirect(Url::to('main/updates'));
-            }
-        } elseif ($entityModel->haveRemoteNew) { // download full compiled .zip archive & extract files
-            if ($downloadModel->send()) {
-                if ($downloadModel->make()) {
-                    App::$Session->getFlashBag()->add('success', __('Archive with new update are successful downloaded and extracted. Please refresh this page and update database if required'));
-                } else {
-                    App::$Session->getFlashBag()->add('error', __('In process of downloading and extracting update archive error is occurred. Something gonna wrong'));
-                }
-            }
-        }
-
-        return $this->view->render('updates', [
-            'entityModel' => $entityModel,
-            'dbModel' => $dbModel,
-            'downloadModel' => $downloadModel
-        ]);
+        return $this->view->render('clear_cache', []);
     }
 }

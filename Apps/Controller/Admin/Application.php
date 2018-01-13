@@ -31,7 +31,6 @@ class Application extends AdminController
     /**
      * List of all installed applications
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
@@ -44,7 +43,6 @@ class Application extends AdminController
     /**
      * Show installation for of applications
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionInstall()
@@ -77,7 +75,6 @@ class Application extends AdminController
      * @param string $sys_name
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      */
     public function actionUpdate($sys_name)
@@ -109,7 +106,6 @@ class Application extends AdminController
      * Allow turn on/off applications
      * @param $controllerName
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */

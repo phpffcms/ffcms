@@ -20,9 +20,8 @@ class Newcontent extends AdminController
      * Show widget settings
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
-    public function actionIndex()
+    public function actionIndex(): ?string
     {
         // init settings model
         $model = new FormSettings($this->getConfigs());

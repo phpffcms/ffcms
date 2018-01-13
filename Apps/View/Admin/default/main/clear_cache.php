@@ -16,7 +16,7 @@ $this->title = __('Clean cache');
 
 <h1><?= __('Clean cache') ?></h1>
 <hr />
-<p><?= __('Are you sure to clear all website cache? Cache size: %size%mb', ['size' => $size]) ?></p>
+<p><?= __('Are you sure to clear all website cache?') ?></p>
 <form action="" method="post">
     <input type="submit" name="clearcache" value="<?= __('Clear') ?>" class="btn btn-danger" />
 </form>

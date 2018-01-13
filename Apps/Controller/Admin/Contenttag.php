@@ -20,7 +20,6 @@ class Contenttag extends AdminController
      * Show and edit widget settings
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {

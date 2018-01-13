@@ -6,6 +6,10 @@ use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\JsonException;
 
+/**
+ * Class User. User api features controller
+ * @package Apps\Controller\Api
+ */
 class User extends ApiController
 {
 

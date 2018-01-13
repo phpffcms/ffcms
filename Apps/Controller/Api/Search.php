@@ -18,7 +18,7 @@ class Search extends ApiController
      * @return string
      * @throws JsonException
      */
-    public function actionIndex()
+    public function actionIndex(): ?string
     {
         $this->setJsonHeader();
         // get search query as string from request

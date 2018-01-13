@@ -12,9 +12,17 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Url;
 
+/**
+ * Class Main. Basic api features for ffcms
+ * @package Apps\Controller\Api
+ */
 class Main extends ApiController
 {
-    public function actionIndex()
+    /**
+     * Test action
+     * @return string
+     */
+    public function actionIndex(): ?string
     {
         $this->setJsonHeader();
         return json_encode(['status' => 1, 'value' => 'Welcome, man!']);
@@ -51,7 +59,7 @@ class Main extends ApiController
      * Make scan and display scan iteration data
      * @return string
      */
-    public function actionAntivirus()
+    public function actionAntivirus(): ?string
     {
         $scanner = new Antivirus();
 

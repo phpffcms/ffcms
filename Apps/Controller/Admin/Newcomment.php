@@ -19,10 +19,9 @@ class Newcomment extends AdminController
     /**
      * Show widget new comments settings
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionIndex()
+    public function actionIndex(): ?string
     {
         $model = new FormSettings($this->getConfigs());
         

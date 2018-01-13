@@ -13,7 +13,6 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
 
 /**
  * Class Profile. Admin controller of profile application.
@@ -29,7 +28,6 @@ class Profile extends AdminController
     /**
      * List all profiles in website with pagination
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
@@ -76,7 +74,6 @@ class Profile extends AdminController
      * @param int $id
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws NotFoundException
      */
     public function actionUpdate($id)
@@ -112,7 +109,6 @@ class Profile extends AdminController
     /**
      * List additional fields
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionFieldlist()
@@ -129,7 +125,6 @@ class Profile extends AdminController
      * @param int $id
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionFieldupdate($id = null)
     {
@@ -160,7 +155,6 @@ class Profile extends AdminController
      * @param int $id
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws ForbiddenException
      * @throws \Exception
      */
@@ -191,7 +185,6 @@ class Profile extends AdminController
     /**
      * Show profiles settings
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionSettings()

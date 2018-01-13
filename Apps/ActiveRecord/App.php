@@ -7,8 +7,8 @@ use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Illuminate\Support\Collection;
 
 /**
  * Class App - active record for 'prefix_apps' table.
@@ -37,11 +37,10 @@ class App extends ActiveModel
 
     /**
      * Get all objects with query caching
-     * @param $columns array
-     * @return \Illuminate\Database\Eloquent\Collection
-     * @throws SyntaxException
+     * @param array $columns
+     * @return \Illuminate\Database\Eloquent\Collection|null
      */
-    public static function all($columns = ['*'])
+    public static function all($columns = ['*']): ?Collection
     {
         $cacheName = 'activercord.app.all.' . implode('.', $columns);
         $records = MemoryObject::instance()->get($cacheName);
@@ -50,29 +49,15 @@ class App extends ActiveModel
             MemoryObject::instance()->set($cacheName, $records);
         }
 
-        if ($records === null) {
-            throw new SyntaxException('Applications is not found in table "prefix_apps"!');
-        }
         return $records;
     }
 
     /**
-     * @deprecated
-     * @return \Illuminate\Database\Eloquent\Collection|mixed
-     * @throws SyntaxException
-     */
-    public static function getAll()
-    {
-        return self::all();
-    }
-
-    /**
      * Get all object by defined $type with caching query in memory
-     * @param $type
+     * @param string $type
      * @return array|null
-     * @throws SyntaxException
      */
-    public static function getAllByType($type)
+    public static function getAllByType(string $type): ?array
     {
         $response = null;
         foreach (self::all() as $object) {
@@ -88,10 +73,9 @@ class App extends ActiveModel
      * Get single row by defined type and sys_name with query caching
      * @param string $type
      * @param string|array $name
-     * @return mixed|null
-     * @throws SyntaxException
+     * @return self|null
      */
-    public static function getItem($type, $name)
+    public static function getItem($type, $name): ?self
     {
         foreach (self::all() as $object) {
             if ($object->type === $type) { //&& $object->sys_name === $sys_name) {
@@ -111,9 +95,8 @@ class App extends ActiveModel
      * @param string $type
      * @param string $name
      * @return array|null|string
-     * @throws SyntaxException
      */
-    public static function getConfigs($type, $name)
+    public static function getConfigs(string $type, string $name)
     {
         foreach (self::all() as $row) {
             if ($row->type === $type && $row->sys_name === $name) {
@@ -129,9 +112,9 @@ class App extends ActiveModel
      * @param string $type
      * @param string $name
      * @param string $configKey
-     * @return null
+     * @return array|string|null
      */
-    public static function getConfig($type, $name, $configKey)
+    public static function getConfig(string $type, string $name, string $configKey)
     {
         $configs = self::getConfigs($type, $name);
         if (isset($configs[$configKey])) {
@@ -146,7 +129,7 @@ class App extends ActiveModel
      * @return string
      * @throws SyntaxException
      */
-    public function getLocaleName()
+    public function getLocaleName(): string
     {
         if ($this->sys_name === null) {
             throw new SyntaxException('Application object is not founded');
@@ -164,7 +147,7 @@ class App extends ActiveModel
      * @return bool
      * @throws SyntaxException
      */
-    public function checkVersion()
+    public function checkVersion(): bool
     {
         if ($this->sys_name === null) {
             throw new SyntaxException('Application object is not founded');
@@ -179,7 +162,7 @@ class App extends ActiveModel
      * Get extension script version if exists
      * @return string
      */
-    public function getScriptVersion()
+    public function getScriptVersion(): string
     {
         $class = 'Apps\Controller\Admin\\' . $this->sys_name;
         if (!class_exists($class)) {
