@@ -10,6 +10,7 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Simplify;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Obj;
@@ -47,7 +48,7 @@ class EntityContentRead extends Model
     // gallery image key-value array as thumb->full
     public $galleryItems;
 
-    // private activerecord relation objects
+    // private ActiveRecord relation objects
     private $_category;
     private $_content;
 
@@ -69,22 +70,27 @@ class EntityContentRead extends Model
     */
     public function before()
     {
+        // set class attributes from ActiveRecord objects
+        $this->setAttributes();
+        $this->parseAttributes();
+        // build category nesting sorted array
+        $this->expandCategoryNesting();
+        // set gallery thumbnail & image if exist
+        $this->prepareGallery();
+    }
+
+    /**
+     * Set class attributes from Content and ContentCategory objects
+     * @return void
+     */
+    private function setAttributes(): void
+    {
         $this->id = $this->_content->id;
         $this->title = $this->_content->getLocaled('title');
         $this->text = $this->_content->getLocaled('text');
         $this->display = (bool)$this->_content->display;
 
-        // check if title and text are exists
-        if (Str::length($this->title) < 1 || Str::length($this->text) < 1) {
-            throw new ForbiddenException('Content of this page is empty!');
-        }
-
-        // get meta data
         $this->metaTitle = $this->_content->getLocaled('meta_title');
-        if (Any::isEmpty($this->metaTitle)) {
-            $this->metaTitle = $this->title;
-        }
-
         $this->metaDescription = $this->_content->getLocaled('meta_description');
         $tmpKeywords = $this->_content->getLocaled('meta_keywords');
         $this->metaKeywords = explode(',', $tmpKeywords);
@@ -94,23 +100,37 @@ class EntityContentRead extends Model
         $this->catName = $this->_category->getLocaled('title');
         $this->catPath = $this->_category->path;
 
-        // set user data
+        // set author user info
         if (App::$User->isExist($this->_content->author_id)) {
             $this->authorId = $this->_content->author_id;
-            $profile = App::$User->identity($this->authorId)->profile;
-            $this->authorName = $profile->getNickname();
+            $this->authorName = Simplify::parseUserNick($this->authorId);
         }
 
         $this->source = $this->_content->source;
         $this->views = $this->_content->views+1;
-
-        // build category nesting sorted array
-        $this->catNesting[] = $this->expandCategoryNesting();
-        // set gallery thumbnail & image if exist
-        $this->prepareGallery();
-        
-        // set rating data
         $this->rating = $this->_content->rating;
+
+        // update views count
+        $this->_content->views += 1;
+        $this->_content->save();
+    }
+
+    /**
+     * Parse attribute by conditions and apply results
+     * @throws ForbiddenException
+     */
+    private function parseAttributes(): void
+    {
+        // check if title and text are exists
+        if (Str::length($this->title) < 1 || Str::length($this->text) < 1) {
+            throw new ForbiddenException('Content of this page is empty!');
+        }
+
+        // check if meta title is exist or set default title value
+        if (Any::isEmpty($this->metaTitle)) {
+            $this->metaTitle = $this->title;
+        }
+
         $ignoredRate = App::$Session->get('content.rate.ignore');
         $this->canRate = true;
         if (Any::isArray($ignoredRate) && Arr::in((string)$this->id, $ignoredRate)) {
@@ -121,10 +141,6 @@ class EntityContentRead extends Model
         } elseif ($this->authorId === App::$User->identity()->getId()) {
             $this->canRate = false;
         }
-        
-        // update views count
-        $this->_content->views += 1;
-        $this->_content->save();
     }
 
     /**
@@ -176,9 +192,9 @@ class EntityContentRead extends Model
 
     /**
      * Expand category nesting array
-     * @return array
+     * @return void
      */
-    private function expandCategoryNesting()
+    private function expandCategoryNesting(): void
     {
         // check for dependence, add '' for general cat, ex: general/depend1/depend2/.../depend-n
         $catNestingArray = Arr::merge([0 => ''], explode('/', $this->catPath));
@@ -204,8 +220,7 @@ class EntityContentRead extends Model
             }
         }
 
-        // build array of category nesting level
-        return [
+        $this->catNesting[] = [
             'name' => $this->catName,
             'path' => $this->catPath
         ];
