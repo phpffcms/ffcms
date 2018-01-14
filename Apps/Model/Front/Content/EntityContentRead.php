@@ -103,36 +103,35 @@ class EntityContentRead extends Model
 
         $this->source = $this->_content->source;
         $this->views = $this->_content->views+1;
-        // check for dependence, add '' for general cat, ex: general/depend1/depend2/.../depend-n
-        $catNestingArray = Arr::merge([0 => ''], explode('/', $this->catPath));
-        if ($catNestingArray > 1) {
-            // latest element its a current nesting level, lets cleanup it
-            array_pop($catNestingArray);
-            $catNestingPath = null;
-            foreach ($catNestingArray as $cPath) {
-                $catNestingPath .= $cPath;
 
-                // try to find category by path in db
-                $record = ContentCategory::getByPath($catNestingPath);
-                if ($record !== null && $record->count() > 0) {
-                    // if founded - add to nesting data
-                    $this->catNesting[] = [
-                        'name' => $record->getLocaled('title'),
-                        'path' => $record->path
-                    ];
-                }
-                if (!Str::likeEmpty($catNestingPath)) {
-                    $catNestingPath .= '/';
-                }
-            }
+        // build category nesting sorted array
+        $this->catNesting[] = $this->expandCategoryNesting();
+        // set gallery thumbnail & image if exist
+        $this->prepareGallery();
+        
+        // set rating data
+        $this->rating = $this->_content->rating;
+        $ignoredRate = App::$Session->get('content.rate.ignore');
+        $this->canRate = true;
+        if (Any::isArray($ignoredRate) && Arr::in((string)$this->id, $ignoredRate)) {
+            $this->canRate = false;
         }
+        if (!App::$User->isAuth()) {
+            $this->canRate = false;
+        } elseif ($this->authorId === App::$User->identity()->getId()) {
+            $this->canRate = false;
+        }
+        
+        // update views count
+        $this->_content->views += 1;
+        $this->_content->save();
+    }
 
-        // build array of category nesting level
-        $this->catNesting[] = [
-            'name' => $this->catName,
-            'path' => $this->catPath
-        ];
-
+    /**
+     * Prepare gallery items, poster and thumb
+     */
+    private function prepareGallery()
+    {
         // get gallery images and poster data
         $galleryPath = '/upload/gallery/' . $this->_content->id;
         // check if gallery folder is exist
@@ -173,23 +172,43 @@ class EntityContentRead extends Model
                 }
             }
         }
-        
-        // set rating data
-        $this->rating = $this->_content->rating;
-        $ignoredRate = App::$Session->get('content.rate.ignore');
-        $this->canRate = true;
-        if (Any::isArray($ignoredRate) && Arr::in((string)$this->id, $ignoredRate)) {
-            $this->canRate = false;
+    }
+
+    /**
+     * Expand category nesting array
+     * @return array
+     */
+    private function expandCategoryNesting()
+    {
+        // check for dependence, add '' for general cat, ex: general/depend1/depend2/.../depend-n
+        $catNestingArray = Arr::merge([0 => ''], explode('/', $this->catPath));
+        if ($catNestingArray > 1) {
+            // latest element its a current nesting level, lets cleanup it
+            array_pop($catNestingArray);
+            $catNestingPath = null;
+            foreach ($catNestingArray as $cPath) {
+                $catNestingPath .= $cPath;
+
+                // try to find category by path in db
+                $record = ContentCategory::getByPath($catNestingPath);
+                if ($record !== null && $record->count() > 0) {
+                    // if founded - add to nesting data
+                    $this->catNesting[] = [
+                        'name' => $record->getLocaled('title'),
+                        'path' => $record->path
+                    ];
+                }
+                if (!Str::likeEmpty($catNestingPath)) {
+                    $catNestingPath .= '/';
+                }
+            }
         }
-        if (!App::$User->isAuth()) {
-            $this->canRate = false;
-        } elseif ($this->authorId === App::$User->identity()->getId()) {
-            $this->canRate = false;
-        }
-        
-        // update views count
-        $this->_content->views += 1;
-        $this->_content->save();
+
+        // build array of category nesting level
+        return [
+            'name' => $this->catName,
+            'path' => $this->catPath
+        ];
     }
 
     /**
