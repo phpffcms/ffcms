@@ -23,18 +23,14 @@
     "phpffcms/ffcms-core": "@dev",
     "phpffcms/ffcms-console": "@dev",
     "phpffcms/searchable": "@dev",
-    "phpffcms/ffcms-ckeditor": "@dev",
-    "phpffcms/language-flags": "1.*@stable",
-    "bower-asset/jquery": "2.1.*@stable",
+    "phpffcms/language-flags": "1.*",
+    "phpffcms/ffcms-templex": "1.*",
     "bower-asset/jquery-validation": "1.*@stable",
-    "bower-asset/bootstrap": "3.3.*",
-    "bower-asset/jquery-ui": "1.12.*@stable",
-    "bower-asset/components-font-awesome": "4.*@stable",
     "bower-asset/dropzone": "4.3.*@stable",
     "studio-42/elfinder": " 2.1.*@stable",
-    "twbs/bootstrap": "4.*@beta",
+    "twbs/bootstrap": "4.*@stable",
     "components/jquery": "3.*@stable",
-    "components/font-awesome": "4.*"
+    "components/font-awesome": "4.*@stable"
   },
   "authors": [
     {
