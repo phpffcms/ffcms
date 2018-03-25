@@ -60,7 +60,7 @@ trait ActionLogin
         }
 
         // render view
-        return $this->view->render('login', [
+        return $this->view->render('user/login', [
             'model' => $loginForm,
             'useCaptcha' => $configs['captchaOnLogin'] === 1,
             'redirect' => $redirectRoute

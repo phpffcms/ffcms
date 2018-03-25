@@ -1,1 +1,0 @@
-<p class="alert alert-info">This is a test1 block: /default/main/block/test1.php</p>

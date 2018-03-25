@@ -1,0 +1,34 @@
+/**
+ * Default theme css
+ */
+
+header.container {
+    margin-top: 100px;
+}
+
+
+main.container {
+    background-color: #ffffff;
+    margin-top: 15px;
+    border: 1px solid #f4f4f4;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+/**
+ * Form label right position
+ */
+@media (min-width: 768px) {
+    label.control-label {
+        padding-top: 7px;
+        text-align: right;
+        font-weight: bolder;
+    }
+
+    main.container {
+        min-height: 300px;
+    }
+}

@@ -104,7 +104,7 @@ trait ActionRecovery
         }
 
         // render visual form content
-        return $this->view->render('recovery', [
+        return $this->view->render('user/recovery', [
             'model' => $model
         ]);
     }

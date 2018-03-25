@@ -98,7 +98,7 @@ trait ActionSignup
         }
 
         // render view
-        return $this->view->render('signup', [
+        return $this->view->render('user/signup', [
             'model' => $registerForm,
             'config' => $configs,
             'useCaptcha' => $configs['captchaOnRegister'] === 1

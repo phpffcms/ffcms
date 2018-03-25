@@ -78,7 +78,7 @@ trait ActionSocialAuth
         }
 
         // render output view
-        return $this->view->render('social_signup', [
+        return $this->view->render('user/social_signup', [
             'model' => $model
         ]);
     }

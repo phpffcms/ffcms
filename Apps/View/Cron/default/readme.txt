@@ -1,1 +1,0 @@
-Nothing there - just hook for global layout

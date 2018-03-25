@@ -21,13 +21,12 @@ class Main extends Controller
     /**
      * Default index action
      * @return null|string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
     {
         $this->wtf = 'Test global variable';
 
-        return $this->view->render('index', ['t1' => 'test1', 't2' => 'test2']);
+        return $this->view->render('main/index', ['t1' => 'test1', 't2' => 'test2']);
     }
 
     /**
