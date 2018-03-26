@@ -4,7 +4,13 @@
 	'basePath' => '/',
 	'passwordSalt' => '$2a$07$2NJgci5A7NI9m2J9Ii92a1I3DiH6$',
 	'timezone' => 'Europe/Moscow',
-	'adminEmail' => 'root@ffcms.app',
+	'mail' => [
+        	'host' => 'localhost',
+        	'port' => 21,
+        	'user' => 'root@localhost.ltd',
+        	'password' => 'sEcur3pwd',
+        	'encrypt' => 'tls'
+    	],
 	'debug' => [
 		'all' => false,
 		'cookie' => [
