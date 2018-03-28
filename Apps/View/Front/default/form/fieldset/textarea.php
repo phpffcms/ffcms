@@ -12,7 +12,7 @@
 if (!isset($labelProperties['class'])) {
     $labelProperties['class'] = 'col-md-3 control-label';
 }
-$labelProperties['for'] = $field->getUniqueNameId();
+$labelProperties['for'] = $field->getUniqueFieldId();
 if (!isset($properties['class'])) {
     $properties['class'] = 'form-control';
 }

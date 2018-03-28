@@ -12,7 +12,7 @@
 if (!isset($labelProperties['class'])) {
     $labelProperties['class'] = 'col-md-3 control-label';
 }
-$labelProperties['for'] = $field->getUniqueNameId();
+$labelProperties['for'] = $field->getUniqueFieldId();
 ?>
 <div class="form-group row">
     <?= (new \Ffcms\Templex\Helper\Html\Dom())->label(function() use ($label) {

@@ -20,6 +20,9 @@ $this->layout('_layouts/default', [
 <?= $form->start() ?>
 
 <?= $form->fieldset()->text('login', null, __('Input you login or email')) ?>
+<?= $form->fieldset()->password('password', null, __('Input you password')) ?>
+
+<?= $form->button()->submit(__('Do Login'), ['class' => 'btn btn-primary']) ?>
 
 <?= $form->stop() ?>
 

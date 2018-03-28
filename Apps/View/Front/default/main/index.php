@@ -12,4 +12,14 @@ $this->layout('_layouts/default', [
     <hr />
 </div>
 
+<script>
+    $(function(){
+        console.log('Use $()');
+    });
+
+    $(document).ready(function(){
+        console.log('use document');
+    })
+</script>
+
 <?php $this->end() ?>

@@ -8,7 +8,7 @@
 /** @var string|null $helper */
 /** @var \Ffcms\Templex\Helper\Html\Form\Field\Boolean $field */
 
-$labelProperties['for'] = $field->getUniqueNameId();
+$labelProperties['for'] = $field->getUniqueFieldId();
 ?>
 <div class="form-group row">
     <div class="col-md-9 offset-md-3">

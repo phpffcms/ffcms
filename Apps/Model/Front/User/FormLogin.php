@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Front\User;
 
+use Apps\ActiveRecord\User;
 use Apps\ActiveRecord\UserLog;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
@@ -43,7 +44,7 @@ class FormLogin extends Model
             ['password', 'length_min', '3'],
             ['captcha', 'used']
         ];
-        if (true === $this->_captcha) {
+        if ($this->_captcha) {
             $rules[] = ['captcha', 'App::$Captcha::validate'];
         }
         return $rules;
@@ -66,7 +67,7 @@ class FormLogin extends Model
      * Try user auth after form validate
      * @return bool
      */
-    public function tryAuth()
+    public function tryAuth(): bool
     {
         $password = App::$Security->password_hash($this->password);
 
@@ -76,6 +77,7 @@ class FormLogin extends Model
         });
 
         if ($search->count() === 1) {
+            /** @var User $object */
             $object = $search->first();
             // check if accounts is approved
             if ($object->approve_token !== '0' && Str::length($object->approve_token) > 0) {
@@ -92,9 +94,9 @@ class FormLogin extends Model
      * @param iUser $userObject
      * @return bool
      */
-    public function openSession(iUser $userObject)
+    public function openSession(iUser $userObject): bool
     {
-        if ($userObject === null || $userObject->id < 1) {
+        if (!$userObject || $userObject->id < 1) {
             return false;
         }
 
