@@ -7,11 +7,12 @@
 <html lang="en">
 <head>
     <title><?= $title ?? 'no title'; ?></title>
-    <?= $this->section('css') ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="<?= \App::$Alias->currentViewUrl ?>/assets/css/style.css" />
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/components/font-awesome/css/font-awesome.min.css" />
+    <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
     <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
     <script>
@@ -70,6 +71,25 @@ echo $navbar->display();
 </header>
 
 <main role="main" class="container">
+    <?php if (isset($breadcrumbs) && is_array($breadcrumbs)): ?>
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <?php
+                $crumbs = $this->listing('ol', ['class' => 'breadcrumb']);
+                foreach ($breadcrumbs as $url => $text) {
+                    if (\Ffcms\Core\Helper\Type\Any::isInt($url)) {
+                        $crumbs->li($text, ['class' => 'breadcrumb-item active']);
+                    } else {
+                        $crumbs->li(['link' => $url, 'text' => $text], ['class' => 'breadcrumb-item']);
+                    }
+                }
+                echo $crumbs->display();
+                ?>
+            </nav>
+        </div>
+    </div>
+    <?php endif; ?>
     <div class="row">
         <div class="col-md-9">
             <?php

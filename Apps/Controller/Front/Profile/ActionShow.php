@@ -64,38 +64,35 @@ trait ActionShow
             }
         }
 
-        // pagination and query params
-        $wallPage = (int)$this->request->query->get('page');
-        $wallItems = (int)$cfg['wallPostOnPage'];
-        $wallOffset = $wallPage * $wallItems;
-
         // get wall posts by target user_id
         $wallQuery = WallPost::where('target_id', $targetPersone->getId());
 
-        // build pagination
-        $wallPagination = new SimplePagination([
-            'url' => ['profile/show', $userId, null],
-            'page' => $wallPage,
-            'step' => $wallItems,
-            'total' => $wallQuery->count()
-        ]);
+        // pagination and query params
+        $wallPage = (int)$this->request->query->get('page');
+        $wallStep = (int)$cfg['wallPostOnPage'];
+        $wallOffset = $wallPage * $wallStep;
+        $wallTotalCount = $wallQuery->count();
 
         // get wall messages as object
         $wallRecords = $wallQuery->with(['senderUser', 'senderUser.profile', 'senderUser.role'])
             ->orderBy('id', 'desc')
             ->skip($wallOffset)
-            ->take($wallItems)
+            ->take($wallStep)
             ->get();
 
         // render output view
-        return $this->view->render('show', [
+        return $this->view->render('profile/show', [
             'user' => $targetPersone,
             'viewer' => $viewerPersone,
             'isSelf' => ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id),
             'wall' => $wallModel,
             'notify' => App::$Session->getFlashBag()->all(),
             'wallRecords' => $wallRecords,
-            'pagination' => $wallPagination,
+            'pagination' => [
+                'step' => $wallStep,
+                'total' => $wallTotalCount,
+                'page' => $wallPage
+            ],
             'ratingOn' => (int)$cfg['rating'] === 1
         ]);
     }

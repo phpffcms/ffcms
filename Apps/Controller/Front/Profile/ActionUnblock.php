@@ -9,7 +9,7 @@ use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Url;
+use Ffcms\Templex\Url\Url;
 use Ffcms\Core\Network\Response;
 
 /**
@@ -51,7 +51,7 @@ trait ActionUnblock
         $model = new FormIgnoreDelete($user, $targetId);
         if ($model->send() && $model->validate()) {
             $model->make();
-            $this->response->redirect(Url::to('profile/ignore'));
+            $this->response->redirect('profile/ignore');
         }
 
         return $this->view->render('unblock', [
