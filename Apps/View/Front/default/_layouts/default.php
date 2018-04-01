@@ -28,7 +28,7 @@
 
 <?php
 $navbar = $this->bootstrap()->navbar(['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top'], true);
-$navbar->brand(['text' => __('Home'), 'link' => ['main/index']]);
+$navbar->brand(['text' => __('Home'), 'link' => ['/']]);
 $navbar->menu('left', ['text' => __('News'), 'link' => ['content/list', ['news']]]);
 $navbar->menu('left', ['text' => __('About'), 'link' => ['content/read', ['page', 'about-page']]]);
 $navbar->menu('left', ['text' => __('Feedback'), 'link' => ['feedback/create']]);

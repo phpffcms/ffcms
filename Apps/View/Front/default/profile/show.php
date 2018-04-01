@@ -81,7 +81,7 @@ $this->layout('_layouts/default', [
         $userMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs flex-column']);
         if ($isSelf) {
             $userMenu->menu(['link' => ['profile/feed'], 'text' => '<i class="fa fa-rss-square"></i> ' . __('Feed'), 'html' => true]);
-            $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Picture'), 'html' => true]);
+            $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Avatar'), 'html' => true]);
             $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true]);
             $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]);
         } else if(\App::$User->isAuth()) {

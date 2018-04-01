@@ -13,7 +13,8 @@ $uriRequest = $_SERVER['REQUEST_URI'];
 
 // check if SAPI client == cli (php built-in dev server)
 if (php_sapi_name() === 'cli-server') {
-    $path = root . DIRECTORY_SEPARATOR . ltrim($uriRequest, '/');
+    $clearPath = strtok($uriRequest, '?'); // fix file.css?version=1.2.3 or ?time marks
+    $path = root . DIRECTORY_SEPARATOR . ltrim($clearPath, '/');
     // if static file exist
     if (is_file($path)) {
         // check if it looks like standalone php script
