@@ -44,7 +44,7 @@ trait ActionAvatar
             }
         }
 
-        return $this->view->render('avatar', [
+        return $this->view->render('profile/avatar', [
             'user' => $user,
             'model' => $model
         ]);

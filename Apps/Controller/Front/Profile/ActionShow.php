@@ -86,7 +86,6 @@ trait ActionShow
             'viewer' => $viewerPersone,
             'isSelf' => ($viewerPersone !== null && $viewerPersone->id === $targetPersone->id),
             'wall' => $wallModel,
-            'notify' => App::$Session->getFlashBag()->all(),
             'wallRecords' => $wallRecords,
             'pagination' => [
                 'step' => $wallStep,

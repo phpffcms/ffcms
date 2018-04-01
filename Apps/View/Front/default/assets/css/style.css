@@ -32,3 +32,156 @@ main.container {
         min-height: 500px!important;
     }
 }
+
+/** Comment styles */
+.page-comment::before,
+.page-comment::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.page-comment ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.page-comment img{
+    opacity: 1;
+    filter: Alpha(opacity=100);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.page-comment img.avatar {
+    position: relative;
+    float: left;
+    margin-left: 0;
+    margin-top: 0;
+    width: 65px;
+    height: 65px;
+}
+
+.page-comment .post-comments{
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    margin-left: 85px;
+    margin-right: 0;
+    padding: 10px 20px;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    background: #fff;
+    color: #6b6e80;
+}
+
+.page-comment .meta {
+    font-size: 13px;
+    color: #aaaaaa;
+    padding-bottom: 8px;
+    margin-bottom: 10px !important;
+    border-bottom: 1px solid #eee;
+}
+
+.page-comment ul.comments ul {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 85px;
+}
+
+.page-comment .meta a {
+    color: #82b440;
+    text-decoration: none;
+}
+
+.page-comment blockquote {
+    font-size: 11px;
+    background-color: #f8f8f8;
+}
+
+.comment-text ul {
+    list-style-type: circle !important;
+    margin-left: 40px !important;
+}
+.comment-text {
+    overflow: auto;
+    max-height: 250px;
+}
+
+.comment-text img {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.premoderate-comment {
+    color: #e3516a;
+}
+
+.object-lightborder {
+    border: 1px solid #eee;
+    border-radius:5px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.wall-answer {
+    border: 1px solid #eee;
+    border-radius:5px;
+    padding: 5px;
+    margin-top: 3px;
+}
+
+.well-light {
+    background-color: #ecf0f1;
+    padding: 5px;
+}
+
+/** Message list styling */
+.media-person {
+    border-bottom: 1px solid #ffffff;
+    margin-bottom: 5px;
+}
+
+.media-person-selected {
+    background-color: #27ae60;
+    color: #FFFFFF;
+}
+
+.media-person-blocked {
+    color: #e42034 !important;
+}
+
+.media-person-uname {
+    font-size: 16px;
+    color: #000000;
+}
+
+.media-person-blocked .media-person-uname {
+    color: #812127 !important;
+}
+
+.message-scroll-body {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.message-text {
+    background-color: #d1ddec;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.message-text-remote {
+    background-color: #eeeeee;
+}
+
+.image-item {
+    height: 100px;
+    margin: 0 auto;
+}

@@ -83,7 +83,7 @@ $this->layout('_layouts/default', [
             $userMenu->menu(['link' => ['profile/feed'], 'text' => '<i class="fa fa-rss-square"></i> ' . __('Feed'), 'html' => true]);
             $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Avatar'), 'html' => true]);
             $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true]);
-            $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]);
+            $userMenu->menu(['link' => ['profile/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]);
         } else if(\App::$User->isAuth()) {
             $userMenu->menu(['link' => ['profile/messages', null, ['newdialog' => $user->id]], 'text' => __('Write message')]);
             $userMenu->menu(['link' => ['profile/ignore', null, ['id' => $user->id]], 'text' => __('Block')]);
@@ -108,7 +108,7 @@ $this->layout('_layouts/default', [
                         <td><?= __('Birthday'); ?></td>
                         <td>
                             <?= Url::a(
-                                ['profile/index', 'born', Date::convertToDatetime($user->profile->birthday, 'Y')],
+                                ['profile/index', ['born', Date::convertToDatetime($user->profile->birthday, 'Y')]],
                                 Date::convertToDatetime($user->profile->birthday, Date::FORMAT_TO_DAY)
                             ) ?>
                         </td>
@@ -193,13 +193,11 @@ $this->layout('_layouts/default', [
         <?php if ($wall !== null): ?>
             <?php $form = $this->form($wall) ?>
             <?= $form->start() ?>
-            <?= $form->fieldset()->textarea('message', ['class' => 'form-control wysiwyg']) ?>
-            <?= $form->button()->submit(__('Send'), ['class' => 'btn btn-primary']) ?>
+            <?= $form->field()->textarea('message', ['class' => 'form-control wysiwyg']) ?>
+            <input type="submit" name="<?= $wall->getFormName() ?>[submit]" value="<?= __('Send') ?>" class="btn btn-primary" />
 
             <?php //Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysiwyg', 'config' => 'config-small', 'jsConfig' => ['height' => '80']]); ?>
             <?= $form->stop() ?>
-
-            <?php //\App::$Alias->addPlainCode('js', "$('#" . $wall->getFormName() . "').on('change keyup keydown paste cut', 'textarea', function () { $(this).height(0).height(this.scrollHeight);}).find('textarea').change();") ?>
         <?php endif; ?>
         <?php
         if ($wallRecords !== null):
@@ -209,7 +207,7 @@ $this->layout('_layouts/default', [
                 <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
                     <div class="col-xs-4 col-md-2">
                         <div class="text-center">
-                            <img class="img-responsive img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
+                            <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
                         </div>
                     </div>
                     <div class="col-xs-8 col-md-10">
@@ -237,7 +235,7 @@ $this->layout('_layouts/default', [
             endforeach;
         endif;
         ?>
-        <?= $this->bootstrap()->pagination(['profile/show'])
+        <?= $this->bootstrap()->pagination(['profile/show', [$user->id]], ['class' => 'pagination justify-content-center'])
             ->size($pagination['total'], $pagination['page'], $pagination['step'])
             ->display() ?>
     </div>
@@ -254,7 +252,7 @@ $this->layout('_layouts/default', [
 </div>
 <div id="show-answer-list" class="d-none">
     <div class="row wall-answer">
-        <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="avatar" class="img-responsive img-rounded avatar" /></div>
+        <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="avatar" class="img-fluid img-rounded avatar" /></div>
         <div class="col-md-10 col-xs-8">
             <div class="answer-header">
                 <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>

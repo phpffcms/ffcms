@@ -80,7 +80,7 @@ class Profile extends FrontAppController
             throw new ForbiddenException();
         }
 
-        return $this->view->render('messages');
+        return $this->view->render('profile/messages');
     }
 
     /**
@@ -108,7 +108,7 @@ class Profile extends FrontAppController
         }
 
         // render view
-        return $this->view->render('settings', [
+        return $this->view->render('profile/settings', [
             'model' => $model
         ]);
     }
