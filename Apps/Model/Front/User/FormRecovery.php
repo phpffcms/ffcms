@@ -91,7 +91,7 @@ class FormRecovery extends Model
         $log->save();
 
         // send recovery email
-        App::$Mailer->tpl('user/mail/recovery', [
+        App::$Mailer->tpl('user/_mail/recovery', [
             'login' => $user->login,
             'email' => $this->email,
             'token' => $token,
