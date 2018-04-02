@@ -21,6 +21,7 @@ class Profile extends FrontAppController
     const BLOCK_PER_PAGE = 10;
     const EVENT_CHANGE_PASSWORD = 'profile.changepassword.success';
     const NOTIFY_PER_PAGE = 25;
+    const FEED_PER_PAGE = 10;
 
     /**
      * Fatty action like actionIndex(), actionShow() are located in standalone traits.

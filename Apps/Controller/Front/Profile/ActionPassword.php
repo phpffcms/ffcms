@@ -49,7 +49,7 @@ trait ActionPassword
         }
 
         // set response output
-        return $this->view->render('password', [
+        return $this->view->render('profile/password', [
             'model' => $model
         ]);
     }
