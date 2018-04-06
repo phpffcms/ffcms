@@ -22,4 +22,4 @@ $this->layout('_layouts/default', [
 <?= $form->button()->submit(__('Make recovery'), ['class' => 'btn btn-primary']) ?>
 <?= $form->stop(); ?>
 
-<?= $this->end() ?>
+<?= $this->stop() ?>

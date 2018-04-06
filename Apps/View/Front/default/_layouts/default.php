@@ -38,13 +38,13 @@ $navbar->menu('left', ['text' => __('Users'), 'link' => ['profile/index', ['all'
 
 if (\App::$User->isAuth()) {
     $userId = \App::$User->identity()->getId();
-    $navbar->menu('right', ['text' => __('Account'), 'dropdown' => [
+    $navbar->menu('right', ['text' => __('Account') . ' <span class="badge" id="summary-count-block">0</span>', 'dropdown' => [
         ['text' => __('My profile'), 'link' => ['profile/show', [$userId]]],
-        ['text' => __('Messages'), 'link' => ['profile/messages'], 'class' => 'dropdown-item'],
+        ['text' => __('Messages') . ' <span class="badge" id="pm-count-block">0</span>', 'link' => ['profile/messages'], 'class' => 'dropdown-item', 'html' => true],
         ['text' => __('Feed'), 'link' => ['profile/feed'], 'class' => 'dropdown-item'],
-        ['text' => __('Notifications'), 'link' => ['profile/notifications'], 'class' => 'dropdown-item'],
+        ['text' => __('Notifications') . ' <span class="badge" id="notify-count-block">0</span>', 'link' => ['profile/notifications'], 'class' => 'dropdown-item', 'html' => true],
         ['text' => __('Settings'), 'link' => ['profile/settings'], 'class' => 'dropdown-item'],
-    ]]);
+    ], 'properties' => ['html' => true]]);
     $navbar->menu('right', ['text' => __('Logout'), 'link' => ['user/logout']]);
 } else {
     $navbar->menu('right', ['text' => __('Sign in'), 'link' => ['user/login']]);
@@ -140,6 +140,7 @@ echo $navbar->display();
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/components/jquery/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/global.js"></script>
 
 <!-- jQuery code interprier after library loaded -->
 <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>

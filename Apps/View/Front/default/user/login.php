@@ -26,4 +26,4 @@ $this->layout('_layouts/default', [
 
 <?= $form->stop() ?>
 
-<?php $this->end() ?>
+<?php $this->stop() ?>

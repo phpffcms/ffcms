@@ -32,4 +32,4 @@ $this->layout('_layouts/default', [
 
 <?= $form->stop() ?>
 
-<?= $this->end() ?>
+<?= $this->stop() ?>

@@ -22,4 +22,4 @@ $this->layout('_layouts/default', [
     })
 </script>
 
-<?php $this->end() ?>
+<?php $this->stop() ?>

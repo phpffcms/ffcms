@@ -29,8 +29,8 @@ $this->layout('_layouts/default', [
         <div class="col-xs-4 col-md-2">
             <div class="text-center">
                 <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
-                <img class="img-responsive img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
-                <small><?= Date::humanize($post->updated_at); ?></small>
+                <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
+                <div class="text-muted"><?= Date::humanize($post->updated_at); ?></div>
             </div>
         </div>
         <div class="col-xs-8 col-md-10">
@@ -55,7 +55,7 @@ $this->layout('_layouts/default', [
 <!-- list answers and add answer dom elements -->
 <div id="show-answer-list" class="d-none">
     <div class="row wall-answer">
-        <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="avatar" class="img-responsive img-rounded avatar" /></div>
+        <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="avatar" class="img-fluid img-rounded avatar" /></div>
         <div class="col-md-10 col-xs-8">
             <div class="answer-header">
                 <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
