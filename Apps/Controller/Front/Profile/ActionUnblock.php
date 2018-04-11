@@ -54,7 +54,7 @@ trait ActionUnblock
             $this->response->redirect('profile/ignore');
         }
 
-        return $this->view->render('unblock', [
+        return $this->view->render('profile/unblock', [
             'model' => $model
         ]);
     }

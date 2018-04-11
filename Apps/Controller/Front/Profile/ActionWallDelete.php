@@ -59,7 +59,7 @@ trait ActionWallDelete
             $this->response->redirect('profile/show/' . $wallPost->target_id);
         }
 
-        return $this->view->render('wall_delete', [
+        return $this->view->render('profile/wall_delete', [
             'post' => $wallPost,
             'model' => $wallModel
         ]);

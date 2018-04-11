@@ -61,9 +61,8 @@ $this->layout('_layouts/default', [
     }
     echo $table->display();
     ?>
-<?= $this->bootstrap()->pagination(['profile/ignore'])
+<?= $this->bootstrap()->pagination(['profile/ignore'], ['class' => 'pagination justify-content-center'])
         ->size($pagination['total'], $pagination['page'], $pagination['step'])
-        ->display();
-?>
+        ->display(); ?>
 </div>
 <?php $this->stop() ?>

@@ -81,4 +81,8 @@ if (!$records || $records->count() < 1) {
     <hr/>
 <?php endforeach; ?>
 
+<?= $this->bootstrap()->pagination(['profile/index', [$id]], ['class' => 'pagination justify-content-center'])
+    ->size($pagination['total'], $pagination['page'], $pagination['step'])
+    ->display(); ?>
+
 <?php $this->stop() ?>

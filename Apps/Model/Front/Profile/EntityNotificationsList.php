@@ -6,8 +6,9 @@ use Apps\ActiveRecord\UserNotification;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Helper\Url;
+use Ffcms\Core\Helper\Type\Any;
+use Ffcms\Templex\Url\Url;
+use Illuminate\Support\Collection;
 
 /**
  * Class EntityNotificationsList. Build notification messages from active record object
@@ -17,12 +18,12 @@ class EntityNotificationsList extends Model
 {
     public $items;
 
-    /** @var UserNotification|null */
+    /** @var UserNotification[]|Collection */
     private $_records;
 
     /**
      * EntityNotificationsList constructor. Pass records object inside.
-     * @param bool $records
+     * @param Collection|UserNotification[] $records
      */
     public function __construct($records)
     {
@@ -44,11 +45,11 @@ class EntityNotificationsList extends Model
         foreach ($this->_records as $record) {
             /** @var UserNotification $record */
             $vars = null;
-            if (!Str::likeEmpty($record->vars)) {
+            if (!Any::isEmpty($record->vars)) {
                 $vars = $record->vars;
             }
-            if (!$vars !== null && isset($vars['snippet'])) {
-                $vars['snippet'] = Url::standaloneLink($vars['snippet'], $record->uri, App::$Request->getLanguage());
+            if (isset($vars['snippet'])) {
+                $vars['snippet'] = Url::a([App::$Alias->baseUrl . $record->uri], $vars['snippet']);
             }
 
             $text = App::$Translate->get('Profile', $record->msg, $vars);
@@ -56,7 +57,7 @@ class EntityNotificationsList extends Model
             $this->items[] = [
                 'text' => $text,
                 'date' => Date::humanize($record->created_at),
-                'new' => (bool)$record->readed === false
+                'new' => !(bool)$record->readed
             ];
         }
     }

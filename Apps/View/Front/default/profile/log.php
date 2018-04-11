@@ -3,7 +3,8 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Templex\Url\Url;
 
 /** @var \Ffcms\Templex\Template\Template $this */
-/** @var Apps\ActiveRecord\UserLog $records */
+/** @var Apps\ActiveRecord\UserLog[]|\Illuminate\Support\Collection $records */
+/** @var array $pagination */
 
 $this->layout('_layouts/default', [
     'title' => __('Logs'),
@@ -22,7 +23,7 @@ $this->layout('_layouts/default', [
 <h2><?= __('My logs') ?></h2>
 <hr />
 <?php if(!$records || $records->count() < 1) {
-    echo $this->bootstrap()->alert('info', __('No logs is available'));
+    echo $this->bootstrap()->alert('info', __('No logs available'));
     $this->stop();
     return;
 } ?>
@@ -35,7 +36,7 @@ $this->layout('_layouts/default', [
             ['text' => __('Message')],
             ['text' => __('Date')]
         ]);
-    foreach ($records->get() as $log) {
+    foreach ($records as $log) {
         $table->row([
             ['type' => 'text', 'text' => $log->id],
             ['type' => 'text', 'text' => $log->type],
@@ -46,5 +47,10 @@ $this->layout('_layouts/default', [
     echo $table->display();
 ?>
 </div>
+
+<?= $this->bootstrap()->pagination(['profile/log'], ['class' => 'pagination justify-content-center'])
+    ->size($pagination['total'], $pagination['page'], $pagination['step'])
+    ->display()
+?>
 
 <?php $this->stop() ?>

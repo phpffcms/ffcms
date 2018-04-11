@@ -7,7 +7,6 @@ use Apps\Model\Front\Profile\FormIgnoreAdd;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Network\Response;
 use Ffcms\Core\Network\Request;
 
@@ -57,16 +56,10 @@ trait ActionIgnore
         // get blocked users
         $query = Blacklist::where('user_id', '=', $user->getId());
 
+        // prepare pagination data
         $page = (int)$this->request->query->get('page');
         $offset = $page * static::BLOCK_PER_PAGE;
-
-        // build pagination
-        $pagination = new SimplePagination([
-            'url' => ['profile/ignore'],
-            'page' => $page,
-            'step' => static::BLOCK_PER_PAGE,
-            'total' => $query->count()
-        ]);
+        $totalCount = $query->count();
 
         // get records as object
         $records = $query->with(['targetUser', 'targetUser.profile'])
@@ -75,10 +68,14 @@ trait ActionIgnore
             ->get();
 
         // render output view
-        return $this->view->render('ignore', [
+        return $this->view->render('profile/ignore', [
             'records' => $records,
             'model' => $model,
-            'pagination' => $pagination
+            'pagination' => [
+                'total' => $totalCount,
+                'page' => $page,
+                'step' => static::BLOCK_PER_PAGE
+            ]
         ]);
     }
 }

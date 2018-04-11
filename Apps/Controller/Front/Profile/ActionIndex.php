@@ -24,7 +24,6 @@ trait ActionIndex
      * @param null|string|int $value
      * @return string
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function index(string $name, ?string $value = null): ?string
     {
@@ -72,13 +71,8 @@ trait ActionIndex
                 break;
         }
 
-        // build pagination
-        $pagination = new SimplePagination([
-            'url' => ['profile/index', $name, $value],
-            'page' => $page,
-            'step' => $userPerPage,
-            'total' => $records->count()
-        ]);
+        // get total records count
+        $totalCount = $records->count();
 
         // get profile list with relation for user and role tables in 1 query
         $profiles = $records->with(['user', 'user.role'])
@@ -87,9 +81,13 @@ trait ActionIndex
             ->get();
 
         // render output view
-        return $this->view->render('index', [
+        return $this->view->render('profile/index', [
             'records' => $profiles,
-            'pagination' => $pagination,
+            'pagination' => [
+                'page' => $page,
+                'total' => $totalCount,
+                'step' => $userPerPage
+            ],
             'id' => $name,
             'add' => $value,
             'ratingOn' => (int)$cfgs['rating']

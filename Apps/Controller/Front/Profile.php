@@ -22,9 +22,10 @@ class Profile extends FrontAppController
     const EVENT_CHANGE_PASSWORD = 'profile.changepassword.success';
     const NOTIFY_PER_PAGE = 25;
     const FEED_PER_PAGE = 10;
+    const LOG_PER_PAGE = 5;
 
     /**
-     * Fatty action like actionIndex(), actionShow() are located in standalone traits.
+     * Fat actions like actionIndex(), actionShow() are located in standalone traits.
      * This feature allow provide better read&write accessibility
      */
 
@@ -72,7 +73,6 @@ class Profile extends FrontAppController
     /**
      * Show user messages (based on ajax, all in template)
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws ForbiddenException
      */
     public function actionMessages()
@@ -117,7 +117,6 @@ class Profile extends FrontAppController
     /**
      * Show user logs
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws ForbiddenException
      */
     public function actionLog()
@@ -129,13 +128,26 @@ class Profile extends FrontAppController
 
         // get log records
         $records = UserLog::where('user_id', App::$User->identity()->getId());
-        if ($records->count() > 0) {
-            $records = $records->orderBy('id', 'DESC');
-        }
+
+        // build pagination info
+        $totalCount = $records->count();
+        $page = (int)$this->request->query->get('page', 0);
+        $offset = $page * static::LOG_PER_PAGE;
+
+        // apply pagination limits
+        $records = $records->skip($offset)
+            ->take(static::LOG_PER_PAGE)
+            ->orderBy('id', 'DESC')
+            ->get();
 
         // render output view
-        return $this->view->render('log', [
-            'records' => $records
+        return $this->view->render('profile/log', [
+            'records' => $records,
+            'pagination' => [
+                'step' => static::LOG_PER_PAGE,
+                'total' => $totalCount,
+                'page' => $page
+            ]
         ]);
     }
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zenn1
- * Date: 09.01.2018
- * Time: 21:05
- */
 
 namespace Apps\Controller\Front\Profile;
 
@@ -13,7 +7,6 @@ use Apps\Model\Front\Profile\EntityNotificationsList;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 
@@ -31,7 +24,6 @@ trait ActionNotifications
      * @param string $type
      * @return string
      * @throws ForbiddenException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function notifications(?string $type = 'all'): ?string
     {
@@ -51,12 +43,8 @@ trait ActionNotifications
             $query = $query->where('readed', '=', 0);
         }
 
-        $pagination = new SimplePagination([
-            'url' => ['profile/notifications'],
-            'page' => $page,
-            'step' => static::NOTIFY_PER_PAGE,
-            'total' => $query->count()
-        ]);
+        // get total row count for pagination
+        $totalCount = $query->count();
 
         // get current records as object and build response
         $records = $query->skip($offset)->take(static::NOTIFY_PER_PAGE);
@@ -67,9 +55,13 @@ trait ActionNotifications
         // update reader records
         $records->update(['readed' => 1]);
 
-        return $this->view->render('notifications', [
+        return $this->view->render('profile/notifications', [
             'model' => $model,
-            'pagination' => $pagination
+            'pagination' => [
+                'page' => $page,
+                'step' => static::NOTIFY_PER_PAGE,
+                'total' => $totalCount
+            ]
         ]);
     }
 }
