@@ -204,3 +204,12 @@ main.container {
     border-color: #45ABCD;
     background-color: #f4e3e5;
 }
+
+/** footer styles */
+footer p {
+    color: #a0a0a0;
+}
+
+footer p > a {
+    color: #000;
+}

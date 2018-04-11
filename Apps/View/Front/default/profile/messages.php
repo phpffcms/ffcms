@@ -10,16 +10,25 @@ $this->layout('_layouts/default', [
         Url::to('main/index') => __('Home'),
         Url::to('profile/show', [\App::$User->identity()->id]) => __('Profile'),
         __('My messages')
-    ]
+    ],
+    'fullgrid' => true
 ]);
 
 ?>
 
 <?php $this->start('body') ?>
-<h1><?= __('My messages') ?></h1>
-<hr />
 <div class="row" id="msg-layout">
-    <div class="col-md-push-3 col-md-9">
+    <div class="col-md-4">
+        <div class="well-light">
+            <div id="message-user-list" style="padding-bottom: 10px;"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#" class="btn btn-primary btn-block btn-sm" id="show-more-dialogs"><?= __('Show more') ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
         <!-- user info -->
         <div class="row">
             <div class="col-md-12">
@@ -50,18 +59,9 @@ $this->layout('_layouts/default', [
             <div id="message-end-position"></div>
         </div>
         <div class="message-add-container d-none" style="padding-top: 10px;">
-            <textarea class="form-control" id="msg-text" maxlength="1000" required></textarea>
+            <textarea class="form-control" id="msg-text" maxlength="1000"></textarea>
             <a href="javascript:void(0);" class="btn btn-primary" id="send-new-message"><?= __('Send message') ?></a>
         </div>
-    </div>
-    <div class="col-md-pull-9 col-md-3 well-light">
-        <div id="message-user-list" style="padding-bottom: 10px;"></div>
-        <div class="row">
-            <div class="col-md-12">
-                <a href="#" class="btn btn-primary btn-block btn-sm" id="show-more-dialogs"><?= __('Show more') ?></a>
-            </div>
-        </div>
-
     </div>
 </div>
 
@@ -146,8 +146,7 @@ $this->layout('_layouts/default', [
             var remMsgDom = $('#msg-remote').clone();
             // load users with active dialog
             loadDialogUsers = function() {
-                $.getJSON(script_url+'/api/profile/listmessagedialog/'+dialog_offset+'/'+new_dialog+'/?lang='+script_lang)
-                    .done(function(response){
+                $.getJSON(script_url+'/api/profile/listmessagedialog/'+dialog_offset+'/'+new_dialog+'/?lang='+script_lang, function(response){
                         if (response.status !== 1) {
                             $('#show-more-dialogs').addClass('d-none');
                             return false;
@@ -190,7 +189,7 @@ $this->layout('_layouts/default', [
                         });
                         $('#message-user-list').html(userMap);
 
-                    }).complete(function(){
+                    }).done(function(){
                         if (new_dialog < 1)
                             return false;
 
@@ -344,7 +343,7 @@ $this->layout('_layouts/default', [
                         loadMessageDialog('after');
                         $('#msg-text').val(null);
                     }
-                }, 'json').complete(function(){
+                }, 'json').done(function(){
                     if (active_dialog_id == new_dialog) {
                         new_dialog = 0;
                         loadMessageDialog('now');

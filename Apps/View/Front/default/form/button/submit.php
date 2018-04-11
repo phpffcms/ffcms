@@ -6,7 +6,6 @@
 
 $properties['type'] = 'submit';
 $properties['value'] = $text;
-
 ?>
 
 <div class="row">

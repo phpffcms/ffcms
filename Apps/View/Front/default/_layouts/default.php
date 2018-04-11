@@ -25,6 +25,7 @@
     <?php if (\App::$Debug): ?>
         <?= \App::$Debug->renderHead() ?>
     <?php endif; ?>
+    <?php if (!isset($fullgrid)){ $fullgrid = false; } ?>
 </head>
 <body class="bg-light">
 
@@ -93,7 +94,7 @@ echo $navbar->display();
     </div>
     <?php endif; ?>
     <div class="row">
-        <div class="col-md-9">
+        <div class="<?= ($fullgrid ? 'col-md-12' : 'col-md-9') ?>">
             <?php
             if ($this->section('body')) {
                 // display notifications if exist
@@ -114,6 +115,7 @@ echo $navbar->display();
             }
             ?>
         </div>
+        <?php if (!$fullgrid): ?>
         <div class="col-md">
             <div class="card">
                 <div class="card-header">
@@ -124,13 +126,14 @@ echo $navbar->display();
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 </main>
 
 <footer class="container mt-md-3">
     <div class="row">
         <div class="col-md-12">
-            Test
+            <p>&copy; <?= date('Y') ?> website. Powered on <a href="https://ffcms.org">ffcms.org</a>.</p>
         </div>
     </div>
 </footer>
