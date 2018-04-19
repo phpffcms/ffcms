@@ -18,9 +18,9 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <div class="row" id="msg-layout">
-    <div class="col-md-4">
+    <div class="col-sm-4 d-none d-sm-block">
         <div class="well-light">
-            <div id="message-user-list" style="padding-bottom: 10px;"></div>
+            <div id="message-user-list" class="pt-1"></div>
             <div class="row">
                 <div class="col-md-12">
                     <a href="#" class="btn btn-primary btn-block btn-sm" id="show-more-dialogs"><?= __('Show more') ?></a>
@@ -28,7 +28,7 @@ $this->layout('_layouts/default', [
             </div>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-sm-8 col-12 m-0 p-0">
         <!-- user info -->
         <div class="row">
             <div class="col-md-12">
@@ -87,18 +87,15 @@ $this->layout('_layouts/default', [
         <a href="#" target="_blank" id="msg-user-link"><span class="media-person-uname" id="msg-user-name">unknown</span></a>
     </div>
 </div>
+
 <!-- 3.1. Messages between users - owner message -->
 <div class="d-none" id="msg-owner">
-    <div class="row" style="padding-top: 15px;">
-        <div class="col-md-6">
+    <div class="row pt-1">
+        <div class="col-md-6 col-xs-12">
             <div class="message-text">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <small id="msg-user-nick"><?= __('You') ?></small>
-                    </div>
-                    <div class="col-xs-6">
-                        <small class="pull-right" style="color: #696969;" id="msg-date">01.01.1970</small>
-                    </div>
+                <div>
+                    <small id="msg-user-nick"><?= __('You') ?></small>
+                    <small class="float-right text-secondary" id="msg-date">01.01.1970</small>
                 </div>
                 <div id="msg-text">text</div>
             </div>
@@ -107,16 +104,12 @@ $this->layout('_layouts/default', [
 </div>
 <!-- 3.2. Messages between users - oponent message -->
 <div class="d-none" id="msg-remote">
-    <div class="row" style="padding-top: 15px;">
-        <div class="col-md-offset-6 col-md-6">
+    <div class="row pt-1">
+        <div class="offset-md-6 col-md-6 col-xs-12">
             <div class="message-text message-text-remote">
-                <div class="row">
-                    <div class="col-xs-6">
-                        <small id="msg-user-nick">companion</small>
-                    </div>
-                    <div class="col-xs-6">
-                        <small class="pull-right" style="color: #696969;" id="msg-date">01.01.1970</small>
-                    </div>
+                <div>
+                    <small id="msg-user-nick">target</small>
+                    <small class="float-right text-secondary" id="msg-date">01.01.1970</small>
                 </div>
                 <div id="msg-text">text</div>
             </div>

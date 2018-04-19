@@ -60,11 +60,11 @@ trait ActionMessageList
             case 'after':
                 $messages = Message::where('id', '>', $queryId)
                     ->where(function ($query) use ($corId, $user) {
-                        $query->where(function ($q) use ($cor_id, $user) {
+                        $query->where(function ($q) use ($corId, $user) {
                             $q->where('target_id', '=', $user->getId())
-                                ->where('sender_id', '=', $cor_id);
-                        })->orWhere(function ($q) use ($cor_id, $user) {
-                            $q->where('target_id', '=', $cor_id)
+                                ->where('sender_id', '=', $corId);
+                        })->orWhere(function ($q) use ($corId, $user) {
+                            $q->where('target_id', '=', $corId)
                                 ->where('sender_id', '=', $user->getId());
                         });
                     });
@@ -72,11 +72,11 @@ trait ActionMessageList
             case 'before':
                 $messages = Message::where('id', '<', $queryId)
                     ->where(function ($query) use ($corId, $user) {
-                        $query->where(function ($q) use ($cor_id, $user) {
+                        $query->where(function ($q) use ($corId, $user) {
                             $q->where('target_id', '=', $user->getId())
-                                ->where('sender_id', '=', $cor_id);
-                        })->orWhere(function ($q) use ($cor_id, $user) {
-                            $q->where('target_id', '=', $cor_id)
+                                ->where('sender_id', '=', $corId);
+                        })->orWhere(function ($q) use ($corId, $user) {
+                            $q->where('target_id', '=', $corId)
                                 ->where('sender_id', '=', $user->getId());
                         });
                     });
