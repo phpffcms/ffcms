@@ -97,7 +97,7 @@ $this->layout('_layouts/default', [
                     <small id="msg-user-nick"><?= __('You') ?></small>
                     <small class="float-right text-secondary" id="msg-date">01.01.1970</small>
                 </div>
-                <div id="msg-text">text</div>
+                <div id="msg-text" style="word-break: break-all">text</div>
             </div>
         </div>
     </div>
@@ -111,7 +111,7 @@ $this->layout('_layouts/default', [
                     <small id="msg-user-nick">target</small>
                     <small class="float-right text-secondary" id="msg-date">01.01.1970</small>
                 </div>
-                <div id="msg-text">text</div>
+                <div id="msg-text" style="word-break: break-all">text</div>
             </div>
         </div>
     </div>

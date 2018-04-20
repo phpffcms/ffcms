@@ -80,7 +80,7 @@ trait ActionRead
         ]);
 
         // render view output
-        return $this->view->render('read', [
+        return $this->view->render('content/read', [
             'model' => $model,
             'search' => $search,
             'trash' => $trash,

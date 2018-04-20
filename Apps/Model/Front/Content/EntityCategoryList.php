@@ -15,9 +15,8 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Helper\Url;
+use Ffcms\Templex\Url\Url;
 
 /**
  * Class EntityCategoryList. Build content and category data to display in views based on pathway.
@@ -209,9 +208,9 @@ class EntityCategoryList extends Model
         }
 
         $catSortUrls = [
-            'views' => Url::to('content/list', $this->_currentCategory->path, null, Arr::merge($catSortParams, ['sort' => 'views']), false),
-            'rating' => Url::to('content/list', $this->_currentCategory->path, null, Arr::merge($catSortParams, ['sort' => 'rating']), false),
-            'newest' => Url::to('content/list', $this->_currentCategory->path, null, $catSortParams, false)
+            'views' => Url::to('content/list', [$this->_currentCategory->path], Arr::merge($catSortParams, ['sort' => 'views'])),
+            'rating' => Url::to('content/list', [$this->_currentCategory->path], Arr::merge($catSortParams, ['sort' => 'rating'])),
+            'newest' => Url::to('content/list', [$this->_currentCategory->path], $catSortParams)
         ];
 
         // prepare current category data to output (unserialize locales and strip tags)

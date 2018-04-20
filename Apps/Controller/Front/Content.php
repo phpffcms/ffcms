@@ -2,22 +2,13 @@
 
 namespace Apps\Controller\Front;
 
-use Apps\ActiveRecord\Content as ContentEntity;
 use Apps\ActiveRecord\Content as ContentRecord;
 use Apps\ActiveRecord\ContentCategory;
-use Apps\Model\Front\Content\EntityCategoryList;
-use Apps\Model\Front\Content\FormNarrowContentUpdate;
 use Apps\Model\Front\Sitemap\EntityBuildMap;
 use Extend\Core\Arch\FrontAppController;
 use Ffcms\Core\App;
-use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Str;
-use Suin\RSSWriter\Channel;
-use Suin\RSSWriter\Feed;
-use Suin\RSSWriter\Item;
 
 /**
  * Class Content. Controller of content app - content and categories.

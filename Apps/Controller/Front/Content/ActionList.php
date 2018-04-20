@@ -22,7 +22,6 @@ trait ActionList
 {
     /**
      * List category content
-     * @throws \Ffcms\Core\Exception\SyntaxException
      * @return string
      */
     public function listing(): ?string
@@ -41,14 +40,8 @@ trait ActionList
         if (Arr::in($sort, ['rating', 'views'])) {
             $sortQuery = ['sort' => $sort];
         }
-
-        // build pagination
-        $pagination = new SimplePagination([
-            'url' => ['content/list', $path, null, $sortQuery],
-            'page' => $page,
-            'step' => $itemCount,
-            'total' => $model->getContentCount()
-        ]);
+        // calculate total row count
+        $totalCount = $model->getContentCount();
 
         // define list event
         App::$Event->run(static::EVENT_CONTENT_LIST, [
@@ -56,9 +49,14 @@ trait ActionList
         ]);
 
         // draw response view
-        return $this->view->render('list', [
+        return $this->view->render('content/list', [
             'model' => $model,
-            'pagination' => $pagination,
+            'pagination' => [
+                'page' => $page,
+                'total' => $totalCount,
+                'step' => $itemCount,
+                'url' => ['content/list', [$path], [$sortQuery]]
+            ],
             'configs' => $configs,
         ]);
     }
