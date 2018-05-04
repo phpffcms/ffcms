@@ -17,9 +17,9 @@ if ($id === 'all') {
 } elseif ($id === 'rating') {
     $title .= ': ' . __('Rating');
 } elseif ($id === 'city') {
-    $title .= ': ' . __('City') . ' ' . $this->e($add);
+    $title .= ': ' . __('City') . ' ' . $this->e(urldecode($add));
 } elseif ($id === 'hobby') {
-    $title .= ': ' . __('Hobby') . ' ' . $this->e($add);
+    $title .= ': ' . __('Hobby') . ' ' . $this->e(urldecode($add));
 }
 
 $this->layout('_layouts/default', [
@@ -38,7 +38,7 @@ $this->layout('_layouts/default', [
 
 <?php
 if (!$records || $records->count() < 1) {
-    echo $this->bootstrap()->alert('error', __('Users are not founded!'));
+    echo $this->bootstrap()->alert('danger', __('Users are not founded!'));
     $this->stop();
     return;
 }

@@ -45,12 +45,12 @@ $this->layout('_layouts/default', [
     <h1>
         <?= $model->category['title'] ?>
         <?php if (!Str::likeEmpty($model->category['rss'])): ?>
-            <small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="glyphicon glyphicon-volume-up"></i></a></small>
+            <small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fa fa-rss"></i></a></small>
         <?php endif; ?>
         <div class="pull-right">
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="glyphicon glyphicon-sort-by-alphabet"></i> <?= __('Sorting')?> <span class="caret"></span>
+                    <i class="fa fa-sort-amount-desc"></i> <?= __('Sorting')?> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="<?= $model->category['sort']['newest'] ?>"><?= __('Newest') ?> </a></li>
@@ -75,13 +75,13 @@ $this->layout('_layouts/default', [
                 <?= $item['title'] ?>
             </a>
             <?php if ($item['important']): ?>
-                <i class="glyphicon glyphicon-fire"></i>
+                <i class="fa fa-fire"></i>
             <?php endif; ?>
         </h2>
         <?php if (Arr::in(true, $catMeta)): ?>
             <div class="meta">
                 <?php if ($catConfigs['showCategory'] === true): ?>
-                    <span class="spaced"><i class="glyphicon glyphicon-list"></i>
+                    <span class="spaced"><i class="fa fa-list"></i>
                         <?= Url::a(
                             ['content/list', [$item['category']->path]],
                             \App::$Translate->getLocaleText($item['category']->title),
@@ -90,14 +90,14 @@ $this->layout('_layouts/default', [
             </span>
                 <?php endif; ?>
                 <?php if ($catConfigs['showDate'] === true): ?>
-                    <span class="spaced"><i class="glyphicon glyphicon-calendar"></i>
+                    <span class="spaced"><i class="fa fa-calendar"></i>
                 <time datetime="<?= date('c', Date::convertToTimestamp($item['date'])) ?>" itemprop="datePublished">
                     <?= $item['date'] ?>
                 </time>
             </span>
                 <?php endif; ?>
                 <?php if ($catConfigs['showAuthor'] === true): ?>
-                    <span class="spaced"><i class="glyphicon glyphicon-user"></i>
+                    <span class="spaced"><i class="fa fa-user"></i>
                         <?php
                         $ownerNick = $item['author']->profile->getNickname();
                         if ($item['author']->getId() < 1) {
@@ -109,7 +109,7 @@ $this->layout('_layouts/default', [
             </span>
                 <?php endif; ?>
                 <?php if ($catConfigs['showViews'] === true): ?>
-                    <span class="spaced"><i class="glyphicon glyphicon-eye-open"></i> <?= $item['views'] ?></span>
+                    <span class="spaced"><i class="fa fa-eye"></i> <?= $item['views'] ?></span>
                 <?php endif; ?>
             </div>
         <?php else: ?>
@@ -118,7 +118,7 @@ $this->layout('_layouts/default', [
         <div class="row">
             <div class="col-md-12">
                 <?php if ($catConfigs['showPoster'] === true && $item['thumb'] !== null): ?>
-                    <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail hidden-xs" alt="<?= __('Poster for') ?>: <?= Str::lowerCase($item['title']) ?>" />
+                    <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail d-none d-sm-block" alt="<?= __('Poster for') ?>: <?= Str::lowerCase($item['title']) ?>" />
                 <?php endif; ?>
                 <div itemprop="text articleBody">
                     <?= $item['text'] ?>
@@ -134,12 +134,12 @@ $this->layout('_layouts/default', [
                 ]);
             }*/ ?>
 
-            <span class="spaced hidden-xs"><i class="glyphicon glyphicon-comment"></i>
+            <span class="spaced"><i class="fa fa-comment-o"></i>
                 <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>#comments-list"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
             <span class="pull-right">
             <?php if ((int)$catConfigs['showTags'] === 1 && $item['tags'] !== null && Any::isArray($item['tags'])): ?>
-                <span class="spaced"><i class="glyphicon glyphicon-tags hidden-xs"></i>
+                <span class="spaced"><i class="fa fa-tags"></i>
                     <?php
                     foreach ($item['tags'] as $tag) {
                         $tag = trim($tag);
@@ -159,9 +159,9 @@ $this->layout('_layouts/default', [
 
 <?php //\App::$View->render('content/_rateJs') ?>
 
-<div class="text-center">
-    <?php //$pagination->display(['class' => 'pagination pagination-centered']) ?>
-</div>
+<?= $this->bootstrap()->pagination(['content/my'], ['class' => 'pagination justify-content-center'])
+    ->size($pagination['total'], $pagination['page'], $pagination['step'])
+    ->display(); ?>
 
 <script>
     $(document).ready(function() {

@@ -97,7 +97,7 @@ $this->layout('_layouts/default', [
             <table class="table table-striped">
                 <tr>
                     <td><?= __('Group') ?></td>
-                    <td><span class="label label-default" style="background-color: <?= $user->role->color ?>;"><?= $user->role->name ?></span></td>
+                    <td><span class="badge badge-secondary" style="background-color: <?= $user->role->color ?>;"><?= $user->role->name ?></span></td>
                 </tr>
                 <tr>
                     <td><?= __('Join date'); ?></td>
@@ -160,7 +160,7 @@ $this->layout('_layouts/default', [
                             foreach ($hobbyArray as $item) {
                                 $item = \App::$Security->strip_tags($item);
                                 if (!Str::likeEmpty($item)) {
-                                    echo Url::a(['profile/index', ['hobby', trim($item, ' ')]], $item, ['class' => 'label label-success']) . ' ';
+                                    echo Url::a(['profile/index', ['hobby', trim($item, ' ')]], $item, ['class' => 'badge badge-secondary']) . ' ';
                                 }
                             }
                             ?>
@@ -386,7 +386,7 @@ $this->layout('_layouts/default', [
             var limitObject = $('#answer-counter-' + postId);
 
             if (msglength >= msglimit) {
-                limitObject.html('<span class="label label-danger">0</span>');
+                limitObject.html('<span class="badge badge-danger">0</span>');
             } else {
                 limitObject.text(msglimit - msglength);
             }

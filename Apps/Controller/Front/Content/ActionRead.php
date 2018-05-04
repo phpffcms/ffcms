@@ -25,7 +25,6 @@ trait ActionRead
     /**
      * Show content item
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      * @return string
      */
     public function read(): ?string
@@ -51,10 +50,10 @@ trait ActionRead
         $trash = false;
 
         // if no entity is founded for this path lets try to find on trashed
-        if ($contentRecord === null || $contentRecord->count() !== 1) {
+        if (!$contentRecord || $contentRecord->count() !== 1) {
             // check if user can access to content list on admin panel
             if (!App::$User->isAuth() || !App::$User->identity()->role->can('Admin/Content/Index')) {
-                throw new NotFoundException();
+                throw new NotFoundException(__('Content not found!'));
             }
             // lets try to find in trashed
             $contentRecord->withTrashed();
@@ -70,7 +69,7 @@ trait ActionRead
         $model = new EntityContentRead($categoryRecord, $contentRecord->first());
         $search = null;
         // check if similar search is enabled for item category
-        if ((int)$model->getCategory()->getProperty('showSimilar') === 1 && $trash === false) {
+        if ((bool)$model->getCategory()->getProperty('showSimilar') && !$trash) {
             $search = new EntityContentSearch($model->title, $model->id, $model->getCategory()->id);
         }
 

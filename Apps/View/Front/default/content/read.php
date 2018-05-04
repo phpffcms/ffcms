@@ -71,33 +71,33 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         <?php if (Arr::in(true, $properties)): ?>
             <div class="meta">
                 <?php if ((bool)$properties['category']): ?>
-                    <span class="spaced"><i class="glyphicon glyphicon-list"></i> <?= Url::a(['content/list', [$model->catPath]], $model->catName, ['itemprop' => 'genre']) ?></span>
+                    <span class="spaced"><i class="fa fa-list"></i> <?= Url::a(['content/list', [$model->catPath]], $model->catName, ['itemprop' => 'genre']) ?></span>
                 <?php endif; ?>
                 <?php if ((bool)$properties['date']): ?>
-                    <span class="spaced"><i class="glyphicon glyphicon-calendar"></i> <time datetime="<?= date('c', Date::convertToTimestamp($model->getRecord()->created_at)) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
+                    <span class="spaced"><i class="fa fa-calendar"></i> <time datetime="<?= date('c', Date::convertToTimestamp($model->getRecord()->created_at)) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
                 <?php endif; ?>
                 <?php if ((bool)$properties['author']): ?>
                     <?php if ($model->authorId && $model->authorId > 0): ?>
-                        <span class="spaced"><i class="glyphicon glyphicon-user"></i> <?= Url::a(['profile/show', [$model->authorId]], $model->authorName, ['itemprop' => 'author']) ?></span>
+                        <span class="spaced"><i class="fa fa-user"></i> <?= Url::a(['profile/show', [$model->authorId]], $model->authorName, ['itemprop' => 'author']) ?></span>
                     <?php else: ?>
-                        <span class="spaced"><i class="glyphicon glyphicon-user"></i> <s><?= $model->authorName ?></s></span>
+                        <span class="spaced"><i class="fa fa-user"></i> <s><?= $model->authorName ?></s></span>
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if ((bool)$properties['views']): ?>
-                    <span class="spaced"><i class="glyphicon glyphicon-eye-open"></i> <?= $model->views ?></span>
+                    <span class="spaced"><i class="fa fa-eye"></i> <?= $model->views ?></span>
                 <?php endif ?>
                 <?php if (\App::$User->isAuth() && \App::$User->identity()->role->can('Admin/Content/Update')): ?>
-                    <span class="float-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="glyphicon glyphicon-pencil" style="color: #ff0000;"></i></a></span>
+                    <span class="float-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="fa fa-pencil" style="color: #ff0000;"></i></a></span>
                 <?php endif; ?>
             </div>
         <?php else: ?>
             <hr />
         <?php endif; ?>
         <?php if ($trash): ?>
-            <p class="alert alert-danger"><i class="glyphicon glyphicon-trash"></i> <?= __('This content is placed in trash') ?></p>
+            <p class="alert alert-danger"><i class="fa fa-trash"></i> <?= __('This content is placed in trash') ?></p>
         <?php endif; ?>
         <?php if (!$model->display): ?>
-            <p class="alert alert-warning"><i class="glyphicon glyphicon-pencil"></i> <?= __('This content now is on moderation stage') ?></p>
+            <p class="alert alert-warning"><i class="fa fa-pencil"></i> <?= __('This content now is on moderation stage') ?></p>
         <?php endif; ?>
         <div id="content-text">
             <?php if ($showPoster === true && $model->posterFull !== null && $model->posterThumb !== null): ?>
@@ -156,7 +156,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#similar-group" href="#similar<?= $idx ?>">
-                                    <i class="glyphicon glyphicon-sort"></i> <?= $item['title'] ?>
+                                    <i class="fa fa-sort-amount-desc"></i> <?= $item['title'] ?>
                                 </a>
                             </h4>
                         </div>
@@ -189,10 +189,10 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                         <div id="content-tags">
                             <?php
                             if (Any::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
-                                echo '<i class="glyphicon glyphicon-tags hidden-xs"></i> ';
+                                echo '<i class="fa fa-tags"></i> ';
                                 foreach ($model->metaKeywords as $tag) {
                                     $tag = trim($tag);
-                                    echo Url::a(['content/tag', [urlencode($tag)]], $tag, ['class' => 'label label-default']) . "&nbsp;";
+                                    echo Url::a(['content/tag', [urlencode($tag)]], $tag, ['class' => 'badge badge-secondary']) . "&nbsp;";
                                 }
                             }
                             ?>
@@ -208,7 +208,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                 $parseUrl = parse_url($sourceUrl);
                 $sourceHost = $parseUrl['host'];
                 ?>
-                <i class="glyphicon glyphicon-random"></i> <?= __('Source') ?>: <a href="<?= $sourceUrl ?>" rel="nofollow" target="_blank">
+                <i class="fa fa-link"></i> <?= __('Source') ?>: <a href="<?= $sourceUrl ?>" rel="nofollow" target="_blank">
                     <?= $sourceHost ?>
                 </a>
             </div>
@@ -236,8 +236,8 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                     gallerySelector.append('<hr />');
                     // add previous & next buttons
                     var gSelectors = '<p class="text-center">';
-                    gSelectors += '<a href="#showGallery" id="gallery-show-prev"><i class="glyphicon glyphicon-arrow-left glyphicon-2x"></i></a> ';
-                    gSelectors += '<a href="#showGallery" id="gallery-show-next"><i class="glyphicon glyphicon-arrow-right glyphicon-2x"></i></a>';
+                    gSelectors += '<a href="#showGallery" id="gallery-show-prev"><i class="fa fa-arrow-left fa-2x"></i></a> ';
+                    gSelectors += '<a href="#showGallery" id="gallery-show-next"><i class="fa fa-arrow-right fa-2x"></i></a>';
                     gSelectors += '</p>';
                     gallerySelector.append(gSelectors);
                     $('#showGallery').modal('show');

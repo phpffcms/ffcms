@@ -182,7 +182,7 @@ $this->layout('_layouts/default', [
             var msglength = $(this).val().length;
             var limitObject = $('#answer-counter-' + postId);
             if (msglength >= msglimit) {
-                limitObject.html('<span class="label label-danger">0</span>');
+                limitObject.html('<span class="badge badge-danger">0</span>');
             } else {
                 limitObject.text(msglimit - msglength);
             }

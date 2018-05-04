@@ -26,7 +26,6 @@ trait ActionTag
      * @param string $name
      * @return null|string
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function tag($name): ?string
     {
@@ -53,7 +52,7 @@ trait ActionTag
         ]);
 
         // render response
-        return $this->view->render('tag', [
+        return $this->view->render('content/tag', [
             'records' => $records->get(),
             'tag' => $name
         ]);
