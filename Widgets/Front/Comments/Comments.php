@@ -16,7 +16,7 @@ class Comments extends Ckeditor
     /**
      * Widget initialization. Set current pathway to property
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -32,9 +32,8 @@ class Comments extends Ckeditor
     /**
      * Display comment view
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function display()
+    public function display(): ?string
     {
         parent::display();
 

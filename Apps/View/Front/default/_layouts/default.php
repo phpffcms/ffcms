@@ -117,14 +117,16 @@ echo $navbar->display();
         </div>
         <?php if (!$fullgrid): ?>
         <div class="col-md">
-            <div class="card">
-                <div class="card-header">
-                    Widget title
+            <?php if (\Widgets\Front\Newcontent\Newcontent::enabled()): ?>
+                <div class="card">
+                    <div class="card-header">
+                        <?= __('New content') ?>
+                    </div>
+                    <div class="card-body">
+                        <?= \Widgets\Front\Newcontent\Newcontent::widget() ?>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p>Widget content</p>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
         <?php endif; ?>
     </div>

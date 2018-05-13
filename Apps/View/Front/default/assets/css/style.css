@@ -43,7 +43,7 @@ main.container {
     .article-item .meta {padding:10px 10px; margin:0 0 15px 0;border-bottom:1px solid #eee;border-top:1px solid #eee; }
     .article-item .meta i.spaced {margin:0 10px 0 0}
     .article-item .meta span.spaced {margin:0 10px 0 0;}
-    .article-item .meta a {color:#999}
+    .article-item .meta a:not(.badge) {color:#999}
     .article-item .meta a.label {color: #FFFFFF;}
     .article-item h1 a, .article-item h2 a, .article-item h3 a {color:#323740;}
 

@@ -28,7 +28,7 @@ class Newcomment extends AbstractWidget
      * {@inheritDoc}
      * @see \Ffcms\Core\Arch\Widget::init()
      */
-    public function init()
+    public function init(): void
     {
         $cfg = $this->getConfigs();
         if (!$this->snippet) {
@@ -53,12 +53,11 @@ class Newcomment extends AbstractWidget
 
     /**
      * Show latest comments
-     * {@inheritDoc}
-     * @see \Ffcms\Core\Arch\Widget::display()
-     * @throws \Ffcms\Core\Exception\NativeException
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @return string
+     * @throws \Ffcms\Core\Exception\JsonException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function display()
+    public function display(): ?string
     {
         // work with cache and make query
         $records = null;

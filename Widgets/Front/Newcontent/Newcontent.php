@@ -4,7 +4,6 @@ namespace Widgets\Front\Newcontent;
 use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as Widget;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Traits\ClassTools;
 use Apps\ActiveRecord\Content;
 
@@ -22,10 +21,9 @@ class Newcontent extends Widget
     
     /**
      * Prepare widget. Set default configs if not defined on initialization
-     * {@inheritDoc}
      * @see \Ffcms\Core\Arch\Widget::init()
      */
-    public function init()
+    public function init(): void
     {
         $cfg = $this->getConfigs();
         // check if categories is empty
@@ -48,12 +46,9 @@ class Newcontent extends Widget
 
     /**
      * Display new content widget logic
-     * {@inheritDoc}
      * @see \Ffcms\Core\Arch\Widget::display()
-     * @throws \Ffcms\Core\Exception\NativeException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function display()
+    public function display(): ?string
     {
         $query = null;
         // cache is disabled, get result directly

@@ -6,7 +6,6 @@ use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as AbstractWidget;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Traits\ClassTools;
-use Ffcms\Core\Helper\Type\Obj;
 use Apps\ActiveRecord\ContentTag as TagRecord;
 
 class Contenttag extends AbstractWidget
@@ -26,7 +25,7 @@ class Contenttag extends AbstractWidget
      * {@inheritDoc}
      * @see \Ffcms\Core\Arch\Widget::init()
      */
-    public function init()
+    public function init(): void
     {
         $cfg = $this->getConfigs();
         // check cache is defined
@@ -45,12 +44,10 @@ class Contenttag extends AbstractWidget
 
     /**
      * Display widget info
-     * {@inheritDoc}
-     * @see \Ffcms\Core\Arch\Widget::display()
-     * @throws \Ffcms\Core\Exception\NativeException
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @return string|null
+     * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function display()
+    public function display(): ?string
     {
         // get records rows from cache or directly from db
         $records = null;
