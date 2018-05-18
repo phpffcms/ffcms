@@ -36,9 +36,9 @@ $this->layout('_layouts/default', [
                     <div class="row">
                         <div class="col-md-12">
                             <div id="dialog-user-streak">
-                                <div class="pull-right">
-                                    <img src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="pull-right img-responsive img-circle" style="max-height: 50px;" />
-                                    <div class="pull-right" style="padding-top: 12px;">
+                                <div class="float-right">
+                                    <img src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="float-right img-fluid img-circle" style="max-height: 50px;" />
+                                    <div class="float-right" style="padding-top: 12px;">
                                         <span class="media-person-uname"><?= __('No data') ?></span>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@ $this->layout('_layouts/default', [
     <div id="msg-user-background">
         <div class="row">
             <div class="col-md-12">
-                <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="pull-left img-responsive img-circle" style="max-height: 50px;padding-right: 5px;" />
+                <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="pull-left img-fluid img-circle" style="max-height: 50px;padding-right: 5px;" />
                 <div style="padding-top: 12px;">
                     <span class="media-person-uname" id="msg-user-name"><?= __('Unknown') ?></span>
                     <span class="d-none" id="msg-user-isnew"><i class="glyphicon glyphicon-envelope"></i></span>
@@ -82,8 +82,8 @@ $this->layout('_layouts/default', [
 </div>
 <!-- 2. Current dialog title -->
 <div class="d-none" id="dialog-title">
-    <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="pull-right img-responsive img-circle" style="max-height: 50px;" />
-    <div class="pull-right" style="padding-top: 12px;padding-right: 5px;">
+    <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="float-right img-fluid img-circle" style="max-height: 50px;" />
+    <div class="float-right" style="padding-top: 12px;padding-right: 5px;">
         <a href="#" target="_blank" id="msg-user-link"><span class="media-person-uname" id="msg-user-name">unknown</span></a>
     </div>
 </div>

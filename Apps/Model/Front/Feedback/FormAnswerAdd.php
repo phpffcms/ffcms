@@ -26,12 +26,13 @@ class FormAnswerAdd extends Model
     /**
      * FormAnswerAdd constructor. Pass active record of comment post and user id
      * @param $recordPost
-     * @param int $userId
      */
-    public function __construct($recordPost, $userId = 0)
+    public function __construct($recordPost)
     {
         $this->_post = $recordPost;
-        $this->_userId = (int)$userId;
+        if (App::$User->isAuth()) {
+            $this->_userId = App::$User->identity()->getId();
+        }
         parent::__construct();
     }
 

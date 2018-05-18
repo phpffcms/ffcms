@@ -3,9 +3,8 @@
 namespace Apps\Model\Front\Search;
 
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\HTML\System\Dom;
+use Ffcms\Templex\Helper\Html\Dom;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 /**

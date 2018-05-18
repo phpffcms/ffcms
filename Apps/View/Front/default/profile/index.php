@@ -47,7 +47,7 @@ if (!$records || $records->count() < 1) {
 <?php foreach ($records as $profile) :?>
     <div class="row pt-1">
         <div class="col-md-2">
-            <div class="text-center"><img src="<?= $profile->getAvatarUrl('small') ?>" class="img-responsive img-circle img-thumbnail"/></div>
+            <div class="text-center"><img src="<?= $profile->getAvatarUrl('small') ?>" class="img-fluid img-circle img-thumbnail"/></div>
         </div>
         <div class="col-md-8">
             <h3>

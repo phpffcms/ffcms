@@ -31,7 +31,8 @@
     "studio-42/elfinder": " 2.1.*@stable",
     "twbs/bootstrap": "4.*@stable",
     "components/jquery": "3.*@stable",
-    "components/font-awesome": "4.*@stable"
+    "components/font-awesome": "4.*@stable",
+    "tinymce/tinymce": "4.*@stable"
   },
   "authors": [
     {

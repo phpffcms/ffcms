@@ -42,7 +42,7 @@ trait ActionRead
         // initialize model with answer add if thread is not closed
         $model = null;
         if ((int)$record->closed !== 1) {
-            $model = new FormAnswerAdd($record, App::$User->identity()->getId());
+            $model = new FormAnswerAdd($record);
             if ($model->send()) {
                 if ($model->validate()) {
                     $model->make();

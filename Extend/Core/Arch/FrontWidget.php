@@ -18,9 +18,8 @@ class FrontWidget extends NativeWidget
      * Display widget compiled data.
      * @param array|null $params
      * @return null|string
-     * @throws \Exception
      */
-    public static function widget(array $params = null)
+    public static function widget(?array $params = null): ?string
     {
         if (!self::enabled()) {
             return null;
@@ -35,7 +34,7 @@ class FrontWidget extends NativeWidget
      * @param string|null $class
      * @return bool
      */
-    public static function enabled($class = null)
+    public static function enabled(?string $class = null): bool
     {
         self::$class = ($class !== null ? $class : get_called_class()); // get widget classname from passed data or from stacttrace
         if (!class_exists(self::$class) && App::$Debug !== null) {

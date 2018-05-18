@@ -51,5 +51,6 @@ return [
     'Your name' => 'Ваше имя',
     'Captcha' => 'Защитное изображение',
     'Hack attention: security token is wrong!' => 'Предупреждение о взломе: защитный токен передан не верно!',
-    'Feed' => 'Лента'
+    'Feed' => 'Лента',
+    'Nothing found' => 'Ничего не найдено'
 ];

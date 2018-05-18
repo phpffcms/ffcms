@@ -113,7 +113,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                                 <h4 class="modal-title" id="myModalLabel"><?= __('View poster') ?></h4>
                             </div>
                             <div class="modal-body">
-                                <img class="img-responsive" src="<?= \App::$Alias->scriptUrl . $model->posterFull ?>" alt="<?= __('Poster image') ?>" style="margin: 0 auto;" />
+                                <img class="img-fluid" src="<?= \App::$Alias->scriptUrl . $model->posterFull ?>" alt="<?= __('Poster image') ?>" style="margin: 0 auto;" />
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                 <?php foreach ($model->galleryItems as $thumbPic => $fullPic): ?>
                     <div class="col-md-2 well">
                         <a href="#showGallery" class="modalGallery" content="<?= \App::$Alias->scriptUrl . $fullPic ?>" id="gallery-<?= $i ?>">
-                            <img src="<?= \App::$Alias->scriptUrl . $thumbPic ?>" class="img-responsive image-item" />
+                            <img src="<?= \App::$Alias->scriptUrl . $thumbPic ?>" class="img-fluid image-item" />
                         </a>
                     </div>
                     <?php $i++ ?>
@@ -141,7 +141,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                             <h4 class="modal-title" id="showModalLabel"><?= __('View picture') ?></h4>
                         </div>
                         <div class="modal-body" id="modal-gallery-body">
-                            <img class="img-responsive" src="<?= \App::$Alias->scriptUrl . $model->posterFull ?>" alt="<?= __('Gallery picture') ?>" style="margin: 0 auto;" />
+                            <img class="img-fluid" src="<?= \App::$Alias->scriptUrl . $model->posterFull ?>" alt="<?= __('Gallery picture') ?>" style="margin: 0 auto;" />
                         </div>
                     </div>
                 </div>
@@ -232,7 +232,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                 var picture = $(this).attr('content');
                 if (picture != null && picture.length > 0) {
                     var gallerySelector = $('#modal-gallery-body');
-                    gallerySelector.html('<img class="img-responsive gallery-img" alt="Picture" style="margin: 0 auto;" src="' + picture + '"/>');
+                    gallerySelector.html('<img class="img-fluid gallery-img" alt="Picture" style="margin: 0 auto;" src="' + picture + '"/>');
                     gallerySelector.append('<hr />');
                     // add previous & next buttons
                     var gSelectors = '<p class="text-center">';

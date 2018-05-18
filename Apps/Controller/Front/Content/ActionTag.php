@@ -43,7 +43,7 @@ trait ActionTag
             ->take(self::TAG_PER_PAGE);
         // check if result is not empty
         if ($records->count() < 1) {
-            throw new NotFoundException(__('Nothing founded'));
+            throw new NotFoundException(__('Nothing found'));
         }
 
         // define tag list event

@@ -8,6 +8,10 @@ use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Traits\ClassTools;
 use Apps\ActiveRecord\ContentTag as TagRecord;
 
+/**
+ * Class Contenttag. Display most popular tags in block
+ * @package Widgets\Front\Contenttag
+ */
 class Contenttag extends AbstractWidget
 {
     use ClassTools;

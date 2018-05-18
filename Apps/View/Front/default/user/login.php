@@ -22,6 +22,10 @@ $this->layout('_layouts/default', [
 <?= $form->fieldset()->text('login', null, __('Input you login or email')) ?>
 <?= $form->fieldset()->password('password', null, __('Input you password')) ?>
 
+<?php if ($useCaptcha): ?>
+    <?= $this->insert('form/fieldset/captcha', ['form' => $form]) ?>
+<?php endif; ?>
+
 <?= $form->button()->submit(__('Do Login'), ['class' => 'btn btn-primary']) ?>
 
 <?= $form->stop() ?>

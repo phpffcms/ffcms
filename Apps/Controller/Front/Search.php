@@ -54,7 +54,7 @@ class Search extends Controller
         ]);
 
         // render output view with search result
-        return $this->view->render('index', [
+        return $this->view->render('search/index', [
             'model' => $model,
             'query' => $query
         ]);

@@ -214,7 +214,7 @@ $this->layout('_layouts/default', [
                         <div class="h5" style="margin-top: 0;margin-bottom: 5px;">
                             <i class="glyphicon glyphicon-user"></i>
                             <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
-                            <small class="pull-right"><?= Date::humanize($post->updated_at); ?></small>
+                            <small class="float-right"><?= Date::humanize($post->updated_at); ?></small>
                         </div>
                         <div class="object-text">
                             <?= $post->message ?>
@@ -225,7 +225,7 @@ $this->layout('_layouts/default', [
                                 <?= __('Answers') ?> (<span id="wall-post-response-count-<?= $post->id ?>">0</span>)
                             </a>
                             <?php if ($post->target_id === $viewer->id || $post->sender_id === $viewer->id): ?>
-                                <?= Url::a(['profile/walldelete', [$post->id]], __('Delete'), ['class' => 'pull-right']) ?>
+                                <?= Url::a(['profile/walldelete', [$post->id]], __('Delete'), ['class' => 'float-right']) ?>
                             <?php endif; ?>
                         </div>
                         <div id="wall-answer-dom-<?= $post->id; ?>" class="d-none"></div>
@@ -248,7 +248,7 @@ $this->layout('_layouts/default', [
     <a style="margin-top: 5px;" href="#wall-post" class="send-wall-answer btn btn-primary btn-sm" id="send-wall">
         <?= __('Send') ?>
     </a>
-    <span class="pull-right" id="answer-counter">200</span>
+    <span class="float-right" id="answer-counter">200</span>
 </div>
 <div id="show-answer-list" class="d-none">
     <div class="row wall-answer">
@@ -256,7 +256,7 @@ $this->layout('_layouts/default', [
         <div class="col-md-10 col-xs-8">
             <div class="answer-header">
                 <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
-                <small class="pull-right"><span id="wall-answer-date">01.01.1970</span>
+                <small class="float-right"><span id="wall-answer-date">01.01.1970</span>
                     <a href="#send-wall-object" class="delete-answer d-none" id="delete-answer"><i class="glyphicon glyphicon-remove"></i></a>
                 </small>
             </div>

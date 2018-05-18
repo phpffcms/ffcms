@@ -47,7 +47,7 @@ $this->layout('_layouts/default', [
         <?php if (!Str::likeEmpty($model->category['rss'])): ?>
             <small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fa fa-rss"></i></a></small>
         <?php endif; ?>
-        <div class="pull-right">
+        <div class="float-right">
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-sort-amount-desc"></i> <?= __('Sorting')?> <span class="caret"></span>
@@ -137,7 +137,7 @@ $this->layout('_layouts/default', [
             <span class="spaced"><i class="fa fa-comment-o"></i>
                 <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>#comments-list"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
-            <span class="pull-right">
+            <span class="float-right">
             <?php if ((int)$catConfigs['showTags'] === 1 && $item['tags'] !== null && Any::isArray($item['tags'])): ?>
                 <span class="spaced"><i class="fa fa-tags"></i>
                     <?php

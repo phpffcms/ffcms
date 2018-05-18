@@ -2,6 +2,8 @@
 
 /** @var Ffcms\Templex\Template\Template $this */
 
+use Ffcms\Templex\Url\Url;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,8 +67,8 @@ echo $navbar->display();
             <small class="text-secondary">Some website description text</small>
         </div>
         <div class="col">
-            <form class="form-inline">
-                <input type="text" class="form-control col-md-9 mr-md-2" id="searchInput" placeholder="query...">
+            <form class="form-inline" action="<?= Url::to('search/index') ?>" method="GET">
+                <input type="text" name="query" class="form-control col-md-9 mr-md-1" id="searchInput" value="<?= isset($query) ? $query : null ?>">
                 <button type="submit" class="btn btn-primary col-md">Submit</button>
             </form>
         </div>
@@ -119,11 +121,25 @@ echo $navbar->display();
         <div class="col-md">
             <?php if (\Widgets\Front\Newcontent\Newcontent::enabled()): ?>
                 <div class="card">
-                    <div class="card-header">
-                        <?= __('New content') ?>
-                    </div>
+                    <div class="card-header"><?= __('New content') ?></div>
                     <div class="card-body">
                         <?= \Widgets\Front\Newcontent\Newcontent::widget() ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if (\Widgets\Front\Contenttag\Contenttag::enabled()): ?>
+                <div class="card mt-1">
+                    <div class="card-header"><?= __('Content tags') ?></div>
+                    <div class="card-body">
+                        <?= \Widgets\Front\Contenttag\Contenttag::widget() ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if (Widgets\Front\Newcomment\Newcomment::enabled()): ?>
+                <div class="card mt-1">
+                    <div class="card-header"><?= __('New comments') ?></div>
+                    <div class="card-body">
+                        <?= \Widgets\Front\Newcomment\Newcomment::widget() ?>
                     </div>
                 </div>
             <?php endif; ?>
