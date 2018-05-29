@@ -12,6 +12,8 @@ $this->layout('_layouts/default', [
     <hr />
 </div>
 
+<?= \Ffcms\Core\Helper\Security::password_hash('fkg7h4f3v6') ?>
+
 <script>
     $(function(){
         console.log('Use $()');

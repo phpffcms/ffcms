@@ -17,7 +17,7 @@ use Ffcms\Templex\Url\Url;
 
 // $user is a target profile depended object(not current user!!!)
 
-$name = $user->profile->getNickname();
+$name = $user->profile === null ? __('Unknown') : $user->profile->getNickname();
 
 $this->layout('_layouts/default', [
     'title' => __('Profile') . ': ' . $name,

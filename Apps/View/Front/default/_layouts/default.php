@@ -18,11 +18,11 @@ use Ffcms\Templex\Url\Url;
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/components/font-awesome/css/font-awesome.min.css" />
     <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
-    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
+    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};let a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
     <script>
-        var script_url = '<?= \App::$Alias->scriptUrl ?>';
-        var script_lang = '<?= \App::$Request->getLanguage() ?>';
-        var site_url = '<?= \App::$Alias->baseUrl ?>';
+        let script_url = '<?= \App::$Alias->scriptUrl ?>';
+        let script_lang = '<?= \App::$Request->getLanguage() ?>';
+        let site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
     <?php if (\App::$Debug): ?>
         <?= \App::$Debug->renderHead() ?>
@@ -48,6 +48,9 @@ if (\App::$User->isAuth()) {
         ['text' => __('Notifications') . ' <span class="badge" id="notify-count-block">0</span>', 'link' => ['profile/notifications'], 'class' => 'dropdown-item', 'html' => true],
         ['text' => __('Settings'), 'link' => ['profile/settings'], 'class' => 'dropdown-item'],
     ], 'properties' => ['html' => true]]);
+    if (\App::$User->identity()->role->can('Admin/Main/Index')) {
+        $navbar->menu('right', ['text' => __('Admin'), 'link' => \App::$Alias->scriptUrl . '/admin']);
+    }
     $navbar->menu('right', ['text' => __('Logout'), 'link' => ['user/logout']]);
 } else {
     $navbar->menu('right', ['text' => __('Sign in'), 'link' => ['user/login']]);

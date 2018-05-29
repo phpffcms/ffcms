@@ -99,7 +99,7 @@ $this->layout('_layouts/default', [
                 <?php if ($catConfigs['showAuthor'] === true): ?>
                     <span class="spaced"><i class="fa fa-user"></i>
                         <?php
-                        $ownerNick = $item['author']->profile->getNickname();
+                        $ownerNick = $item['author']->profile === null ? __('Unknown') : $item['author']->profile->getNickname();
                         if ($item['author']->getId() < 1) {
                             echo '<s>' . $ownerNick . '</s>';
                         } else {

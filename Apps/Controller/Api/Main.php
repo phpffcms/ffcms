@@ -10,7 +10,6 @@ use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Helper\Url;
 
 /**
  * Class Main. Basic api features for ffcms
@@ -57,7 +56,7 @@ class Main extends ApiController
 
     /**
      * Make scan and display scan iteration data
-     * @return string
+     * @return string|null
      */
     public function actionAntivirus(): ?string
     {
@@ -113,12 +112,10 @@ class Main extends ApiController
         $this->setJsonHeader();
         // get ffcms news if cache is not available
         $cache = App::$Cache->getItem('download.ffcms.api.news.' . $this->lang);
-        if ($cache->isHit()) {
+        if (!$cache->isHit()) {
             $cache->set(File::getFromUrl('https://ffcms.org/api/api/news?lang=' . $this->lang))
                 ->expiresAfter(1440);
         }
-        $news = $cache->get();
-
-        return $news;
+        return $cache->get();
     }
 }

@@ -127,12 +127,11 @@ class App extends ActiveModel
     /**
      * Get localized application name
      * @return string
-     * @throws SyntaxException
      */
     public function getLocaleName(): string
     {
-        if ($this->sys_name === null) {
-            throw new SyntaxException('Application object is not founded');
+        if (!$this->sys_name) {
+            return '';
         }
 
         $name = $this->getLocaled('name');

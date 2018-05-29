@@ -21,7 +21,7 @@ use Ffcms\Core\Interfaces\iUser;
  * @property string $created_at
  * @property string $updated_at
  * @property WallPost $wall
- * @property Profile $profile
+ * @property Profile|null $profile
  * @property Role $role
  * @property UserLog $log
  * @property UserProvider $provider

@@ -22,8 +22,8 @@ trait ActionIndex
 {
     /**
      * Index page of admin dashboard
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @return string|null
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function index(): ?string
     {
@@ -55,7 +55,7 @@ trait ActionIndex
         $model = new EntityCheck();
 
         // render view output
-        return $this->view->render('index', [
+        return $this->view->render('main/index', [
             'stats' => $stats,
             'check' => $model
         ]);
