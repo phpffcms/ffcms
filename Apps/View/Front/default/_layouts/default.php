@@ -18,11 +18,11 @@ use Ffcms\Templex\Url\Url;
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/components/font-awesome/css/font-awesome.min.css" />
     <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
-    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};let a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
+    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
     <script>
-        let script_url = '<?= \App::$Alias->scriptUrl ?>';
-        let script_lang = '<?= \App::$Request->getLanguage() ?>';
-        let site_url = '<?= \App::$Alias->baseUrl ?>';
+        var script_url = '<?= \App::$Alias->scriptUrl ?>';
+        var script_lang = '<?= \App::$Request->getLanguage() ?>';
+        var site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
     <?php if (\App::$Debug): ?>
         <?= \App::$Debug->renderHead() ?>
@@ -162,7 +162,7 @@ echo $navbar->display();
 <?= $this->section('javascript') ?>
 
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/components/jquery/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="<?= \App::$Alias->scriptUrl ?>/vendor/bower/popper.js/dist/popper.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/global.js"></script>
 

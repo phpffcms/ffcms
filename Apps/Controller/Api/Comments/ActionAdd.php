@@ -24,7 +24,7 @@ trait ActionAdd
      * Add comment or answer via ajax.
      * @return string
      * @throws NativeException
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\JsonException
      */
     public function add(): ?string
     {

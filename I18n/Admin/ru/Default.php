@@ -36,5 +36,8 @@ return [
     'Using this function you can manage user comments' => 'Используя эту функцию вы можете управлять пользовательскими комментариями',
     'Hack attention: security token is wrong!' => 'Предупреждение о взломе: защитный токен передан не верно!',
     'Users' => 'Пользователи',
-    'Quick manage' => 'Быстрый доступ'
+    'Quick manage' => 'Быстрый доступ',
+    'View all' => 'Просмотреть все',
+    'App store' => 'Магазин расширений',
+    'Unable to find this URL: %e%' => 'Не удается найти эту страницу на сайте: %e%',
 ];

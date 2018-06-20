@@ -2,7 +2,7 @@
 
 return [
     'Dashboard' => 'Панель инструментов',
-    'Main dashboard' => 'Главная панель инструментов',
+    'Main dashboard' => 'Главная панель управления',
     'Server info' => 'Информация о сервере',
     'GA: visits and users' => 'GA: визиты и клиенты',
     'GA: Countries' => 'GA: страны',

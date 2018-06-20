@@ -30,7 +30,7 @@ trait ActionSettings
             if ($model->validate()) {
                 if ($model->makeSave()) {
                     // show message about successful save and take system some time ;)
-                    return $this->view->render('settings_save');
+                    return $this->view->render('main/settings_save');
                 } else {
                     App::$Session->getFlashBag()->add('error', __('Configuration file is not writable! Check /Private/Config/ dir and files'));
                 }
@@ -40,7 +40,7 @@ trait ActionSettings
         }
 
         // render output view
-        return $this->view->render('settings', [
+        return $this->view->render('main/settings', [
             'model' => $model
         ]);
     }

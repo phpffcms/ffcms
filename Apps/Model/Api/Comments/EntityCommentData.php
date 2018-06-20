@@ -11,7 +11,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
- * Class EntityCommentPostData. Unified model to get comment specified output to json response.
+ * Class EntityCommentData. Unified model to get comment specified output to json response.
  * @package Apps\Model\Api\Comments
  */
 class EntityCommentData extends Model

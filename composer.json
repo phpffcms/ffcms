@@ -28,6 +28,7 @@
     "phpffcms/ffcms-ckeditor": "1.*",
     "bower-asset/jquery-validation": "1.*@stable",
     "bower-asset/dropzone": "4.3.*@stable",
+    "bower-asset/popper.js": "1.*@stable",
     "studio-42/elfinder": " 2.1.*@stable",
     "twbs/bootstrap": "4.*@stable",
     "components/jquery": "3.*@stable",

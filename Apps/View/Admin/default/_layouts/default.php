@@ -1,9 +1,15 @@
 <?php
 
+
+use Ffcms\Core\Helper\Simplify;
+use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Url\Url;
 
 /** @var \Ffcms\Templex\Template\Template $this */
+
+// load layout features model
+$features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,9 +30,9 @@ use Ffcms\Templex\Url\Url;
     <!-- jquery usage after-load logic -->
     <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
     <script>
-        let script_url = '<?= \App::$Alias->scriptUrl ?>';
-        let script_lang = '<?= \App::$Request->getLanguage() ?>';
-        let site_url = '<?= \App::$Alias->baseUrl ?>';
+        var script_url = '<?= \App::$Alias->scriptUrl ?>';
+        var script_lang = '<?= \App::$Request->getLanguage() ?>';
+        var site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
     <?php if (\App::$Debug): ?>
         <?= \App::$Debug->renderHead() ?>
@@ -116,32 +122,31 @@ use Ffcms\Templex\Url\Url;
                     </a>
                     <div class="dropdown-menu dropdown-md">
                         <div class="media-items">
+                            <?php if ($features->getFeedback()->count() < 1):?>
                             <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <i class="fa fa-question-circle fa-2x text-primary"></i>
-                                    </a>
-                                </div>
                                 <div class="media-body text-muted">
-                                    <p class="media-heading"><a href="#">I need some help azaza</a></p>
-                                    <span class="text-sm">There is my long long description about my question</span>
+                                    <span class="text-sm">No feedback queries found</span>
                                 </div>
                             </div>
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <i class="fa fa-question-circle fa-2x text-muted"></i>
-                                    </a>
-                                </div>
-                                <div class="media-body text-muted">
-                                    <p class="media-heading"><a href="#">I need some help azaza</a></p>
-                                    <span class="text-sm">There is my long long description about my question</span>
-                                </div>
-                            </div>
+                            <?php else: ?>
+                                <?php foreach ($features->getFeedback() as $feed): ?>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <i class="fa fa-question-circle fa-2x text-primary"></i>
+                                            </a>
+                                        </div>
+                                        <div class="media-body text-muted">
+                                            <p class="media-heading"><a href="#"><?= $feed->name ?></a></p>
+                                            <span class="text-sm"><?= Text::snippet($feed->message, 100) ?></span>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
 
-                        <a class="dropdown-menu-footer" href="#">
-                            View all
+                        <a class="dropdown-menu-footer" href="<?= Url::to('feedback/index') ?>">
+                            <?= __('View all') ?>
                         </a>
                     </div>
                 </li>
@@ -152,33 +157,40 @@ use Ffcms\Templex\Url\Url;
                     </a>
                     <div class="dropdown-menu dropdown-md">
                         <div class="media-items">
+                            <?php if ($features->getComments()->count() < 1): ?>
                             <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object img-circle" src="assets/img/avatar-500x500.png" width="38" height="38">
-                                    </a>
-                                </div>
                                 <div class="media-body text-muted">
-                                    <p class="media-heading">User #1</p>
-                                    <span class="text-sm">Some long long comment message</span>
+                                    <span class="text-sm">No comments found</span>
                                 </div>
                             </div>
-
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object img-circle" src="assets/img/avatar-500x500-2.png" width="38" height="38">
-                                    </a>
-                                </div>
-                                <div class="media-body text-muted">
-                                    <p class="media-heading">User #2</p>
-                                    <span class="text-sm">Some other long-long comment text</span>
-                                </div>
-                            </div>
+                            <?php else: ?>
+                                <?php foreach ($features->getComments() as $comment): ?>
+                                <?php /** @var \Apps\ActiveRecord\CommentPost $comment */ ?>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#">
+                                                <?php
+                                                $commentAva = \App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
+                                                if ($comment->user !== null && $comment->user->id > 0) {
+                                                    $commentAva = $comment->user->profile->getAvatarUrl('small');
+                                                }
+                                                ?>
+                                                <img class="media-object img-circle" src="<?= $commentAva ?>" width="38" height="38">
+                                            </a>
+                                        </div>
+                                        <div class="media-body text-muted">
+                                            <p class="media-heading">
+                                                <a href="#"><?= $comment->user_id > 0 ? Simplify::parseUserNick($comment->user_id) : $comment->guest_name ?></a>
+                                            </p>
+                                            <span class="text-sm"><?= Text::snippet($comment->message, 100) ?></span>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
 
-                        <a class="dropdown-menu-footer" href="#">
-                            View all
+                        <a class="dropdown-menu-footer" href="<?= Url::to('comments/index') ?>">
+                            <?= __('View all') ?>
                         </a>
 
                     </div>
@@ -223,7 +235,7 @@ use Ffcms\Templex\Url\Url;
                         <li class="nav-item">
                             <a class="nav-link" href="<?= App::$Alias->baseUrl ?>"><i class="fa fa-home"></i> <span class="nav-text"><?= __('Main') ?></span></a>
                         </li>
-                        <li class="nav-item<?= \App::$Request->getController() === 'Main' ? ' active' : null ?>">
+                        <li class="nav-item<?= (\App::$Request->getController() === 'Main' && \App::$Request->getAction() !== 'Index') ? ' active' : null ?>">
                             <?= Url::a(['#system-dropdown'],
                                 '<i class="fa fa-fire"></i> <span class="nav-text">' . __('System') . '</span>',
                                 [
@@ -233,7 +245,7 @@ use Ffcms\Templex\Url\Url;
                                 ])
                             ?>
 
-                            <?= $this->bootstrap()->nav('ul', ['class' => 'nav nav-pills nav-stacked collapse' . (\App::$Request->getController() === 'Main' ? 'in show' : null), 'id' => 'system-dropdown'])
+                            <?= $this->bootstrap()->nav('ul', ['class' => 'nav nav-pills nav-stacked collapse' . ((\App::$Request->getController() === 'Main' && \App::$Request->getAction() !== 'Index') ? 'in show' : null), 'id' => 'system-dropdown'])
                                 ->menu(['link' => ['main/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true])
                                 ->menu(['link' => ['main/files'], 'text' => '<i class="fa fa-file-o"></i> ' . __('Files'), 'html' => true])
                                 ->menu(['link' => ['main/antivirus'], 'text' => '<i class="fa fa-shield"></i> ' . __('Antivirus'), 'html' => true])
@@ -270,6 +282,7 @@ use Ffcms\Templex\Url\Url;
                                 /** @var \Apps\ActiveRecord\App $app */
                                 $appMenu->menu(['link' => [Str::lowerCase($app->sys_name) . '/index'], 'text' => $app->getLocaleName()]);
                             }
+                            $appMenu->menu(['link' => 'application/index', 'text' => __('All apps') . '...']);
                             echo $appMenu->display();
                             ?>
                         </li>
@@ -289,8 +302,12 @@ use Ffcms\Templex\Url\Url;
                                 /** @var \Apps\ActiveRecord\App $widget */
                                 $widgetMenu->menu(['link' => [Str::lowerCase($widget->sys_name) . '/index'], 'text' => $widget->getLocaleName()]);
                             }
+                            $widgetMenu->menu(['link' => 'widget/index', 'text' => __('All widgets') . '...']);
                             echo $widgetMenu->display();
                             ?>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= Url::to('store/index') ?>"><i class="fa fa-briefcase"></i> <span class="nav-text"><?= __('App store') ?></span></a>
                         </li>
                     </ul>
                 </div>
@@ -302,9 +319,21 @@ use Ffcms\Templex\Url\Url;
                                 <div class="card-body">
                                     <?php
                                     if ($this->section('body')) {
+                                        // display notifications if exist
+                                        $notifyMessages = \App::$Session->getFlashBag()->all();
+                                        if (\Ffcms\Core\Helper\Type\Any::isArray($notifyMessages) && count($notifyMessages) > 0) {
+                                            foreach ($notifyMessages as $mType => $mArray) {
+                                                if ($mType === 'error') {
+                                                    $mType = 'danger';
+                                                }
+                                                foreach ($mArray as $mText) {
+                                                    echo $this->bootstrap()->alert($mType, $mText);
+                                                }
+                                            }
+                                        }
                                         echo $this->section('body');
                                     } else {
-                                        echo $this->bootstrap()->alert('warning', __('Content not found'));
+                                        echo $this->bootstrap()->alert('warning', __('Page not found!'));
                                     }
                                     ?>
                                 </div>
@@ -329,7 +358,7 @@ use Ffcms\Templex\Url\Url;
 <!-- /#wrapper -->
 
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/components/jquery/jquery.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="<?= \App::$Alias->scriptUrl ?>/vendor/bower/popper.js/dist/popper.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- jQuery code interprier after library loaded -->

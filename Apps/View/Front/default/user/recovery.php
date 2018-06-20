@@ -17,7 +17,7 @@ $this->layout('_layouts/default', [
 <?= $form->start() ?>
 
 <?= $form->fieldset()->text('email', null, __('Input your account email')); ?>
-<?= $this->insert('form/fieldset/captcha', ['form' => $form]) ?>
+<?= $this->insert('_form/fieldset/captcha', ['form' => $form]) ?>
 
 <?= $form->button()->submit(__('Make recovery'), ['class' => 'btn btn-primary']) ?>
 <?= $form->stop(); ?>
