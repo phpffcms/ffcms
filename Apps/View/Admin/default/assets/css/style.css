@@ -427,7 +427,7 @@ mark {
         width: 95%;
     }
 
-    #page-content .card-body {
+    #page-content .content-body {
         padding-top: 15px;
         min-height: 400px;
     }

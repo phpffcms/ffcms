@@ -57,9 +57,17 @@ class Main extends ApiController
     /**
      * Make scan and display scan iteration data
      * @return string|null
+     * @throws ForbiddenException
+     * @throws \Ffcms\Core\Exception\NativeException
+     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionAntivirus(): ?string
     {
+        $user = App::$User->identity();
+        if (!$user || !$user->role->can('admin/main/antivirus')) {
+            throw new ForbiddenException('This action is not allowed!');
+        }
+
         $scanner = new Antivirus();
 
         $this->setJsonHeader();
@@ -69,9 +77,15 @@ class Main extends ApiController
     /**
      * Remove previous scan files
      * @return string
+     * @throws ForbiddenException
      */
     public function actionAntivirusclear(): string
     {
+        $user = App::$User->identity();
+        if (!$user || !$user->role->can('admin/main/antivirus')) {
+            throw new ForbiddenException('This action is not allowed!');
+        }
+
         File::remove('/Private/Antivirus/Infected.json');
         File::remove('/Private/Antivirus/ScanFiles.json');
 
@@ -82,9 +96,15 @@ class Main extends ApiController
     /**
      * Show scan results
      * @return string
+     * @throws ForbiddenException
      */
     public function actionAntivirusresults(): string
     {
+        $user = App::$User->identity();
+        if (!$user || !$user->role->can('admin/main/antivirus')) {
+            throw new ForbiddenException('This action is not allowed!');
+        }
+
         $response = null;
         if (!File::exist('/Private/Antivirus/Infected.json')) {
             $response = ['status' => 0];
@@ -106,6 +126,7 @@ class Main extends ApiController
     /**
      * Download news from ffcms.org server and show it with caching & saving
      * @return string|null
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function actionNews(): ?string
     {

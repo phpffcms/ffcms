@@ -250,6 +250,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                                 ->menu(['link' => ['main/files'], 'text' => '<i class="fa fa-file-o"></i> ' . __('Files'), 'html' => true])
                                 ->menu(['link' => ['main/antivirus'], 'text' => '<i class="fa fa-shield"></i> ' . __('Antivirus'), 'html' => true])
                                 ->menu(['link' => ['main/routing'], 'text' => '<i class="fa fa-code"></i> ' . __('Routing'), 'html' => true])
+                                ->menu(['link' => ['main/backup'], 'text' => '<i class="fa fa-hdd-o"></i> ' . __('Backup'), 'html' => true])
                                 ->menu(['link' => ['main/updates'], 'text' => '<i class="fa fa-gavel"></i> ' . __('Updates'), 'html' => true])
                                 ->display();
                             ?>
@@ -316,7 +317,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                     <div class="row page-canvas">
                         <div class="col-md-12">
                             <div class="card card-default widget animated" style="animation-delay: 0.05s;">
-                                <div class="card-body">
+                                <div class="card-body content-body">
                                     <?php
                                     if ($this->section('body')) {
                                         // display notifications if exist

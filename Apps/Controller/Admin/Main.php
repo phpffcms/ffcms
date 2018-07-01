@@ -46,11 +46,10 @@ class Main extends AdminController
     /**
      * Manage files via elFinder
      * @return string
-     * @throws SyntaxException
      */
     public function actionFiles(): ?string
     {
-        return $this->view->render('files', [
+        return $this->view->render('main/files', [
             'connector' => App::$Alias->scriptUrl . '/api/main/files?lang=' . $this->request->getLanguage()
         ]);
     }
@@ -58,11 +57,10 @@ class Main extends AdminController
     /**
      * Show antivirus view
      * @return string
-     * @throws SyntaxException
      */
     public function actionAntivirus(): ?string
     {
-        return $this->view->render('antivirus');
+        return $this->view->render('main/antivirus');
     }
 
     /**
@@ -84,7 +82,7 @@ class Main extends AdminController
     {
         $routingMap = App::$Properties->getAll('Routing');
 
-        return $this->view->render('routing', [
+        return $this->view->render('main/routing', [
             'routes' => $routingMap
         ]);
     }
@@ -105,7 +103,7 @@ class Main extends AdminController
             return $this->view->render('add_route_save');
         }
 
-        return $this->view->render('add_route', [
+        return $this->view->render('main/add_route', [
             'model' => $model
         ]);
     }
@@ -124,10 +122,10 @@ class Main extends AdminController
         $model = new EntityDeleteRoute($type, $loader, $source);
         if ($model->send() && $model->validate()) {
             $model->make();
-            return $this->view->render('delete_route_save');
+            return $this->view->render('main/delete_route_save');
         }
 
-        return $this->view->render('delete_route', [
+        return $this->view->render('main/delete_route', [
             'model' => $model
         ]);
     }
@@ -149,6 +147,6 @@ class Main extends AdminController
         }
 
         // render output view
-        return $this->view->render('clear_cache', []);
+        return $this->view->render('main/clear_cache', []);
     }
 }
