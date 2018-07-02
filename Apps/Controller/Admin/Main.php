@@ -100,7 +100,7 @@ class Main extends AdminController
             App::$Session->getFlashBag()->add('error', __('Routing configuration file is not allowed to write: /Private/Config/Routing.php'));
         } elseif ($model->send() && $model->validate()) {
             $model->save();
-            return $this->view->render('add_route_save');
+            return $this->view->render('main/add_route_save');
         }
 
         return $this->view->render('main/add_route', [
@@ -140,7 +140,7 @@ class Main extends AdminController
         // check if submited
         if ($this->request->request->get('clearcache', false)) {
             // clear cache
-            App::$Cache->clean();
+            App::$Cache->clear();
             // add notification & redirect
             App::$Session->getFlashBag()->add('success', __('Cache cleared successfully'));
             $this->response->redirect('/');

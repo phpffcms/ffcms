@@ -58,7 +58,7 @@ $this->layout('_layouts/default', [
         <p><?= __('All directories and files in this list required to be readable and writable.') ?></p>
         <hr />
         <?= $this->bootstrap()->button('a', __('Clear cache'), ['href' => Url::to('main/cache'), 'class' => 'btn-warning']) ?>
-        <?= $this->bootstrap()->button('a', __('Clear sessions'), ['href' => Url::to('main/cache'), 'class' => 'btn-info']) ?>
+        <?= $this->bootstrap()->button('a', __('Clear sessions'), ['href' => Url::to('main/sessions'), 'class' => 'btn-info']) ?>
     </div>
     <div class="col-md-4">
         <h3><?= __('FFCMS News') ?></h3>

@@ -267,7 +267,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             }
                         }
                         ?>
-                        <li class="nav-item<?= array_key_exists(\App::$Request->getController(), $apps) ? ' active' : null ?>">
+                        <li class="nav-item<?= (array_key_exists(\App::$Request->getController(), $apps) || \App::$Request->getController() === 'Application') ? ' active' : null ?>">
                             <?= Url::a(['#apps-dropdown'],
                                 '<i class="fa fa-plug"></i> <span class="nav-text">' . __('Applications') . '</span>',
                                 [
@@ -278,7 +278,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             ?>
 
                             <?php
-                            $appMenu = $this->bootstrap()->nav('ul', ['class' => 'nav nav-pills nav-stacked collapse' . (array_key_exists(\App::$Request->getController(), $apps) ? 'in show' : null), 'id' => 'apps-dropdown']);
+                            $appMenu = $this->bootstrap()->nav('ul', ['class' => 'nav nav-pills nav-stacked collapse' . ((array_key_exists(\App::$Request->getController(), $apps) || \App::$Request->getController() === 'Application') ? 'in show' : null), 'id' => 'apps-dropdown']);
                             foreach ($apps as $app) {
                                 /** @var \Apps\ActiveRecord\App $app */
                                 $appMenu->menu(['link' => [Str::lowerCase($app->sys_name) . '/index'], 'text' => $app->getLocaleName()]);

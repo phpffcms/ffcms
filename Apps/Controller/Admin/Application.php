@@ -31,11 +31,10 @@ class Application extends AdminController
     /**
      * List of all installed applications
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionIndex()
+    public function actionIndex(): ?string
     {
-        return $this->view->render('index', [
+        return $this->view->render('application/index', [
             'apps' => $this->applications
         ]);
     }
@@ -65,22 +64,22 @@ class Application extends AdminController
             }
         }
 
-        return $this->view->render('install', [
+        return $this->view->render('application/install', [
             'model' => $model
         ]);
     }
 
     /**
      * Show and process update form for apps
-     * @param string $sys_name
+     * @param string $sys
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws NotFoundException
      */
-    public function actionUpdate($sys_name)
+    public function actionUpdate($sys)
     {
         // get controller name and try to find app in db
-        $controller = ucfirst(Str::lowerCase($sys_name));
+        $controller = ucfirst(Str::lowerCase($sys));
         $search = \Apps\ActiveRecord\App::getItem('app', $controller);
 
         // check what we got
@@ -92,12 +91,12 @@ class Application extends AdminController
         $model = new FormUpdate($search);
         if ($model->send() && $model->validate()) {
             $model->make();
-            App::$Session->getFlashBag()->add('success', __('Application %s% is successful updated to %v% version', ['s' => $sys_name, 'v' => $model->scriptVersion]));
+            App::$Session->getFlashBag()->add('success', __('Application %s% is successful updated to %v% version', ['s' => $sys, 'v' => $model->scriptVersion]));
             $this->response->redirect('application/index');
         }
 
         // render response
-        return $this->view->render('update', [
+        return $this->view->render('application/update', [
             'model' => $model
         ]);
     }
@@ -107,15 +106,16 @@ class Application extends AdminController
      * @param $controllerName
      * @return string
      * @throws ForbiddenException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionTurn($controllerName)
     {
         $controllerName = ucfirst(Str::lowerCase($controllerName));
 
-        $search = \Apps\ActiveRecord\App::where('sys_name', '=', $controllerName)->where('type', '=', 'app')->first();
-
-        if ($search === null || (int)$search->id < 1) {
+        /** @var \Apps\ActiveRecord\App $search */
+        $search = \Apps\ActiveRecord\App::where('sys_name', '=', $controllerName)
+            ->where('type', '=', 'app')
+            ->first();
+        if (!$search || (int)$search->id < 1) {
             throw new ForbiddenException('App is not founded');
         }
 
@@ -125,7 +125,7 @@ class Application extends AdminController
             App::$Session->getFlashBag()->add('success', __('Application status was changed'));
         }
 
-        return $this->view->render('turn', [
+        return $this->view->render('application/turn', [
             'app' => $search,
             'model' => $model
         ]);

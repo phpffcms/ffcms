@@ -9,6 +9,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Ffcms\Templex\Url\Url;
 
 /**
  * Trait ActionUpdates
@@ -50,7 +51,7 @@ trait ActionUpdates
             }
         }
 
-        return $this->view->render('updates', [
+        return $this->view->render('main/updates', [
             'entityModel' => $entityModel,
             'dbModel' => $dbModel,
             'downloadModel' => $downloadModel

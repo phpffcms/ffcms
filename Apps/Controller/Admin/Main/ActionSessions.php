@@ -20,7 +20,6 @@ trait ActionSessions
     /**
      * Clear all sessions data
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function sessions()
     {
@@ -37,7 +36,7 @@ trait ActionSessions
         }
 
         // render output view
-        return $this->view->render('clear_sessions', [
+        return $this->view->render('main/clear_sessions', [
             'count' => $sessions->count()
         ]);
     }

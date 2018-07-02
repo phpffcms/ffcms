@@ -29,23 +29,23 @@ $callbackExist = false;
             echo '<div class="table-responsive">';
             $alias = $this->table(['class' => 'table'])
                 ->head([
+                    ['text' => "Source → Target"],
                     ['text' => __('Environment')],
-                    ['text' => __('Source path')],
-                    ['text' => __('Target path')],
-                    ['text' => __('Actions')]
+                    ['text' => '']
                 ]);
             foreach ($routes['Alias'] as $env => $route) {
                 if (Any::isArray($route)) {
                     foreach ($route as $source => $target) {
                         $alias->row([
+                            ['text' => '<span class="badge badge-primary">' . $source . '</span> ' .
+                                '→ ' .
+                                '<span class="badge badge-secondary">' . $target . '</span>', 'html' => true],
                             ['text' => $env],
-                            ['text' => $source],
-                            ['text' => $target],
                             ['text' => Url::a(
-                                ['main/deleteroute', null, null, ['type' => 'Alias', 'loader' => $env, 'path' => $source]],
+                                ['main/deleteroute', null, ['type' => 'Alias', 'loader' => $env, 'path' => $source]],
                                 '<i class="fa fa-remove"></i>',
                                 ['html' => true]
-                            ), 'properties' => ['class' => 'float-center'], 'html' => true]
+                            ), 'properties' => ['class' => 'text-center'], 'html' => true]
                         ]);
                     }
                 }
@@ -61,30 +61,30 @@ $callbackExist = false;
         if ($routes['Callback'] && Any::isArray($routes['Callback']) && count($routes['Callback']) > 0) {
             $callbackExist = true;
             echo '<div class="table-responsive">';
-            $alias = $this->table(['class' => 'table'])
+            $dynamic = $this->table(['class' => 'table'])
                 ->head([
+                    ['text' => "Source → Target"],
                     ['text' => __('Environment')],
-                    ['text' => __('Source path')],
-                    ['text' => __('Target path')],
-                    ['text' => __('Actions')]
+                    ['text' => '']
                 ]);
             foreach ($routes['Callback'] as $env => $route) {
                 if (Any::isArray($route)) {
                     foreach ($route as $source => $target) {
-                        $alias->row([
+                        $dynamic->row([
+                            ['text' => '<span class="badge badge-primary">' . $source . '</span> ' .
+                                '→ ' .
+                                '<span class="badge badge-secondary">' . $target . '</span>', 'html' => true],
                             ['text' => $env],
-                            ['text' => $source],
-                            ['text' => $target],
                             ['text' => Url::a(
-                                ['main/deleteroute', null, null, ['type' => 'Callback', 'loader' => $env, 'path' => $source]],
+                                ['main/deleteroute', null, ['type' => 'Callback', 'loader' => $env, 'path' => $source]],
                                 '<i class="fa fa-remove"></i>',
                                 ['html' => true]
-                            ), 'properties' => ['class' => 'float-center'], 'html' => true]
+                            ), 'properties' => ['class' => 'text-center'], 'html' => true]
                         ]);
                     }
                 }
             }
-            echo $alias->display();
+            echo $dynamic->display();
             echo '</div>';
         }
         ?>
