@@ -19,7 +19,7 @@ trait ActionInvite
 {
     /**
      * Send invite to user by email
-     * @return string
+     * @return string|null
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function invite(): ?string
@@ -40,7 +40,7 @@ trait ActionInvite
         }
 
         // render view
-        return $this->view->render('invite', [
+        return $this->view->render('user/invite', [
             'model' => $model
         ]);
     }

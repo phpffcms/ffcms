@@ -16,7 +16,6 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('Clean cache') ?></h1>
-<hr />
 <p><?= __('Are you sure to clear all website cache?') ?></p>
 <form action="" method="post">
     <input type="submit" name="clearcache" value="<?= __('Clear') ?>" class="btn btn-danger" />

@@ -1,0 +1,48 @@
+<?php
+
+use Ffcms\Templex\Url\Url;
+
+/** @var Apps\Model\Admin\User\FormUserUpdate $model */
+/** @var \Ffcms\Templex\Template\Template $this */
+
+$this->layout('_layouts/default', [
+    'title' => __('Manage user'),
+    'breadcrumbs' => [
+        Url::to('main/index') => __('Main'),
+        Url::to('application/index') => __('Applications'),
+        Url::to('user/index') => __('User list'),
+        __('Manage user')
+    ]
+]);
+?>
+
+<?php $this->start('body') ?>
+<?= $this->insert('user/_tabs') ?>
+
+<h1><?= __('Manage user') ?></h1>
+<?php $form = $this->form($model) ?>
+<?= $form->start() ?>
+
+<?= $form->fieldset()->text('email', null, __('Specify user email')) ?>
+<?= $form->fieldset()->text('login', null, __('Specify user login')) ?>
+<?= $form->fieldset()->text('newpassword', null, __('Specify new user password if you want to change it! Less empty field to save current')) ?>
+<?= $form->fieldset()->select('role_id', ['options' => $model->getRoleList(), 'optionsKey' => true]) ?>
+<?= $form->fieldset()->boolean('approve_token', null, __('Set if user is approved or not')) ?>
+
+<?php if ($model->_user->getId() !== null): ?>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="text-right"><strong><?= __('Profile data') ?></strong></div>
+        </div>
+        <div class="col-md-9">
+            <?= Url::a(['profile/update', [$model->_user->profile->id]], __('Edit profile data')); ?>
+        </div>
+    </div>
+<?php endif; ?>
+<?= $form->button()->submit(__('Save'), ['class' => 'btn btn-primary']) ?>
+<?= $form->button()->cancel(__('Cancel'), ['class' => 'btn btn-secondary', 'link' => ['user/index']]) ?>
+<?= Url::a(['user/delete', [$model->_user->id]], __('Delete'), ['class' => 'btn btn-danger']) ?>
+
+<?= $form->stop() ?>
+
+<?php $this->stop() ?>

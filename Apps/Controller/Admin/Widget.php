@@ -29,12 +29,11 @@ class Widget extends AdminController
 
     /**
      * Show all installed widgets
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @return string|null
      */
-    public function actionIndex()
+    public function actionIndex(): ?string
     {
-        return $this->view->render('index', [
+        return $this->view->render('widget/index', [
             'widgets' => $this->widgets
         ]);
     }
@@ -44,7 +43,7 @@ class Widget extends AdminController
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionInstall()
+    public function actionInstall(): ?string
     {
         $model = new FormInstall($this->applications, 'widget');
 
@@ -64,26 +63,26 @@ class Widget extends AdminController
             }
         }
 
-        return $this->view->render('install', [
+        return $this->view->render('widget/install', [
             'model' => $model
         ]);
     }
 
     /**
      * Run widget update - display submit form & callback execution
-     * @param string $sys_name
-     * @return string
+     * @param string $sys
+     * @return string|null
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionUpdate($sys_name)
+    public function actionUpdate($sys): ?string
     {
         // get controller name and try to find app in db
-        $controller = ucfirst(Str::lowerCase($sys_name));
+        $controller = ucfirst(Str::lowerCase($sys));
         $search = \Apps\ActiveRecord\App::getItem('widget', $controller);
 
         // check what we got
-        if ($search === null || (int)$search->id < 1) {
+        if (!$search|| (int)$search->id < 1) {
             throw new NotFoundException('Widget is not founded');
         }
 
@@ -92,12 +91,12 @@ class Widget extends AdminController
 
         if ($model->send() && $model->validate()) {
             $model->make();
-            App::$Session->getFlashBag()->add('success', __('Widget %w% is successful updated to %v% version', ['w' => $sys_name, 'v' => $model->scriptVersion]));
+            App::$Session->getFlashBag()->add('success', __('Widget %w% is successful updated to %v% version', ['w' => $sys, 'v' => $model->scriptVersion]));
             $this->response->redirect('application/index');
         }
 
         // render response
-        return $this->view->render('update', [
+        return $this->view->render('widget/update', [
             'model' => $model
         ]);
     }
@@ -107,16 +106,18 @@ class Widget extends AdminController
      * @param string $controllerName
      * @return string
      * @throws ForbiddenException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionTurn($controllerName)
+    public function actionTurn($controllerName): ?string
     {
         // get controller name & find object in db
         $controllerName = ucfirst(Str::lowerCase($controllerName));
-        $record = \Apps\ActiveRecord\App::where('sys_name', '=', $controllerName)->where('type', '=', 'widget')->first();
+        /** @var \Apps\ActiveRecord\App $record */
+        $record = \Apps\ActiveRecord\App::where('sys_name', $controllerName)
+            ->where('type', 'widget')
+            ->first();
 
         // check if widget admin controller exists
-        if ($record === null || (int)$record->id < 1) {
+        if (!$record || (int)$record->id < 1) {
             throw new ForbiddenException('Widget is not founded');
         }
 
@@ -128,7 +129,7 @@ class Widget extends AdminController
         }
 
         // render view
-        return $this->view->render('turn', [
+        return $this->view->render('widget/turn', [
             'widget' => $record,
             'model' => $model
         ]);

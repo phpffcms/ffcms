@@ -18,7 +18,6 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('Update manager') ?></h1>
-<hr />
 <div class="table-responsive">
     <?= $this->table(['class' => 'table table-striped table-hover'])
         ->row([

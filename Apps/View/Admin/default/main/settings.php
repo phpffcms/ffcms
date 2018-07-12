@@ -6,13 +6,16 @@
 use Ffcms\Templex\Url\Url;
 
 $this->layout('_layouts/default', [
-    'title' => __('Settings')
+    'title' => __('Settings'),
+    'breadcrumbs' => [
+        Url::to('main/index') => __('Main'),
+        __('Settings')
+    ]
 ])
 ?>
 
 <?php $this->start('body') ?>
 <h1><?= __('Settings') ?></h1>
-<hr />
 
 <?php $form = $this->form($model) ?>
 

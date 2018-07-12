@@ -46,7 +46,7 @@ trait ActionUpdate
         }
 
         // render viewer
-        return $this->view->render('user_update', [
+        return $this->view->render('user/user_update', [
             'model' => $model
         ]);
     }

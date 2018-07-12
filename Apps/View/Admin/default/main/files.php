@@ -21,7 +21,6 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('File management') ?></h1>
-<hr />
 <div class="row">
     <div class="col-md-12">
         <div id="elfinder"></div>

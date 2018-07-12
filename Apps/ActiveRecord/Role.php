@@ -89,11 +89,10 @@ class Role extends ActiveModel
      * @param string $permission
      * @return bool
      */
-    public function can($permission)
+    public function can($permission): bool
     {
-
         // Role::get(id) is not initialized
-        if ($this->permissions === null) {
+        if (!$this->permissions) {
             return false;
         }
 

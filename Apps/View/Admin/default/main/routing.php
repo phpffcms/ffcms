@@ -19,7 +19,6 @@ $callbackExist = false;
 
 <?php $this->start('body') ?>
 <h1><?= __('Routing scheme') ?></h1>
-<hr/>
 <div class="row">
     <div class="col-md-6">
         <h2><?= __('Static(alias) routes') ?></h2>

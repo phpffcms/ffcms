@@ -3,7 +3,6 @@
 namespace Apps\Controller\Admin\User;
 
 use Ffcms\Core\Arch\View;
-use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 use Apps\ActiveRecord\User as UserRecord;
@@ -19,8 +18,7 @@ trait ActionIndex
 {
     /**
      * List all users as table
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @return string|null
      */
     public function index(): ?string
     {
@@ -31,13 +29,13 @@ trait ActionIndex
         $page = (int)$this->request->query->get('page', 0);
         $offset = $page * self::ITEM_PER_PAGE;
 
-        // build pagination object
-        $pagination = new SimplePagination([
+        // prepare pagination data
+        $pagination = [
             'url' => ['user/index'],
             'page' => $page,
             'step' => self::ITEM_PER_PAGE,
             'total' => $record->count()
-        ]);
+        ];
 
         // build listing objects
         $records = $record->orderBy('id', 'desc')
@@ -46,7 +44,7 @@ trait ActionIndex
             ->get();
 
         // display viewer
-        return $this->view->render('index', [
+        return $this->view->render('user/index', [
             'records' => $records,
             'pagination' => $pagination
         ]);

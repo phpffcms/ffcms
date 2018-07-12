@@ -23,7 +23,7 @@ trait ActionDelete
     /**
      * Delete user row from database
      * @param string|null $id
-     * @return string
+     * @return string|null
      * @throws \Exception
      */
     public function delete(?string $id = null): ?string
@@ -32,7 +32,7 @@ trait ActionDelete
         if (!Any::isInt($id) || $id < 1) {
             $ids = $this->request->query->get('selected');
             if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids)) {
-                throw new NotFoundException('Bad conditions');
+                throw new NotFoundException('bad conditions');
             }
             $id = $ids;
         } else {
@@ -55,7 +55,7 @@ trait ActionDelete
         }
 
         // set view response
-        return $this->view->render('user_delete', [
+        return $this->view->render('user/user_delete', [
             'model' => $model
         ]);
     }

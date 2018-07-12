@@ -15,7 +15,6 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('Antivirus scan'); ?></h1>
-<hr />
 <p><?= __('FFCMS 3 provide a simple signature-based antivirus software') . '. ' . __('Remember! This is just an advisory algorithm!') ?></p>
 
 <div class="row mb-2">

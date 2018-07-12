@@ -18,6 +18,9 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="shortcut icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
+
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/components/font-awesome/css/font-awesome.min.css" />
 
@@ -211,7 +214,17 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                 <div class="row">
                     <div class="col-sm-8 page-title-wrapper">
                         <h1 class="page-title">FFCMS<sup>3</sup></h1>
-                        <h2 class="page-subtitle">Admin panel / <?= $title ?? 'No info' ?></h2>
+                        <h2 class="page-subtitle">
+                        <?php if (isset($breadcrumbs) && is_array($breadcrumbs)): ?>
+                            <?php foreach ($breadcrumbs as $url => $text): ?>
+                                <?php if (\Ffcms\Core\Helper\Type\Any::isInt($url)): ?>
+                                    <?= $text ?>
+                                <?php else: ?>
+                                    <a href="<?= $url ?>"><?= $text ?></a> /
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        </h2>
                     </div>
                     <div class="col-sm-4 d-none d-md-inline-block page-search-wrapper">
                         <input type="text" class="form-control form-control-lg keyword-search" placeholder="Search feedback ...">
@@ -287,7 +300,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             echo $appMenu->display();
                             ?>
                         </li>
-                        <li class="nav-item<?= array_key_exists(\App::$Request->getController(), $widgets) ? ' active' : null ?>">
+                        <li class="nav-item<?= (array_key_exists(\App::$Request->getController(), $widgets) || \App::$Request->getController() === 'Widget') ? ' active' : null ?>">
                             <?= Url::a(['#widgets-dropdown'],
                                 '<i class="fa fa-puzzle-piece"></i> <span class="nav-text">' . __('Widgets') . '</span>',
                                 [
@@ -298,7 +311,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             ?>
 
                             <?php
-                            $widgetMenu = $this->bootstrap()->nav('ul', ['class' => 'nav nav-pills nav-stacked collapse' . (array_key_exists(\App::$Request->getController(), $widgets) ? 'in show' : null), 'id' => 'widgets-dropdown']);
+                            $widgetMenu = $this->bootstrap()->nav('ul', ['class' => 'nav nav-pills nav-stacked collapse' . ((array_key_exists(\App::$Request->getController(), $widgets) || \App::$Request->getController() === 'Widget') ? 'in show' : null), 'id' => 'widgets-dropdown']);
                             foreach ($widgets as $widget) {
                                 /** @var \Apps\ActiveRecord\App $widget */
                                 $widgetMenu->menu(['link' => [Str::lowerCase($widget->sys_name) . '/index'], 'text' => $widget->getLocaleName()]);

@@ -18,7 +18,6 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('Clean sessions') ?></h1>
-<hr />
 <p><?= __('Are you sure to clear all sessions information? All authorization sessions will be dropped down! Sessions count: %count%', ['count' => $count]) ?></p>
 <form action="" method="post">
     <input type="submit" name="clearsessions" value="<?= __('Clear') ?>" class="btn btn-danger" />

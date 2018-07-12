@@ -6,6 +6,7 @@ use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Date;
 
 /**
@@ -36,6 +37,9 @@ class FormUpdate extends Model
 
     /**
      * Magic method before
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws SyntaxException
      */
     public function before()
     {
@@ -49,7 +53,7 @@ class FormUpdate extends Model
 
         // compare versions
         if ($this->_record->checkVersion() === true) {
-            throw new ForbiddenException('Extension is not be updated - version comparing done successful');
+            throw new ForbiddenException('this extension is not able to update - no new version installed');
         }
 
         // set public attributes to display

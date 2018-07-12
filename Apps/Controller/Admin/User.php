@@ -14,7 +14,7 @@ use Ffcms\Core\App;
  */
 class User extends AdminController
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
     const ITEM_PER_PAGE = 10;
 
     public $type = 'app';
@@ -35,54 +35,20 @@ class User extends AdminController
         invite as actionInvite;
     }
 
-    /**
-     * Show all role groups
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function actionGrouplist()
-    {
-        // get all roles
-        $roles = Role::all();
-
-        return $this->view->render('group_list', [
-            'records' => $roles
-        ]);
+    use User\ActionRoleList {
+        listing as actionRolelist;
     }
 
-    /**
-     * Edit and add groups
-     * @param int $id
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function actionGroupUpdate($id)
-    {
-        // find role or create new object
-        $role = Role::findOrNew($id);
-
-        $model = new FormUserGroupUpdate($role);
-        if ($model->send()) { // work with post request
-            if ($model->validate()) {
-                $model->save();
-                App::$Session->getFlashBag()->add('success', __('Data was successful updated'));
-            } else {
-                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
-            }
-        }
-
-        // render view
-        return $this->view->render('group_update', [
-            'model' => $model
-        ]);
+    use User\ActionRoleUpdate {
+        roleUpdate as actionRoleupdate;
     }
 
     /**
      * User identity settings
-     * @return string
+     * @return string|null
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionSettings()
+    public function actionSettings(): ?string
     {
         // load model and pass property's as argument
         $model = new FormUserSettings($this->getConfigs());
@@ -98,7 +64,7 @@ class User extends AdminController
         }
 
         // render view
-        return $this->view->render('settings', [
+        return $this->view->render('user/settings', [
             'model' => $model
         ]);
     }

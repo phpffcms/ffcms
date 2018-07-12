@@ -29,6 +29,11 @@ class AdminController extends Controller
     /** @var AppRecord $widget */
     protected $widget;
 
+    /**
+     * AdminController constructor.
+     * @param bool $checkVersion
+     * @throws ForbiddenException
+     */
     public function __construct($checkVersion = true)
     {
         parent::__construct();

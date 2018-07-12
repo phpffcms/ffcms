@@ -18,7 +18,6 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('Deleting route') ?></h1>
-<hr />
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>
 

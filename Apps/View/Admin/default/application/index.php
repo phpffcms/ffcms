@@ -5,7 +5,7 @@ use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Url\Url;
 
 /** @var \Ffcms\Templex\Template\Template $this */
-/** @var array $apps */
+/** @var \Apps\ActiveRecord\App[] $apps */
 
 $this->layout('_layouts/default', [
     'title' => __('Applications'),
@@ -31,7 +31,6 @@ $table = $this->table(['class' => 'table table-striped'])
     ]);
 
 foreach ($apps as $app) {
-    /** @var $app Apps\ActiveRecord\App */
     if ($app->type !== 'app') {
         continue;
     }

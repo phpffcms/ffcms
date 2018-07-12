@@ -21,6 +21,7 @@ class Application extends AdminController
 
     /**
      * Application constructor.
+     * @throws ForbiddenException
      */
     public function __construct()
     {
@@ -30,7 +31,7 @@ class Application extends AdminController
 
     /**
      * List of all installed applications
-     * @return string
+     * @return string|null
      */
     public function actionIndex(): ?string
     {
@@ -41,10 +42,10 @@ class Application extends AdminController
     
     /**
      * Show installation for of applications
-     * @return string
+     * @return string|null
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionInstall()
+    public function actionInstall(): ?string
     {
         $model = new FormInstall($this->applications, 'app');
 
@@ -72,11 +73,11 @@ class Application extends AdminController
     /**
      * Show and process update form for apps
      * @param string $sys
-     * @return string
+     * @return string|null
      * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws NotFoundException
      */
-    public function actionUpdate($sys)
+    public function actionUpdate($sys): ?string
     {
         // get controller name and try to find app in db
         $controller = ucfirst(Str::lowerCase($sys));
@@ -104,10 +105,10 @@ class Application extends AdminController
     /**
      * Allow turn on/off applications
      * @param $controllerName
-     * @return string
+     * @return string|null
      * @throws ForbiddenException
      */
-    public function actionTurn($controllerName)
+    public function actionTurn($controllerName): ?string
     {
         $controllerName = ucfirst(Str::lowerCase($controllerName));
 
