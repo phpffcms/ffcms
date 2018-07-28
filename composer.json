@@ -26,30 +26,16 @@
     "phpffcms/language-flags": "1.*",
     "phpffcms/ffcms-templex": "@dev",
     "phpffcms/ffcms-ckeditor": "1.*",
-    "bower-asset/jquery-validation": "1.*@stable",
-    "bower-asset/popper.js": "1.*@stable",
+    "phpffcms/ffcms-assets": "1.*",
     "studio-42/elfinder": " 2.1.*@stable",
-    "twbs/bootstrap": "4.*@stable",
-    "components/jquery": "3.*@stable",
-    "components/jqueryui": "1.*@stable",
-    "enyo/dropzone": "5.*@stable",
-    "components/font-awesome": "4.*@stable",
     "tinymce/tinymce": "4.*@stable"
   },
   "authors": [
     {
-      "name": "Mihail Pyatinskyi",
+      "name": "Mihail Pyatinskiy",
       "email": "zenn1989@gmail.com",
       "homepage": "http://ffcms.ru",
       "role": "Maintainer"
     }
-  ],
-  "config": {
-    "fxp-asset": {
-      "installer-paths": {
-        "npm-asset-library": "vendor/npm",
-        "bower-asset-library": "vendor/bower"
-      }
-    }
-  }
+  ]
 }

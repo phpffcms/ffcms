@@ -17,8 +17,7 @@ $this->layout('_layouts/default', [
 ?>
 
 <?php $this->start('body') ?>
-<h1><?= __('List of applications'); ?></h1>
-<hr />
+<h1><?= __('List of applications'); ?></h1>do
 <?php
 $table = $this->table(['class' => 'table table-striped'])
     ->head([
