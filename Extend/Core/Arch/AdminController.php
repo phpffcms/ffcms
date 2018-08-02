@@ -146,12 +146,18 @@ class AdminController extends Controller
     }
 
     /**
-     * Get current extension configs
+     * Get current application configs as array
      * @return array
      */
-    public function getConfigs()
+    public function getConfigs(): ?array
     {
-        return $this->type === 'widget' ? (array)$this->widget->configs : (array)$this->application->configs;
+        $configs = $this->type === 'widget' ? (array)$this->widget->configs : (array)$this->application->configs;
+        foreach ($configs as $cfg => $value) {
+            if (Any::isInt($value)) {
+                $configs[$cfg] = $value;
+            }
+        }
+        return $configs;
     }
 
     /**

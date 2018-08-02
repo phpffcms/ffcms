@@ -31,8 +31,16 @@ class User extends AdminController
         delete as actionDelete;
     }
 
-    use User\ActionInvite {
-        invite as actionInvite;
+    use User\ActionInviteList {
+        inviteList as actionInvitelist;
+    }
+
+    use User\ActionInviteSend {
+        inviteSend as actionInvite;
+    }
+
+    use User\ActionInviteDelete {
+        inviteDelete as actionInviteDelete;
     }
 
     use User\ActionRoleList {

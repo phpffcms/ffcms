@@ -27,7 +27,8 @@ $this->layout('_layouts/default', [
 <?= $form->fieldset()->text('login', null, __('Specify user login')) ?>
 <?= $form->fieldset()->text('newpassword', null, __('Specify new user password if you want to change it! Less empty field to save current')) ?>
 <?= $form->fieldset()->select('role_id', ['options' => $model->getRoleList(), 'optionsKey' => true]) ?>
-<?= $form->fieldset()->boolean('approve_token', null, __('Set if user is approved or not')) ?>
+<?= $form->field()->hidden('approve_token') ?>
+<?= $form->fieldset()->boolean('approved', null, __('Set if user is approved or not')) ?>
 
 <?php if ($model->_user->getId() !== null): ?>
     <div class="row">

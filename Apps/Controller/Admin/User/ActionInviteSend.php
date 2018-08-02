@@ -15,14 +15,14 @@ use Ffcms\Core\Network\Response;
  * @property Response $response
  * @property View $view
  */
-trait ActionInvite
+trait ActionInviteSend
 {
     /**
      * Send invite to user by email
      * @return string|null
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function invite(): ?string
+    public function inviteSend(): ?string
     {
         // init model
         $model = new FormInviteSend();

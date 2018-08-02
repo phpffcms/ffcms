@@ -62,10 +62,10 @@ class FormInviteSend extends Model
         $invObj->token = $token;
         $invObj->save();
 
-        return App::$Mailer->tpl('user/_inviteMail', [
+        return App::$Mailer->tpl('user/_mail/invite', [
             'invite' => $token,
             'email' => $this->email
-        ])->send($this->email, App::$Translate->get('Default', 'You got invite', []));
+        ])->send($this->email, App::$Translate->get('Default', __('You got registration invite'), []));
     }
 
     /**
@@ -75,7 +75,8 @@ class FormInviteSend extends Model
     private function makeInvite()
     {
         $token = Str::randomLatinNumeric(mt_rand(32, 128));
-        $find = Invite::where('token', '=', $token)->count();
+        $find = Invite::where('token', $token)
+            ->count();
         return $find === 0 ? $token : $this->makeInvite(); // prevent duplication
     }
 }

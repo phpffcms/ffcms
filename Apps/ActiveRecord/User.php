@@ -110,7 +110,7 @@ class User extends ActiveModel implements iUser
         }
 
         // check if user is approved. Default value: 0, can be null, '' or the same.
-        if ($identity->approve_token !== '0' && Str::length($identity->approve_token) > 0) {
+        if ($identity->approve_token) {
             return false;
         }
 

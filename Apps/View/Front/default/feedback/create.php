@@ -30,7 +30,7 @@ $this->layout('_layouts/default', [
 <?= $form->fieldset()->textarea('message', null, __('Enter your feedback request text. Please, dont use HTML or other codes.')) ?>
 
 <?php if ($useCaptcha): ?>
-    <?= $this->insert('_form/fieldset/captcha', ['form' => $form]) ?>
+    <?= $this->insert('_core/form/fieldset/captcha', ['form' => $form]) ?>
 <?php endif; ?>
 
 <?= $form->button()->submit(__('Send'), ['class' => 'btn btn-primary']) ?>

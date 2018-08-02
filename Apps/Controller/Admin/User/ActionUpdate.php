@@ -26,11 +26,8 @@ trait ActionUpdate
      * @return string
      * @throws SyntaxException
      */
-    public function update(string $id): ?string
+    public function update(?string $id = null): ?string
     {
-        if (!Any::isInt($id) || $id < 1) {
-            throw new SyntaxException('Wrong id syntax');
-        }
         $user = UserRecord::findOrNew($id);
         // generate model data based on user object
         $model = new FormUserUpdate($user);

@@ -80,7 +80,7 @@ class FormLogin extends Model
             /** @var User $object */
             $object = $search->first();
             // check if accounts is approved
-            if ($object->approve_token !== '0' && Str::length($object->approve_token) > 0) {
+            if ($object->approve_token) {
                 return false;
             }
             return $this->openSession($object);

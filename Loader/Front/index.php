@@ -40,5 +40,5 @@ try {
     ], $loader);
     $app->run();
 } catch (Exception $e) {
-    (new \Ffcms\Core\Exception\NativeException($e->getMessage()))->display();
+    echo (new \Ffcms\Core\Exception\NativeException($e->getMessage()))->display();
 }

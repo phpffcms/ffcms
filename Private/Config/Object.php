@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
-use phpFastCache\CacheManager;
-use phpFastCache\Core\phpFastCache;
 
 // define timezone
 date_default_timezone_set(App::$Properties->get('timezone'));
@@ -26,8 +24,14 @@ return [
 
         $capsule->setAsGlobal(); // available from any places
         $capsule->bootEloquent(); // allow active record model's
-        if (\App::$Debug !== null) { // enable query collector
+
+        // enable query logging and add debug bar for SQL queries
+        if (\App::$Debug) {
             $capsule->connection()->enableQueryLog();
+
+            $pdo = new \DebugBar\DataCollector\PDO\TraceablePDO($capsule->getConnection()->getPdo());
+            $collector = new DebugBar\DataCollector\PDO\PDOCollector($pdo);
+            \App::$Debug->bar->addCollector($collector);
         }
 
         // if this is not installer interface and cms is not installed - try to redirect to install interface

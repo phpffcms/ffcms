@@ -73,7 +73,7 @@ class FrontAppController extends Controller
         foreach ($configs as $cfg => $value) {
             if (Any::isInt($value)) {
                 $configs[$cfg] = $value;
-            } // convert string 1 "1" to int 1 1
+            }
         }
         $this->configs = $configs;
 

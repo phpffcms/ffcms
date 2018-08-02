@@ -2,6 +2,7 @@
 
 return [
     'User list' => 'Список пользователей',
+    'Invitation list' => 'Список приглашений',
     'Role management' => 'Управление ролями',
     'Profile fields' => 'Поля профиля',
     'Settings' => 'Настройки',
@@ -54,5 +55,12 @@ return [
     'Edit profile data' => 'Редактировать данные профиля',
     'Delete selected' => 'Удалить выбранных',
     'Users are not found' => 'Пользователи не найдены',
-    'Are you sure to delete this users?' => 'Вы уверены что хотите удалить этих пользователей?'
+    'Are you sure to delete this users?' => 'Вы уверены что хотите удалить этих пользователей?',
+    'Invite system is disabled. Registration is public' => 'Система приглашений в данный момент выключена! Регистрация открыта для всех',
+    'Valid' => 'Действителен',
+    'Send date' => 'Дата отправки',
+    'Delete invite' => 'Удаление приглашения',
+    'Are you sure to delete invite: %mail%' => 'Вы уверены, что хотите удалить приглашение для: %email%',
+    'Invite successful removed' => 'Приглашение успешно удалено',
+    'No invites recently send' => 'Вы еше не рассылали приглашения'
 ];

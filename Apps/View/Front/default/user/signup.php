@@ -26,7 +26,7 @@ $this->layout('_layouts/default', [
 <?= $form->fieldset()->password('password', null, __('Enter a password for your account. It should be longer than 3 characters')); ?>
 <?= $form->fieldset()->password('repassword', null, __('Repeat your password to be sure it correct')); ?>
 
-<?= $this->insert('_form/fieldset/captcha', ['form' => $form]) ?>
+<?= $this->insert('_core/form/fieldset/captcha', ['form' => $form]) ?>
 
 <?= $form->button()->submit(__('Register!'), ['class' => 'btn btn-primary']) ?>
 

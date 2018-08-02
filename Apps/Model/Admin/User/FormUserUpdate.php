@@ -23,9 +23,9 @@ class FormUserUpdate extends Model
     public $password;
     public $newpassword;
     public $role_id;
-    public $approve_token;
+    public $approved = true;
 
-    private $_approve_tmp;
+    public $approve_token;
 
     /** @var iUser */
     public $_user;
@@ -50,9 +50,9 @@ class FormUserUpdate extends Model
                 $this->{$property} = $this->_user->{$property};
             }
         }
-        $this->_approve_tmp = $this->approve_token;
-        if ($this->approve_token == '0') {
-            $this->approve_token = 1;
+
+        if (!$this->approve_token) {
+            $this->approved = true;
         }
     }
 
@@ -67,7 +67,7 @@ class FormUserUpdate extends Model
             'login' => __('Login'),
             'newpassword' => __('New password'),
             'role_id' => __('Role'),
-            'approve_token' => __('Approved')
+            'approved' => __('Approved')
         ];
     }
 
@@ -78,8 +78,8 @@ class FormUserUpdate extends Model
     public function rules(): array
     {
         return [
-            [['email', 'login', 'role_id', 'approve_token'], 'required'],
-            [['newpassword'], 'used'],
+            [['email', 'login', 'role_id', 'approved'], 'required'],
+            ['newpassword', 'used'],
             ['email', 'email'],
             ['login', 'length_min', 3],
             ['email', 'Apps\Model\Admin\User\FormUserUpdate::isUniqueEmail', $this->_user->getParam('id')],
@@ -107,16 +107,14 @@ class FormUserUpdate extends Model
                 if ($this->newpassword && Str::length($this->newpassword) >= 3) {
                     $this->_user->password = App::$Security->password_hash($this->newpassword);
                 }
-            } elseif ($property === 'approve_token') {
-                if ($value == "1") {
-                    $this->_user->approve_token = '0';
+            } elseif ($property === 'approved') {
+                if ($this->approved) {
+                    $this->_user->approve_token = null;
                 } else {
-                    if ($this->_approve_tmp === '0') {
-                        $this->_approve_tmp = Str::randomLatinNumeric(mt_rand(32, 128));
-                    }
-
-                    $this->_user->approve_token = $this->_approve_tmp;
+                    $this->_user->approve_token = $this->approve_token ?? Str::randomLatinNumeric(mt_rand(32, 128));
                 }
+            } elseif ($property === 'approve_token') {
+                continue;
             } else {
                 $this->_user->{$property} = $value;
             }

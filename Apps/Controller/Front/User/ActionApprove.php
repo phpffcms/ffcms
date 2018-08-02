@@ -46,7 +46,7 @@ trait ActionApprove
         }
 
         // update approve_token value to confirmed
-        $user->approve_token = '0';
+        $user->approve_token = null;
         $user->save();
 
         // open session and redirect to main

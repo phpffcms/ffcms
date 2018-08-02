@@ -59,7 +59,7 @@ class FormRecovery extends Model
             throw new SyntaxException('Email not found');
         }
 
-        if ($user->approve_token !== '0' && Str::length($user->approve_token) > 0) {
+        if ($user->approve_token) {
             throw new SyntaxException('You must approve your account');
         }
 
