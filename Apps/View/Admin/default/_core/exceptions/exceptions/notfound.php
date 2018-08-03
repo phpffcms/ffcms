@@ -1,7 +1,7 @@
 <?php
 
 $this->layout('_layouts/default', [
-    'title' => '404 - Not found'
+    'title' => '404 - Not found!'
 ]);
 
 /** @var string $msg */

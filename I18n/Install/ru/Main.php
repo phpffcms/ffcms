@@ -4,7 +4,7 @@ return [
     'Welcome in FFCMS 3 installer. Before you start installation you must have:' => 'Добро пожаловать в установщик FFCMS. Перед тем как вы начнете вам необходимо иметь:',
     'Working database server and exist database connection data(db name, user, password, host)' => 'Рабочий сервер баз данных и существующую базу данных и данные о подключении к ней (название, пользователь, пароль, хост)',
     'Working web-server based on apache2 or nginx' => 'Рабочий веб-сервер apache2 или nginx',
-    'PHP version 5.4 or later, mod-rewrite or nginx rewrite, GD lib 2 or later, PDO driver' => 'PHP версии 5.4 или новее, mod-rewrite для apache2 или nginx, библиотека GD 2, драйвер PDO',
+    'PHP version 7.1 or later, mod-rewrite or nginx rewrite, GD lib 2 or later, PDO driver' => 'PHP версии 7.1 или новее, mod-rewrite для apache2 или nginx, библиотека GD 2, драйвер PDO',
     'Correct chmod for directories' => 'Коректный chmod на директориях',
     'Remember, you can run installation from console and many actions will be done automatic' => 'Помните, вы можете запустить установку из консоли и многие настройки будут выполнены автоматически',
     'Checking web-server' => 'Проверка веб-сервера',

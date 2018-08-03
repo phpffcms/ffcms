@@ -14,8 +14,8 @@ if (\Ffcms\Core\Helper\Type\Str::likeEmpty($msg)) {
 
 <?php $this->start('body') ?>
 
-<?= $this->bootstrap()->alert('warning', $msg); ?>
+<?= $this->bootstrap()->alert('info', $msg); ?>
 
 <?= $this->insert('_core/exceptions/_back') ?>
 
-<?php $this->stop() ?>
+<?php $this->stop(); ?>

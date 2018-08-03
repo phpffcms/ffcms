@@ -30,7 +30,6 @@ class Main extends Controller
     /**
      * Show environment check form
      * @throws ForbiddenException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
     {
@@ -40,7 +39,7 @@ class Main extends Controller
 
         $model = new EntityCheck();
 
-        return $this->view->render('index', [
+        return $this->view->render('main/index', [
             'model' => $model
         ]);
     }
@@ -62,7 +61,7 @@ class Main extends Controller
             $this->response->redirect('main/success');
         }
 
-        return $this->view->render('install', [
+        return $this->view->render('main/install', [
             'model' => $model
         ]);
     }
@@ -73,6 +72,6 @@ class Main extends Controller
      */
     public function actionSuccess()
     {
-        return $this->view->render('success');
+        return $this->view->render('main/success');
     }
 }

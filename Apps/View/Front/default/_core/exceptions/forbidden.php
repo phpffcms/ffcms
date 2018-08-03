@@ -1,6 +1,8 @@
 <?php
 
-$this->layout('_layouts/default');
+$this->layout('_layouts/default',[
+    'title' => 'Access forbidden'
+]);
 
 /** @var string $msg */
 /** @var \Ffcms\Templex\Template\Template $this */

@@ -1,7 +1,7 @@
 <?php
 
 $this->layout('_layouts/default', [
-    'title' => '404 - Not found'
+    'title' => '403 - Access forbidden'
 ]);
 
 /** @var string $msg */
@@ -14,7 +14,7 @@ if (\Ffcms\Core\Helper\Type\Str::likeEmpty($msg)) {
 
 <?php $this->start('body') ?>
 
-<?= $this->bootstrap()->alert('warning', $msg); ?>
+<?= $this->bootstrap()->alert('danger', $msg); ?>
 
 <?= $this->insert('_core/exceptions/_back') ?>
 
