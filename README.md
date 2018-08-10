@@ -1,7 +1,6 @@
 # FFCMS 3
 FFCMS - fast, flexibility content management system, based on MVC architecture. FFCMS contains many package to realise application building. 
 
-[![Code Climate](https://codeclimate.com/github/phpffcms/ffcms/badges/gpa.svg)](https://codeclimate.com/github/phpffcms/ffcms)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phpffcms/ffcms/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/phpffcms/ffcms/?branch=master)
 
 REQUIREMENTS
@@ -22,11 +21,15 @@ php console.php main:install
 
 If you want to use **developer version** you must use "master" branch from developer repository with stability "-dev":
 ```bash
-composer global require "fxp/composer-asset-plugin:1.3.*"
 composer create-project phpffcms/ffcms ./path/to/document_root --stability="dev" --keep-vcs --prefer-dist
 composer update
 php console.php main:install
 ```
+
+Docker run
+------------
+Sience 3.1 version you can run ffcms in docker environment (with full builtin nginx-php.fpm webserver, mysql & phpmyadmin). Use [docker-dev repository](https://github.com/phpffcms/docker-dev) to get docker image and instructions.
+
 
 Developer run
 ------------
@@ -35,6 +38,7 @@ Since ffcms 3.1 version support native php built-in developer server. You can ea
 php -S 127.0.0.1:8000 index.php
 ```
 and ffcms will be available on address http://127.0.0.1:8000
+
 
 Authors
 ------------
