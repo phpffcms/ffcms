@@ -5,10 +5,9 @@ namespace Apps\Model\Admin\User;
 use Apps\ActiveRecord\Profile;
 use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
-use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 
@@ -105,13 +104,13 @@ class FormUserUpdate extends Model
             if ($property === 'password' || $property === 'newpassword') {
                 // update password only if new is set and length >= 3
                 if ($this->newpassword && Str::length($this->newpassword) >= 3) {
-                    $this->_user->password = App::$Security->password_hash($this->newpassword);
+                    $this->_user->password = Crypt::passwordHash($this->newpassword);
                 }
             } elseif ($property === 'approved') {
                 if ($this->approved) {
                     $this->_user->approve_token = null;
                 } else {
-                    $this->_user->approve_token = $this->approve_token ?? Str::randomLatinNumeric(mt_rand(32, 128));
+                    $this->_user->approve_token = $this->approve_token ?? Crypt::randomString(mt_rand(32, 128));
                 }
             } elseif ($property === 'approve_token') {
                 continue;

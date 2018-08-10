@@ -2,13 +2,13 @@
 
 namespace Apps\Model\Install\Main;
 
-use Apps\ActiveRecord\Migration;
 use Apps\ActiveRecord\Profile;
 use Apps\ActiveRecord\System;
 use Apps\ActiveRecord\User;
 use Extend\Version;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Helper\Security;
@@ -107,8 +107,8 @@ class FormInstall extends Model
         $cfg['singleLanguage'] = $this->singleLanguage;
         $cfg['multiLanguage'] = (bool)$this->multiLanguage;
         $cfg['passwordSalt'] = '$2a$07$' . Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
-        $cfg['debug']['cookie']['key'] = 'fdebug_' . Str::randomLatinNumeric(mt_rand(4, 16));
-        $cfg['debug']['cookie']['value'] = Str::randomLatinNumeric(mt_rand(32, 128));
+        $cfg['debug']['cookie']['key'] = 'fdebug_' . Crypt::randomString(mt_rand(4, 16));
+        $cfg['debug']['cookie']['value'] = Crypt::randomString(mt_rand(32, 128));
         $cfg['mail'] = $this->mail;
 
         // initialize migrations table

@@ -5,7 +5,7 @@ namespace Apps\Model\Front\Feedback;
 use Apps\ActiveRecord\FeedbackPost;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Crypt;
 
 /**
  * Class FormFeedbackAdd. Add new feedback request business logic model
@@ -85,7 +85,7 @@ class FormFeedbackAdd extends Model
     public function make()
     {
         // calculate security hash to direct-on access
-        $hash = Str::randomLatinNumeric(mt_rand(16, 64));
+        $hash = Crypt::randomString(mt_rand(16, 64));
 
         // init new row and set row data
         $record = new FeedbackPost();

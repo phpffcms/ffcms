@@ -7,8 +7,8 @@ use Apps\ActiveRecord\UserRecovery;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Core\Helper\Type\Str;
 
 /**
  * Class FormRecovery. Model of business logic for user password recovery
@@ -75,7 +75,7 @@ class FormRecovery extends Model
         }
 
         // generate random token key chr[128]
-        $token = Str::randomLatinNumeric(mt_rand(64, 127));
+        $token = Crypt::randomString(mt_rand(64, 127));
 
         // write new data to recovery table
         $rObject = new UserRecovery();

@@ -7,9 +7,9 @@ use Apps\ActiveRecord\System;
 use Extend\Version;
 use Ffcms\Console\Command;
 use Ffcms\Console\Console;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Managers\MigrationsManager;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -123,11 +123,9 @@ Good luck ;)");
         $allCfg['database'] = $dbConf;
         $allCfg['adminEmail'] = $email;
         $allCfg['baseDomain'] = $domain;
-        $output->writeln('Generate password salt for BLOWFISH crypt');
-        $allCfg['passwordSalt'] = '$2a$07$' . Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
         $output->writeln('Generate security cookies for debug panel');
-        $allCfg['debug']['cookie']['key'] = 'fdebug_' . Str::randomLatinNumeric(mt_rand(8, 32));
-        $allCfg['debug']['cookie']['value'] = Str::randomLatinNumeric(mt_rand(32, 128));
+        $allCfg['debug']['cookie']['key'] = 'fdebug_' . Crypt::randomString(mt_rand(8, 32));
+        $allCfg['debug']['cookie']['value'] = Crypt::randomString(mt_rand(32, 128));
         // write config data
         $writeCfg = Console::$Properties->writeConfig('default', $allCfg);
         if ($writeCfg !== true) {

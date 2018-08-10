@@ -7,6 +7,7 @@ use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\ContentTag;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
@@ -256,7 +257,7 @@ class FormContentUpdate extends Model
      */
     private function generateCommentHash()
     {
-        $hash = Str::randomLatinNumeric(mt_rand(32, 128));
+        $hash = Crypt::randomString(mt_rand(32, 128));
         $find = Content::where('comment_hash', '=', $hash)->count();
         // hmmm, is always exist? Chance of it is TOOOO low, but lets recursion re-generate
         if ($find !== 0) {

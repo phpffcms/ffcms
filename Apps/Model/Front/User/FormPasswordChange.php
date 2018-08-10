@@ -2,8 +2,8 @@
 
 namespace Apps\Model\Front\User;
 
-use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Interfaces\iUser;
 
 /**
@@ -60,9 +60,7 @@ class FormPasswordChange extends Model
 
     public function make()
     {
-        $hash = App::$Security->password_hash($this->password);
-
-        $this->_user->password = $hash;
+        $this->_user->password = Crypt::passwordHash($this->password);
         $this->_user->save();
     }
 }

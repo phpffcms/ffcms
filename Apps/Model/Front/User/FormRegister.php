@@ -6,6 +6,7 @@ use Apps\ActiveRecord\Profile;
 use Apps\ActiveRecord\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -88,15 +89,14 @@ class FormRegister extends Model
             return false;
         }
 
-        $password = App::$Security->password_hash($this->password);
         // create row
         $user = new User();
         $user->login = $this->login;
         $user->email = $this->email;
-        $user->password = $password;
+        $user->password = Crypt::passwordHash($this->password);
         // if need to be approved - make random token and send email
         if ($activation) {
-            $user->approve_token = Str::randomLatinNumeric(mt_rand(32, 128)); // random token for validation url
+            $user->approve_token = Crypt::randomString(mt_rand(32, 128)); // random token for validation url
             // send email
             App::$Mailer->tpl('user/_mail/approve', [
                 'token' => $user->approve_token,

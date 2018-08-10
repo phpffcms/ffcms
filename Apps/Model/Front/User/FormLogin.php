@@ -6,7 +6,7 @@ use Apps\ActiveRecord\User;
 use Apps\ActiveRecord\UserLog;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Interfaces\iUser;
 
 /**
@@ -69,23 +69,28 @@ class FormLogin extends Model
      */
     public function tryAuth(): bool
     {
-        $password = App::$Security->password_hash($this->password);
+        /** @var User $user */
+        $user = App::$User->where(function($q) {
+            $q->where('login', $this->login)
+                ->orWhere('email', $this->login);
+        })->first();
 
-        $search = App::$User->where('password', '=', $password)->where(function ($query) {
-            $query->where('login', '=', $this->login)
-                ->orWhere('email', '=', $this->login);
-        });
-
-        if ($search->count() === 1) {
-            /** @var User $object */
-            $object = $search->first();
-            // check if accounts is approved
-            if ($object->approve_token) {
-                return false;
+        // login found, check if approved and compare password
+        if ($user && !$user->approve_token) {
+            // check if legacy password hash used (ffcms 3.0 or early)
+            if (Crypt::isOldPasswordHash($user->password) && App::$Security->password_hash($this->password) === $user->password) {
+                // update password to new blowfish crypt hash
+                $user->password = Crypt::passwordHash($this->password);
+                $user->save();
+                return $this->openSession($user);
             }
-            return $this->openSession($object);
-        }
 
+            // validate new password hash
+            if (Crypt::passwordVerify($this->password, $user->password)) {
+                return $this->openSession($user);
+            }
+        }
+        // auth failed
         return false;
     }
 
