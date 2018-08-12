@@ -6,6 +6,7 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\ActiveRecord\User[]|\Illuminate\Support\Collection $records */
 /** @var array $pagination */
 /** @var \Ffcms\Templex\Template\Template $this */
+/** @var string $search */
 
 $this->layout('_layouts/default', [
     'title' => __('User list'),
@@ -20,9 +21,28 @@ $this->layout('_layouts/default', [
 <?php $this->start('body') ?>
 <?= $this->insert('user/_tabs') ?>
 <h1><?= __('User list') ?></h1>
-<div>
-    <?= Url::a(['user/update'], __('Add user'), ['class' => 'btn btn-primary']) ?>
+<div class="row">
+    <div class="col-md-8">
+        <?= Url::a(['user/update'], __('Add user'), ['class' => 'btn btn-primary']) ?>
+    </div>
+    <div class="col-md-4">
+        <form accept-charset="UTF-8" method="get">
+            <div class="input-group">
+                <input type="text" name="search" id="search" value="<?= $this->e($search) ?>" placeholder="login, email ..." class="form-control mr-sm-1">
+                <span class="input-group-btn">
+                    <input type="submit" name="dosearch" value="<?= __('Search') ?>" class="btn btn-primary">
+                </span>
+            </div>
+        </form>
+    </div>
 </div>
+
+<?php if ($records->count() < 1) {
+    echo $this->bootstrap()->alert('warning', __('No users found'));
+    $this->stop();
+    return;
+} ?>
+
 <?php
 $table = $this->table(['class' => 'table table-striped'])
     ->head([

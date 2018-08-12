@@ -73,31 +73,11 @@
 ***********************************************/
 .btn {
     font-size: 13px;
-    padding: 6px 18px;
+    padding: 9px 18px;
     -webkit-transition: all 0.1s ease;
     -moz-transition: all 0.1s ease;
     -o-transition: all 0.1s ease;
     transition: all 0.1s ease;
-}
-
-.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
-    outline: 0;
-    outline-offset: 0;
-}
-
-.btn:active, .btn.focus {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-.btn-round {
-    border-radius: 16px !important;
-}
-
-.btn-group-lg > .btn,
-.btn-lg {
-    padding: 8px 22px;
-    font-size: 18px;
 }
 
 /***********************************************
