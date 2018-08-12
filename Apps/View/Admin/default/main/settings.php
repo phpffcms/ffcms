@@ -30,7 +30,7 @@ $this->layout('_layouts/default', [
             $form->fieldset()->boolean('userCron', null, __('Initialize cron manager when user load website? Enable this option if you are not configured cron tasks in your operation system')) .
             $form->fieldset()->boolean('debug.all', null, __('Enable debug bar panel for all visitors? Recommended only on development environment')) .
             $form->fieldset()->boolean('testSuite', null, __('Enable codeception test suite adapter? Use this option ONLY to run codeception tests! Disable this option on production'));
-    }, 'linkProperties' => ['class' => 'nav-link active']])
+    }, 'tabActive' => true])
     ->menu(['text' => __('Themes'), 'tab' => function() use ($form, $model) {
         return $form->fieldset()->select('theme.Front', ['class' => 'form-control', 'options' => $model->getAvailableThemes('Front')], __('Set theme for user part of website')) .
             $form->fieldset()->select('theme.Admin', ['class' => 'form-control', 'options' => $model->getAvailableThemes('Admin')], __('Set theme for admin panel'));
