@@ -25,7 +25,6 @@ $form = $this->form($model);
 
 <h2><?= __('General configurations') ?></h2>
 <?= $form->fieldset()->radio('mainpage', ['options' => ['none' => __('Developer'), 'news' => __('News list'), 'about' => __('About page')], 'optionsKey' => true], __('Select what we should display on the main page. You can always change it in routing configurations')) ?>
-<?= $form->fieldset()->text('email', ['class' => 'form-control', 'placeHolder' => 'example@site.com'], __('Set your general email to use in sendFrom for mailing functions')) ?>
 <?= $form->fieldset()->select('singleLanguage', ['class' => 'form-control', 'options' => \App::$Translate->getAvailableLangs()], __('Default language of website')); ?>
 <?= $form->fieldset()->boolean('multiLanguage', ['checked' => true], __('Must we use multi language system in site pathway')); ?>
 

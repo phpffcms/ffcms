@@ -43,7 +43,7 @@ trait ActionUpdate
         }
 
         // draw response
-        return $this->view->render('content_update', [
+        return $this->view->render('content/content_update', [
             'model' => $model
         ]);
     }

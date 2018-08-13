@@ -30,7 +30,6 @@ $this->layout('_layouts/default', [
 
 <?php
 $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
-
 foreach (\App::$Properties->get('languages') as $lang) {
     $menu->menu([
         'text' => Str::upperCase($lang),
