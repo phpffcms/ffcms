@@ -97,7 +97,13 @@ echo $form->button()->submit(__('Save'), ['class' => 'btn btn-primary mt-2']);
 
 <?= $form->stop() ?>
 
-<!-- TODO: add javascript features there -->
+<?php $this->stop() ?>
 
+<?php $this->push('javascript') ?>
+<?php
+echo \Widgets\Tinymce\Tinymce::widget([
+    'config' => 'full'
+]);
 
+?>
 <?php $this->stop() ?>
