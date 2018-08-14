@@ -13,6 +13,7 @@
   "type": "project",
   "homepage": "https://ffcms.org",
   "license": "MIT",
+  "minimum-stability": "dev",
   "require": {
     "php": ">=7.1",
     "lib-curl": "*",
@@ -23,12 +24,12 @@
     "phpffcms/ffcms-core": "@dev",
     "phpffcms/ffcms-console": "@dev",
     "phpffcms/searchable": "@dev",
+    "phpffcms/ffcms-tinymce": "@dev",
     "phpffcms/language-flags": "1.*",
     "phpffcms/ffcms-templex": "@dev",
     "phpffcms/ffcms-ckeditor": "1.*",
     "phpffcms/ffcms-assets": "1.*",
-    "studio-42/elfinder": " 2.1.*@stable",
-    "tinymce/tinymce": "4.*@stable"
+    "studio-42/elfinder": " 2.1.*@stable"
   },
   "authors": [
     {
