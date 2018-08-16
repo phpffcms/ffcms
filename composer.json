@@ -13,7 +13,6 @@
   "type": "project",
   "homepage": "https://ffcms.org",
   "license": "MIT",
-  "minimum-stability": "dev",
   "require": {
     "php": ">=7.1",
     "lib-curl": "*",

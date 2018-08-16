@@ -66,4 +66,5 @@ return array (
   62 => 'Admin/Widget/Install',
   63 => 'Admin/Widget/Update',
   64 => 'Admin/Widget/Turn',
+  65 => 'global/upload'
 );

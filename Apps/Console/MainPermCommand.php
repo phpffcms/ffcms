@@ -40,6 +40,7 @@ class MainPermCommand extends Command
             'global/write',
             'global/modify',
             'global/file',
+            'global/upload',
             'global/all'
         ];
         // admin controllers
