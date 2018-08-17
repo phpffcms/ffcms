@@ -25,6 +25,7 @@ trait ActionList
      * @return string
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\JsonException
      */
     public function aList(string $index): ?string
     {

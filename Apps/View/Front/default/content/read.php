@@ -219,11 +219,11 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         <div class="col-md-12">
             <div class="h3 text-success"><?= __('Comments') ?></div>
             <hr />
-            <?php //\Widgets\Front\Comments\Comments::widget(['targetClass' => 'wysi-comments', 'config' => 'config-small']); ?>
+            <?= \Widgets\Front\Comments\Comments::widget(['config' => 'small']); ?>
         </div>
     </div>
 <?php endif; ?>
-<?php if ($model->galleryItems !== null && Any::isArray($model->galleryItems)): ?>
+<?php if ($model->galleryItems && Any::isArray($model->galleryItems)): ?>
     <script>
         $(document).ready(function(){
             var galleryPos = 1;
@@ -284,4 +284,10 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         });
     </script>
 <?php endif; ?>
+<?php $this->stop() ?>
+
+<?php $this->push('javascript') ?>
+
+<?= \Widgets\Tinymce\Tinymce::widget(['config' => 'small']); ?>
+
 <?php $this->stop() ?>

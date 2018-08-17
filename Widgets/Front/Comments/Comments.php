@@ -3,13 +3,13 @@
 namespace Widgets\Front\Comments;
 
 use Ffcms\Core\App;
-use Ffcms\Widgets\Ckeditor\Ckeditor;
+use Ffcms\Core\Arch\Widget;
 
 /**
  * Class Comments. Add, list comments as widget view
  * @package Widgets\Front\Comments
  */
-class Comments extends Ckeditor
+class Comments extends Widget
 {
     public $pathway;
 
@@ -18,13 +18,11 @@ class Comments extends Ckeditor
      */
     public function init(): void
     {
-        parent::init();
-
         if (App::$Request->getLanguage() !== 'en') {
-            App::$Translate->append('/I18n/Front/' . App::$Request->getLanguage() . '/CommentWidget.php');
+            App::$Translate->append('/i18n/Front/' . App::$Request->getLanguage() . '/CommentWidget.php');
         }
 
-        if ($this->pathway === null) {
+        if (!$this->pathway) {
             $this->pathway = App::$Request->getPathInfo();
         }
     }
@@ -35,12 +33,8 @@ class Comments extends Ckeditor
      */
     public function display(): ?string
     {
-        parent::display();
-
-        $configs = $this->getConfigs();
-
         return App::$View->render('widgets/comments/show', [
-            'configs' => $configs
+            'configs' => $this->getConfigs()
         ]);
     }
 }

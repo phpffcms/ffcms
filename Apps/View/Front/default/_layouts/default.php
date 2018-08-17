@@ -81,7 +81,7 @@ echo $navbar->display();
 <main role="main" class="container">
     <?php if (isset($breadcrumbs) && is_array($breadcrumbs)): ?>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col">
             <nav aria-label="breadcrumb">
                 <?php
                 $crumbs = $this->listing('ol', ['class' => 'breadcrumb']);
@@ -99,7 +99,7 @@ echo $navbar->display();
     </div>
     <?php endif; ?>
     <div class="row">
-        <div class="<?= ($fullgrid ? 'col-md-12' : 'col-md-9') ?>">
+        <div class="<?= ($fullgrid ? 'col-md-12' : 'col-md-8') ?>">
             <?php
             if ($this->section('body')) {
                 // display notifications if exist
