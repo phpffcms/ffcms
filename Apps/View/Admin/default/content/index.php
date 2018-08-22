@@ -128,9 +128,11 @@ $table->selectize(0, 'selected');
     <?= $table->display() ?>
 </div>
 
-<?= $this->javascript()->submitSelectizeTable('input[name="selected[]"]', 'selected', __('Delete selected'), ['content/globdelete'], ['class' => 'btn btn-danger']) ?>
+<?php if ($type !== 'trash') {
+    echo $this->javascript()->submitSelectizeTable('input[name="selected[]"]', 'selected', __('Delete selected'), ['content/globdelete'], ['class' => 'btn btn-danger']);
+} ?>
 <?php if ($hiddenExist) {
-    echo $this->javascript()->submitSelectizeTable('input[name="selected[]"]', 'selected', __('Delete selected'), ['content/publish'], ['class' => 'btn btn-warning']);
+    echo $this->javascript()->submitSelectizeTable('input[name="selected[]"]', 'selected', __('Publish'), ['content/publish'], ['class' => 'btn btn-warning']);
 } ?>
 
 <?= $this->bootstrap()->pagination($pagination['url'], ['class' => 'pagination justify-content-center'])

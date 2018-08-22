@@ -28,12 +28,8 @@ trait ActionCategoryUpdate
      */
     public function categoryUpdate(?string $id = null): ?string
     {
-        if (!Any::isInt($id) || $id < 1) {
-            throw new SyntaxException('Wrong id');
-        }
-
         // get owner id for new rows
-        $parentId = (int)$this->request->query->get('parent');
+        $parentId = $this->request->query->get('parent', null);
 
         // get relation and pass to model
         $record = ContentCategory::findOrNew($id);
@@ -52,7 +48,7 @@ trait ActionCategoryUpdate
         }
 
         // draw response view and pass model properties
-        return $this->view->render('category_update', [
+        return $this->view->render('content/category_update', [
             'model' => $model
         ]);
     }

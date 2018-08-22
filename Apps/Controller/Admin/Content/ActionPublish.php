@@ -35,7 +35,7 @@ trait ActionPublish
         }
 
         // try to find items in db
-        $records = ContentEntity::whereIn('id', $ids)->where('display', '=', 0);
+        $records = ContentEntity::whereIn('id', $ids)->where('display', 0);
         if ($records->count() < 1) {
             throw new NotFoundException(__('Items to publish is not found'));
         }
@@ -49,7 +49,7 @@ trait ActionPublish
         }
 
         // draw view output
-        return $this->view->render('publish', [
+        return $this->view->render('content/publish', [
             'records' => $records->get(),
             'model' => $model
         ]);

@@ -37,7 +37,7 @@ trait ActionClear
         }
 
         // draw response
-        return $this->view->render('content_clear', [
+        return $this->view->render('content/content_clear', [
             'model' => $model
         ]);
     }

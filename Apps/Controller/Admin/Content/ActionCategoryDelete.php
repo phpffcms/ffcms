@@ -28,7 +28,7 @@ trait ActionCategoryDelete
      */
     public function categoryDelete(string $id): ?string
     {
-        // check id
+        // check id, (1 is the general root category)
         if (!Any::isInt($id) || $id < 2) {
             throw new ForbiddenException();
         }
@@ -36,7 +36,7 @@ trait ActionCategoryDelete
         // get object relation
         $record = ContentCategory::find($id);
         if (!$record) {
-            throw new ForbiddenException();
+            throw new ForbiddenException(__('Category is not exist'));
         }
 
         // init model with object relation
@@ -50,7 +50,7 @@ trait ActionCategoryDelete
         }
 
         // draw view
-        return $this->view->render('category_delete', [
+        return $this->view->render('content/category_delete', [
             'model' => $model
         ]);
     }

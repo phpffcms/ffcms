@@ -57,7 +57,7 @@ class FormContentUpdate extends Model
     public function before()
     {
         // is new item?
-        if ($this->_content->id === null) {
+        if (!$this->_content->id) {
             $this->_new = true;
             if (!$this->galleryFreeId) {
                 $this->galleryFreeId = '_tmp_' . Str::randomLatin(mt_rand(16, 32));

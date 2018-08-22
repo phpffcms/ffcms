@@ -40,6 +40,10 @@ class Content extends AdminController
         clear as actionClear;
     }
 
+    use Content\ActionCategoryList {
+        contentCategoryList as actionCategories;
+    }
+
     use Content\ActionCategoryDelete {
         categoryDelete as actionCategorydelete;
     }
@@ -54,18 +58,6 @@ class Content extends AdminController
 
     use Content\ActionPublish {
         publish as actionPublish;
-    }
-
-    /**
-     * Display category list
-     * @return string
-     * @throws SyntaxException
-     */
-    public function actionCategories(): ?string
-    {
-        return $this->view->render('category_list', [
-            'categories' => ContentCategory::getSortedAll()
-        ]);
     }
 
     /**
@@ -90,7 +82,7 @@ class Content extends AdminController
         }
 
         // draw response
-        return $this->view->render('settings', [
+        return $this->view->render('content/settings', [
             'model' => $model
         ]);
     }

@@ -59,7 +59,7 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
             return $langMenu->display();
             }, ['class' => 'nav-border']);
     }, 'tabActive' => true])
-    ->menu(['text' => __('Properties'), 'tab' => function() use ($form){
+    ->menu(['text' => __('Properties'), 'tab' => function() use ($form) {
         /** @var \Ffcms\Templex\Template\Template $this */
         $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
         $context = $form->fieldset()->text('path', null, __('Slug of URL pathway for this content item'))
@@ -103,7 +103,10 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
     }]);
 echo $menu->display();
 echo $form->button()->submit(__('Save'), ['class' => 'btn btn-primary mt-2']);
+
 ?>
+
+<?= $form->field()->hidden('galleryFreeId') ?>
 
 <?= $form->stop() ?>
 

@@ -6,6 +6,7 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -35,7 +36,7 @@ class FormCategoryUpdate extends Model
     public function __construct(ContentCategory $record, $dependId = null)
     {
         $this->_record = $record;
-        $this->_tmpDependId = $dependId;
+        $this->_tmpDependId = (int)$dependId;
         parent::__construct();
     }
 
@@ -69,7 +70,7 @@ class FormCategoryUpdate extends Model
             // set data from record
             $this->title = $this->_record->title;
             $this->description = $this->_record->description;
-            if ($this->_record->configs !== null && !Str::likeEmpty($this->_record->configs)) {
+            if ($this->_record->configs !== null && !Any::isEmpty($this->_record->configs)) {
                 $this->configs = $this->_record->configs;
             }
         }

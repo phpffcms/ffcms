@@ -34,7 +34,7 @@ trait ActionDelete
 
         // get content record and check availability
         $record = ContentEntity::find($id);
-        if ($record === null) {
+        if (!$record) {
             throw new NotFoundException();
         }
 
@@ -46,7 +46,7 @@ trait ActionDelete
             $this->response->redirect('content/index');
         }
 
-        return $this->view->render('content_delete', [
+        return $this->view->render('content/content_delete', [
             'model' => $model
         ]);
     }

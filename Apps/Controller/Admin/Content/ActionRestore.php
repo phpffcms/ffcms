@@ -49,7 +49,7 @@ trait ActionRestore
         }
 
         // draw response
-        return $this->view->render('content_restore', [
+        return $this->view->render('content/content_restore', [
             'model' => $model
         ]);
     }

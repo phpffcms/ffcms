@@ -53,7 +53,7 @@ trait ActionGlobDelete
         }
 
         // return response
-        return $this->view->render('content_glob_delete', [
+        return $this->view->render('content/content_glob_delete', [
             'model' => $model
         ]);
     }
