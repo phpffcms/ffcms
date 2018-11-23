@@ -44,9 +44,9 @@ class EntityCommentData extends Model
      * Prepare output comment post information array
      * @return array|null
      */
-    public function make()
+    public function make(): ?array
     {
-        if ($this->_record === null) {
+        if (!$this->_record) {
             return null;
         }
 
@@ -70,7 +70,8 @@ class EntityCommentData extends Model
             'id' => $this->_record->id,
             'text' => $this->_record->message,
             'date' => Date::convertToDatetime($this->_record->created_at, Date::FORMAT_TO_HOUR),
-            'pathway' => $this->_record->pathway,
+            'app_name' => $this->_record->app_name,
+            'app_id' => $this->_record->app_relation_id,
             'moderate' => (int)$this->_record->moderate,
             'user' => [
                 'id' => $this->_record->user_id,

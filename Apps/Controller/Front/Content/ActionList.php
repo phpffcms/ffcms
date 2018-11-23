@@ -5,7 +5,6 @@ namespace Apps\Controller\Front\Content;
 use Apps\Model\Front\Content\EntityCategoryList;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
-use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;

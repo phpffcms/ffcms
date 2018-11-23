@@ -16,3 +16,7 @@ $loader = require root . '/vendor/autoload.php';
 $loader->add('Apps\\', root);
 $loader->add('Extend\\', root);
 $loader->add('Widgets\\', root);
+
+// tmp @todo
+$loader->add('Widgets\\', root . '/vendor/phpffcms/ffcms-tinymce/src');
+$loader->add('Apps\\', root . '/vendor/phpffcms/ffcms-tinymce/src');

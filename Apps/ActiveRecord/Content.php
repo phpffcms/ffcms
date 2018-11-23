@@ -7,6 +7,7 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Traits\SearchableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
  * Class Content. Active record object for content items with relation to category active record
@@ -34,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property ContentRating[] $ratings
  * @property ContentTag[] $tags
  * @property User $user
+ * @property CommentPost[]|Collection $commentPosts
  */
 class Content extends ActiveModel
 {
@@ -101,12 +103,22 @@ class Content extends ActiveModel
     }
 
     /**
+     * Get comments objects relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function commentPosts()
+    {
+        return $this->hasMany(CommentPost::class, 'app_relation_id')
+            ->where('app_name', 'content');
+    }
+
+    /**
      * Get item path URI - category/item
      * @return null|string
      */
-    public function getPath()
+    public function getPath(): ?string
     {
-        if ($this->path === null) {
+        if (!$this->path) {
             return null;
         }
 
@@ -125,11 +137,11 @@ class Content extends ActiveModel
      * Get poster URI like /upload/gallery/1/orig/9ds2jd1.png
      * @return null|string
      */
-    public function getPosterUri()
+    public function getPosterUri(): ?string
     {
         $pName = $this->poster;
         // check if poster is defined
-        if ($pName === null || Str::likeEmpty($pName)) {
+        if (!$pName || Str::likeEmpty($pName)) {
             return null;
         }
 
@@ -146,10 +158,10 @@ class Content extends ActiveModel
      * Get poster thumbnail uri
      * @return null|string
      */
-    public function getPosterThumbUri()
+    public function getPosterThumbUri(): ?string
     {
         $pName = $this->poster;
-        if ($pName === null || Str::likeEmpty($pName)) {
+        if (!$pName || Str::likeEmpty($pName)) {
             return null;
         }
 
@@ -162,35 +174,5 @@ class Content extends ActiveModel
         }
 
         return $path;
-    }
-
-    /**
-     * Get category relation of this content id
-     * @return \Apps\ActiveRecord\ContentCategory|null
-     * @deprecated
-     */
-    public function getCategory()
-    {
-        return ContentCategory::getById($this->category_id);
-    }
-
-    /**
-     * Get content_rating relation one-to-many
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     * @deprecated
-     */
-    public function getRating()
-    {
-        return $this->ratings();
-    }
-
-    /**
-     * Get content_tags relation one-to-many
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     * @deprecated
-     */
-    public function getTags()
-    {
-        return $this->tags();
     }
 }

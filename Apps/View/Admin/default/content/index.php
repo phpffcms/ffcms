@@ -73,11 +73,10 @@ if ($records->count() < 1) {
 $table = $this->table(['class' => 'table table-striped'])
     ->head([
         ['text' => '#'],
+        ['text' => __('Actions'), 'properties' => ['class' => 'text-center']],
         ['text' => __('Title')],
-        ['text' => __('Category')],
-        ['text' => __('Pathway')],
-        ['text' => __('Date')],
-        ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
+        ['text' => '<i class="fa fa-comments"></i>', 'html' => true],
+        ['text' => __('Date')]
     ]);
 
 $hiddenExist = false;
@@ -87,38 +86,75 @@ foreach ($records as $content) {
         continue;
     }
     $frontLink = \App::$Alias->scriptUrl . '/content/read';
-    $frontPath = null;
     if (!Str::likeEmpty($content->category->path)) {
         $frontLink .= '/' . $content->category->path;
-        $frontPath .= '/' . $content->category->path;
     }
     $frontLink .= '/' . $content->path;
-    $frontPath .= '/' . $content->path;
-    $frontPath = Str::sub($frontPath, 0, 30);
-    $actionIcons = '<a href="' . $frontLink . '" target="_blank"><i class="fa fa-eye fa-lg"></i></a> ';
-    $actionIcons .= Url::a(['content/update', [$content->id]], '<i class="fa fa-pencil fa-lg"></i> ', ['html' => true]);
-    if ($type === 'trash') {
-        $actionIcons .= Url::a(['content/restore', [$content->id]], '<i class="fa fa-refresh fa-lg"></i>', ['html' => true]);
+
+    $controlGroup = '<div class="btn-group btn-group-sm" role="group" aria-label="Control buttons">';
+    if (!(bool)$content->display) {
+        $controlGroup .= Url::a(['content/display', [$content->id], ['status' => 1]], '<i class="fa fa-eye-slash" style="color: #ff0000;"></i>', [
+            'html' => true,
+            'class' => 'btn btn-light',
+            'data-toggle' => 'tooltip',
+            'title' =>  __('Content hidden from regular users')
+        ]);
     } else {
-        $actionIcons .= Url::a(['content/delete', [$content->id]], '<i class="fa fa-trash-o fa-lg"></i>', ['html' => true]);
+        $controlGroup .= Url::a(['content/display', [$content->id], ['status' => 0]], '<i class="fa fa-eye" style="color: #008000;"></i>', [
+            'html' => true,
+            'class' => 'btn btn-light',
+            'data-toggle' => 'tooltip',
+            'title' =>  __('Content is public')
+        ]);
     }
+
+    if (!(bool)$content->important) {
+        $controlGroup .= Url::a(['content/important', [$content->id], ['status' => 1]], '<i class="fa fa-star-o"></i>', [
+            'html' => true,
+            'class' => 'btn btn-light',
+            'data-toggle' => 'tooltip',
+            'title' =>  __('Content are not in favorite top. Mark as favorite?')
+        ]);
+    } else {
+        $controlGroup .= Url::a(['content/important', [$content->id], ['status' => 0]], '<i class="fa fa-star" style="color: #c7a922"></i>', [
+            'html' => true,
+            'class' => 'btn btn-light',
+            'data-toggle' => 'tooltip',
+            'title' =>  __('Content marked as favorite. Unset this?')
+        ]);
+    }
+
+    $dropdownControl = '<div class="btn-group btn-group-sm" role="group">';
+    $dropdownControl .= '<button id="btn-dropdown-' . $content->id . '" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"> </button>';
+    $dropdownControl .= '<div class="dropdown-menu" area-lebeledby="btn-dropdown-' . $content->id . '">';
+    $dropdownControl .= Url::a(['content/update', [$content->id]], __('Edit'), ['class' => 'dropdown-item']);
+    $dropdownControl .= '<a href="' . $frontLink . '" target="_blank" class="dropdown-item">' . __('See as user') . '</a>';
+    if ($type === 'trash') {
+        $dropdownControl .= Url::a(['content/restore', [$content->id]], __('Restore'), ['class' => 'dropdown-item']);
+    } else {
+        $dropdownControl .= Url::a(['content/delete', [$content->id]], __('Delete'), ['class' => 'dropdown-item']);
+    }
+    $dropdownControl .= '</div></div>';
+
+    $controlGroup .= $dropdownControl;
+    $controlGroup .= '</div>';
 
     // set hidden trigger to true if exist hidden items
     if (!$content->display) {
         $hiddenExist = true;
     }
 
+    $contentInfo = '<div>' . Url::a(['content/update', [$content->id]], $content->getLocaled('title')) . '</div>';
+    $contentInfo .= '<div class="small">';
+    $contentInfo .= __('Category: <a href="%url%">%name%</a>', ['name' => $content->category->getLocaled('title'), 'url' => Url::to('content/categoryupdate', [$content->category_id])]);
+    $contentInfo .= '</div>';
+
     $table->row([
-        'properties' => ['class' => (!$content->display ? ' alert-warning' : null)],
         ['text' => $content->id, 'html' => true, '!secure' => true],
-        ['text' => (!$content->display ? '<i class="fa fa-exclamation text-warning"></i> ' : null) .
-            Url::a(['content/update', [$content->id]], $content->getLocaled('title')) .
-            ((bool)$content->important ? ' <i class="glyphicon glyphicon-fire"></i>' : null),
-            'html' => true],
-        ['text' => $content->category->getLocaled('title')],
-        ['text' => '<a href="' . $frontLink . '" target="_blank">' . $frontPath . '</a>', 'html' => true],
-        ['text' => Date::convertToDatetime($content->updated_at, Date::FORMAT_TO_SECONDS)],
-        ['text' => $actionIcons, 'html' => true, 'properties' => ['class' => 'text-center']]
+        ['text' => $controlGroup, 'html' => true, 'properties' => ['class' => 'text-center']],
+        ['text' => $contentInfo, 'html' => true],
+        ['text' => $content->commentPosts->count()],
+        ['text' => Date::convertToDatetime($content->updated_at, Date::FORMAT_TO_SECONDS)]
     ]);
 }
 $table->selectize(0, 'selected');

@@ -27,7 +27,8 @@ trait ActionUpdate
     public function update(?string $id = null): ?string
     {
         // get item with trashed objects
-        $record = ContentEntity::withTrashed()->findOrNew($id);
+        $record = ContentEntity::withTrashed()
+            ->findOrNew($id);
         $isNew = $record->id === null;
 
         // init model
@@ -36,7 +37,7 @@ trait ActionUpdate
         // check if model is submit
         if ($model->send() && $model->validate()) {
             $model->save();
-            if ($isNew === true) {
+            if ($isNew) {
                 $this->response->redirect('content/index');
             }
             App::$Session->getFlashBag()->add('success', __('Content is successful updated'));

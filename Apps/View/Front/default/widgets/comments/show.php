@@ -1,6 +1,8 @@
 <?php
 /** @var array $configs */
 /** @var \Ffcms\Templex\Template\Template $this */
+/** @var string $name */
+/** @var int $id */
 ?>
 
 <?php if ((bool)$configs['guestAdd'] && (bool)$configs['guestModerate'] && !\App::$User->isAuth()): ?>
@@ -67,7 +69,8 @@
     <!-- comment form -->
     <form name="comment-add-form" action="" method="post" style="padding-top: 15px;" class="form-horizontal">
         <input type="hidden" name="replay-to" value="0" />
-        <input type="hidden" name="pathway" value="<?= \App::$Request->getPathInfo() ?>" />
+        <input type="hidden" name="app_name" value="<?= $name ?>" />
+        <input type="hidden" name="app_id" value="<?= $id ?>" />
         <?php if (!\App::$User->isAuth()): ?>
             <div class="form-group">
                 <label for="guest-name" class="col-sm-3 control-label"><?= __('Your name') ?>:</label>
@@ -106,7 +109,8 @@
     $(document).ready(function() {
         $(function () {
             var comOffset = 0;
-            var comPath = '<?= \App::$Request->getPathInfo() ?>';
+            var comApp = '<?= $name ?>';
+            var comAppId = '<?= $id ?>';
             var comStructure = $('#comment-structure').clone();
             var answStructure = $('#comment-answer-item').clone();
             var comSendForm = $('#comment-answer-form').clone();
@@ -190,7 +194,7 @@
 
             // load comments posts via JSON and add to current DOM
             loadCommentList = function() {
-                $.getJSON(script_url+'/api/comments/list/' + comOffset +'?path=' + comPath + '&lang='+script_lang, function (json) {
+                $.getJSON(script_url+'/api/comments/list/' + comApp + '/' + comAppId + '?offset=' + comOffset + '&lang=' + script_lang, function(json){
                     if (json.status !== 1) {
                         var errorNotify = $('<p></p>').text(json.message).attr('id', 'comments-empty-notify');
                         targetElem.append(errorNotify);

@@ -1,24 +1,19 @@
 <?php return [
 	'baseProto' => 'http',
-	'baseDomain' => 'ffcms.app',
+	'baseDomain' => 'ffcms3.test',
 	'basePath' => '/',
-	'passwordSalt' => '$2a$07$2NJgci5A7NI9m2J9Ii92a1I3DiH6$',
+	'passwordSalt' => '$2a$07$GEc5J9C48A0Aom5ph53Al13aa$',
 	'timezone' => 'Europe/Moscow',
-	'mail' => [
-        	'host' => 'localhost',
-        	'port' => 21,
-        	'user' => 'root@localhost.ltd',
-        	'password' => 'sEcur3pwd',
-        	'encrypt' => 'tls'
-    	],
+	'adminEmail' => false,
 	'debug' => [
 		'all' => false,
 		'cookie' => [
-			'key' => 'fdebug_jepP2',
-			'value' => 'pOH1Kj18fHN7mk9a81F32eJbl9d3AeDjLC1g7poPGE22Ii6pI68P5B6O5hKMofnLPB0lFdpo2a2o78NhedjGA'
+			'key' => 'fdebug_ebcfb0',
+			'value' => 'e377c1648b7f1f6364c081bd339a93c101881f77da9b815a4ed605822ed33dee9debee99611afe0001be2c8e7e07705833901954543'
 		]
 	],
 	'userCron' => false,
+	'testSuite' => false,
 	'theme' => [
 		'Front' => 'default',
 		'Admin' => 'default'
@@ -33,7 +28,13 @@
 		'charset' => 'utf8',
 		'collation' => 'utf8_unicode_ci'
 	],
-    'testSuite' => false,
+	'mail' => [
+		'host' => 'localhost',
+		'port' => '23',
+		'user' => 'root@localhost.ltd',
+		'encrypt' => 'tls',
+		'password' => '1234'
+	],
 	'baseLanguage' => 'en',
 	'multiLanguage' => true,
 	'singleLanguage' => 'en',

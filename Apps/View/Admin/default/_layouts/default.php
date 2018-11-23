@@ -237,8 +237,8 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
             <div class="container-fluid">
                 <div id="page-sidebar" class="toggled sidebar">
                     <nav class="sidebar-collapse d-none d-md-block">
-                        <i class="ion ion-ios-arrow-forward show-on-collapsed"></i>
-                        <i class="ion ion-ios-arrow-back hide-on-collapsed"></i>
+                        <i class="fa fa-arrow-right show-on-collapsed"></i>
+                        <i class="fa fa-arrow-left hide-on-collapsed"></i>
                     </nav>
 
                     <ul class="nav nav-pills nav-stacked" id="sidebar-stacked">
@@ -356,7 +356,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                     </div>
 
                     <footer id="footer" class="text-center">
-                        <p>All rights reserved &copy; <a href="https://ffcms.org">FFCMS</a>, 2018</p>
+                        <p>All rights reserved &copy; <a href="https://ffcms.org">FFCMS</a>, 2016 - <?= date('Y') ?></p>
                         <ul class="list-inline">
                             <li class="list-inline-item"><a href="https://ffcms.org">Project</a></li>
                             <li class="list-inline-item"><a href="https://github.com/phpffcms">Github</a></li>
@@ -399,6 +399,8 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
         $('.nav-stacked').on('show.bs.collapse', function () {
             $('.nav-stacked .in').collapse('hide');
         });
+
+        $('[data-toggle="tooltip"]').tooltip()
     });
 </script>
 </body>

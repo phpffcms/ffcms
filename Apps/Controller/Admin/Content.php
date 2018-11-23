@@ -6,6 +6,7 @@ use Apps\ActiveRecord\ContentCategory;
 use Apps\Model\Admin\Content\FormSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;
+use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Exception\SyntaxException;
 
 /**
@@ -60,30 +61,15 @@ class Content extends AdminController
         publish as actionPublish;
     }
 
-    /**
-     * Show settings form with prepared model
-     * @return string
-     * @throws SyntaxException
-     */
-    public function actionSettings(): ?string
-    {
-        // init model with config array data
-        $model = new FormSettings($this->getConfigs());
+    use Content\ActionDisplayChange {
+        display as actionDisplay;
+    }
 
-        // check if form is send
-        if ($model->send()) {
-            if ($model->validate()) {
-                $this->setConfigs($model->getAllProperties());
-                App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                $this->response->redirect('content/index');
-            } else {
-                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
-            }
-        }
+    use Content\ActionImportantChange {
+        important as actionImportant;
+    }
 
-        // draw response
-        return $this->view->render('content/settings', [
-            'model' => $model
-        ]);
+    use Content\ActionSettings {
+        settings as actionSettings;
     }
 }

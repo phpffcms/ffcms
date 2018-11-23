@@ -19,29 +19,31 @@ use Apps\ActiveRecord\App as AppRecord;
 trait ActionCount
 {
     /**
-     * Get commentaries count for pathway. Pathway should be array [itemId => pathway]
+     * Get comment count by $appName and array of ids
+     * @param $appName
      * @return string
      * @throws NativeException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function cnt(): ?string
+    public function cnt(string $appName): ?string
     {
         // set headers
         $this->setJsonHeader();
         // get configs
         $configs = AppRecord::getConfigs('widget', 'Comments');
         // get path array from request
-        $path = $this->request->query->get('path');
-        if (!Any::isArray($path) || count($path) < 1) {
+        $ids = $this->request->query->get('id');
+        if (!Any::isArray($ids) || count($ids) < 1) {
             throw new NativeException('Wrong query params');
         }
 
         $count = [];
         // for each item in path array calculate comments count
-        foreach ($path as $id => $uri) {
-            $query = CommentPost::where('pathway', '=', $uri)->where('moderate', '=', 0);
+        foreach ($ids as $id) {
+            $query = CommentPost::where('app_name', $appName)
+                ->where('app_relation_id', (int)$id)
+                ->where('moderate', '=', 0);
             // check if comments is depend of language locale
-            if ((int)$configs['onlyLocale'] === 1) {
+            if ((bool)$configs['onlyLocale']) {
                 $query = $query->where('lang', '=', $this->request->getLanguage());
             }
             // set itemId => count

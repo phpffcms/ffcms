@@ -66,7 +66,7 @@ $showComments = (bool)$model->getCategory()->getProperty('showComments');
 $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
 ?>
 <?php $this->start('body') ?>
-    <article class="article-item" itemscope="itemscope" itemtype="https://schema.org/NewsArticle">
+    <article class="article-item article-border" itemscope="itemscope" itemtype="https://schema.org/NewsArticle">
         <h1><?= $model->title ?></h1>
         <?php if (Arr::in(true, $properties)): ?>
             <div class="meta">
@@ -219,7 +219,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         <div class="col-md-12">
             <div class="h3 text-success"><?= __('Comments') ?></div>
             <hr />
-            <?= \Widgets\Front\Comments\Comments::widget(['config' => 'small']); ?>
+            <?= \Widgets\Front\Comments\Comments::widget(['name' => 'content', 'id' => $model->id, 'config' => 'small']); ?>
         </div>
     </div>
 <?php endif; ?>

@@ -16,7 +16,8 @@ class install_commentpost_table extends Migration implements MigrationInterface
     {
         $this->getSchema()->create('comment_posts', function($table) {
             $table->increments('id');
-            $table->string('pathway', 1024);
+            $table->string('app_name');
+            $table->integer('app_relation_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->string('guest_name', 100);
             $table->text('message');
@@ -32,10 +33,7 @@ class install_commentpost_table extends Migration implements MigrationInterface
      * Seed created table via up() method with some data
      * @return void
      */
-    public function seed()
-    {
-
-    }
+    public function seed() {}
 
     /**
      * Execute actions when migration is down

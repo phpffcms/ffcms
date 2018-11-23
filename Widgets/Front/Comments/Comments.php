@@ -11,7 +11,8 @@ use Ffcms\Core\Arch\Widget;
  */
 class Comments extends Widget
 {
-    public $pathway;
+    public $name;
+    public $id;
 
     /**
      * Widget initialization. Set current pathway to property
@@ -21,10 +22,6 @@ class Comments extends Widget
         if (App::$Request->getLanguage() !== 'en') {
             App::$Translate->append('/i18n/Front/' . App::$Request->getLanguage() . '/CommentWidget.php');
         }
-
-        if (!$this->pathway) {
-            $this->pathway = App::$Request->getPathInfo();
-        }
     }
 
     /**
@@ -33,8 +30,14 @@ class Comments extends Widget
      */
     public function display(): ?string
     {
+        if (!$this->name || (int)$this->id < 1) {
+            return null;
+        }
+
         return App::$View->render('widgets/comments/show', [
-            'configs' => $this->getConfigs()
+            'configs' => $this->getConfigs(),
+            'name' => (string)$this->name,
+            'id' => (int)$this->id,
         ]);
     }
 }

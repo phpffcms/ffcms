@@ -45,7 +45,8 @@ trait ActionIndex
         $total = $query->count();
 
         // build listing objects
-        $records = $query->orderBy('important', 'DESC')
+        $records = $query->with('category')
+            ->orderBy('important', 'DESC')
             ->orderBy('id', 'desc')
             ->skip($offset)
             ->take(self::ITEM_PER_PAGE)

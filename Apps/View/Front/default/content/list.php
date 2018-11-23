@@ -39,7 +39,7 @@ $this->layout('_layouts/default', [
 <?php $this->start('body') ?>
 <script>
     // content id array
-    var contentItemList = {path: {}}
+    var contentIds = [];
 </script>
 <?php if (!\App::$Request->isPathInjected()): ?>
     <h1>
@@ -71,12 +71,12 @@ $this->layout('_layouts/default', [
 <?php foreach ($model->items as $item): ?>
     <article class="article-item" itemscope="itemscope" itemtype="https://schema.org/NewsArticle">
         <h2 itemprop="name">
+            <?php if ($item['important']): ?>
+                <i class="fa fa-fire" style="color: #a50000"></i>
+            <?php endif; ?>
             <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>">
                 <?= $item['title'] ?>
             </a>
-            <?php if ($item['important']): ?>
-                <i class="fa fa-fire"></i>
-            <?php endif; ?>
         </h2>
         <?php if (Arr::in(true, $catMeta)): ?>
             <div class="meta">
@@ -153,7 +153,7 @@ $this->layout('_layouts/default', [
         </div>
     </article>
     <script>
-        contentItemList['path'][<?= $item['id'] ?>] = '<?= $item['uri'] ?>';
+        contentIds.push(<?= $item['id'] ?>);
     </script>
 <?php endforeach; ?>
 
@@ -165,8 +165,8 @@ $this->layout('_layouts/default', [
 
 <script>
     $(document).ready(function() {
-        if (typeof contentItemList === 'object' || Ojbect.keys(contentItemList).length > 0) {
-            $.getJSON(script_url + '/api/comments/count?lang='+script_lang, contentItemList, function(json){
+        if (typeof contentIds === 'object' || contentIds.length > 0) {
+            $.getJSON(script_url + '/api/comments/count/content?lang='+script_lang, {id: contentIds}, function(json){
                 // check if response is success
                 if (json.status !== 1 || typeof json.count !== 'object') {
                     return null;

@@ -10,7 +10,8 @@ use Ffcms\Core\Traits\SearchableTrait;
  * Class CommentPost. Active record model for comment posts.
  * @package Apps\ActiveRecord
  * @property int $id
- * @property string $pathway
+ * @property string $app_name
+ * @property int $app_relation_id
  * @property int $user_id
  * @property string|null $guest_name
  * @property string $message
@@ -27,7 +28,8 @@ class CommentPost extends ActiveModel
 
     protected $casts = [
         'id' => 'integer',
-        'pathway' => 'string',
+        'app_name' => 'string',
+        'app_relation_id' => 'integer',
         'user_id' => 'integer',
         'guest_name' => 'string',
         'message' => 'string',

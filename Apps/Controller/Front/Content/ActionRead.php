@@ -40,7 +40,7 @@ trait ActionRead
         $categoryRecord = ContentCategory::getByPath($categoryPath);
 
         // if no categories are available for this path - throw exception
-        if ($categoryRecord === null || $categoryRecord->count() < 1) {
+        if (!$categoryRecord || $categoryRecord->count() < 1) {
             throw new NotFoundException(__('Page not found'));
         }
 

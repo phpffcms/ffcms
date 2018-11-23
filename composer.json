@@ -20,6 +20,7 @@
     "ext-gd": "*",
     "ext-zip": "*",
     "ext-PDO": "*",
+    "ext-json": "*",
     "phpffcms/ffcms-core": "@dev",
     "phpffcms/ffcms-console": "@dev",
     "phpffcms/searchable": "@dev",

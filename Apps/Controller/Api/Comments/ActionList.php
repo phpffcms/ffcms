@@ -21,13 +21,13 @@ trait ActionList
 {
     /**
      * List comments as json object with defined offset index
-     * @param string $index
+     * @param string $appName
+     * @param string $appId
      * @return string
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      * @throws \Ffcms\Core\Exception\JsonException
      */
-    public function aList(string $index): ?string
+    public function aList(string $appName, string $appId): ?string
     {
         // set header
         $this->setJsonHeader();
@@ -36,22 +36,21 @@ trait ActionList
         // items per page
         $perPage = (int)$configs['perPage'];
         // offset can be only integer
-        $index = (int)$index;
+        $index = (int)$this->request->query->get('offset', 0);
         $offset = $perPage * $index;
-        // get comment target path and check
-        $path = (string)$this->request->query->get('path');
-        if (Str::likeEmpty($path)) {
-            throw new NotFoundException('Wrong path');
-        }
 
         // select comments from db and check it
-        $query = CommentPost::where('pathway', '=', $path)
-            ->where('moderate', '=', 0);
+        $query = CommentPost::where('app_name', $appName)
+            ->where('app_relation_id', $appId)
+            ->where('moderate', false);
 
         // check if comments is depend of language locale
-        if ((bool)$configs['onlyLocale'] === true) {
+        if ((bool)$configs['onlyLocale']) {
             $query = $query->where('lang', '=', $this->request->getLanguage());
         }
+
+        // calculate total comment count
+        $count = $query->count();
 
         // get comments with offset and limit
         $records = $query->with(['user', 'user.profile', 'user.role'])
@@ -69,28 +68,18 @@ trait ActionList
         foreach ($records as $comment) {
             // prepare specified data to output response, based on entity model
             $commentResponse = new EntityCommentData($comment);
-
             // build output json data
             $data[] = $commentResponse->make();
-            $commentResponse = null;
         }
 
-        // calculate comments left count
-        $countQuery = CommentPost::where('pathway', '=', $path)->where('moderate', '=', 0);
-        // check if comments is depend of language locale
-        if ((bool)$configs['onlyLocale'] === true) {
-            $countQuery = $countQuery->where('lang', '=', $this->request->getLanguage());
-        }
-        $count = $countQuery->count();
+        // reduce count to current offset
         $count -= $offset + $perPage;
-        if ($count < 0) {
-            $count = 0;
-        }
 
+        // render output json
         return json_encode([
             'status' => 1,
             'data' => $data,
-            'leftCount' => $count
+            'leftCount' => $count < 0 ? 0 : $count
         ]);
     }
 }

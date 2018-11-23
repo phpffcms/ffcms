@@ -14,12 +14,31 @@ class update_cms_310 extends Migration implements MigrationInterface
      */
     public function up()
     {
+        // set nullable varchar type for token column
         $this->getSchema()->table('users', function($table){
             $table->string('approve_token', 128)->nullable()->default(null)->change();
         });
         // set approve_token = null where it like '0' str or ''
         \Apps\ActiveRecord\User::where('approve_token', '=', '0')
             ->update('approve_token', null);
+
+        // update comment posts architecture: add app_name and app_id relationship
+        if (!$this->getSchema()->hasColumn('comment_posts', 'app_name')) {
+            $this->getSchema()->table('comment_posts', function($table) {
+                $table->string('app_name')->after('id');
+            });
+        }
+        if (!$this->getSchema()->hasColumn('comment_answers', 'app_relation_id')) {
+            $this->getSchema()->table('comment_answers', function ($table){
+                $table->integer('app_relation_id')->unsigned()->default(0)->after('app_name');
+            });
+        }
+        // @todo: add algo to find app_name & app_id for oldest comments
+        if ($this->getSchema()->hasColumn('comment_posts', 'pathway')) {
+            $this->getSchema()->table('comment_posts', function ($table){
+                $table->dropColumn('pathway');
+            });
+        }
     }
 
     /**

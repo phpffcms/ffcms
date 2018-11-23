@@ -39,7 +39,8 @@ trait ActionAdd
             $model->replayTo = $replayTo;
         } else { // sounds like new comment row
             $model = new CommentPostAdd($configs);
-            $model->pathway = App::$Security->strip_tags($this->request->request->get('pathway'));
+            $model->appName = App::$Security->strip_tags($this->request->request->get('app_name'));
+            $model->appId = (int)$this->request->request->get('app_id');
         }
 
         // pass general comment params to model
@@ -47,7 +48,7 @@ trait ActionAdd
         $model->guestName = App::$Security->strip_tags($this->request->request->get('guest-name'));
 
         // check model conditions before add new row
-        if ($model === null || !$model->check()) {
+        if (!$model|| !$model->check()) {
             throw new NativeException('Unknown error');
         }
 

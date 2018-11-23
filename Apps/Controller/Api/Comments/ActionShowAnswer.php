@@ -26,7 +26,7 @@ trait ActionShowAnswer
      * @return string
      * @throws ForbiddenException
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
+     * @throws \Ffcms\Core\Exception\JsonException
      */
     public function showAnswers(string $commentId): ?string
     {
@@ -41,9 +41,9 @@ trait ActionShowAnswer
 
         // get data from db by comment id
         $records = CommentAnswer::with(['user', 'user.profile', 'user.role'])
-            ->where('comment_id', '=', $commentId)
-            ->where('moderate', '=', 0);
-        if ((int)$configs['onlyLocale'] === 1) {
+            ->where('comment_id', $commentId)
+            ->where('moderate', false);
+        if ((bool)$configs['onlyLocale']) {
             $records = $records->where('lang', '=', $this->request->getLanguage());
         }
 

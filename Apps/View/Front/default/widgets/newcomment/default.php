@@ -15,7 +15,7 @@ use Ffcms\Templex\Url\Url;
         <div class="col-md-6">
             <i class="fa fa-user"></i>
             <?php if ((int)$comment['user']['id'] > 0): ?>
-                <?= Url::a(['profile/show', [$comment['user']['id']]], $comment['user']['name']) ?>
+                <?= Url::a(['profile/show', [$comment['user']['id']]], $comment['user']['name'], ['style' => 'color: #595959']) ?>
             <?php else: ?>
                 <?= $comment['user']['name'] ?>
             <?php endif; ?>
@@ -28,8 +28,8 @@ use Ffcms\Templex\Url\Url;
     </div>
 
     <div class="row">
-        <div class="col">
-            <a href="<?= \App::$Alias->baseUrl . $comment['pathway'] . '#comment-list' ?>">
+        <div class="col widget-comment-text">
+            <a href="<?= \App::$Alias->baseUrl . '/' . $comment['app_name'] . '/comments/' . $comment['app_id'] ?>">
                 <?= Text::cut(\App::$Security->strip_tags($comment['text']), 0, $snippet) ?>
             </a>
         </div>

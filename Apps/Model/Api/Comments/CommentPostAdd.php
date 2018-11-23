@@ -15,7 +15,9 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class CommentPostAdd extends Model
 {
-    public $pathway;
+    public $appId;
+    public $appName;
+
     public $message;
     public $guestName;
 
@@ -59,9 +61,9 @@ class CommentPostAdd extends Model
             throw new JsonException(__('Guest name is not defined'));
         }
 
-        // check if pathway is empty
-        if (Str::likeEmpty($this->pathway)) {
-            throw new JsonException(__('Wrong target pathway'));
+        // check if target app_name or id is empty
+        if (Str::likeEmpty($this->appName) || Str::likeEmpty($this->appId) || (int)$this->appId < 0) {
+            throw new JsonException(__('Wrong target name or id'));
         }
 
         // check if message length is correct
@@ -87,8 +89,9 @@ class CommentPostAdd extends Model
             ->orderBy('created_at', 'DESC')
             ->first();
 
+        /** @var CommentPost $query */
         // check if latest post time for this user is founded
-        if ($query !== null) {
+        if ($query) {
             $postTime = Date::convertToTimestamp($query->created_at);
             $delay = $postTime + $this->_configs['delay'] - time();
             if ($delay > 0) {
@@ -106,12 +109,13 @@ class CommentPostAdd extends Model
     public function buildRecord()
     {
         $record = new CommentPost();
-        $record->pathway = $this->pathway;
+        $record->app_name = $this->appName;
+        $record->app_relation_id = (int)$this->appId;
         $record->user_id = $this->_userId;
         $record->guest_name = $this->guestName;
         $record->message = $this->message;
         $record->lang = App::$Request->getLanguage();
-        // check if premoderation is enabled and user is guest
+        // check if pre moderation is enabled and user is guest
         if ((int)$this->_configs['guestModerate'] === 1 && $this->_userId < 1) {
             $record->moderate = 1;
         }

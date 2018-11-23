@@ -21,13 +21,15 @@ class LayoutFeatures extends Model
      */
     public function before()
     {
-        $this->_feedback = FeedbackPost::where('closed', false)
+        $this->_feedback = FeedbackPost::with('user')
+            ->where('closed', false)
             ->where('readed', false)
             ->orderBy('id', 'DESC')
             ->take(10)
             ->get();
 
-        $this->_comments = CommentPost::orderBy('id', 'DESC')
+        $this->_comments = CommentPost::with('user')
+            ->orderBy('id', 'DESC')
             ->take(10)
             ->get();
 

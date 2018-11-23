@@ -12,6 +12,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
+use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
@@ -69,6 +70,9 @@ class FormContentUpdate extends Model
 
             if (!$this->categoryId) {
                 $this->categoryId = 1;
+            }
+            if (!$this->path) {
+                $this->path = Integer::random(8) . '-' . date('d-m-Y');
             }
         } else { // is edit of exist item? define available data
             $this->title = $this->_content->title;
