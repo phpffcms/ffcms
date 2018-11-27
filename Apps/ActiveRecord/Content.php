@@ -72,7 +72,7 @@ class Content extends ActiveModel
      */
     public function category()
     {
-        return $this->belongsTo('Apps\ActiveRecord\ContentCategory', 'category_id');
+        return $this->belongsTo(ContentCategory::class, 'category_id');
     }
 
     /**
@@ -81,7 +81,7 @@ class Content extends ActiveModel
      */
     public function ratings()
     {
-        return $this->hasMany('Apps\ActiveRecord\ContentRating', 'content_id');
+        return $this->hasMany(ContentRating::class, 'content_id');
     }
 
     /**
@@ -90,7 +90,7 @@ class Content extends ActiveModel
      */
     public function tags()
     {
-        return $this->hasMany('Apps\ActiveRecord\ContentTag', 'content_id');
+        return $this->hasMany(ContentTag::class, 'content_id');
     }
 
     /**
@@ -99,7 +99,7 @@ class Content extends ActiveModel
      */
     public function user()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User', 'author_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     /**

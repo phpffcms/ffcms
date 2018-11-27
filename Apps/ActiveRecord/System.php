@@ -22,7 +22,7 @@ class System extends ActiveModel
     /**
      * Get data by variable name
      * @param string $name
-     * @return ActiveModel|null
+     * @return ActiveModel|null|self
      */
     public static function getVar($name)
     {

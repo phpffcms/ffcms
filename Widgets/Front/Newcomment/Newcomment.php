@@ -65,7 +65,9 @@ class Newcomment extends AbstractWidget
             // process caching data
             $cache = App::$Cache->getItem($this->_cacheName);
             if (!$cache->isHit()) {
-                $cache->set($this->makeQuery())->expiresAfter($this->cache);
+                $cache->set($this->makeQuery());
+                $cache->expiresAfter($this->cache);
+                App::$Cache->save($cache);
             }
 
             $records = $cache->get();
@@ -96,10 +98,11 @@ class Newcomment extends AbstractWidget
      */
     private function makeQuery()
     {
-        $records = CommentPost::where('lang', $this->lang)
+        $records = CommentPost::with(['user', 'user.profile', 'user.role'])
+            ->where('lang', $this->lang)
             ->where('moderate', 0);
 
-        if ($records === null || $records->count() < 1) {
+        if (!$records || $records->count() < 1) {
             return null;
         }
 

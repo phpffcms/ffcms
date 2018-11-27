@@ -33,6 +33,7 @@ class FeedbackAnswer extends ActiveModel
 
     /**
      * Get post relation
+     * @todo: refactor me to ->belongsTo() on rework feedback system
      * @return FeedbackPost|null
      */
     public function getFeedbackPost()

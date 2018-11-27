@@ -45,35 +45,26 @@ class Role extends ActiveModel
 
     /**
      * Get role object via id
-     * @param int $role_id
+     * @param int $roleId
      * @return object|null
      */
-    public static function get($role_id)
+    public static function get($roleId)
     {
-        $role = MainApp::$Memory->get('user.role.cache.' . $role_id);
+        $role = MainApp::$Memory->get('user.role.cache.' . $roleId);
 
         // not founded in cache
         if ($role === null) {
-            $role = self::find($role_id);
-            MainApp::$Memory->set('user.role.cache.' . $role_id, $role);
+            $role = self::find($roleId);
+            MainApp::$Memory->set('user.role.cache.' . $roleId, $role);
         }
         return $role;
-    }
-
-    /**
-     * @deprecated
-     * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
-     */
-    public static function getAll()
-    {
-        return self::all();
     }
 
     /**
      * Get all roles as array [id=>name]
      * @return null|array
      */
-    public static function getIdNameAll()
+    public static function getIdNameAll(): ?array
     {
         $all = self::all();
 

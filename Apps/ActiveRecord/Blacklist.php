@@ -27,14 +27,15 @@ class Blacklist extends ActiveModel
 
     /**
      * Check if current user have in blacklist target_id user
-     * @param int $target_id
+     * @param int $currentId
+     * @param int $targetId
      * @return bool
      */
-    public static function have($user_id, $target_id)
+    public static function have($currentId, $targetId): bool
     {
-        $query = self::where('user_id', '=', $user_id)
-            ->where('target_id', '=', $target_id);
-        return $query->count() > 0;
+        return self::where('user_id', $currentId)
+            ->where('target_id', $targetId)
+            ->count() > 0;
     }
 
     /**
@@ -43,14 +44,14 @@ class Blacklist extends ActiveModel
      * @param int $user2
      * @return bool
      */
-    public static function check($user1, $user2)
+    public static function check($user1, $user2): bool
     {
         $query = self::where(function ($query) use ($user1, $user2) {
-            $query->where('user_id', '=', $user1)
-                ->where('target_id', '=', $user2);
+            $query->where('user_id', $user1)
+                ->where('target_id', $user2);
         })->orWhere(function ($query) use ($user1, $user2) {
-            $query->where('user_id', '=', $user2)
-                ->where('target_id', '=', $user1);
+            $query->where('user_id', $user2)
+                ->where('target_id', $user1);
         });
 
         return $query->count() < 1;
@@ -62,16 +63,6 @@ class Blacklist extends ActiveModel
      */
     public function targetUser()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User', 'target_id');
-    }
-
-    /**
-     * Get target user for current record
-     * @return bool|\Illuminate\Support\Collection|null|static
-     * @deprecated
-     */
-    public function getUser()
-    {
-        return $this->targetUser();
+        return $this->belongsTo(User::class, 'target_id');
     }
 }

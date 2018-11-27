@@ -44,15 +44,6 @@ class ProfileField extends ActiveModel
     }
 
     /**
-     * @deprecated
-     * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
-     */
-    public static function getAll()
-    {
-        return self::all();
-    }
-
-    /**
      * Get field name locale by field id
      * @param int $id
      * @return array|null|string
@@ -62,7 +53,7 @@ class ProfileField extends ActiveModel
         $all = self::all();
 
         $record = $all->find($id);
-        if ($record === null || $record === false) {
+        if (!$record) {
             return null;
         }
 
@@ -79,7 +70,7 @@ class ProfileField extends ActiveModel
         $all = self::all();
 
         $record = $all->find($id);
-        if ($record === null || $record === false) {
+        if (!$record) {
             return null;
         }
 

@@ -61,6 +61,7 @@ class Contenttag extends AbstractWidget
             $cache = App::$Cache->getItem($this->_cacheName);
             if (!$cache->isHit()) {
                 $cache->set($this->makeQuery())->expiresAfter($this->cache);
+                App::$Cache->save($cache);
             }
             $records = $cache->get();
         }

@@ -8,6 +8,7 @@ use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
+use Illuminate\Support\Collection;
 
 /**
  * Class ContentCategory. Active record model for content category nesting
@@ -39,7 +40,7 @@ class ContentCategory extends ActiveModel
     {
         $cacheName = 'activerecord.contentcategory.all.' . implode('.', $columns);
         $records = MemoryObject::instance()->get($cacheName);
-        if ($records === null) {
+        if (!$records) {
             $records = parent::all($columns);
             MemoryObject::instance()->set($cacheName, $records);
         }
@@ -49,7 +50,7 @@ class ContentCategory extends ActiveModel
     /**
      * Get record via category path address
      * @param string $path
-     * @return self|object|null
+     * @return self|ActiveModel|Collection
      */
     public static function getByPath($path = '')
     {
@@ -57,7 +58,7 @@ class ContentCategory extends ActiveModel
             return MainApp::$Memory->get('cache.content.category.path.' . $path);
         }
 
-        $record = self::where('path', '=', $path)->first();
+        $record = self::where('path', $path)->first();
         MainApp::$Memory->set('cache.content.category.path.' . $path, $record);
         return $record;
     }
@@ -79,19 +80,10 @@ class ContentCategory extends ActiveModel
     }
 
     /**
-     * @deprecated
-     * @return \Illuminate\Database\Eloquent\Collection|mixed|static[]
-     */
-    public static function getAll()
-    {
-        return self::all();
-    }
-
-    /**
      * Build id-title array of sorted by nesting level categories
      * @return array
      */
-    public static function getSortedCategories()
+    public static function getSortedCategories(): array
     {
         $response = [];
         $tmpData = self::getSortedAll();
@@ -119,7 +111,7 @@ class ContentCategory extends ActiveModel
      * Get all categories sorted by pathway
      * @return array
      */
-    public static function getSortedAll()
+    public static function getSortedAll(): array
     {
         $list = self::all();
         $response = [];

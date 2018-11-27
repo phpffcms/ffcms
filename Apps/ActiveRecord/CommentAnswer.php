@@ -39,7 +39,7 @@ class CommentAnswer extends ActiveModel
      */
     public function user()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
@@ -48,26 +48,6 @@ class CommentAnswer extends ActiveModel
      */
     public function post()
     {
-        return $this->belongsTo('Apps\ActiveRecord\CommentPost', 'comment_id');
-    }
-
-    /**
-     * Get user identity
-     * @return User|null
-     * @deprecated
-     */
-    public function getUser()
-    {
-        return User::identity($this->user_id);
-    }
-
-    /**
-     * Get comment post object
-     * @return CommentPost|null
-     * @deprecated
-     */
-    public function getCommentPost()
-    {
-        return CommentPost::where('id', '=', $this->comment_id)->first();
+        return $this->belongsTo(CommentPost::class, 'comment_id');
     }
 }

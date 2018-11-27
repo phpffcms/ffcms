@@ -59,6 +59,7 @@ class Newcontent extends Widget
             $cache = App::$Cache->getItem($this->_cacheName);
             if (!$cache->isHit()) {
                 $cache->set($this->makeQuery())->expiresAfter($this->cache);
+                App::$Cache->save($cache);
             }
 
             $query = $cache->get();

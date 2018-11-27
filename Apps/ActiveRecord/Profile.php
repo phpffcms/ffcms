@@ -74,8 +74,8 @@ class Profile extends ActiveModel implements iProfile
         }
 
         $object = $profile->first();
-
         MainApp::$Memory->set('profile.object.cache.' . $userId, $object);
+
         return $object;
     }
 
@@ -103,10 +103,10 @@ class Profile extends ActiveModel implements iProfile
      * Get user nickname. If is empty - return 'id+userId'
      * @return string
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         $userNick = $this->nick;
-        if ($userNick === null || Str::likeEmpty($userNick)) {
+        if (!$userNick || Str::likeEmpty($userNick)) {
             $userNick = 'id' . $this->id;
         }
 
@@ -119,6 +119,6 @@ class Profile extends ActiveModel implements iProfile
      */
     public function user()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

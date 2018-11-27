@@ -154,7 +154,7 @@ echo $navbar->display();
 <footer class="container mt-md-3">
     <div class="row">
         <div class="col-md-12">
-            <p>&copy; <?= date('Y') ?> website. Powered on <a href="https://ffcms.org">ffcms.org</a>.</p>
+            <p>&copy; <?= date('Y') ?> website. Powered by <a href="https://ffcms.org">ffcms.org</a>.</p>
         </div>
     </div>
 </footer>

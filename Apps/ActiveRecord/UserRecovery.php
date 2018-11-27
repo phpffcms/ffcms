@@ -30,6 +30,6 @@ class UserRecovery extends ActiveModel
      */
     public function user()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User');
+        return $this->belongsTo(User::class);
     }
 }

@@ -41,7 +41,7 @@ class FeedbackPost extends ActiveModel
      */
     public function answers()
     {
-        return $this->hasMany('Apps\ActiveRecord\FeedbackAnswer', 'feedback_id');
+        return $this->hasMany(FeedbackAnswer::class, 'feedback_id');
     }
 
     /**
@@ -50,16 +50,6 @@ class FeedbackPost extends ActiveModel
      */
     public function user()
     {
-        return $this->hasOne('Apps\ActiveRecord\User', 'id', 'user_id');
-    }
-
-    /**
-     * Get all answers for this feedback post id
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany|null
-     * @deprecated
-     */
-    public function getAnswers()
-    {
-        return $this->answers();
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }

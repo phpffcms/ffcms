@@ -24,6 +24,7 @@ class EntityCommentData extends Model
     /**
      * EntityCommentPostData constructor. Pass inside the model active record object of comment post or answer
      * @param $record
+     * @param bool $calcAnswers
      * @throws JsonException
      */
     public function __construct($record, $calcAnswers = true)
@@ -54,7 +55,7 @@ class EntityCommentData extends Model
         $userName = __('Unknown');
         $userAvatar = App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
         $userColor = 0;
-        if ($this->_record->user !== null && $this->_record->user->id > 0) {
+        if ($this->_record->user && $this->_record->user->id > 0) {
             $userName = $this->_record->user->profile->getNickname();
             $userAvatar = $this->_record->user->profile->getAvatarUrl('small');
             $userColor = $this->_record->user->role->color;

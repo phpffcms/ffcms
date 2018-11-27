@@ -45,7 +45,7 @@ class User extends ActiveModel implements iUser
      */
     public static function identity(?string $id = null): ?self
     {
-        if ($id === null) {
+        if (!$id) {
             $id = MainApp::$Session->get('ff_user_id');
         }
 
@@ -55,7 +55,7 @@ class User extends ActiveModel implements iUser
         }
 
         // check in memory cache object
-        if (MainApp::$Memory->get('user.object.cache.' . $id) !== null) {
+        if (MainApp::$Memory->get('user.object.cache.' . $id)) {
             return MainApp::$Memory->get('user.object.cache.' . $id);
         }
 
@@ -104,7 +104,7 @@ class User extends ActiveModel implements iUser
 
         // find user identity
         $identity = self::identity($sessionUserId);
-        if ($identity === null) { // check if this $id exist
+        if (!$identity) { // check if this $id exist
             MainApp::$Session->invalidate(); // destory session data - it's not valid!
             return false;
         }
@@ -134,7 +134,7 @@ class User extends ActiveModel implements iUser
             MainApp::$Memory->set('user.counter.cache.' . $id, $find);
         }
 
-        return $find === 1;
+        return (int)$find === 1;
     }
 
     /**
@@ -148,7 +148,7 @@ class User extends ActiveModel implements iUser
             return false;
         }
 
-        return self::where('email', '=', $email)->count() > 0;
+        return self::where('email', $email)->count() > 0;
     }
 
     /**
@@ -185,7 +185,7 @@ class User extends ActiveModel implements iUser
      */
     public function wall()
     {
-        return $this->hasMany('Apps\ActiveRecord\WallPost', 'target_id');
+        return $this->hasMany(WallPost::class, 'target_id');
     }
 
     /**
@@ -194,7 +194,7 @@ class User extends ActiveModel implements iUser
      */
     public function role()
     {
-        return $this->hasOne('Apps\ActiveRecord\Role', 'id', 'role_id');
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
     /**
@@ -203,7 +203,7 @@ class User extends ActiveModel implements iUser
      */
     public function profile()
     {
-        return $this->hasOne('Apps\ActiveRecord\Profile', 'user_id', 'id');
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
     /**
@@ -212,7 +212,7 @@ class User extends ActiveModel implements iUser
      */
     public function log()
     {
-        return $this->hasMany('Apps\ActiveRecord\UserLog', 'user_id');
+        return $this->hasMany(UserLog::class, 'user_id');
     }
 
     /**
@@ -221,7 +221,7 @@ class User extends ActiveModel implements iUser
      */
     public function provider()
     {
-        return $this->hasMany('Apps\ActiveRecord\UserProvider', 'user_id');
+        return $this->hasMany(UserProvider::class, 'user_id');
     }
 
     /**
@@ -231,7 +231,7 @@ class User extends ActiveModel implements iUser
      */
     public function inBlacklist(?string $target = null): bool
     {
-        if ($target === null || (int)$target < 1) {
+        if (!$target || (int)$target < 1) {
             return false;
         }
 
@@ -242,7 +242,7 @@ class User extends ActiveModel implements iUser
      * Set openID library dependence object. Do not use this function, if you have no idia how it work
      * @param $provider
      */
-    public function setOpenidInstance($provider)
+    public function setOpenidInstance($provider): void
     {
         $this->openidProvider = $provider;
     }

@@ -33,7 +33,7 @@ class WallPost extends ActiveModel
      */
     public function answers()
     {
-        return $this->hasMany('Apps\ActiveRecord\WallAnswer', 'post_id');
+        return $this->hasMany(WallAnswer::class, 'post_id');
     }
 
     /**
@@ -42,7 +42,7 @@ class WallPost extends ActiveModel
      */
     public function senderUser()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User', 'sender_id');
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     /**
@@ -51,15 +51,6 @@ class WallPost extends ActiveModel
      */
     public function targetUser()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User', 'target_id');
-    }
-
-    /**
-     * @deprecated
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function getWallAnswer()
-    {
-        return $this->answer();
+        return $this->belongsTo(User::class, 'target_id');
     }
 }

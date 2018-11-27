@@ -49,7 +49,7 @@ class CommentPost extends ActiveModel
      */
     public function user()
     {
-        return $this->belongsTo('Apps\ActiveRecord\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
@@ -58,27 +58,7 @@ class CommentPost extends ActiveModel
      */
     public function answers()
     {
-        return $this->hasMany('Apps\ActiveRecord\CommentAnswer', 'comment_id');
-    }
-
-    /**
-     * Get user identity
-     * @return User|null
-     * @deprecated
-     */
-    public function getUser()
-    {
-        return User::identity($this->user_id);
-    }
-
-    /**
-     * Get comment post->answers relation
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     * @deprecated
-     */
-    public function getAnswer()
-    {
-        return $this->answers();
+        return $this->hasMany(CommentAnswer::class, 'comment_id');
     }
 
     /**
@@ -92,8 +72,8 @@ class CommentPost extends ActiveModel
             return MainApp::$Memory->get('commentpost.answer.count.' . $this->id);
         }
         // get count from db
-        $count = CommentAnswer::where('comment_id', '=', $this->id)
-            ->where('moderate', '=', 0)
+        $count = CommentAnswer::where('comment_id', $this->id)
+            ->where('moderate', 0)
             ->count();
         // save in cache
         MainApp::$Memory->set('commentpost.answer.count.' . $this->id, $count);
