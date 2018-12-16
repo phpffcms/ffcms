@@ -65,11 +65,13 @@ $this->layout('_layouts/default', [
                     </div>
                 </td>
                 <td class="text-center">
-                    <?= Url::a(['content/categoryupdate', null, ['parent' => $row->id]], '<i class="fa fa-plus"></i>', ['class' => 'badge badge-secondary', 'html' => true]) ?>
-                    <?= Url::a(['content/categoryupdate', [$row->id]], '<i class="fa fa-cog"></i>', ['class' => 'badge badge-secondary', 'html' => true]) ?>
-                    <?php if ($row->id > 1): ?>
-                        <?= Url::a(['content/categorydelete', [$row->id]], '<i class="fa fa-trash-o"></i>', ['class' => 'badge badge-secondary', 'html' => true]) ?>
-                    <?php endif; ?>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <?= Url::a(['content/categoryupdate', null, ['parent' => $row->id]], '<i class="fa fa-plus"></i>', ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => __('Add subcategory'), 'html' => true]) ?>
+                        <?= Url::a(['content/categoryupdate', [$row->id]], '<i class="fa fa-cog"></i>', ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'title' => __('Category configurations'), 'html' => true]) ?>
+                        <?php if ($row->id > 1): ?>
+                            <?= Url::a(['content/categorydelete', [$row->id]], '<i class="fa fa-trash-o"></i>', ['class' => 'btn btn-danger', 'data-toggle' => 'tooltip', 'title' => __('Delete category'), 'html' => true]) ?>
+                        <?php endif; ?>
+                    </div>
                 </td>
             </tr>
         <?php endforeach ?>

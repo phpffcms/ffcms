@@ -26,7 +26,7 @@ $this->layout('_layouts/default', [
 <?php
 $table = $this->table(['class' => 'table table-striped'])
     ->head([
-        ['text' => 'id'],
+        ['text' => '#'],
         ['text' => 'login'],
         ['text' => 'email'],
         ['text' => __('Nickname')],
@@ -36,6 +36,10 @@ $table = $this->table(['class' => 'table table-striped'])
     ]);
 
 foreach ($records as $profile) {
+    $actionMenu = '<div class="btn-group btn-group-sm" role="group">';
+    $actionMenu .= Url::a(['profile/update', [$profile->id]], '<i class="fa fa-pencil"></i>', ['html' => true, 'class' => 'btn btn-primary']);
+    $actionMenu .= Url::a(['user/delete', [$profile->user->id]], '<i class="fa fa-trash-o"></i>', ['html' => true, 'class' => 'btn btn-danger']);
+    $actionMenu .= '</div>';
     $table->row([
         ['text' => $profile->id],
         ['text' => $profile->user->login],
@@ -43,9 +47,7 @@ foreach ($records as $profile) {
         ['text' => $profile->nick],
         ['text' => Str::startsWith('0000-', $profile->birthday) ? __('None') : Date::convertToDatetime($profile->birthday)],
         ['text' => ($profile->rating > 0 ? '+' : null) . $profile->rating],
-        ['text' => Url::a(['profile/update', [$profile->id]], '<i class="fa fa-pencil fa-lg"></i> ', ['html' => true]) .
-            Url::a(['user/delete', [$profile->user->id]], '<i class="fa fa-trash-o fa-lg"></i>', ['html' => true]),
-            'html' => true, 'properties' => ['class' => 'text-center']]
+        ['text' => $actionMenu, 'html' => true, 'properties' => ['class' => 'text-center']]
     ]);
 }
 ?>

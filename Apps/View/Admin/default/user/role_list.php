@@ -26,6 +26,7 @@ $table = $this->table(['class' => 'table'])
     ->head([
         ['text' => __('Name')],
         ['text' => __('Permissions')],
+        ['text' => __('Color')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
     ]);
 ?>
@@ -45,9 +46,16 @@ foreach($records as $role) {
         }
         $permissionsLabel .= '<span class="badge ' . $labelMark . '">' . $perm . '</span> ';
     }
+
+    $roleColor = '-';
+    if ($role->color) {
+        $roleColor = '<span class="badge badge-light" style="color: ' . $role->color . '">' . $role->color . '</span>';
+    }
+
     $table->row([
         ['text' => $role->name],
         ['text' => $permissionsLabel, 'html' => true],
+        ['text' => $roleColor, 'html' => true],
         ['text' => Url::a(['user/roleupdate', [$role->id]], '<i class="fa fa-pencil fa-lg"></i>', ['html' => true]), 'properties' => ['class' => 'text-center'], 'html' => true]
     ]);
 }

@@ -297,12 +297,6 @@ a {
     z-index: 10;
 }
 
-code {
-    color: #203A45;
-    background-color: transparent;
-    border-radius: 4px;
-}
-
 .mark,
 mark {
     padding: 0;

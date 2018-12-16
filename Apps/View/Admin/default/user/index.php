@@ -54,16 +54,21 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
     ]);
 
-
 foreach ($records as $user) {
+    $actionMenu = '<div class="btn-group btn-group-sm">';
+    $actionMenu .= Url::a(['user/update', [$user->id]], '<i class="fa fa-pencil"></i>', ['html' => true, 'class' => 'btn btn-sm btn-primary']);
+    $actionMenu .= Url::a(['user/delete', [$user->id]], ' <i class="fa fa-trash-o"></i>', ['html' => true, 'class' => 'btn btn-sm btn-danger']);
+    $actionMenu .= '</div>';
+
+    $roleHtml = $user->role->color ? '<span class="badge badge-light" style="color: ' . $user->role->color . '">' . $user->role->name . '</span>' : $user->role->name;
+
     $table->row([
         ['text' => $user->id],
         ['text' => $user->email],
         ['text' => $user->login],
-        ['text' => $user->role->name],
+        ['text' => $roleHtml, 'html' => true],
         ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
-        ['text' => Url::a(['user/update', [$user->id]], '<i class="fa fa-pencil fa-lg"></i>', ['html' => true]) .
-            Url::a(['user/delete', [$user->id]], ' <i class="fa fa-trash-o fa-lg"></i>', ['html' => true]),
+        ['text' => $actionMenu,
             'properties' => ['class' => 'text-center'], 'html' => true],
         'properties' => ['class' => 'checkbox-row' . ($user->approve_token !== null ? ' bg-warning' : null)]
 

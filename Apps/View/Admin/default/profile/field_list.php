@@ -35,27 +35,29 @@ $this->layout('_layouts/default', [
 <?php
 $table = $this->table(['class' => 'table table-striped'])
     ->head([
-        ['text' => 'id'],
+        ['text' => '#'],
         ['text' => __('Title')],
         ['text' => __('Type')],
         ['text' => __('Rule')],
-        ['text' => __('Actions')]
+        ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
     ]);
 
 foreach ($records as $row) {
     $labelClass = 'badge ';
     $labelClass .= ($row->type === 'link' ? 'badge-primary' : 'badge-secondary');
+
+    $actionMenu = '<div class="btn-group btn-group-sm">';
+    $actionMenu .= Url::a(['profile/fieldupdate', [$row->id]], '<i class="fa fa-pencil"></i> ', ['html' => true, 'class' => 'btn btn-primary']);
+    $actionMenu .= Url::a(['profile/fielddelete', [$row->id]], '<i class="fa fa-trash-o"></i>', ['html' => true, 'class' => 'btn btn-danger']);
+    $actionMenu .= '</div>';
+
+
     $table->row([
         ['text' => $row->id],
         ['text' => $row->getLocaled('name')],
         ['text' => '<span class="' . $labelClass . '">' . $row->type . '</span>', 'html' => true],
         ['text' => '<code>' . ($row->reg_cond == 0 ? '!' : null) . 'preg_match("' . $row->reg_exp . '", input)' . '</code>', 'html' => true],
-        [
-            'text' => Url::a(['profile/fieldupdate', [$row->id]], '<i class="fa fa-pencil fa-lg"></i> ', ['html' => true]) .
-                Url::a(['profile/fielddelete', [$row->id]], '<i class="fa fa-trash-o fa-lg"></i>', ['html' => true]),
-            'html' => true,
-            'properties' => ['class' => 'text-center']
-        ]
+        ['text' => $actionMenu, 'html' => true, 'properties' => ['class' => 'text-center']]
     ]);
 }
 ?>
