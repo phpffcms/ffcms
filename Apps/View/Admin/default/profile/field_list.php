@@ -46,18 +46,23 @@ foreach ($records as $row) {
     $labelClass = 'badge ';
     $labelClass .= ($row->type === 'link' ? 'badge-primary' : 'badge-secondary');
 
-    $actionMenu = '<div class="btn-group btn-group-sm">';
-    $actionMenu .= Url::a(['profile/fieldupdate', [$row->id]], '<i class="fa fa-pencil"></i> ', ['html' => true, 'class' => 'btn btn-primary']);
-    $actionMenu .= Url::a(['profile/fielddelete', [$row->id]], '<i class="fa fa-trash-o"></i>', ['html' => true, 'class' => 'btn btn-danger']);
-    $actionMenu .= '</div>';
-
+    $actionMenu = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
+        ->add('<i class="fa fa-pencil"></i>', ['profile/fieldupdate', [$row->id]], ['class' => 'btn btn-primary', 'html' => true])
+        ->add('<i class="fa fa-trash-o"></i>', ['profile/fielddelete', [$row->id]], ['class' => 'btn btn-danger', 'html' => true])
+        ->display();
 
     $table->row([
         ['text' => $row->id],
         ['text' => $row->getLocaled('name')],
         ['text' => '<span class="' . $labelClass . '">' . $row->type . '</span>', 'html' => true],
         ['text' => '<code>' . ($row->reg_cond == 0 ? '!' : null) . 'preg_match("' . $row->reg_exp . '", input)' . '</code>', 'html' => true],
-        ['text' => $actionMenu, 'html' => true, 'properties' => ['class' => 'text-center']]
+        ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
+            ->add('<i class="fa fa-pencil"></i>', ['profile/fieldupdate', [$row->id]], ['class' => 'btn btn-primary', 'html' => true])
+            ->add('<i class="fa fa-trash-o"></i>', ['profile/fielddelete', [$row->id]], ['class' => 'btn btn-danger', 'html' => true])
+            ->display(),
+            'html' => true,
+            'properties' => ['class' => 'text-center']
+        ]
     ]);
 }
 ?>

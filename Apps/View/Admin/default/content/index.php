@@ -91,16 +91,16 @@ foreach ($records as $content) {
     }
     $frontLink .= '/' . $content->path;
 
-    $controlGroup = '<div class="btn-group btn-group-sm" role="group" aria-label="Control buttons">';
+    $actionMenu = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'dropdown' => ['class' => 'btn-group btn-group-sm']], 2);
     if (!(bool)$content->display) {
-        $controlGroup .= Url::a(['content/display', [$content->id], ['status' => 1]], '<i class="fa fa-eye-slash" style="color: #ff0000;"></i>', [
+        $actionMenu->add('<i class="fa fa-eye-slash" style="color: #ff0000;"></i>', ['content/display', [$content->id], ['status' => 1]], [
             'html' => true,
             'class' => 'btn btn-light',
             'data-toggle' => 'tooltip',
             'title' =>  __('Content hidden from regular users')
         ]);
     } else {
-        $controlGroup .= Url::a(['content/display', [$content->id], ['status' => 0]], '<i class="fa fa-eye" style="color: #008000;"></i>', [
+        $actionMenu->add('<i class="fa fa-eye" style="color: #008000;"></i>', ['content/display', [$content->id], ['status' => 0]], [
             'html' => true,
             'class' => 'btn btn-light',
             'data-toggle' => 'tooltip',
@@ -109,14 +109,14 @@ foreach ($records as $content) {
     }
 
     if (!(bool)$content->important) {
-        $controlGroup .= Url::a(['content/important', [$content->id], ['status' => 1]], '<i class="fa fa-star-o"></i>', [
+        $actionMenu->add('<i class="fa fa-star-o"></i>', ['content/important', [$content->id], ['status' => 1]], [
             'html' => true,
             'class' => 'btn btn-light',
             'data-toggle' => 'tooltip',
             'title' =>  __('Content are not in favorite top. Mark as favorite?')
         ]);
     } else {
-        $controlGroup .= Url::a(['content/important', [$content->id], ['status' => 0]], '<i class="fa fa-star" style="color: #c7a922"></i>', [
+        $actionMenu->add('<i class="fa fa-star" style="color: #c7a922"></i>', ['content/important', [$content->id], ['status' => 0]], [
             'html' => true,
             'class' => 'btn btn-light',
             'data-toggle' => 'tooltip',
@@ -124,20 +124,14 @@ foreach ($records as $content) {
         ]);
     }
 
-    $dropdownControl = '<div class="btn-group btn-group-sm" role="group">';
-    $dropdownControl .= '<button id="btn-dropdown-' . $content->id . '" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"> </button>';
-    $dropdownControl .= '<div class="dropdown-menu" area-lebeledby="btn-dropdown-' . $content->id . '">';
-    $dropdownControl .= Url::a(['content/update', [$content->id]], __('Edit'), ['class' => 'dropdown-item']);
-    $dropdownControl .= '<a href="' . $frontLink . '" target="_blank" class="dropdown-item">' . __('See as user') . '</a>';
-    if ($type === 'trash') {
-        $dropdownControl .= Url::a(['content/restore', [$content->id]], __('Restore'), ['class' => 'dropdown-item']);
-    } else {
-        $dropdownControl .= Url::a(['content/delete', [$content->id]], __('Delete'), ['class' => 'dropdown-item']);
-    }
-    $dropdownControl .= '</div></div>';
+    $actionMenu->add(__('Edit'), ['content/update', [$content->id]]);
+    $actionMenu->add(__('See as user'), [$frontLink]);
 
-    $controlGroup .= $dropdownControl;
-    $controlGroup .= '</div>';
+    if ($type === 'trash') {
+        $actionMenu->add(__('Restore'), ['content/restore', [$content->id]]);
+    } else {
+        $actionMenu->add(__('Delete'), ['content/delete', [$content->id]]);
+    }
 
     // set hidden trigger to true if exist hidden items
     if (!$content->display) {
@@ -151,7 +145,7 @@ foreach ($records as $content) {
 
     $table->row([
         ['text' => $content->id, 'html' => true, '!secure' => true],
-        ['text' => $controlGroup, 'html' => true, 'properties' => ['class' => 'text-center']],
+        ['text' => $actionMenu->display(), 'html' => true, 'properties' => ['class' => 'text-center']],
         ['text' => $contentInfo, 'html' => true],
         ['text' => $content->commentPosts->count()],
         ['text' => Date::convertToDatetime($content->updated_at, Date::FORMAT_TO_SECONDS)]
