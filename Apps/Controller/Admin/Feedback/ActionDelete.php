@@ -25,7 +25,7 @@ trait ActionDelete
      * @param string $type
      * @param string $id
      * @return string
-     * @throws \Exception
+     * @throws NotFoundException
      */
     public function delete(string $type, string $id): ?string
     {
@@ -44,7 +44,7 @@ trait ActionDelete
         }
 
         // check if we get the row
-        if ($record === null || $record === false) {
+        if (!$record) {
             throw new NotFoundException(__('Feedback item is not founded'));
         }
 
@@ -66,7 +66,7 @@ trait ActionDelete
         }
 
         // render view
-        return $this->view->render('delete', [
+        return $this->view->render('feedback/delete', [
             'type' => $type,
             'record' => $record
         ]);

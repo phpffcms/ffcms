@@ -23,7 +23,7 @@ trait ActionRead
     /**
      * Read feedback post and answer and add answer to thread post
      * @param string $id
-     * @return string
+     * @return string|null
      * @throws NotFoundException
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
@@ -35,13 +35,13 @@ trait ActionRead
         // find feedback post by id
         $record = FeedbackPost::with(['user', 'user.profile'])
             ->find($id);
-        if ($record === null || $record === false) {
+        if (!$record) {
             throw new NotFoundException(__('The feedback message is not founded'));
         }
 
         // initialize model with answer add if thread is not closed
         $model = null;
-        if ((int)$record->closed !== 1) {
+        if (!(bool)$record->closed) {
             $model = new FormAnswerAdd($record);
             if ($model->send()) {
                 if ($model->validate()) {
@@ -54,7 +54,7 @@ trait ActionRead
         }
 
         // render view
-        return $this->view->render('read', [
+        return $this->view->render('feedback/read', [
             'record' => $record,
             'model' => $model
         ]);

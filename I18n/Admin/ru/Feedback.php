@@ -8,6 +8,7 @@ return [
     'Author' => 'Автор',
     'Status' => 'Статус',
     'Date' => 'Дата',
+    'Actions' => 'Действия',
     'New request or new answer in feedback topic' => 'Новый запрос или новый ответ в теме обратной связи',
     'Read feedback message' => 'Чтение сообщения обратной связи',
     'Read feedback message #%id%' => 'Запрос обратной связи #%id%',

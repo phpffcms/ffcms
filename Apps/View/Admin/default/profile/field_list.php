@@ -46,11 +46,6 @@ foreach ($records as $row) {
     $labelClass = 'badge ';
     $labelClass .= ($row->type === 'link' ? 'badge-primary' : 'badge-secondary');
 
-    $actionMenu = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
-        ->add('<i class="fa fa-pencil"></i>', ['profile/fieldupdate', [$row->id]], ['class' => 'btn btn-primary', 'html' => true])
-        ->add('<i class="fa fa-trash-o"></i>', ['profile/fielddelete', [$row->id]], ['class' => 'btn btn-danger', 'html' => true])
-        ->display();
-
     $table->row([
         ['text' => $row->id],
         ['text' => $row->getLocaled('name')],

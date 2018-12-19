@@ -43,14 +43,14 @@ trait ActionUpdate
                 break;
             case 'answer':
                 $record = FeedbackAnswer::find($id);
-                if ($record !== null && $record !== false) {
+                if (!$record) {
                     $postId = (int)$record->getFeedbackPost()->id;
                 }
                 break;
         }
 
         // try what we got
-        if ($record === null || $record === false) {
+        if (!$record) {
             throw new NotFoundException(__('Feedback item is not founded'));
         }
 
@@ -67,7 +67,7 @@ trait ActionUpdate
         }
 
         // render output view
-        return $this->view->render('update', [
+        return $this->view->render('feedback/update', [
             'model' => $model
         ]);
     }

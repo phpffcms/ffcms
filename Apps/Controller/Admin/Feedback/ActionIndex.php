@@ -4,7 +4,6 @@ namespace Apps\Controller\Admin\Feedback;
 
 use Apps\ActiveRecord\FeedbackPost;
 use Ffcms\Core\Arch\View;
-use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 
@@ -20,7 +19,6 @@ trait ActionIndex
     /**
      * List feedback post messages with notifications
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function index(): ?string
     {
@@ -30,14 +28,7 @@ trait ActionIndex
 
         // get feedback posts AR table
         $query = FeedbackPost::with(['answers']);
-
-        // build pagination
-        $pagination = new SimplePagination([
-            'url' => ['feedback/index'],
-            'page' => $page,
-            'step' => self::ITEM_PER_PAGE,
-            'total' => $query->count()
-        ]);
+        $totalCount = $query->count();
 
         // build listing objects
         $records = $query->orderBy('id', 'desc')
@@ -46,9 +37,14 @@ trait ActionIndex
             ->get();
 
         // render output
-        return $this->view->render('index', [
+        return $this->view->render('feedback/index', [
             'records' => $records,
-            'pagination' => $pagination
+            'pagination' => [
+                'url' => ['feedback/index'],
+                'page' => $page,
+                'step' => self::ITEM_PER_PAGE,
+                'total' => $totalCount
+            ]
         ]);
     }
 }

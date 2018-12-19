@@ -3,6 +3,7 @@
 namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
+use Illuminate\Support\Collection;
 
 /**
  * Class FeedbackPost. Active model for feedback requests posts.
@@ -18,7 +19,7 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $ip
  * @property string $created_at
  * @property string $updated_at
- * @property FeedbackAnswer[] $answers
+ * @property FeedbackAnswer[]|Collection $answers
  * @property User|null $user
  */
 class FeedbackPost extends ActiveModel

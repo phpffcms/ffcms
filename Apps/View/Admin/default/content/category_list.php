@@ -65,13 +65,14 @@ $this->layout('_layouts/default', [
                     </div>
                 </td>
                 <td class="text-center">
-                    <div class="btn-group btn-group-sm" role="group">
-                        <?= Url::a(['content/categoryupdate', null, ['parent' => $row->id]], '<i class="fa fa-plus"></i>', ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => __('Add subcategory'), 'html' => true]) ?>
-                        <?= Url::a(['content/categoryupdate', [$row->id]], '<i class="fa fa-cog"></i>', ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'title' => __('Category configurations'), 'html' => true]) ?>
-                        <?php if ($row->id > 1): ?>
-                            <?= Url::a(['content/categorydelete', [$row->id]], '<i class="fa fa-trash-o"></i>', ['class' => 'btn btn-danger', 'data-toggle' => 'tooltip', 'title' => __('Delete category'), 'html' => true]) ?>
-                        <?php endif; ?>
-                    </div>
+                    <?php $btn = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'role' => 'group'])
+                        ->add('<i class="fa fa-plus"></i>', ['content/categoryupdate', null, ['parent' => $row->id]], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => __('Add subcategory'), 'html' => true])
+                        ->add('<i class="fa fa-cog"></i>', ['content/categoryupdate', [$row->id]], ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'title' => __('Category configurations'), 'html' => true]);
+                    if ($row->id > 1) {
+                        $btn = $btn->add('<i class="fa fa-trash-o"></i>', ['content/categorydelete', [$row->id]], ['class' => 'btn btn-danger', 'data-toggle' => 'tooltip', 'title' => __('Delete category'), 'html' => true]);
+                    }
+                    echo $btn->display();
+                    ?>
                 </td>
             </tr>
         <?php endforeach ?>

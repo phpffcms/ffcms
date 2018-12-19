@@ -13,7 +13,7 @@ use Ffcms\Core\App;
  */
 class Feedback extends Controller
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
     const ITEM_PER_PAGE = 10;
 
     public $type = 'app';
@@ -39,32 +39,7 @@ class Feedback extends Controller
         delete as actionDelete;
     }
 
-    /**
-     * Settings of feedback application
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function actionSettings(): ?string
-    {
-        // initialize model and pass configs
-        $model = new FormSettings($this->getConfigs());
-
-        // check if form is submited to save data
-        if ($model->send()) {
-            // is validation passed?
-            if ($model->validate()) {
-                // save properties
-                $this->setConfigs($model->getAllProperties());
-                App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                $this->response->redirect('feedback/index');
-            } else {
-                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
-            }
-        }
-
-        // render view
-        return $this->view->render('settings', [
-            'model' => $model
-        ]);
+    use Feedback\ActionSettings {
+        settings as actionSettings;
     }
 }
