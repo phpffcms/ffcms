@@ -18,9 +18,7 @@ require_once(root . '/Loader/Autoload.php');
 
 // make fast-access alias \App::$Object
 // class_alias('Ffcms\Core\App', 'App');
-class App extends Ffcms\Core\App
-{
-}
+class App extends Ffcms\Core\App {}
 /**
  * Alias for translate function for fast usage. Example: __('Welcome my friend')
  * @param string $text

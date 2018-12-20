@@ -7,8 +7,7 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Url;
+use Ffcms\Templex\Url\Url;
 
 /**
  * Class EntityBuildMap. Build sitemap data and save to file in xml format
@@ -24,11 +23,11 @@ class EntityBuildMap extends Model
      * @param array|null $langs
      * @param array|null $data
      */
-    public function __construct(array $langs = null, array $data = null)
+    public function __construct(?array $langs = null, ?array $data = null)
     {
         $this->langs = $langs;
 
-        if ($data !== null && count($data) > 0) {
+        if (!$data && count($data) > 0) {
             foreach ($data as $item) {
                 if (!Any::isArray($item) || !isset($item['uri'], $item['lastmod'])) {
                     continue;
@@ -47,14 +46,14 @@ class EntityBuildMap extends Model
      * @param string $freq
      * @param float $priority
      */
-    public function add($uri, $lastmod, $freq = 'weekly', $priority = 0.5)
+    public function add(?string $uri, $lastmod, string $freq = 'weekly', $priority = 0.5)
     {
         // generate multi-language files
-        if ($this->langs !== null && Any::isArray($this->langs) && count($this->langs) > 0) {
+        if ($this->langs && Any::isArray($this->langs) && count($this->langs) > 0) {
             foreach ($this->langs as $lang) {
                 // set data to local attribute
                 $this->data[$lang][] = [
-                    'uri' => Url::standaloneUrl($uri, $lang),
+                    'uri' => Url::stringUrl($uri, $lang),
                     'lastmod' => Date::convertToDatetime($lastmod, 'c'),
                     'freq' => (string)$freq,
                     'priority' => (float)$priority
@@ -62,7 +61,7 @@ class EntityBuildMap extends Model
             }
         } else { // only one language, multilanguage is disabled
             $this->data[App::$Properties->get('singleLanguage')][] = [
-                'uri' => Url::standaloneUrl($uri),
+                'uri' => Url::stringUrl($uri),
                 'lastmod' => Date::convertToDatetime($lastmod, 'c'),
                 'freq' => (string)$freq,
                 'priority' => (float)$priority
@@ -74,18 +73,17 @@ class EntityBuildMap extends Model
      * Build xml output and save it into sitemap folder
      * @param string $uniqueName
      * @return bool
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function save($uniqueName)
+    public function save(string $uniqueName): bool
     {
         // check if data exists
-        if ($this->data === null || !Any::isArray($this->data)) {
+        if (!$this->data || !Any::isArray($this->data)) {
             return false;
         }
 
         // list data each every language, render xml output and write into file
         foreach ($this->data as $lang => $items) {
-            $xml = App::$View->render('native/sitemap_urlset', [
+            $xml = App::$View->render('sitemap/urlset', [
                 'items' => $items
             ]);
             

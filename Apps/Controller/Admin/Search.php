@@ -12,7 +12,7 @@ use Ffcms\Core\App;
  */
 class Search extends AdminController
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     public $type = 'app';
 
@@ -20,7 +20,6 @@ class Search extends AdminController
      * Show search settings
      * @return string
      * @throws \Ffcms\Core\Exception\SyntaxException
-     * @throws \Ffcms\Core\Exception\NativeException
      */
     public function actionIndex()
     {
@@ -40,7 +39,7 @@ class Search extends AdminController
         }
 
         // render output view
-        return $this->view->render('settings', [
+        return $this->view->render('search/settings', [
             'model' => $model
         ]);
     }

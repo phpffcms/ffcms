@@ -4,7 +4,6 @@ namespace Extend\Core\Captcha;
 
 use Ffcms\Core\App;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Url;
 use Ffcms\Core\Interfaces\iCaptcha;
 use Symfony\Component\HttpFoundation\Request;
 

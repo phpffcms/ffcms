@@ -19,16 +19,14 @@ class Sitemap extends FrontAppController
      */
     public function before()
     {
-        $this->layout = null;
         $this->response->headers->set('Content-type', 'text/xml');
     }
 
     /**
      * List available sitemap index links
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function actionIndex()
+    public function actionIndex(): ?string
     {
         // initialize model - scan available sitemap indexes
         $model = new EntityIndexList($this->request->getLanguage());
@@ -41,7 +39,7 @@ class Sitemap extends FrontAppController
         // build information about files
         $model->make();
 
-        return $this->view->render('native/sitemap/index', [
+        return $this->view->render('sitemap/index', [
             'model' => $model
         ]);
     }

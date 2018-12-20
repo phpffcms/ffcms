@@ -11,21 +11,19 @@ use Extend\Core\Arch\AdminController;
  */
 class Sitemap extends AdminController
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     public $type = 'app';
 
     /**
      * Show index page - sitemap guide and info
      * @return string
-     * @throws \Ffcms\Core\Exception\NativeException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
     {
         $model = new EntityIndexList();
         
-        return $this->view->render('index', [
+        return $this->view->render('sitemap/index', [
             'model' => $model
         ]);
     }
