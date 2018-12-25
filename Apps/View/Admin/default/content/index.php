@@ -127,6 +127,8 @@ foreach ($records as $content) {
     $actionMenu->add(__('Edit'), ['content/update', [$content->id]]);
     $actionMenu->add(__('See as user'), [$frontLink]);
 
+    $actionMenu->add(__('Clone'), ['content/update', null, ['from' => $content->id]]);
+
     if ($type === 'trash') {
         $actionMenu->add(__('Restore'), ['content/restore', [$content->id]]);
     } else {

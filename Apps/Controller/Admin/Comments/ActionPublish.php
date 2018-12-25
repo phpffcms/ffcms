@@ -28,12 +28,11 @@ trait ActionPublish
      * @param string|null $id
      * @return string
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function publish(string $type, ?string $id = null): ?string
     {
         // check if it multiple accept ids
-        if ($id === null || (int)$id < 1) {
+        if (!$id || (int)$id < 1) {
             $ids = $this->request->query->get('selected');
             if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids)) {
                 throw new NotFoundException('Bad conditions');
@@ -43,19 +42,19 @@ trait ActionPublish
             $id = [$id];
         }
 
-        // build query
+        /** @var CommentPost|CommentAnswer $query */
         $query = null;
         switch ($type) {
             case static::TYPE_COMMENT:
-                $query = CommentPost::whereIn('id', $id)->where('moderate', '=', 1);
+                $query = CommentPost::whereIn('id', $id)->where('moderate', true);
                 break;
             case static::TYPE_ANSWER:
-                $query = CommentAnswer::whereIn('id', $id)->where('moderate', '=', 1);
+                $query = CommentAnswer::whereIn('id', $id)->where('moderate', true);
                 break;
         }
 
         // check if result is not empty
-        if ($query === null || $query->count() < 1) {
+        if (!$query || $query->count() < 1) {
             throw new NotFoundException(__('No comments found for this condition'));
         }
 
@@ -69,7 +68,7 @@ trait ActionPublish
             $this->response->redirect('comments/' . ($type === 'answer' ? 'answerlist' : 'index'));
         }
 
-        return $this->view->render('publish', [
+        return $this->view->render('comments/publish', [
             'model' => $model
         ]);
     }

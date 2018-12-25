@@ -52,5 +52,9 @@ return [
     'Publish comments' => 'Публикация комментариев',
     'Publish comments and answers' => 'Публикация комментариев или ответов',
     'Are you sure to moderate and make public this comments and answers?' => 'Вы уверены что хотите провести модерацию и опубликовать эти комментарии или ответы?',
-    'Comments or answers are successful published' => 'Комментарии или ответы были успешно опубликованы'
+    'Comments or answers are successful published' => 'Комментарии или ответы были успешно опубликованы',
+    'Comment is hidden' => 'Комментарий скрыт',
+    'Comment is public' => 'Комментарий опубликован',
+    'Answer is hidden' => 'Ответ скрыт',
+    'Answer is public' => 'Ответ опубликован'
 ];

@@ -4,7 +4,6 @@ namespace Apps\Controller\Admin\Comments;
 
 use Apps\ActiveRecord\CommentAnswer;
 use Ffcms\Core\Arch\View;
-use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 
@@ -20,7 +19,6 @@ trait ActionAnswerList
     /**
      * List answers action
      * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function answerList(): ?string
     {
@@ -28,27 +26,21 @@ trait ActionAnswerList
         $page = (int)$this->request->query->get('page');
         $offset = $page * self::ITEM_PER_PAGE;
 
-        // initialize ar answers model
-        $query = new CommentAnswer();
-
-        // build pagination list
-        $pagination = new SimplePagination([
-            'url' => ['comments/answerlist'],
-            'page' => $page,
-            'step' => self::ITEM_PER_PAGE,
-            'total' => $query->count()
-        ]);
-
         // get result as active records object with offset
-        $records = $query->orderBy('id', 'desc')
+        $records = CommentAnswer::orderBy('id', 'desc')
             ->skip($offset)
             ->take(self::ITEM_PER_PAGE)
             ->get();
 
         // render output view
-        return $this->view->render('answer_list', [
+        return $this->view->render('comments/answer_list', [
             'records' => $records,
-            'pagination' => $pagination
+            'pagination' => [
+                'url' => ['comments/answerlist'],
+                'page' => $page,
+                'step' => self::ITEM_PER_PAGE,
+                'total' => CommentAnswer::count()
+            ]
         ]);
     }
 }

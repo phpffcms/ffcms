@@ -30,9 +30,10 @@ trait ActionUpdate
         $record = ContentEntity::withTrashed()
             ->findOrNew($id);
         $isNew = $record->id === null;
+        $cloneId = (int)$this->request->query->get('from', 0);
 
         // init model
-        $model = new FormContentUpdate($record);
+        $model = new FormContentUpdate($record, $cloneId);
 
         // check if model is submit
         if ($model->send() && $model->validate()) {

@@ -109,6 +109,7 @@ return [
     'Content are successful recovered' => 'Контент успешно востановлен',
     'Content restore' => 'Восстановление контента',
     'Restore' => 'Восстановить',
+    'Clone' => 'Клонировать',
     'Cleanup trash' => 'Очистка корзины',
     'Trashed content' => 'Количество в корзине',
     'Count of content items to total remove' => 'Количество элементов контента для удаления',

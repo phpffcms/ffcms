@@ -15,7 +15,7 @@ use Ffcms\Core\Exception\NotFoundException;
  */
 class Comments extends AdminController
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
     const ITEM_PER_PAGE = 10;
 
     const TYPE_COMMENT = 'comment';
@@ -44,51 +44,15 @@ class Comments extends AdminController
         answerList as actionAnswerlist;
     }
 
-    /**
-     * List comment - read comment and list answers
-     * @param int $id
-     * @return string
-     * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function actionRead($id)
-    {
-        // find object in active record model
-        $record = CommentPost::find($id);
-        if ($record === null || $record === false) {
-            throw new NotFoundException(__('Comment is not founded'));
-        }
-
-        // render response
-        return $this->view->render('comment_read', [
-            'record' => $record
-        ]);
+    use Comments\ActionRead {
+        read as actionRead;
     }
 
-    /**
-     * Comment widget global settings
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function actionSettings()
-    {
-        // initialize settings model
-        $model = new FormSettings($this->getConfigs());
+    use Comments\ActionDisplay {
+        display as actionDisplay;
+    }
 
-        // check if form is send
-        if ($model->send()) {
-            if ($model->validate()) {
-                $this->setConfigs($model->getAllProperties());
-                App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                $this->response->redirect('comments/index');
-            } else {
-                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
-            }
-        }
-
-        // render view
-        return $this->view->render('settings', [
-            'model' => $model
-        ]);
+    use Comments\ActionSettings {
+        settings as actionSettings;
     }
 }

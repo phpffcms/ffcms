@@ -20,10 +20,12 @@ class FormCommentUpdate extends Model
     /**
      * FormCommentUpdate constructor. Pass record inside the model.
      * @param \Apps\ActiveRecord\CommentPost|\Apps\ActiveRecord\CommentAnswer $record
+     * @param string $type
      */
     public function __construct($record, $type = 'comment')
     {
         $this->_record = $record;
+        $this->type = $type;
         parent::__construct();
     }
 
@@ -80,7 +82,11 @@ class FormCommentUpdate extends Model
         $this->_record->save();
     }
 
-    public function getCommentId()
+    /**
+     * Get comment_id for comment or answer
+     * @return int
+     */
+    public function getCommentId(): int
     {
         $id = $this->_record->id;
         if ($this->type === 'answer') {

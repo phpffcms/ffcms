@@ -40,15 +40,18 @@ class FormContentUpdate extends Model
     public $galleryFreeId;
 
     private $_content;
+    private $cloneId;
     private $_new = false;
 
     /**
      * FormContentUpdate constructor. Pass content active record inside
      * @param Content $content
+     * @param int $cloneId
      */
-    public function __construct(Content $content)
+    public function __construct(Content $content, int $cloneId = 0)
     {
         $this->_content = $content;
+        $this->cloneId = $cloneId;
         parent::__construct();
     }
 
@@ -73,6 +76,17 @@ class FormContentUpdate extends Model
             }
             if (!$this->path) {
                 $this->path = Integer::random(8) . '-' . date('d-m-Y');
+            }
+
+            if ($this->cloneId > 0) {
+                $template = Content::find($this->cloneId);
+                if ($template) {
+                    $this->title = $template->title;
+                    $this->text = $template->text;
+                    $this->metaTitle = $template->meta_title;
+                    $this->metaDescription = $template->meta_description;
+                    $this->metaKeywords = $template->meta_keywords;
+                }
             }
         } else { // is edit of exist item? define available data
             $this->title = $this->_content->title;

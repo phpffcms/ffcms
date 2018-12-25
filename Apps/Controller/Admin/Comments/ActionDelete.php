@@ -33,7 +33,7 @@ trait ActionDelete
     public function delete(string $type, ?string $id = null): ?string
     {
         // sounds like a multiply delete definition
-        if ($id === null || (int)$id < 1) {
+        if (!$id || (int)$id < 1) {
             $ids = $this->request->query->get('selected');
             if (!Any::isArray($ids) || !Arr::onlyNumericValues($ids)) {
                 throw new NotFoundException('Bad conditions');
@@ -45,6 +45,7 @@ trait ActionDelete
         }
 
         // prepare query to db
+        /** @var CommentPost|CommentAnswer $query */
         $query = null;
         switch ($type) {
             case self::TYPE_COMMENT:
@@ -56,7 +57,7 @@ trait ActionDelete
         }
 
         // check if result is not empty
-        if ($query === null || $query->count() < 1) {
+        if (!$query || $query->count() < 1) {
             throw new NotFoundException(__('No comments found for this condition'));
         }
 
@@ -67,11 +68,11 @@ trait ActionDelete
         if ($model->send() && $model->validate()) {
             $model->make();
             App::$Session->getFlashBag()->add('success', __('Comments or answers are successful deleted!'));
-            $this->response->redirect('comments/' . ($type === 'answer' ? 'answerlist' : 'index'));
+            $this->response->redirect('comments/' . ($type === self::TYPE_ANSWER ? 'answerlist' : 'index'));
         }
 
         // render view
-        return $this->view->render('delete', [
+        return $this->view->render('comments/delete', [
             'model' => $model
         ]);
     }

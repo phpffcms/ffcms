@@ -62,7 +62,7 @@ trait ActionEdit
         }
 
         // render view
-        return $this->view->render('edit', [
+        return $this->view->render('comments/edit', [
             'model' => $model
         ]);
     }
