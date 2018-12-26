@@ -1,4 +1,5 @@
 <?php
+
 use Ffcms\Core\Helper\Date;
 use Ffcms\Templex\Url\Url;
 

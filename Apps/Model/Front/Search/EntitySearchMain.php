@@ -3,9 +3,9 @@
 namespace Apps\Model\Front\Search;
 
 use Ffcms\Core\Arch\Model;
-use Ffcms\Templex\Helper\Html\Dom;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Templex\Helper\Html\Dom;
 
 /**
  * Class EntitySearchMain. Search everything main business logic model

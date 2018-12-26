@@ -1,8 +1,8 @@
 <?php
 
 use Ffcms\Core\Helper\Date;
-use Ffcms\Templex\Url\Url;
 use Ffcms\Core\Helper\Simplify;
+use Ffcms\Templex\Url\Url;
 
 /** @var \Apps\ActiveRecord\Content[]|\Illuminate\Support\Collection $records */
 /** @var \Ffcms\Templex\Template\Template $this */

@@ -2,13 +2,12 @@
 
 namespace Apps\Controller\Api\Comments;
 
+use Apps\ActiveRecord\App as AppRecord;
 use Apps\ActiveRecord\CommentPost;
 use Apps\Model\Api\Comments\EntityCommentData;
 use Ffcms\Core\Exception\NotFoundException;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
-use Apps\ActiveRecord\App as AppRecord;
 
 /**
  * Trait ActionList

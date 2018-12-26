@@ -36,7 +36,7 @@ class Newcomment extends AbstractWidget
         }
 
         if (!$this->count) {
-            $this->count = $cfg['count'];
+            $this->count = (int)$cfg['count'];
         }
 
         if (!$this->cache) {
@@ -66,7 +66,7 @@ class Newcomment extends AbstractWidget
             $cache = App::$Cache->getItem($this->_cacheName);
             if (!$cache->isHit()) {
                 $cache->set($this->makeQuery());
-                $cache->expiresAfter($this->cache);
+                $cache->expiresAfter((int)$this->cache);
                 App::$Cache->save($cache);
             }
 

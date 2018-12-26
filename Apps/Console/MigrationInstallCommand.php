@@ -4,9 +4,9 @@ namespace Apps\Console;
 
 
 use Ffcms\Console\Command;
+use Illuminate\Database\Capsule\Manager as DatabaseManager;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Illuminate\Database\Capsule\Manager as DatabaseManager;
 
 /**
  * Class MigrationInstallCommand. Initialize migrations table in db

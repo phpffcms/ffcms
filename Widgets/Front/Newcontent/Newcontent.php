@@ -58,7 +58,7 @@ class Newcontent extends Widget
             // try get query result from cache
             $cache = App::$Cache->getItem($this->_cacheName);
             if (!$cache->isHit()) {
-                $cache->set($this->makeQuery())->expiresAfter($this->cache);
+                $cache->set($this->makeQuery())->expiresAfter((int)$this->cache);
                 App::$Cache->save($cache);
             }
 
@@ -84,7 +84,7 @@ class Newcontent extends Widget
     {
         return Content::select(['contents.*', 'content_categories.path as cpath', 'content_categories.title as ctitle'])
             ->whereIn('contents.category_id', $this->categories)
-            ->where('contents.display', '=', 1)
+            ->where('contents.display', true)
             ->join('content_categories', 'content_categories.id', '=', 'contents.category_id', 'left outer')
             ->orderBy('contents.created_at', 'DESC')
             ->take($this->count)->get();

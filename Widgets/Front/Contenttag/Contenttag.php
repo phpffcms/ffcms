@@ -34,12 +34,12 @@ class Contenttag extends AbstractWidget
         $cfg = $this->getConfigs();
         // check cache is defined
         if (!$this->cache|| !Any::isInt($this->cache)) {
-            $this->cache = $cfg['cache'];
+            $this->cache = (int)$cfg['cache'];
         }
 
         // check tag count is defined
         if (!$this->count || !Any::isInt($this->count)) {
-            $this->count = $cfg['count'];
+            $this->count = (int)$cfg['count'];
         }
 
         $this->_lang = App::$Request->getLanguage();
@@ -60,7 +60,7 @@ class Contenttag extends AbstractWidget
         } else {
             $cache = App::$Cache->getItem($this->_cacheName);
             if (!$cache->isHit()) {
-                $cache->set($this->makeQuery())->expiresAfter($this->cache);
+                $cache->set($this->makeQuery())->expiresAfter((int)$this->cache);
                 App::$Cache->save($cache);
             }
             $records = $cache->get();
@@ -86,7 +86,7 @@ class Contenttag extends AbstractWidget
         return TagRecord::select([
             'tag',
             App::$Database->getConnection()->raw('COUNT(tag) AS count')
-        ])->where('lang', '=', $this->_lang)
+        ])->where('lang', $this->_lang)
             ->groupBy('tag')
             ->orderBy('count', 'DESC')
             ->take($this->count)

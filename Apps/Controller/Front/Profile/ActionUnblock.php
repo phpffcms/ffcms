@@ -9,7 +9,6 @@ use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Templex\Url\Url;
 use Ffcms\Core\Network\Response;
 
 /**

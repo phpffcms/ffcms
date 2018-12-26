@@ -2,8 +2,6 @@
 
 /** @var Ffcms\Templex\Template\Template $this */
 
-use Ffcms\Templex\Url\Url;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

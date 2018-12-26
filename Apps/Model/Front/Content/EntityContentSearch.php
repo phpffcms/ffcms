@@ -8,7 +8,6 @@ use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 /**

@@ -6,7 +6,6 @@ namespace Apps\Controller\Api\Profile;
 use Apps\ActiveRecord\WallAnswer;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 

@@ -4,9 +4,9 @@
 /** @var \Ffcms\Templex\Template\Template $this */
 
 use Apps\ActiveRecord\ContentCategory;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Helper\Html\Dom;
 use Ffcms\Templex\Url\Url;
-use Ffcms\Core\Helper\Type\Str;
 
 $this->layout('_layouts/default', [
     'title' => __('Content edit'),

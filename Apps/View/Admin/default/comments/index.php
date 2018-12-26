@@ -1,4 +1,5 @@
 <?php
+
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Simplify;
 use Ffcms\Core\Helper\Text;

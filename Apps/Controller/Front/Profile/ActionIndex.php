@@ -2,9 +2,9 @@
 
 namespace Apps\Controller\Front\Profile;
 
+use Apps\ActiveRecord\Profile as ProfileRecords;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\NotFoundException;
-use Apps\ActiveRecord\Profile as ProfileRecords;
 use Ffcms\Core\Helper\HTML\SimplePagination;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;

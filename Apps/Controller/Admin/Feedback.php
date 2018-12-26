@@ -3,9 +3,7 @@
 
 namespace Apps\Controller\Admin;
 
-use Apps\Model\Admin\Feedback\FormSettings;
 use Extend\Core\Arch\AdminController as Controller;
-use Ffcms\Core\App;
 
 /**
  * Class Feedback. Control and manage feedback request and answers.

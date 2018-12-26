@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Admin\Content;
 
+use Apps\ActiveRecord\Content as ContentEntity;
 use Apps\Model\Admin\Content\FormContentPublish;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
@@ -9,7 +10,6 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
-use Apps\ActiveRecord\Content as ContentEntity;
 
 /**
  * Trait ActionPublish

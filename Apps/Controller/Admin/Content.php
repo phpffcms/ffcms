@@ -2,12 +2,7 @@
 
 namespace Apps\Controller\Admin;
 
-use Apps\ActiveRecord\ContentCategory;
-use Apps\Model\Admin\Content\FormSettings;
 use Extend\Core\Arch\AdminController;
-use Ffcms\Core\App;
-use Ffcms\Core\Exception\NotFoundException;
-use Ffcms\Core\Exception\SyntaxException;
 
 /**
  * Class Content. Admin controller to manage & control contents

@@ -2,14 +2,13 @@
 
 namespace Apps\Controller\Admin\User;
 
+use Apps\ActiveRecord\User as UserRecord;
 use Apps\Model\Admin\User\FormUserUpdate;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
-use Apps\ActiveRecord\User as UserRecord;
 
 /**
  * Trait ActionUpdate

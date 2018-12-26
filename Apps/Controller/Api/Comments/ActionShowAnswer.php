@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Api\Comments;
 
+use Apps\ActiveRecord\App as AppRecord;
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\Model\Api\Comments\EntityCommentData;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -9,7 +10,6 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
-use Apps\ActiveRecord\App as AppRecord;
 
 /**
  * Trait ActionShowAnswer

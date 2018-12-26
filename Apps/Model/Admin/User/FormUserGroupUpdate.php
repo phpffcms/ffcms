@@ -7,8 +7,6 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Type\Str;
 
 /**
  * Class FormUserGroupUpdate. Business logic of user group update in database.

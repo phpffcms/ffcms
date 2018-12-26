@@ -1,5 +1,6 @@
 <?php
 /** @var \Apps\ActiveRecord\Content[] $records */
+
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;

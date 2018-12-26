@@ -1,4 +1,5 @@
 <?php
+
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Templex\Url\Url;
 

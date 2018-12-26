@@ -5,7 +5,6 @@ namespace Apps\Console;
 
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

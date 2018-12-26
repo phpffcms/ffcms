@@ -1,5 +1,7 @@
 <?php
-use \Ffcms\Core\App;
+
+use Ffcms\Core\App;
+
 // captcha features for ffcms
 
 /** @var \Ffcms\Templex\Helper\Html\Form $form */
