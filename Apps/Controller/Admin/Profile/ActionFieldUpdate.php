@@ -2,12 +2,12 @@
 
 namespace Apps\Controller\Admin\Profile;
 
+use Apps\ActiveRecord\ProfileField;
 use Apps\Model\Admin\Profile\FormFieldUpdate;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
-use Apps\ActiveRecord\ProfileField;
 
 /**
  * Trait ActionFieldUpdate

@@ -3,13 +3,13 @@
 namespace Apps\Controller\Admin\Profile;
 
 use Apps\ActiveRecord\Profile;
+use Apps\Model\Front\Profile\FormSettings as FrontFormSettings;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
-use Apps\Model\Front\Profile\FormSettings as FrontFormSettings;
 
 /**
  * Trait ActionUpdate

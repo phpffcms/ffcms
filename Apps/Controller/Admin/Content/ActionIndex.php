@@ -2,11 +2,11 @@
 
 namespace Apps\Controller\Admin\Content;
 
+use Apps\ActiveRecord\Content as ContentEntity;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
-use Apps\ActiveRecord\Content as ContentEntity;
 
 /**
  * Trait ActionIndex

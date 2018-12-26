@@ -249,13 +249,15 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             <a class="nav-link" href="<?= App::$Alias->baseUrl ?>"><i class="fa fa-home"></i> <span class="nav-text"><?= __('Main') ?></span></a>
                         </li>
                         <li class="nav-item<?= (\App::$Request->getController() === 'Main' && \App::$Request->getAction() !== 'Index') ? ' active' : null ?>">
-                            <?= Url::a(['#system-dropdown'],
+                            <?= Url::a(
+                                                    ['#system-dropdown'],
                                 '<i class="fa fa-fire"></i> <span class="nav-text">' . __('System') . '</span>',
                                 [
                                     'class' => 'nav-container',
                                     'data-toggle' => 'collapse',
                                     'html' => true
-                                ])
+                                ]
+                                                )
                             ?>
 
                             <?= $this->bootstrap()->nav('ul', ['class' => 'nav nav-pills nav-stacked collapse' . ((\App::$Request->getController() === 'Main' && \App::$Request->getAction() !== 'Index') ? 'in show' : null), 'id' => 'system-dropdown'])
@@ -281,13 +283,15 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                         }
                         ?>
                         <li class="nav-item<?= (array_key_exists(\App::$Request->getController(), $apps) || \App::$Request->getController() === 'Application') ? ' active' : null ?>">
-                            <?= Url::a(['#apps-dropdown'],
+                            <?= Url::a(
+                            ['#apps-dropdown'],
                                 '<i class="fa fa-plug"></i> <span class="nav-text">' . __('Applications') . '</span>',
                                 [
                                     'class' => 'nav-container',
                                     'data-toggle' => 'collapse',
                                     'html' => true
-                                ])
+                                ]
+                        )
                             ?>
 
                             <?php
@@ -301,13 +305,15 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             ?>
                         </li>
                         <li class="nav-item<?= (array_key_exists(\App::$Request->getController(), $widgets) || \App::$Request->getController() === 'Widget') ? ' active' : null ?>">
-                            <?= Url::a(['#widgets-dropdown'],
+                            <?= Url::a(
+                                ['#widgets-dropdown'],
                                 '<i class="fa fa-puzzle-piece"></i> <span class="nav-text">' . __('Widgets') . '</span>',
                                 [
                                     'class' => 'nav-container',
                                     'data-toggle' => 'collapse',
                                     'html' => true
-                                ])
+                                ]
+                            )
                             ?>
 
                             <?php

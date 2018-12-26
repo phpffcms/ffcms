@@ -7,7 +7,6 @@ use Apps\Model\Admin\Content\FormCategoryUpdate;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\SyntaxException;
-use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 

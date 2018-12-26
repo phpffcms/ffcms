@@ -1,4 +1,5 @@
 <?php
+
 use Apps\ActiveRecord\ProfileField;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Any;
@@ -84,7 +85,7 @@ $this->layout('_layouts/default', [
             $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Avatar'), 'html' => true]);
             $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true]);
             $userMenu->menu(['link' => ['profile/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]);
-        } else if(\App::$User->isAuth()) {
+        } elseif (\App::$User->isAuth()) {
             $userMenu->menu(['link' => ['profile/messages', null, ['newdialog' => $user->id]], 'text' => __('Write message')]);
             $userMenu->menu(['link' => ['profile/ignore', null, ['id' => $user->id]], 'text' => __('Block')]);
         }
@@ -196,7 +197,7 @@ $this->layout('_layouts/default', [
             <?= $form->field()->textarea('message', ['class' => 'form-control wysiwyg']) ?>
             <input type="submit" name="<?= $wall->getFormName() ?>[submit]" value="<?= __('Send') ?>" class="btn btn-primary" />
 
-            <?php //Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysiwyg', 'config' => 'config-small', 'jsConfig' => ['height' => '80']]); ?>
+            <?php //Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysiwyg', 'config' => 'config-small', 'jsConfig' => ['height' => '80']]);?>
             <?= $form->stop() ?>
         <?php endif; ?>
         <?php

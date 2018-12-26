@@ -4,9 +4,9 @@
 /** @var \Ffcms\Templex\Template\Template $this */
 
 use Apps\ActiveRecord\ContentCategory;
+use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Helper\Html\Dom;
 use Ffcms\Templex\Url\Url;
-use Ffcms\Core\Helper\Type\Str;
 
 $this->layout('_layouts/default', [
     'title' => __('Content edit'),
@@ -41,13 +41,13 @@ $form = $this->form($model);
 echo $form->start();
 
 $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
-    ->menu(['text' => __('General'), 'tab' => function() use ($form) {
+    ->menu(['text' => __('General'), 'tab' => function () use ($form) {
         /** @var \Ffcms\Templex\Template\Template $this */
         $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
         foreach (\App::$Properties->get('languages') as $lang) {
             $langMenu->menu([
                 'text' => Str::upperCase($lang),
-                'tab' => function() use ($form, $lang) {
+                'tab' => function () use ($form, $lang) {
                     return $form->fieldset()->text('title.' . $lang, null, __('Fill the title of the content for current language locale')) .
                         '<strong>' . __('Content text') . '</strong><br />' .
                         $form->field()->textarea('text.' . $lang, ['class' => 'form-control wysiwyg', 'rows' => 7]);
@@ -55,11 +55,11 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
                 'tabActive' => $lang === \App::$Request->getLanguage()
             ]);
         }
-        return (new Dom())->div(function() use ($langMenu) {
+        return (new Dom())->div(function () use ($langMenu) {
             return $langMenu->display();
-            }, ['class' => 'nav-border']);
+        }, ['class' => 'nav-border']);
     }, 'tabActive' => true])
-    ->menu(['text' => __('Properties'), 'tab' => function() use ($form) {
+    ->menu(['text' => __('Properties'), 'tab' => function () use ($form) {
         /** @var \Ffcms\Templex\Template\Template $this */
         $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
         $context = $form->fieldset()->text('path', null, __('Slug of URL pathway for this content item'))
@@ -68,7 +68,7 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
         foreach (\App::$Properties->get('languages') as $lang) {
             $langMenu->menu([
                 'text' => Str::upperCase($lang),
-                'tab' => function() use ($form, $lang) {
+                'tab' => function () use ($form, $lang) {
                     return $form->fieldset()->text('metaTitle.' . $lang, null, __('Set meta title for content page (displayed in browser head). Recommended length: 50-70 chars')).
                         $form->fieldset()->text('metaKeywords.' . $lang, null, __('Set meta keywords for this content (for search engine crawlers) separated by comma')).
                         $form->fieldset()->text('metaTitle.' . $lang, null, __('Set meta description for this content (for search engine crawlers). Recommended length: 200-250 chars'));
@@ -82,7 +82,7 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
 
         return $context;
     }])
-    ->menu(['text' => __('Gallery'), 'tab' => function() use ($form) {
+    ->menu(['text' => __('Gallery'), 'tab' => function () use ($form) {
         return '<div class="row" id="gallery-files"></div>
     <div class="row">
         <div class="col-md-8">
@@ -93,7 +93,7 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
         </div>
     </div><br/><br/>';
     }])
-    ->menu(['text' => __('Other'), 'tab' => function() use ($form) {
+    ->menu(['text' => __('Other'), 'tab' => function () use ($form) {
         return $form->fieldset()->boolean('display', null, __('Can users view this content or only available for administrators?')) .
             $form->fieldset()->boolean('important', null, __('Make this material important and stack it on top of all news?')) .
             $form->fieldset()->text('createdAt', ['class' => 'form-control datepick'], __('Set the date of creation or leave empty for current date')) .

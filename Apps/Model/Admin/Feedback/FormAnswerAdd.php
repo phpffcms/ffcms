@@ -3,7 +3,6 @@
 namespace Apps\Model\Admin\Feedback;
 
 use Apps\ActiveRecord\FeedbackAnswer;
-use Apps\ActiveRecord\FeedbackPost;
 use Apps\Model\Front\Feedback\FormAnswerAdd as FrontAnswer;
 use Apps\Model\Front\Profile\EntityAddNotification;
 use Ffcms\Core\App;

@@ -10,7 +10,6 @@ use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 
-
 /**
  * Trait ActionInviteDelete
  * @package Apps\Controller\Admin\User

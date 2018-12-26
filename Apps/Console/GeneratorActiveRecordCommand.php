@@ -2,7 +2,6 @@
 
 namespace Apps\Console;
 
-
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;

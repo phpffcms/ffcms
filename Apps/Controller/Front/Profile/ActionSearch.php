@@ -2,11 +2,11 @@
 
 namespace Apps\Controller\Front\Profile;
 
+use Apps\ActiveRecord\Profile as ProfileRecords;
 use Apps\Model\Front\Profile\FormUserSearch;
 use Ffcms\Core\Arch\View;
-use Apps\ActiveRecord\Profile as ProfileRecords;
-use Ffcms\Core\Network\Response;
 use Ffcms\Core\Network\Request;
+use Ffcms\Core\Network\Response;
 
 /**
  * Trait ActionSearch

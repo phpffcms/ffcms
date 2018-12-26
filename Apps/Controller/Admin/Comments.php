@@ -2,11 +2,7 @@
 
 namespace Apps\Controller\Admin;
 
-use Apps\ActiveRecord\CommentPost;
-use Apps\Model\Admin\Comments\FormSettings;
 use Extend\Core\Arch\AdminController;
-use Ffcms\Core\App;
-use Ffcms\Core\Exception\NotFoundException;
 
 /**
  * Class Comments. Admin controller for management user comments.

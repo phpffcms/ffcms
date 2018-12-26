@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Admin\Content;
 
-
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Network\Request;
@@ -27,5 +26,4 @@ trait ActionCategoryList
             'categories' => ContentCategory::getSortedAll()
         ]);
     }
-
 }

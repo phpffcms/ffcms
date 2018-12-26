@@ -7,7 +7,6 @@ use Apps\ActiveRecord\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Crypt;
-use Ffcms\Core\Helper\Type\Str;
 
 /**
  * Class FormRegister. User registration business logic model

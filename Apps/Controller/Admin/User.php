@@ -2,8 +2,6 @@
 
 namespace Apps\Controller\Admin;
 
-use Apps\ActiveRecord\Role;
-use Apps\Model\Admin\User\FormUserGroupUpdate;
 use Apps\Model\Admin\User\FormUserSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;

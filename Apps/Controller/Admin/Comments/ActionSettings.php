@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Admin\Comments;
 
-
 use Apps\Model\Admin\Comments\FormSettings;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;

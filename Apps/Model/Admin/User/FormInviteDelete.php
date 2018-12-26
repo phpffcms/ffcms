@@ -2,7 +2,6 @@
 
 namespace Apps\Model\Admin\User;
 
-
 use Apps\ActiveRecord\Invite;
 use Ffcms\Core\Arch\Model;
 use Illuminate\Support\Collection;

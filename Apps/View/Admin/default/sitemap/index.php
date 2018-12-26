@@ -32,7 +32,7 @@ if (!$model->files || count($model->files) < 1) {
 
 $list = $this->listing('ul');
 
-foreach($model->files as $file) {
+foreach ($model->files as $file) {
     $list->li(['type' => 'link', 'link' => \Ffcms\Core\App::$Alias->scriptUrl . $file, 'text' => $file, 'linkProperties' => ['target' => '_blank']]);
 }
 echo $list->display();

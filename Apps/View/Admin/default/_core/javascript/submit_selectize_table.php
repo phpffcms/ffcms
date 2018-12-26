@@ -10,7 +10,7 @@
 $rndId = 'btn_selectize_submit_' . mt_rand(999, 999999);
 $properties['id'] = $rndId;
 
-echo (new \Ffcms\Templex\Helper\Html\Dom())->button(function() use ($text) {
+echo (new \Ffcms\Templex\Helper\Html\Dom())->button(function () use ($text) {
     return $text;
 }, $properties);
 

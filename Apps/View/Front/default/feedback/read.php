@@ -30,7 +30,7 @@ $this->layout('_layouts/default', [
 if (!(bool)$post->closed && \App::$User->isAuth()) {
     $user = App::$User->identity();
     if ((int)$user->getId() === (int)$post->user_id) {
-       echo Url::a(['feedback/close', [$post->id, $post->hash]], __('Close request'), ['class' => 'btn btn-danger']);
+        echo Url::a(['feedback/close', [$post->id, $post->hash]], __('Close request'), ['class' => 'btn btn-danger']);
     }
 }
 ?>

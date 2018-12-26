@@ -7,7 +7,6 @@ use Apps\ActiveRecord\WallPost;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Interfaces\iUser;
 
 /**
  * Class FormUserDelete. Delete users as passed array of them ids.

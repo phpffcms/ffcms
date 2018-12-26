@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Admin;
 
-
 use Apps\Model\Admin\Profile\FormSettings;
 use Extend\Core\Arch\AdminController;
 use Ffcms\Core\App;

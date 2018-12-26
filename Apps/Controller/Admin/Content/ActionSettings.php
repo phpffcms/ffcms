@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Admin\Content;
 
-
 use Apps\Model\Admin\Content\FormSettings;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;

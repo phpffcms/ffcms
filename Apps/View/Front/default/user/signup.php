@@ -19,7 +19,7 @@ $this->layout('_layouts/default', [
 
 <?= $form->start() ?>
 
-<?php // $this->insert('user/_menu/_social_panel') ?>
+<?php // $this->insert('user/_menu/_social_panel')?>
 
 <?= $form->fieldset()->text('login', null, __('Enter your username for future use on the site')); ?>
 <?= $form->fieldset()->text('email', null, __('Enter your e-mail for an account')); ?>

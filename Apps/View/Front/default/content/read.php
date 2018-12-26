@@ -176,13 +176,13 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
             <div class="col-md-12">
                 <div class="float-left">
                     <?php if ($properties['rating']) {
-                        /**echo \App::$View->render('content/_rate', [
-                            'id' => $model->id,
-                            'rating' => $model->rating,
-                            'canRate' => $model->canRate
-                        ]);*/
-                    } ?>
-                    <?php //\App::$View->render('content/_rateJs') ?>
+    /**echo \App::$View->render('content/_rate', [
+        'id' => $model->id,
+        'rating' => $model->rating,
+        'canRate' => $model->canRate
+    ]);*/
+} ?>
+                    <?php //\App::$View->render('content/_rateJs')?>
                 </div>
                 <div class="float-right">
                     <?php if ($properties['tags']): ?>

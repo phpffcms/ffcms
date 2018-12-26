@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Front\Content;
 
+use Apps\ActiveRecord\Content as ContentRecord;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\NotFoundException;
@@ -9,7 +10,6 @@ use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
-use Apps\ActiveRecord\Content as ContentRecord;
 
 /**
  * Trait ActionTag

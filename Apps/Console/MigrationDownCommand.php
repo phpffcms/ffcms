@@ -2,13 +2,8 @@
 
 namespace Apps\Console;
 
-
-use Apps\ActiveRecord\Migration;
 use Ffcms\Console\Command;
-use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Managers\MigrationsManager;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

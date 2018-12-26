@@ -2,8 +2,8 @@
 
 use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\Helper\Date;
-use Ffcms\Templex\Url\Url;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Templex\Url\Url;
 
 /** @var \Apps\ActiveRecord\Content[]|\Illuminate\Support\Collection $records */
 /** @var array $pagination */
@@ -65,10 +65,10 @@ $this->layout('_layouts/default', [
 
 <?php
 if ($records->count() < 1) {
-    echo $this->bootstrap()->alert('warning', __('Content not found'));
-    $this->stop();
-    return;
-}
+                        echo $this->bootstrap()->alert('warning', __('Content not found'));
+                        $this->stop();
+                        return;
+                    }
 
 $table = $this->table(['class' => 'table table-striped'])
     ->head([

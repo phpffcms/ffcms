@@ -1,4 +1,5 @@
 <?php
+
 use Ffcms\Core\Helper\Date;
 use Ffcms\Templex\Url\Url;
 
@@ -22,7 +23,7 @@ $this->layout('_layouts/default', [
 
 <h2><?= __('My logs') ?></h2>
 <hr />
-<?php if(!$records || $records->count() < 1) {
+<?php if (!$records || $records->count() < 1) {
     echo $this->bootstrap()->alert('info', __('No logs available'));
     $this->stop();
     return;

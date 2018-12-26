@@ -27,7 +27,9 @@ use Ffcms\Templex\Url\Url;
     <?php if (\App::$Debug): ?>
         <?= \App::$Debug->renderHead() ?>
     <?php endif; ?>
-    <?php if (!isset($fullgrid)){ $fullgrid = false; } ?>
+    <?php if (!isset($fullgrid)) {
+    $fullgrid = false;
+} ?>
 </head>
 <body class="bg-light">
 

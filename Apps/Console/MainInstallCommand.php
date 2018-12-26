@@ -2,7 +2,6 @@
 
 namespace Apps\Console;
 
-
 use Apps\ActiveRecord\System;
 use Extend\Version;
 use Ffcms\Console\Command;
@@ -137,5 +136,4 @@ Good luck ;)");
         $output->writeln('');
         $output->writeln('> Please, use "php console.php main:adduser" to add admin account(set role=4) or you are unavailable to manage cms.');
     }
-
 }

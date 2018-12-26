@@ -18,9 +18,9 @@ if (!isset($properties['class'])) {
 }
 ?>
 <div class="form-group row">
-    <?= (new \Ffcms\Templex\Helper\Html\Dom())->label(function() use ($label) {
-        return $label;
-    }, $labelProperties) ?>
+    <?= (new \Ffcms\Templex\Helper\Html\Dom())->label(function () use ($label) {
+    return $label;
+}, $labelProperties) ?>
     <div class="col-md-9">
         <?= $field->html($properties) ?>
         <?php if ($helper): ?>

@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Admin\Profile;
 
-
 use Apps\ActiveRecord\ProfileField;
 use Apps\Model\Admin\Profile\FormFieldUpdate;
 use Ffcms\Core\Arch\View;

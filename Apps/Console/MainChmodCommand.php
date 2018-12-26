@@ -2,7 +2,6 @@
 
 namespace Apps\Console;
 
-
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
@@ -29,7 +28,7 @@ class MainChmodCommand extends Command
     {
         $this->setName('main:chmod')
             ->setDescription('Automatically set chmod\'s for default ffcms directorieswith read/write permissions');
-            //->addOption('secure', 's', InputOption::VALUE_REQUIRED, 'Do you want to apply auto chmod with {0666|0776} permissions instead of 0777. Note you should make right chown & process user group. Answers: yes/no');
+        //->addOption('secure', 's', InputOption::VALUE_REQUIRED, 'Do you want to apply auto chmod with {0666|0776} permissions instead of 0777. Note you should make right chown & process user group. Answers: yes/no');
     }
 
     /**
