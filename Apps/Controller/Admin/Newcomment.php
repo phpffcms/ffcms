@@ -12,7 +12,7 @@ use Ffcms\Core\App;
  */
 class Newcomment extends AdminController
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
     
     public $type = 'widget';
 
@@ -30,7 +30,7 @@ class Newcomment extends AdminController
             App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
         }
         
-        return $this->view->render('index', [
+        return $this->view->render('newcomment/index', [
             'model' => $model
         ]);
     }

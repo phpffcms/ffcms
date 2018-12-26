@@ -12,7 +12,7 @@ use Ffcms\Core\App;
  */
 class Newcontent extends AdminController
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     public $type = 'widget';
 
@@ -33,7 +33,7 @@ class Newcontent extends AdminController
         }
 
         // render viewer
-        return $this->view->render('index', [
+        return $this->view->render('newcontent/index', [
             'model' => $model
         ]);
     }

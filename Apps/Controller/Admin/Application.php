@@ -113,8 +113,8 @@ class Application extends AdminController
         $controllerName = ucfirst(Str::lowerCase($controllerName));
 
         /** @var \Apps\ActiveRecord\App $search */
-        $search = \Apps\ActiveRecord\App::where('sys_name', '=', $controllerName)
-            ->where('type', '=', 'app')
+        $search = \Apps\ActiveRecord\App::where('sys_name', $controllerName)
+            ->where('type', 'app')
             ->first();
         if (!$search || (int)$search->id < 1) {
             throw new ForbiddenException('App is not founded');

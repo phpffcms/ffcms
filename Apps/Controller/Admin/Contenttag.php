@@ -12,7 +12,7 @@ use Ffcms\Core\App;
  */
 class Contenttag extends AdminController
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
     
     public $type = 'widget';
 
@@ -33,7 +33,7 @@ class Contenttag extends AdminController
         }
         
         // render view output
-        return $this->view->render('index', [
+        return $this->view->render('contenttag/index', [
            'model' => $model
         ]);
     }
