@@ -21,8 +21,7 @@ $this->layout('_layouts/default', [
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>
 
-<?= $form->fieldset()->select(
-    'type',
+<?= $form->fieldset()->select('type',
     [
         'options' => [
             'Alias' => __('Static (alias) route'),
@@ -30,8 +29,7 @@ $this->layout('_layouts/default', [
         ],
         'optionsKey' => true
     ],
-    __('Specify type of defined rule')
-) ?>
+    __('Specify type of defined rule')) ?>
 <?= $form->fieldset()->radio('loader', ['options' => ['Front', 'Admin', 'Api']], __('Select loader type where be applied rule')) ?>
 <?= $form->fieldset()->text('source', ['class' => 'form-control'], __('Define source path (for static alias) or class name (for dynamic rule) to use it for target query')) ?>
 <?= $form->fieldset()->text('target', ['class' => 'form-control'], __('Define target path or class path for displayd item on source path')) ?>

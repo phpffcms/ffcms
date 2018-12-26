@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Front;
 
+
 use Extend\Core\Arch\FrontAppController;
 
 /**

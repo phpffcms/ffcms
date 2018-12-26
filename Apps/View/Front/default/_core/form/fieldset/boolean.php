@@ -13,9 +13,9 @@ $labelProperties['for'] = $field->getUniqueFieldId();
 <div class="form-group row">
     <div class="col-md-9 offset-md-3">
         <?= $field->html($properties) ?>
-        <?= (new \Ffcms\Templex\Helper\Html\Dom())->label(function () use ($label) {
-    return $label;
-}, $labelProperties) ?>
+        <?= (new \Ffcms\Templex\Helper\Html\Dom())->label(function() use ($label) {
+            return $label;
+        }, $labelProperties) ?>
         <?php if ($helper): ?>
             <p class="form-text"><?= $helper ?></p>
         <?php endif; ?>

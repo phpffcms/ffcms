@@ -2,6 +2,7 @@
 
 namespace Apps\Console;
 
+
 use Apps\ActiveRecord\Profile;
 use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;

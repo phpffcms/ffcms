@@ -32,7 +32,7 @@ $table = $this->table(['class' => 'table'])
 ?>
 
 <?php
-foreach ($records as $role) {
+foreach($records as $role) {
     $permissions = explode(';', $role->permissions);
     $permissionsLabel = null;
     foreach ($permissions as $perm) {

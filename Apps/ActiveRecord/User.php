@@ -5,6 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Type\Any;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
 

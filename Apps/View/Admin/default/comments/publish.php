@@ -1,9 +1,8 @@
 <?php
-
 use Ffcms\Core\Helper\Date;
+use Ffcms\Templex\Url\Url;
 use Ffcms\Core\Helper\Simplify;
 use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Templex\Url\Url;
 
 /** @var Apps\Model\Admin\Comments\FormCommentDelete $model */
 /** @var string $type */

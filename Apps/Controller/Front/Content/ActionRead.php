@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Front\Content;
 
-use Apps\ActiveRecord\Content as ContentEntity;
 use Apps\ActiveRecord\ContentCategory;
 use Apps\Model\Front\Content\EntityContentRead;
 use Apps\Model\Front\Content\EntityContentSearch;
@@ -11,6 +10,7 @@ use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Apps\ActiveRecord\Content as ContentEntity;
 
 /**
  * Trait ActionRead

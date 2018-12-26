@@ -3,10 +3,12 @@
 namespace Apps\Model\Front\Profile;
 
 use Apps\ActiveRecord\WallPost as WallRecords;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Any;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Interfaces\iUser;
 
 /**

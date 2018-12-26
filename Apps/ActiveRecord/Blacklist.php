@@ -2,6 +2,7 @@
 
 namespace Apps\ActiveRecord;
 
+use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 
 /**

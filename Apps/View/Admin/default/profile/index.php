@@ -1,8 +1,8 @@
 <?php
 
-use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Url\Url;
+use Ffcms\Core\Helper\Date;
 
 /** @var \Apps\ActiveRecord\Profile[]|\Illuminate\Support\Collection $records */
 /** @var array $pagination */

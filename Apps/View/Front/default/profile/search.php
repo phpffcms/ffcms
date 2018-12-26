@@ -74,9 +74,9 @@ if (!$records || $records->count() < 1) {
 <?php endforeach; ?>
 
 <?php if ($pagination) {
-                    echo $this->bootstrap()->pagination($pagination['url'], ['class' => 'pagination justify-content-center'])
+    echo $this->bootstrap()->pagination($pagination['url'], ['class' => 'pagination justify-content-center'])
         ->size($pagination['total'], $pagination['page'], $pagination['step'])
         ->display();
-                } ?>
+} ?>
 
 <?php $this->stop() ?>

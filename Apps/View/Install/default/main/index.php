@@ -88,7 +88,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</textarea>
 <br />
-<?php if ($model->checkAll()): ?>
+<?php if($model->checkAll()): ?>
     <div class="row">
         <div class="col-3" style="padding-top: 5px;padding-left: 25px;">
             <input type="checkbox" id="agree-license" /> <label for="agree-license"><?= __('Accept license') ?></label>

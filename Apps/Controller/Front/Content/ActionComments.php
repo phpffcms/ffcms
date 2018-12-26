@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Front\Content;
 
+
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Network\Request;

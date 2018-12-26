@@ -2,12 +2,12 @@
 
 namespace Apps\Controller\Admin\User;
 
-use Apps\ActiveRecord\User as UserRecord;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Apps\ActiveRecord\User as UserRecord;
 
 /**
  * Class ActionIndex
@@ -30,7 +30,7 @@ trait ActionIndex
         // check if search query passed
         $query = $this->request->query->get('search', null);
         if ($query && Any::isStr($query) && Str::length($query) > 1) {
-            $record = $record->where(function ($db) use ($query) {
+            $record = $record->where(function($db) use ($query){
                 $db->where('login', 'like', '%' . $query . '%')
                     ->orWhere('email', 'like', '%' . $query . '%');
             });

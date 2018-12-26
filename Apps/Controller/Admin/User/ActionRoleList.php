@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Admin\User;
 
+
 use Apps\ActiveRecord\Role;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Network\Request;
@@ -25,5 +26,6 @@ trait ActionRoleList
         return $this->view->render('user/role_list', [
             'records' => Role::all()
         ]);
-    }
+}
+
 }

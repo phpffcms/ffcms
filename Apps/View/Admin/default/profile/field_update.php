@@ -1,7 +1,7 @@
 <?php
 
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Url\Url;
+use Ffcms\Core\Helper\Type\Str;
 
 /** @var \Ffcms\Templex\Template\Template $this */
 /** @var Apps\Model\Admin\Profile\FormFieldUpdate $model */
@@ -33,7 +33,7 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
 foreach (\App::$Properties->get('languages') as $lang) {
     $menu->menu([
         'text' => Str::upperCase($lang),
-        'tab' => function () use ($form, $lang) {
+        'tab' => function() use ($form, $lang) {
             return $form->fieldset()->text('name.' . $lang, null, __('Define field name, which be displayed for user for current language locale'));
         },
         'tabActive' => $lang === \App::$Request->getLanguage(),

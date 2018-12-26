@@ -1,6 +1,6 @@
 <?php
 
-$this->layout('_layouts/default', [
+$this->layout('_layouts/default',[
     'title' => 'Access forbidden'
 ]);
 

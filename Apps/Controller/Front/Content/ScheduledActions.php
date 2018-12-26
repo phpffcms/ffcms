@@ -9,6 +9,7 @@ use Ffcms\Core\App;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
 
+
 /**
  * Trait ScheduledActions
  * @package Apps\Controller\Front\Content

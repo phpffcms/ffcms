@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Api\Content;
 
-use Apps\ActiveRecord\Content as ContentRecord;
 use Apps\Model\Api\Content\ContentRatingChange;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
@@ -12,6 +11,7 @@ use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Apps\ActiveRecord\Content as ContentRecord;
 
 /**
  * Trait ActionChangeRate

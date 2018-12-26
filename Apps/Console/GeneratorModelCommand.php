@@ -2,6 +2,7 @@
 
 namespace Apps\Console;
 
+
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Arr;
@@ -58,4 +59,5 @@ class GeneratorModelCommand extends Command
         File::write($path, $code);
         $output->writeln('Model are successful created: ' . $path);
     }
+
 }

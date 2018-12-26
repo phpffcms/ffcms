@@ -16,6 +16,7 @@ use Ffcms\Core\Network\Response;
  */
 trait ActionInviteList
 {
+
     public function inviteList(): ?string
     {
         // init invite object

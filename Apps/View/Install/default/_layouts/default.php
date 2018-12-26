@@ -2,6 +2,8 @@
 
 /** @var Ffcms\Templex\Template\Template $this */
 
+use Ffcms\Templex\Url\Url;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,9 +25,7 @@
         var script_lang = '<?= \App::$Request->getLanguage() ?>';
         var site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
-    <?php if (!isset($fullgrid)) {
-    $fullgrid = false;
-} ?>
+    <?php if (!isset($fullgrid)){ $fullgrid = false; } ?>
 </head>
 
 <body>

@@ -2,8 +2,10 @@
 
 namespace Apps\Console;
 
+
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\File;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -47,7 +49,7 @@ class MigrationCreateCommand extends Command
             $dir .= '/';
         }
         // parse table name
-        list($action, $table, $etc) = explode('_', $name);
+        list ($action, $table, $etc) = explode('_', $name);
         if ($table === null || Str::likeEmpty($table)) {
             $table = 'table';
         }

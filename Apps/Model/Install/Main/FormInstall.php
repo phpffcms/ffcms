@@ -10,8 +10,8 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Security;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Helper\Security;
 use Ffcms\Core\Managers\MigrationsManager;
 
 /**

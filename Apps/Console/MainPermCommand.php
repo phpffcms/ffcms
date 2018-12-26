@@ -2,10 +2,12 @@
 
 namespace Apps\Console;
 
+
 use Ffcms\Console\Command;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
+use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -64,4 +66,5 @@ class MainPermCommand extends Command
 
         $output->writeln('Permissions configuration is successful updated! Founded permissions: ' . count($permissions));
     }
+
 }

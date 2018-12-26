@@ -2,12 +2,12 @@
 
 namespace Apps\Controller\Api\Comments;
 
-use Apps\ActiveRecord\App as AppRecord;
 use Apps\ActiveRecord\CommentPost;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Apps\ActiveRecord\App as AppRecord;
 
 /**
  * Trait ActionCount

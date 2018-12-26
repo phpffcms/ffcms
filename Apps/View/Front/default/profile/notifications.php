@@ -32,10 +32,10 @@ $this->layout('_layouts/default', [
 </div>
 <?php
 if (!$model->items || count($model->items) < 1) {
-                echo '<p class="alert alert-warning">' . __('No notifications available') . '</p>';
-                $this->stop();
-                return;
-            }
+    echo '<p class="alert alert-warning">' . __('No notifications available') . '</p>';
+    $this->stop();
+    return;
+}
 ?>
 <?php foreach ($model->items as $item): ?>
     <div class="notice<?= $item['new'] ? ' notice-new' : ''; ?>">

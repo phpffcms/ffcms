@@ -157,7 +157,7 @@ $this->layout('_layouts/default', [
     </script>
 <?php endforeach; ?>
 
-<?php //\App::$View->render('content/_rateJs')?>
+<?php //\App::$View->render('content/_rateJs') ?>
 
 <?= $this->bootstrap()->pagination(['content/my'], ['class' => 'pagination justify-content-center'])
     ->size($pagination['total'], $pagination['page'], $pagination['step'])

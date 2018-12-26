@@ -46,6 +46,7 @@ $this->layout('_layouts/default', [
             } else {
                 $nesting = Str::entryCount($row->path, '/');
                 $offset += $nesting;
+
             }
             if ($offset > 8) {
                 $offset = 8;

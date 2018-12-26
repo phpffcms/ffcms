@@ -9,6 +9,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
+use Ffcms\Core\Helper\Type\Obj;
 
 /**
  * Class EntityUpdate. Update entity business logic - update checks & statistic collection

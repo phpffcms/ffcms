@@ -27,16 +27,16 @@ if (!$inputs || !is_array($inputs)) {
 }
 ?>
 <div class="form-group row">
-    <?= (new \Ffcms\Templex\Helper\Html\Dom())->label(function () use ($label) {
-    return $label;
-}, $labelProperties) ?>
+    <?= (new \Ffcms\Templex\Helper\Html\Dom())->label(function() use ($label) {
+        return $label;
+    }, $labelProperties) ?>
     <div class="col-md-9">
         <?php
         foreach ($inputs as $input) {
             if (!is_string($input) || strlen($input) < 1) {
                 continue;
             }
-            echo (new Dom())->div(function () use ($input) {
+            echo (new Dom())->div(function() use ($input) {
                 return $input;
             }, ['class' => 'form-check form-check-inline']);
         }

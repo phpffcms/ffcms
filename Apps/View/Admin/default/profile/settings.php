@@ -27,7 +27,7 @@ $this->layout('_layouts/default', [
 
 <?= $form->fieldset()->text('usersOnPage', null, __('How many users will be displayed per one list page?')) ?>
 <?= $form->fieldset()->boolean('guestView', null, __('Allow guests view user profiles?')) ?>
-<?= $form->fieldset()->text('wallPostOnPage', null, __('How many wall posts must be displayed in one page of profile?')) ?>
+<?= $form->fieldset()->text('wallPostOnPage', null,  __('How many wall posts must be displayed in one page of profile?')) ?>
 <?= $form->fieldset()->text('wallPostOnFeed', null, __('How many wall posts must be displayed on one page of feed list?')) ?>
 <?= $form->fieldset()->text('delayBetweenPost', null, __('Delay between 2 posts on wall from one user in seconds')) ?>
 <?= $form->fieldset()->boolean('rating', null, __('Enable user rating system?')) ?>

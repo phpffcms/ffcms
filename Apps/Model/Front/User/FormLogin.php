@@ -70,7 +70,7 @@ class FormLogin extends Model
     public function tryAuth(): bool
     {
         /** @var User $user */
-        $user = App::$User->where(function ($q) {
+        $user = App::$User->where(function($q) {
             $q->where('login', $this->login)
                 ->orWhere('email', $this->login);
         })->first();

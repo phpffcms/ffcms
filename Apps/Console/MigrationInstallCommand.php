@@ -2,10 +2,11 @@
 
 namespace Apps\Console;
 
+
 use Ffcms\Console\Command;
-use Illuminate\Database\Capsule\Manager as DatabaseManager;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Illuminate\Database\Capsule\Manager as DatabaseManager;
 
 /**
  * Class MigrationInstallCommand. Initialize migrations table in db
@@ -35,7 +36,7 @@ class MigrationInstallCommand extends Command
             $output->write('Migration table is always exists!');
             return;
         }
-        DatabaseManager::schema($this->dbConnection)->create('migrations', function ($table) {
+        DatabaseManager::schema($this->dbConnection)->create('migrations', function ($table){
             $table->increments('id');
             $table->string('migration', 127)->unique();
             $table->timestamps();
@@ -43,4 +44,5 @@ class MigrationInstallCommand extends Command
 
         $output->writeln('Migrations table are successful initialized. If you want to apply migrations run migration:up');
     }
+
 }

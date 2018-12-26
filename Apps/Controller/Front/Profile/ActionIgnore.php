@@ -7,8 +7,8 @@ use Apps\Model\Front\Profile\FormIgnoreAdd;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
-use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Ffcms\Core\Network\Request;
 
 /**
  * Trait ActionIgnore

@@ -2,7 +2,6 @@
 
 namespace Apps\Controller\Front\Content;
 
-use Apps\ActiveRecord\Content as ContentRecord;
 use Apps\Model\Front\Content\FormNarrowContentUpdate;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
@@ -10,6 +9,7 @@ use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NotFoundException;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Apps\ActiveRecord\Content as ContentRecord;
 
 /**
  * Trait ActionUpdate

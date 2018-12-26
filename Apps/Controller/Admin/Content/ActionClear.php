@@ -2,12 +2,12 @@
 
 namespace Apps\Controller\Admin\Content;
 
-use Apps\ActiveRecord\Content as ContentEntity;
 use Apps\Model\Admin\Content\FormContentClear;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Apps\ActiveRecord\Content as ContentEntity;
 
 /**
  * Trait ActionClear
