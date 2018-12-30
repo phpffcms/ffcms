@@ -38,27 +38,7 @@ class Profile extends AdminController
         profileFieldDelete as actionFielddelete;
     }
 
-    /**
-     * Show profiles settings
-     * @return string
-     * @throws \Ffcms\Core\Exception\SyntaxException
-     */
-    public function actionSettings()
-    {
-        $model = new FormSettings($this->getConfigs());
-
-        if ($model->send()) {
-            if ($model->validate()) {
-                $this->setConfigs($model->getAllProperties());
-                App::$Session->getFlashBag()->add('success', __('Settings is successful updated'));
-                $this->response->redirect('profile/index');
-            } else {
-                App::$Session->getFlashBag()->add('error', __('Form validation is failed'));
-            }
-        }
-
-        return $this->view->render('profile/settings', [
-            'model' => $model
-        ]);
+    use Profile\ActionSettings {
+        settings as actionSettings;
     }
 }

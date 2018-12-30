@@ -84,7 +84,7 @@ class Application extends AdminController
         $search = \Apps\ActiveRecord\App::getItem('app', $controller);
 
         // check what we got
-        if ($search === null || (int)$search->id < 1) {
+        if (!$search || (int)$search->id < 1) {
             throw new NotFoundException('App is not founded');
         }
 

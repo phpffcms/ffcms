@@ -20,6 +20,7 @@ $this->layout('_layouts/default', [
 <?= $this->insert('user/_tabs') ?>
 
 <h1><?= __('Manage user') ?></h1>
+
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>
 
@@ -31,7 +32,15 @@ $this->layout('_layouts/default', [
 <?= $form->fieldset()->boolean('approved', null, __('Set if user is approved or not')) ?>
 
 <?php if ($model->_user->getId() !== null): ?>
-    <div class="row">
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <div class="text-right"><strong><?= __('Profile preview') ?></strong></div>
+        </div>
+        <div class="col-md-9">
+            <a href="<?= \App::$Alias->scriptUrl . '/profile/show/' . $model->_user->id ?>" target="_blank"><?= __('View profile on website') ?></a>
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
         <div class="col-md-3">
             <div class="text-right"><strong><?= __('Profile data') ?></strong></div>
         </div>

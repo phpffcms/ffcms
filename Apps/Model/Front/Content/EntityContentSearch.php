@@ -49,6 +49,7 @@ class EntityContentSearch extends Model
     /**
      * Prepare conditions to build content list
      * @throws NotFoundException
+     * @throws \Psr\Cache\InvalidArgumentException
      * @return void
      */
     public function before(): void
@@ -91,6 +92,7 @@ class EntityContentSearch extends Model
             $text = App::$Security->strip_tags($text);
             // build items
             $this->items[] = [
+                'id' => $item->id,
                 'title' => $item->getLocaled('title'),
                 'snippet' => Text::snippet($text),
                 'uri' => '/content/read/' . $item->getPath(),

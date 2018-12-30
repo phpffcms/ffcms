@@ -22,7 +22,7 @@ return [
     'Files' => 'Файлы',
     'Antivirus' => 'Антивирус',
     'Routing' => 'Маршрутизация',
-    'Backup' => 'Резервирование',
+    'Updates' => 'Обновления',
     'Save' => 'Сохранить',
     'Send' => 'Отправить',
     'You got registration invite' => 'Вы получили приглашение на регистрацию',
@@ -41,5 +41,6 @@ return [
     'View all' => 'Просмотреть все',
     'App store' => 'Магазин расширений',
     'Unable to find this URL: %e%' => 'Не удается найти эту страницу на сайте: %e%',
-    'Search' => 'Поиск'
+    'Search' => 'Поиск',
+    'You got no access rights to this page' => 'У вас нет прав доступа к этой странице'
 ];

@@ -34,14 +34,14 @@ class AdminController extends Controller
      * @param bool $checkVersion
      * @throws ForbiddenException
      */
-    public function __construct($checkVersion = true)
+    public function __construct(bool $checkVersion = true)
     {
         parent::__construct();
         $this->buildExtensions();
         $this->checkAccess();
 
         // if version is not necessary to check - continue
-        if ($checkVersion === false) {
+        if (!$checkVersion) {
             return;
         }
 
@@ -49,7 +49,7 @@ class AdminController extends Controller
         $record = $this->getTypeItem();
 
         // check if extension is loaded
-        if ($record === null) {
+        if (!$record) {
             throw new ForbiddenException(__('This extension is not installed'));
         }
 
@@ -85,26 +85,22 @@ class AdminController extends Controller
 
     /**
      * Check if current user can access to admin controllers
+     * @throws ForbiddenException
      */
     private function checkAccess()
     {
         $user = App::$User->identity();
         // user is not authed ?
-        if ($user === null || !App::$User->isAuth()) {
+        if (!$user || !App::$User->isAuth()) {
             $redirectUrl = App::$Alias->scriptUrl . '/user/login';
             App::$Response->redirect($redirectUrl, true);
             exit();
         }
 
         $permission = env_name . '/' . App::$Request->getController() . '/' . App::$Request->getAction();
-
         // doesn't have permission? get the f*ck out
         if (!$user->role->can($permission)) {
-            App::$Session->invalidate();
-
-            $redirectUrl = App::$Alias->scriptUrl . '/user/login';
-            App::$Response->redirect($redirectUrl, true);
-            exit();
+            throw new ForbiddenException(__('You got no access rights to this page'));
         }
     }
 

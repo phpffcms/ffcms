@@ -40,7 +40,7 @@ class Widget extends AdminController
 
     /**
      * Show installation form for widget
-     * @return string
+     * @return string|null
      * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionInstall(): ?string
@@ -82,7 +82,7 @@ class Widget extends AdminController
         $search = \Apps\ActiveRecord\App::getItem('widget', $controller);
 
         // check what we got
-        if (!$search|| (int)$search->id < 1) {
+        if (!$search || (int)$search->id < 1) {
             throw new NotFoundException('Widget is not founded');
         }
 

@@ -8,6 +8,8 @@ use Ffcms\Core\Migrations\Migration;
  */
 class update_cms_310 extends Migration implements MigrationInterface
 {
+    const UPDATE_EXTENSIONS = ['User', 'Profile', 'Content', 'Feedback', 'Search', 'Sitemap', 'Comments', 'Newcontent', 'Contenttag', 'Newcomment'];
+
     /**
      * Implement new update changes
      * @return void
@@ -33,6 +35,10 @@ class update_cms_310 extends Migration implements MigrationInterface
                 $table->integer('app_relation_id')->unsigned()->default(0)->after('app_name');
             });
         }
+
+        \Apps\ActiveRecord\App::whereIn('sys_name', static::UPDATE_EXTENSIONS)
+            ->update(['version' => '1.0.1']);
+
         // @todo: add algo to find app_name & app_id for oldest comments
         if ($this->getSchema()->hasColumn('comment_posts', 'pathway')) {
             $this->getSchema()->table('comment_posts', function ($table){

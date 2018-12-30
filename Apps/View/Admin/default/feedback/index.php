@@ -49,7 +49,7 @@ foreach ($records as $item) {
         ['text' => Url::a(['feedback/read', [$item->id]], Text::snippet($item->message, 40)), 'html' => true],
         ['text' => '<span class="badge badge-light">' . $item->answers->count() . '</span>', 'html' => true],
         ['text' => $item->email],
-        ['text' => (bool)$item->closed ? '<span class="label label-danger">' . __('Closed') . '</span>' : '<span class="label label-success">' . __('Opened') . '</span>', 'html' => true, '!secure' => true],
+        ['text' => (bool)$item->closed ? '<span class="badge badge-danger">' . __('Closed') . '</span>' : '<span class="label label-success">' . __('Opened') . '</span>', 'html' => true, '!secure' => true],
         ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)],
         ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'role' => 'group'])
             ->add('<i class="fa fa-feed"></i>', ['feedback/read', [$item->id]], ['class' => 'btn btn-light', 'html' => true])

@@ -282,7 +282,7 @@ footer p > a {
     border-bottom: 1px solid #cfcfcf;
 }
 
-.card-body a {
+.card-body a:not(.badge) {
     color: #363676;
 }
 

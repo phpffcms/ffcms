@@ -122,6 +122,9 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-question-circle-o"></i> <?= __('Feedback') ?>
+                        <?php if ($features->getFeedback()->count() > 0): ?>
+                        <span class="badge badge-primary"><?= $features->getFeedback()->count() ?></span>
+                        <?php endif; ?>
                     </a>
                     <div class="dropdown-menu dropdown-md">
                         <div class="media-items">
@@ -135,12 +138,10 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                                 <?php foreach ($features->getFeedback() as $feed): ?>
                                     <div class="media">
                                         <div class="media-left">
-                                            <a href="#">
-                                                <i class="fa fa-question-circle fa-2x text-primary"></i>
-                                            </a>
+                                            <?= Url::a(['feedback/read', [$feed->id]], '<i class="fa fa-question-circle fa-2x text-primary"></i>', ['html' => true]) ?>
                                         </div>
                                         <div class="media-body text-muted">
-                                            <p class="media-heading"><a href="#"><?= $feed->name ?></a></p>
+                                            <p class="media-heading"><?= Url::a(['feedback/read', [$feed->id]], $feed->name) ?></p>
                                             <span class="text-sm"><?= Text::snippet($feed->message, 100) ?></span>
                                         </div>
                                     </div>
@@ -171,14 +172,14 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                                 <?php /** @var \Apps\ActiveRecord\CommentPost $comment */ ?>
                                     <div class="media">
                                         <div class="media-left">
-                                            <a href="#">
+                                            <a href="<?= ($comment->user ? Url::link(['user/update', [$comment->user->id]]) : '#') ?>">
                                                 <?php
                                                 $commentAva = \App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
-                                                if ($comment->user !== null && $comment->user->id > 0) {
+                                                if ($comment->user && $comment->user->id > 0) {
                                                     $commentAva = $comment->user->profile->getAvatarUrl('small');
                                                 }
                                                 ?>
-                                                <img class="media-object img-circle" src="<?= $commentAva ?>" width="38" height="38">
+                                                <img class="media-object img-circle" src="<?= $commentAva ?>" width="38" height="38" alt="avatar" />
                                             </a>
                                         </div>
                                         <div class="media-body text-muted">
@@ -263,7 +264,6 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                                 ->menu(['link' => ['main/files'], 'text' => '<i class="fa fa-file-o"></i> ' . __('Files'), 'html' => true])
                                 ->menu(['link' => ['main/antivirus'], 'text' => '<i class="fa fa-shield"></i> ' . __('Antivirus'), 'html' => true])
                                 ->menu(['link' => ['main/routing'], 'text' => '<i class="fa fa-code"></i> ' . __('Routing'), 'html' => true])
-                                ->menu(['link' => ['main/backup'], 'text' => '<i class="fa fa-hdd-o"></i> ' . __('Backup'), 'html' => true])
                                 ->menu(['link' => ['main/updates'], 'text' => '<i class="fa fa-gavel"></i> ' . __('Updates'), 'html' => true])
                                 ->display();
                             ?>

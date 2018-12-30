@@ -159,8 +159,6 @@ echo $navbar->display();
     </div>
 </footer>
 
-<?= $this->section('javascript') ?>
-
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/components/jquery/jquery.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -168,6 +166,8 @@ echo $navbar->display();
 
 <!-- jQuery code interprier after library loaded -->
 <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
+
+<?= $this->section('javascript') ?>
 
 <?php if (\App::$Debug): ?>
     <?= \App::$Debug->renderOut() ?>
