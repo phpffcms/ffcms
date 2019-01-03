@@ -27,7 +27,8 @@ trait ActionUpdate
     public function update(?string $id = null): ?string
     {
         // get item with trashed objects
-        $record = ContentEntity::withTrashed()
+        $record = ContentEntity::with(['commentPosts', 'commentPosts.user', 'commentPosts.user.profile'])
+            ->withTrashed()
             ->findOrNew($id);
         $isNew = $record->id === null;
         $cloneId = (int)$this->request->query->get('from', 0);

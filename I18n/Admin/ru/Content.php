@@ -136,5 +136,9 @@ return [
     'Content is successful published' => 'Контент успешно опубликован',
     'Publish' => 'Опубликовать',
     'Content publish' => 'Публикация контента',
-    'Are you sure to make this item public?' => 'Вы уверены что хотите опубликовать эти элементы?'
+    'Are you sure to make this item public?' => 'Вы уверены что хотите опубликовать эти элементы?',
+    'No comments found' => 'Комментарии не найдены',
+    'Message' => 'Комментарий',
+    'Answers' => 'Ответы',
+    'Author' => 'Автор'
 ];

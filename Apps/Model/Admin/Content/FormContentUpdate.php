@@ -2,9 +2,11 @@
 
 namespace Apps\Model\Admin\Content;
 
+use Apps\ActiveRecord\CommentPost;
 use Apps\ActiveRecord\Content;
 use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\ContentTag;
+use Apps\ActiveRecord\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Crypt;
@@ -14,6 +16,7 @@ use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Str;
+use Illuminate\Support\Collection;
 
 /**
  * Class FormContentUpdate. Create and update content items business model
@@ -30,7 +33,7 @@ class FormContentUpdate extends Model
     public $metaTitle;
     public $metaKeywords = [];
     public $metaDescription = [];
-    public $display = '1';
+    public $display = 1;
     public $source;
     public $addRating = 0;
     public $createdAt;
@@ -44,7 +47,7 @@ class FormContentUpdate extends Model
 
     /**
      * FormContentUpdate constructor. Pass content active record inside
-     * @param Content $content
+     * @param Content|Collection $content
      * @param int $cloneId
      */
     public function __construct(Content $content, int $cloneId = 0)
@@ -189,10 +192,6 @@ class FormContentUpdate extends Model
         if ((int)$this->addRating !== 0) {
             $this->_content->rating += (int)$this->addRating;
         }
-        // check if special comment hash is exist
-        if ($this->_new || Str::length($this->_content->comment_hash) < 32) {
-            $this->_content->comment_hash = $this->generateCommentHash();
-        }
 
         // check if date is updated
         if (!Str::likeEmpty($this->createdAt) && !Str::startsWith('0000', Date::convertToDatetime($this->createdAt, Date::FORMAT_SQL_TIMESTAMP))) {
@@ -212,7 +211,7 @@ class FormContentUpdate extends Model
         $this->_content->save();
         
         // update tags data in special table (relation: content->content_tags = oneToMany)
-        ContentTag::where('content_id', '=', $this->_content->id)->delete();
+        ContentTag::where('content_id', $this->_content->id)->delete();
         $insertData = [];
         foreach ($this->metaKeywords as $lang => $keys) {
             // split keywords to tag array
@@ -243,7 +242,7 @@ class FormContentUpdate extends Model
      * Get allowed category ids as array
      * @return array
      */
-    public function categoryIds()
+    public function categoryIds(): ?array
     {
         $data = ContentCategory::getSortedCategories();
         return array_keys($data);
@@ -253,34 +252,59 @@ class FormContentUpdate extends Model
      * Validate path filter
      * @return bool
      */
-    public function validatePath()
+    public function validatePath(): bool
     {
         // try to find this item
-        $find = Content::where('path', '=', $this->path);
+        $find = Content::where('path', $this->path);
         // exclude self id
-        if ($this->_content->id !== null && Any::isInt($this->_content->id)) {
+        if ($this->_content->id && Any::isInt($this->_content->id)) {
             $find->where('id', '!=', $this->_content->id);
         }
 
         // limit only current category id
-        $find->where('category_id', '=', $this->categoryId);
-
+        $find->where('category_id', $this->categoryId);
         return $find->count() < 1;
     }
 
     /**
-     * Generate random string for comment hash value
-     * @return string
+     * Get users id->nick+mail list
+     * @return array|null
      */
-    private function generateCommentHash()
+    public function getUserIdName(): ?array
     {
-        $hash = Crypt::randomString(mt_rand(32, 128));
-        $find = Content::where('comment_hash', '=', $hash)->count();
-        // hmmm, is always exist? Chance of it is TOOOO low, but lets recursion re-generate
-        if ($find !== 0) {
-            return $this->generateCommentHash();
+        $users = [];
+        User::with('profile')->get()->each(function ($user) use (&$users) {
+            /** @var User $user */
+            $users[$user->id] = ($user->profile->nick ?? 'id' . $user->id) . ' (' . $user->email . ')';
+        });
+
+        return $users;
+    }
+
+    /**
+     * Check if news is new
+     * @return bool
+     */
+    public function isNew(): bool
+    {
+        return $this->_new;
+    }
+
+    /**
+     * Get content comments
+     * @return CommentPost[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|null
+     */
+    public function getComments()
+    {
+        if ($this->isNew()) {
+            return null;
         }
 
-        return $hash;
+        return $this->_content->commentPosts;
+
+        /**return CommentPost::with(['user', 'user.profile'])
+            ->where('app_name', 'content')
+            ->where('app_relation_id', $this->_content->id)
+            ->get();*/
     }
 }

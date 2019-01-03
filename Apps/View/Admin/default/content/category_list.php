@@ -66,7 +66,7 @@ $this->layout('_layouts/default', [
                 </td>
                 <td class="text-center">
                     <?php $btn = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'dropdown' => ['class' => 'btn-group btn-group-sm'], 'role' => 'group'], 4)
-                        ->add('<i class="fa fa-eye"></i>', [\App::$Alias->scriptUrl . '/content/list/' . $row->path], ['html' => true])
+                        ->add('<i class="fa fa-eye"></i>', [\App::$Alias->scriptUrl . '/content/list/' . $row->path], ['html' => true, 'target' => '_blank'])
                         ->add('<i class="fa fa-plus"></i>', ['content/categoryupdate', null, ['parent' => $row->id]], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => __('Add subcategory'), 'html' => true])
                         ->add('<i class="fa fa-cog"></i>', ['content/categoryupdate', [$row->id]], ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'title' => __('Category configurations'), 'html' => true]);
                     if ($row->id > 1) {

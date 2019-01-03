@@ -55,11 +55,6 @@ $table = $this->table(['class' => 'table table-striped'])
     ]);
 
 foreach ($records as $user) {
-    $actionMenu = '<div class="btn-group btn-group-sm">';
-    $actionMenu .= Url::a(['user/update', [$user->id]], '<i class="fa fa-pencil"></i>', ['html' => true, 'class' => 'btn btn-sm btn-primary']);
-    $actionMenu .= Url::a(['user/delete', [$user->id]], ' <i class="fa fa-trash-o"></i>', ['html' => true, 'class' => 'btn btn-sm btn-danger']);
-    $actionMenu .= '</div>';
-
     $roleHtml = $user->role->color ? '<span class="badge badge-light" style="color: ' . $user->role->color . '">' . $user->role->name . '</span>' : $user->role->name;
 
     $table->row([
@@ -68,7 +63,11 @@ foreach ($records as $user) {
         ['text' => $user->login],
         ['text' => $roleHtml, 'html' => true],
         ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
-        ['text' => $actionMenu,
+        ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
+            ->add('<i class="fa fa-pencil"></i>', ['user/update', [$user->id]], ['class' => 'btn btn-primary', 'html' => true])
+            ->add('<i class="fa fa-eraser"></i>', ['user/clear', [$user->id]], ['class' => 'btn btn-warning', 'html' => true])
+            ->add('<i class="fa fa-trash-o"></i>', ['user/delete', [$user->id]], ['class' => 'btn btn-danger', 'html' => true])
+            ->display(),
             'properties' => ['class' => 'text-center'], 'html' => true],
         'properties' => ['class' => 'checkbox-row' . ($user->approve_token !== null ? ' bg-warning' : null)]
 

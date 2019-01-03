@@ -375,14 +375,14 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<!-- jQuery code interprier after library loaded -->
-<script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
-
 <?php if (\App::$Debug): ?>
     <?= \App::$Debug->renderOut() ?>
 <?php endif; ?>
 
 <?= $this->section('javascript') ?>
+
+<!-- jQuery code interprier after library loaded -->
+<script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
 
 <script>
     $(document).ready(function(){

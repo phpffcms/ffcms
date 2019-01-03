@@ -28,6 +28,10 @@ class User extends AdminController
         delete as actionDelete;
     }
 
+    use User\ActionClear {
+        clear as actionClear;
+    }
+
     use User\ActionInviteList {
         inviteList as actionInvitelist;
     }

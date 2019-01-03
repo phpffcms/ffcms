@@ -51,6 +51,14 @@ foreach ($model->users as $user) {
 
 <?php $form = $this->form($model); ?>
 <?= $form->start() ?>
+
+<div class="row mb-2 mt-2">
+    <div class="col-12">
+        <?= $form->field()->boolean('delete', ['id' => 'delete_user_data']) ?>
+        <label for="delete_user_data"><?= __('Delete all user data (comments, content, wall posts, feedback)?') ?></label>
+    </div>
+</div>
+
 <?= $form->button()->submit(__('Delete'), ['class' => 'btn btn-danger']) ?>
 <?= $form->button()->cancel(__('Cancel'), ['link' => ['user/index'], 'class' => 'btn btn-secondary']) ?>
 <?= $form->stop() ?>

@@ -45,6 +45,12 @@ class update_cms_310 extends Migration implements MigrationInterface
                 $table->dropColumn('pathway');
             });
         }
+        // remove comment_hash column from content
+        if ($this->getSchema()->hasColumn('contents', 'comment_hash')) {
+            $this->getSchema()->table('contents', function ($table){
+                $table->dropColumn('comment_hash');
+            });
+        }
     }
 
     /**

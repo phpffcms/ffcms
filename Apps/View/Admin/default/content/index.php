@@ -125,7 +125,7 @@ foreach ($records as $content) {
     }
 
     $actionMenu->add(__('Edit'), ['content/update', [$content->id]]);
-    $actionMenu->add(__('See as user'), [$frontLink]);
+    $actionMenu->add(__('See as user'), [$frontLink], ['target' => '_blank']);
 
     $actionMenu->add(__('Clone'), ['content/update', null, ['from' => $content->id]]);
 

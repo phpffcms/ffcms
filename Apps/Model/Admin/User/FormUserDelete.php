@@ -14,7 +14,9 @@ use Ffcms\Core\Helper\FileSystem\File;
  */
 class FormUserDelete extends Model
 {
+    /** @var User[] */
     public $users;
+    public $delete = false;
 
     private $_ids;
 
@@ -35,8 +37,9 @@ class FormUserDelete extends Model
     {
         // try to find each user
         foreach ($this->_ids as $id) {
+            /** @var User $user */
             $user = App::$User->identity($id);
-            if ($user !== null) {
+            if ($user) {
                 $this->users[] = $user;
             }
         }
@@ -50,7 +53,20 @@ class FormUserDelete extends Model
     {
         return [
             'email' => __('Email'),
-            'login' => __('Login')
+            'login' => __('Login'),
+            'delete' => __('Delete user content')
+        ];
+    }
+
+    /**
+     * Validation rules
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            ['delete', 'required'],
+            ['delete', 'boolean']
         ];
     }
 
@@ -61,12 +77,17 @@ class FormUserDelete extends Model
     public function delete()
     {
         foreach ($this->users as $user) {
-            /** @var User $user */
-            $uid = $user->getParam('id');
-            // delete wall records
-            WallPost::where('target_id', '=', $uid)
-                ->orWhere('sender_id', '=', $uid)
-                ->delete();
+            $uid = $user->id;
+            // delete whole website info for this user
+            if ((bool)$this->delete) {
+                $model = new FormUserClear($user);
+                $model->comments = true;
+                $model->content = true;
+                $model->feedback = true;
+                $model->wall = true;
+                $model->make();
+            }
+
             // delete avatars
             File::remove('/upload/user/avatar/big/' . $uid . '.jpg');
             File::remove('/upload/user/avatar/medium/' . $uid . '.jpg');

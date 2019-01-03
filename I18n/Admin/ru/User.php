@@ -25,6 +25,7 @@ return [
     'Set if user is approved or not' => 'Укажите, прошел ли пользователь процедуру подтверждения регистрации',
     'Delete users' => 'Удаление пользователей',
     'Delete' => 'Удалить',
+    'Clear' => 'Очистить',
     'Users and them data are successful removed' => 'Пользователи и их данные были успешно удалены',
     'Role list' => 'Список ролей',
     'Name' => 'Название',
@@ -56,6 +57,7 @@ return [
     'Delete selected' => 'Удалить выбранных',
     'Users are not found' => 'Пользователи не найдены',
     'Are you sure to delete this users?' => 'Вы уверены что хотите удалить этих пользователей?',
+    'Delete all user data (comments, content, wall posts, feedback)?' => 'Удалить все следы пользователя (комментарии, материалы, записи на стенах и т.д.)?',
     'Invite system is disabled. Registration is public' => 'Система приглашений в данный момент выключена! Регистрация открыта для всех',
     'Valid' => 'Действителен',
     'Send date' => 'Дата отправки',
@@ -64,5 +66,15 @@ return [
     'Invite successful removed' => 'Приглашение успешно удалено',
     'No invites recently send' => 'Вы еше не рассылали приглашения',
     'Profile preview' => 'Предпросмотр профиля',
-    'View profile on website' => 'Посмотреть пользователя на сайте'
+    'View profile on website' => 'Посмотреть пользователя на сайте',
+    'User cleanup' => 'Очистка пользователя',
+    'On this page you can make full cleanup user input data' => 'На этой странице вы можете зачистить весь контент от пользователя',
+    'Comments and answers' => 'Комментарии и ответы',
+    'Delete all user comments and answers?' => 'Удалить все комментарии и ответы от пользователя?',
+    'Delete all user content pages?' => 'Удалить все новости и страницы от пользователя?',
+    'Feedback requests' => 'Запросы обратной связи',
+    'Delete all user feedback requests?' => 'Удалить все запросы обратной связи от пользователя?',
+    'Wall posts and answers' => 'Сообщения на пользовательских стенах',
+    'Delete all wall posts and answers?' => 'Удалить все записи на стенах пользователей от этого пользователя?',
+    'User input data clear successful' => 'Материалы пользователя успешно очищены'
 ];

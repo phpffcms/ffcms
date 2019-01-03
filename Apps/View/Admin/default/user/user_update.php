@@ -51,6 +51,7 @@ $this->layout('_layouts/default', [
 <?php endif; ?>
 <?= $form->button()->submit(__('Save'), ['class' => 'btn btn-primary']) ?>
 <?= $form->button()->cancel(__('Cancel'), ['class' => 'btn btn-secondary', 'link' => ['user/index']]) ?>
+<?= Url::a(['user/clear', [$model->_user->id]], __('Clear'), ['class' => 'btn btn-warning']) ?>&nbsp;
 <?= Url::a(['user/delete', [$model->_user->id]], __('Delete'), ['class' => 'btn btn-danger']) ?>
 
 <?= $form->stop() ?>

@@ -150,10 +150,6 @@ class FormNarrowContentUpdate extends Model
         $this->_record->category_id = (int)$this->categoryId;
         $this->_record->display = 0; // set to premoderation
         $this->_record->author_id = (int)$this->authorId;
-        if ($this->_new) {
-            $this->_record->comment_hash = $this->generateCommentHash();
-        }
-
         $this->_record->save();
 
         // work with poster data
@@ -217,21 +213,5 @@ class FormNarrowContentUpdate extends Model
         $find->where('category_id', '=', $this->categoryId);
 
         return $find->count() < 1;
-    }
-
-    /**
-     * Generate random string for comment hash value
-     * @return string
-     */
-    private function generateCommentHash()
-    {
-        $hash = Crypt::randomString(mt_rand(32, 128));
-        $find = Content::where('comment_hash', '=', $hash)->count();
-        // hmmm, hash is always exist? Chance of this is too low, but lets recursion re-generate
-        if ($find !== 0) {
-            return $this->generateCommentHash();
-        }
-
-        return $hash;
     }
 }

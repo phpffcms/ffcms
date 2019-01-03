@@ -29,7 +29,6 @@ class install_content_table extends Migration implements MigrationInterface
             $table->integer('views')->default(0);
             $table->integer('rating')->default(0);
             $table->string('source', 1024)->nullable();
-            $table->string('comment_hash', 128)->nullable();
             $table->boolean('important')->default(false);
             $table->timestamps();
             $table->softDeletes();

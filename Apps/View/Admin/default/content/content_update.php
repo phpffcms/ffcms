@@ -4,6 +4,7 @@
 /** @var \Ffcms\Templex\Template\Template $this */
 
 use Apps\ActiveRecord\ContentCategory;
+use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Helper\Html\Dom;
 use Ffcms\Templex\Url\Url;
@@ -31,6 +32,8 @@ $this->layout('_layouts/default', [
         background: white;
     }
 </style>
+<!-- selectize plugin -->
+<link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/selectize/dist/css/selectize.default.css" />
 <?php $this->stop() ?>
 
 <?php $this->start('body') ?>
@@ -70,7 +73,7 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
                 'text' => Str::upperCase($lang),
                 'tab' => function() use ($form, $lang) {
                     return $form->fieldset()->text('metaTitle.' . $lang, null, __('Set meta title for content page (displayed in browser head). Recommended length: 50-70 chars')).
-                        $form->fieldset()->text('metaKeywords.' . $lang, null, __('Set meta keywords for this content (for search engine crawlers) separated by comma')).
+                        $form->fieldset()->text('metaKeywords.' . $lang, ['class' => 'tag-selectize'], __('Set meta keywords for this content (for search engine crawlers) separated by comma')).
                         $form->fieldset()->text('metaTitle.' . $lang, null, __('Set meta description for this content (for search engine crawlers). Recommended length: 200-250 chars'));
                 },
                 'tabActive' => $lang === \App::$Request->getLanguage()
@@ -93,14 +96,52 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
         </div>
     </div><br/><br/>';
     }])
-    ->menu(['text' => __('Other'), 'tab' => function() use ($form) {
+    ->menu(['text' => __('Other'), 'tab' => function() use ($form, $model) {
         return $form->fieldset()->boolean('display', null, __('Can users view this content or only available for administrators?')) .
             $form->fieldset()->boolean('important', null, __('Make this material important and stack it on top of all news?')) .
             $form->fieldset()->text('createdAt', ['class' => 'form-control datepick'], __('Set the date of creation or leave empty for current date')) .
-            $form->fieldset()->text('authorId', null, __('Enter author user_id or leave empty to set current user as author')) .
+            $form->fieldset()->select('authorId', ['options' => $model->getUserIdName(), 'optionsKey' => true, 'class' => 'selectize-option'], __('Enter author user_id or leave empty to set current user as author')) .
             $form->fieldset()->text('source', null, __('Set source URL if this content is copied from another website')) .
             $form->fieldset()->text('addRating', null, __('Add or reduce this content rating. Example: 5 gives +5 to total rating, -5 gives -5 to total'));
     }]);
+
+if (!$model->isNew()) {
+    $menu->menu(['text' => __('Comments'), 'tab' => function() use ($form, $model) {
+        /** @var \Ffcms\Templex\Template\Template $this */
+        $comments = $model->getComments();
+
+        if (!$comments || $comments->count() < 1) {
+            return $this->bootstrap()->alert('warning', __('No comments found'));
+        }
+
+        $table = $this->table(['class' => 'table table-striped'])
+            ->head([
+                ['text' => '#'],
+                ['text' => __('Message')],
+                ['text' => __('Answers')],
+                ['text' => __('Author')],
+                ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
+            ]);
+
+        foreach ($comments as $comment) {
+            $table->row([
+                ['text' => $comment->id],
+                ['text' => Text::snippet(\App::$Security->strip_tags($comment->message), 100)],
+                ['text' => $comment->getAnswerCount()],
+                ['text' => Url::a(['user/update', [$comment->user_id]], ($comment->user->profile->nick ?? 'id' . $comment->user->id)), 'html' => true],
+                ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
+                    ->add('<i class="fa fa-pencil"></i>', ['comments/read', [$comment->id]], ['html' => true, 'class' => 'btn btn-primary', 'target' => '_blank'])
+                    ->add('<i class="fa fa-trash-o"></i>', ['comments/delete', ['comment', $comment->id]], ['html' => true, 'class' => 'btn btn-danger', 'target' => '_blank'])
+                    ->display(),'properties' => ['class' => 'text-center'], 'html' => true
+                ]
+            ]);
+        }
+        return (new Dom())->div(function() use ($table){
+            return $table->display();
+        }, ['class' => 'table-responsive']);
+    }]);
+}
+
 echo $menu->display();
 echo $form->button()->submit(__('Save'), ['class' => 'btn btn-primary mt-2']);
 
@@ -124,6 +165,7 @@ echo $form->button()->submit(__('Save'), ['class' => 'btn btn-primary mt-2']);
 <script>Dropzone.autoDiscover = false</script>
 <!-- jquery datepicker plugin (over jquery-ui) -->
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery-datepicker/jquery-datepicker.js"></script>
+<script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/selectize/dist/js/standalone/selectize.min.js"></script>
 <script>
 $(document).ready(function(){
     var isChanged = false;
@@ -224,6 +266,23 @@ $(document).ready(function(){
             //console.log('Client file: [' + file.name + ']/Server file:[' + response.file.name + ']');
         }
     });
+
+    // prepare selectize features
+    $('.tag-selectize').selectize({
+        delimiter: ',',
+        persist: false,
+        create: function (input) {
+            return {
+                value: input,
+                text: input
+            }
+        }
+
+    });
+    $('.selectize-option').selectize({
+        sortField: 'text'
+    });
+
 });
 </script>
 <?php $this->stop() ?>
