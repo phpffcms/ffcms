@@ -73,7 +73,7 @@ class FormSettings extends Model
         return [
             [['perPage', 'delay', 'minLength', 'maxLength', 'guestAdd', 'guestModerate', 'onlyLocale'], 'required'],
             [['minLength', 'maxLength', 'delay', 'perPage', 'onlyLocale'], 'int'],
-            [['guestAdd', 'onlyLocale', 'guestModerate'], 'in', [0, 1]]
+            [['guestAdd', 'onlyLocale', 'guestModerate'], 'boolean']
         ];
     }
 }

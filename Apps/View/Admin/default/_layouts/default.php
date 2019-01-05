@@ -27,6 +27,10 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <!-- theme -->
     <link rel="stylesheet" href="<?= \App::$Alias->currentViewUrl ?>/assets/css/style.css" />
 
+    <?php if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1): ?>
+        <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/language-flags/flags.css" />
+    <?php endif; ?>
+
     <title><?= $title ?? 'Admin panel' ?></title>
 
     <?= $this->section('css') ?>
@@ -58,7 +62,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand d-none d-md-inline-block" href="<?= \App::$Alias->baseUrl ?>">
-                <i class="fa fa-globe" aria-hidden="true"></i>
+                <i class="fa fa-globe" aria-hidden="true"></i> <small style="font-size: 24px;">FFCMS</small>
             </a>
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item dropdown active">
@@ -214,7 +218,18 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-8 page-title-wrapper">
-                        <h1 class="page-title">FFCMS<sup>3</sup></h1>
+                        <?php if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1) {
+                            $list = $this->listing('ul', ['class' => 'list-inline']);
+                            foreach (\App::$Properties->get('languages') as $lang) {
+                                $list->li([
+                                    'text' => '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="flag flag-' . $lang . '" alt="' . $lang . '">',
+                                    'link' => App::$Alias->baseUrlNoLang . '/' . $lang . App::$Request->getPathInfo(),
+                                    'html' => true
+                                ], ['class' => 'list-inline-item']);
+                            }
+                            echo $list->display();
+                        } ?>
+                        <!--<h1 class="page-title">FFCMS<sup>3</sup></h1>-->
                         <h2 class="page-subtitle">
                         <?php if (isset($breadcrumbs) && is_array($breadcrumbs)): ?>
                             <?php foreach ($breadcrumbs as $url => $text): ?>

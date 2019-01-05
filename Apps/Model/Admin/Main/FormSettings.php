@@ -127,7 +127,7 @@ class FormSettings extends Model
             ['mail.encrypt', 'in', ['ssl', 'tls', 'none']],
             ['timezone', 'string'],
             ['baseProto', 'in', ['http', 'https']],
-            [['userCron', 'testSuite'], 'in', [0, 1]],
+            [['userCron', 'testSuite'], 'boolean'],
         ];
     }
 

@@ -16,6 +16,9 @@ use Ffcms\Templex\Url\Url;
     <link rel="stylesheet" href="<?= \App::$Alias->currentViewUrl ?>/assets/css/style.css" />
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/components/font-awesome/css/font-awesome.min.css" />
+    <?php if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1): ?>
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/language-flags/flags.css" />
+    <?php endif; ?>
     <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
     <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
@@ -38,7 +41,16 @@ $navbar->menu('left', ['text' => __('News'), 'link' => ['content/list', ['news']
 $navbar->menu('left', ['text' => __('About'), 'link' => ['content/read', ['page', 'about-page']]]);
 $navbar->menu('left', ['text' => __('Feedback'), 'link' => ['feedback/create']]);
 $navbar->menu('left', ['text' => __('Users'), 'link' => ['profile/index', ['all']]]);
-
+// language change flags if enabled
+if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1) {
+    foreach (\App::$Properties->get('languages') as $lang) {
+        $navbar->menu('left', [
+            'text' => '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="flag flag-' . $lang . '" alt="' . $lang . '">',
+            'link' => App::$Alias->baseUrlNoLang . '/' . $lang . App::$Request->getPathInfo(),
+            'html' => true
+        ]);
+    }
+}
 if (\App::$User->isAuth()) {
     $userId = \App::$User->identity()->getId();
     $navbar->menu('right', ['text' => __('Account') . ' <span class="badge" id="summary-count-block">0</span>', 'dropdown' => [
@@ -72,7 +84,7 @@ echo $navbar->display();
         <div class="col">
             <form class="form-inline" action="<?= Url::to('search/index') ?>" method="GET">
                 <input type="text" name="query" class="form-control col-md-9 mr-md-1" id="searchInput" value="<?= isset($query) ? $query : null ?>">
-                <button type="submit" class="btn btn-primary col-md">Submit</button>
+                <button type="submit" class="btn btn-primary col-md"><?= __('Search') ?></button>
             </form>
         </div>
     </div>

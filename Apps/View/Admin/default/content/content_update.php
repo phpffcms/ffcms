@@ -165,6 +165,7 @@ echo $form->button()->submit(__('Save'), ['class' => 'btn btn-primary mt-2']);
 <script>Dropzone.autoDiscover = false</script>
 <!-- jquery datepicker plugin (over jquery-ui) -->
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery-datepicker/jquery-datepicker.js"></script>
+<!-- selectize plugin -->
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/selectize/dist/js/standalone/selectize.min.js"></script>
 <script>
 $(document).ready(function(){

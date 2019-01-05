@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/components/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="<?= \App::$Alias->currentViewUrl ?>/assets/css/style.css" />
+    <?php if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1): ?>
+        <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/language-flags/flags.css" />
+    <?php endif; ?>
+
     <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
     <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
@@ -36,6 +40,17 @@
         <div class="col-md-10">
             <h1>FFCMS 3</h1>
             <small><?= __('Fast, flexibility content management system with MVC framework inside!') ?></small>
+            <?php if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1) {
+                $list = $this->listing('ul', ['class' => 'list-inline']);
+                foreach (\App::$Properties->get('languages') as $lang) {
+                    $list->li([
+                        'text' => '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="flag flag-' . $lang . '" alt="' . $lang . '">',
+                        'link' => App::$Alias->baseUrlNoLang . '/' . $lang . App::$Request->getPathInfo(),
+                        'html' => true
+                    ], ['class' => 'list-inline-item']);
+                }
+                echo $list->display();
+            } ?>
         </div>
     </div>
 </header>

@@ -108,12 +108,12 @@ class FormCategoryUpdate extends Model
     {
         $rules = [
             [['title', 'description', 'configs'], 'used'],
-            [['configs.showDate', 'configs.showRating', 'configs.showAuthor', 'configs.showViews', 'configs.showComments'], 'in', [0, 1]],
-            [['configs.showPoster', 'configs.showCategory', 'configs.showRss', 'configs.showSimilar', 'configs.showTags'], 'in', [0, 1]]
+            [['configs.showDate', 'configs.showRating', 'configs.showAuthor', 'configs.showViews', 'configs.showComments'], 'boolean'],
+            [['configs.showPoster', 'configs.showCategory', 'configs.showRss', 'configs.showSimilar', 'configs.showTags'], 'boolean']
         ];
 
         // general category
-        if ($this->_new === false && (int)$this->_record->id === 1) {
+        if (!$this->_new && (int)$this->_record->id === 1) {
             $rules[] = ['path', 'used'];
         } else {
             $rules[] = ['path', 'required'];
@@ -143,12 +143,12 @@ class FormCategoryUpdate extends Model
 
     /**
      * Get allowed category ids as array (string values for validation)
-     * @return array
+     * @return array|null
      */
-    public function categoryList()
+    public function categoryList(): ?array
     {
         $response = ContentCategory::getSortedCategories();
-        if ($this->id !== null) {
+        if ($this->id) {
             unset($response[$this->id]);
         }
         return $response;
@@ -160,11 +160,11 @@ class FormCategoryUpdate extends Model
      * @return bool
      * @throws SyntaxException
      */
-    public function pathIsFree($path)
+    public function pathIsFree($path): bool
     {
         $owner = ContentCategory::getById($this->dependId);
-        if ($owner === null || $owner === false) {
-            throw new SyntaxException();
+        if (!$owner) {
+            throw new SyntaxException(__('No owner category found'));
         }
 
         // build path with owner category
@@ -174,8 +174,8 @@ class FormCategoryUpdate extends Model
         }
 
         // make select for check
-        $query = ContentCategory::where('path', '=', $path);
-        if ($this->_new !== true) {
+        $query = ContentCategory::where('path', $path);
+        if (!$this->_new) {
             // exclude current category from checking path's
             $query->where('id', '!=', $this->_record->id);
         }

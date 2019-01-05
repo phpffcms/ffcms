@@ -68,8 +68,8 @@ class FormSettings extends Model
     {
         return [
             [['guestView', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed'], 'required'],
-            [['guestView', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed'], 'int'],
-            [['guestView', 'rating'], 'in', [0, 1]]
+            [['wallPostOnPage', 'delayBetweenPost', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed'], 'int'],
+            [['guestView', 'rating'], 'boolean']
         ];
     }
 }

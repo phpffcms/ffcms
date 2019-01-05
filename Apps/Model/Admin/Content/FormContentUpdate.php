@@ -122,7 +122,7 @@ class FormContentUpdate extends Model
             [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title', 'important'], 'required'],
             [['metaTitle', 'metaKeywords', 'metaDescription', 'poster', 'source', 'addRating', 'createdAt'], 'used'],
             [['addRating', 'authorId', 'display'], 'int'],
-            [['important', 'display'], 'in', [0, 1]],
+            [['important', 'display'], 'boolean'],
             ['categoryId', 'in', $this->categoryIds()],
             ['path', '\Apps\Model\Admin\Content\FormContentUpdate::validatePath'],
             ['authorId', '\App::$User::isExist']
