@@ -61,9 +61,10 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand d-none d-md-inline-block" href="<?= \App::$Alias->baseUrl ?>">
-                <i class="fa fa-globe" aria-hidden="true"></i> <small style="font-size: 24px;">FFCMS</small>
-            </a>
+            <h1 class="navbar-brand d-none d-md-inline-block">
+                <a href="<?= \App::$Alias->baseUrl ?>"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                <small style="font-size: 24px;">FFCMS</small>
+            </h1>
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item dropdown active">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

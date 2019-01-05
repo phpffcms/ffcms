@@ -51,11 +51,10 @@ trait ActionShowWallAnswers
             ->get();
 
         $response = [];
-        /** @var WallAnswer[] $answers */
-        foreach ($answers as $answer) {
-            // check if user exist
-            if ($answer->user === null || $answer->user->id < 1) {
-                continue;
+        $answers->each(function($answer) use (&$response) {
+            /** @var WallAnswer $answer */
+            if (!$answer->user || $answer->user->id < 1) {
+                return;
             }
             // generate response array
             $response[] = [
@@ -67,7 +66,7 @@ trait ActionShowWallAnswers
                 'answer_message' => $answer->message,
                 'answer_date' => Date::humanize($answer->created_at)
             ];
-        }
+        });
 
         // encode and show json result
         return json_encode(['status' => 1, 'data' => $response]);

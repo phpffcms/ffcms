@@ -26,7 +26,6 @@ trait ActionShowAnswer
      * @return string
      * @throws ForbiddenException
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\JsonException
      */
     public function showAnswers(string $commentId): ?string
     {
@@ -44,7 +43,7 @@ trait ActionShowAnswer
             ->where('comment_id', $commentId)
             ->where('moderate', false);
         if ((bool)$configs['onlyLocale']) {
-            $records = $records->where('lang', '=', $this->request->getLanguage());
+            $records = $records->where('lang', $this->request->getLanguage());
         }
 
         // check objects count
@@ -54,10 +53,9 @@ trait ActionShowAnswer
 
         // prepare output
         $response = [];
-        foreach ($records->get() as $row) {
-            $commentAnswer = new EntityCommentData($row);
-            $response[] = $commentAnswer->make();
-        }
+        $records->get()->each(function($item) use (&$response){
+            $response[] = (new EntityCommentData($item))->make();
+        });
 
         return json_encode([
             'status' => 1,

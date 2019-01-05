@@ -24,7 +24,6 @@ trait ActionList
      * @param string $appId
      * @return string
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\JsonException
      */
     public function aList(string $appName, string $appId): ?string
     {
@@ -45,7 +44,7 @@ trait ActionList
 
         // check if comments is depend of language locale
         if ((bool)$configs['onlyLocale']) {
-            $query = $query->where('lang', '=', $this->request->getLanguage());
+            $query = $query->where('lang', $this->request->getLanguage());
         }
 
         // calculate total comment count
@@ -64,12 +63,9 @@ trait ActionList
 
         // build output json data as array
         $data = [];
-        foreach ($records as $comment) {
-            // prepare specified data to output response, based on entity model
-            $commentResponse = new EntityCommentData($comment);
-            // build output json data
-            $data[] = $commentResponse->make();
-        }
+        $records->each(function ($comment) use (&$data){
+            $data[] = (new EntityCommentData($comment))->make();
+        });
 
         // reduce count to current offset
         $count -= $offset + $perPage;

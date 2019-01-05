@@ -22,7 +22,7 @@ class FormUserUpdate extends Model
     public $password;
     public $newpassword;
     public $role_id;
-    public $approved = true;
+    public $approved = false;
 
     public $approve_token;
 

@@ -57,17 +57,23 @@ $table = $this->table(['class' => 'table table-striped'])
 foreach ($records as $user) {
     $roleHtml = $user->role->color ? '<span class="badge badge-light" style="color: ' . $user->role->color . '">' . $user->role->name . '</span>' : $user->role->name;
 
+    $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'], 4)
+        ->add('<i class="fa fa-pencil"></i>', ['user/update', [$user->id]], ['class' => 'btn btn-primary', 'html' => true])
+        ->add('<i class="fa fa-eraser"></i>', ['user/clear', [$user->id]], ['class' => 'btn btn-warning', 'html' => true])
+        ->add('<i class="fa fa-trash-o"></i>', ['user/delete', [$user->id]], ['class' => 'btn btn-danger', 'html' => true]);
+
+    // user not approved - show approve button
+    if ($user->approve_token) {
+        $btngrp->add('<i class="fa fa-check"></i>', ['user/approve', [$user->id]], ['class' => 'btn btn-success', 'html' => true]);
+    }
+
     $table->row([
         ['text' => $user->id],
         ['text' => $user->email],
         ['text' => $user->login],
         ['text' => $roleHtml, 'html' => true],
         ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
-        ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
-            ->add('<i class="fa fa-pencil"></i>', ['user/update', [$user->id]], ['class' => 'btn btn-primary', 'html' => true])
-            ->add('<i class="fa fa-eraser"></i>', ['user/clear', [$user->id]], ['class' => 'btn btn-warning', 'html' => true])
-            ->add('<i class="fa fa-trash-o"></i>', ['user/delete', [$user->id]], ['class' => 'btn btn-danger', 'html' => true])
-            ->display(),
+        ['text' => $btngrp->display(),
             'properties' => ['class' => 'text-center'], 'html' => true],
         'properties' => ['class' => 'checkbox-row' . ($user->approve_token !== null ? ' bg-warning' : null)]
 

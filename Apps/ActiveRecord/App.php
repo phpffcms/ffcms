@@ -53,23 +53,6 @@ class App extends ActiveModel
     }
 
     /**
-     * Get all object by defined $type with caching query in memory
-     * @param string $type
-     * @return array|null
-     */
-    public static function getAllByType(string $type): ?array
-    {
-        $response = null;
-        foreach (self::all() as $object) {
-            if ($object->type === $type) {
-                $response[] = $object;
-            }
-        }
-
-        return $response;
-    }
-
-    /**
      * Get single row by defined type and sys_name with query caching
      * @param string $type
      * @param string|array $name

@@ -104,8 +104,8 @@ trait ActionMessageList
         }
 
         // build response
-        $response = null;
-        foreach ($messages->get() as $msg) {
+        $response = [];
+        $messages->get()->each(function ($msg) use (&$response, $user){
             /** @var Message $msg */
             $response[] = [
                 'id' => $msg->id,
@@ -116,11 +116,11 @@ trait ActionMessageList
             ];
 
             // update status to readed
-            if ((bool)$msg->readed !== true && $msg->sender_id !== $user->id) {
+            if (!(bool)$msg->readed && $msg->sender_id !== $user->id) {
                 $msg->readed = true;
                 $msg->save();
             }
-        }
+        });
 
         return json_encode([
             'status' => 1,

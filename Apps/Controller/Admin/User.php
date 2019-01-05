@@ -55,4 +55,8 @@ class User extends AdminController
     use User\ActionSettings {
         settings as actionSettings;
     }
+
+    use User\ActionApprove {
+        approve as actionApprove;
+    }
 }

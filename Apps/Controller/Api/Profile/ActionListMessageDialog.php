@@ -61,8 +61,7 @@ trait ActionListMessageDialog
             $userList[] = $new;
         }
 
-        // there is 2 way of messages: me->user; user->me, try to parse it
-        foreach ($records as $row) {
+        $records->each(function($row) use (&$userList, $user){
             // target is not myself? then i'm - sender (remote user is target: my->to_user)
             if ($row->target_id !== $user->id) {
                 $userList[] = $row->target_id;
@@ -75,7 +74,7 @@ trait ActionListMessageDialog
                     $unreadList[] = $row->sender_id;
                 }
             }
-        }
+        });
 
         // store only unique users in dialog
         $userList = array_unique($userList, SORT_NUMERIC);
@@ -83,7 +82,7 @@ trait ActionListMessageDialog
         $response = [];
         foreach ($userList as $user_id) {
             $identity = App::$User->identity($user_id);
-            if (null === $identity) {
+            if (!$identity) {
                 continue;
             }
 

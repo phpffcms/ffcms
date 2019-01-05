@@ -24,7 +24,6 @@ class FrontAppController extends Controller
     /**
      * FrontAppController constructor. Check if app is enabled in database
      * @throws ForbiddenException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function __construct()
     {
@@ -40,9 +39,8 @@ class FrontAppController extends Controller
     /**
      * Check is current instance of application is enabled and can be executed
      * @return bool
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         $appName = App::$Request->getController();
         // if app class extend current class we can get origin name
@@ -61,9 +59,9 @@ class FrontAppController extends Controller
 
     /**
      * Get current application configs as array
-     * @return array
+     * @return array|null
      */
-    public function getConfigs()
+    public function getConfigs(): ?array
     {
         if ($this->configs !== null) {
             return $this->configs;
