@@ -2,7 +2,7 @@
 
 namespace Apps\Model\Front\Search\Interfaces;
 
-interface SearchContainer
+interface SearchCollection
 {
     /**
      * SearchContainer constructor. Pass string query inside
@@ -12,7 +12,7 @@ interface SearchContainer
     public function __construct($query, $limit);
 
     /**
-     * Build search results. Should return array collection: [AbstractSearchResult]
+     * Build search results. Should return array collection: AbstractSearchResult[]
      * @return array
      */
     public function getResult();

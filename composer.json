@@ -15,7 +15,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.1",
-    "lib-curl": "*",
+    "ext-curl": "*",
     "ext-mbstring": "*",
     "ext-gd": "*",
     "ext-zip": "*",
@@ -23,7 +23,7 @@
     "ext-json": "*",
     "phpffcms/ffcms-core": "@dev",
     "phpffcms/ffcms-console": "@dev",
-    "phpffcms/searchable": "@dev",
+    "phpffcms/ffcms-eloquent-search": "@dev",
     "phpffcms/ffcms-tinymce": "@dev",
     "phpffcms/language-flags": "1.*",
     "phpffcms/ffcms-templex": "@dev",

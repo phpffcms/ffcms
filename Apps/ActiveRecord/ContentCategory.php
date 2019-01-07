@@ -7,6 +7,7 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Traits\SearchableTrait;
 use Illuminate\Support\Collection;
 
 /**
@@ -22,12 +23,22 @@ use Illuminate\Support\Collection;
  */
 class ContentCategory extends ActiveModel
 {
+    use SearchableTrait;
+
     protected $casts = [
         'id' => 'integer',
         'path' => 'string',
         'title' => 'serialize',
         'description' => 'serialize',
         'configs' => 'serialize'
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'path' => 8,
+            'title' => 4,
+            'description' => 2
+        ]
     ];
 
     /**

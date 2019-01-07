@@ -15,6 +15,8 @@ class Content extends AdminController
 
     public $type = 'app';
 
+    use Content\Boot;
+
     // import heavy actions
     use Content\ActionIndex {
         index as actionIndex;

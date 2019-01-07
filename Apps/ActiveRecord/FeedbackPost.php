@@ -3,6 +3,7 @@
 namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Traits\SearchableTrait;
 use Illuminate\Support\Collection;
 
 /**
@@ -24,6 +25,8 @@ use Illuminate\Support\Collection;
  */
 class FeedbackPost extends ActiveModel
 {
+    use SearchableTrait;
+
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
@@ -34,6 +37,12 @@ class FeedbackPost extends ActiveModel
         'hash' => 'string',
         'user_id' => 'integer',
         'ip' => 'string'
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'message' => 3
+        ]
     ];
 
     /**

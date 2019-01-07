@@ -8,6 +8,7 @@ use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
+use Ffcms\Core\Traits\SearchableTrait;
 use Illuminate\Support\Collection;
 
 /**
@@ -25,6 +26,8 @@ use Illuminate\Support\Collection;
  */
 class App extends ActiveModel
 {
+    use SearchableTrait;
+
     protected $casts = [
         'id' => 'integer',
         'type' => 'string',
@@ -33,6 +36,13 @@ class App extends ActiveModel
         'configs' => 'serialize',
         'disabled' => 'boolean',
         'version' => 'string'
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'name' => 12,
+            'sys_name' => 10
+        ]
     ];
 
     /**

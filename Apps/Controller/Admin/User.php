@@ -16,6 +16,8 @@ class User extends AdminController
 
     public $type = 'app';
 
+    use User\Boot;
+
     use User\ActionIndex {
         index as actionIndex;
     }

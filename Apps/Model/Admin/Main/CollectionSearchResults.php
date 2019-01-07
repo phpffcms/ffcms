@@ -1,63 +1,75 @@
 <?php
 
-namespace Apps\Model\Front\Search;
+namespace Apps\Model\Admin\Main;
 
-use Ffcms\Core\Arch\Model;
-use Ffcms\Core\Helper\Type\Any;
+
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Helper\Html\Dom;
 
 /**
- * Class EntitySearchMain. Search everything main business logic model
- * @package Apps\Model\Front\Search
+ * Class CollectionSearchResults. Search collection for results with some features
+ * @package Apps\Model\Admin\Main
  */
-class EntitySearchMain extends Model
+class CollectionSearchResults
 {
-    public $results = [];
-    public $query;
+    /** @var AbstractSearchItem[]|null */
+    private $results;
 
-    private $_configs;
+    private $query;
+    private $limit;
 
     /**
-     * EntitySearchMain constructor. Pass query inside
+     * CollectionSearchResults constructor.
      * @param string $query
-     * @param array|null $configs
+     * @param int $limit
      */
-    public function __construct($query, array $configs = null)
+    public function __construct(string $query, int $limit = 10)
     {
         $this->query = $query;
-        $this->_configs = $configs;
-        parent::__construct();
+        $this->limit = $limit;
     }
 
     /**
-     * Get initialize configs
-     * @return array|null
+     * Add search result item
+     * @param AbstractSearchItem $item
      */
-    public function getConfigs(): ?array
+    public function add(AbstractSearchItem $item): void
     {
-        return $this->_configs;
+        $this->results[] = $item;
     }
 
     /**
-     * Add result item to main collection
-     * @param AbstractSearchResult $result
+     * Get search query
+     * @return string|null
      */
-    public function add(AbstractSearchResult $result)
+    public function getQuery(): ?string
     {
-        $this->results[] = $result;
+        return $this->query;
+    }
+
+    /**
+     * Get result limit
+     * @return int
+     */
+    public function getLimit(): int
+    {
+        return $this->limit;
     }
 
     /**
      * Get sorted by relevance search response. Method return result as array: [relevance => [title, snippet, uri, date], ...]
-     * @return array
+     * @return AbstractSearchItem[]
      */
-    public function getRelevanceSortedResult()
+    public function getRelevanceBasedResult(): ?array
     {
+        if (!$this->results) {
+            return null;
+        }
+
         $result = [];
         // each every content type
         foreach ($this->results as $item) {
-            /** @var AbstractSearchResult $item */
+            /** @var AbstractSearchItem $item */
             // build unique relevance. Problem: returned relevance from query is integer
             // and can be duplicated. So, we add random complex float value and make it string to sort in feature
             $uniqueRelevance = (string)($item->getRelevance() + (mt_rand(0, 999) / 10000));
@@ -79,7 +91,7 @@ class EntitySearchMain extends Model
      * @param array $properties
      * @return string
      */
-    public function highlightText($text, $tag, array $properties = [])
+    public function highlightText($text, $tag, array $properties = []): ?string
     {
         $queries = explode(' ', $this->query);
         $dom = new Dom();
@@ -91,4 +103,5 @@ class EntitySearchMain extends Model
         }
         return $text;
     }
+
 }

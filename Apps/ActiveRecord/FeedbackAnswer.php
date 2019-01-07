@@ -3,6 +3,8 @@
 namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Traits\SearchableTrait;
+use Illuminate\Support\Collection;
 
 /**
  * Class FeedbackAnswer. Answers relation to feedback request posts.
@@ -17,9 +19,12 @@ use Ffcms\Core\Arch\ActiveModel;
  * @property string $ip
  * @property string $created_at
  * @property string $updated_at
+ * @property FeedbackPost|Collection $post
  */
 class FeedbackAnswer extends ActiveModel
 {
+    use SearchableTrait;
+
     protected $casts = [
         'id' => 'integer',
         'feedback_id' => 'integer',
@@ -31,13 +36,18 @@ class FeedbackAnswer extends ActiveModel
         'ip' => 'string'
     ];
 
+    protected $searchable = [
+        'columns' => [
+            'message' => 2
+        ]
+    ];
+
     /**
-     * Get post relation
-     * @todo: refactor me to ->belongsTo() on rework feedback system
-     * @return FeedbackPost|null
+     * Get feedback post relationship
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne|FeedbackPost
      */
-    public function getFeedbackPost()
+    public function post()
     {
-        return FeedbackPost::find($this->feedback_id);
+        return $this->hasOne(FeedbackPost::class, 'id', 'feedback_id');
     }
 }

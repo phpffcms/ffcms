@@ -17,10 +17,8 @@ class Content extends FrontAppController
     const EVENT_CONTENT_LIST = 'content.list';
     const EVENT_TAG_LIST = 'content.tags';
 
-    /**
-     * Fatty action like actionList(), actionRead() are located in standalone traits.
-     * This feature allow provide better read&write accessibility
-     */
+    // implement boot load features
+    use Content\Boot;
 
     use Content\ActionList {
         listing as actionList;

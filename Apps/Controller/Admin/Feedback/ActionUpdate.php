@@ -43,8 +43,8 @@ trait ActionUpdate
                 break;
             case 'answer':
                 $record = FeedbackAnswer::find($id);
-                if (!$record) {
-                    $postId = (int)$record->getFeedbackPost()->id;
+                if ($record) {
+                    $postId = (int)$record->post->id;
                 }
                 break;
         }

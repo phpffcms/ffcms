@@ -3,6 +3,7 @@
 namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Traits\SearchableTrait;
 
 /**
  * Class CommentAnswer. Active record model for comments answers list
@@ -22,6 +23,8 @@ use Ffcms\Core\Arch\ActiveModel;
  */
 class CommentAnswer extends ActiveModel
 {
+    use SearchableTrait;
+
     protected $casts = [
         'id' => 'integer',
         'comment_id' => 'integer',
@@ -31,6 +34,12 @@ class CommentAnswer extends ActiveModel
         'lang' => 'string',
         'ip' => 'string',
         'moderate' => 'boolean'
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'message' => 1
+        ]
     ];
 
     /**

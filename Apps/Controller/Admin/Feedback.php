@@ -16,7 +16,8 @@ class Feedback extends Controller
 
     public $type = 'app';
 
-    // import heavy actions
+    use Feedback\Boot;
+
     use Feedback\ActionIndex {
         index as actionIndex;
     }

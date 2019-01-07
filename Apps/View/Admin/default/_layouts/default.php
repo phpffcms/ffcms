@@ -244,7 +244,10 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                         </h2>
                     </div>
                     <div class="col-sm-4 d-none d-md-inline-block page-search-wrapper">
-                        <input type="text" class="form-control form-control-lg keyword-search" placeholder="Search feedback ...">
+                        <form class="form-inline" method="get" action="<?= Url::link(['main/search']) ?>">
+                            <input type="text" class="form-control col" name="search" placeholder="<?= __('Type search query') ?>" value="<?= $query ?? null ?>">&nbsp;
+                            <input type="submit" name="submit" value="<?= __('Search') ?>" class="btn btn-secondary" />
+                        </form>
                     </div>
                 </div>
             </div>

@@ -19,6 +19,8 @@ class Comments extends AdminController
 
     public $type = 'widget';
 
+    use Comments\Boot;
+
     // heavy actions import
     use Comments\ActionIndex {
         index as actionIndex;

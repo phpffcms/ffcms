@@ -30,6 +30,7 @@ $this->layout('_layouts/default', [
 </form>
 
 <?php
+/** @var \Apps\Model\Front\Search\AbstractSearchResult[] $results */
 $results = $model->getRelevanceSortedResult();
 if (!Any::isArray($results) || count($results) < 1) {
     echo $this->bootstrap()->alert('warning', __('Matches not founded'));
@@ -43,10 +44,10 @@ if (!Any::isArray($results) || count($results) < 1) {
         <div class="col-md-12">
             <div class="search-result">
                 <div class="h4">
-                    <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>"><?= $model->highlightText($item['title'], 'span', ['class' => 'search-highlight']) ?></a>
-                    <small class="float-right text-secondary"><?= $item['date'] ?></small>
+                    <a href="<?= \App::$Alias->baseUrl . $item->getUri() ?>"><?= $model->highlightText($item->getTitle(), 'span', ['class' => 'search-highlight']) ?></a>
+                    <small class="float-right text-secondary"><?= $item->getDate() ?></small>
                 </div>
-                <small><?= $model->highlightText($item['snippet'], 'span', ['class' => 'search-highlight']) ?>...</small>
+                <small><?= $model->highlightText($item->getSnippet(), 'span', ['class' => 'search-highlight']) ?>...</small>
             </div>
         </div>
     </div>

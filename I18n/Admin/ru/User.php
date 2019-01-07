@@ -76,5 +76,6 @@ return [
     'Delete all user feedback requests?' => 'Удалить все запросы обратной связи от пользователя?',
     'Wall posts and answers' => 'Сообщения на пользовательских стенах',
     'Delete all wall posts and answers?' => 'Удалить все записи на стенах пользователей от этого пользователя?',
-    'User input data clear successful' => 'Материалы пользователя успешно очищены'
+    'User input data clear successful' => 'Материалы пользователя успешно очищены',
+    'Login: %login%, email: %email%, nick: %nick%' => 'Логин: %login%, почта: %email%, псевдоним: %nick%'
 ];

@@ -7,6 +7,7 @@ use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Interfaces\iUser;
+use Ffcms\Core\Traits\SearchableTrait;
 
 /**
  * Class User. Active record model for user auth data
@@ -27,12 +28,25 @@ use Ffcms\Core\Interfaces\iUser;
  */
 class User extends ActiveModel implements iUser
 {
+    use SearchableTrait;
+
     protected $casts = [
         'id' => 'integer',
         'login' => 'string',
         'email' => 'string',
         'role_id' => 'integer',
         'approve_token' => 'string'
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'login' => 2,
+            'email' => 3,
+            'nick' => 1
+        ],
+        'joins' => [
+            'profiles' => ['users.id', 'profiles.user_id']
+        ]
     ];
 
     private $openidProvider;

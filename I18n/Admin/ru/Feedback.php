@@ -54,5 +54,7 @@ return [
     'In feedback request with id #%id% is added new answer' => 'В запросе обратной связи с номером #%id% появился новый ответ',
     'In your feedback request is added new answer from website stuff' => 'В вашем запросе обратной связи появился новый ответ от команды сайта',
     'View request' => 'Просмотреть запрос',
-    'If you do not make the feedback request please ignore this message!' => 'Если вы не совершали запроса в обратную связть просто проигнорируйте данное сообщение!'
+    'If you do not make the feedback request please ignore this message!' => 'Если вы не совершали запроса в обратную связть просто проигнорируйте данное сообщение!',
+    'Feedback post #%id%' => 'Запрос обратной связи #%id%',
+    'Feedback answer #%id%' => 'Ответ на запрос обратной связи #%id%'
 ];

@@ -155,5 +155,8 @@ return [
     'Your system is up to date. No updates is available' => 'Установлена последняя версия системы. Обновления не найдены',
     'Database updates are successful installed' => 'Обновления для базы данных успешно установлены',
     'Archive with new update are successful downloaded and extracted. Please refresh this page and update database if required' => 'Архив с обновлением успешно загружен и распакован. Пожалуйста, обновите данную страницу и выполните обновление базы данных',
-    'In process of downloading and extracting update archive error is occurred. Something gonna wrong' => 'В процессе загрузки и распаковки архива с обновлениями произошла ошибка. Что то пошло не так :('
+    'In process of downloading and extracting update archive error is occurred. Something gonna wrong' => 'В процессе загрузки и распаковки архива с обновлениями произошла ошибка. Что то пошло не так :(',
+    'Search: %query%' => 'Поиск: %query%',
+    'Type: %type%, system name: %sys%, version: %version%' => 'Тип: %type%, системное имя: %sys%, версия: %version%',
+    'Nothing found' => 'Ничего не найдено'
 ];

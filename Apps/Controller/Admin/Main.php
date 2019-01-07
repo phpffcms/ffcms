@@ -11,9 +11,13 @@ use Extend\Core\Arch\AdminController;
  */
 class Main extends AdminController
 {
+    const SEARCH_EVENT_NAME = 'admin.search.run';
+    const SEARCH_QUERY_MAX_LENGTH = 100;
+
     public $type = 'app';
 
-    // import heavy actions
+    use Main\Boot;
+
     use Main\ActionIndex {
         index as actionIndex;
     }
@@ -56,6 +60,10 @@ class Main extends AdminController
 
     use Main\ActionCache {
         cache as actionCache;
+    }
+
+    use Main\ActionSearch {
+        search as actionSearch;
     }
 
     /**

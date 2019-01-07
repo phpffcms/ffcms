@@ -6,6 +6,7 @@ use Apps\Model\Front\Search\EntitySearchMain;
 use Extend\Core\Arch\FrontAppController as Controller;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NotFoundException;
+use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -14,15 +15,13 @@ use Ffcms\Core\Helper\Type\Str;
  */
 class Search extends Controller
 {
-    const EVENT_SEARCH_RUNNED = 'search.run';
-
+    const EVENT_SEARCH_RUN = 'search.run';
     const QUERY_MAX_LENGTH = 100;
 
     /**
      * Main search method
      * @return string
      * @throws NotFoundException
-     * @throws \Ffcms\Core\Exception\SyntaxException
      */
     public function actionIndex()
     {
@@ -34,7 +33,7 @@ class Search extends Controller
         $configs = $this->getConfigs();
 
         // check search query length
-        if (Str::likeEmpty($query) || Str::length($query) < (int)$configs['minLength']) {
+        if (!Any::isStr($query) || Str::likeEmpty($query) || Str::length($query) < (int)$configs['minLength']) {
             throw new NotFoundException(__('Search query is too short!'));
         }
 
@@ -45,11 +44,9 @@ class Search extends Controller
 
         // initialize search controller model
         $model = new EntitySearchMain($query, $configs);
-        // try to search by default apps
-        $model->make();
 
         // register search event to allow extend it model results
-        App::$Event->run(static::EVENT_SEARCH_RUNNED, [
+        App::$Event->run(static::EVENT_SEARCH_RUN, [
             'model' => $model
         ]);
 

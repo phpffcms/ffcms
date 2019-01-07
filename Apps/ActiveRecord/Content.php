@@ -43,7 +43,7 @@ class Content extends ActiveModel
     protected $searchable = [
         'columns' => [
             'title' => 10,
-            'text' => 2
+            'text' => 5
         ]
     ];
 

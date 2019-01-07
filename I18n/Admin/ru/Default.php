@@ -42,5 +42,6 @@ return [
     'App store' => 'Магазин расширений',
     'Unable to find this URL: %e%' => 'Не удается найти эту страницу на сайте: %e%',
     'Search' => 'Поиск',
-    'You got no access rights to this page' => 'У вас нет прав доступа к этой странице'
+    'You got no access rights to this page' => 'У вас нет прав доступа к этой странице',
+    'Type search query' => 'Введите поисковой запрос'
 ];
