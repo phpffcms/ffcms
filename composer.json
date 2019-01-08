@@ -28,6 +28,7 @@
     "phpffcms/language-flags": "1.*",
     "phpffcms/ffcms-templex": "@dev",
     "phpffcms/ffcms-assets": "1.*",
+    "phpffcms/ffcms-yandex": "@dev",
     "studio-42/elfinder": " 2.1.*@stable"
   },
   "authors": [

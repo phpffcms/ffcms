@@ -10,6 +10,7 @@ use Ffcms\Core\Helper\Environment;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Ffcms\Yandex\Metrika\Client;
 
 /**
  * Trait ActionIndex
@@ -54,10 +55,46 @@ trait ActionIndex
         // check directory chmods and other environment features
         $model = new EntityCheck();
 
+        // work with yandex statistics
+        $yandexCfg = App::$Properties->getAll('Yandex');
+        $tokenLifetime = $yandexCfg['oauth']['expires'];
+        $tokenActive = ($tokenLifetime && time() < $tokenLifetime);
+
+        $visits = null;
+        $sources = null;
+        if ($tokenActive) {
+            // initialize yandex.api client
+            $client = new Client($yandexCfg['oauth']['token'], $yandexCfg['metrika']['id']);
+
+            // get visit statistics
+            $visits = App::$Cache->getItem('metrika.visits');
+            if (!$visits->isHit()) {
+                $calcVisit = $client->getVisits30days();
+                $visits->set($calcVisit)
+                    ->expiresAfter(3600); // update 1 times at hour
+                App::$Cache->save($visits);
+            }
+            $visits = $visits->get();
+
+            // get source distribution statistics
+            $sources = App::$Cache->getItem('metrika.sources');
+            if (!$sources->isHit()) {
+                $calcSources = $client->getSourcesSummary30days();
+                $sources->set($calcSources)
+                    ->expiresAfter(3600);
+                App::$Cache->save($sources);
+            }
+            $sources = array_slice($sources->get(), 0, 5);
+        }
+
         // render view output
         return $this->view->render('main/index', [
             'stats' => $stats,
-            'check' => $model
+            'check' => $model,
+            'tokenActive' => $tokenActive,
+            'yandexCfg' => $yandexCfg,
+            'visits' => $visits,
+            'sources' => $sources
         ]);
     }
 }

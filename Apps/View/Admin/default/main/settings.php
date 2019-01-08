@@ -72,10 +72,7 @@ $this->layout('_layouts/default', [
             $form->fieldset()->text('debug.cookie.value', ['class' => 'form-control'], __('Set cookie value for enable debug bar panel'));
     }])
     ->menu(['text' => __('Other'), 'tab' => function() use ($form){
-        return '<p>' . __('There you can change specified configs depends of other platforms. GA = google analytics.') . '</p>' .
-            $form->fieldset()->text('gaClientId', ['class' => 'form-control'], __('Google oAuth2 client id. This id will be used to display google.analytics info. Client ID looks like: xxxxxx.apps.googleusercontent.com')) .
-            $form->fieldset()->text('gaTrackId', ['class' => 'form-control'], __('Set google analytics tracking id for your website. Track id looks like: UA-XXXXXX-Y')) .
-            $form->fieldset()->text('trustedProxy', ['class' => 'form-control'], __('Set trusted proxy list to accept X-FORWARDED data. Example: 103.21.244.15,103.22.200.0/22'));
+        return $form->fieldset()->text('trustedProxy', ['class' => 'form-control'], __('Set trusted proxy list to accept X-FORWARDED data. Example: 103.21.244.15,103.22.200.0/22'));
     }])
     ->display(); ?>
 

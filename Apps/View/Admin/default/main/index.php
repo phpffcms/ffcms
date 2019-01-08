@@ -3,7 +3,12 @@
 /** @var \Ffcms\Templex\Template\Template $this */
 /** @var \Apps\Model\Install\Main\EntityCheck $check */
 /** @var array $stats */
+/** @var boolean $tokenActive */
+/** @var array $yandexCfg */
+/** @var array|null $visits */
+/** @var array|null $sources */
 
+use Ffcms\Core\Helper\Date;
 use Ffcms\Templex\Url\Url;
 
 $this->layout('_layouts/default', [
@@ -70,15 +75,129 @@ $this->layout('_layouts/default', [
 
 <div class="row">
     <div class="col-md">
-        <h2 class="mt-2"><?= __('Summary statistics') ?></h2>
+        <h2 class="mt-2"><?= __('Yandex.Metrika') ?></h2>
         <hr />
-        <?= $this->bootstrap()->button('a', 'Connect Yandex.Metrika', ['link' => '#', 'class' => 'btn-danger']) ?>
+        <?php if (!$tokenActive): ?>
+            <?= $this->bootstrap()->button('a', __('Connect Yandex.Metrika'), [
+                'href' => Url::to('main/yandexconnect'),
+                'class' => 'btn-danger'
+            ]) ?>
+        <?php else: ?>
+            <div class="row">
+                <div class="col-md-8">
+                    <canvas id="visitChart" width="100%" height="50"></canvas>
+                </div>
+                <div class="col-md-4">
+                    <canvas id="sourcesChart" width="100%" height="90"></canvas>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
 <?php $this->stop() ?>
 
 <?php $this->push('javascript') ?>
+<?php if ($tokenActive): ?>
+<script type="text/javascript" src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/chart.js/dist/Chart.min.js"></script>
+<?php
+// visit chart
+$dates = [];
+$views = [];
+$users = [];
+$bounce = [];
+foreach ($visits as $date => $info) {
+    $dates[] = Date::convertToDatetime($date, Date::FORMAT_TO_DAY);
+    $views[] = $info['views'];
+    $users[] = $info['users'];
+    $bounce[] = $info['bounce'];
+}
+
+// sources chart
+$sourceTypes = array_keys($sources);
+$sourceUsers = array_values($sources);
+
+?>
+<script>
+    var visitElement = $('#visitChart').get(0);
+    var sourcesElement = $('#sourcesChart').get(0);
+    var chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(231,233,237)'
+    };
+
+    var visitChart = new Chart(visitElement, {
+        type: 'line',
+        data: {
+            labels: [<?php foreach ($dates as $date){ echo '"' . $date . '", '; } ?>],
+            datasets: [{
+                yAxisID: 'units',
+                label: '<?= __('Views') ?>',
+                borderColor: chartColors.blue,
+                fill: false, // no background color
+                data: [<?= implode(',', $views) ?>]
+            }, {
+                yAxisID: 'units',
+                label: '<?= __('Users') ?>',
+                borderColor: chartColors.green,
+                fill: false, // no background color
+                data: [<?= implode(',', $users) ?>]
+            }, {
+                yAxisID: 'percentage',
+                label: '<?= __('Bounces, %') ?>',
+                borderColor: chartColors.red,
+                fill: false, // no background color
+                data: [<?= implode(',', $bounce) ?>]
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: true
+            },
+            title: {
+                display: true,
+                text: '<?= __('Users, page views, bounces - 30 days') ?>'
+            },
+            scales: {
+                yAxes: [{
+                    id: 'units',
+                    type: 'linear',
+                    position: 'left'
+                }, {
+                    id: 'percentage',
+                    type: 'linear',
+                    position: 'right'
+                }]
+            }
+        }
+    });
+
+    var sourceChart = new Chart(sourcesElement, {
+        type: 'pie',
+        data: {
+            labels: [<?php foreach ($sourceTypes as $type){ echo '"' . $type . '", '; } ?>],
+            datasets: [{
+                data: [<?= implode(',', $sourceUsers) ?>],
+                label: 'Users',
+                backgroundColor: Object.values(chartColors)
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: '<?= __('Traffic sources - 30 days') ?>'
+            }
+        }
+    });
+</script>
+<?php endif; ?>
 <script>
     $(document).ready(function(){
         $.getJSON(script_url + '/api/main/news?lang=' + script_lang, function (resp) {

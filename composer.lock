@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef8879e912aa171126b03fadafa97bd4",
+    "content-hash": "3d34186adf3f33273cb6bd0603cb6668",
     "packages": [
         {
             "name": "components/font-awesome",
@@ -753,27 +753,28 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v5.6.39",
+            "version": "5.7.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "779b56b37396b888414622d5667d3bcc205964ab"
+                "reference": "53a0991e918efaace42cde526a04fdb832128a03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/779b56b37396b888414622d5667d3bcc205964ab",
-                "reference": "779b56b37396b888414622d5667d3bcc205964ab",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/53a0991e918efaace42cde526a04fdb832128a03",
+                "reference": "53a0991e918efaace42cde526a04fdb832128a03",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "5.6.*",
+                "illuminate/contracts": "5.7.*",
+                "illuminate/support": "5.7.*",
                 "php": "^7.1.3",
-                "psr/container": "~1.0"
+                "psr/container": "^1.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.6-dev"
+                    "dev-master": "5.7-dev"
                 }
             },
             "autoload": {
@@ -793,31 +794,31 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "https://laravel.com",
-            "time": "2018-05-24T13:16:56+00:00"
+            "time": "2018-12-18T14:00:02+00:00"
         },
         {
             "name": "illuminate/contracts",
-            "version": "v5.6.39",
+            "version": "5.7.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "66b653fd430bf06f59cef1112197d009bd02da84"
+                "reference": "758927e5e925c1d442a1faaa1356675ceba0194c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/66b653fd430bf06f59cef1112197d009bd02da84",
-                "reference": "66b653fd430bf06f59cef1112197d009bd02da84",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/758927e5e925c1d442a1faaa1356675ceba0194c",
+                "reference": "758927e5e925c1d442a1faaa1356675ceba0194c",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1.3",
-                "psr/container": "~1.0",
-                "psr/simple-cache": "~1.0"
+                "psr/container": "^1.0",
+                "psr/simple-cache": "^1.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.6-dev"
+                    "dev-master": "5.7-dev"
                 }
             },
             "autoload": {
@@ -837,40 +838,40 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "https://laravel.com",
-            "time": "2018-07-31T12:49:53+00:00"
+            "time": "2018-11-15T13:49:08+00:00"
         },
         {
             "name": "illuminate/database",
-            "version": "v5.6.39",
+            "version": "5.7.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "33073fe81e705b3d5d5ef992e6b065b3a89b07f6"
+                "reference": "8df1a4ca7f66e9ae9462978aa6de77e1c4cc839f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/33073fe81e705b3d5d5ef992e6b065b3a89b07f6",
-                "reference": "33073fe81e705b3d5d5ef992e6b065b3a89b07f6",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/8df1a4ca7f66e9ae9462978aa6de77e1c4cc839f",
+                "reference": "8df1a4ca7f66e9ae9462978aa6de77e1c4cc839f",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "5.6.*",
-                "illuminate/contracts": "5.6.*",
-                "illuminate/support": "5.6.*",
+                "illuminate/container": "5.7.*",
+                "illuminate/contracts": "5.7.*",
+                "illuminate/support": "5.7.*",
                 "php": "^7.1.3"
             },
             "suggest": {
-                "doctrine/dbal": "Required to rename columns and drop SQLite columns (~2.6).",
-                "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4).",
-                "illuminate/console": "Required to use the database commands (5.6.*).",
-                "illuminate/events": "Required to use the observers with Eloquent (5.6.*).",
-                "illuminate/filesystem": "Required to use the migrations (5.6.*).",
-                "illuminate/pagination": "Required to paginate the result set (5.6.*)."
+                "doctrine/dbal": "Required to rename columns and drop SQLite columns (^2.6).",
+                "fzaninotto/faker": "Required to use the eloquent factory builder (^1.4).",
+                "illuminate/console": "Required to use the database commands (5.7.*).",
+                "illuminate/events": "Required to use the observers with Eloquent (5.7.*).",
+                "illuminate/filesystem": "Required to use the migrations (5.7.*).",
+                "illuminate/pagination": "Required to paginate the result set (5.7.*)."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.6-dev"
+                    "dev-master": "5.7-dev"
                 }
             },
             "autoload": {
@@ -896,42 +897,43 @@
                 "orm",
                 "sql"
             ],
-            "time": "2018-09-04T13:11:31+00:00"
+            "time": "2018-12-18T13:43:55+00:00"
         },
         {
             "name": "illuminate/support",
-            "version": "v5.6.39",
+            "version": "5.7.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "e2fce24254b8f60a2f92a3ab485799b372625a06"
+                "reference": "1caddfa63a40d2f229bb0948d9871540da666d0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/e2fce24254b8f60a2f92a3ab485799b372625a06",
-                "reference": "e2fce24254b8f60a2f92a3ab485799b372625a06",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/1caddfa63a40d2f229bb0948d9871540da666d0b",
+                "reference": "1caddfa63a40d2f229bb0948d9871540da666d0b",
                 "shasum": ""
             },
             "require": {
-                "doctrine/inflector": "~1.1",
+                "doctrine/inflector": "^1.1",
                 "ext-mbstring": "*",
-                "illuminate/contracts": "5.6.*",
-                "nesbot/carbon": "1.25.*",
+                "illuminate/contracts": "5.7.*",
+                "nesbot/carbon": "^1.26.3",
                 "php": "^7.1.3"
             },
             "conflict": {
                 "tightenco/collect": "<5.5.33"
             },
             "suggest": {
-                "illuminate/filesystem": "Required to use the composer class (5.6.*).",
+                "illuminate/filesystem": "Required to use the composer class (5.7.*).",
+                "moontoast/math": "Required to use ordered UUIDs (^1.1).",
                 "ramsey/uuid": "Required to use Str::uuid() (^3.7).",
-                "symfony/process": "Required to use the composer class (~4.0).",
-                "symfony/var-dumper": "Required to use the dd function (~4.0)."
+                "symfony/process": "Required to use the composer class (^4.1).",
+                "symfony/var-dumper": "Required to use the dd function (^4.1)."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.6-dev"
+                    "dev-master": "5.7-dev"
                 }
             },
             "autoload": {
@@ -954,7 +956,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2018-09-06T13:37:53+00:00"
+            "time": "2018-12-18T13:45:35+00:00"
         },
         {
             "name": "league/plates",
@@ -1074,16 +1076,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.25.0",
+            "version": "1.36.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "cbcf13da0b531767e39eb86e9687f5deba9857b4"
+                "reference": "cd324b98bc30290f233dd0e75e6ce49f7ab2a6c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cbcf13da0b531767e39eb86e9687f5deba9857b4",
-                "reference": "cbcf13da0b531767e39eb86e9687f5deba9857b4",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cd324b98bc30290f233dd0e75e6ce49f7ab2a6c9",
+                "reference": "cd324b98bc30290f233dd0e75e6ce49f7ab2a6c9",
                 "shasum": ""
             },
             "require": {
@@ -1091,18 +1093,23 @@
                 "symfony/translation": "~2.6 || ~3.0 || ~4.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2",
                 "phpunit/phpunit": "^4.8.35 || ^5.7"
+            },
+            "suggest": {
+                "friendsofphp/php-cs-fixer": "Needed for the `composer phpcs` command. Allow to automatically fix code style.",
+                "phpstan/phpstan": "Needed for the `composer phpstan` command. Allow to detect potential errors."
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.23-dev"
+                "laravel": {
+                    "providers": [
+                        "Carbon\\Laravel\\ServiceProvider"
+                    ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Carbon\\": "src/Carbon/"
+                    "": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1123,7 +1130,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-03-19T15:50:49+00:00"
+            "time": "2018-12-28T10:07:33+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1172,16 +1179,16 @@
         },
         {
             "name": "paypal/rest-api-sdk-php",
-            "version": "1.13.0",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paypal/PayPal-PHP-SDK.git",
-                "reference": "192e217beed14c8e75624e821fdc8ec51e2a21f5"
+                "reference": "72e2f2466975bf128a31e02b15110180f059fc04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/192e217beed14c8e75624e821fdc8ec51e2a21f5",
-                "reference": "192e217beed14c8e75624e821fdc8ec51e2a21f5",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-SDK/zipball/72e2f2466975bf128a31e02b15110180f059fc04",
+                "reference": "72e2f2466975bf128a31e02b15110180f059fc04",
                 "shasum": ""
             },
             "require": {
@@ -1217,20 +1224,20 @@
                 "rest",
                 "sdk"
             ],
-            "time": "2017-11-13T19:21:59+00:00"
+            "time": "2019-01-04T20:04:25+00:00"
         },
         {
             "name": "phpffcms/ffcms-assets",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-assets.git",
-                "reference": "ed51675dd708c50e24812add7346697473a34184"
+                "reference": "0de5ede52d2f12bdfc96dc18cafcc31f74b8bbc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-assets/zipball/ed51675dd708c50e24812add7346697473a34184",
-                "reference": "ed51675dd708c50e24812add7346697473a34184",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-assets/zipball/0de5ede52d2f12bdfc96dc18cafcc31f74b8bbc7",
+                "reference": "0de5ede52d2f12bdfc96dc18cafcc31f74b8bbc7",
                 "shasum": ""
             },
             "require": {
@@ -1264,7 +1271,7 @@
                 "npm",
                 "packages"
             ],
-            "time": "2018-08-15T10:35:16+00:00"
+            "time": "2019-01-06T14:50:48+00:00"
         },
         {
             "name": "phpffcms/ffcms-console",
@@ -1272,17 +1279,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-console.git",
-                "reference": "7a27366cffa90a54245f7caecf51eb2f714a4caf"
+                "reference": "da5a37a34c29d256ea0f2835a44c01178c53922b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/7a27366cffa90a54245f7caecf51eb2f714a4caf",
-                "reference": "7a27366cffa90a54245f7caecf51eb2f714a4caf",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-console/zipball/da5a37a34c29d256ea0f2835a44c01178c53922b",
+                "reference": "da5a37a34c29d256ea0f2835a44c01178c53922b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1",
-                "phpffcms/ffcms-core": "dev-master",
+                "phpffcms/ffcms-core": "@dev",
                 "symfony/console": "3.4.*@stable"
             },
             "type": "library",
@@ -1309,7 +1316,7 @@
                 "ffcms",
                 "php"
             ],
-            "time": "2018-01-08T08:37:01+00:00"
+            "time": "2019-01-06T14:46:58+00:00"
         },
         {
             "name": "phpffcms/ffcms-core",
@@ -1317,12 +1324,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-core.git",
-                "reference": "0616fba3feb9d82cb084da8e7b6eb7a9412bd50c"
+                "reference": "153fedf1b136b483e4d1ee9f57f1a3d3b97e253a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/0616fba3feb9d82cb084da8e7b6eb7a9412bd50c",
-                "reference": "0616fba3feb9d82cb084da8e7b6eb7a9412bd50c",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-core/zipball/153fedf1b136b483e4d1ee9f57f1a3d3b97e253a",
+                "reference": "153fedf1b136b483e4d1ee9f57f1a3d3b97e253a",
                 "shasum": ""
             },
             "require": {
@@ -1331,7 +1338,7 @@
                 "gregwar/captcha": "1.1.*@stable",
                 "gregwar/image": "2.*@stable",
                 "hybridauth/hybridauth": "2.10.*@stable",
-                "illuminate/database": "5.6.*@stable",
+                "illuminate/database": "5.7.*@stable",
                 "maximebf/debugbar": "1.*@stable",
                 "php": ">=7.1",
                 "suin/php-rss-writer": "1.6.*@stable",
@@ -1363,7 +1370,57 @@
                 "mvc",
                 "php"
             ],
-            "time": "2018-11-23T12:32:14+00:00"
+            "time": "2019-01-06T15:01:36+00:00"
+        },
+        {
+            "name": "phpffcms/ffcms-eloquent-search",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpffcms/ffcms-eloquent-search.git",
+                "reference": "1c64fd1fe48855de6e3ffe984dea8e27ba2519c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-eloquent-search/zipball/1c64fd1fe48855de6e3ffe984dea8e27ba2519c9",
+                "reference": "1c64fd1fe48855de6e3ffe984dea8e27ba2519c9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "illuminate/database": ">5.0",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ffcms\\Core\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Lopez",
+                    "email": "nicolaslopezj@me.com"
+                },
+                {
+                    "name": "Mihail Pyatinsky",
+                    "email": "zenn1989@gmail.com"
+                }
+            ],
+            "description": "Eloquent model search trait.",
+            "keywords": [
+                "database",
+                "eloquent",
+                "ffcms",
+                "model",
+                "search",
+                "searchable"
+            ],
+            "time": "2019-01-06T15:04:16+00:00"
         },
         {
             "name": "phpffcms/ffcms-templex",
@@ -1371,12 +1428,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpffcms/ffcms-templex.git",
-                "reference": "7f820f8c3ea168c1ea9e47513552a5e031a12ca3"
+                "reference": "0e4fcd4be1ee09f399e2095bda525df719c8617e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/ffcms-templex/zipball/7f820f8c3ea168c1ea9e47513552a5e031a12ca3",
-                "reference": "7f820f8c3ea168c1ea9e47513552a5e031a12ca3",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-templex/zipball/0e4fcd4be1ee09f399e2095bda525df719c8617e",
+                "reference": "0e4fcd4be1ee09f399e2095bda525df719c8617e",
                 "shasum": ""
             },
             "require": {
@@ -1410,7 +1467,7 @@
                 "template",
                 "template-engine"
             ],
-            "time": "2018-08-22T13:08:54+00:00"
+            "time": "2019-01-02T17:17:30+00:00"
         },
         {
             "name": "phpffcms/ffcms-tinymce",
@@ -1459,6 +1516,51 @@
             "time": "2018-08-17T18:53:35+00:00"
         },
         {
+            "name": "phpffcms/ffcms-yandex",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpffcms/ffcms-yandex.git",
+                "reference": "f66de9b2a5f6cf2e5b0e75716aa9683db2c26555"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpffcms/ffcms-yandex/zipball/f66de9b2a5f6cf2e5b0e75716aa9683db2c26555",
+                "reference": "f66de9b2a5f6cf2e5b0e75716aa9683db2c26555",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ffcms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pyatinskiy M.M.",
+                    "email": "zenn@ffcms.org",
+                    "homepage": "http://ffcms.ru"
+                }
+            ],
+            "description": "Yandex api features for ffcms",
+            "homepage": "http://ffcms.org",
+            "keywords": [
+                "api",
+                "ffcms",
+                "php",
+                "yandex"
+            ],
+            "time": "2019-01-07T18:31:35+00:00"
+        },
+        {
             "name": "phpffcms/language-flags",
             "version": "1.0.1",
             "source": {
@@ -1485,56 +1587,6 @@
                 "flags"
             ],
             "time": "2016-01-17T08:44:03+00:00"
-        },
-        {
-            "name": "phpffcms/searchable",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpffcms/searchable.git",
-                "reference": "98de45bf8b9fccf8ba19f412d20615e64f9da2e8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpffcms/searchable/zipball/98de45bf8b9fccf8ba19f412d20615e64f9da2e8",
-                "reference": "98de45bf8b9fccf8ba19f412d20615e64f9da2e8",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "illuminate/database": "4.2.x|~5.0",
-                "php": ">=7.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ffcms\\Core\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Lopez",
-                    "email": "nicolaslopezj@me.com"
-                },
-                {
-                    "name": "Mihail Pyatinsky",
-                    "email": "zenn1989@gmail.com"
-                }
-            ],
-            "description": "Eloquent model search trait.",
-            "keywords": [
-                "database",
-                "eloquent",
-                "ffcms",
-                "model",
-                "search",
-                "searchable"
-            ],
-            "time": "2018-01-08T08:34:41+00:00"
         },
         {
             "name": "psr/cache",
@@ -2633,16 +2685,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "4.9.1",
+            "version": "4.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "d8e62a36a305bf042477f5f02eb5976e4a5330a3"
+                "reference": "f2b1a9b593f6b5d5453af16f726a34fd364bbb1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/d8e62a36a305bf042477f5f02eb5976e4a5330a3",
-                "reference": "d8e62a36a305bf042477f5f02eb5976e4a5330a3",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/f2b1a9b593f6b5d5453af16f726a34fd364bbb1f",
+                "reference": "f2b1a9b593f6b5d5453af16f726a34fd364bbb1f",
                 "shasum": ""
             },
             "type": "component",
@@ -2675,20 +2727,20 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2018-12-04T14:13:57+00:00"
+            "time": "2018-12-17T11:59:26+00:00"
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v4.1.3",
+            "version": "v4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "3b558734382ce58b51e5fc676453bfd53bba9201"
+                "reference": "9e4e94747bd698f4f61d48ed54c9c6d4d199bd32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/3b558734382ce58b51e5fc676453bfd53bba9201",
-                "reference": "3b558734382ce58b51e5fc676453bfd53bba9201",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/9e4e94747bd698f4f61d48ed54c9c6d4d199bd32",
+                "reference": "9e4e94747bd698f4f61d48ed54c9c6d4d199bd32",
                 "shasum": ""
             },
             "replace": {
@@ -2726,7 +2778,7 @@
                 "sass",
                 "web"
             ],
-            "time": "2018-07-24T15:54:34+00:00"
+            "time": "2018-12-21T18:55:28+00:00"
         }
     ],
     "packages-dev": [],
@@ -2735,16 +2787,17 @@
     "stability-flags": {
         "phpffcms/ffcms-core": 20,
         "phpffcms/ffcms-console": 20,
-        "phpffcms/searchable": 20,
+        "phpffcms/ffcms-eloquent-search": 20,
         "phpffcms/ffcms-tinymce": 20,
         "phpffcms/ffcms-templex": 20,
+        "phpffcms/ffcms-yandex": 20,
         "studio-42/elfinder": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1",
-        "lib-curl": "*",
+        "ext-curl": "*",
         "ext-mbstring": "*",
         "ext-gd": "*",
         "ext-zip": "*",

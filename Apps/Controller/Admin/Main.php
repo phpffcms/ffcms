@@ -66,6 +66,18 @@ class Main extends AdminController
         search as actionSearch;
     }
 
+    use Main\ActionYandexConnect {
+        yandexConnect as actionYandexconnect;
+    }
+
+    use Main\ActionYandexToken {
+        yandexToken as actionYandextoken;
+    }
+
+    use Main\ActionYandexCounter {
+        yandexCounter as actionYandexcounter;
+    }
+
     /**
      * Main constructor. Disable parent inheritance of typical app version checking
      */

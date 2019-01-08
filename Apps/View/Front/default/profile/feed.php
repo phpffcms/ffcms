@@ -25,7 +25,7 @@ $this->layout('_layouts/default', [
     <p class="alert alert-warning"><?= __('No user wall post found yet') ?></p>
 <?php endif; ?>
 <?php foreach ($records as $post): ?>
-    <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
+    <div class="row object-lightborder ml-1" id="wall-post-<?= $post->id ?>">
         <div class="col-xs-4 col-md-2">
             <div class="text-center">
                 <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>

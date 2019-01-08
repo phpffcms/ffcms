@@ -41,10 +41,6 @@ class FormSettings extends Model
 
     public $languageDomainAlias;
 
-    // google analytics settings
-    public $gaClientId;
-    public $gaTrackId;
-
     // other
     public $trustedProxy;
 
@@ -101,8 +97,6 @@ class FormSettings extends Model
             'mail.password' => __('Password'),
             'debug.cookie.key' => __('Debug cookie key'),
             'debug.cookie.value' => __('Debug cookie value'),
-            'gaClientId' => __('GA Client ID'),
-            'gaTrackId' => __('GA Track ID'),
             'trustedProxy' => __('Proxy list'),
         ];
     }
@@ -114,7 +108,7 @@ class FormSettings extends Model
     public function rules(): array
     {
         return [
-            [['debug.all', 'multiLanguage', 'gaClientId', 'gaTrackId', 'trustedProxy', 'languages', 'userCron'], 'used'],
+            [['debug.all', 'multiLanguage', 'trustedProxy', 'languages', 'userCron'], 'used'],
             [['baseProto', 'baseDomain', 'basePath', 'singleLanguage', 'timezone', 'testSuite'], 'required'],
             [['debug.cookie.key', 'debug.cookie.value'], 'required'],
             [['theme.Front', 'theme.Admin'], 'required'],
