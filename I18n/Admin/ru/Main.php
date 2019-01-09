@@ -28,6 +28,8 @@ return [
     'Tables prefix' => 'Префикс таблиц',
     'Mail' => 'Почта',
     'Configure sendmail over smtp server. You should set host:port and auth data for your smtp server' => 'Конфигурация рассылки почты через smtp сервер. Вы должны указать адрес подключения - порт:ip и авторизационные данные для smtp сервера',
+    'Use mail features' => 'Использование возможностей почтовых уведомлений',
+    'Is mailing features enabled?' => 'Включена ли отправка почты возможностями системы?',
     'Host' => 'Хост',
     'Set SMTP hostname or ip' => 'Укажите адрес smtp хоста или ip',
     'Port' => 'Порт',

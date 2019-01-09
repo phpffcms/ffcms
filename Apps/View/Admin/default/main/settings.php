@@ -89,6 +89,20 @@ $this->layout('_layouts/default', [
     $(document).ready(function(){
         $('.selectize-select').selectize({
             sortField: 'text'
+        });
+
+        var status = $('#formAdminConfig-mail-enable').is(':checked');
+        if (status !== true) {
+            $('#formAdminConfig-mail-host,#formAdminConfig-mail-port,#formAdminConfig-mail-encrypt,#formAdminConfig-mail-user,#formAdminConfig-mail-password').attr('disabled', 'disabled');
+        }
+
+        $('#formAdminConfig-mail-enable').change(function(){
+            var chk = this.checked;
+            if (!chk) {
+                $('#formAdminConfig-mail-host,#formAdminConfig-mail-port,#formAdminConfig-mail-encrypt,#formAdminConfig-mail-user,#formAdminConfig-mail-password').attr('disabled', 'disabled');
+            } else {
+                $('#formAdminConfig-mail-host,#formAdminConfig-mail-port,#formAdminConfig-mail-encrypt,#formAdminConfig-mail-user,#formAdminConfig-mail-password').removeAttr('disabled');
+            }
         })
     });
 </script>
