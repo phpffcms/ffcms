@@ -54,7 +54,6 @@ class install_content_table extends Migration implements MigrationInterface
             'category_id' => 2,
             'author_id' => 1,
             'display' => 1,
-            'comment_hash' => 'C89I9n3hhE4NAk0BoIG2eNDdhhc8CNigiL5GhG18Hjnlh672e77D7Laa8fG3cnl50imaC2OoKEACo6FD4nBpKnGDgE515lMeA8k',
             'created_at' => $this->now,
             'updated_at' => $this->now
         ];
@@ -68,7 +67,6 @@ class install_content_table extends Migration implements MigrationInterface
             'category_id' => 3,
             'author_id' => 1,
             'display' => 1,
-            'comment_hash' => 'b4kAhho4b4KPlagam3A4B0E12BHCe092KjdFGD349hKcH9f67pi8p',
             'created_at' => $this->now,
             'updated_at' => $this->now
         ];

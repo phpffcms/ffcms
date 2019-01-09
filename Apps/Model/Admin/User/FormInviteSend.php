@@ -62,10 +62,14 @@ class FormInviteSend extends Model
         $invObj->token = $token;
         $invObj->save();
 
-        return App::$Mailer->tpl('user/_mail/invite', [
-            'invite' => $token,
-            'email' => $this->email
-        ])->send($this->email, App::$Translate->get('Default', __('You got registration invite'), []));
+        if (App::$Mailer) {
+            return App::$Mailer->tpl('user/_mail/invite', [
+                'invite' => $token,
+                'email' => $this->email
+            ])->send($this->email, App::$Translate->get('Default', __('You got registration invite'), []));
+        }
+
+        return false;
     }
 
     /**

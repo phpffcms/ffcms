@@ -45,11 +45,12 @@ class FormAnswerAdd extends FrontAnswer
                 'post' => Text::snippet($this->_post->message, 50)
             ]);
         }
-
-        // send email notification
-        App::$Mailer->tpl('feedback/mail/newanswer', [
-            'record' => $record
-        ])->send($record->email, App::$Translate->get('Feedback', 'New answer in request #%id%', ['id' => $record->id]));
+        if (App::$Mailer) {
+            // send email notification
+            App::$Mailer->tpl('feedback/mail/newanswer', [
+                'record' => $record
+            ])->send($record->email, App::$Translate->get('Feedback', 'New answer in request #%id%', ['id' => $record->id]));
+        }
 
         // unset message data
         $this->message = null;

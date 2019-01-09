@@ -41,6 +41,7 @@ $this->layout('_layouts/default', [
     }])
     ->menu(['text' => __('Mail'), 'tab' => function() use ($form) {
         return '<p>' . __('Configure sendmail over smtp server. You should set host:port and auth data for your smtp server') . '</p>' .
+            $form->fieldset()->boolean('mail.enable', ['options' => [0 => 'Disabled', 1 => 'Enabled'], 'optionsKey' => true], __('Is mailing features enabled?')) .
             $form->fieldset()->text('mail.host', ['class' => 'form-control'], __('Set SMTP hostname or ip')) .
             $form->fieldset()->text('mail.port', ['class' => 'form-control'], __('Set SMTP connection port')) .
             $form->fieldset()->select('mail.encrypt', ['class' => 'form-control', 'options' => ['tls', 'ssl', 'none']], __('Set encryption method for your smtp server. For remote service we are strongly recommend use tls/ssl encryption')) .

@@ -19,7 +19,6 @@ class FormSettings extends Model
     public $baseProto;
     public $baseDomain;
     public $basePath;
-    public $passwordSalt;
     public $timezone;
     public $adminEmail;
     public $debug;
@@ -43,6 +42,8 @@ class FormSettings extends Model
 
     // other
     public $trustedProxy;
+
+    public $_name = 'formAdminConfig';
 
     /**
     * Set property values from configurations
@@ -90,6 +91,7 @@ class FormSettings extends Model
             'database.charset' => __('Charset'),
             'database.collation' => __('Collation'),
             'database.prefix' => __('Tables prefix'),
+            'mail.enable' => __('Use mail features'),
             'mail.host' => __('Host'),
             'mail.port' => __('Port'),
             'mail.encrypt' => __('Encryption'),
@@ -114,8 +116,9 @@ class FormSettings extends Model
             [['theme.Front', 'theme.Admin'], 'required'],
             [['database.driver', 'database.database', 'database.host', 'database.username', 'database.password', 'database.prefix'], 'required'],
             [['database.charset', 'database.collation'], 'used'],
-            [['mail.host', 'mail.port', 'mail.user'], 'required'],
-            [['mail.encrypt', 'mail.password'], 'used'],
+            ['mail.enable', 'required'],
+            ['mail.enable', 'int'],
+            [['mail.host', 'mail.port', 'mail.user', 'mail.encrypt', 'mail.password'], 'used'],
             ['mail.user', 'email'],
             ['mail.port', 'int'],
             ['mail.encrypt', 'in', ['ssl', 'tls', 'none']],

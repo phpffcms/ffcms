@@ -8,6 +8,7 @@ use Apps\ActiveRecord\Role;
 use Apps\ActiveRecord\User;
 use Ffcms\Console\Command;
 use Ffcms\Console\Console;
+use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\Security;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
@@ -69,11 +70,10 @@ class MainAdduserCommand extends Command
         }
 
         // create new user instance in prefix_users table
-        $salt = Console::$Properties->get('passwordSalt');
         $user = new User();
         $user->login = $login;
         $user->email = $email;
-        $user->password = Security::password_hash($password, $salt);
+        $user->password = Crypt::passwordHash($password);
         $user->role_id = $roleId;
         $user->save();
 

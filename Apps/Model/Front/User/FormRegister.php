@@ -97,11 +97,13 @@ class FormRegister extends Model
         if ($activation) {
             $user->approve_token = Crypt::randomString(mt_rand(32, 128)); // random token for validation url
             // send email
-            App::$Mailer->tpl('user/_mail/approve', [
-                'token' => $user->approve_token,
-                'email' => $user->email,
-                'login' => $user->login
-            ])->send($this->email, (new \Swift_Message(App::$Translate->get('Default', 'Registration approve', []))));
+            if (App::$Mailer) {
+                App::$Mailer->tpl('user/_mail/approve', [
+                    'token' => $user->approve_token,
+                    'email' => $user->email,
+                    'login' => $user->login
+                ])->send($this->email, (new \Swift_Message(App::$Translate->get('Default', 'Registration approve', []))));
+            }
         }
         // save row
         $user->save();

@@ -12,7 +12,8 @@ $this->layout('_layouts/default', [
     <hr />
 </div>
 
-<?= \Ffcms\Core\Helper\Security::password_hash('fkg7h4f3v6') ?>
+<?= \Ffcms\Core\Helper\Security::password_hash('d7k1p9j2') ?><br />
+<?= \Ffcms\Core\Helper\Crypt::passwordHash('d7k1p9j2') ?>
 
 <script>
     $(function(){

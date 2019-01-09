@@ -29,6 +29,7 @@ $form = $this->form($model);
 <?= $form->fieldset()->boolean('multiLanguage', ['checked' => true], __('Must we use multi language system in site pathway')); ?>
 
 <h2><?= __('SMTP mail configurations') ?></h2>
+<?= $form->fieldset()->boolean('mail.enable', ['options' => [0 => 'Disabled', 1 => 'Enabled'], 'optionsKey' => true], __('Is mailing features enabled?')) ?>
 <?= $form->fieldset()->text('mail.host', ['class' => 'form-control'], __('Set SMTP hostname or ip')) ?>
 <?= $form->fieldset()->text('mail.port', ['class' => 'form-control'], __('Set SMTP connection port')) ?>
 <?= $form->fieldset()->select('mail.encrypt', ['class' => 'form-control', 'options' => ['tls', 'ssl', 'none']], __('Set encryption method for your smtp server. For remote service we are strongly recommend use tls/ssl encryption')); ?>
@@ -43,5 +44,28 @@ $form = $this->form($model);
 <?= $form->button()->submit(__('Install'), ['class' => 'btn btn-primary']) ?>
 
 <?= $form->stop() ?>
+
+<?php $this->stop() ?>
+
+<?php $this->push('javascript') ?>
+
+<script>
+    $(document).ready(function(){
+        var status = $('#formInstall-mail-enable').is(':checked');
+        if (status !== true) {
+            $('#formInstall-mail-host,#formInstall-mail-port,#formInstall-mail-encrypt,#formInstall-mail-user,#formInstall-mail-password').attr('disabled', 'disabled');
+        }
+
+        $('#formInstall-mail-enable').change(function(){
+            var chk = this.checked;
+            if (!chk) {
+                $('#formInstall-mail-host,#formInstall-mail-port,#formInstall-mail-encrypt,#formInstall-mail-user,#formInstall-mail-password').attr('disabled', 'disabled');
+            } else {
+                $('#formInstall-mail-host,#formInstall-mail-port,#formInstall-mail-encrypt,#formInstall-mail-user,#formInstall-mail-password').removeAttr('disabled');
+            }
+        })
+
+    });
+</script>
 
 <?php $this->stop() ?>

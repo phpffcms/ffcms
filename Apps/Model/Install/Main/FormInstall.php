@@ -10,8 +10,6 @@ use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\FileSystem\File;
-use Ffcms\Core\Helper\Security;
-use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Managers\MigrationsManager;
 
 /**
@@ -28,6 +26,8 @@ class FormInstall extends Model
     public $mainpage;
 
     public $baseDomain;
+
+    public $_name = 'formInstall';
 
     /**
      * Set default data
@@ -53,6 +53,7 @@ class FormInstall extends Model
             'db.password' => __('User password'),
             'db.database' => __('Database name'),
             'db.prefix' => __('Table prefix'),
+            'mail.enable' => __('Use mail features'),
             'mail.host' => __('Host'),
             'mail.port' => __('Port'),
             'mail.encrypt' => __('Encryption'),
@@ -77,8 +78,9 @@ class FormInstall extends Model
         return [
             [['db.driver', 'db.host', 'db.username', 'db.password', 'db.database', 'db.prefix', 'singleLanguage', 'mainpage'], 'required'],
             [['user.login', 'user.email', 'user.password', 'user.repassword'], 'required'],
-            [['mail.host', 'mail.port', 'mail.user'], 'required'],
-            [['mail.encrypt', 'mail.password'], 'used'],
+            ['mail.enable', 'required'],
+            ['mail.enable', 'int'],
+            [['mail.host', 'mail.port', 'mail.user', 'main.encrypt', 'mail.password'], 'used'],
             ['mail.user', 'email'],
             ['mail.port', 'int'],
             ['mail.encrypt', 'in', ['ssl', 'tls', 'none']],
@@ -106,7 +108,6 @@ class FormInstall extends Model
         $cfg['database'] = $this->db;
         $cfg['singleLanguage'] = $this->singleLanguage;
         $cfg['multiLanguage'] = (bool)$this->multiLanguage;
-        $cfg['passwordSalt'] = '$2a$07$' . Str::randomLatinNumeric(mt_rand(21, 30)) . '$';
         $cfg['debug']['cookie']['key'] = 'fdebug_' . Crypt::randomString(mt_rand(4, 16));
         $cfg['debug']['cookie']['value'] = Crypt::randomString(mt_rand(32, 128));
         $cfg['mail'] = $this->mail;
@@ -129,7 +130,7 @@ class FormInstall extends Model
         $user->login = $this->user['login'];
         $user->email = $this->user['email'];
         $user->role_id = 4;
-        $user->password = Security::password_hash($this->user['password'], $cfg['passwordSalt']);
+        $user->password = Crypt::passwordHash($this->user['password']);
         $user->save();
 
         $profile = new Profile();

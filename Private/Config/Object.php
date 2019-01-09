@@ -70,6 +70,9 @@ return [
     },
     'Mailer' => function () {
         $mCfg = App::$Properties->get('mail');
+        if (!(bool)$mCfg['enable']) {
+            return false;
+        }
         // initialize swiftmailer transporter
         $transport = (new Swift_SmtpTransport($mCfg['host'], $mCfg['port']))
             ->setUsername($mCfg['user']);

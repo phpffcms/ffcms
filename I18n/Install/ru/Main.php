@@ -32,6 +32,8 @@ return [
     'Table prefix for multiple usage of single database (example: ffcms_)' => 'Префикс для таблиц для организации нескольких установок в одной базе данных (пример: ffcms_)',
     'General configurations' => 'Основные настройки',
     'SMTP mail configurations' => 'Конфигурация отправки почты SMTP',
+    'Use mail features' => 'Использование возможностей почтовых уведомлений',
+    'Is mailing features enabled?' => 'Включена ли отправка почты возможностями системы?',
     'Set SMTP hostname or ip' => 'Укажите адрес хоста или ip SMTP сервера',
     'Port' => 'Порт',
     'Set SMTP connection port' => 'Укажите порт SMTP сервера',

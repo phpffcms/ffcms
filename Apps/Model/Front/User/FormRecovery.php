@@ -90,12 +90,14 @@ class FormRecovery extends Model
         $log->message = __('Password recovery is initialized from: %ip%', ['ip' => App::$Request->getClientIp()]);
         $log->save();
 
-        // send recovery email
-        App::$Mailer->tpl('user/_mail/recovery', [
-            'login' => $user->login,
-            'email' => $this->email,
-            'token' => $token,
-            'id' => $rObject->id
-        ])->send($this->email, App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]));
+        if (App::$Mailer) {
+            // send recovery email
+            App::$Mailer->tpl('user/_mail/recovery', [
+                'login' => $user->login,
+                'email' => $this->email,
+                'token' => $token,
+                'id' => $rObject->id
+            ])->send($this->email, App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]));
+        }
     }
 }

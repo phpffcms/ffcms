@@ -31,6 +31,9 @@
     "phpffcms/ffcms-yandex": "@dev",
     "studio-42/elfinder": " 2.1.*@stable"
   },
+  "require-dev": {
+    "codeception/codeception": "2.*@stable"
+  },
   "authors": [
     {
       "name": "Mihail Pyatinskiy",

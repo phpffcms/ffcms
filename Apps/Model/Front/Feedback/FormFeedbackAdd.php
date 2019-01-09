@@ -101,10 +101,12 @@ class FormFeedbackAdd extends Model
         // save row to db
         $record->save();
 
-        // send notification to email
-        App::$Mailer->tpl('feedback/_mail/created', [
-            'record' => $record
-        ])->send($record->email, App::$Translate->get('Feedback', 'Request #%id% is created', ['id' => $record->id]));
+        if (App::$Mailer) {
+            // send notification to email
+            App::$Mailer->tpl('feedback/_mail/created', [
+                'record' => $record
+            ])->send($record->email, App::$Translate->get('Feedback', 'Request #%id% is created', ['id' => $record->id]));
+        }
 
         return $record;
     }
