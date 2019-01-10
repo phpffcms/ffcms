@@ -9,10 +9,10 @@ class MainCest
     public function ensureThatMainWorks(AcceptanceTester $I)
     {
         $I->amOnPage('/');
-        $I->see('ffcms');
+        $I->see('FFCMS Demo');
         $I->seeLink('Sign up');
         $I->seeLink('Sign in');
-        $I->see('Find', '#search-submit');
+        $I->see('Search', 'button.btn');
         $I->seeLink('Home');
         $I->seeLink('News');
         $I->seeLink('About');

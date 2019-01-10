@@ -8,7 +8,7 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: http://ffcms.app/en
+            url: http://ffcms.test/en
             browser: chrome
             window_size: 1368x768
         - \Helper\Acceptance

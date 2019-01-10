@@ -78,7 +78,7 @@ class ProfileCest
         $i->fillField('FormPasswordChange[renew]', 'test123');
         $i->click('Update');
 
-        $i->see('Password is successful changed', 'p');
+        $i->see('Password is successful changed', 'div');
         $auth->logout();
         // check new password
         $auth->login('test1', 'test123');
@@ -89,7 +89,7 @@ class ProfileCest
         $i->fillField('FormPasswordChange[new]', 'test1');
         $i->fillField('FormPasswordChange[renew]', 'test1');
         $i->click('Update');
-        $i->see('Password is successful changed', 'p');
+        $i->see('Password is successful changed', 'div');
         $auth->logout();
     }
 

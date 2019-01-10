@@ -10,12 +10,10 @@ class SearchCest
     {
         // check ajax response
         $i->amOnPage('/undefined');
-        $i->fillField('query', 'ffcms');
-        $i->wait(1); // wait for ajax response onKeyDown
-        $i->see('FFCMS 3 - the');
+        $i->fillField('input[name=query]', 'ffcms');
         // check post response
-        $i->click('//button[@id="search-submit"]');
+        $i->click('Search');
         $i->see('Search query: ffcms', 'h1');
-        $i->see('ffcms writed on php language syntax and using');
+        $i->see('writed on php language syntax and using');
     }
 }

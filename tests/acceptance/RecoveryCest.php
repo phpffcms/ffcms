@@ -13,7 +13,7 @@ class RecoveryCest
         $I->fillField('FormRecovery[email]', 'test1@gmail.com');
         $I->fillField('FormRecovery[captcha]', \Helper\Core::getCaptcha());
         $I->click('Make recovery');
-        $I->see('We send to you email with instruction to recovery your account', 'p');
+        $I->see('We send to you email with instruction to recovery your account', 'div');
     }
 
     /**
@@ -27,6 +27,6 @@ class RecoveryCest
         $I->fillField('FormRecovery[email]', mt_rand(100, 100000) . '@gmail.com');
         $I->fillField('FormRecovery[captcha]', \Helper\Core::getCaptcha());
         $I->click('Make recovery');
-        $I->see('Form validation is failed', 'p');
+        $I->see('Form validation is failed', 'div');
     }
 }
