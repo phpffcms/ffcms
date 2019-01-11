@@ -1,6 +1,6 @@
 actor: Tester
-include:
-    - vendor/phpffcms/ffcms-core
+#include:
+#    - vendor/phpffcms/ffcms-core
 paths:
     tests: tests
     log: tests/_output
