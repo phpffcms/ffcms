@@ -3,6 +3,7 @@
 namespace Widgets\Front\Newcomment;
 
 use Apps\Model\Api\Comments\EntityCommentData;
+use Apps\ActiveRecord\App as AppRecord;
 use Ffcms\Core\App;
 use Extend\Core\Arch\FrontWidget as AbstractWidget;
 use Ffcms\Core\Traits\ClassTools;
@@ -99,8 +100,12 @@ class Newcomment extends AbstractWidget
     private function makeQuery()
     {
         $records = CommentPost::with(['user', 'user.profile', 'user.role'])
-            ->where('lang', $this->lang)
-            ->where('moderate', 0);
+            ->where('moderate', false);
+
+        $cfg = AppRecord::getConfigs('widget', 'Comments');
+        if ((bool)$cfg['onlyLocale']) {
+            $records->where('lang', $this->lang);
+        }
 
         if (!$records || $records->count() < 1) {
             return null;

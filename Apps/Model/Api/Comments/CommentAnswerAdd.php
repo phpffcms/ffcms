@@ -80,16 +80,20 @@ class CommentAnswerAdd extends Model
         }
 
         // check to prevent spam
-        $query = CommentAnswer::where('user_id', '=', $this->_userId)
-            ->orWhere('ip', '=', $this->ip)
+        $query = CommentAnswer::where('user_id', $this->_userId)
+            ->orWhere('ip', $this->ip)
             ->orderBy('created_at', 'DESC')
             ->first();
 
         // something is founded :D
-        if ($query !== null) {
+        if ($query) {
+            $isModerator = false;
+            if (App::$User->isAuth() && App::$User->identity()->role->can('global/modify')) {
+                $isModerator = true;
+            }
             $answerTime = Date::convertToTimestamp($query->created_at);
             $delay = $answerTime + $this->_configs['delay'] - time();
-            if ($delay > 0) { // sounds like config time is not passed now
+            if ($delay > 0 && !$isModerator) { // sounds like config time is not passed now
                 throw new JsonException(__('Spam protection: please, wait %sec% seconds', ['sec' => $delay]));
             }
         }

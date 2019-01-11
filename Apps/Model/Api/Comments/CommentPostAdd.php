@@ -84,17 +84,21 @@ class CommentPostAdd extends Model
         }
 
         // check delay between 2 comments from 1 user or 1 ip
-        $query = CommentPost::where('user_id', '=', $this->_userId)
-            ->orWhere('ip', '=', $this->ip)
+        $query = CommentPost::where('user_id', $this->_userId)
+            ->orWhere('ip', $this->ip)
             ->orderBy('created_at', 'DESC')
             ->first();
 
         /** @var CommentPost $query */
         // check if latest post time for this user is founded
         if ($query) {
+            $isModerator = false;
+            if (App::$User->isAuth() && App::$User->identity()->role->can('global/modify')) {
+                $isModerator = true;
+            }
             $postTime = Date::convertToTimestamp($query->created_at);
             $delay = $postTime + $this->_configs['delay'] - time();
-            if ($delay > 0) {
+            if ($delay > 0 && !$isModerator) {
                 throw new JsonException(__('Spam protection: please, wait %sec% seconds', ['sec' => $delay]));
             }
         }
