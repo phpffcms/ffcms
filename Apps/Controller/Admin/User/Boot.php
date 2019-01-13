@@ -32,9 +32,8 @@ trait Boot
             /** @var User[]|Collection $records */
             $records->each(function($item) use ($model) {
                 /** @var User $item */
-                $title = $item->login . '(' . $item->email . ')';
-                $text = App::$Translate->get('User', 'Login: %login%, email: %email%, nick: %nick%', [
-                    'login' => $item->login,
+                $title = $item->email . '(id=' . $item->id . ')';
+                $text = App::$Translate->get('User', 'Email: %email%, nick: %nick%', [
                     'email' => $item->email,
                     'nick' => $item->profile->nick ?? 'id' . $item->id
                 ]);

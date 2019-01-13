@@ -25,7 +25,6 @@ $this->layout('_layouts/default', [
 <?= $form->start() ?>
 
 <?= $form->fieldset()->text('email', null, __('Specify user email')) ?>
-<?= $form->fieldset()->text('login', null, __('Specify user login')) ?>
 <?= $form->fieldset()->text('newpassword', null, __('Specify new user password if you want to change it! Less empty field to save current')) ?>
 <?= $form->fieldset()->select('role_id', ['options' => $model->getRoleList(), 'optionsKey' => true]) ?>
 <?= $form->field()->hidden('approve_token') ?>

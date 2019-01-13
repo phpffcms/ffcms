@@ -30,10 +30,7 @@ trait ActionIndex
         // check if search query passed
         $query = $this->request->query->get('search', null);
         if ($query && Any::isStr($query) && Str::length($query) > 1) {
-            $record = $record->where(function ($db) use ($query) {
-                $db->where('login', 'like', '%' . $query . '%')
-                    ->orWhere('email', 'like', '%' . $query . '%');
-            });
+            $record = $record->where('email', 'like', '%' . $query . '%');
         }
 
         // set current page num and offset

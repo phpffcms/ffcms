@@ -61,7 +61,6 @@ class FormInstall extends Model
             'mail.password' => __('Password'),
             'singleLanguage' => __('Default language'),
             'multiLanguage' => __('Multi language'),
-            'user.login' => __('Login'),
             'user.email' => __('Email'),
             'user.password' => __('Password'),
             'user.repassword' => __('Repeat password'),
@@ -77,7 +76,7 @@ class FormInstall extends Model
     {
         return [
             [['db.driver', 'db.host', 'db.username', 'db.password', 'db.database', 'db.prefix', 'singleLanguage', 'mainpage'], 'required'],
-            [['user.login', 'user.email', 'user.password', 'user.repassword'], 'required'],
+            [['user.email', 'user.password', 'user.repassword'], 'required'],
             ['mail.enable', 'required'],
             ['mail.enable', 'int'],
             [['mail.host', 'mail.port', 'mail.user', 'main.encrypt', 'mail.password'], 'used'],
@@ -85,7 +84,7 @@ class FormInstall extends Model
             ['mail.port', 'int'],
             ['mail.encrypt', 'in', ['ssl', 'tls', 'none']],
             ['mainpage', 'in', ['none', 'news', 'about']],
-            [['user.login', 'user.password'], 'length_min', 4],
+            ['user.password', 'length_min', 4],
             ['user.repassword', 'equal', $this->getRequest('user.password', $this->getSubmitMethod())],
             ['user.email', 'email'],
             ['multiLanguage', 'used'],
@@ -127,7 +126,6 @@ class FormInstall extends Model
         // insert admin user
         $user = new User();
         $user->setConnection('install');
-        $user->login = $this->user['login'];
         $user->email = $this->user['email'];
         $user->role_id = 4;
         $user->password = Crypt::passwordHash($this->user['password']);

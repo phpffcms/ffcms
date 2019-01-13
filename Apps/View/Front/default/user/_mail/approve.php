@@ -1,3 +1,7 @@
+<?php
+/** @var string $email */
+/** @var string $token */
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +26,7 @@
                 <?= __('Congratulations! You just registered on our website') ?>.
                 <?= __('You must approve registration following link below') ?>.
                 <br />
-                <?= __('Login') ?>: <?= $login; ?>
+                <?= __('Email') ?>: <?= $email ?>
             </h3>
         </td>
     </tr>

@@ -63,6 +63,7 @@ class FormRecovery extends Model
             throw new SyntaxException('You must approve your account');
         }
 
+        /** @var UserRecovery $rows */
         $rows = UserRecovery::where('user_id', '=', $user->getId())
             ->orderBy('id', 'DESC')
             ->first();
@@ -93,7 +94,6 @@ class FormRecovery extends Model
         if (App::$Mailer) {
             // send recovery email
             App::$Mailer->tpl('user/_mail/recovery', [
-                'login' => $user->login,
                 'email' => $this->email,
                 'token' => $token,
                 'id' => $rObject->id

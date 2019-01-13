@@ -15,7 +15,6 @@ use Ffcms\Core\Helper\Crypt;
 class FormRegister extends Model
 {
     public $email;
-    public $login;
     public $password;
     public $repassword;
     public $captcha;
@@ -44,15 +43,14 @@ class FormRegister extends Model
     public function rules(): array
     {
         $rules = [
-            [['login', 'password', 'repassword', 'email'], 'required'],
-            ['login', 'length_min', '2'],
+            [['password', 'repassword', 'email'], 'required'],
             ['password', 'length_min', '3'],
             ['email', 'email'],
             ['repassword', 'equal', $this->getRequest('password', $this->getSubmitMethod())],
             ['captcha', 'used']
         ];
 
-        if (true === $this->_captcha) {
+        if ($this->_captcha) {
             $rules[] = ['captcha', 'App::$Captcha::validate'];
         }
 
@@ -66,7 +64,6 @@ class FormRegister extends Model
     public function labels(): array
     {
         return [
-            'login' => __('Login'),
             'password' => __('Password'),
             'repassword' => __('Repeat password'),
             'email' => __('Email'),
@@ -79,10 +76,9 @@ class FormRegister extends Model
      * @param bool $activation
      * @return bool
      */
-    public function tryRegister($activation = false)
+    public function tryRegister($activation = false): bool
     {
-        $check = App::$User->where('login', '=', $this->login)
-            ->orWhere('email', '=', $this->email)
+        $check = App::$User->where('email', $this->email)
             ->count();
         if ($check !== 0) {
             return false;
@@ -90,7 +86,6 @@ class FormRegister extends Model
 
         // create row
         $user = new User();
-        $user->login = $this->login;
         $user->email = $this->email;
         $user->password = Crypt::passwordHash($this->password);
         // if need to be approved - make random token and send email
@@ -100,8 +95,7 @@ class FormRegister extends Model
             if (App::$Mailer) {
                 App::$Mailer->tpl('user/_mail/approve', [
                     'token' => $user->approve_token,
-                    'email' => $user->email,
-                    'login' => $user->login
+                    'email' => $user->email
                 ])->send($this->email, (new \Swift_Message(App::$Translate->get('Default', 'Registration approve', []))));
             }
         }

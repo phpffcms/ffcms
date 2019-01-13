@@ -27,7 +27,6 @@ $table = $this->table(['class' => 'table'])
     ->head([
         ['text' => '#'],
         ['text' => __('Email')],
-        ['text' => __('Login')],
         ['text' => __('Nickname')],
         ['text' => __('Register date')]
     ]);
@@ -36,9 +35,8 @@ foreach ($model->users as $user) {
     /** @var \Apps\ActiveRecord\User $user */
     $nickname = \Ffcms\Core\Helper\Simplify::parseUserNick($user->id);
     $table->row([
-        ['text' => $user->getParam('id')],
-        ['text' => $user->getParam('email')],
-        ['text' => $user->getParam('login')],
+        ['text' => $user->id],
+        ['text' => $user->email],
         ['text' => $nickname],
         ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_HOUR)]
     ]);

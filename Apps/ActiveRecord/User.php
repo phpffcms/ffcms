@@ -13,7 +13,6 @@ use Ffcms\Core\Traits\SearchableTrait;
  * Class User. Active record model for user auth data
  * @package Apps\ActiveRecord
  * @property int $id
- * @property string $login
  * @property string $email
  * @property string $password
  * @property int $role_id
@@ -32,7 +31,6 @@ class User extends ActiveModel implements iUser
 
     protected $casts = [
         'id' => 'integer',
-        'login' => 'string',
         'email' => 'string',
         'role_id' => 'integer',
         'approve_token' => 'string'
@@ -40,9 +38,8 @@ class User extends ActiveModel implements iUser
 
     protected $searchable = [
         'columns' => [
-            'login' => 2,
             'email' => 3,
-            'nick' => 1
+            'nick' => 2
         ],
         'joins' => [
             'profiles' => ['users.id', 'profiles.user_id']
@@ -162,20 +159,6 @@ class User extends ActiveModel implements iUser
         }
 
         return self::where('email', $email)->count() > 0;
-    }
-
-    /**
-     * Check if user with $login is exist
-     * @param string $login
-     * @return bool
-     */
-    public static function isLoginExist(?string $login = null): bool
-    {
-        if (!Any::isStr($login) || Any::isEmpty($login) || Str::length($login) < 2) {
-            return false;
-        }
-
-        return self::where('login', $login)->count() > 0;
     }
 
     /**

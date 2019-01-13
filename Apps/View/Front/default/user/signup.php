@@ -21,7 +21,6 @@ $this->layout('_layouts/default', [
 
 <?php // $this->insert('user/_menu/_social_panel') ?>
 
-<?= $form->fieldset()->text('login', null, __('Enter your username for future use on the site')); ?>
 <?= $form->fieldset()->text('email', null, __('Enter your e-mail for an account')); ?>
 <?= $form->fieldset()->password('password', null, __('Enter a password for your account. It should be longer than 3 characters')); ?>
 <?= $form->fieldset()->password('repassword', null, __('Repeat your password to be sure it correct')); ?>

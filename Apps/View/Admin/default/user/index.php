@@ -28,7 +28,7 @@ $this->layout('_layouts/default', [
     <div class="col-md-4">
         <form accept-charset="UTF-8" method="get">
             <div class="input-group">
-                <input type="text" name="search" id="search" value="<?= $this->e($search) ?>" placeholder="login, email ..." class="form-control mr-sm-1">
+                <input type="text" name="search" id="search" value="<?= $this->e($search) ?>" placeholder="email ..." class="form-control mr-sm-1">
                 <span class="input-group-btn">
                     <input type="submit" name="dosearch" value="<?= __('Search') ?>" class="btn btn-primary">
                 </span>
@@ -48,7 +48,6 @@ $table = $this->table(['class' => 'table table-striped'])
     ->head([
         ['text' => '#'],
         ['text' => __('Email')],
-        ['text' => __('Login')],
         ['text' => __('Role')],
         ['text' => __('Register date')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
@@ -70,7 +69,6 @@ foreach ($records as $user) {
     $table->row([
         ['text' => $user->id],
         ['text' => $user->email],
-        ['text' => $user->login],
         ['text' => $roleHtml, 'html' => true],
         ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY)],
         ['text' => $btngrp->display(),

@@ -73,7 +73,7 @@ trait ActionSocialAuth
                 $loginModel->openSession($model->_userObject);
                 $this->response->redirect('/'); // session is opened, refresh page
             } else { // something gonna wrong, lets notify user
-                App::$Session->getFlashBag()->add('error', __('Login or email is always used on website'));
+                App::$Session->getFlashBag()->add('error', __('Email is always used on website'));
             }
         }
 

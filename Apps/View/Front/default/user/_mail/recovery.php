@@ -21,7 +21,7 @@
                 <?= __('You or someone other required recovery password on website') ?>.
                 <?= __('You must approve recovery following link below') ?>.
                 <br /><br />
-                <b><?= __('Login') ?></b>: <?= $login ?>
+                <b><?= __('Email') ?></b>: <?= $email ?>
             </h3>
         </td>
     </tr>

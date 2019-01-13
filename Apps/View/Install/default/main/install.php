@@ -37,7 +37,6 @@ $form = $this->form($model);
 <?= $form->fieldset()->text('mail.password', ['class' => 'form-control'], __('Set auth user password if exist')); ?>
 
 <h2><?= __('Administrator account') ?></h2>
-<?= $form->fieldset()->text('user.login', ['class' => 'form-control'], __('Set administrator account login')) ?>
 <?= $form->fieldset()->text('user.email', ['class' => 'form-control'], __('Set administrator account email')) ?>
 <?= $form->fieldset()->password('user.password', ['class' => 'form-control'], __('Set administrator password')) ?>
 <?= $form->fieldset()->password('user.repassword', ['class' => 'form-control'], __('Repeat administrator password')) ?>

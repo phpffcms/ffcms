@@ -27,13 +27,11 @@ $this->layout('_layouts/default', [
         ->head([
             ['text' => '#'],
             ['text' => __('Email')],
-            ['text' => __('Login')],
             ['text' => __('Nickname')],
             ['text' => __('Register date')]
         ])->row([
             ['text' => $model->getUser()->id],
             ['text' => $model->getUser()->email],
-            ['text' => $model->getUser()->login],
             ['text' => $model->getUser()->profile->nick ?? 'id' . $model->getUser()->id],
             ['text' => Date::convertToDatetime($model->getUser()->created_at, Date::FORMAT_TO_HOUR)],
         ])->display() ?>

@@ -19,7 +19,7 @@ $this->layout('_layouts/default', [
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>
 
-<?= $form->fieldset()->text('login', null, __('Input you login or email')) ?>
+<?= $form->fieldset()->text('email', null, __('Input you login or email')) ?>
 <?= $form->fieldset()->password('password', null, __('Input you password')) ?>
 
 <?php if ($useCaptcha): ?>

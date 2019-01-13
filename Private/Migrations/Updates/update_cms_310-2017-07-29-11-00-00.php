@@ -31,7 +31,7 @@ class update_cms_310 extends Migration implements MigrationInterface
             });
         }
         if (!$this->getSchema()->hasColumn('comment_answers', 'app_relation_id')) {
-            $this->getSchema()->table('comment_answers', function ($table){
+            $this->getSchema()->table('comment_answers', function($table){
                 $table->integer('app_relation_id')->unsigned()->default(0)->after('app_name');
             });
         }
@@ -41,14 +41,20 @@ class update_cms_310 extends Migration implements MigrationInterface
 
         // @todo: add algo to find app_name & app_id for oldest comments
         if ($this->getSchema()->hasColumn('comment_posts', 'pathway')) {
-            $this->getSchema()->table('comment_posts', function ($table){
+            $this->getSchema()->table('comment_posts', function($table){
                 $table->dropColumn('pathway');
             });
         }
         // remove comment_hash column from content
         if ($this->getSchema()->hasColumn('contents', 'comment_hash')) {
-            $this->getSchema()->table('contents', function ($table){
+            $this->getSchema()->table('contents', function($table) {
                 $table->dropColumn('comment_hash');
+            });
+        }
+        // remove user login column
+        if ($this->getSchema()->hasColumn('users', 'login')) {
+            $this->getSchema()->table('users', function($table) {
+                $table->dropColumn('login');
             });
         }
     }

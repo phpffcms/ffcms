@@ -93,7 +93,7 @@ trait ActionSignup
                 App::$Event->run(static::EVENT_USER_REGISTER_FAIL, [
                     'model' => $registerForm
                 ]);
-                App::$Session->getFlashBag()->add('error', __('Login or email is always used on website'));
+                App::$Session->getFlashBag()->add('error', __('Email is always used on website'));
             }
         }
 

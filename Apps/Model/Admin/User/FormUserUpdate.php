@@ -18,7 +18,6 @@ use Ffcms\Core\Interfaces\iUser;
 class FormUserUpdate extends Model
 {
     public $email;
-    public $login;
     public $password;
     public $newpassword;
     public $role_id;
@@ -63,7 +62,6 @@ class FormUserUpdate extends Model
     {
         return [
             'email' => __('Email'),
-            'login' => __('Login'),
             'newpassword' => __('New password'),
             'role_id' => __('Role'),
             'approved' => __('Approved')
@@ -77,12 +75,10 @@ class FormUserUpdate extends Model
     public function rules(): array
     {
         return [
-            [['email', 'login', 'role_id', 'approved'], 'required'],
+            [['email', 'role_id', 'approved'], 'required'],
             ['newpassword', 'used'],
             ['email', 'email'],
-            ['login', 'length_min', 3],
             ['email', 'Apps\Model\Admin\User\FormUserUpdate::isUniqueEmail', $this->_user->getParam('id')],
-            ['login', 'Apps\Model\Admin\User\FormUserUpdate::isUniqueLogin', $this->_user->getParam('id')]
         ];
     }
 
@@ -137,26 +133,9 @@ class FormUserUpdate extends Model
      * @param int|null $userId
      * @return bool
      */
-    public static function isUniqueEmail($email, $userId = null)
+    public static function isUniqueEmail($email, $userId = null): bool
     {
-        $find = User::where('email', '=', $email);
-
-        if ($userId && Any::isInt($userId)) {
-            $find->where('id', '!=', $userId);
-        }
-
-        return $find->count() === 0;
-    }
-
-    /**
-     * Check if new login is always exist
-     * @param string $login
-     * @param int|null $userId
-     * @return bool
-     */
-    public static function isUniqueLogin($login, $userId = null)
-    {
-        $find = User::where('login', '=', $login);
+        $find = User::where('email', $email);
 
         if ($userId && Any::isInt($userId)) {
             $find->where('id', '!=', $userId);

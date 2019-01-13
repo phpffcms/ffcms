@@ -15,7 +15,7 @@ use Ffcms\Core\Interfaces\iUser;
  */
 class FormLogin extends Model
 {
-    public $login;
+    public $email;
     public $password;
     public $captcha;
 
@@ -39,9 +39,10 @@ class FormLogin extends Model
     public function rules(): array
     {
         $rules = [
-            [['login', 'password'], 'required'],
-            ['login', 'length_min', '2'],
+            [['email', 'password'], 'required'],
+            ['email', 'length_min', '2'],
             ['password', 'length_min', '3'],
+            ['email', 'email'],
             ['captcha', 'used']
         ];
         if ($this->_captcha) {
@@ -57,7 +58,7 @@ class FormLogin extends Model
     public function labels(): array
     {
         return [
-            'login' => __('Login or email'),
+            'email' => __('Email'),
             'password' => __('Password'),
             'captcha' => __('Captcha')
         ];
@@ -70,12 +71,10 @@ class FormLogin extends Model
     public function tryAuth(): bool
     {
         /** @var User $user */
-        $user = App::$User->where(function ($q) {
-            $q->where('login', $this->login)
-                ->orWhere('email', $this->login);
-        })->first();
+        $user = User::where('email', $this->email)
+            ->first();
 
-        // login found, check if approved and compare password
+        // row found, check if approved and compare password
         if ($user && !$user->approve_token) {
             // check if legacy password hash used (ffcms 3.0 or early)
             if (Crypt::isOldPasswordHash($user->password) && App::$Security->password_hash($this->password) === $user->password) {

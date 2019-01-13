@@ -27,7 +27,6 @@ $this->layout('_layouts/default', [
 $table = $this->table(['class' => 'table table-striped'])
     ->head([
         ['text' => '#'],
-        ['text' => 'login'],
         ['text' => 'email'],
         ['text' => __('Nickname')],
         ['text' => __('Birthday')],
@@ -38,7 +37,6 @@ $table = $this->table(['class' => 'table table-striped'])
 foreach ($records as $profile) {
     $table->row([
         ['text' => $profile->id],
-        ['text' => $profile->user->login],
         ['text' => $profile->user->email],
         ['text' => $profile->nick],
         ['text' => Str::startsWith('0000-', $profile->birthday) ? __('None') : Date::convertToDatetime($profile->birthday)],

@@ -53,7 +53,6 @@ class FormUserDelete extends Model
     {
         return [
             'email' => __('Email'),
-            'login' => __('Login'),
             'delete' => __('Delete user content')
         ];
     }

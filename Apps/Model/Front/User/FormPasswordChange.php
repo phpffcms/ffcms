@@ -12,7 +12,6 @@ use Ffcms\Core\Interfaces\iUser;
  */
 class FormPasswordChange extends Model
 {
-    public $login;
     public $password;
     public $repassword;
     public $captcha;
@@ -27,7 +26,6 @@ class FormPasswordChange extends Model
     public function __construct(iUser $user)
     {
         $this->_user = $user;
-        $this->login = $user->getParam('login');
         parent::__construct(true);
     }
 
@@ -58,6 +56,9 @@ class FormPasswordChange extends Model
         ];
     }
 
+    /**
+     * Save on submit
+     */
     public function make()
     {
         $this->_user->password = Crypt::passwordHash($this->password);
