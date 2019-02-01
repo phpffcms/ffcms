@@ -13,7 +13,7 @@ INSTALLATION
 ------------
 To deploy ffcms software you must have composer and php-cli:
 ```bash
-composer create-project phpffcms/ffcms ./path/to/document_root "3.1.*" --keep-vcs --prefer-dist
+composer create-project phpffcms/ffcms ./path/to/document_root 3.1 --keep-vcs --prefer-dist
 composer update
 php console.php main:install
 ```
