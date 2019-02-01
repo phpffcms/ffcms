@@ -13,8 +13,7 @@ INSTALLATION
 ------------
 To deploy ffcms software you must have composer and php-cli:
 ```bash
-composer global require "fxp/composer-asset-plugin:1.3.*"
-composer create-project phpffcms/ffcms ./path/to/document_root 3.0.2 --keep-vcs --prefer-dist
+composer create-project phpffcms/ffcms ./path/to/document_root "3.1.*" --keep-vcs --prefer-dist
 composer update
 php console.php main:install
 ```
@@ -51,7 +50,7 @@ License (MIT)
 ```
 The MIT License (MIT)
 
-Copyright (c) 2013-2018 FFCMS, Mihail Pyatinskyi
+Copyright (c) 2013-2019 FFCMS, Mihail Pyatinskiy
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
