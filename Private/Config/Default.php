@@ -7,8 +7,8 @@
 	'debug' => [
 		'all' => false,
 		'cookie' => [
-			'key' => 'fdebug_51cc',
-			'value' => '58928ebf3097fad30db28d34bfc52619efa0c5f191638563aca9f6dbcebec5b6936f89aeaea9ae7e0d6aa000455b114938b79c35d7'
+			'key' => 'fdebug_39a435',
+			'value' => '6c6ceb041e1e890e0ce762c1861da2857443a908660d7b29174799624b5b1041fc3b5749250b7296ff306b422aabadb016'
 		]
 	],
 	'userCron' => false,
@@ -19,7 +19,7 @@
 	],
 	'database' => [
 		'driver' => 'mysql',
-		'host' => '127.0.0.1',
+		'host' => 'localhost',
 		'username' => 'mysql',
 		'password' => 'mysql',
 		'database' => 'ffcms',

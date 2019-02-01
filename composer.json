@@ -13,6 +13,7 @@
   "type": "project",
   "homepage": "https://ffcms.org",
   "license": "MIT",
+  "prefer-stable": true,
   "require": {
     "php": ">=7.1",
     "ext-curl": "*",
@@ -21,15 +22,15 @@
     "ext-zip": "*",
     "ext-PDO": "*",
     "ext-json": "*",
-    "phpffcms/ffcms-core": "1.1.*@stable",
-    "phpffcms/ffcms-console": "1.1.*@stable",
-    "phpffcms/ffcms-eloquent-search": "1.*@stable",
-    "phpffcms/ffcms-tinymce": "1.*@stable",
-    "phpffcms/language-flags": "1.*@stable",
-    "phpffcms/ffcms-templex": "1.*@stable",
-    "phpffcms/ffcms-assets": "1.*@stable",
-    "phpffcms/ffcms-yandex": "1.*@stable",
-    "studio-42/elfinder": " 2.1.*@stable"
+    "phpffcms/ffcms-core": "1.1.*",
+    "phpffcms/ffcms-console": "1.1.*",
+    "phpffcms/ffcms-eloquent-search": "1.*",
+    "phpffcms/ffcms-tinymce": "1.*",
+    "phpffcms/language-flags": "1.*",
+    "phpffcms/ffcms-templex": "1.*",
+    "phpffcms/ffcms-assets": "1.*",
+    "phpffcms/ffcms-yandex": "1.*",
+    "studio-42/elfinder": " 2.1.*"
   },
   "require-dev": {
     "codeception/codeception": "2.*@stable"

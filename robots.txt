@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /*search/*
+Disallow: /*user/login
+Disallow: /*user/signup
+Disallow: /*user/recovery
+Disallow: /install/*
+Disallow: /*feedback/*
+
+Crawl-delay: 0.3
