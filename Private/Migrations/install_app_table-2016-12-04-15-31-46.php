@@ -151,16 +151,16 @@ class install_app_table extends Migration implements MigrationInterface
         ]);
 
         $this->getConnection()->table('apps')->insert([
-            ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'app', 'sys_name' => 'Search', 'name' => $names->search, 'configs' => $configs->search, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'app', 'sys_name' => 'Sitemap', 'name' => $names->sitemap, 'configs' => '', 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'widget', 'sys_name' => 'Contenttag', 'name' => $names->contenttag, 'configs' => $configs->contenttag, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now],
-            ['type' => 'widget', 'sys_name' => 'Newcomment', 'name' => $names->newcomment, 'configs' => $configs->newcomment, 'version' => '1.0.0', 'created_at' => $now, 'updated_at' => $now]
+            ['type' => 'app', 'sys_name' => 'User', 'name' => $names->user, 'configs' => $configs->user, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'app', 'sys_name' => 'Profile', 'name' => $names->profile, 'configs' => $configs->profile, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'app', 'sys_name' => 'Content', 'name' => $names->content, 'configs' => $configs->content, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'app', 'sys_name' => 'Feedback', 'name' => $names->feedback, 'configs' => $configs->feedback, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'app', 'sys_name' => 'Search', 'name' => $names->search, 'configs' => $configs->search, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'app', 'sys_name' => 'Sitemap', 'name' => $names->sitemap, 'configs' => '', 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'widget', 'sys_name' => 'Comments', 'name' => $names->comments, 'configs' => $configs->comments, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'widget', 'sys_name' => 'Newcontent', 'name' => $names->newcontent, 'configs' => $configs->newcontent, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'widget', 'sys_name' => 'Contenttag', 'name' => $names->contenttag, 'configs' => $configs->contenttag, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now],
+            ['type' => 'widget', 'sys_name' => 'Newcomment', 'name' => $names->newcomment, 'configs' => $configs->newcomment, 'version' => '1.0.1', 'created_at' => $now, 'updated_at' => $now]
         ]);
 
     }
