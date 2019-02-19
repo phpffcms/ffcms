@@ -120,6 +120,8 @@ return [
     'Drop files here to upload in gallery' => 'Перетащите файлы сюда для загрузки в галерею',
     '(or click here)' => '(или нажмите тут)',
     'Poster' => 'Постер',
+    'Template' => 'Шаблон',
+    'Set template for this content' => 'Укажите шаблон, который будет использован для отображения этого контента',
     'Not selected...' => 'Не выбрано...',
     'Choice image from gallery as a poster for this content' => 'Выберите изображение из галлереи в качестве постера для данного контента',
     'Nothing to delete is founded' => 'Для удаления ничего не найдено',

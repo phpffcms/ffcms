@@ -6,13 +6,10 @@ if (!defined('root')) {
 }
 
 // global environment
-define('env_name', 'Api');
-// this environment have no layouts
-define('env_no_layout', true);
-// this environment is based on json response type
-define('env_type', 'json');
+define('env_name', 'Install');
+define('env_type', 'html');
 
-require_once(root . '/Loader/Autoload.php');
+require_once(root . '/Private/Loader/Autoload.php');
 
 // make fast-access alias \App::$Object
 // class_alias('Ffcms\Core\App', 'App');
@@ -31,15 +28,10 @@ function __($text, array $params = [])
 }
 
 try {
-    // build app entry point factory instance
+    // prepare to run
     $app = \App::factory([
         'Database' => true,
-        'Session' => true,
-        'Debug' => false,
-        'User' => true,
-        'Mailer' => true,
-        'Captcha' => true,
-        'Cache' => true
+        'Session' => true
     ], $loader);
     // display output
     $app->run();

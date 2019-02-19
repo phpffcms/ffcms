@@ -1,16 +1,16 @@
 <?php
-/** @var object $loader */
+/** @var object $loader - defined in composer Autoload */
 // check if loader is initialized
 if (!defined('root')) {
     die('Hack attempt');
 }
 
 // global environment
-define('env_name', 'Admin');
-define('env_no_uri', false);
+define('env_name', 'Front');
+define('env_no_uri', true);
 define('env_type', 'html');
 
-require_once(root . '/Loader/Autoload.php');
+require_once(root . '/Private/Loader/Autoload.php');
 
 // make fast-access alias \App::$Object
 // class_alias('Ffcms\Core\App', 'App');
@@ -29,7 +29,6 @@ function __($text, array $params = [])
 }
 
 try {
-    // build app factory instance
     $app = \App::factory([
         'Database' => true,
         'Session' => true,
@@ -39,7 +38,6 @@ try {
         'Captcha' => true,
         'Cache' => true
     ], $loader);
-    // display output
     $app->run();
 } catch (Exception $e) {
     echo (new \Ffcms\Core\Exception\NativeException($e->getMessage()))->display();

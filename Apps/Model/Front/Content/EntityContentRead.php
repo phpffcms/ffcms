@@ -47,6 +47,9 @@ class EntityContentRead extends Model
     // gallery image key-value array as thumb->full
     public $galleryItems;
 
+    // content template
+    public $tpl;
+
     // private ActiveRecord relation objects
     private $_category;
     private $_content;
@@ -108,6 +111,7 @@ class EntityContentRead extends Model
         $this->source = $this->_content->source;
         $this->views = $this->_content->views+1;
         $this->rating = $this->_content->rating;
+        $this->tpl = $this->_content->tpl;
 
         // update views count
         $this->_content->views += 1;

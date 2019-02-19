@@ -6,10 +6,11 @@ if (!defined('root')) {
 }
 
 // global environment
-define('env_name', 'Install');
+define('env_name', 'Admin');
+define('env_no_uri', false);
 define('env_type', 'html');
 
-require_once(root . '/Loader/Autoload.php');
+require_once(root . '/Private/Loader/Autoload.php');
 
 // make fast-access alias \App::$Object
 // class_alias('Ffcms\Core\App', 'App');
@@ -28,10 +29,15 @@ function __($text, array $params = [])
 }
 
 try {
-    // prepare to run
+    // build app factory instance
     $app = \App::factory([
         'Database' => true,
-        'Session' => true
+        'Session' => true,
+        'Debug' => true,
+        'User' => true,
+        'Mailer' => true,
+        'Captcha' => true,
+        'Cache' => true
     ], $loader);
     // display output
     $app->run();

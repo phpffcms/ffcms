@@ -14,6 +14,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Integer;
 use Ffcms\Core\Helper\Type\Str;
 use Illuminate\Support\Collection;
@@ -171,7 +172,8 @@ class FormContentUpdate extends Model
             'authorId' => __('Author identity'),
             'source' => __('Source URL'),
             'addRating' => __('Change rating'),
-            'poster' => __('Poster')
+            'poster' => __('Poster'),
+            'tpl' => __('Template')
         ];
     }
 
@@ -268,6 +270,15 @@ class FormContentUpdate extends Model
         // limit only current category id
         $find->where('category_id', $this->categoryId);
         return $find->count() < 1;
+    }
+
+    /**
+     * Check if template is exist
+     * @return bool
+     */
+    public function validateTemplate(): bool
+    {
+        return Arr::in($this->tpl, $this->getAvailableTemplates());
     }
 
     /**

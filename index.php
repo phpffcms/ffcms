@@ -39,8 +39,8 @@ $uriLoader = array_shift($uriArray);
 $uriLoader = ucfirst(strtolower(str_replace('.', '', $uriLoader)));
 
 // if loader of interface is available - require it
-if (in_array($uriLoader, $loaderList, true) && file_exists(root . '/Loader/' . $uriLoader . '/index.php')) {
-    require_once (root . '/Loader/' . $uriLoader . '/index.php');
+if (in_array($uriLoader, $loaderList, true) && file_exists(root . '/Private/Loader/' . $uriLoader . '/index.php')) {
+    require_once (root . '/Private/Loader/' . $uriLoader . '/index.php');
 } else { // else - try to load default interface
-    require_once (root . '/Loader/Front/index.php');
+    require_once (root . '/Private/Loader/Front/index.php');
 }

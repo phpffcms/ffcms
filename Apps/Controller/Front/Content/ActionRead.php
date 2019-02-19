@@ -45,8 +45,8 @@ trait ActionRead
         }
 
         // try to find content entity record
-        $contentRecord = ContentEntity::where('path', '=', $contentPath)
-            ->where('category_id', '=', $categoryRecord->id);
+        $contentRecord = ContentEntity::where('path', $contentPath)
+            ->where('category_id', $categoryRecord->id);
         $trash = false;
 
         // if no entity is founded for this path lets try to find on trashed
@@ -78,8 +78,14 @@ trait ActionRead
             'model' => $model
         ]);
 
+        // prepare content template and make fallback if not exist
+        $template = 'content/tpl/' . $model->tpl;
+        if (!$this->view->exists($template)) {
+            $template = 'content/tpl/default';
+        }
+
         // render view output
-        return $this->view->render('content/read', [
+        return $this->view->render($template, [
             'model' => $model,
             'search' => $search,
             'trash' => $trash,
