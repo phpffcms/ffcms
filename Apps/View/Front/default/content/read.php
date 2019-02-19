@@ -76,38 +76,38 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         <?php if (Arr::in(true, $properties)): ?>
             <div class="meta">
                 <?php if ((bool)$properties['category']): ?>
-                    <span class="spaced"><i class="fa fa-list"></i> <?= Url::a(['content/list', [$model->catPath]], $model->catName, ['itemprop' => 'genre']) ?></span>
+                    <span class="spaced"><i class="fas fa-list"></i> <?= Url::a(['content/list', [$model->catPath]], $model->catName, ['itemprop' => 'genre']) ?></span>
                 <?php endif; ?>
                 <?php if ((bool)$properties['date']): ?>
-                    <span class="spaced"><i class="fa fa-calendar"></i> <time datetime="<?= date('c', Date::convertToTimestamp($model->getRecord()->created_at)) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
+                    <span class="spaced"><i class="far fa-calendar"></i> <time datetime="<?= date('c', Date::convertToTimestamp($model->getRecord()->created_at)) ?> itemprop="datePublished"><?= $model->createDate ?></time></span>
                 <?php endif; ?>
                 <?php if ((bool)$properties['author']): ?>
                     <?php if ($model->authorId && $model->authorId > 0): ?>
-                        <span class="spaced"><i class="fa fa-user"></i> <?= Url::a(['profile/show', [$model->authorId]], $model->authorName, ['itemprop' => 'author']) ?></span>
+                        <span class="spaced"><i class="fas fa-user"></i> <?= Url::a(['profile/show', [$model->authorId]], $model->authorName, ['itemprop' => 'author']) ?></span>
                     <?php else: ?>
-                        <span class="spaced"><i class="fa fa-user"></i> <s><?= $model->authorName ?></s></span>
+                        <span class="spaced"><i class="fas fa-user"></i> <s><?= $model->authorName ?></s></span>
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if ((bool)$properties['views']): ?>
-                    <span class="spaced"><i class="fa fa-eye"></i> <?= $model->views ?></span>
+                    <span class="spaced"><i class="fas fa-eye"></i> <?= $model->views ?></span>
                 <?php endif ?>
                 <?php if (\App::$User->isAuth() && \App::$User->identity()->role->can('Admin/Content/Update')): ?>
-                    <span class="float-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="fa fa-pencil" style="color: #ff0000;"></i></a></span>
+                    <span class="float-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="fas fa-pencil-alt" style="color: #ff0000;"></i></a></span>
                 <?php endif; ?>
             </div>
         <?php else: ?>
             <hr />
         <?php endif; ?>
         <?php if ($trash): ?>
-            <p class="alert alert-danger"><i class="fa fa-trash"></i> <?= __('This content is placed in trash') ?></p>
+            <p class="alert alert-danger"><i class="fas fa-trash-alt"></i> <?= __('This content is placed in trash') ?></p>
         <?php endif; ?>
         <?php if (!$model->display): ?>
-            <p class="alert alert-warning"><i class="fa fa-pencil"></i> <?= __('This content now is on moderation stage') ?></p>
+            <p class="alert alert-warning"><i class="fas fa-pencil-alt"></i> <?= __('This content now is on moderation stage') ?></p>
         <?php endif; ?>
         <div class="row">
             <div class="col-12">
                 <div id="content-text">
-                    <?php if ($showPoster === true && $model->posterFull && $model->posterThumb): ?>
+                    <?php if ($showPoster && $model->posterFull && $model->posterThumb): ?>
                         <a href="<?= $model->posterFull ?>" data-fancybox="image">
                             <img alt="<?= __('Poster for') ?>: <?= Str::lowerCase($model->title) ?>" src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" />
                         </a>
@@ -172,7 +172,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                         <div id="content-tags">
                             <?php
                             if (Any::isArray($model->metaKeywords) && count($model->metaKeywords) > 0 && Str::length($model->metaKeywords[0]) > 0) {
-                                echo '<i class="fa fa-tags"></i> ';
+                                echo '<i class="fas fa-tags"></i> ';
                                 foreach ($model->metaKeywords as $tag) {
                                     $tag = trim($tag);
                                     echo Url::a(['content/tag', [urlencode($tag)]], $tag, ['class' => 'badge badge-secondary']) . "&nbsp;";
@@ -191,13 +191,13 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                 $parseUrl = parse_url($sourceUrl);
                 $sourceHost = $parseUrl['host'];
                 ?>
-                <i class="fa fa-link"></i> <?= __('Source') ?>: <a href="<?= $sourceUrl ?>" rel="nofollow" target="_blank">
+                <i class="fas fa-link"></i> <?= __('Source') ?>: <a href="<?= $sourceUrl ?>" rel="nofollow" target="_blank">
                     <?= $sourceHost ?>
                 </a>
             </div>
         <?php endif; ?>
     </article>
-<?php if ($showComments === true): ?>
+<?php if ($showComments): ?>
     <div class="row">
         <div class="col-md-12">
             <div class="h3 text-success"><?= __('Comments') ?></div>

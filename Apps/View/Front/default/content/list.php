@@ -45,12 +45,12 @@ $this->layout('_layouts/default', [
     <h1>
         <?= $model->category['title'] ?>
         <?php if (!Str::likeEmpty($model->category['rss'])): ?>
-            <small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fa fa-rss"></i></a></small>
+            <small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fas fa-rss"></i></a></small>
         <?php endif; ?>
         <div class="float-right">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-sort-amount-desc"></i> <?= __('Sorting')?> <span class="caret"></span>
+                    <i class="fas fa-sort-amount-up"></i> <?= __('Sorting')?> <span class="caret"></span>
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="<?= $model->category['sort']['newest'] ?>"><?= __('Newest') ?> </a>
@@ -72,7 +72,7 @@ $this->layout('_layouts/default', [
     <article class="article-item" itemscope="itemscope" itemtype="https://schema.org/NewsArticle">
         <h2 itemprop="name">
             <?php if ($item['important']): ?>
-                <i class="fa fa-fire" style="color: #a50000"></i>
+                <i class="fas fa-fire" style="color: #a50000"></i>
             <?php endif; ?>
             <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>">
                 <?= $item['title'] ?>
@@ -81,7 +81,7 @@ $this->layout('_layouts/default', [
         <?php if (Arr::in(true, $catMeta)): ?>
             <div class="meta">
                 <?php if ($catConfigs['showCategory'] === true): ?>
-                    <span class="spaced"><i class="fa fa-list"></i>
+                    <span class="spaced"><i class="fas fa-list"></i>
                         <?= Url::a(
                             ['content/list', [$item['category']->path]],
                             \App::$Translate->getLocaleText($item['category']->title),
@@ -90,14 +90,14 @@ $this->layout('_layouts/default', [
             </span>
                 <?php endif; ?>
                 <?php if ($catConfigs['showDate'] === true): ?>
-                    <span class="spaced"><i class="fa fa-calendar"></i>
+                    <span class="spaced"><i class="fas fa-calendar"></i>
                 <time datetime="<?= date('c', Date::convertToTimestamp($item['date'])) ?>" itemprop="datePublished">
                     <?= $item['date'] ?>
                 </time>
             </span>
                 <?php endif; ?>
                 <?php if ($catConfigs['showAuthor'] === true): ?>
-                    <span class="spaced"><i class="fa fa-user"></i>
+                    <span class="spaced"><i class="fas fa-user"></i>
                         <?php
                         $ownerNick = $item['author']->profile === null ? __('Unknown') : $item['author']->profile->getNickname();
                         if ($item['author']->getId() < 1) {
@@ -109,7 +109,7 @@ $this->layout('_layouts/default', [
             </span>
                 <?php endif; ?>
                 <?php if ($catConfigs['showViews'] === true): ?>
-                    <span class="spaced"><i class="fa fa-eye"></i> <?= $item['views'] ?></span>
+                    <span class="spaced"><i class="fas fa-eye"></i> <?= $item['views'] ?></span>
                 <?php endif; ?>
             </div>
         <?php else: ?>
@@ -134,12 +134,12 @@ $this->layout('_layouts/default', [
                 ]);
             }*/ ?>
 
-            <span class="spaced"><i class="fa fa-comment-o"></i>
+            <span class="spaced"><i class="far fa-comment"></i>
                 <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>#comments-list"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
             <span class="float-right">
             <?php if ((int)$catConfigs['showTags'] === 1 && $item['tags'] !== null && Any::isArray($item['tags'])): ?>
-                <span class="spaced"><i class="fa fa-tags"></i>
+                <span class="spaced"><i class="fas fa-tags"></i>
                     <?php
                     foreach ($item['tags'] as $tag) {
                         $tag = trim($tag);

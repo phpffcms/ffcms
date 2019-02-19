@@ -25,7 +25,7 @@ $this->layout('_layouts/default', [
 <h1><?= __('Category list') ?></h1>
 <div class="row">
     <div class="col-md-12">
-        <?= Url::a(['content/categoryupdate'], '<i class="fa fa-plus"></i> ' . __('Add category'), ['class' => 'btn btn-primary', 'html' => true]) ?>
+        <?= Url::a(['content/categoryupdate'], '<i class="fas fa-plus"></i> ' . __('Add category'), ['class' => 'btn btn-primary', 'html' => true]) ?>
     </div>
 </div>
 <div class="table-responsive">
@@ -66,11 +66,11 @@ $this->layout('_layouts/default', [
                 </td>
                 <td class="text-center">
                     <?php $btn = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'dropdown' => ['class' => 'btn-group btn-group-sm'], 'role' => 'group'], 4)
-                        ->add('<i class="fa fa-eye"></i>', [\App::$Alias->scriptUrl . '/content/list/' . $row->path], ['html' => true, 'target' => '_blank'])
-                        ->add('<i class="fa fa-plus"></i>', ['content/categoryupdate', null, ['parent' => $row->id]], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => __('Add subcategory'), 'html' => true])
-                        ->add('<i class="fa fa-cog"></i>', ['content/categoryupdate', [$row->id]], ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'title' => __('Category configurations'), 'html' => true]);
+                        ->add('<i class="fas fa-eye"></i>', [\App::$Alias->scriptUrl . '/content/list/' . $row->path], ['html' => true, 'target' => '_blank'])
+                        ->add('<i class="fas fa-plus"></i>', ['content/categoryupdate', null, ['parent' => $row->id]], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => __('Add subcategory'), 'html' => true])
+                        ->add('<i class="fas fa-cog"></i>', ['content/categoryupdate', [$row->id]], ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'title' => __('Category configurations'), 'html' => true]);
                     if ($row->id > 1) {
-                        $btn = $btn->add('<i class="fa fa-trash-o"></i>', ['content/categorydelete', [$row->id]], ['class' => 'btn btn-danger', 'data-toggle' => 'tooltip', 'title' => __('Delete category'), 'html' => true]);
+                        $btn = $btn->add('<i class="fas fa-trash-alt"></i>', ['content/categorydelete', [$row->id]], ['class' => 'btn btn-danger', 'data-toggle' => 'tooltip', 'title' => __('Delete category'), 'html' => true]);
                     }
                     echo $btn->display();
                     ?>

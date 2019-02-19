@@ -51,9 +51,9 @@ foreach ($records as $invite) {
     $table->row([
         ['text' => $invite->id],
         ['text' => $invite->email],
-        ['text' => (time() - $time < \Apps\ActiveRecord\Invite::TOKEN_VALID_TIME ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-minus text-danger"></i>'), 'html' => true],
+        ['text' => (time() - $time < \Apps\ActiveRecord\Invite::TOKEN_VALID_TIME ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-minus text-danger"></i>'), 'html' => true],
         ['text' => Date::convertToDatetime($invite->created_at, Date::FORMAT_TO_DAY)],
-        ['text' => Url::a(['user/invitedelete', [$invite->id]], ' <i class="fa fa-trash-o fa-lg"></i>', ['html' => true]),
+        ['text' => Url::a(['user/invitedelete', [$invite->id]], ' <i class="fas fa-trash-o fa-lg"></i>', ['html' => true]),
             'properties' => ['class' => 'text-center'], 'html' => true]
     ]);
 }

@@ -29,17 +29,17 @@ $this->layout('_layouts/default', [
     <div class="col-md-6">
         <?php
         if ($type === 'trash') {
-            echo Url::a(['content/clear'], '<i class="fa fa-minus"></i> ' . __('Remove all'), ['class' => 'btn btn-danger', 'html' => true]);
+            echo Url::a(['content/clear'], '<i class="fas fa-minus"></i> ' . __('Remove all'), ['class' => 'btn btn-danger', 'html' => true]);
         } else {
-            echo Url::a(['content/update'], '<i class="fa fa-plus"></i> ' . __('Add content'), ['class' => 'btn btn-primary', 'html' => true]);
+            echo Url::a(['content/update'], '<i class="fas fa-plus"></i> ' . __('Add content'), ['class' => 'btn btn-primary', 'html' => true]);
         }
         ?>
     </div>
     <div class="col-md-6">
-        <div class="pull-right">
+        <div class="float-right">
             <div class="btn-group" role="group">
                 <button id="btnCategories" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-table"></i> <?= __('Categories') ?>
+                    <i class="fas fa-table"></i> <?= __('Categories') ?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnCategories">
                     <?php
@@ -51,12 +51,12 @@ $this->layout('_layouts/default', [
             </div>
             <div class="btn-group" role="group">
                 <button id="btnFilters" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-filter"></i> <?= __('Filters') ?>
+                    <i class="fas fa-filter"></i> <?= __('Filters') ?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnCategories">
-                    <?= Url::a(['content/index', null, ['type' => 'all']], '<i class="fa fa-list"></i> ' . __('All'), ['class' => 'dropdown-item', 'html' => true]) ?>
-                    <?= Url::a(['content/index', null, ['type' => 'moderate']], '<i class="fa fa-exclamation"></i> ' . __('Moderate'), ['class' => 'dropdown-item', 'html' => true]) ?>
-                    <?= Url::a(['content/index', null, ['type' => 'trash']], '<i class="fa fa-trash"></i> ' . __('Trash'), ['class' => 'dropdown-item', 'html' => true]) ?>
+                    <?= Url::a(['content/index', null, ['type' => 'all']], '<i class="fas fa-list"></i> ' . __('All'), ['class' => 'dropdown-item', 'html' => true]) ?>
+                    <?= Url::a(['content/index', null, ['type' => 'moderate']], '<i class="fas fa-exclamation"></i> ' . __('Moderate'), ['class' => 'dropdown-item', 'html' => true]) ?>
+                    <?= Url::a(['content/index', null, ['type' => 'trash']], '<i class="fas fa-trash-alt"></i> ' . __('Trash'), ['class' => 'dropdown-item', 'html' => true]) ?>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => '#'],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']],
         ['text' => __('Title')],
-        ['text' => '<i class="fa fa-comments"></i>', 'html' => true],
+        ['text' => '<i class="fas fa-comments"></i>', 'html' => true],
         ['text' => __('Date')]
     ]);
 
@@ -93,14 +93,14 @@ foreach ($records as $content) {
 
     $actionMenu = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'dropdown' => ['class' => 'btn-group btn-group-sm']], 2);
     if (!(bool)$content->display) {
-        $actionMenu->add('<i class="fa fa-eye-slash" style="color: #ff0000;"></i>', ['content/display', [$content->id], ['status' => 1]], [
+        $actionMenu->add('<i class="fas fa-eye-slash" style="color: #ff0000;"></i>', ['content/display', [$content->id], ['status' => 1]], [
             'html' => true,
             'class' => 'btn btn-light',
             'data-toggle' => 'tooltip',
             'title' =>  __('Content hidden from regular users')
         ]);
     } else {
-        $actionMenu->add('<i class="fa fa-eye" style="color: #008000;"></i>', ['content/display', [$content->id], ['status' => 0]], [
+        $actionMenu->add('<i class="fas fa-eye" style="color: #008000;"></i>', ['content/display', [$content->id], ['status' => 0]], [
             'html' => true,
             'class' => 'btn btn-light',
             'data-toggle' => 'tooltip',
@@ -109,14 +109,14 @@ foreach ($records as $content) {
     }
 
     if (!(bool)$content->important) {
-        $actionMenu->add('<i class="fa fa-star-o"></i>', ['content/important', [$content->id], ['status' => 1]], [
+        $actionMenu->add('<i class="far fa-star"></i>', ['content/important', [$content->id], ['status' => 1]], [
             'html' => true,
             'class' => 'btn btn-light',
             'data-toggle' => 'tooltip',
             'title' =>  __('Content are not in favorite top. Mark as favorite?')
         ]);
     } else {
-        $actionMenu->add('<i class="fa fa-star" style="color: #c7a922"></i>', ['content/important', [$content->id], ['status' => 0]], [
+        $actionMenu->add('<i class="fas fa-star" style="color: #c7a922"></i>', ['content/important', [$content->id], ['status' => 0]], [
             'html' => true,
             'class' => 'btn btn-light',
             'data-toggle' => 'tooltip',

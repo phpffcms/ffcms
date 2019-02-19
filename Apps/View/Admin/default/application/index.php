@@ -39,12 +39,12 @@ foreach ($apps as $app) {
     $actions = $this->fetch('application/_actions', ['controller' => $controller]);
     // set action icons based on app status
     if ((bool)$app->disabled) {
-        $icoStatus = ' <i class="fa fa-pause" style="color: #ff0000;"></i>';
+        $icoStatus = ' <i class="fas fa-pause" style="color: #ff0000;"></i>';
     } elseif (!$app->checkVersion()) {
-        $icoStatus = ' <i class="fa fa-exclamation-circle" style="color: #ffbd26;"></i>';
-        $actions = Url::a(['application/update', [$controller]], '<i class="fa fa-wrench"></i>', ['html' => true]);
+        $icoStatus = ' <i class="fas fa-exclamation-circle" style="color: #ffbd26;"></i>';
+        $actions = Url::a(['application/update', [$controller]], '<i class="fas fa-wrench"></i>', ['html' => true]);
     } else {
-        $icoStatus = ' <i class="fa fa-check" style="color: #008000;"></i>';
+        $icoStatus = ' <i class="fas fa-check" style="color: #008000;"></i>';
     }
 
     $table->row([
@@ -61,5 +61,5 @@ foreach ($apps as $app) {
 <div class="table-responsive">
     <?= $table->display() ?>
 </div>
-<?= Url::a(['application/install'], '<i class="fa fa-tasks"></i> ' . __('Install app'), ['class' => 'btn btn-primary', 'html' => true]) ?>
+<?= Url::a(['application/install'], '<i class="fas fa-tasks"></i> ' . __('Install app'), ['class' => 'btn btn-primary', 'html' => true]) ?>
 <?php $this->stop() ?>

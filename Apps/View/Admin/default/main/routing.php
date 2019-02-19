@@ -42,7 +42,7 @@ $callbackExist = false;
                             ['text' => $env],
                             ['text' => Url::a(
                                 ['main/deleteroute', null, ['type' => 'Alias', 'loader' => $env, 'path' => $source]],
-                                '<i class="fa fa-remove"></i>',
+                                '<i class="fas fa-trash-alt"></i>',
                                 ['html' => true]
                             ), 'properties' => ['class' => 'text-center'], 'html' => true]
                         ]);
@@ -76,7 +76,7 @@ $callbackExist = false;
                             ['text' => $env],
                             ['text' => Url::a(
                                 ['main/deleteroute', null, ['type' => 'Callback', 'loader' => $env, 'path' => $source]],
-                                '<i class="fa fa-remove"></i>',
+                                '<i class="fas fa-trash-alt"></i>',
                                 ['html' => true]
                             ), 'properties' => ['class' => 'text-center'], 'html' => true]
                         ]);
@@ -92,5 +92,5 @@ $callbackExist = false;
 <?php if (!$aliasExist && !$callbackExist): ?>
     <p class="alert alert-warning"><?= __('Custom routes is not yet found') ?></p>
 <?php endif ;?>
-<?= Url::a(['main/addroute'], '<i class="fa fa-plus"></i> ' . __('New route'), ['class' => 'btn btn-primary', 'html' => true]) ?>
+<?= Url::a(['main/addroute'], '<i class="fas fa-plus"></i> ' . __('New route'), ['class' => 'btn btn-primary', 'html' => true]) ?>
 <?php $this->stop() ?>

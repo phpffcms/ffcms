@@ -43,7 +43,7 @@ foreach ($records as $record) {
     $moderate = !(bool)$record->display;
     $title = $record->getLocaled('title');
     if (!(bool)$record->display) {
-        $title = Url::a(['content/update', [$record->id]], $title) . ' <i class="fa fa-pencil"></i>';
+        $title = Url::a(['content/update', [$record->id]], $title) . ' <i class="fas fa-pencil-alt"></i>';
     }
 
     $table->row([

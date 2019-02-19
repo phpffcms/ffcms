@@ -130,8 +130,8 @@ if (!$model->isNew()) {
                 ['text' => $comment->getAnswerCount()],
                 ['text' => Url::a(['user/update', [$comment->user_id]], ($comment->user->profile->nick ?? 'id' . $comment->user->id)), 'html' => true],
                 ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
-                    ->add('<i class="fa fa-pencil"></i>', ['comments/read', [$comment->id]], ['html' => true, 'class' => 'btn btn-primary', 'target' => '_blank'])
-                    ->add('<i class="fa fa-trash-o"></i>', ['comments/delete', ['comment', $comment->id]], ['html' => true, 'class' => 'btn btn-danger', 'target' => '_blank'])
+                    ->add('<i class="fas fa-pencil-alt"></i>', ['comments/read', [$comment->id]], ['html' => true, 'class' => 'btn btn-primary', 'target' => '_blank'])
+                    ->add('<i class="fas fa-trash-alt"></i>', ['comments/delete', ['comment', $comment->id]], ['html' => true, 'class' => 'btn btn-danger', 'target' => '_blank'])
                     ->display(),'properties' => ['class' => 'text-center'], 'html' => true
                 ]
             ]);

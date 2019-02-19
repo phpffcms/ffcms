@@ -42,8 +42,8 @@ foreach ($records as $profile) {
         ['text' => Str::startsWith('0000-', $profile->birthday) ? __('None') : Date::convertToDatetime($profile->birthday)],
         ['text' => ($profile->rating > 0 ? '+' : null) . $profile->rating],
         ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
-            ->add('<i class="fa fa-pencil"></i>', ['profile/update', [$profile->id]], ['html' => true, 'class' => 'btn btn-primary'])
-            ->add('<i class="fa fa-trash-o"></i>', ['user/delete', [$profile->user->id]], ['html' => true, 'class' => 'btn btn-danger'])
+            ->add('<i class="fas fa-pencil-alt"></i>', ['profile/update', [$profile->id]], ['html' => true, 'class' => 'btn btn-primary'])
+            ->add('<i class="fas fa-trash-alt"></i>', ['user/delete', [$profile->user->id]], ['html' => true, 'class' => 'btn btn-danger'])
             ->display(), 'html' => true, 'properties' => ['class' => 'text-center']]
     ]);
 }

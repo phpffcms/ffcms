@@ -59,7 +59,7 @@ if (!$records || $records->count() < 1) {
             </h3>
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>
             <?php if (\App::$User->identity() !== null && $profile->user_id !== \App::$User->identity()->getId()): ?>
-                <?= Url::a(['profile/messages', null, ['newdialog' => $profile->user_id]], '<i class="fa fa-envelope"></i> '  . __('New message'), ['class' => 'btn btn-info', 'html' => true]) ?>
+                <?= Url::a(['profile/messages', null, ['newdialog' => $profile->user_id]], '<i class="far fa-envelope"></i> '  . __('New message'), ['class' => 'btn btn-info', 'html' => true]) ?>
             <?php endif; ?>
         </div>
         <div class="col-md-2">

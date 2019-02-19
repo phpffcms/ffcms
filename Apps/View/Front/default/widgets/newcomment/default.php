@@ -13,7 +13,7 @@ use Ffcms\Templex\Url\Url;
 <div class="mb-1 short-comment">
     <div class="row mb-1">
         <div class="col-md-6">
-            <i class="fa fa-user"></i>
+            <i class="fas fa-user"></i>
             <?php if ((int)$comment['user']['id'] > 0): ?>
                 <?= Url::a(['profile/show', [$comment['user']['id']]], $comment['user']['name'], ['style' => 'color: #595959']) ?>
             <?php else: ?>
@@ -22,7 +22,7 @@ use Ffcms\Templex\Url\Url;
         </div>
         <div class="col-md-6 pull-right">
             <small class="text-secondary pull-right">
-                <i class="fa fa-calendar"></i> <?= Date::humanize($comment['date']) ?>
+                <i class="far fa-calendar"></i> <?= Date::humanize($comment['date']) ?>
             </small>
         </div>
     </div>

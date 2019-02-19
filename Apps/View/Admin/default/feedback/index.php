@@ -45,15 +45,15 @@ $items = [];
 foreach ($records as $item) {
     /** @var \Apps\ActiveRecord\FeedbackPost $item*/
     $table->row([
-        ['text' => $item->id . (!$item->readed ? ' <i class="fa fa-bell alert-info"></i>'  : null) . ($item->closed ? ' <i class="fa fa-eye-slash alert-danger"></i>' : null), 'html' => true],
+        ['text' => $item->id . (!$item->readed ? ' <i class="fas fa-bell alert-info"></i>'  : null) . ($item->closed ? ' <i class="fas fa-eye-slash alert-danger"></i>' : null), 'html' => true],
         ['text' => Url::a(['feedback/read', [$item->id]], Text::snippet($item->message, 40)), 'html' => true],
         ['text' => '<span class="badge badge-light">' . $item->answers->count() . '</span>', 'html' => true],
         ['text' => $item->email],
         ['text' => (bool)$item->closed ? '<span class="badge badge-danger">' . __('Closed') . '</span>' : '<span class="label label-success">' . __('Opened') . '</span>', 'html' => true, '!secure' => true],
         ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)],
         ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'role' => 'group'])
-            ->add('<i class="fa fa-feed"></i>', ['feedback/read', [$item->id]], ['class' => 'btn btn-light', 'html' => true])
-            ->add('<i class="fa fa-trash-o"></i>', ['feedback/delete', ['post', $item->id]], ['class' => 'btn btn-danger', 'html' => true])
+            ->add('<i class="fas fa-feed"></i>', ['feedback/read', [$item->id]], ['class' => 'btn btn-light', 'html' => true])
+            ->add('<i class="fas fa-trash-alt"></i>', ['feedback/delete', ['post', $item->id]], ['class' => 'btn btn-danger', 'html' => true])
             ->display(), 'html' => true, 'property' => ['class' => 'text-center']]
     ]);
 }
@@ -63,7 +63,7 @@ foreach ($records as $item) {
     <?= $table->display() ?>
 </div>
 
-<p><i class="fa fa-bell alert-info"></i> = <?= __('New request or new answer in feedback topic') ?></p>
+<p><i class="fas fa-bell alert-info"></i> = <?= __('New request or new answer in feedback topic') ?></p>
 
 <?= $this->bootstrap()->pagination($pagination['url'], ['class' => 'pagination justify-content-center'])
     ->size($pagination['total'], $pagination['page'], $pagination['step'])

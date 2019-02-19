@@ -36,10 +36,10 @@ $this->layout('_layouts/default', [
             <?php
             $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm']);
             if ($record->moderate) {
-                $btngrp->add('<i class="fa fa-eye"></i>', ['comments/publish', ['comment', $record->id]], ['class' => 'btn btn-success', 'html' => true]);
+                $btngrp->add('<i class="fas fa-eye"></i>', ['comments/publish', ['comment', $record->id]], ['class' => 'btn btn-success', 'html' => true]);
             }
-            $btngrp->add('<i class="fa fa-pencil"></i>', ['comments/edit', ['comment', $record->id]], ['class' => 'btn btn-primary', 'html' => true]);
-            $btngrp->add('<i class="fa fa-trash-o"></i>', ['comments/delete', ['comment', $record->id]], ['class' => 'btn btn-danger', 'html' => true]);
+            $btngrp->add('<i class="fas fa-pencil-alt"></i>', ['comments/edit', ['comment', $record->id]], ['class' => 'btn btn-primary', 'html' => true]);
+            $btngrp->add('<i class="fas fa-trash-alt"></i>', ['comments/delete', ['comment', $record->id]], ['class' => 'btn btn-danger', 'html' => true]);
             echo $btngrp->display();
             ?>
         </div>
@@ -69,10 +69,10 @@ if (!$answers || $answers->count() < 1) {
                 <?php
                 $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm']);
                 if ($answer->moderate) {
-                    $btngrp->add('<i class="fa fa-eye"></i>', ['comments/publish', ['answer', $answer->id]], ['class' => 'btn btn-success', 'html' => true]);
+                    $btngrp->add('<i class="fas fa-eye"></i>', ['comments/publish', ['answer', $answer->id]], ['class' => 'btn btn-success', 'html' => true]);
                 }
-                $btngrp->add('<i class="fa fa-pencil"></i>', ['comments/edit', ['answer', $answer->id]], ['class' => 'btn btn-primary', 'html' => true]);
-                $btngrp->add('<i class="fa fa-trash-o"></i>', ['comments/delete', ['answer', $answer->id]], ['class' => 'btn btn-danger', 'html' => true]);
+                $btngrp->add('<i class="fas fa-pencil-alt"></i>', ['comments/edit', ['answer', $answer->id]], ['class' => 'btn btn-primary', 'html' => true]);
+                $btngrp->add('<i class="fas fa-trash-alt"></i>', ['comments/delete', ['answer', $answer->id]], ['class' => 'btn btn-danger', 'html' => true]);
                 echo $btngrp->display();
                 ?>
             </div>

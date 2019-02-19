@@ -57,13 +57,13 @@ foreach ($records as $user) {
     $roleHtml = $user->role->color ? '<span class="badge badge-light" style="color: ' . $user->role->color . '">' . $user->role->name . '</span>' : $user->role->name;
 
     $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'], 4)
-        ->add('<i class="fa fa-pencil"></i>', ['user/update', [$user->id]], ['class' => 'btn btn-primary', 'html' => true])
-        ->add('<i class="fa fa-eraser"></i>', ['user/clear', [$user->id]], ['class' => 'btn btn-warning', 'html' => true])
-        ->add('<i class="fa fa-trash-o"></i>', ['user/delete', [$user->id]], ['class' => 'btn btn-danger', 'html' => true]);
+        ->add('<i class="fas fa-pencil-alt"></i>', ['user/update', [$user->id]], ['class' => 'btn btn-primary', 'html' => true])
+        ->add('<i class="fas fa-eraser"></i>', ['user/clear', [$user->id]], ['class' => 'btn btn-warning', 'html' => true])
+        ->add('<i class="fas fa-trash-alt"></i>', ['user/delete', [$user->id]], ['class' => 'btn btn-danger', 'html' => true]);
 
     // user not approved - show approve button
     if ($user->approve_token) {
-        $btngrp->add('<i class="fa fa-check"></i>', ['user/approve', [$user->id]], ['class' => 'btn btn-success', 'html' => true]);
+        $btngrp->add('<i class="fas fa-check"></i>', ['user/approve', [$user->id]], ['class' => 'btn btn-success', 'html' => true]);
     }
 
     $table->row([

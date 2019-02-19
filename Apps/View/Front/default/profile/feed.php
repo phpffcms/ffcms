@@ -38,7 +38,7 @@ $this->layout('_layouts/default', [
                 <?= $post->message ?>
             </div>
             <hr style="margin: 5px;" />
-            <div><i class="glyphicon glyphicon-comment"></i>
+            <div><i class="fas fa-comment"></i>
                 <a href="#wall-post-<?= $post->id ?>" id="wall-post-response-<?= $post->id ?>" class="show-wall-response">
                     <?= __('Answers') ?> (<span id="wall-post-response-count-<?= $post->id ?>">0</span>)
                 </a>
@@ -60,7 +60,7 @@ $this->layout('_layouts/default', [
             <div class="answer-header">
                 <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
                 <small class="float-right"><span id="wall-answer-date">01.01.1970</span>
-                    <a href="javascript:void(0)" class="delete-answer d-none" id="delete-answer"><i class="glyphicon glyphicon-remove"></i></a>
+                    <a href="javascript:void(0)" class="delete-answer d-none" id="delete-answer"><i class="fas fa-trash-alt"></i></a>
                 </small>
             </div>
             <div id="wall-answer-text"></div>

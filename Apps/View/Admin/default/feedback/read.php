@@ -31,7 +31,7 @@ $this->layout('_layouts/default', [
             <div class="card-header" style="background-color: #cadcee">
                 <?php
                 if (!(bool)$record->readed) {
-                    echo '<i class="fa fa-bell"></i> ';
+                    echo '<i class="fas fa-bell"></i> ';
                 }
                 ?>
                 <?= __('Message sent') ?>: <?= Date::convertToDatetime($record->created_at, Date::FORMAT_TO_HOUR) ?>.
@@ -47,18 +47,18 @@ $this->layout('_layouts/default', [
 
                 // show "mark as read" button if message is not readed
                 if (!(bool)$record->readed) {
-                    $btngrp->add('<i class="fa fa-bookmark-o"></i>', ['feedback/turn', ['read', $record->id]], ['class' => 'btn btn-success', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Mark as read')]);
+                    $btngrp->add('<i class="far fa-bookmark"></i>', ['feedback/turn', ['read', $record->id]], ['class' => 'btn btn-success', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Mark as read')]);
                 }
 
                 // show close/open button depend of current status
                 if (!(bool)$record->closed) {
-                    $btngrp->add('<i class="fa fa-eye-slash"></i>', ['feedback/turn', ['close', $record->id]], ['class' => 'btn btn-warning', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Close')]);
+                    $btngrp->add('<i class="fas fa-eye-slash"></i>', ['feedback/turn', ['close', $record->id]], ['class' => 'btn btn-warning', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Close')]);
                 } else {
-                    $btngrp->add('<i class="fa fa-eye"></i>', ['feedback/turn', ['open', $record->id]], ['class' => 'btn btn-info', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Open')]);
+                    $btngrp->add('<i class="fas fa-eye"></i>', ['feedback/turn', ['open', $record->id]], ['class' => 'btn btn-info', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Open')]);
                 }
 
-                $btngrp->add('<i class="fa fa-pencil"></i>', ['feedback/update', ['post', $record->id]], ['class' => 'btn btn-primary', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Edit')]);
-                $btngrp->add('<i class="fa fa-trash-o"></i>', ['feedback/delete', ['post', $record->id]], ['class' => 'btn btn-danger', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Delete')]);
+                $btngrp->add('<i class="fas fa-pencil-alt"></i>', ['feedback/update', ['post', $record->id]], ['class' => 'btn btn-primary', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Edit')]);
+                $btngrp->add('<i class="fas fa-trash-alt"></i>', ['feedback/delete', ['post', $record->id]], ['class' => 'btn btn-danger', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Delete')]);
                 ?>
                 <div class="pull-right"><?= $btngrp->display() ?></div>
             </div>
@@ -107,8 +107,8 @@ $this->layout('_layouts/default', [
                 <?= Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_HOUR) ?>
                 <div class="pull-right">
                     <?= $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
-                        ->add('<i class="fa fa-pencil"></i>', ['feedback/update', ['answer', $answer->id]], ['class' => 'btn btn-primary', 'html' => true])
-                        ->add('<i class="fa fa-trash-o"></i>', ['feedback/delete', ['answer', $answer->id]], ['class' => 'btn btn-danger', 'html' => true])
+                        ->add('<i class="fas fa-pencil-alt"></i>', ['feedback/update', ['answer', $answer->id]], ['class' => 'btn btn-primary', 'html' => true])
+                        ->add('<i class="fas fa-trash-alt"></i>', ['feedback/delete', ['answer', $answer->id]], ['class' => 'btn btn-danger', 'html' => true])
                         ->display() ?>
                 </div>
             </div>

@@ -81,10 +81,10 @@ $this->layout('_layouts/default', [
         <?php
         $userMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs flex-column']);
         if ($isSelf) {
-            $userMenu->menu(['link' => ['profile/feed'], 'text' => '<i class="fa fa-rss-square"></i> ' . __('Feed'), 'html' => true]);
-            $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fa fa-camera"></i> ' . __('Avatar'), 'html' => true]);
-            $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fa fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true]);
-            $userMenu->menu(['link' => ['profile/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true]);
+            $userMenu->menu(['link' => ['profile/feed'], 'text' => '<i class="fas fa-rss-square"></i> ' . __('Feed'), 'html' => true]);
+            $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fas fa-camera"></i> ' . __('Avatar'), 'html' => true]);
+            $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fas fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true]);
+            $userMenu->menu(['link' => ['profile/settings'], 'text' => '<i class="fas fa-cogs"></i> ' . __('Settings'), 'html' => true]);
         } else if(\App::$User->isAuth()) {
             $userMenu->menu(['link' => ['profile/messages', null, ['newdialog' => $user->id]], 'text' => __('Write message')]);
             $userMenu->menu(['link' => ['profile/ignore', null, ['id' => $user->id]], 'text' => __('Block')]);
@@ -213,7 +213,7 @@ $this->layout('_layouts/default', [
                     </div>
                     <div class="col-xs-8 col-md-10">
                         <div class="h5" style="margin-top: 0;margin-bottom: 5px;">
-                            <i class="glyphicon glyphicon-user"></i>
+                            <i class="fas fa-user"></i>
                             <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
                             <small class="float-right"><?= Date::humanize($post->updated_at); ?></small>
                         </div>
@@ -221,7 +221,7 @@ $this->layout('_layouts/default', [
                             <?= $post->message ?>
                         </div>
                         <hr style="margin: 5px;" />
-                        <div><i class="fa fa-comment"></i>
+                        <div><i class="fas fa-comment"></i>
                             <a href="#wall-post-<?= $post->id ?>" id="wall-post-response-<?= $post->id ?>" class="show-wall-response">
                                 <?= __('Answers') ?> (<span id="wall-post-response-count-<?= $post->id ?>">0</span>)
                             </a>
@@ -258,7 +258,7 @@ $this->layout('_layouts/default', [
             <div class="answer-header">
                 <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
                 <small class="float-right"><span id="wall-answer-date">01.01.1970</span>
-                    <a href="#send-wall-object" class="delete-answer d-none" id="delete-answer"><i class="glyphicon glyphicon-remove"></i></a>
+                    <a href="#send-wall-object" class="delete-answer d-none" id="delete-answer"><i class="fas fa-trash-alt"></i></a>
                 </small>
             </div>
             <div id="wall-answer-text"></div>

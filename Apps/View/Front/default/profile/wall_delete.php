@@ -30,7 +30,7 @@ $this->layout('_layouts/default', [
     </div>
     <div class="col-md-10">
         <h5 style="margin-top: 0;">
-            <i class="fa fa-pencil"></i> <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname()) ?>
+            <i class="fas fa-pencil-alt"></i> <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname()) ?>
             <small class="float-right"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
         </h5>
         <div class="wall-post-text">

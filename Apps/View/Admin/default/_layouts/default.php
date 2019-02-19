@@ -22,7 +22,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <link rel="icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
 
     <!-- theme -->
     <link rel="stylesheet" href="<?= \App::$Alias->currentViewUrl ?>/assets/css/style.css" />
@@ -62,13 +62,13 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                 <span class="icon-bar"></span>
             </button>
             <h1 class="navbar-brand d-none d-md-inline-block">
-                <a href="<?= \App::$Alias->baseUrl ?>"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                <a href="<?= \App::$Alias->baseUrl ?>"><i class="fas fa-globe-europe" aria-hidden="true"></i></a>
                 <small style="font-size: 24px;">FFCMS</small>
             </h1>
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item dropdown active">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-cog"></i> <?= __('Quick manage') ?>
+                        <i class="fas fa-cog"></i> <?= __('Quick manage') ?>
                     </a>
                     <ul class="dropdown-menu">
                         <li><?= Url::a(['main/settings'], __('Settings'), ['class' => 'dropdown-item']) ?></li>
@@ -126,7 +126,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-question-circle-o"></i> <?= __('Feedback') ?>
+                        <i class="fas fa-question-circle"></i> <?= __('Feedback') ?>
                         <?php if ($features->getFeedback()->count() > 0): ?>
                         <span class="badge badge-primary"><?= $features->getFeedback()->count() ?></span>
                         <?php endif; ?>
@@ -143,7 +143,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                                 <?php foreach ($features->getFeedback() as $feed): ?>
                                     <div class="media">
                                         <div class="media-left">
-                                            <?= Url::a(['feedback/read', [$feed->id]], '<i class="fa fa-question-circle fa-2x text-primary"></i>', ['html' => true]) ?>
+                                            <?= Url::a(['feedback/read', [$feed->id]], '<i class="fas fa-question-circle fa-2x text-primary"></i>', ['html' => true]) ?>
                                         </div>
                                         <div class="media-body text-muted">
                                             <p class="media-heading"><?= Url::a(['feedback/read', [$feed->id]], $feed->name) ?></p>
@@ -162,7 +162,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-comment-o"></i> <?= __('Comments') ?>
+                        <i class="fas fa-comment-o"></i> <?= __('Comments') ?>
                     </a>
                     <div class="dropdown-menu dropdown-md">
                         <div class="media-items">
@@ -207,7 +207,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 
                 <li class="nav-item">
                     <a href="<?= \App::$Alias->scriptUrl ?>" class="nav-link" target="_blank">
-                        <i class="fa fa-sign-out"></i> <?= __('Open site') ?>
+                        <i class="fas fa-sign-out"></i> <?= __('Open site') ?>
                     </a>
                 </li>
             </ul>
@@ -257,20 +257,20 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
             <div class="container-fluid">
                 <div id="page-sidebar" class="toggled sidebar">
                     <nav class="sidebar-collapse d-none d-md-block">
-                        <i class="fa fa-arrow-right show-on-collapsed"></i>
-                        <i class="fa fa-arrow-left hide-on-collapsed"></i>
+                        <i class="fas fa-arrow-right show-on-collapsed"></i>
+                        <i class="fas fa-arrow-left hide-on-collapsed"></i>
                     </nav>
 
                     <ul class="nav nav-pills nav-stacked" id="sidebar-stacked">
                         <li class="d-md-none">
-                            <a href="#" class="sidebar-close"><i class="fa fa-arrow-left"></i></a>
+                            <a href="#" class="sidebar-close"><i class="fas fa-arrow-left"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= App::$Alias->baseUrl ?>"><i class="fa fa-home"></i> <span class="nav-text"><?= __('Main') ?></span></a>
+                            <a class="nav-link" href="<?= App::$Alias->baseUrl ?>"><i class="fas fa-home"></i> <span class="nav-text"><?= __('Main') ?></span></a>
                         </li>
                         <li class="nav-item<?= (\App::$Request->getController() === 'Main' && \App::$Request->getAction() !== 'Index') ? ' active' : null ?>">
                             <?= Url::a(['#system-dropdown'],
-                                '<i class="fa fa-fire"></i> <span class="nav-text">' . __('System') . '</span>',
+                                '<i class="fas fa-fire"></i> <span class="nav-text">' . __('System') . '</span>',
                                 [
                                     'class' => 'nav-container',
                                     'data-toggle' => 'collapse',
@@ -279,11 +279,11 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             ?>
 
                             <?= $this->bootstrap()->nav('ul', ['class' => 'nav nav-pills nav-stacked collapse' . ((\App::$Request->getController() === 'Main' && \App::$Request->getAction() !== 'Index') ? 'in show' : null), 'id' => 'system-dropdown'])
-                                ->menu(['link' => ['main/settings'], 'text' => '<i class="fa fa-cogs"></i> ' . __('Settings'), 'html' => true])
-                                ->menu(['link' => ['main/files'], 'text' => '<i class="fa fa-file-o"></i> ' . __('Files'), 'html' => true])
-                                ->menu(['link' => ['main/antivirus'], 'text' => '<i class="fa fa-shield"></i> ' . __('Antivirus'), 'html' => true])
-                                ->menu(['link' => ['main/routing'], 'text' => '<i class="fa fa-code"></i> ' . __('Routing'), 'html' => true])
-                                ->menu(['link' => ['main/updates'], 'text' => '<i class="fa fa-gavel"></i> ' . __('Updates'), 'html' => true])
+                                ->menu(['link' => ['main/settings'], 'text' => '<i class="fas fa-cogs"></i> ' . __('Settings'), 'html' => true])
+                                ->menu(['link' => ['main/files'], 'text' => '<i class="fas fa-file"></i> ' . __('Files'), 'html' => true])
+                                ->menu(['link' => ['main/antivirus'], 'text' => '<i class="fas fa-shield-alt"></i> ' . __('Antivirus'), 'html' => true])
+                                ->menu(['link' => ['main/routing'], 'text' => '<i class="fas fa-code"></i> ' . __('Routing'), 'html' => true])
+                                ->menu(['link' => ['main/updates'], 'text' => '<i class="fas fa-gavel"></i> ' . __('Updates'), 'html' => true])
                                 ->display();
                             ?>
                         </li>
@@ -301,7 +301,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                         ?>
                         <li class="nav-item<?= (array_key_exists(\App::$Request->getController(), $apps) || \App::$Request->getController() === 'Application') ? ' active' : null ?>">
                             <?= Url::a(['#apps-dropdown'],
-                                '<i class="fa fa-plug"></i> <span class="nav-text">' . __('Applications') . '</span>',
+                                '<i class="fas fa-plug"></i> <span class="nav-text">' . __('Applications') . '</span>',
                                 [
                                     'class' => 'nav-container',
                                     'data-toggle' => 'collapse',
@@ -321,7 +321,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                         </li>
                         <li class="nav-item<?= (array_key_exists(\App::$Request->getController(), $widgets) || \App::$Request->getController() === 'Widget') ? ' active' : null ?>">
                             <?= Url::a(['#widgets-dropdown'],
-                                '<i class="fa fa-puzzle-piece"></i> <span class="nav-text">' . __('Widgets') . '</span>',
+                                '<i class="fas fa-puzzle-piece"></i> <span class="nav-text">' . __('Widgets') . '</span>',
                                 [
                                     'class' => 'nav-container',
                                     'data-toggle' => 'collapse',
@@ -340,7 +340,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             ?>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= Url::to('store/index') ?>"><i class="fa fa-briefcase"></i> <span class="nav-text"><?= __('App store') ?></span></a>
+                            <a class="nav-link" href="<?= Url::to('store/index') ?>"><i class="fas fa-briefcase"></i> <span class="nav-text"><?= __('App store') ?></span></a>
                         </li>
                     </ul>
                 </div>
@@ -390,7 +390,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 </div>
 <!-- /#wrapper -->
 
-<script src="<?= \App::$Alias->scriptUrl ?>/vendor/components/jquery/jquery.min.js"></script>
+<script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 

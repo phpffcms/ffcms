@@ -56,7 +56,7 @@ $this->layout('_layouts/default', [
             ['text' => Simplify::parseUserLink($row->target_id), 'html' => true],
             ['text' => $row->comment],
             ['text' => Date::convertToDatetime($row->created_at, Date::FORMAT_TO_DAY)],
-            ['text' => Url::a(['profile/unblock', [$row->target_id]], '<i class="fa fa-trash"></i>', ['html' => true]), 'html' => true]
+            ['text' => Url::a(['profile/unblock', [$row->target_id]], '<i class="fas fa-trash-alt"></i>', ['html' => true]), 'html' => true]
         ]);
     }
     echo $table->display();

@@ -35,12 +35,12 @@ foreach ($widgets as $widget) {
     $icoStatus = null;
     $actions = $this->fetch('widget/_actions', ['controller' => $controller]);
     if ((bool)$widget->disabled) {
-        $icoStatus = ' <i class="fa fa-pause" style="color: #ff0000;"></i>';
+        $icoStatus = ' <i class="fas fa-pause" style="color: #ff0000;"></i>';
     } elseif (!$widget->checkVersion()) {
-        $icoStatus = ' <i class="fa fa-exclamation-circle" style="color: #ffbd26;"></i>';
-        $actions = Url::a(['widget/update', [$controller]], '<i class="fa fa-wrench"></i>', ['html' => true]);
+        $icoStatus = ' <i class="fas fa-exclamation-circle" style="color: #ffbd26;"></i>';
+        $actions = Url::a(['widget/update', [$controller]], '<i class="fas fa-wrench"></i>', ['html' => true]);
     } else {
-        $icoStatus = ' <i class="fa fa-check" style="color: #008000;"></i>';
+        $icoStatus = ' <i class="fas fa-check" style="color: #008000;"></i>';
     }
 
     $table->row([
@@ -57,5 +57,5 @@ foreach ($widgets as $widget) {
     <?= $table->display() ?>
 </div>
 
-<?= Url::a(['widget/install'], '<i class="fa fa-tasks"></i> ' . __('Install'), ['class' => 'btn btn-primary', 'html' => true]) ?>
+<?= Url::a(['widget/install'], '<i class="fas fa-tasks"></i> ' . __('Install'), ['class' => 'btn btn-primary', 'html' => true]) ?>
 <?php $this->stop() ?>

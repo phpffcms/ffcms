@@ -56,7 +56,7 @@ foreach($records as $role) {
         ['text' => $role->name],
         ['text' => $permissionsLabel, 'html' => true],
         ['text' => $roleColor, 'html' => true],
-        ['text' => Url::a(['user/roleupdate', [$role->id]], '<i class="fa fa-pencil fa-lg"></i>', ['html' => true]), 'properties' => ['class' => 'text-center'], 'html' => true]
+        ['text' => Url::a(['user/roleupdate', [$role->id]], '<i class="fas fa-pencil-alt fa-lg"></i>', ['html' => true]), 'properties' => ['class' => 'text-center'], 'html' => true]
     ]);
 }
 ?>

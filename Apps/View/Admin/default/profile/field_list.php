@@ -52,8 +52,8 @@ foreach ($records as $row) {
         ['text' => '<span class="' . $labelClass . '">' . $row->type . '</span>', 'html' => true],
         ['text' => '<code>' . ($row->reg_cond == 0 ? '!' : null) . 'preg_match("' . $row->reg_exp . '", input)' . '</code>', 'html' => true],
         ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
-            ->add('<i class="fa fa-pencil"></i>', ['profile/fieldupdate', [$row->id]], ['class' => 'btn btn-primary', 'html' => true])
-            ->add('<i class="fa fa-trash-o"></i>', ['profile/fielddelete', [$row->id]], ['class' => 'btn btn-danger', 'html' => true])
+            ->add('<i class="fas fa-pencil-alt"></i>', ['profile/fieldupdate', [$row->id]], ['class' => 'btn btn-primary', 'html' => true])
+            ->add('<i class="fas fa-trash-alt"></i>', ['profile/fielddelete', [$row->id]], ['class' => 'btn btn-danger', 'html' => true])
             ->display(),
             'html' => true,
             'properties' => ['class' => 'text-center']

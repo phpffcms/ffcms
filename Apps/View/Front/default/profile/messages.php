@@ -75,7 +75,7 @@ $this->layout('_layouts/default', [
                 <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="pull-left img-fluid img-circle" style="max-height: 50px;padding-right: 5px;" />
                 <div style="padding-top: 12px;">
                     <span class="media-person-uname" id="msg-user-name"><?= __('Unknown') ?></span>
-                    <span class="d-none" id="msg-user-isnew"><i class="glyphicon glyphicon-envelope"></i></span>
+                    <span class="d-none" id="msg-user-isnew"><i class="far fa-envelope"></i></span>
                 </div>
             </div>
         </div>

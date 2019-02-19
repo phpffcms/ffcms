@@ -15,7 +15,7 @@ $this->layout('_layouts/default', [
 ]);
 ?>
 <?php $this->push('css') ?>
-<link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/components/jqueryui/themes/base/jquery-ui.min.css" />
+<link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
 <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/studio-42/elfinder/css/elfinder.min.css" />
 <?php $this->stop() ?>
 
@@ -29,7 +29,7 @@ $this->layout('_layouts/default', [
 <?php $this->stop() ?>
 
 <?php $this->push('javascript'); ?>
-<script src="<?= \App::$Alias->scriptUrl ?>/vendor/components/jqueryui/jquery-ui.min.js"></script>
+    <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/studio-42/elfinder/js/elfinder.min.js"></script>
 <?php if (\App::$Request->getLanguage() !== 'en'): ?>
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/studio-42/elfinder/js/i18n/elfinder.<?= \App::$Request->getLanguage() ?>.js"></script>
