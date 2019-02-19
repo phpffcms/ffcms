@@ -39,7 +39,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Answer')],
         ['text' => __('Author')],
         ['text' => __('Date')],
-        ['text' => __('Actions')]
+        ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
     ]);
 
 foreach ($records as $item) {
@@ -64,8 +64,7 @@ foreach ($records as $item) {
         ['text' => '<div>' . Url::a(['comments/read', [$item->comment_id]], $message) . '</div><small class="text-muted">&rarr;' . Text::snippet(\App::$Security->strip_tags($item->post->message), 50) . '</small>' , 'html' => true],
         ['text' => Simplify::parseUserLink((int)$item->user_id, $item->guest_name, 'user/update'), 'html' => true],
         ['text' => Date::convertToDatetime($item->created_at, Date::FORMAT_TO_HOUR)],
-        ['text' => $btngrp->display(), 'html' => true
-        ]
+        ['text' => $btngrp->display(), 'html' => true, 'properties' => ['class' => 'text-center']]
     ]);
 }
 

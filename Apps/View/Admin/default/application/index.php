@@ -26,7 +26,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('User interface')],
         ['text' => __('Version')],
         ['text' => __('Activity')],
-        ['text' => __('Actions')]
+        ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
     ]);
 
 foreach ($apps as $app) {
@@ -53,7 +53,7 @@ foreach ($apps as $app) {
         ['text' => '<a target="_blank" href="' . \App::$Alias->scriptUrl . '/' . Str::lowerCase($route) . '">' . $route . '</a>', 'html' => true],
         ['text' => $app->version],
         ['text' => Date::convertToDatetime($app->updated_at, Date::FORMAT_TO_HOUR)],
-        ['text' => $actions, 'html' => true]
+        ['text' => $actions, 'html' => true, 'properties' => ['class' => 'text-center']]
     ]);
 }
 ?>

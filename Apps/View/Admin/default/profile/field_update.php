@@ -58,7 +58,7 @@ foreach (\App::$Properties->get('languages') as $lang) {
 <?php if ($model->reg_exp): ?>
     <div class="row">
         <div class="col-md-3">
-            <label class="pull-right"><?= __('How it work') ?></label>
+            <label class="float-right"><?= __('How it work') ?></label>
         </div>
         <div class="col-md-9">
 <pre>

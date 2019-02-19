@@ -60,7 +60,7 @@ $this->layout('_layouts/default', [
                 $btngrp->add('<i class="fas fa-pencil-alt"></i>', ['feedback/update', ['post', $record->id]], ['class' => 'btn btn-primary', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Edit')]);
                 $btngrp->add('<i class="fas fa-trash-alt"></i>', ['feedback/delete', ['post', $record->id]], ['class' => 'btn btn-danger', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Delete')]);
                 ?>
-                <div class="pull-right"><?= $btngrp->display() ?></div>
+                <div class="float-right"><?= $btngrp->display() ?></div>
             </div>
             <div class="card-body">
                 <?php
@@ -105,7 +105,7 @@ $this->layout('_layouts/default', [
             <div class="card-header">
                 <?= __('From') ?>: <?= $answer->name . '(' . $answer->email . ')' . ((int)$answer->user_id > 0 ? Url::a(['user/update', [$answer->user_id]], '[id' . $answer->user_id . ']') : null) ?>,
                 <?= Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_HOUR) ?>
-                <div class="pull-right">
+                <div class="float-right">
                     <?= $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
                         ->add('<i class="fas fa-pencil-alt"></i>', ['feedback/update', ['answer', $answer->id]], ['class' => 'btn btn-primary', 'html' => true])
                         ->add('<i class="fas fa-trash-alt"></i>', ['feedback/delete', ['answer', $answer->id]], ['class' => 'btn btn-danger', 'html' => true])

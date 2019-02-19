@@ -41,7 +41,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Author')],
         ['text' => __('Page')],
         ['text' => __('Date')],
-        ['text' => __('Actions')],
+        ['text' => __('Actions'), 'properties' => ['class' => 'text-center']],
     ]);
 
 foreach ($records as $item) {
@@ -71,8 +71,7 @@ foreach ($records as $item) {
         ['text' => Simplify::parseUserLink((int)$item->user_id, $item->guest_name, 'user/update'), 'html' => true],
         ['text' => '<a href="'.Url::stringUrl($item->app_name . '/comments/' . $item->app_relation_id).'" target="_blank">' . $item->app_name . '/' . $item->app_relation_id . '</a>', 'html' => true],
         ['text' => Date::convertToDatetime($item->created_at, Date::FORMAT_TO_HOUR)],
-        ['text' => $btngrp->display(), 'html' => true
-        ],
+        ['text' => $btngrp->display(), 'html' => true, 'properties' => ['class' => 'text-center']],
         'properties' => ['class' => 'checbox-row']
     ]);
 }

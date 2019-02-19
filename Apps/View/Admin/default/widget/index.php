@@ -25,7 +25,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Widget')],
         ['text' => __('Version')],
         ['text' => __('Activity')],
-        ['text' => __('Actions')]
+        ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
     ]);
 
 
@@ -48,7 +48,7 @@ foreach ($widgets as $widget) {
         ['text' => Url::a([$route], $widget->getLocaleName()), 'html' => true],
         ['text' => $widget->version],
         ['text' => Date::convertToDatetime($widget->updated_at, Date::FORMAT_TO_HOUR)],
-        ['text' => $actions, 'html' => true]
+        ['text' => $actions, 'html' => true, 'properties' => ['class' => 'text-center']]
     ]);
 }
 ?>

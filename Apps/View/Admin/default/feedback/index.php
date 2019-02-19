@@ -52,7 +52,7 @@ foreach ($records as $item) {
         ['text' => (bool)$item->closed ? '<span class="badge badge-danger">' . __('Closed') . '</span>' : '<span class="label label-success">' . __('Opened') . '</span>', 'html' => true, '!secure' => true],
         ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)],
         ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'role' => 'group'])
-            ->add('<i class="fas fa-feed"></i>', ['feedback/read', [$item->id]], ['class' => 'btn btn-light', 'html' => true])
+            ->add('<i class="fas fa-eye"></i>', ['feedback/read', [$item->id]], ['class' => 'btn btn-light', 'html' => true])
             ->add('<i class="fas fa-trash-alt"></i>', ['feedback/delete', ['post', $item->id]], ['class' => 'btn btn-danger', 'html' => true])
             ->display(), 'html' => true, 'property' => ['class' => 'text-center']]
     ]);
