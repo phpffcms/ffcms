@@ -30,6 +30,7 @@ class install_content_table extends Migration implements MigrationInterface
             $table->integer('rating')->default(0);
             $table->string('source', 1024)->nullable();
             $table->boolean('important')->default(false);
+            $table->string('tpl')->default('default');
             $table->timestamps();
             $table->softDeletes();
         });

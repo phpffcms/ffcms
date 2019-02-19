@@ -57,6 +57,13 @@ class update_cms_310 extends Migration implements MigrationInterface
                 $table->dropColumn('login');
             });
         }
+
+        // add content table template column
+        if (!$this->getSchema()->hasColumn('contents', 'tpl')) {
+            $this->getSchema()->table('contents', function ($table) {
+                $table->string('tpl')->default('default')->after('important');
+            });
+        }
     }
 
     /**

@@ -62,11 +62,12 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
             return $langMenu->display();
             }, ['class' => 'nav-border']);
     }, 'tabActive' => true])
-    ->menu(['text' => __('Properties'), 'tab' => function() use ($form) {
+    ->menu(['text' => __('Properties'), 'tab' => function() use ($form, $model) {
         /** @var \Ffcms\Templex\Template\Template $this */
         $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
         $context = $form->fieldset()->text('path', null, __('Slug of URL pathway for this content item'))
-            . $form->fieldset()->select('categoryId', ['options' => ContentCategory::getSortedCategories(), 'optionsKey' => true, 'multiple' => null], __('Select content category'));
+            . $form->fieldset()->select('categoryId', ['options' => ContentCategory::getSortedCategories(), 'optionsKey' => true, 'multiple' => null], __('Select content category'))
+            . $form->fieldset()->select('tpl', ['options' => $model->getAvailableTemplates()], __('Set template for this content'));
 
         foreach (\App::$Properties->get('languages') as $lang) {
             $langMenu->menu([

@@ -38,6 +38,7 @@ class FormContentUpdate extends Model
     public $addRating = 0;
     public $createdAt;
     public $important;
+    public $tpl;
 
     public $galleryFreeId;
 
@@ -105,6 +106,7 @@ class FormContentUpdate extends Model
             $this->createdAt = Date::convertToDatetime($this->_content->created_at, Date::FORMAT_TO_HOUR);
             $this->galleryFreeId = $this->_content->id;
             $this->important = $this->_content->important;
+            $this->tpl = $this->_content->tpl;
         }
     }
 
@@ -119,12 +121,13 @@ class FormContentUpdate extends Model
             ['text.' . App::$Request->getLanguage(), 'required'],
             ['text', 'used'],
             ['path', 'reverse_match', '/[\/\'~`\!@#\$%\^&\*\(\)+=\{\}\[\]\|;:"\<\>,\?\\\]/'],
-            [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title', 'important'], 'required'],
+            [['path', 'categoryId', 'authorId', 'display', 'galleryFreeId', 'title', 'important', 'tpl'], 'required'],
             [['metaTitle', 'metaKeywords', 'metaDescription', 'poster', 'source', 'addRating', 'createdAt'], 'used'],
             [['addRating', 'authorId', 'display'], 'int'],
             [['important', 'display'], 'boolean'],
             ['categoryId', 'in', $this->categoryIds()],
             ['path', '\Apps\Model\Admin\Content\FormContentUpdate::validatePath'],
+            ['tpl', '\Apps\Model\Admin\Content\FormContentUpdate::validateTemplate'],
             ['authorId', '\App::$User::isExist']
         ];
 
@@ -188,6 +191,7 @@ class FormContentUpdate extends Model
         $this->_content->meta_description = $this->metaDescription;
         $this->_content->source = $this->source;
         $this->_content->important = (int)$this->important;
+        $this->_content->tpl = $this->tpl;
         // check if rating is changed
         if ((int)$this->addRating !== 0) {
             $this->_content->rating += (int)$this->addRating;
@@ -301,10 +305,24 @@ class FormContentUpdate extends Model
         }
 
         return $this->_content->commentPosts;
+    }
 
-        /**return CommentPost::with(['user', 'user.profile'])
-            ->where('app_name', 'content')
-            ->where('app_relation_id', $this->_content->id)
-            ->get();*/
+    /**
+     * Get available templates for content item in front
+     * @return array
+     */
+    public function getAvailableTemplates(): array
+    {
+        $theme = App::$Properties->get('theme')['Front'] ?? 'default';
+        $dir = File::listFiles('/Apps/View/Front/' . $theme . '/content/tpl', ['.php'], true);
+        if (!$dir || count($dir) < 1) {
+            $dir = ['default'];
+        }
+
+        foreach ($dir as $idx => $file) {
+            $dir[$idx] = Str::sub($file, 0, strlen($file)-4);
+        }
+
+        return $dir;
     }
 }

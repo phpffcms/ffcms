@@ -27,6 +27,7 @@ use Illuminate\Support\Collection;
  * @property int $views
  * @property int $rating
  * @property string $source
+ * @property string $tpl
  * @property string $created_at
  * @property string $updated_at
  * @property string|null $deleted_at
