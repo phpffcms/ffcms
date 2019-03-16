@@ -75,7 +75,7 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
                 'tab' => function() use ($form, $lang) {
                     return $form->fieldset()->text('metaTitle.' . $lang, null, __('Set meta title for content page (displayed in browser head). Recommended length: 50-70 chars')).
                         $form->fieldset()->text('metaKeywords.' . $lang, ['class' => 'tag-selectize'], __('Set meta keywords for this content (for search engine crawlers) separated by comma')).
-                        $form->fieldset()->text('metaTitle.' . $lang, null, __('Set meta description for this content (for search engine crawlers). Recommended length: 200-250 chars'));
+                        $form->fieldset()->text('metaDescription.' . $lang, null, __('Set meta description for this content (for search engine crawlers). Recommended length: 200-250 chars'));
                 },
                 'tabActive' => $lang === \App::$Request->getLanguage()
             ]);
