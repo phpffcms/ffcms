@@ -33,7 +33,6 @@ class Gregwar implements iCaptcha
      * Validate input data from captcha
      * @param string|null $data
      * @return bool
-     * @throws SyntaxException
      */
     public static function validate($data = null)
     {

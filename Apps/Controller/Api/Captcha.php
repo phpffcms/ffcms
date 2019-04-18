@@ -28,4 +28,13 @@ class Captcha extends ApiController
         $this->response->headers->set('Content-type', 'image/jpeg');
         $builder->output();
     }
+
+    public function actionVerify($token): ?string
+    {
+        $this->setJsonHeader();
+
+        return json_encode([
+            'required' => true
+        ]);
+    }
 }
