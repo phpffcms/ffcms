@@ -8,7 +8,7 @@
 
 $this->layout('_layouts/default', [
     'title' => __('Log In')
-])
+]);
 ?>
 
 <?php $this->start('body') ?>
@@ -19,7 +19,7 @@ $this->layout('_layouts/default', [
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>
 
-<?= $form->fieldset()->text('email', null, __('Input you login or email')) ?>
+<?= $form->fieldset()->text('email', null, __('Input your email')) ?>
 <?= $form->fieldset()->password('password', null, __('Input you password')) ?>
 
 <?php if ($useCaptcha): ?>

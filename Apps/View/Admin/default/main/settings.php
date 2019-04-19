@@ -73,7 +73,12 @@ $this->layout('_layouts/default', [
             $form->fieldset()->text('debug.cookie.value', ['class' => 'form-control'], __('Set cookie value for enable debug bar panel'));
     }])
     ->menu(['text' => __('Other'), 'tab' => function() use ($form){
-        return $form->fieldset()->text('trustedProxy', ['class' => 'form-control'], __('Set trusted proxy list to accept X-FORWARDED data. Example: 103.21.244.15,103.22.200.0/22'));
+        return '<h2>' . __('Captcha') . '</h2>' .
+            $form->fieldset()->boolean('captcha.smart', null, __('Use smart captcha features? Captcha will show only after n-count form sending over defined time')) .
+            $form->fieldset()->text('captcha.time', null, __('Activity time to count threshold in minutes')) .
+            $form->fieldset()->text('captcha.threshold', null, __('Number of threshold attempts to display captcha')) .
+            '<h2>' . __('Proxies') . '</h2>' .
+            $form->fieldset()->text('trustedProxy', ['class' => 'form-control'], __('Set trusted proxy list to accept X-FORWARDED data. Example: 103.21.244.15,103.22.200.0/22'));
     }])
     ->display(); ?>
 

@@ -27,7 +27,7 @@ $html = App::$Captcha->get();
             <div class="modal-body">
                 <p>You need to pass robot protection. Please, fill solution before.</p>
                 <?php if (App::$Captcha->isFull()): ?>
-                    <div class="col-md-9 offset-md-3"><?= $html ?></div>
+                    <?= $html ?>
                 <?php else: ?>
                     <div class="row">
                         <div class="col-md-9 offset-md-3">
@@ -36,6 +36,7 @@ $html = App::$Captcha->get();
                     </div>
                     <?= $form->fieldset()->text($name, null, __('Enter data from security image to prove that you are human. If you can\'t read symbols - click on image to reload')) ?>
                 <?php endif; ?>
+                <button type="button" class="btn btn-primary" id="captcha-submit">Send</button>
             </div>
         </div>
     </div>
@@ -66,6 +67,11 @@ $html = App::$Captcha->get();
                     }
                 }
             });
+        });
+
+        $('#captcha-submit').on('click', function(){
+            captchaFilled = true;
+            $('#' + formId).submit();
         });
     });
 </script>

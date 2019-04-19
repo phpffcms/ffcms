@@ -78,6 +78,10 @@ class Main extends AdminController
         yandexCounter as actionYandexcounter;
     }
 
+    use Main\ActionSpam {
+        filter as actionSpam;
+    }
+
     /**
      * Main constructor. Disable parent inheritance of typical app version checking
      */

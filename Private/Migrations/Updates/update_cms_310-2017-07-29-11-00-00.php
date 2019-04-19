@@ -64,6 +64,19 @@ class update_cms_310 extends Migration implements MigrationInterface
                 $table->string('tpl')->default('default')->after('important');
             });
         }
+
+        // add spam filter table
+        $this->getSchema()->create('spams', function ($table){
+            $table->increments('id');
+            $table->string('ipv4', 36);
+            $table->integer('user_id')->nullable();
+            $table->integer('timestamp')->unsigned();
+            $table->integer('counter')->default(0);
+
+            $table->timestamps();
+
+            $table->unique(['ipv4', 'user_id']);
+        });
     }
 
     /**

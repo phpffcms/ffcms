@@ -282,6 +282,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                                 ->menu(['link' => ['main/settings'], 'text' => '<i class="fas fa-cogs"></i> ' . __('Settings'), 'html' => true])
                                 ->menu(['link' => ['main/files'], 'text' => '<i class="fas fa-file"></i> ' . __('Files'), 'html' => true])
                                 ->menu(['link' => ['main/antivirus'], 'text' => '<i class="fas fa-shield-alt"></i> ' . __('Antivirus'), 'html' => true])
+                                ->menu(['link' => ['main/spam'], 'text' => '<i class="fas fa-robot"></i> ' . __('Spam'), 'html' => true])
                                 ->menu(['link' => ['main/routing'], 'text' => '<i class="fas fa-code"></i> ' . __('Routing'), 'html' => true])
                                 ->menu(['link' => ['main/updates'], 'text' => '<i class="fas fa-gavel"></i> ' . __('Updates'), 'html' => true])
                                 ->display();
