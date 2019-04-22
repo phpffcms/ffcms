@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Api;
 
+use Apps\ActiveRecord\Spam;
 use Extend\Core\Arch\ApiController;
 use Ffcms\Core\App;
 use Gregwar\Captcha\CaptchaBuilder;
@@ -29,12 +30,33 @@ class Captcha extends ApiController
         $builder->output();
     }
 
-    public function actionVerify($token): ?string
+    /**
+     * Check if captcha verification required for current user
+     * @param string|null $token
+     * @return string|null
+     */
+    public function actionVerify($token = null): ?string
     {
         $this->setJsonHeader();
 
+        // check if smart features enabled
+        $settings = App::$Properties->get('captcha');
+        if (!$settings || !$settings['smart']) {
+            return json_encode([
+                'required' => true
+            ]);
+        }
+
+        $ip = $this->request->getClientIp();
+        $userId = null;
+        if (App::$User->isAuth()) {
+            $userId = App::$User->identity()->getId();
+        }
+
+        $record = Spam::activity($ip, $userId);
+
         return json_encode([
-            'required' => true
+            'required' => $record->isThresholdReached()
         ]);
     }
 }

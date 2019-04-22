@@ -52,5 +52,8 @@ return [
     'Captcha' => 'Защитное изображение',
     'Hack attention: security token is wrong!' => 'Предупреждение о взломе: защитный токен передан не верно!',
     'Feed' => 'Лента',
-    'Nothing found' => 'Ничего не найдено'
+    'Nothing found' => 'Ничего не найдено',
+    'Spam protection' => 'Защита от роботов',
+    'You need to pass robot protection. Please, fill solution before.' => 'Необходимо выполнить проверку на автоматическое заполнение. Решите задание ниже.',
+    'Enter data from security image to prove that you are human. If you can\'t read symbols - click on image to reload' => 'Введите символы с защитного изображения, чтобы доказать что вы человек. Если вы не можете прочесть символы - кликните по картинке для перезагрузки',
 ];

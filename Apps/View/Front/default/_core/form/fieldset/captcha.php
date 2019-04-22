@@ -13,19 +13,18 @@ if (!isset($name)) {
 $html = App::$Captcha->get();
 ?>
 
-
 <!-- hidden modal for captcha features -->
 <div class="modal fade" id="captchaModal" tabindex="-1" role="dialog" aria-labelledby="captchaModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="captchaModalLabel">Spam protection</h5>
+                <h5 class="modal-title" id="captchaModalLabel"><?= __('Spam protection') ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>You need to pass robot protection. Please, fill solution before.</p>
+                <p><?= __('You need to pass robot protection. Please, fill solution before.') ?></p>
                 <?php if (App::$Captcha->isFull()): ?>
                     <?= $html ?>
                 <?php else: ?>
@@ -36,18 +35,16 @@ $html = App::$Captcha->get();
                     </div>
                     <?= $form->fieldset()->text($name, null, __('Enter data from security image to prove that you are human. If you can\'t read symbols - click on image to reload')) ?>
                 <?php endif; ?>
-                <button type="button" class="btn btn-primary" id="captcha-submit">Send</button>
+                <button type="button" class="btn btn-primary" id="captcha-submit"><?= __('Send') ?></button>
             </div>
         </div>
     </div>
 </div>
 
-
 <script>
-    var formId = '<?= $form->model()->getFormName() ?>';
     $(function(){
         var captchaFilled = false;
-        $('#' + formId).on('submit', function(e){
+        $('#' + '<?= $form->model()->getFormName() ?>').on('submit', function(e){
             if (captchaFilled)
                 return true;
 
@@ -61,7 +58,7 @@ $html = App::$Captcha->get();
                 success: function(data){
                     if (data.required === false) {
                         captchaFilled = true;
-                        form.submit();
+                        $('input[name="' + '<?= $form->model()->getFormName() ?>[submit]"').click();
                     } else {
                         $('#captchaModal').modal('show');
                     }
@@ -71,7 +68,7 @@ $html = App::$Captcha->get();
 
         $('#captcha-submit').on('click', function(){
             captchaFilled = true;
-            $('#' + formId).submit();
+            $('input[name="' + '<?= $form->model()->getFormName() ?>[submit]"').click();
         });
     });
 </script>

@@ -67,6 +67,13 @@ return [
     'Define administrator email. Used in mailing functions. Other mail settings in /Private/Config/Object.php' => 'Укажите почтовый ящик администрации, используемый при рассылке почты. Тонкая настройка почты: /Private/Config/Object.php',
     'Define website default timezone id' => 'Укажите стандартную временную зону для вашего сайта',
     'Set cookie for me' => 'Установить cookie для меня',
+    'Captcha' => 'Капча',
+    'Smart captcha' => 'Умная капча',
+    'Use smart captcha features? Captcha will show only after n-count form sending over defined time' => 'Использовать возможности "умной капчи"? Ввод капчи будет необходим только в случае, если пользователь совершил более n-попыток за определенное время',
+    'Captcha lifetime' => 'Время отслеживания captcha',
+    'Activity time to count threshold in minutes' => 'Время, за котрое будет подсчитываться пороговый уровень в минутах',
+    'Captcha threshold' => 'Пороговый уровень captcha',
+    'Number of threshold attempts to display captcha' => 'Количество попыток отправок данных для отображения капчи',
     'Base' => 'Основное',
     'Themes' => 'Шаблоны',
     'Localization' => 'Локализация',
@@ -185,5 +192,6 @@ return [
     'Yandex metrika - step 3' => 'Яндекс метрика - шаг 3',
     'Yandex.metrika - choose counter' => 'Яндекс.метрика - выбор счетчика',
     'Now you should choose counter statistics id to display on main page' => 'Теперь вам необходимо выбрать счетчик, статистика которого будет отображаться',
-    'Select and connect' => 'Выбрать и подключить'
+    'Select and connect' => 'Выбрать и подключить',
+    'Proxies' => 'Прокси'
 ];

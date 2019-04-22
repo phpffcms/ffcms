@@ -42,6 +42,7 @@ class FormSettings extends Model
 
     // other
     public $trustedProxy;
+    public $captcha;
 
     public $_name = 'formAdminConfig';
 
@@ -100,6 +101,9 @@ class FormSettings extends Model
             'debug.cookie.key' => __('Debug cookie key'),
             'debug.cookie.value' => __('Debug cookie value'),
             'trustedProxy' => __('Proxy list'),
+            'captcha.smart' => __('Smart captcha'),
+            'captcha.time' => __('Captcha lifetime'),
+            'captcha.threshold' => __('Captcha threshold')
         ];
     }
 
@@ -116,6 +120,8 @@ class FormSettings extends Model
             [['theme.Front', 'theme.Admin'], 'required'],
             [['database.driver', 'database.database', 'database.host', 'database.username', 'database.password', 'database.prefix'], 'required'],
             [['database.charset', 'database.collation'], 'used'],
+            ['captcha.smart', 'required'],
+            [['captcha.time', 'captcha.threshold'], 'used'],
             ['mail.enable', 'required'],
             ['mail.enable', 'int'],
             [['mail.host', 'mail.port', 'mail.user', 'mail.encrypt', 'mail.password'], 'used'],
@@ -125,6 +131,7 @@ class FormSettings extends Model
             ['timezone', 'string'],
             ['baseProto', 'in', ['http', 'https']],
             [['userCron', 'testSuite'], 'boolean'],
+            [['captcha.time', 'captcha.threshold'], 'int']
         ];
     }
 

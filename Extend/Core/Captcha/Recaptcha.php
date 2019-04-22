@@ -2,6 +2,7 @@
 
 namespace Extend\Core\Captcha;
 
+use Apps\ActiveRecord\Spam;
 use Ffcms\Core\App;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Interfaces\iCaptcha;
@@ -53,6 +54,14 @@ class Recaptcha implements iCaptcha
      */
     public static function validate($data = null)
     {
+        $ip = App::$Request->getClientIp();
+        $userId = null;
+        $settings = App::$Properties->get('captcha');
+        // check if smart captcha enabled and process threshold counter
+        if ($settings && $settings['smart'] && Spam::check($ip, $userId)) {
+            return true;
+        }
+
         // nevertheless what we got in our model, recaptcha is suck and don't allow to change response field name
         $data = App::$Request->get('g-recaptcha-response');
 

@@ -27,7 +27,6 @@ return [
     'Approve account' => 'Подтвердить аккаунт',
     'If you do not any register action just ignore this message. Thanks!' => 'Если вы не совершали каких-либо действий по регистрации аккаунта - проигнорируйте это сообщение. Спасибо!',
     'Captcha' => 'Защитное изображение',
-    'Enter data from security image to prove that you are human. If you can\'t read symbols - click on image to reload' => 'Введите символы с защитного изображения, чтобы доказать что вы человек. Если вы не можете прочесть символы - кликните по картинке для перезагрузки',
     'Input your account email' => 'Укажите почтовый ящик вашего аккаунта',
     'Make recovery' => 'Восстановить',
     'Recovery on %site%' => 'Восстановление данных на %site%',

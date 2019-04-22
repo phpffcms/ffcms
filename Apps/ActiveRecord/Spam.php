@@ -4,6 +4,8 @@
 namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\App as AppMain;
+use Ffcms\Core\Helper\Type\Any;
 
 /**
  * Class Spam. Spam activity control filter
@@ -35,9 +37,19 @@ class Spam extends ActiveModel
     {
         $now = time();
 
+        $settings = AppMain::$Properties->get('captcha');
+        $lifetime = static::ACTIVITY_COUNT_LIFETIME;
+        $count = static::ACTIVITY_COUNT_THRESHOLD;
+        if ($settings && $settings['time'] && Any::isInt($settings['time'])) {
+            $lifetime = (int)$settings['time'];
+        }
+        if ($settings && $settings['threshold'] && Any::isInt($settings['threshold'])) {
+            $count = (int)$settings['threshold'];
+        }
+
         return ($this->timestamp &&
-            (($now - $this->timestamp)/60 < static::ACTIVITY_COUNT_LIFETIME) &&
-            $this->counter > static::ACTIVITY_COUNT_THRESHOLD);
+            (($now - $this->timestamp)/60 < $lifetime) &&
+            $this->counter > $count);
     }
 
     /**
@@ -66,9 +78,15 @@ class Spam extends ActiveModel
             }
         }
 
+        $settings = AppMain::$Properties->get('captcha');
+        $lifetime = static::ACTIVITY_COUNT_LIFETIME;
+        if ($settings && $settings['time'] && Any::isInt($settings['time'])) {
+            $lifetime = (int)$settings['time'];
+        }
+
         // check if timestamp exist & passed low then threshold limit
         if ($row->timestamp && $row->timestamp > 0) {
-            if (($now - $row->timestamp)/60 < static::ACTIVITY_COUNT_LIFETIME) {
+            if (($now - $row->timestamp)/60 < $lifetime) {
                 $row->counter += 1;
             } else {
                 // drop counter if lifetime gone away
@@ -81,6 +99,49 @@ class Spam extends ActiveModel
         $row->save();
 
         return $row;
+    }
+
+    /**
+     * Check if captcha required without threshold increment
+     * @param string $ipv4
+     * @param int|null $userId
+     * @return bool
+     */
+    public static function check(string $ipv4, ?int $userId = null): bool
+    {
+        $settings = AppMain::$Properties->get('captcha');
+        $lifetime = static::ACTIVITY_COUNT_LIFETIME;
+        $count = static::ACTIVITY_COUNT_THRESHOLD;
+        if ($settings && $settings['time'] && Any::isInt($settings['time'])) {
+            $lifetime = (int)$settings['time'];
+        }
+        if ($settings && $settings['threshold'] && Any::isInt($settings['threshold'])) {
+            $count = (int)$settings['threshold'];
+        }
+
+        $query = self::where('ipv4', $ipv4);
+        if ($userId) {
+            $query = $query->where('user_id', $userId);
+        }
+
+        if ($query->count() < 1) {
+            return true;
+        }
+
+        // now timestamp
+        $now = time();
+        /** @var self $row */
+        $row = $query->first();
+
+        if (!$row || !$row->timestamp || $row->timestamp < 1) {
+            return true;
+        }
+
+        if (($now - $row->timestamp)/60 > $lifetime) {
+            return true;
+        }
+
+        return $row->counter <= $count;
     }
 
 
