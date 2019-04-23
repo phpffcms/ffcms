@@ -63,7 +63,9 @@ class Recaptcha implements iCaptcha
         }
 
         // nevertheless what we got in our model, recaptcha is suck and don't allow to change response field name
-        $data = App::$Request->get('g-recaptcha-response');
+        if (!$data) {
+            $data = App::$Request->get('g-recaptcha-response');
+        }
 
         // make validation
         $request = Request::create('https://www.google.com/recaptcha/api/siteverify', 'GET', [
