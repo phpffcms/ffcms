@@ -56,6 +56,9 @@ class Recaptcha implements iCaptcha
     {
         $ip = App::$Request->getClientIp();
         $userId = null;
+        if (App::$User->isAuth()) {
+            $userId = App::$User->identity()->getId();
+        }
         $settings = App::$Properties->get('captcha');
         // check if smart captcha enabled and process threshold counter
         if ($settings && $settings['smart'] && Spam::check($ip, $userId)) {
