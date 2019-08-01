@@ -65,14 +65,14 @@ trait ScheduledActions
                     $uri .= $content->category->path . '/';
                 }
                 $uri .= $content->path;
-                $sitemap->add($uri, $content->created_at, 'weekly', 0.7);
+                $sitemap->add($uri, $content->created_at, 'weekly', 0.7, $content->getLocaled('title'));
             }
             // add categories
             $categories = ContentCategory::all();
             foreach ($categories as $item) {
                 if ((bool)$item->getProperty('showCategory')) {
                     $uri = '/content/list/' . $item->path;
-                    $sitemap->add($uri, date('c'), 'daily', 0.9);
+                    $sitemap->add($uri, date('c'), 'daily', 0.9, $item->getLocaled('title'));
                 }
             }
             // save data to xml file

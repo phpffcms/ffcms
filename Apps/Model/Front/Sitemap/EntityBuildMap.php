@@ -27,7 +27,7 @@ class EntityBuildMap extends Model
     {
         $this->langs = $langs;
 
-        if (!$data && count($data) > 0) {
+        if ($data && count($data) > 0) {
             foreach ($data as $item) {
                 if (!Any::isArray($item) || !isset($item['uri'], $item['lastmod'])) {
                     continue;
@@ -45,8 +45,9 @@ class EntityBuildMap extends Model
      * @param int|string $lastmod
      * @param string $freq
      * @param float $priority
+     * @param string|null $title
      */
-    public function add(?string $uri, $lastmod, string $freq = 'weekly', $priority = 0.5)
+    public function add(?string $uri, $lastmod, string $freq = 'weekly', float $priority = 0.5, ?string $title = null)
     {
         // generate multi-language files
         if ($this->langs && Any::isArray($this->langs) && count($this->langs) > 0) {
@@ -56,7 +57,8 @@ class EntityBuildMap extends Model
                     'uri' => Url::stringUrl($uri, $lang),
                     'lastmod' => Date::convertToDatetime($lastmod, 'c'),
                     'freq' => (string)$freq,
-                    'priority' => (float)$priority
+                    'priority' => (float)$priority,
+                    'title' => $title
                 ];
             }
         } else { // only one language, multilanguage is disabled
@@ -64,7 +66,8 @@ class EntityBuildMap extends Model
                 'uri' => Url::stringUrl($uri),
                 'lastmod' => Date::convertToDatetime($lastmod, 'c'),
                 'freq' => (string)$freq,
-                'priority' => (float)$priority
+                'priority' => (float)$priority,
+                'title' => $title
             ];
         }
     }
@@ -86,8 +89,11 @@ class EntityBuildMap extends Model
             $xml = App::$View->render('sitemap/urlset', [
                 'items' => $items
             ]);
-            
+
+            // write xml output
             File::write(EntityIndexList::INDEX_PATH . '/' . $uniqueName . '.' . $lang . '.xml', $xml);
+            // write json output for html map
+            File::write(EntityIndexList::INDEX_PATH . '/' . $uniqueName . '.' . $lang . '.json', json_encode($items));
         }
         return true;
     }

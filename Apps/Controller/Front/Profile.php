@@ -171,7 +171,7 @@ class Profile extends FrontAppController
         // build sitemap from content items via business model
         $sitemap = new EntityBuildMap($langs);
         foreach ($profiles->get() as $user) {
-            $sitemap->add('profile/show/' . $user->user_id, $user->updated_at, 'weekly', 0.2);
+            $sitemap->add('profile/show/' . $user->user_id, $user->updated_at, 'weekly', 0.2, $user->nick);
         }
 
         try {
