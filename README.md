@@ -41,9 +41,9 @@ and ffcms will be available on address http://127.0.0.1:8000
 
 Authors
 ------------
-Owner: Pyatinskyi Mihail, Russian Federation.
+Owner: Piatinskii Mihail, Russian Federation.
 
-Website: https://ffcms.org
+Website: https://pmcore.ru/en.html#proj
 
 License (MIT)
 ------------
