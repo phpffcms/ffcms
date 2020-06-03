@@ -30,7 +30,7 @@ class GeneratorActiveRecordCommand extends Command
      * Execute active record create
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -44,5 +44,7 @@ class GeneratorActiveRecordCommand extends Command
         $path = '/Apps/ActiveRecord/' . $name . '.php';
         File::write($path, $code);
         $output->writeln('ActiveRecord are successful created: ' . $path);
+
+        return 0;
     }
 }

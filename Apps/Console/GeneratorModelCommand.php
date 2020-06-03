@@ -34,7 +34,7 @@ class GeneratorModelCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -58,6 +58,8 @@ class GeneratorModelCommand extends Command
         $path = '/Apps/Model/' . $loader . '/' . $controller . '/' . $name . '.php';
         File::write($path, $code);
         $output->writeln('Model are successful created: ' . $path);
+
+        return 0;
     }
 
 }

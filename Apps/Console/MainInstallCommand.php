@@ -50,7 +50,7 @@ Good luck ;)");
      * Install cms - database, configs, etc
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -136,6 +136,8 @@ Good luck ;)");
         $output->writeln('Congratulations! FFCMS are successful installed. Used version: ' . Version::VERSION . ' since ' . Version::DATE);
         $output->writeln('');
         $output->writeln('> Please, use "php console.php main:adduser" to add admin account(set role=4) or you are unavailable to manage cms.');
+
+        return 0;
     }
 
 }

@@ -39,7 +39,7 @@ class MainAdduserCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -75,5 +75,7 @@ class MainAdduserCommand extends Command
         $profile->user_id = $user->id;
         $profile->save();
         $output->writeln('New user are successful added');
+
+        return 0;
     }
 }

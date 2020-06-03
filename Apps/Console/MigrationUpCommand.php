@@ -30,7 +30,7 @@ class MigrationUpCommand extends Command
      * Apply all migrations into database without always apply'd
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -58,5 +58,7 @@ class MigrationUpCommand extends Command
         } else {
             $output->writeln('No migrations executed.');
         }
+
+        return 0;
     }
 }

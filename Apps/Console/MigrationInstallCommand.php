@@ -27,7 +27,7 @@ class MigrationInstallCommand extends Command
      * Create migration table if not exists
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -43,6 +43,8 @@ class MigrationInstallCommand extends Command
         });
 
         $output->writeln('Migrations table are successful initialized. If you want to apply migrations run migration:up');
+
+        return 0;
     }
 
 }

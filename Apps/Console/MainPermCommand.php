@@ -30,7 +30,7 @@ class MainPermCommand extends Command
      * Parse exist admin controllers & write list of available permissions
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -64,6 +64,8 @@ class MainPermCommand extends Command
         File::write('/Private/Config/Permissions.php', $stringSave);
 
         $output->writeln('Permissions configuration is successful updated! Founded permissions: ' . count($permissions));
+
+        return 0;
     }
 
 }

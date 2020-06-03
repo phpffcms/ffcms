@@ -27,7 +27,7 @@ class MainInfoCommand extends Command
      * Show system information about ffcms
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -46,5 +46,7 @@ class MainInfoCommand extends Command
         } else {
             $output->writeln("\t Composer is never be used - no information available.");
         }
+
+        return 0;
     }
 }

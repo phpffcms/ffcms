@@ -36,7 +36,7 @@ class MainChmodCommand extends Command
      * Process change chmod for all dirs & files
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -50,5 +50,7 @@ class MainChmodCommand extends Command
                 $output->writeln('Write permissions 0777 for file: ' . $obj);
             }
         }
+
+        return 0;
     }
 }

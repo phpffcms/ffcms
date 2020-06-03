@@ -32,7 +32,7 @@ class MigrationCreateCommand extends Command
      * Create new migration php file based on carcase template
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -61,5 +61,7 @@ class MigrationCreateCommand extends Command
         File::write($fullPath, $classContent);
         // show success msg
         $output->write('New migration is created: ' . $fullPath);
+
+        return 0;
     }
 }

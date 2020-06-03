@@ -30,7 +30,7 @@ class MigrationDownCommand extends Command
      * Search all installed migrations by passed argument and ask to revert it
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -61,5 +61,7 @@ class MigrationDownCommand extends Command
         } else {
             $output->writeln('No migrations to revert');
         }
+
+        return 0;
     }
 }

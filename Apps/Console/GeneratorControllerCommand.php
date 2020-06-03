@@ -33,7 +33,7 @@ class GeneratorControllerCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return void
+     * @return int
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -57,5 +57,7 @@ class GeneratorControllerCommand extends Command
         File::write($savePath, $code);
 
         $output->write('Controller are successful created: ' . $savePath);
+
+        return 0;
     }
 }
