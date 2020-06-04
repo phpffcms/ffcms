@@ -11,11 +11,11 @@
     "ffcms"
   ],
   "type": "project",
-  "homepage": "https://ffcms.org",
+  "homepage": "https://pmcore.ru",
   "license": "MIT",
   "prefer-stable": true,
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.2.5",
     "ext-curl": "*",
     "ext-mbstring": "*",
     "ext-gd": "*",
