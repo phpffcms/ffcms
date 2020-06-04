@@ -1,0 +1,70 @@
+<?php
+
+use Ffcms\Core\Helper\Date;
+use Ffcms\Templex\Url\Url;
+
+/** @var \Apps\ActiveRecord\Invite[]|\Illuminate\Support\Collection $records */
+/** @var array $pagination */
+/** @var array $configs */
+/** @var \Ffcms\Templex\Template\Template $this */
+
+$this->layout('_layouts/default', [
+    'title' => __('Invitation list'),
+    'breadcrumbs' => [
+        Url::to('main/index') => __('Main'),
+        Url::to('application/index') => __('Applications'),
+        __('Invitation list')
+    ]
+]);
+?>
+
+<?php $this->start('body') ?>
+
+<?= $this->insert('user/_tabs') ?>
+<h1><?= __('Invitation list') ?></h1>
+<?php if ($configs['registrationType'] !== 0) {
+    echo $this->bootstrap()->alert('danger', __('Invite system is disabled. Registration is public'));
+} ?>
+<div>
+    <?= Url::a(['user/invite'], __('Send invite'), ['class' => 'btn btn-info']) ?>
+</div>
+
+<?php if ($records->count() < 1) {
+    echo $this->bootstrap()->alert('warning', __('No invites recently send'));
+    $this->stop();
+    return;
+} ?>
+
+<?php
+$table = $this->table(['class' => 'table table-striped'])
+    ->head([
+        ['text' => '#'],
+        ['text' => __('Email')],
+        ['text' => __('Valid')],
+        ['text' => __('Send date')],
+        ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
+    ]);
+
+
+foreach ($records as $invite) {
+    $time = Date::convertToTimestamp($invite->created_at);
+    $table->row([
+        ['text' => $invite->id],
+        ['text' => $invite->email],
+        ['text' => (time() - $time < \Apps\ActiveRecord\Invite::TOKEN_VALID_TIME ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-minus text-danger"></i>'), 'html' => true],
+        ['text' => Date::convertToDatetime($invite->created_at, Date::FORMAT_TO_DAY)],
+        ['text' => Url::a(['user/invitedelete', [$invite->id]], ' <i class="fas fa-trash-o fa-lg"></i>', ['html' => true]),
+            'properties' => ['class' => 'text-center'], 'html' => true]
+    ]);
+}
+?>
+
+<div class="table-responsive">
+    <?= $table->display() ?>
+</div>
+
+<?= $this->bootstrap()->pagination($pagination['url'], ['class' => 'pagination justify-content-center'])
+    ->size($pagination['total'], $pagination['page'], $pagination['step'])
+    ->display(); ?>
+
+<?php $this->stop() ?>
