@@ -1,9 +1,8 @@
 <?php
 
-/** @var \Ffcms\Templex\Template\Template $this */
-/** @var bool $useCaptcha */
+/** @var Ffcms\Templex\Template\Template $this */
+/** @var $useCaptcha bool */
 /** @var \Apps\Model\Front\User\FormLogin $model */
-/** @var \Ffcms\Core\Arch\View $this  */
 /** @var string $redirect */
 
 $this->layout('_layouts/default', [
