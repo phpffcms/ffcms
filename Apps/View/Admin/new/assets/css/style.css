@@ -1,0 +1,11 @@
+/**
+ * Form label right position
+ */
+
+@media (min-width: 768px) {
+    label.control-label {
+        padding-top: 7px;
+        text-align: right;
+        font-weight: bolder;
+    }
+}

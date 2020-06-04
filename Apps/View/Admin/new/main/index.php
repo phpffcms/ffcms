@@ -13,13 +13,19 @@ use Ffcms\Templex\Url\Url;
 
 $this->layout('_layouts/default', [
     'title' => __('Main')
-])
+]);
+
 ?>
 
 <?php $this->start('body'); ?>
 
-<h1 class="mt-4"><?= __('Main dashboard') ?></h1>
-<hr />
+<h1><?= __('Main dashboard') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Dashboard')
+]]) ?>
+
 <div class="row">
     <div class="col-md-4">
         <h3><?= __('Server info') ?></h3>

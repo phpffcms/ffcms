@@ -34,7 +34,7 @@ class MigrationInstallCommand extends Command
         // check if migration table exists
         if (DatabaseManager::schema($this->dbConnection)->hasTable('migrations')) {
             $output->write('Migration table is always exists!');
-            return;
+            return 0;
         }
         DatabaseManager::schema($this->dbConnection)->create('migrations', function ($table){
             $table->increments('id');

@@ -57,7 +57,7 @@ Good luck ;)");
         // check if installation is locked
         if (File::exist('/Private/Install/install.lock')) {
             $output->writeln('Installation is locked! Please delete /Private/Install/install.lock');
-            return;
+            return 0;
         }
         // show license agreement
         $license = File::read('/LICENSE');
@@ -67,7 +67,7 @@ Good luck ;)");
         if ($input->getOption('mit') !== 'yes') {
             if (!$this->confirm('Are you accept this license terms?', false)) {
                 $output->writeln('You are deny license agreement, installation is rejected');
-                return;
+                return 0;
             }
         }
 
@@ -90,7 +90,7 @@ Good luck ;)");
             Console::$Database->getConnection('install')->getPdo();
         } catch (\Exception $e) {
             $output->writeln('Test database connection with new data is FAILED! Please, try to make it with right connection data');
-            return;
+            return 0;
         }
 
         $output->writeln('=== Merge migrations and prepare installation');
@@ -130,7 +130,7 @@ Good luck ;)");
         $writeCfg = Console::$Properties->writeConfig('default', $allCfg);
         if ($writeCfg !== true) {
             $output->writeln('File /Private/Config/Default.php is unavailable to write data!');
-            return;
+            return 0;
         }
         File::write('/Private/Install/install.lock', 'Install is locked');
         $output->writeln('Congratulations! FFCMS are successful installed. Used version: ' . Version::VERSION . ' since ' . Version::DATE);

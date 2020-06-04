@@ -40,7 +40,7 @@ class MigrationUpCommand extends Command
         $search = $manager->search($name, false);
         if (!Any::isArray($search) || count($search) < 1) {
             $output->writeln('No migrations found');
-            return;
+            return 0;
         }
 
         // require confirmation from user each ever migration file

@@ -41,7 +41,7 @@ class MigrationDownCommand extends Command
         $search = $manager->search($name, true);
         if (!Any::isArray($search) || count($search) < 1) {
             $output->writeln('No migrations found');
-            return;
+            return 0;
         }
 
         // list found migrations and ask to revert each one

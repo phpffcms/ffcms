@@ -23,47 +23,25 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <link rel="shortcut icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
 
-    <link href="<?= \App::$Alias->currentViewUrl ?>/assets/css/styles.css" rel="stylesheet" />
+    <link href="<?= \App::$Alias->currentViewUrl ?>/assets/css/theme.css" rel="stylesheet" />
+    <link href="<?= \App::$Alias->currentViewUrl ?>/assets/css/style.css" rel="stylesheet" />
 
     <?php if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1) : ?>
         <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/language-flags/flags.css" />
     <?php endif; ?>
 
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css" />
 
     <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
-    <script>
-        (function(w, d, u) {
-            w.readyQ = [];
-            w.bindReadyQ = [];
-
-            function p(x, y) {
-                if (x == "ready") {
-                    w.bindReadyQ.push(y);
-                } else {
-                    w.readyQ.push(x);
-                }
-            };
-            var a = {
-                ready: p,
-                bind: p
-            };
-            w.$ = w.jQuery = function(f) {
-                if (f === d || f === u) {
-                    return a
-                } else {
-                    p(f)
-                }
-            }
-        })(window, document)
-    </script>
+    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
     <script>
         var script_url = '<?= \App::$Alias->scriptUrl ?>';
         var script_lang = '<?= \App::$Request->getLanguage() ?>';
         var site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
-    <?php if (\App::$Debug) : ?>
+    <?php if (\App::$Debug): ?>
         <?= \App::$Debug->renderHead() ?>
     <?php endif; ?>
 
@@ -75,12 +53,14 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">FFCMS Admin</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <a class="navbar-brand" href="<?= Url::to('/') ?>">FFCMS Admin</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" method="get" action="<?= Url::link(['main/search']) ?>">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                <input name="search" class="form-control" type="text" placeholder="<?= __('Type search query') ?>" aria-label="Search" aria-describedby="basic-addon2" value="<?= $query ?? null ?>" />
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </div>
             </div>
         </form>
@@ -89,9 +69,9 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a><a class="dropdown-item" href="#">Activity Log</a>
+                    <a class="dropdown-item" href="<?= Url::to('user/update', [\App::$User->identity()->id]) ?>"><?= __('Settings') ?></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="<?= \App::$Alias->scriptUrl ?>/user/logout" data-method="post"><?= __('Logout') ?></a>
                 </div>
             </li>
         </ul>
@@ -101,47 +81,80 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.html">
+                        <div class="sb-sidenav-menu-heading"><?= __('Core') ?></div>
+                        <a class="nav-link" href="<?= Url::to('/') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
+                            <?= __('Dashboard') ?>
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Layouts
+                            <?= __('Settings') ?>
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="layout-static.html">Static Navigation</a><a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a></nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Pages
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div></a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="login.html">Login</a><a class="nav-link" href="register.html">Register</a><a class="nav-link" href="password.html">Forgot Password</a></nav>
-                                </div>
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">Error
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div></a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="401.html">401 Page</a><a class="nav-link" href="404.html">404 Page</a><a class="nav-link" href="500.html">500 Page</a></nav>
-                                </div>
+                        <div class="collapse" id="collapseSettings" aria-labelledby="areaCollapseSettings" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <?= Url::a(['main/settings'], '<i class="fas fa-cogs pr-2"></i> ' . __('Settings'), ['class' => 'nav-link', 'html' => true]) ?>
+                                <?= Url::a(['main/files'], '<i class="fas fa-file pr-2"></i> ' . __('Files'), ['class' => 'nav-link', 'html' => true]) ?>
+                                <?= Url::a(['main/antivirus'], '<i class="fas fa-shield-alt pr-2"></i> ' . __('Antivirus'), ['class' => 'nav-link', 'html' => true]) ?>
+                                <?= Url::a(['main/spam'], '<i class="fas fa-robot pr-2"></i> ' . __('Spam'), ['class' => 'nav-link', 'html' => true]) ?>
+                                <?= Url::a(['main/routing'], '<i class="fas fa-code pr-2"></i> ' . __('Routing'), ['class' => 'nav-link', 'html' => true]) ?>
+                                <?= Url::a(['main/updates'], '<i class="fas fa-gavel pr-2"></i> ' . __('Updates'), ['class' => 'nav-link', 'html' => true]) ?>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        <div class="sb-sidenav-menu-heading"><?= __('Features') ?></div>
+                        <?php
+                        $apps = [];
+                        $widgets = [];
+                        foreach (\Apps\ActiveRecord\App::all() as $ext) {
+                            /** @var \Apps\ActiveRecord\App $ext */
+                            if ($ext->type === 'app') {
+                                $apps[$ext->sys_name] = $ext;
+                            } elseif ($ext->type === 'widget') {
+                                $widgets[$ext->sys_name] = $ext;
+                            }
+                        }
+                        ?>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseApps" aria-expanded="false" aria-controls="collapseApps">
+                            <div class="sb-nav-link-icon"><i class="fas fa-plug"></i></div>
+                            <?= __('Applications') ?>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseApps" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <?php 
+                                echo Url::a(['application/index'], __('All apps'), ['class' => 'nav-link text-primary']);
+                                foreach ($apps as $app) {
+                                    /** @var \Apps\ActiveRecord\App $app */
+                                    echo Url::a([Str::lowerCase($app->sys_name) . '/index'], $app->getLocaleName(), ['class' => 'nav-link']);
+                                }
+                                ?>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseWidget" aria-expanded="false" aria-controls="collapseWidget">
+                            <div class="sb-nav-link-icon"><i class="fas fa-puzzle-piece"></i></div>
+                            <?= __('Widgets') ?>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseWidget" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <?php 
+                                echo Url::a(['widget/index'], __('All widgets'), ['class' => 'nav-link text-primary']);
+                                foreach ($widgets as $widget) {
+                                    /** @var \Apps\ActiveRecord\App $widget */
+                                    echo Url::a([Str::lowerCase($widget->sys_name) . '/index'], $widget->getLocaleName(), ['class' => 'nav-link']);
+                                }
+                                ?>
+                            </nav>
+                        </div>
+
+
+                        <div class="sb-sidenav-menu-heading"><?= __('Other') ?></div>
                         <a class="nav-link" href="charts.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a><a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
+                            <?= __('Market') ?>
                         </a>
+
                     </div>
                 </div>
                 <div class="sb-sidenav-footer pb-4">
@@ -198,6 +211,9 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
+    <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
     <script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/scripts.js"></script>
 
     <?php if (\App::$Debug) : ?>
@@ -207,16 +223,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <?= $this->section('javascript') ?>
 
     <!-- jQuery code interprier after library loaded -->
-    <script>
-        (function($, d) {
-            $.each(readyQ, function(i, f) {
-                $(f)
-            });
-            $.each(bindReadyQ, function(i, f) {
-                $(d).bind("ready", f)
-            })
-        })(jQuery, document)
-    </script>
+    <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
 </body>
 
 </html>

@@ -60,7 +60,7 @@ class MainAdduserCommand extends Command
         // check if user is always exists
         if (User::isMailExist($email)) {
             $output->writeln('User is always exists');
-            return;
+            return 0;
         }
 
         // create new user instance in prefix_users table
