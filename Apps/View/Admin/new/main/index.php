@@ -27,7 +27,7 @@ $this->layout('_layouts/default', [
 ]]) ?>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h3><?= __('Server info') ?></h3>
         <div class="table-responsive">
             <?= $this->table(['class' => 'table'])
@@ -58,7 +58,7 @@ $this->layout('_layouts/default', [
                 ->display(); ?>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h3><?= __('Directories and files') ?></h3>
         <?php
         foreach ($check->chmodCheck as $dir => $status) {
@@ -71,12 +71,12 @@ $this->layout('_layouts/default', [
         <?= $this->bootstrap()->button('a', __('Clear cache'), ['href' => Url::to('main/cache'), 'class' => 'btn-warning']) ?>
         <?= $this->bootstrap()->button('a', __('Clear sessions'), ['href' => Url::to('main/sessions'), 'class' => 'btn-info']) ?>
     </div>
-    <div class="col-md-4">
+    <!--<div class="col-md-4">
         <h3><?= __('FFCMS News') ?></h3>
         <ul id="ffcms-news-list">
             <li>No internet connection</li>
         </ul>
-    </div>
+    </div>-->
 </div>
 
 <div class="row">
@@ -206,7 +206,7 @@ $sourceUsers = array_values($sources);
 <?php endif; ?>
 <script>
     $(document).ready(function(){
-        $.getJSON(script_url + '/api/main/news?lang=' + script_lang, function (resp) {
+        /**$.getJSON(script_url + '/api/main/news?lang=' + script_lang, function (resp) {
             if (resp.status !== 1) {
                 return;
             }
@@ -218,7 +218,7 @@ $sourceUsers = array_values($sources);
                     text: news.title
                 })).appendTo('#ffcms-news-list');
             });
-        });
+        });*/
     });
 </script>
 <?php $this->stop() ?>

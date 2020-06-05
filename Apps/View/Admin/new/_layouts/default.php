@@ -55,6 +55,17 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="<?= Url::to('/') ?>">FFCMS Admin</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <?php if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1) {
+            $list = $this->listing('ul', ['class' => 'navbar-nav ml-4']);
+            foreach (\App::$Properties->get('languages') as $lang) {
+                $list->li([
+                    'text' => '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="flag flag-' . $lang . '" alt="' . $lang . '">',
+                    'link' => App::$Alias->baseUrlNoLang . '/' . $lang . App::$Request->getPathInfo(),
+                    'html' => true
+                ], ['class' => 'list-inline-item']);
+            }
+            echo $list->display();
+        } ?>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" method="get" action="<?= Url::link(['main/search']) ?>">
             <div class="input-group">
