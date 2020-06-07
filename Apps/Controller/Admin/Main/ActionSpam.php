@@ -18,6 +18,8 @@ use Ffcms\Core\Network\Response;
  */
 trait ActionSpam
 {
+    public static $itemPerPage = 100;
+
     /**
      * Show filter logs
      * @return string|null
@@ -25,9 +27,22 @@ trait ActionSpam
     public function filter(): ?string
     {
         $page = (int)$this->request->query->get('page');
-        $ip = $this->request->getClientIp();
+        $offset = $page * static::$itemPerPage;
 
-        return $ip;
+        $records = Spam::orderBy('counter', 'DESC')
+            ->take(static::$itemPerPage)
+            ->offset($offset)
+            ->get();
+
+        return $this->view->render('main/spam', [
+            'records' => $records,
+            'pagination' => [
+                'url' => ['main/spam'],
+                'page' => $page,
+                'step' => self::$itemPerPage,
+                'total' => Spam::count()
+            ]
+        ]);
     }
 
 }

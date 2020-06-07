@@ -45,5 +45,8 @@ return [
     'You got no access rights to this page' => 'У вас нет прав доступа к этой странице',
     'Type search query' => 'Введите поисковой запрос',
     'Back' => 'Назад',
-    'Spam' => 'Спам'
+    'Spam' => 'Спам',
+    'Core' => 'Ядро',
+    'Features' => 'Возможности',
+    'Other' => 'Прочее'
 ];

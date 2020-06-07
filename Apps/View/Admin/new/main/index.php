@@ -15,6 +15,7 @@ $this->layout('_layouts/default', [
     'title' => __('Main')
 ]);
 
+$features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 ?>
 
 <?php $this->start('body'); ?>
@@ -25,6 +26,16 @@ $this->layout('_layouts/default', [
     __('Main') => ['/'],
     __('Dashboard')
 ]]) ?>
+
+<div class="row">
+    <div class="col-md-4">
+        <h3><?= ("Last content") ?></h3>
+        <?php 
+            $table = $this->table(['class' => 'table']);
+
+        ?>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-6">

@@ -30,6 +30,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
         <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/language-flags/flags.css" />
     <?php endif; ?>
 
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css" />
 
@@ -75,6 +76,11 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                 </div>
             </div>
         </form>
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item list-inline-item">
+                <a class="nav-link" href="<?= \App::$Alias->scriptUrl ?>" target="_blank"><i class="fas fa-globe-europe"></i></a>
+            </li>
+        </ul>
         <!-- Navbar-->
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
@@ -208,9 +214,9 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; FFCMS 2015 - <?= date('Y') ?></div>
                         <div>
-                            <a href="#">License</a>
+                            <a href="<?= \App::$Alias->scriptUrl ?>/LICENSE">License</a>
                             &middot;
-                            <a href="#">pmcore.ru</a>
+                            <a href="https://pmcore.ru">pmcore.ru</a>
                         </div>
                     </div>
                 </div>

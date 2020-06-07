@@ -62,6 +62,6 @@ class Gregwar implements iCaptcha
             return false;
         }
 
-        return $data === $captchaValue;
+        return Str::lowerCase($data) === Str::lowerCase($captchaValue);
     }
 }

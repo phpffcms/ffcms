@@ -13,8 +13,11 @@ use Illuminate\Support\Collection;
  */
 class LayoutFeatures extends Model
 {
+    const LIMIT = 5;
+
     private $_feedback;
     private $_comments;
+    private $_content;
 
     /**
      * Process all database query before init
@@ -25,12 +28,12 @@ class LayoutFeatures extends Model
             ->where('closed', false)
             ->where('readed', false)
             ->orderBy('id', 'DESC')
-            ->take(10)
+            ->take(static::LIMIT)
             ->get();
 
         $this->_comments = CommentPost::with('user')
             ->orderBy('id', 'DESC')
-            ->take(10)
+            ->take(static::LIMIT)
             ->get();
 
         parent::before();

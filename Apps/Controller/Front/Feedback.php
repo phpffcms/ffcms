@@ -42,7 +42,7 @@ class Feedback extends Controller
         if (!App::$User->isAuth() && !(bool)$configs['guestAdd']) {
             throw new ForbiddenException(__('Feedback available only for authorized users'));
         }
-
+        
         // initialize model
         $model = new FormFeedbackAdd((bool)$configs['useCaptcha']);
         if ($model->send()) {

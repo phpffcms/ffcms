@@ -14,7 +14,7 @@ class install_spam_table extends Migration implements MigrationInterface
      */
     public function up()
     {
-        $this->getSchema()->create('spams', function ($table){
+        $this->getSchema()->create('spam', function ($table){
             $table->increments('id');
             $table->string('ipv4', 36);
             $table->integer('user_id')->nullable();
@@ -40,7 +40,7 @@ class install_spam_table extends Migration implements MigrationInterface
      */
     public function down()
     {
-        $this->getSchema()->dropIfExists('spams');
+        $this->getSchema()->dropIfExists('spam');
         parent::down();
     }
 }

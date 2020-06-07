@@ -72,7 +72,7 @@ class FormFeedbackAdd extends Model
             ['email', 'email'],
             ['captcha', 'used']
         ];
-        if (true === $this->_useCaptcha) {
+        if ($this->_useCaptcha) {
             $rules[] = ['captcha', 'App::$Captcha::validate'];
         }
         return $rules;
