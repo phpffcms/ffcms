@@ -16,6 +16,13 @@ $this->layout('_layouts/default', [
 ?>
 <?php $this->start('body') ?>
 <h1><?= __('Update widget'); ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Update')
+]]) ?>
+
 <?= $this->table(['class' => 'table'])
     ->head([
         ['text' => __('Widget name')],

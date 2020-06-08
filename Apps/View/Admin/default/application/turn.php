@@ -19,6 +19,13 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('Application turn on/off') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Turn on/off')
+]]) ?>
+
 <div class="table-responsive">
 <?= $this->table(['class' => 'table'])
     ->head([

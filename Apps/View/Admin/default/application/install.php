@@ -6,18 +6,19 @@ use Ffcms\Templex\Url\Url;
 /** @var Apps\Model\Admin\Application\FormInstall $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Install app'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        __('Install')
-    ]
+    'title' => __('Install app')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 <h1><?= __('Application install'); ?></h1>
-<hr />
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Install')
+]]) ?>
+
 <p><?= __('On this page you can install FFCMS application, using application system name. Please, type app.sys_name in form below.') ?></p>
 <?php $form = $this->form($model) ?>
 

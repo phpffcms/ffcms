@@ -17,7 +17,13 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('Widget install'); ?></h1>
-<hr />
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Install')
+]]) ?>
+
 <p><?= __('On this page you can install FFCMS widget, using widget system name. Please, type widget.sys_name in form below.') ?></p>
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>

@@ -18,6 +18,12 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('List of applications'); ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications')
+]]) ?>
+
 <?php
 $table = $this->table(['class' => 'table table-striped'])
     ->head([

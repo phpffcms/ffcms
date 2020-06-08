@@ -19,6 +19,13 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('Widget turn on/off') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Turn on/off')
+]]) ?>
+
 <div class="table-responsive">
 <?= $this->table(['class' => 'table'])
     ->head([

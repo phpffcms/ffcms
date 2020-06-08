@@ -8,16 +8,18 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\ActiveRecord\App[] $widgets */
 
 $this->layout('_layouts/default', [
-    'title' => __('Widgets'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        __('Widgets')
-    ]
+    'title' => __('Widgets')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 <h1><?= __('Widgets list'); ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets')
+]]) ?>
+
 <?php
 $table = $this->table(['class' => 'table table-striped'])
     ->head([
@@ -26,7 +28,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Version')],
         ['text' => __('Activity')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ]);
+    ], ['class' => 'thead-dark']);
 
 
 foreach ($widgets as $widget) {
