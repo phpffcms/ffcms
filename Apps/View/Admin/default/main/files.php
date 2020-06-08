@@ -7,11 +7,7 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\Model\Admin\Main\FormSettings $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Files'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        __('Files')
-    ]
+    'title' => __('Files')
 ]);
 ?>
 <?php $this->push('css') ?>
@@ -21,6 +17,12 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 <h1><?= __('File management') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Files')
+]]) ?>
+
 <div class="row">
     <div class="col-md-12">
         <div id="elfinder"></div>

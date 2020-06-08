@@ -8,6 +8,7 @@
 /** @var array|null $visits */
 /** @var array|null $sources */
 
+use Apps\ActiveRecord\Content;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Templex\Url\Url;
 
@@ -29,13 +30,65 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 
 <div class="row">
     <div class="col-md-4">
-        <h3><?= ("Last content") ?></h3>
+        <h3><?= __('Content') ?></h3>
         <?php 
+            $content = $features->getContent();
             $table = $this->table(['class' => 'table']);
+            foreach ($content as $item) {
+                $table->row([
+                    ['text' => Url::a(['content/update', [$item->id]], $item->getLocaled('title')), 'html' => true],
+                    ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)]
+                ]);
+            }
+            if ($content->count() > 0) {
+                echo $table->display();
+            } else {
+                echo $this->bootstrap()->alert('info', __('No content yet'));
+            }
+
+        ?>
+    </div>
+    <div class="col-md-4">
+    <h3><?= __('Feedback') ?></h3>
+        <?php 
+            $content = $features->getFeedback();
+            $table = $this->table(['class' => 'table']);
+            foreach ($content as $item) {
+                $table->row([
+                    ['text' => Url::a(['feedback/read', [$item->id]], App::$Security->strip_tags($item->message)), 'html' => true],
+                    ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)]
+                ]);
+            }
+            if ($content->count() > 0) {
+                echo $table->display();
+            } else {
+                echo $this->bootstrap()->alert('info', __('No feedback yet'));
+            }
+
+        ?>
+    </div>
+    <div class="col-md-4">
+    <h3><?= __('Comments') ?></h3>
+        <?php 
+            $content = $features->getComments();
+            $table = $this->table(['class' => 'table']);
+            foreach ($content as $item) {
+                $table->row([
+                    ['text' => Url::a(['comments/read', [$item->id]], App::$Security->strip_tags($item->message)), 'html' => true],
+                    ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)]
+                ]);
+            }
+            if ($content->count() > 0) {
+                echo $table->display();
+            } else {
+                echo $this->bootstrap()->alert('info', __('No comments yet'));
+            }
 
         ?>
     </div>
 </div>
+
+<hr class="py-2" />
 
 <div class="row">
     <div class="col-md-6">

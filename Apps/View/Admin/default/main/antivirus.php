@@ -5,16 +5,18 @@ use Ffcms\Templex\Url\Url;
 /** @var \Ffcms\Templex\Template\Template $this */
 
 $this->layout('_layouts/default', [
-    'title' => __('Antivirus'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        __('Antivirus')
-    ]
+    'title' => __('Antivirus')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 <h1><?= __('Antivirus scan'); ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Antivirus')
+]]) ?>
+
 <p><?= __('FFCMS 3 provide a simple signature-based antivirus software') . '. ' . __('Remember! This is just an advisory algorithm!') ?></p>
 
 <div class="row mb-2">

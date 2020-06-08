@@ -7,17 +7,19 @@ use Ffcms\Templex\Url\Url;
 /** @var \Ffcms\Templex\Template\Template $this */
 
 $this->layout('_layouts/default', [
-    'title' => __('Add route'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('main/routing') => __('Routing'),
-        __('Add route')
-    ]
+    'title' => __('Add route')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 <h1><?= __('New route') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Routing') => ['main/routing'],
+    __('Add route')
+]]) ?>
+
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>
 

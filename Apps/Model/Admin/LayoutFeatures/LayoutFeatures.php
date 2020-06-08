@@ -4,6 +4,7 @@ namespace Apps\Model\Admin\LayoutFeatures;
 
 use Apps\ActiveRecord\CommentPost;
 use Apps\ActiveRecord\FeedbackPost;
+use Apps\ActiveRecord\Content;
 use Ffcms\Core\Arch\Model;
 use Illuminate\Support\Collection;
 
@@ -27,12 +28,16 @@ class LayoutFeatures extends Model
         $this->_feedback = FeedbackPost::with('user')
             ->where('closed', false)
             ->where('readed', false)
-            ->orderBy('id', 'DESC')
+            ->orderBy('updated_at', 'DESC')
             ->take(static::LIMIT)
             ->get();
 
         $this->_comments = CommentPost::with('user')
-            ->orderBy('id', 'DESC')
+            ->orderBy('updated_at', 'DESC')
+            ->take(static::LIMIT)
+            ->get();
+
+        $this->_content = Content::orderBy('created_at', 'DESC')
             ->take(static::LIMIT)
             ->get();
 
@@ -50,10 +55,19 @@ class LayoutFeatures extends Model
 
     /**
      * Get comment post array
-     * @return CommentPost|Collection
+     * @return CommentPost[]|Collection
      */
     public function getComments()
     {
         return $this->_comments;
+    }
+
+    /**
+     * Get content items
+     * @return Content[]|Collection
+     */
+    public function getContent() 
+    {
+        return $this->_content;
     }
 }

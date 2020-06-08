@@ -7,11 +7,7 @@ use Ffcms\Templex\Url\Url;
 /** @var \Ffcms\Templex\Template\Template $this */
 
 $this->layout('_layouts/default', [
-    'title' => __('Routing'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        __('Routing')
-    ]
+    'title' => __('Routing')
 ]);
 $aliasExist = false;
 $callbackExist = false;
@@ -19,6 +15,12 @@ $callbackExist = false;
 
 <?php $this->start('body') ?>
 <h1><?= __('Routing scheme') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Routing')
+]]) ?>
+
 <div class="row">
     <div class="col-md-6">
         <h2><?= __('Static(alias) routes') ?></h2>

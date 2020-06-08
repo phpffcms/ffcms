@@ -9,15 +9,17 @@ use Ffcms\Templex\Url\Url;
 
 $this->layout('_layouts/default', [
     'title' => __('Updates'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        __('Updates')
-    ]
 ]);
 ?>
 
 <?php $this->start('body') ?>
 <h1><?= __('Update manager') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Updates')
+]]) ?>
+
 <div class="table-responsive">
     <?= $this->table(['class' => 'table table-striped table-hover'])
         ->row([

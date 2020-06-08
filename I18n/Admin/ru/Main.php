@@ -219,5 +219,9 @@ return [
     'Ban row is successful saved' => 'Блокировка успешно сохранена',
     'Save' => 'Сохранить',
     'Ban record was removed' => 'Запись блокировки успешно удалена',
-    'Record not found' => 'Запись не найдена'
+    'Record not found' => 'Запись не найдена',
+    'Content' => 'Контент',
+    'No content yet' => 'Материалов еще нет',
+    'No feedback yet' => 'Обратной связи еще нет',
+    'No comments yet' => 'Комментариев еще нет'
 ];
