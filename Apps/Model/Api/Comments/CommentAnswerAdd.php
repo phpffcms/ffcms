@@ -2,6 +2,7 @@
 
 namespace Apps\Model\Api\Comments;
 
+use Apps\ActiveRecord\Ban;
 use Apps\ActiveRecord\CommentAnswer;
 use Apps\ActiveRecord\CommentPost;
 use Apps\Model\Front\Profile\EntityAddNotification;
@@ -50,6 +51,11 @@ class CommentAnswerAdd extends Model
         // check if user is auth'd or guest name is defined
         if (!App::$User->isAuth() && ((int)$this->_configs['guestAdd'] !== 1 || Str::length($this->guestName) < 2)) {
             throw new JsonException(__('Guest name is not defined'));
+        }
+
+        // check if client in ban list
+        if (Ban::isBanned(App::$Request->getClientIp(), $this->_userId, true)) {
+            throw new JsonException(__('Sorry, but your account was banned!'));
         }
 
         // guest moderation

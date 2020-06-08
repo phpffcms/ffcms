@@ -3,11 +3,12 @@
 namespace Extend\Core\Arch;
 
 use Apps\ActiveRecord\App as AppRecord;
+use Apps\ActiveRecord\Ban;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Controller;
+use Ffcms\Core\Exception\BanException;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Type\Any;
-use Ffcms\Core\Helper\Type\Obj;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -27,6 +28,15 @@ class FrontAppController extends Controller
      */
     public function __construct()
     {
+        // check if read ban exist
+        $userId = null;
+        if (App::$User->identity()) {
+            $userId = App::$User->identity()->id;
+        }
+        if (Ban::isBanned(App::$Request->getClientIp(), $userId, false, true)) {
+            throw new ForbiddenException(__("Your account is banned on website! Contact to administrator: %email%", ['email' => App::$Properties->get('adminEmail')]));
+        }
+
         if (!$this->isEnabled()) {
             throw new ForbiddenException(__('This application is disabled or not installed!'));
         }

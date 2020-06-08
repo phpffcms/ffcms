@@ -115,5 +115,6 @@ return [
     'New answer &laquo;%snippet%&raquo; to your comment &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш комментарий &laquo;%post%&raquo;',
     'New answer &laquo;%snippet%&raquo; to your feedback request &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш запрос обратной связи &laquo;%post%&raquo;',
     'Profile stream' => 'Новости пользователей',
-    'No user wall post found yet' => 'Пользовательские записи не найдены'
+    'No user wall post found yet' => 'Пользовательские записи не найдены',
+    'Sorry, but your account was banned!' => 'Извините, ваш доступ был заблокирован!'
 ];

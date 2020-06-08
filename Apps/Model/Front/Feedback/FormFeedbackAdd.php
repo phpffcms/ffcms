@@ -2,10 +2,12 @@
 
 namespace Apps\Model\Front\Feedback;
 
+use Apps\ActiveRecord\Ban;
 use Apps\ActiveRecord\FeedbackPost;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Crypt;
+use Ffcms\Core\Exception\ForbiddenException;
 
 /**
  * Class FormFeedbackAdd. Add new feedback request business logic model
@@ -38,6 +40,11 @@ class FormFeedbackAdd extends Model
      */
     public function before()
     {
+        // check if client in ban list
+        if (Ban::isBanned(App::$Request->getClientIp(), $this->_userId, true)) {
+            throw new ForbiddenException(__('Sorry, but your account was banned!'));
+        }
+
         if (App::$User->isAuth()) {
             $data = App::$User->identity();
             $this->name = $data->profile->nick;

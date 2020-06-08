@@ -42,5 +42,6 @@ return [
     'Feedback request on %site% with id #%id% created' => 'Запрос обратной связи на сайте %site% с номером #%id% создан',
     'Your feedback request is created and will be reviewed soon' => 'Ваш запрос обратной связи успешно создан и будет вскоре рассмотрен',
     'View request' => 'Просмотреть запрос',
-    'If you do not make the feedback request please ignore this message!' => 'Если вы не совершали запроса обратной связи проигнорируйте данное сообщение!'
+    'If you do not make the feedback request please ignore this message!' => 'Если вы не совершали запроса обратной связи проигнорируйте данное сообщение!',
+    'Sorry, but your account was banned!' => 'Извините, ваш доступ был заблокирован!'
 ];

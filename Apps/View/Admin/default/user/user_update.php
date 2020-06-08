@@ -33,6 +33,14 @@ $this->layout('_layouts/default', [
 <?php if ($model->_user->getId() !== null): ?>
     <div class="row mt-3">
         <div class="col-md-3">
+            <div class="text-right"><strong><?= __('Ban user') ?></strong></div>
+        </div>
+        <div class="col-md-9">
+            <?= Url::a(['main/banupdate', [], ['user' => $model->_user->id]], __('Ban access'), ['target' => '_blank', 'class' => 'text-danger']) ?>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
             <div class="text-right"><strong><?= __('Profile preview') ?></strong></div>
         </div>
         <div class="col-md-9">

@@ -2,44 +2,38 @@
 
 namespace Apps\Controller\Admin\Main;
 
-use Apps\ActiveRecord\Spam;
+use Apps\ActiveRecord\Ban;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 
 /**
- * Trait ActionFilter
- * @package Apps\Controller\Admin\Main
+ * Trait ActionBan
  * @property Request $request
  * @property Response $response
  * @property View $view
  */
-trait ActionSpam
+trait ActionBan 
 {
     public static $itemPerPage = 100;
 
-    /**
-     * Show filter logs
-     * @return string|null
-     */
-    public function filter(): ?string
+    public function ban(): ?string
     {
         $page = (int) $this->request->query->get('page');
         $offset = $page * static::$itemPerPage;
 
-        $records = Spam::orderBy('counter', 'DESC')
-            ->orderBy('created_at', 'DESC')
+        $records = Ban::orderBy('id', 'DESC')
             ->take(static::$itemPerPage)
             ->offset($offset)
             ->get();
 
-        return $this->view->render('main/spam', [
+        return $this->view->render('main/ban', [
             'records' => $records,
             'pagination' => [
-                'url' => ['main/spam'],
+                'url' => ['main/ban'],
                 'page' => $page,
                 'step' => self::$itemPerPage,
-                'total' => Spam::count()
+                'total' => Ban::count()
             ]
         ]);
     }

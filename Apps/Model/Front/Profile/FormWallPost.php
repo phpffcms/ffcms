@@ -2,8 +2,11 @@
 
 namespace Apps\Model\Front\Profile;
 
+use Apps\ActiveRecord\Ban;
 use Apps\ActiveRecord\WallPost as WallRecords;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Any;
@@ -51,6 +54,11 @@ class FormWallPost extends Model
     {
         if (!$target || !$viewer) {
             return false;
+        }
+
+        // check if client in ban list
+        if (Ban::isBanned(App::$Request->getClientIp(), $this->_userId, true)) {
+            throw new ForbiddenException(__('Sorry, but your account was banned!'));
         }
 
         if (!Any::isInt($delay) || $delay < 0) {

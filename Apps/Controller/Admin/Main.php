@@ -82,6 +82,18 @@ class Main extends AdminController
         filter as actionSpam;
     }
 
+    use Main\ActionBan {
+        ban as actionBan;
+    }
+
+    use Main\ActionBanUpdate {
+        update as actionBanupdate;
+    }
+
+    use Main\ActionBanDelete {
+        delete as actionBandel;
+    }
+
     /**
      * Main constructor. Disable parent inheritance of typical app version checking
      */

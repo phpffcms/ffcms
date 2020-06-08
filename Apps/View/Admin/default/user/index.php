@@ -58,7 +58,8 @@ foreach ($records as $user) {
 
     $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'], 4)
         ->add('<i class="fas fa-pencil-alt"></i>', ['user/update', [$user->id]], ['class' => 'btn btn-primary', 'html' => true])
-        ->add('<i class="fas fa-eraser"></i>', ['user/clear', [$user->id]], ['class' => 'btn btn-warning', 'html' => true])
+        ->add('<i class="fas fa-user-slash"></i>', ['main/banupdate', [], ['user' => $user->id]], ['class' => 'btn btn-warning', 'html' => true])
+        ->add('<i class="fas fa-eraser"></i>', ['user/clear', [$user->id]], ['class' => 'btn btn-light', 'html' => true])
         ->add('<i class="fas fa-trash-alt"></i>', ['user/delete', [$user->id]], ['class' => 'btn btn-danger', 'html' => true]);
 
     // user not approved - show approve button

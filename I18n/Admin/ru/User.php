@@ -77,5 +77,6 @@ return [
     'Wall posts and answers' => 'Сообщения на пользовательских стенах',
     'Delete all wall posts and answers?' => 'Удалить все записи на стенах пользователей от этого пользователя?',
     'User input data clear successful' => 'Материалы пользователя успешно очищены',
-    'Email: %email%, nick: %nick%' => 'Почта: %email%, псевдоним: %nick%'
+    'Email: %email%, nick: %nick%' => 'Почта: %email%, псевдоним: %nick%',
+    'Ban access' => 'Запретить доступ'
 ];

@@ -2,11 +2,13 @@
 
 namespace Apps\Model\Front\Feedback;
 
+use Apps\ActiveRecord\Ban;
 use Apps\ActiveRecord\FeedbackAnswer;
 use Apps\Model\Front\Profile\EntityAddNotification;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Text;
+use Ffcms\Core\Exception\ForbiddenException;
 
 /**
  * Class FormAnswerAdd. Model to work with add answer to feedback post thread
@@ -41,6 +43,11 @@ class FormAnswerAdd extends Model
      */
     public function before()
     {
+        // check if client in ban list
+        if (Ban::isBanned(App::$Request->getClientIp(), $this->_userId, true)) {
+            throw new ForbiddenException(__('Sorry, but your account was banned!'));
+        }
+
         if ($this->_userId > 0) {
             $user = App::$User->identity($this->_userId);
             $this->name = $user->profile->nick;
