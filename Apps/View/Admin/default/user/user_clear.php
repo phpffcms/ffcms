@@ -7,21 +7,24 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\Model\Admin\User\FormUserClear $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Manage user'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('user/index') => __('User list'),
-        __('User cleanup')
-    ]
+    'title' => __('Manage user')
 ]);
 
 ?>
 
 <?php $this->start('body') ?>
-<?= $this->insert('user/_tabs') ?>
 
 <h1><?= __('User cleanup') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Users') => ['user/index'],
+    __('User cleanup')
+]]) ?>
+
+<?= $this->insert('user/_tabs') ?>
+
 <div class="table-responsive">
     <?= $this->table(['class' => 'table'])
         ->head([

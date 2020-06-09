@@ -18,9 +18,18 @@ $this->layout('_layouts/default', [
 
 ?>
 <?php $this->start('body') ?>
-<?= $this->insert('user/_tabs') ?>
 
 <h1><?= __('Delete users') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Users') => ['user/index'],
+    __('Delete users')
+]]) ?>
+
+<?= $this->insert('user/_tabs') ?>
+
 <p><?= __('Are you sure to delete this users?') ?></p>
 <?php
 $table = $this->table(['class' => 'table'])

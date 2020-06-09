@@ -9,19 +9,23 @@ use Ffcms\Templex\Url\Url;
 /** @var string $search */
 
 $this->layout('_layouts/default', [
-    'title' => __('User list'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        __('User list')
-    ]
+    'title' => __('User list')
 ]);
 ?>
 
 <?php $this->start('body') ?>
-<?= $this->insert('user/_tabs') ?>
 <h1><?= __('User list') ?></h1>
-<div class="row">
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('User list')
+]]) ?>
+
+
+<?= $this->insert('user/_tabs') ?>
+
+<div class="row pt-3 pb-1">
     <div class="col-md-8">
         <?= Url::a(['user/update'], __('Add user'), ['class' => 'btn btn-primary']) ?>
     </div>

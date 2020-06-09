@@ -17,9 +17,17 @@ $this->layout('_layouts/default', [
 ?>
 
 <?php $this->start('body') ?>
-<?= $this->insert('user/_tabs') ?>
 
 <h1><?= __('Manage user') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Users') => ['user/index'],
+    __('Delete users')
+]]) ?>
+
+<?= $this->insert('user/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>

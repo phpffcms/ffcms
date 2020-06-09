@@ -7,19 +7,22 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\ActiveRecord\Role[]|\Illuminate\Support\Collection $records */
 
 $this->layout('_layouts/default', [
-    'title' => __('Role management'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        __('Role management')
-    ]
+    'title' => __('Role management')
 ]);
 ?>
 
 <?php $this->start('body') ?>
-<?= $this->insert('user/_tabs') ?>
 
 <h1><?= __('Role list') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Users') => ['user/index'],
+    __('Role management')
+]]) ?>
+
+<?= $this->insert('user/_tabs') ?>
 
 <?php
 $table = $this->table(['class' => 'table'])
@@ -62,7 +65,7 @@ foreach($records as $role) {
 ?>
 
 <div>
-    <?= Url::a(['user/roleupdate'], __('Add role'), ['class' => 'btn btn-primary']) ?>
+    <?= Url::a(['user/roleupdate'], __('Add role'), ['class' => 'btn btn-primary my-2']) ?>
 </div>
 
 <div class="table-responsive">

@@ -8,18 +8,21 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\ActiveRecord\Invite|\Illuminate\Support\Collection $record */
 
 $this->layout('_layouts/default', [
-    'title' => __('Delete invite'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('user/index') => __('Invitation list'),
-        __('Delete invite')
-    ]
+    'title' => __('Delete invite')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 <h1><?= __('Delete invite') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Users') => ['user/index'],
+    __('Invitation list') => ['user/invitelist'],
+    __('Delete invite')
+]]) ?>
+
 <p><?= __('Are you sure to delete invite: %mail%', ['mail' => $record->email]) ?></p>
 
 <?php $form = $this->form($model) ?>

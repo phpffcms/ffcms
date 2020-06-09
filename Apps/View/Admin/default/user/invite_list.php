@@ -9,24 +9,28 @@ use Ffcms\Templex\Url\Url;
 /** @var \Ffcms\Templex\Template\Template $this */
 
 $this->layout('_layouts/default', [
-    'title' => __('Invitation list'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        __('Invitation list')
-    ]
+    'title' => __('Invitation list')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('user/_tabs') ?>
 <h1><?= __('Invitation list') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Users') => ['user/index'],
+    __('Invitation list')
+]]) ?>
+
+<?= $this->insert('user/_tabs') ?>
+
 <?php if ($configs['registrationType'] !== 0) {
     echo $this->bootstrap()->alert('danger', __('Invite system is disabled. Registration is public'));
 } ?>
 <div>
-    <?= Url::a(['user/invite'], __('Send invite'), ['class' => 'btn btn-info']) ?>
+    <?= Url::a(['user/invite'], __('Send invite'), ['class' => 'btn btn-info my-2']) ?>
 </div>
 
 <?php if ($records->count() < 1) {
@@ -48,13 +52,16 @@ $table = $this->table(['class' => 'table table-striped'])
 
 foreach ($records as $invite) {
     $time = Date::convertToTimestamp($invite->created_at);
+
+    $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
+        ->add('<i class="fas fa-trash"></i>', ['user/invitedelete', [$invite->id]], ['html' => true, 'class' => 'btn btn-danger']);
+
     $table->row([
         ['text' => $invite->id],
         ['text' => $invite->email],
         ['text' => (time() - $time < \Apps\ActiveRecord\Invite::TOKEN_VALID_TIME ? '<i class="fas fa-check text-success"></i>' : '<i class="fas fa-minus text-danger"></i>'), 'html' => true],
         ['text' => Date::convertToDatetime($invite->created_at, Date::FORMAT_TO_DAY)],
-        ['text' => Url::a(['user/invitedelete', [$invite->id]], ' <i class="fas fa-trash-o fa-lg"></i>', ['html' => true]),
-            'properties' => ['class' => 'text-center'], 'html' => true]
+        ['text' => $btngrp->display(), 'html' => true, 'properties' => ['class' => 'text-center']]
     ]);
 }
 ?>

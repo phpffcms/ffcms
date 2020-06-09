@@ -6,19 +6,23 @@ use Ffcms\Templex\Url\Url;
 /** @var Apps\Model\Admin\User\FormUserGroupUpdate $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Manage role'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        __('Manage role')
-    ]
+    'title' => __('Manage role')
 ]);
 ?>
 
 <?php $this->start('body') ?>
-<?= $this->insert('user/_tabs') ?>
 
 <h1><?= __('Manage role') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Users') => ['user/index'],
+    __('Role list') => ['user/rolelist'],
+    __('Manage role')
+]]) ?>
+
+<?= $this->insert('user/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 
