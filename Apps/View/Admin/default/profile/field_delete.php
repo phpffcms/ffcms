@@ -6,21 +6,24 @@ use Ffcms\Templex\Url\Url;
 /** @var \Ffcms\Templex\Template\Template $this */
 
 $this->layout('_layouts/default', [
-    'title' => __('Field delete'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('profile/index') => __('Profile list'),
-        Url::to('profile/fieldlist') => __('Profile fields'),
-        __('Field delete')
-    ]
+    'title' => __('Field delete')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('profile/_tabs') ?>
 <h1><?= __('Field delete') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Profile list') => ['profile/index'],
+    __('Profile fields') => ['profile/fieldlist'],
+    __('Field delete')
+]]) ?>
+
+<?= $this->insert('profile/_tabs') ?>
+
 <p><?= __('Are you sure to delete this custom field?') ?></p>
 <div class="table-responsive">
     <?= $this->table(['class' => 'table'])

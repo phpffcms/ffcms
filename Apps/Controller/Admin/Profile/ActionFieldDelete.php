@@ -4,6 +4,7 @@ namespace Apps\Controller\Admin\Profile;
 
 use Apps\ActiveRecord\ProfileField;
 use Apps\Model\Admin\Profile\FormFieldUpdate;
+use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Helper\Type\Any;
@@ -41,6 +42,7 @@ trait ActionFieldDelete
         // if delete is submited - lets remove this record
         if ($model->send()) {
             $model->delete();
+            App::$Session->getFlashBag()->add('success', __('Profile field was successful removed'));
             $this->response->redirect('profile/fieldlist');
         }
 

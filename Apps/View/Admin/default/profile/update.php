@@ -7,13 +7,7 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\ActiveRecord\Profile $profile */
 
 $this->layout('_layouts/default', [
-    'title' => __('Profile edit'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('profile/index') => __('Profile list'),
-        __('Profile edit')
-    ]
+    'title' => __('Profile edit')
 ]);
 ?>
 
@@ -21,6 +15,16 @@ $this->layout('_layouts/default', [
 
 <?= $this->insert('profile/_tabs') ?>
 <h1><?= __('Edit user profile') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Profile list') => ['profile/index'],
+    __('Profile edit')
+]]) ?>
+
+<?= $this->insert('profile/_tabs') ?>
+
 <?php $form = $this->form($model) ?>
 
 <?= $form->start() ?>

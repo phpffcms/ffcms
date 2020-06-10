@@ -18,8 +18,16 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('profile/_tabs') ?>
 <h1><?= __('Profile settings') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Profile list') => ['profile/index'],
+    __('Settings')
+]]) ?>
+
+<?= $this->insert('profile/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 

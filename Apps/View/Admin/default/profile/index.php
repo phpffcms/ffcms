@@ -20,9 +20,16 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
+<h1><?= __('Profile list') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Profile')
+]]) ?>
+
 <?= $this->insert('profile/_tabs') ?>
 
-<h1><?= __('Profile list') ?></h1>
 <?php
 $table = $this->table(['class' => 'table table-striped'])
     ->head([

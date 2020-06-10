@@ -8,22 +8,24 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\ActiveRecord\ProfileField $record */
 
 $this->layout('_layouts/default', [
-    'title' => __('Manage field'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('profile/index') => __('Profile list'),
-        Url::to('profile/fieldlist') => __('Profile fields'),
-        __('Manage field')
-    ]
+    'title' => __('Manage field')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
+<h1><?= __('Manage addition field') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Profile list') => ['profile/index'],
+    __('Profile fields') => ['profile/fieldlist'],
+    __('Manage field')
+]]) ?>
+
 <?= $this->insert('profile/_tabs') ?>
 
-<h1><?= __('Manage addition field') ?></h1>
 <?php $form = $this->form($model) ?>
 
 <?= $form->start() ?>

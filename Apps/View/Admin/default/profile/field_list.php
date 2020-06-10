@@ -18,11 +18,20 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('profile/_tabs') ?>
 <h1><?= __('Additional profile fields') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Profile list') => ['profile/index'],
+    __('Profile fields')
+]]) ?>
+
+<?= $this->insert('profile/_tabs') ?>
+
 <div class="row">
     <div class="col-md-12">
-        <?= Url::a(['profile/fieldupdate'], __('Add field'), ['class' => 'btn btn-primary', 'html' => true]) ?>
+        <?= Url::a(['profile/fieldupdate'], __('Add field'), ['class' => 'btn btn-primary my-2', 'html' => true]) ?>
     </div>
 </div>
 
