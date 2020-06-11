@@ -20,9 +20,16 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
+<h1><?= __('Feedback list') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Feedback')
+]]) ?>
+
 <?= $this->insert('feedback/_tabs') ?>
 
-<h1><?= __('Feedback list') ?></h1>
 <?php
 if (!$records || $records->count() < 1) {
     echo '<p class="alert alert-warning">' . __('Feedback requests is empty now!') . '</p>';
@@ -39,7 +46,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Status')],
         ['text' => __('Date')],
         ['text' => __('Actions')]
-    ]);
+    ], ['class' => 'thead-dark']);
 
 $items = [];
 foreach ($records as $item) {

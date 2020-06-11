@@ -10,21 +10,23 @@ use Ffcms\Templex\Url\Url;
 
 
 $this->layout('_layouts/default', [
-    'title' => __('Feedback read'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('feedback/index') => __('Feedback'),
-        __('Read feedback message')
-    ]
+    'title' => __('Feedback read')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
+<h1><?= __('Read feedback message #%id%', ['id' => $record->id]) ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Feedback') => ['feedback/index'],
+    __('Read feedback message')
+]]) ?>
+
 <?= $this->insert('feedback/_tabs') ?>
 
-<h1><?= __('Read feedback message #%id%', ['id' => $record->id]) ?></h1>
 <div class="row">
     <div class="col-md-8">
         <div class="card">

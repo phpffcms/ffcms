@@ -20,17 +20,25 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
+<h1><?= __('Category list') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Categories')
+]]) ?>
+
 <?= $this->insert('content/_tabs') ?>
 
-<h1><?= __('Category list') ?></h1>
-<div class="row">
+<div class="row my-2">
     <div class="col-md-12">
         <?= Url::a(['content/categoryupdate'], '<i class="fas fa-plus"></i> ' . __('Add category'), ['class' => 'btn btn-primary', 'html' => true]) ?>
     </div>
 </div>
 <div class="table-responsive">
     <table class="table table-striped table-hover">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th class="col-md-10"><?= __('Category') ?></th>
             <th class="col-md-2 text-center"><?= __('Actions') ?></th>

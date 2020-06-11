@@ -19,6 +19,12 @@ $this->layout('_layouts/default', [
 
 <h1><?= __('Sitemap') ?></h1>
 
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Sitemap')
+]]) ?>
+
 <p><?= __('Sitemap its a special application to generate sitemap as xml file over sitemap standart for search engines.') ?></p>
 <p><?= __('Sitemap main index') ?>: <a href="<?= \App::$Alias->scriptUrl . '/sitemap' ?>" target="_blank">/sitemap</a></p>
 <h3><?= __('Sitemap files') ?></h3>

@@ -6,21 +6,22 @@ use Ffcms\Templex\Url\Url;
 /** @var Apps\Model\Admin\Content\FormContentRestore $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Content restore'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('content/index') => __('Contents'),
-        __('Content restore')
-    ]
+    'title' => __('Content restore')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('content/_tabs') ?>
-
 <h1><?= __('Content restore') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Content restore')
+]]) ?>
+
+<?= $this->insert('content/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 

@@ -7,21 +7,23 @@ use Ffcms\Templex\Url\Url;
 /** @var Apps\Model\Admin\Content\FormCategoryUpdate $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Category manage'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('content/categories') => __('Categories'),
-        __('Category manage')
-    ]
+    'title' => __('Category manage')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('content/_tabs') ?>
-
 <h1><?= __('Category manage') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Categories') => ['content/categories'],
+    __('Category manage')
+]]) ?>
+
+<?= $this->insert('content/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>

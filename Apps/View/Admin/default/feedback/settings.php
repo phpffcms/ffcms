@@ -6,22 +6,23 @@ use Ffcms\Templex\Url\Url;
 /** @var Apps\Model\Admin\Feedback\FormSettings $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Settings'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('feedback/index') => __('Feedback'),
-        __('Settings')
-    ]
+    'title' => __('Settings')
 ]);
 
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('feedback/_tabs') ?>
-
 <h1><?= __('Feedback settings') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Feedback') => ['feedback/index'],
+    __('Settings')
+]]) ?>
+
+<?= $this->insert('feedback/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 

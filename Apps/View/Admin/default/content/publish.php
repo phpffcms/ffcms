@@ -9,21 +9,23 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\Model\Admin\Content\FormContentPublish $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Content publish'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('content/index') => __('Contents'),
-        __('Content publish')
-    ]
+    'title' => __('Content publish')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
+<h1><?= __('Content publish') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Content publish')
+]]) ?>
+
 <?= $this->insert('content/_tabs') ?>
 
-<h1><?= __('Content publish') ?></h1>
 <p><?= __('Are you sure to make this item public?') ?></p>
 <?php
 $table = $this->table(['class' => 'table table-striped'])

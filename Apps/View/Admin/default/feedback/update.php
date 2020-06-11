@@ -18,9 +18,17 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
+<h1><?= __('Feedback edit') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Feedback') => ['feedback/index'],
+    __('Update feedback')
+]]) ?>
+
 <?= $this->insert('feedback/_tabs') ?>
 
-<h1><?= __('Feedback edit') ?></h1>
 <?php $form = $this->form($model) ?>
 
 <?= $form->start() ?>

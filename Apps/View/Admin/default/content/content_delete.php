@@ -6,21 +6,22 @@ use Ffcms\Templex\Url\Url;
 /** @var Apps\Model\Admin\Content\FormContentDelete $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Content delete'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('content/index') => __('Contents'),
-        __('Content delete')
-    ]
+    'title' => __('Content delete')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('content/_tabs') ?>
-
 <h1><?= __('Content delete') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Content delete')
+]]) ?>
+
+<?= $this->insert('content/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 

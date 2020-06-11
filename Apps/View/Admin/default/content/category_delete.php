@@ -6,20 +6,23 @@
 use Ffcms\Templex\Url\Url;
 
 $this->layout('_layouts/default', [
-    'title' => __('Category delete'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('content/category') => __('Categories'),
-        __('Category delete')
-    ]
+    'title' => __('Category delete')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('content/_tabs') ?>
 <h1><?= __('Category delete') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Categories') => ['content/categories'],
+    __('Category delete')
+]]) ?>
+
+<?= $this->insert('content/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 

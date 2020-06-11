@@ -3,22 +3,23 @@
 /** @var \Ffcms\Templex\Template\Template $this */
 /** @var $model Apps\Model\Admin\Search\FormSettings */
 
-use Ffcms\Templex\Url\Url;
 
 $this->layout('_layouts/default', [
-    'title' => __('Search settings'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('search/index') => __('Search'),
-        __('Settings')
-    ]
+    'title' => __('Search settings')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
 <h1><?= __('Search settings') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Search') => ['search/index'],
+    __('Settings')
+]]) ?>
+
 <?php $form = $this->form($model) ?>
 
 <?= $form->start() ?>

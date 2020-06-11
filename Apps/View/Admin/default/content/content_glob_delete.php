@@ -6,22 +6,24 @@ use Ffcms\Templex\Url\Url;
 /** @var Apps\Model\Admin\Content\FormContentGlobDelete $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Content global delete'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('content/index') => __('Contents'),
-        __('Content delete')
-    ]
+    'title' => __('Content global delete')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('content/_tabs') ?>
 <h1><?= __('Content delete') ?></h1>
 
-<p><?= __('Are you sure to delete all this content items?'); ?></p>
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Content delete')
+]]) ?>
+
+<?= $this->insert('content/_tabs') ?>
+
+<p class="py-2"><?= __('Are you sure to delete all this content items?'); ?></p>
 <?php $form = $this->form($model) ?>
 
 <?= $form->start() ?>

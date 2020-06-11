@@ -49,7 +49,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Type')],
         ['text' => __('Rule')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ]);
+    ], ['class' => 'thead-dark']);
 
 foreach ($records as $row) {
     $labelClass = 'badge ';

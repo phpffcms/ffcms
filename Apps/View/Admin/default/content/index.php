@@ -11,21 +11,23 @@ use Ffcms\Templex\Url\Url;
 /** @var string $type */
 
 $this->layout('_layouts/default', [
-    'title' => __('Contents'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        __('Contents')
-    ]
+    'title' => __('Contents')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
+<h1><?= __('Content list') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents')
+]]) ?>
+
 <?= $this->insert('content/_tabs') ?>
 
-<h1><?= __('Content list') ?></h1>
-<div class="row">
+<div class="row my-2">
     <div class="col-md-6">
         <?php
         if ($type === 'trash') {
@@ -77,7 +79,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Title')],
         ['text' => '<i class="fas fa-comments"></i>', 'html' => true],
         ['text' => __('Date')]
-    ]);
+    ], ['class' => 'thead-dark']);
 
 $hiddenExist = false;
 foreach ($records as $content) {

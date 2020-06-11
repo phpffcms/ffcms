@@ -10,13 +10,7 @@ use Ffcms\Templex\Helper\Html\Dom;
 use Ffcms\Templex\Url\Url;
 
 $this->layout('_layouts/default', [
-    'title' => __('Content edit'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('content/index') => __('Contents'),
-        __('Content manage')
-    ]
+    'title' => __('Content edit')
 ]);
 ?>
 
@@ -37,13 +31,23 @@ $this->layout('_layouts/default', [
 <?php $this->stop() ?>
 
 <?php $this->start('body') ?>
-<?= $this->insert('content/_tabs') ?>
+
 <h1><?= __('Content manage') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Content manage')
+]]) ?>
+
+<?= $this->insert('content/_tabs') ?>
+
 <?php
 $form = $this->form($model);
 echo $form->start();
 
-$menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
+$menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs mt-2'])
     ->menu(['text' => __('General'), 'tab' => function() use ($form) {
         /** @var \Ffcms\Templex\Template\Template $this */
         $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);

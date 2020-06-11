@@ -39,7 +39,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Birthday')],
         ['text' => __('Rating')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ]);
+    ], ['class' => 'thead-dark']);
 
 foreach ($records as $profile) {
     $table->row([

@@ -55,7 +55,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Role')],
         ['text' => __('Register date')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ]);
+    ], ['class' => 'thead-dark']);
 
 foreach ($records as $user) {
     $roleHtml = $user->role->color ? '<span class="badge badge-light" style="color: ' . $user->role->color . '">' . $user->role->name . '</span>' : $user->role->name;

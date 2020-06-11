@@ -8,20 +8,22 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\Model\Admin\Feedback\FormAnswerAdd|null $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Feedback delete'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('feedback/index') => __('Feedback'),
-        __('Delete message')
-    ]
+    'title' => __('Feedback delete')
 ]);
 ?>
+
 <?php $this->start('body') ?>
 
-<?= $this->insert('feedback/_tabs') ?>
-
 <h1><?= __('Delete feedback message') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Feedback') => ['feedback/index'],
+    __('Delete message')
+]]) ?>
+
+<?= $this->insert('feedback/_tabs') ?>
 
 <div class="table-responsive">
     <?= $this->table(['class' => 'table table-bordered'])

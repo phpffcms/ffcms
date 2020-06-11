@@ -6,21 +6,22 @@ use Ffcms\Templex\Url\Url;
 /** @var Apps\Model\Admin\Content\FormContentClear $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Cleanup trash'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('application/index') => __('Applications'),
-        Url::to('content/index') => __('Contents'),
-        __('Cleanup trash')
-    ]
+    'title' => __('Cleanup trash')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('content/_tabs') ?>
-
 <h1><?= __('Cleanup trash') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Applications') => ['application/index'],
+    __('Contents') => ['content/index'],
+    __('Cleanup trash')
+]]) ?>
+
+<?= $this->insert('content/_tabs') ?>
 
 <?php $form = $this->form($model) ?>
 
