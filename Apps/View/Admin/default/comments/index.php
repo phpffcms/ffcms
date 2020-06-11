@@ -10,20 +10,21 @@ use Ffcms\Templex\Url\Url;
 /** @var array $pagination */
 
 $this->layout('_layouts/default', [
-    'title' => __('Comments list'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('widget/index') => __('Widgets'),
-        __('Comments')
-    ]
+    'title' => __('Comments list')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('comments/_tabs'); ?>
-
 <h1><?= __('Comments list') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Comments')
+]]) ?>
+
+<?= $this->insert('comments/_tabs'); ?>
 
 <?php
 if (!$records || $records->count() < 1) {
@@ -42,7 +43,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Page')],
         ['text' => __('Date')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']],
-    ]);
+    ], ['class' => 'thead-dark']);
 
 foreach ($records as $item) {
     $message = Text::cut(\App::$Security->strip_tags($item->message), 0, 75);

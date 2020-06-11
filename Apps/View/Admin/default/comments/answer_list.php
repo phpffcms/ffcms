@@ -22,9 +22,17 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('comments/_tabs') ?>
-
 <h1><?= __('Answers list') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Comments') => ['comments/index'],
+    __('Answers')
+]]) ?>
+
+<?= $this->insert('comments/_tabs'); ?>
+
 <?php
 if (!$records || $records->count() < 1) {
     echo $this->bootstrap()->alert('warning', __('Answers is not founded'));
@@ -40,7 +48,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Author')],
         ['text' => __('Date')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ]);
+    ], ['class' => 'thead-dark']);
 
 foreach ($records as $item) {
     /** @var \Apps\ActiveRecord\CommentAnswer $item */

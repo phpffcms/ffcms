@@ -6,18 +6,21 @@ use Ffcms\Templex\Url\Url;
 /** @var \Ffcms\Templex\Template\Template $this */
 
 $this->layout('_layouts/default', [
-    'title' => __('Content tags'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('contenttag/index') => __('Content tags'),
-        __('Settings')
-    ]
+    'title' => __('Content tags')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
 <h1><?= __('Content tags') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Content tags') => ['contenttag/index'],
+    __('Settings')
+]]) ?>
+
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>
 

@@ -6,21 +6,22 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\Model\Admin\Comments\FormSettings $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Comments settings'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('widget/index') => __('Widgets'),
-        Url::to('comments/index') => __('Comments'),
-        __('Settings')
-    ]
+    'title' => __('Comments settings')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('comments/_tabs') ?>
-
 <h1><?= __('Comments settings') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Comments') => ['comments/index'],
+    __('Settings')
+]]) ?>
+
+<?= $this->insert('comments/_tabs'); ?>
 
 <?php $form = $this->form($model) ?>
 

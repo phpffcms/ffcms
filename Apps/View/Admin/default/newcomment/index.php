@@ -6,18 +6,20 @@ use Ffcms\Templex\Url\Url;
 /** @var \Ffcms\Templex\Template\Template $this */
 
 $this->layout('_layouts/default', [
-    'title' => __('New comments'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('newcomment/index') => __('New comments'),
-        __('Settings')
-    ]
+    'title' => __('New comments')
 ]);
 ?>
 
 <?php $this->start('body') ?>
 
 <h1><?= __('New comments') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('New comments') => ['newcomment/index'],
+    __('Settings')
+]]) ?>
 
 <?php $form = $this->form($model) ?>
 

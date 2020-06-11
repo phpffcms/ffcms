@@ -10,22 +10,24 @@ use Ffcms\Templex\Url\Url;
 /** @var \Ffcms\Templex\Template\Template $this */
 
 $this->layout('_layouts/default', [
-    'title' => __('Publish comments'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('widget/index') => __('Widgets'),
-        Url::to('comments/index') => __('Comments'),
-        __('Publish comments and answers')
-    ]
+    'title' => __('Publish comments')
 ]);
 $records = $model->getRecord();
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('comments/_tabs') ?>
-
 <h1><?= __('Publish comments and answers') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Comments') => ['comments/index'],
+    __('Publish comments and answers')
+]]) ?>
+
+<?= $this->insert('comments/_tabs'); ?>
+
 <?= __('Are you sure to moderate and make public this comments and answers?') ?>
 
 <?php

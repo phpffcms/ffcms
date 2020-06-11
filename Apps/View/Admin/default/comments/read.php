@@ -20,9 +20,17 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('comments/_tabs') ?>
-
 <h1><?= __('Read comment #%id%', ['id' => $record->id]) ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Comments') => ['comments/index'],
+    __('View comment')
+]]) ?>
+
+<?= $this->insert('comments/_tabs'); ?>
+
 <div class="card">
     <div class="card-header">
         <?php

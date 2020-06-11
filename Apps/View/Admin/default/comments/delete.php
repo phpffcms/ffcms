@@ -10,22 +10,24 @@ use Ffcms\Templex\Url\Url;
 /** @var string $type */
 
 $this->layout('_layouts/default', [
-    'title' => __('Delete comments'),
-    'breadcrumbs' => [
-        Url::to('main/index') => __('Main'),
-        Url::to('widget/index') => __('Widgets'),
-        Url::to('comments/index') => __('Comments'),
-        __('Delete comments and answers')
-    ]
+    'title' => __('Delete comments')
 ]);
 $records = $model->getRecord();
 ?>
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('comments/_tabs') ?>
-
 <h1><?= __('Delete comments and answers') ?></h1>
+
+<?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
+    __('Main') => ['/'],
+    __('Widgets') => ['widget/index'],
+    __('Comments') => ['comments/index'],
+    __('Delete comments and answers')
+]]) ?>
+
+<?= $this->insert('comments/_tabs'); ?>
+
 <?= __('Are you sure to delete this comments or answers?') ?>
 
 <?php
