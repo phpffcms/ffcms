@@ -51,7 +51,7 @@ $this->layout('_layouts/default', [
     <div class="tab-pane active" id="critical" role="tabpanel" aria-labelledby="home-tab">
         <div class="table-responsive">
             <table id="criticalresult" class="table table-hover d-none">
-                <thead>
+                <thead class="thead-dark">
                 <tr>
                     <th><?= __('File') ?></th>
                     <th><?= __('Issues') ?></th>
@@ -66,7 +66,7 @@ $this->layout('_layouts/default', [
     <div class="tab-pane" id="suspicious" role="tabpanel" aria-labelledby="profile-tab">
         <div class="table-responsive">
             <table id="scanresult" class="table table-hover">
-                <thead>
+                <thead class="thead-dark">
                 <tr>
                     <th><?= __('File') ?></th>
                     <th><?= __('Issues') ?></th>

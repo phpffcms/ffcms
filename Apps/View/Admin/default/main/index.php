@@ -10,6 +10,7 @@
 
 use Apps\ActiveRecord\Content;
 use Ffcms\Core\Helper\Date;
+use Ffcms\Core\Helper\Text;
 use Ffcms\Templex\Url\Url;
 
 $this->layout('_layouts/default', [
@@ -36,7 +37,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
             $table = $this->table(['class' => 'table']);
             foreach ($content as $item) {
                 $table->row([
-                    ['text' => Url::a(['content/update', [$item->id]], $item->getLocaled('title')), 'html' => true],
+                    ['text' => Url::a(['content/update', [$item->id]], Text::cut($item->getLocaled('title'), 0, 50)), 'html' => true],
                     ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)]
                 ]);
             }
@@ -55,7 +56,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
             $table = $this->table(['class' => 'table']);
             foreach ($content as $item) {
                 $table->row([
-                    ['text' => Url::a(['feedback/read', [$item->id]], App::$Security->strip_tags($item->message)), 'html' => true],
+                    ['text' => Url::a(['feedback/read', [$item->id]], Text::cut(App::$Security->strip_tags($item->message), 0, 50)), 'html' => true],
                     ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)]
                 ]);
             }
@@ -74,7 +75,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
             $table = $this->table(['class' => 'table']);
             foreach ($content as $item) {
                 $table->row([
-                    ['text' => Url::a(['comments/read', [$item->id]], App::$Security->strip_tags($item->message)), 'html' => true],
+                    ['text' => Url::a(['comments/read', [$item->id]], Text::cut(App::$Security->strip_tags($item->message), 0, 50)), 'html' => true],
                     ['text' => Date::convertToDatetime($item->updated_at, Date::FORMAT_TO_HOUR)]
                 ]);
             }
