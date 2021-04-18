@@ -1,46 +1,41 @@
 {
-  "name": "phpffcms/ffcms",
-  "description": "FFCMS 3 version based on MVC core ffcms-core.",
-  "keywords": [
-    "php",
-    "cms",
-    "mvc",
-    "framework",
-    "php7",
-    "pdo",
-    "ffcms"
-  ],
-  "type": "project",
-  "homepage": "https://pmcore.ru",
-  "license": "MIT",
-  "prefer-stable": true,
-  "require": {
-    "php": ">=7.2.5",
-    "ext-curl": "*",
-    "ext-mbstring": "*",
-    "ext-gd": "*",
-    "ext-zip": "*",
-    "ext-PDO": "*",
-    "ext-json": "*",
-    "phpffcms/ffcms-core": "1.1.*",
-    "phpffcms/ffcms-console": "1.1.*",
-    "phpffcms/ffcms-eloquent-search": "1.*",
-    "phpffcms/ffcms-tinymce": "1.*",
-    "phpffcms/language-flags": "1.*",
-    "phpffcms/ffcms-templex": "1.*",
-    "phpffcms/ffcms-assets": "1.*",
-    "phpffcms/ffcms-yandex": "1.*",
-    "studio-42/elfinder": " 2.1.*"
-  },
-  "require-dev": {
-    "codeception/codeception": "2.*@stable"
-  },
-  "authors": [
-    {
-      "name": "Mihail Pyatinskiy",
-      "email": "zenn1989@gmail.com",
-      "homepage": "http://ffcms.ru",
-      "role": "Maintainer"
-    }
-  ]
+    "name": "phpffcms/ffcms",
+    "description": "FFCMS 3 version based on MVC core ffcms-core.",
+    "keywords": [
+        "php",
+        "cms",
+        "mvc",
+        "framework",
+        "php7",
+        "pdo",
+        "ffcms"
+    ],
+    "type": "project",
+    "homepage": "https://pmcore.ru",
+    "license": "MIT",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.3|^8.0",
+        "ext-curl": "*",
+        "ext-mbstring": "*",
+        "ext-gd": "*",
+        "ext-zip": "*",
+        "ext-PDO": "*",
+        "ext-json": "*",
+        "phpffcms/ffcms-core": "1.1.*",
+        "phpffcms/ffcms-console": "1.1.*",
+        "phpffcms/ffcms-eloquent-search": "1.*",
+        "phpffcms/ffcms-tinymce": "1.*",
+        "phpffcms/language-flags": "1.*",
+        "phpffcms/ffcms-templex": "1.*",
+        "phpffcms/ffcms-assets": "1.*",
+        "phpffcms/ffcms-yandex": "1.*",
+        "studio-42/elfinder": " 2.1.*"
+    },
+    "authors": [{
+        "name": "Mikhail Pyatinskii",
+        "email": "zenn1989@gmail.com",
+        "homepage": "https://pmcore.ru",
+        "role": "Maintainer"
+    }]
 }
