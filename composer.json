@@ -30,7 +30,7 @@
         "phpffcms/ffcms-templex": "1.*",
         "phpffcms/ffcms-assets": "1.*",
         "phpffcms/ffcms-yandex": "1.*",
-        "studio-42/elfinder": " 2.1.*"
+        "studio-42/elfinder": "^2.1.59"
     },
     "authors": [{
         "name": "Mikhail Pyatinskii",
