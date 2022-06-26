@@ -5,6 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
+use Ffcms\Core\Helper\Database\Serialize;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Traits\SearchableTrait;
@@ -28,9 +29,9 @@ class ContentCategory extends ActiveModel
     protected $casts = [
         'id' => 'integer',
         'path' => 'string',
-        'title' => 'serialize',
-        'description' => 'serialize',
-        'configs' => 'serialize'
+        'title' => Serialize::class,
+        'description' => Serialize::class,
+        'configs' => Serialize::class
     ];
 
     protected $searchable = [

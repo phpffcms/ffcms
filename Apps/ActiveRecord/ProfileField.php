@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
+use Ffcms\Core\Helper\Database\Serialize;
 
 /**
  * Class ProfileField. Active record model for additional profile fields management
@@ -21,7 +22,7 @@ class ProfileField extends ActiveModel
     protected $casts = [
         'id' => 'integer',
         'type' => 'string',
-        'name' => 'serialize',
+        'name' => Serialize::class,
         'reg_exp' => 'string',
         'reg_cond' => 'string'
     ];

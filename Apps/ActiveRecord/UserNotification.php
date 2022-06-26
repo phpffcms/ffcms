@@ -3,6 +3,7 @@
 namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Helper\Database\Serialize;
 
 /**
  * Class UserNotification. Active record model for user notifications
@@ -24,7 +25,7 @@ class UserNotification extends ActiveModel
         'user_id' => 'integer',
         'msg' => 'string',
         'uri' => 'string',
-        'vars' => 'serialize',
+        'vars' => Serialize::class,
         'readed' => 'boolean'
     ];
 

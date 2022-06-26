@@ -5,6 +5,7 @@ namespace Apps\ActiveRecord;
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Cache\MemoryObject;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\Database\Serialize;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
@@ -32,8 +33,8 @@ class App extends ActiveModel
         'id' => 'integer',
         'type' => 'string',
         'sys_name' => 'string',
-        'name' => 'serialize',
-        'configs' => 'serialize',
+        'name' => Serialize::class,
+        'configs' => Serialize::class,
         'disabled' => 'boolean',
         'version' => 'string'
     ];

@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\App as MainApp;
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Helper\Database\Serialize;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
@@ -41,7 +42,7 @@ class Profile extends ActiveModel implements iProfile
         'rating' => 'integer',
         'phone' => 'string',
         'url' => 'string',
-        'custom_data' => 'serialize'
+        'custom_data' => Serialize::class
     ];
 
     /**

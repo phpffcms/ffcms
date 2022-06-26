@@ -3,6 +3,7 @@
 namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
+use Ffcms\Core\Helper\Database\Serialize;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Traits\SearchableTrait;
@@ -50,16 +51,16 @@ class Content extends ActiveModel
 
     protected $casts = [
         'id' => 'integer',
-        'title' => 'serialize',
-        'text' => 'serialize',
+        'title' => Serialize::class,
+        'text' => Serialize::class,
         'path' => 'string',
         'category_id' => 'integer',
         'author_id' => 'integer',
         'poster' => 'string',
         'display' => 'boolean',
-        'meta_title' => 'serialize',
-        'meta_keywords' => 'serialize',
-        'meta_description' => 'serialize',
+        'meta_title' => Serialize::class,
+        'meta_keywords' => Serialize::class,
+        'meta_description' => Serialize::class,
         'views' => 'integer',
         'rating' => 'integer',
         'source' => 'string',
