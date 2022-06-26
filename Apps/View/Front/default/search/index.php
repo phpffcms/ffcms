@@ -45,7 +45,7 @@ if (!Any::isArray($results) || count($results) < 1) {
             <div class="search-result">
                 <div class="h4">
                     <a href="<?= \App::$Alias->baseUrl . $item->getUri() ?>"><?= $model->highlightText($item->getTitle(), 'span', ['class' => 'search-highlight']) ?></a>
-                    <small class="float-right text-secondary"><?= $item->getDate() ?></small>
+                    <small class="float-end text-secondary"><?= $item->getDate() ?></small>
                 </div>
                 <small><?= $model->highlightText($item->getSnippet(), 'span', ['class' => 'search-highlight']) ?>...</small>
             </div>

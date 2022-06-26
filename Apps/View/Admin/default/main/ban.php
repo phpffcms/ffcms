@@ -43,7 +43,7 @@ $table = $this->table(['class' => 'table table-striped datatable'])
 foreach ($records as $record) {
     $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
         ->add('<i class="fas fa-pencil-alt"></i>', ['main/banupdate', [$record->id]], ['class' => 'btn btn-primary', 'html' => true])
-        ->add('<i class="fas fa-trash-alt"></i>', ['main/bandel', [$record->id]], ['class' => 'btn btn-danger', 'data-toggle' => 'tooltip', 'title' => __('Remove ban'), 'html' => true]);
+        ->add('<i class="fas fa-trash-alt"></i>', ['main/bandel', [$record->id]], ['class' => 'btn btn-danger', 'data-bs-toggle' => 'tooltip', 'title' => __('Remove ban'), 'html' => true]);
     $table->row([
         ['text' => $record->id], 
         ['text' => ($record->ipv4 ?? '?') . ' / ' . ($record->user_id ? Url::a(['user/update', [$record->user_id]], 'User id' . $record->user_id) : '?'), 'html' => true],

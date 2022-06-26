@@ -38,7 +38,7 @@ $this->layout('_layouts/default', [
         ?>
     </div>
     <div class="col-md-6">
-        <div class="float-right">
+        <div class="float-end">
             <div class="btn-group" role="group">
                 <button id="btnCategories" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-table"></i> <?= __('Categories') ?>

@@ -63,7 +63,7 @@ if (!$records || $records->count() < 1) {
             <?php endif; ?>
         </div>
         <div class="col-md-2">
-            <div class="h3 float-right">
+            <div class="h3 float-end">
                 <?php
                 $markLabel = 'badge-light';
                 if ($profile->rating > 0) {

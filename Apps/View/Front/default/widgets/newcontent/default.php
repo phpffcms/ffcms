@@ -20,7 +20,7 @@ foreach ($records as $record) {
     echo '<div class="row"><div class="col-md-12">';
     echo '<a href="' . $newsLink . '">&rarr; ' . $title . '</a><br />';
     echo '<small class="float-left">' . $categoryLink . '</small>';
-    echo '<small class="float-right text-secondary">' . $date . '</small>';
+    echo '<small class="float-end text-secondary">' . $date . '</small>';
     echo '</div></div>';
     echo '<hr class="pretty" />';
 }

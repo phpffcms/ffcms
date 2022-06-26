@@ -37,9 +37,9 @@ $this->layout('_layouts/default', [
                     <div class="row">
                         <div class="col-md-12">
                             <div id="dialog-user-streak">
-                                <div class="float-right">
-                                    <img src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="float-right img-fluid img-circle" style="max-height: 50px;" />
-                                    <div class="float-right" style="padding-top: 12px;">
+                                <div class="float-end">
+                                    <img src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="float-end img-fluid img-circle" style="max-height: 50px;" />
+                                    <div class="float-end" style="padding-top: 12px;">
                                         <span class="media-person-uname"><?= __('No data') ?></span>
                                     </div>
                                 </div>
@@ -83,8 +83,8 @@ $this->layout('_layouts/default', [
 </div>
 <!-- 2. Current dialog title -->
 <div class="d-none" id="dialog-title">
-    <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="float-right img-fluid img-circle" style="max-height: 50px;" />
-    <div class="float-right" style="padding-top: 12px;padding-right: 5px;">
+    <img id="msg-user-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" class="float-end img-fluid img-circle" style="max-height: 50px;" />
+    <div class="float-end" style="padding-top: 12px;padding-right: 5px;">
         <a href="#" target="_blank" id="msg-user-link"><span class="media-person-uname" id="msg-user-name">unknown</span></a>
     </div>
 </div>
@@ -96,7 +96,7 @@ $this->layout('_layouts/default', [
             <div class="message-text">
                 <div>
                     <small id="msg-user-nick"><?= __('You') ?></small>
-                    <small class="float-right text-secondary" id="msg-date">01.01.1970</small>
+                    <small class="float-end text-secondary" id="msg-date">01.01.1970</small>
                 </div>
                 <div id="msg-text" style="word-break: break-all">text</div>
             </div>
@@ -110,7 +110,7 @@ $this->layout('_layouts/default', [
             <div class="message-text message-text-remote">
                 <div>
                     <small id="msg-user-nick">target</small>
-                    <small class="float-right text-secondary" id="msg-date">01.01.1970</small>
+                    <small class="float-end text-secondary" id="msg-date">01.01.1970</small>
                 </div>
                 <div id="msg-text" style="word-break: break-all">text</div>
             </div>

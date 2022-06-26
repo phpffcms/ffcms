@@ -31,7 +31,7 @@ $this->layout('_layouts/default', [
     <div class="col-md-10">
         <h5 style="margin-top: 0;">
             <i class="fas fa-pencil-alt"></i> <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname()) ?>
-            <small class="float-right"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
+            <small class="float-end"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
         </h5>
         <div class="wall-post-text">
             <?= \App::$Security->strip_tags($post->message); ?>

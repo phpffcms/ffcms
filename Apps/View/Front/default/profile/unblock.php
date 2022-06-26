@@ -28,7 +28,7 @@ $this->layout('_layouts/default', [
 
     <div class="row">
         <div class="col-md-3">
-            <label class="float-right"><?= $model->getLabel('name') ?></label>
+            <label class="float-end"><?= $model->getLabel('name') ?></label>
         </div>
         <div class="col-md-9">
             <?= Simplify::parseUserLink($model->id) ?>

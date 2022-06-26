@@ -92,7 +92,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                     <span class="spaced"><i class="fas fa-eye"></i> <?= $model->views ?></span>
                 <?php endif ?>
                 <?php if (\App::$User->isAuth() && \App::$User->identity()->role->can('Admin/Content/Update')): ?>
-                    <span class="float-right"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="fas fa-pencil-alt" style="color: #ff0000;"></i></a></span>
+                    <span class="float-end"><a href="<?= \App::$Alias->scriptUrl . '/admin/content/update/' . $model->id ?>" target="_blank"><i class="fas fa-pencil-alt" style="color: #ff0000;"></i></a></span>
                 <?php endif; ?>
             </div>
         <?php else: ?>
@@ -137,7 +137,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                 <div class="card">
                     <div class="card-header" id="similar-heading-<?= $item['id'] ?>">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#similar-collapse-<?= $item['id'] ?>" aria-expanded="false" aria-controls="similar-collapse-<?= $item['id'] ?>">
+                            <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-target="#similar-collapse-<?= $item['id'] ?>" aria-expanded="false" aria-controls="similar-collapse-<?= $item['id'] ?>">
                                 <?= $item['title'] ?>
                             </button>
                         </h5>
@@ -167,7 +167,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                     } ?>
                     <?php //\App::$View->render('content/_rateJs') ?>
                 </div>
-                <div class="float-right">
+                <div class="float-end">
                     <?php if ($properties['tags']): ?>
                         <div id="content-tags">
                             <?php

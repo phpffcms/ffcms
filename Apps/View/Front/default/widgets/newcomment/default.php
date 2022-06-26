@@ -20,8 +20,8 @@ use Ffcms\Templex\Url\Url;
                 <?= $comment['user']['name'] ?>
             <?php endif; ?>
         </div>
-        <div class="col-md-6 float-right">
-            <small class="text-secondary float-right">
+        <div class="col-md-6 float-end">
+            <small class="text-secondary float-end">
                 <i class="far fa-calendar"></i> <?= Date::humanize($comment['date']) ?>
             </small>
         </div>

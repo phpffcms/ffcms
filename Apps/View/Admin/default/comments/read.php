@@ -40,7 +40,7 @@ $this->layout('_layouts/default', [
         }
         ?>
         <?= $author . ', ' . Date::convertToDatetime($record->created_at, Date::FORMAT_TO_HOUR) ?>
-        <div class="float-right">
+        <div class="float-end">
             <?php
             $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm']);
             if ($record->moderate) {
@@ -73,7 +73,7 @@ if (!$answers || $answers->count() < 1) {
             $answerAuthor = Simplify::parseUserLink($answer->user_id, $answer->guest_name, 'user/update');
             ?>
             <?= $answerAuthor . ', ' . Date::convertToDatetime($answer->created_at, Date::FORMAT_TO_HOUR) ?>
-            <div class="float-right">
+            <div class="float-end">
                 <?php
                 $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm']);
                 if ($answer->moderate) {

@@ -31,7 +31,7 @@
     <div class="post-comments">
         <div class="meta">
             <span id="comment-date">01.01.2016</span> <span id="comment-user-nick"><?= __('Unknown') ?></span>:
-            <i class="float-right">
+            <i class="float-end">
                 <a href="#" class="show-comment-answers">
                     <small><?= __('Answers') ?> (<span id="comment-answer-count">0</span>)</small>
                 </a>
@@ -42,7 +42,7 @@
     <div id="comment-answers-0" class="d-none"></div>
     <div class="row d-none" id="add-replay-to">
         <div class="col-md-12" style="padding-bottom: 15px;">
-            <div class="float-right">
+            <div class="float-end">
                 <a href="#showReplay" class="btn btn-info btn-sm comment-hook-replay" id="replay-to-0">
                     <i class="fas fa-quote-left"></i> <?= __('Replay') ?>
                 </a>
@@ -100,7 +100,7 @@
             <span id="replay-to-user">user</span>
             <i class="fas fa-trash-alt"></i>
         </span>
-            <button class="btn btn-success float-right" id="add-new-comment"><?= __('Send') ?></button>
+            <button class="btn btn-success float-end" id="add-new-comment"><?= __('Send') ?></button>
         </div>
     </div>
 <?php endif ?>

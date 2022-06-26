@@ -59,7 +59,7 @@ $this->layout('_layouts/default', [
         <div class="col-md-10 col-xs-8">
             <div class="answer-header">
                 <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
-                <small class="float-right"><span id="wall-answer-date">01.01.1970</span>
+                <small class="float-end"><span id="wall-answer-date">01.01.1970</span>
                     <a href="javascript:void(0)" class="delete-answer d-none" id="delete-answer"><i class="fas fa-trash-alt"></i></a>
                 </small>
             </div>
@@ -73,7 +73,7 @@ $this->layout('_layouts/default', [
     <a style="margin-top: 5px;" href="#wall-post" class="send-wall-answer btn btn-primary btn-sm" id="send-wall">
         <?= __('Send') ?>
     </a>
-    <span class="float-right" id="answer-counter">200</span>
+    <span class="float-end" id="answer-counter">200</span>
 </div>
 
 <script>

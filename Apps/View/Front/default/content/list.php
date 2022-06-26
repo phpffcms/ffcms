@@ -47,9 +47,9 @@ $this->layout('_layouts/default', [
         <?php if (!Str::likeEmpty($model->category['rss'])): ?>
             <small><a href="<?= $model->category['rss'] ?>" target="_blank"><i class="fas fa-rss"></i></a></small>
         <?php endif; ?>
-        <div class="float-right">
+        <div class="float-end">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-sort-amount-up"></i> <?= __('Sorting')?> <span class="caret"></span>
                 </button>
                 <div class="dropdown-menu">
@@ -137,7 +137,7 @@ $this->layout('_layouts/default', [
             <span class="spaced"><i class="far fa-comment"></i>
                 <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>#comments-list"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
-            <span class="float-right">
+            <span class="float-end">
             <?php if ((int)$catConfigs['showTags'] === 1 && $item['tags'] !== null && Any::isArray($item['tags'])): ?>
                 <span class="spaced"><i class="fas fa-tags"></i>
                     <?php

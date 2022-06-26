@@ -55,7 +55,7 @@ if (!$records || $records->count() < 1) {
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>
         </div>
         <div class="col-md-2">
-            <h3 class="float-right">
+            <h3 class="float-end">
                 <?php
                 $markLabel = 'badge-light';
                 if ($profile->rating > 0) {

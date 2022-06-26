@@ -21,7 +21,7 @@ $this->layout('_layouts/default', [
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <div class="float-right">
+        <div class="float-end">
             <?= $this->listing('ul', ['class' => 'list-inline'])
                 ->li(['link' => ['profile/notifications', ['all']], 'text' => __('All')], ['class' => 'list-inline-item'])
                 ->li(['link' => ['profile/notifications', ['unread']], 'text' => __('Unread')], ['class' => 'list-inline-item'])

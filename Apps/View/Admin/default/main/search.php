@@ -48,7 +48,7 @@ if (!$result || count($result) < 1) {
                         <?= $model->highlightText($item->getTitle(), 'span', ['class' => 'search-highlight']) ?>
                     </a>
                     <span class="badge badge-secondary"><?= $item->getMarker() ?></span>
-                    <small class="float-right text-secondary"><?= $item->getDate() ?></small>
+                    <small class="float-end text-secondary"><?= $item->getDate() ?></small>
                 </div>
                 <p class="text-muted"><?= $model->highlightText($item->getSnippet(), 'span', ['class' => 'search-highlight']) ?>...</p>
             </div>
