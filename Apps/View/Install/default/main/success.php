@@ -14,5 +14,5 @@ $this->layout('_layouts/default', [
 <p class="text-center">
     <i class="far fa-check-circle fa-4x" style="color: green;"></i>
 </p>
-<a href="<?= \App::$Alias->scriptUrl ?>" class="btn btn-success btn-block"><?= __('Goto website') ?></a>
+<a href="<?= \App::$Alias->scriptUrl ?>" class="btn btn-success w-100"><?= __('Goto website') ?></a>
 <?php $this->stop() ?>

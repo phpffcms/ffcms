@@ -1,8 +1,5 @@
 <?php
 
-
-use Ffcms\Core\Helper\Simplify;
-use Ffcms\Core\Helper\Text;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Url\Url;
 
@@ -23,16 +20,17 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <link rel="shortcut icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="<?= \App::$Alias->currentViewUrl ?>/assets/img/favicon.ico" type="image/x-icon">
 
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+
     <link href="<?= \App::$Alias->currentViewUrl ?>/assets/css/theme.css" rel="stylesheet" />
     <link href="<?= \App::$Alias->currentViewUrl ?>/assets/css/style.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css" />
 
     <?php if (\App::$Properties->get('multiLanguage') && count(\App::$Properties->get('languages')) > 1) : ?>
         <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/language-flags/flags.css" />
     <?php endif; ?>
-
-    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
-    <link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css" />
 
     <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
@@ -45,15 +43,12 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <?php if (\App::$Debug): ?>
         <?= \App::$Debug->renderHead() ?>
     <?php endif; ?>
-
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- dark style example: -->
+    <!-- <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"> -->
+    <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
         <a class="navbar-brand" href="<?= Url::to('/') ?>">
             <span class="d-block d-md-none">FFCMS</span> <span class="d-none d-md-block">FFCMS Admin</span>
         </a>
@@ -80,24 +75,16 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
         </form>
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item list-inline-item">
-                <a class="nav-link" href="<?= \App::$Alias->scriptUrl ?>" target="_blank"><i class="fas fa-globe-europe"></i></a>
+                <a class="nav-link" href="<?= \App::$Alias->scriptUrl ?>" alt="View website" target="_blank"><i class="fas fa-globe-europe"></i></a>
             </li>
-        </ul>
-        <!-- Navbar-->
-        <ul class="navbar-nav ml-auto ml-md-0 d-none d-md-block">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="<?= Url::to('user/update', [\App::$User->identity()->id]) ?>"><?= __('Settings') ?></a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?= \App::$Alias->scriptUrl ?>/user/logout" data-method="post"><?= __('Logout') ?></a>
-                </div>
+            <li class="nav-item list-inline-item">
+                <a class="nav-link" href="<?= \App::$Alias->scriptUrl ?>/user/logout" data-method="post" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover"><i class="fas fa-sign-out-alt"></i></a>
             </li>
         </ul>
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-blue" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading"><?= __('Core') ?></div>
@@ -105,7 +92,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             <?= __('Dashboard') ?>
                         </a>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             <?= __('Settings') ?>
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -133,7 +120,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             }
                         }
                         ?>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseApps" aria-expanded="false" aria-controls="collapseApps">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseApps" aria-expanded="false" aria-controls="collapseApps">
                             <div class="sb-nav-link-icon"><i class="fas fa-plug"></i></div>
                             <?= __('Applications') ?>
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -150,7 +137,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                             </nav>
                         </div>
 
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseWidget" aria-expanded="false" aria-controls="collapseWidget">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseWidget" aria-expanded="false" aria-controls="collapseWidget">
                             <div class="sb-nav-link-icon"><i class="fas fa-puzzle-piece"></i></div>
                             <?= __('Widgets') ?>
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -185,7 +172,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <div class="row pt-4">
+                    <div class="row pt-1">
                         <div class="col">
                             <?php
                             if ($this->section('body')) {
@@ -227,11 +214,11 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     </div>
 
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 
     <script src="<?= \App::$Alias->currentViewUrl ?>/assets/js/scripts.js"></script>
 

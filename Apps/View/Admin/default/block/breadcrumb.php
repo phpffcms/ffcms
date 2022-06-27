@@ -4,7 +4,7 @@
     }
 
     $bread = $this->listing('ol', [
-        'class' => 'breadcrumb mt-4 mb-4'
+        'class' => 'breadcrumb mt-1 mb-2'
     ]);
 
     foreach ($breadcrumbs as $k => $v) {

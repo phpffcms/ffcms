@@ -20,7 +20,7 @@
             </ul>
         </div>
         <div id="comment-show-more" class="d-none">
-            <button class="btn btn-block btn-info"><?= __('Load more') ?> (<span id="comment-left-count">0</span> <?= __('hidden') ?>)</button>
+            <button class="btn btn-light w-100"><?= __('Load more') ?> (<span id="comment-left-count">0</span> <?= __('hidden') ?>)</button>
         </div>
     </div>
 </div>

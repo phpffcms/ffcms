@@ -94,11 +94,11 @@ SOFTWARE.</textarea>
             <input type="checkbox" id="agree-license" /> <label for="agree-license"><?= __('Accept license') ?></label>
         </div>
         <div class="col-9">
-            <a href="#license" class="btn btn-success btn-block disabled" id="install-link"><?= __('Start install') ?></a>
+            <a href="#license" class="btn btn-success w-100 disabled" id="install-link"><?= __('Start install') ?></a>
         </div>
     </div>
 <?php else: ?>
-    <?= \Ffcms\Templex\Url\Url::a(['main/index'], __('Check again'), ['class' => 'btn btn-warning btn-block']) ?>
+    <?= \Ffcms\Templex\Url\Url::a(['main/index'], __('Check again'), ['class' => 'btn btn-warning w-100']) ?>
 <?php endif; ?>
     <script>
         $(document).ready(function () {

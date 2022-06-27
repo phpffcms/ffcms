@@ -81,10 +81,12 @@ echo $navbar->display();
             <div class="h1 mb-0">FFCMS Demo</div>
             <small class="text-secondary">Some website description text</small>
         </div>
-        <div class="col">
-            <form class="form-inline" action="<?= Url::to('search/index') ?>" method="GET">
-                <input type="text" name="query" class="form-control col-md-9 mr-md-1" id="searchInput" value="<?= isset($query) ? $query : null ?>">
-                <button type="submit" class="btn btn-primary col-md"><?= __('Search') ?></button>
+        <div class="col-md-4">
+            <form class="align-items-center" action="<?= Url::to('search/index') ?>" method="GET">
+                <div class="row g-0">
+                    <div class="col-8"><input type="text" name="query" class="form-control w-100" id="searchInput" value="<?= isset($query) ? $query : null ?>" placeholder="<?= __('search query...') ?>"></div>
+                    <div class="col-4 gx-1"><button type="submit" class="btn btn-primary w-100"><?= __('Find') ?></button></div>
+                </div>
             </form>
         </div>
     </div>

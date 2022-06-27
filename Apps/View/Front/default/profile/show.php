@@ -54,7 +54,7 @@ $this->layout('_layouts/default', [
             <?php if ($isSelf): ?>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" href="javascript:void(0);" class="btn btn-block <?= $rateClass ?>">
+                    <button type="button" href="javascript:void(0);" class="btn w-100 <?= $rateClass ?>">
                         <?= __('Rating') ?>: <span class="badge"><?= $rateValue ?></span>
                     </button>
                 </div>
@@ -62,7 +62,7 @@ $this->layout('_layouts/default', [
             <?php else: ?>
                 <div class="row">
                     <div class="col-md-8" style="padding-right: 0;">
-                        <a href="javascript:void(0);" class="btn btn-block <?= $rateClass ?>">
+                        <a href="javascript:void(0);" class="btn w-100 <?= $rateClass ?>">
                             <?= __('Rating') ?>:
                             <span class="badge"><?= $rateValue > 0 ? '+' : null ?>
                                 <span id="ratingValue"><?= $rateValue ?></span>
@@ -70,10 +70,10 @@ $this->layout('_layouts/default', [
                         </a>
                     </div>
                     <div class="col-md-2" style="padding-left: 1px;padding-right: 0;">
-                        <button id="addRating" class="btn btn-block btn-success">+</button>
+                        <button id="addRating" class="btn w-100 btn-success">+</button>
                     </div>
                     <div class="col-md-2" style="padding-left: 1px; padding-right: 0;">
-                        <button class="btn btn-block btn-danger" id="reduceRating">-</button>
+                        <button class="btn w-100 btn-danger" id="reduceRating">-</button>
                     </div>
                 </div>
             <?php endif; ?>

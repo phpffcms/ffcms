@@ -48,6 +48,9 @@
     $('.datatable').DataTable({
         language: dt[script_lang]
     });
-
-    $('[data-toggle="tooltip"]').tooltip()
 })(jQuery);
+
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="tooltip"]').tooltip();
+});

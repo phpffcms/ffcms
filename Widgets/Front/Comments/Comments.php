@@ -20,7 +20,7 @@ class Comments extends Widget
     public function init(): void
     {
         if (App::$Request->getLanguage() !== 'en') {
-            App::$Translate->append('/i18n/Front/' . App::$Request->getLanguage() . '/CommentWidget.php');
+            App::$Translate->append('/I18n/Front/' . App::$Request->getLanguage() . '/CommentWidget.php');
         }
     }
 
