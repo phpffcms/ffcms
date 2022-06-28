@@ -28,7 +28,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Version')],
         ['text' => __('Activity')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ], ['class' => 'thead-dark']);
+    ], ['class' => 'thead-light']);
 
 
 foreach ($widgets as $widget) {

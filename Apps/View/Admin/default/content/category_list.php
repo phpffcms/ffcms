@@ -38,7 +38,7 @@ $this->layout('_layouts/default', [
 </div>
 <div class="table-responsive">
     <table class="table table-striped table-hover">
-        <thead class="thead-dark">
+        <thead class="thead-light">
         <tr>
             <th class="col-md-10"><?= __('Category') ?></th>
             <th class="col-md-2 text-center"><?= __('Actions') ?></th>
@@ -75,10 +75,10 @@ $this->layout('_layouts/default', [
                 <td class="text-center">
                     <?php $btn = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm', 'dropdown' => ['class' => 'btn-group btn-group-sm'], 'role' => 'group'], 4)
                         ->add('<i class="fas fa-eye"></i>', [\App::$Alias->scriptUrl . '/content/list/' . $row->path], ['html' => true, 'target' => '_blank'])
-                        ->add('<i class="fas fa-plus"></i>', ['content/categoryupdate', null, ['parent' => $row->id]], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => __('Add subcategory'), 'html' => true])
-                        ->add('<i class="fas fa-cog"></i>', ['content/categoryupdate', [$row->id]], ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'title' => __('Category configurations'), 'html' => true]);
+                        ->add('<i class="fas fa-plus"></i>', ['content/categoryupdate', null, ['parent' => $row->id]], ['class' => 'btn btn-success', 'data-bs-toggle' => 'tooltip', 'title' => __('Add subcategory'), 'html' => true])
+                        ->add('<i class="fas fa-cog"></i>', ['content/categoryupdate', [$row->id]], ['class' => 'btn btn-primary', 'data-bs-toggle' => 'tooltip', 'title' => __('Category configurations'), 'html' => true]);
                     if ($row->id > 1) {
-                        $btn = $btn->add('<i class="fas fa-trash-alt"></i>', ['content/categorydelete', [$row->id]], ['class' => 'btn btn-danger', 'data-toggle' => 'tooltip', 'title' => __('Delete category'), 'html' => true]);
+                        $btn = $btn->add('<i class="fas fa-trash-alt"></i>', ['content/categorydelete', [$row->id]], ['class' => 'btn btn-danger', 'data-bs-toggle' => 'tooltip', 'title' => __('Delete category'), 'html' => true]);
                     }
                     echo $btn->display();
                     ?>

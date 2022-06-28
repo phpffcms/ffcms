@@ -43,7 +43,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Page')],
         ['text' => __('Date')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']],
-    ], ['class' => 'thead-dark']);
+    ], ['class' => 'thead-light']);
 
 foreach ($records as $item) {
     $message = Text::cut(\App::$Security->strip_tags($item->message), 0, 75);
@@ -57,9 +57,9 @@ foreach ($records as $item) {
     $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm']);
 
     if ($moderate) {
-        $btngrp->add('<i class="fas fa-eye-slash" style="color: #aa2222;"></i>', ['comments/display', ['comment', $item->id]], ['class' => 'btn btn-light', 'data-toggle' => 'tooltip', 'title' => __('Comment is hidden'), 'html' => true]);
+        $btngrp->add('<i class="fas fa-eye-slash" style="color: #aa2222;"></i>', ['comments/display', ['comment', $item->id]], ['class' => 'btn btn-light', 'data-bs-toggle' => 'tooltip', 'title' => __('Comment is hidden'), 'html' => true]);
     } else {
-        $btngrp->add('<i class="fas fa-eye" style="color: #1a8007"></i>', ['comments/display', ['comment', $item->id]], ['class' => 'btn btn-light', 'data-toggle' => 'tooltip', 'title' => __('Comment is public'), 'html' => true]);
+        $btngrp->add('<i class="fas fa-eye" style="color: #1a8007"></i>', ['comments/display', ['comment', $item->id]], ['class' => 'btn btn-light', 'data-bs-toggle' => 'tooltip', 'title' => __('Comment is public'), 'html' => true]);
     }
 
     $btngrp->add('<i class="fas fa-list"></i>', ['comments/read', [$item->id]], ['class' => 'btn btn-primary', 'html' => true])

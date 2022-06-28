@@ -158,8 +158,8 @@ class Antivirus
      */
     private function normalizeContent($content)
     {
-        $content = @preg_replace_callback('/\\\\x([a-fA-F0-9]{1,2})/i', 'escapedHexToHex', $content); // strip hex ascii notation
-        $content = @preg_replace_callback('/\\\\([0-9]{1,3})/i', 'escapedOctDec', $content); // strip dec ascii notation
+        //$content = @preg_replace_callback('/\\\\x([a-fA-F0-9]{1,2})/i', 'escapedHexToHex', $content); // strip hex ascii notation
+        //$content = @preg_replace_callback('/\\\\([0-9]{1,3})/i', 'escapedOctDec', $content); // strip dec ascii notation
         $content = preg_replace('/[\'"]\s*?\.\s*?[\'"]/smi', '', $content); // concat fragmented strings
         $content = preg_replace('|/\*.*?\*/|smi', '', $content); // remove comments to detect fragmented pieces of malware
 

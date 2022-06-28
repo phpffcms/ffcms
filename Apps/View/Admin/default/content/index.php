@@ -40,7 +40,7 @@ $this->layout('_layouts/default', [
     <div class="col-md-6">
         <div class="float-end">
             <div class="btn-group" role="group">
-                <button id="btnCategories" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="btnCategories" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-table"></i> <?= __('Categories') ?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnCategories">
@@ -52,7 +52,7 @@ $this->layout('_layouts/default', [
                 </div>
             </div>
             <div class="btn-group" role="group">
-                <button id="btnFilters" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="btnFilters" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-filter"></i> <?= __('Filters') ?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="btnCategories">
@@ -79,7 +79,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Title')],
         ['text' => '<i class="fas fa-comments"></i>', 'html' => true],
         ['text' => __('Date')]
-    ], ['class' => 'thead-dark']);
+    ], ['class' => 'thead-light']);
 
 $hiddenExist = false;
 foreach ($records as $content) {
@@ -98,14 +98,14 @@ foreach ($records as $content) {
         $actionMenu->add('<i class="fas fa-eye-slash" style="color: #ff0000;"></i>', ['content/display', [$content->id], ['status' => 1]], [
             'html' => true,
             'class' => 'btn btn-light',
-            'data-toggle' => 'tooltip',
+            'data-bs-toggle' => 'tooltip',
             'title' =>  __('Content hidden from regular users')
         ]);
     } else {
         $actionMenu->add('<i class="fas fa-eye" style="color: #008000;"></i>', ['content/display', [$content->id], ['status' => 0]], [
             'html' => true,
             'class' => 'btn btn-light',
-            'data-toggle' => 'tooltip',
+            'data-bs-toggle' => 'tooltip',
             'title' =>  __('Content is public')
         ]);
     }
@@ -114,14 +114,14 @@ foreach ($records as $content) {
         $actionMenu->add('<i class="far fa-star"></i>', ['content/important', [$content->id], ['status' => 1]], [
             'html' => true,
             'class' => 'btn btn-light',
-            'data-toggle' => 'tooltip',
+            'data-bs-toggle' => 'tooltip',
             'title' =>  __('Content are not in favorite top. Mark as favorite?')
         ]);
     } else {
         $actionMenu->add('<i class="fas fa-star" style="color: #c7a922"></i>', ['content/important', [$content->id], ['status' => 0]], [
             'html' => true,
             'class' => 'btn btn-light',
-            'data-toggle' => 'tooltip',
+            'data-bs-toggle' => 'tooltip',
             'title' =>  __('Content marked as favorite. Unset this?')
         ]);
     }

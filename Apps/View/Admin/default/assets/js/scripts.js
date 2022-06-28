@@ -53,4 +53,10 @@
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-bs-toggle="tooltip"]').tooltip();
+    $('[data-toggle="datatable"]').DataTable({
+        paging: false,
+        info: false,
+        searching: false
+    });
+    $('[data-toggle="datatable-full"]').DataTable();
 });

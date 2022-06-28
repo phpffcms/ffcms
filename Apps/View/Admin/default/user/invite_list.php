@@ -47,7 +47,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Valid')],
         ['text' => __('Send date')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ], ['class' => 'thead-dark']);
+    ], ['class' => 'thead-light']);
 
 
 foreach ($records as $invite) {

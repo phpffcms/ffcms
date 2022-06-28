@@ -21,6 +21,7 @@ class Captcha extends ApiController
         // set header. Class response->header->set is not working here (content output directly before)
         header('Content-type: image/jpeg');
         $builder = new CaptchaBuilder();
+        $builder->setDistortion(true);
         $builder->build(mt_rand(200, 250), mt_rand(70, 80)); // build and set random width/height
         // set captcha value to session
         App::$Session->set('captcha', $builder->getPhrase());

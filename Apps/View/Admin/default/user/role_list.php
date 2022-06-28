@@ -31,7 +31,7 @@ $table = $this->table(['class' => 'table'])
         ['text' => __('Permissions')],
         ['text' => __('Color')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ], ['class' => 'thead-dark']);
+    ], ['class' => 'thead-light']);
 ?>
 
 <?php

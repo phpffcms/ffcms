@@ -25,7 +25,7 @@ $this->layout('_layouts/default', [
 ]]) ?>
 
 <?php
-$table = $this->table(['class' => 'table table-striped'])
+$table = $this->table(['class' => 'table table-striped', 'data-toggle' => 'datatable', 'data-column-defs' => '[{"targets": [2,3,4,5], "orderable": false}]'])
     ->head([
         ['text' => '#'],
         ['text' => __('Application')],
@@ -33,7 +33,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Version')],
         ['text' => __('Activity')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
-    ], ['class' => 'thead-dark']);
+    ], ['class' => 'thead-light']);
 
 foreach ($apps as $app) {
     if ($app->type !== 'app') {

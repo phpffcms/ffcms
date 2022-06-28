@@ -46,7 +46,7 @@ $table = $this->table(['class' => 'table table-striped'])
         ['text' => __('Status')],
         ['text' => __('Date')],
         ['text' => __('Actions')]
-    ], ['class' => 'thead-dark']);
+    ], ['class' => 'thead-light']);
 
 $items = [];
 foreach ($records as $item) {

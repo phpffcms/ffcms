@@ -128,7 +128,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                         <div class="collapse" id="collapseApps" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <?php 
-                                echo Url::a(['application/index'], __('All apps'), ['class' => 'nav-link text-primary']);
+                                echo Url::a(['application/index'], __('All apps'), ['class' => 'nav-link fw-bold']);
                                 foreach ($apps as $app) {
                                     /** @var \Apps\ActiveRecord\App $app */
                                     echo Url::a([Str::lowerCase($app->sys_name) . '/index'], $app->getLocaleName(), ['class' => 'nav-link']);
@@ -145,7 +145,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                         <div class="collapse" id="collapseWidget" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <?php 
-                                echo Url::a(['widget/index'], __('All widgets'), ['class' => 'nav-link text-primary']);
+                                echo Url::a(['widget/index'], __('All widgets'), ['class' => 'nav-link fw-bold']);
                                 foreach ($widgets as $widget) {
                                     /** @var \Apps\ActiveRecord\App $widget */
                                     echo Url::a([Str::lowerCase($widget->sys_name) . '/index'], $widget->getLocaleName(), ['class' => 'nav-link']);

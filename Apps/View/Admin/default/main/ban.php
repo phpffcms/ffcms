@@ -38,7 +38,7 @@ $table = $this->table(['class' => 'table table-striped datatable'])
         ['text' => __('Write')],
         ['text' => __('Expired')],
         ['text' => __('Actions')]
-    ], ['class' => 'thead-dark']);
+    ], ['class' => 'thead-light']);
 
 foreach ($records as $record) {
     $btngrp = $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])

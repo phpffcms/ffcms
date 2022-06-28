@@ -49,18 +49,18 @@ $this->layout('_layouts/default', [
 
                 // show "mark as read" button if message is not readed
                 if (!(bool)$record->readed) {
-                    $btngrp->add('<i class="far fa-bookmark"></i>', ['feedback/turn', ['read', $record->id]], ['class' => 'btn btn-success', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Mark as read')]);
+                    $btngrp->add('<i class="far fa-bookmark"></i>', ['feedback/turn', ['read', $record->id]], ['class' => 'btn btn-success', 'html' => true, 'data-bs-toggle' => 'tooltip', 'title' => __('Mark as read')]);
                 }
 
                 // show close/open button depend of current status
                 if (!(bool)$record->closed) {
-                    $btngrp->add('<i class="fas fa-eye-slash"></i>', ['feedback/turn', ['close', $record->id]], ['class' => 'btn btn-warning', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Close')]);
+                    $btngrp->add('<i class="fas fa-eye-slash"></i>', ['feedback/turn', ['close', $record->id]], ['class' => 'btn btn-warning', 'html' => true, 'data-bs-toggle' => 'tooltip', 'title' => __('Close')]);
                 } else {
-                    $btngrp->add('<i class="fas fa-eye"></i>', ['feedback/turn', ['open', $record->id]], ['class' => 'btn btn-info', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Open')]);
+                    $btngrp->add('<i class="fas fa-eye"></i>', ['feedback/turn', ['open', $record->id]], ['class' => 'btn btn-info', 'html' => true, 'data-bs-toggle' => 'tooltip', 'title' => __('Open')]);
                 }
 
-                $btngrp->add('<i class="fas fa-pencil-alt"></i>', ['feedback/update', ['post', $record->id]], ['class' => 'btn btn-primary', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Edit')]);
-                $btngrp->add('<i class="fas fa-trash-alt"></i>', ['feedback/delete', ['post', $record->id]], ['class' => 'btn btn-danger', 'html' => true, 'data-toggle' => 'tooltip', 'title' => __('Delete')]);
+                $btngrp->add('<i class="fas fa-pencil-alt"></i>', ['feedback/update', ['post', $record->id]], ['class' => 'btn btn-primary', 'html' => true, 'data-bs-toggle' => 'tooltip', 'title' => __('Edit')]);
+                $btngrp->add('<i class="fas fa-trash-alt"></i>', ['feedback/delete', ['post', $record->id]], ['class' => 'btn btn-danger', 'html' => true, 'data-bs-toggle' => 'tooltip', 'title' => __('Delete')]);
                 ?>
                 <div class="float-end"><?= $btngrp->display() ?></div>
             </div>

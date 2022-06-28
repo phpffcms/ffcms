@@ -89,9 +89,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     </div>
 </div>
 
-<hr class="py-2" />
-
-<div class="row">
+<div class="row my-md-4">
     <div class="col-md-6">
         <h3><?= __('Server info') ?></h3>
         <div class="table-responsive">

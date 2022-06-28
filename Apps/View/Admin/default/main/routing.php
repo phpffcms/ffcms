@@ -33,7 +33,7 @@ $callbackExist = false;
                     ['text' => "Source → Target"],
                     ['text' => __('Environment')],
                     ['text' => '']
-                ], ['class' => 'thead-dark']);
+                ], ['class' => 'thead-light']);
             foreach ($routes['Alias'] as $env => $route) {
                 if (Any::isArray($route)) {
                     foreach ($route as $source => $target) {
@@ -67,7 +67,7 @@ $callbackExist = false;
                     ['text' => "Source → Target"],
                     ['text' => __('Environment')],
                     ['text' => '']
-                ], ['class' => 'thead-dark']);
+                ], ['class' => 'thead-light']);
             foreach ($routes['Callback'] as $env => $route) {
                 if (Any::isArray($route)) {
                     foreach ($route as $source => $target) {

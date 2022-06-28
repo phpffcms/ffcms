@@ -40,10 +40,10 @@ $this->layout('_layouts/default', [
 
 <ul class="nav nav-tabs" id="tab-menu" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#critical" role="tab" aria-controls="home" aria-selected="true"><?= __('Critical') ?></a>
+        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#critical" role="tab" aria-controls="home" aria-selected="true"><?= __('Critical') ?></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#suspicious" role="tab" aria-controls="profile" aria-selected="false"><?= __('Suspicious') ?></a>
+        <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#suspicious" role="tab" aria-controls="profile" aria-selected="false"><?= __('Suspicious') ?></a>
     </li>
 </ul>
 <!-- Tab panes -->
@@ -51,7 +51,7 @@ $this->layout('_layouts/default', [
     <div class="tab-pane active" id="critical" role="tabpanel" aria-labelledby="home-tab">
         <div class="table-responsive">
             <table id="criticalresult" class="table table-hover d-none">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                 <tr>
                     <th><?= __('File') ?></th>
                     <th><?= __('Issues') ?></th>
@@ -66,7 +66,7 @@ $this->layout('_layouts/default', [
     <div class="tab-pane" id="suspicious" role="tabpanel" aria-labelledby="profile-tab">
         <div class="table-responsive">
             <table id="scanresult" class="table table-hover">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                 <tr>
                     <th><?= __('File') ?></th>
                     <th><?= __('Issues') ?></th>
