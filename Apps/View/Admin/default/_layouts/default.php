@@ -34,31 +34,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 
     <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
-    <script>
-        (function(w, d, u) {
-            w.readyQ = [];
-            w.bindReadyQ = [];
-
-            function p(x, y) {
-                if (x == "ready") {
-                    w.bindReadyQ.push(y);
-                } else {
-                    w.readyQ.push(x);
-                }
-            };
-            var a = {
-                ready: p,
-                bind: p
-            };
-            w.$ = w.jQuery = function(f) {
-                if (f === d || f === u) {
-                    return a
-                } else {
-                    p(f)
-                }
-            }
-        })(window, document)
-    </script>
+    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
     <script>
         var script_url = '<?= \App::$Alias->scriptUrl ?>';
         var script_lang = '<?= \App::$Request->getLanguage() ?>';
@@ -254,16 +230,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <?= $this->section('javascript') ?>
 
     <!-- jQuery code interprier after library loaded -->
-    <script>
-        (function($, d) {
-            $.each(readyQ, function(i, f) {
-                $(f)
-            });
-            $.each(bindReadyQ, function(i, f) {
-                $(d).bind("ready", f)
-            })
-        })(jQuery, document)
-    </script>
+    <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
 </body>
 
 </html>
