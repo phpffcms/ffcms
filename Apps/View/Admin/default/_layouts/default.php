@@ -34,13 +34,37 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
 
     <?= $this->section('css') ?>
     <!-- jquery usage after-load logic -->
-    <script>(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>
+    <script>
+        (function(w, d, u) {
+            w.readyQ = [];
+            w.bindReadyQ = [];
+
+            function p(x, y) {
+                if (x == "ready") {
+                    w.bindReadyQ.push(y);
+                } else {
+                    w.readyQ.push(x);
+                }
+            };
+            var a = {
+                ready: p,
+                bind: p
+            };
+            w.$ = w.jQuery = function(f) {
+                if (f === d || f === u) {
+                    return a
+                } else {
+                    p(f)
+                }
+            }
+        })(window, document)
+    </script>
     <script>
         var script_url = '<?= \App::$Alias->scriptUrl ?>';
         var script_lang = '<?= \App::$Request->getLanguage() ?>';
         var site_url = '<?= \App::$Alias->baseUrl ?>';
     </script>
-    <?php if (\App::$Debug): ?>
+    <?php if (\App::$Debug) : ?>
         <?= \App::$Debug->renderHead() ?>
     <?php endif; ?>
 </head>
@@ -127,7 +151,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                         </a>
                         <div class="collapse" id="collapseApps" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <?php 
+                                <?php
                                 echo Url::a(['application/index'], __('All apps'), ['class' => 'nav-link fw-bold']);
                                 foreach ($apps as $app) {
                                     /** @var \Apps\ActiveRecord\App $app */
@@ -144,7 +168,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
                         </a>
                         <div class="collapse" id="collapseWidget" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <?php 
+                                <?php
                                 echo Url::a(['widget/index'], __('All widgets'), ['class' => 'nav-link fw-bold']);
                                 foreach ($widgets as $widget) {
                                     /** @var \Apps\ActiveRecord\App $widget */
@@ -213,6 +237,7 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
         </div>
     </div>
 
+
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -229,7 +254,16 @@ $features = new \Apps\Model\Admin\LayoutFeatures\LayoutFeatures();
     <?= $this->section('javascript') ?>
 
     <!-- jQuery code interprier after library loaded -->
-    <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
+    <script>
+        (function($, d) {
+            $.each(readyQ, function(i, f) {
+                $(f)
+            });
+            $.each(bindReadyQ, function(i, f) {
+                $(d).bind("ready", f)
+            })
+        })(jQuery, document)
+    </script>
 </body>
 
 </html>

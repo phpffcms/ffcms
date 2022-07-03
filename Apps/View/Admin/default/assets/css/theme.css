@@ -10174,7 +10174,7 @@ body {
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
     width: 225px;
-    height: 100vh;
+    /*height: 100vh;*/
     z-index: 1038;
 }
 
@@ -10391,7 +10391,7 @@ body {
     color: #e6e3e3;
 }
 
-.sb-sidenav-blue .sb-sidenav-footer {
+.sb-sidenav-footer {
     background-color: #4e5ddf;
     color: #c2c0c0;
 }
