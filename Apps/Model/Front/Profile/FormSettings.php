@@ -15,7 +15,7 @@ use Ffcms\Core\Interfaces\iUser;
  */
 class FormSettings extends Model
 {
-    public $nick;
+    public $name;
     public $sex;
     public $birthday;
     public $city;
@@ -66,7 +66,7 @@ class FormSettings extends Model
     public function labels(): array
     {
         $labels = [
-            'nick' => __('Nickname'),
+            'name' => __('Full name'),
             'sex' => __('Sex'),
             'birthday' => __('Birthday'),
             'city' => __('City'),
@@ -91,8 +91,8 @@ class FormSettings extends Model
     {
         $rules = [
             ['sex', 'required'],
-            [['city', 'hobby', 'phone', 'url', 'nick', 'birthday'], 'used'],
-            ['nick', 'length_max', '50'],
+            [['city', 'hobby', 'phone', 'url', 'name', 'birthday'], 'used'],
+            ['name', 'length_max', '70'],
             ['city', 'length_max', '50'],
             ['sex', 'in', [0, 1, 2]],
             ['hobby', 'length_max', '50'],
@@ -122,7 +122,7 @@ class FormSettings extends Model
     public function save()
     {
         $profile = $this->_user->profile;
-        $profile->nick = $this->nick;
+        $profile->name = $this->name;
         $profile->sex = $this->sex;
         $profile->birthday = (Str::likeEmpty($this->birthday) ? null : Date::convertToDatetime($this->birthday, Date::FORMAT_SQL_DATE));
         $profile->city = $this->city;

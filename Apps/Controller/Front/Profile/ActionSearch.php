@@ -37,7 +37,7 @@ trait ActionSearch
         // check if request is sended
         if ($model->send() && $model->validate()) {
             // get records from db
-            $records = ProfileRecords::where('nick', 'like', '%' . $model->query . '%');
+            $records = ProfileRecords::where('name', 'like', '%' . $model->query . '%');
             $page = (int)$this->request->query->get('page');
             $userPerPage = (int)$cfgs['usersOnPage'];
             if ($userPerPage < 1) {

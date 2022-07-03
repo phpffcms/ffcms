@@ -133,7 +133,7 @@ if (!$model->isNew()) {
                 ['text' => $comment->id],
                 ['text' => Text::snippet(\App::$Security->strip_tags($comment->message), 100)],
                 ['text' => $comment->getAnswerCount()],
-                ['text' => Url::a(['user/update', [$comment->user_id]], ($comment->user->profile->nick ?? 'id' . $comment->user->id)), 'html' => true],
+                ['text' => Url::a(['user/update', [$comment->user_id]], ($comment->user->profile->name ?? 'id' . $comment->user->id)), 'html' => true],
                 ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])
                     ->add('<i class="fas fa-pencil-alt"></i>', ['comments/read', [$comment->id]], ['html' => true, 'class' => 'btn btn-primary', 'target' => '_blank'])
                     ->add('<i class="fas fa-trash-alt"></i>', ['comments/delete', ['comment', $comment->id]], ['html' => true, 'class' => 'btn btn-danger', 'target' => '_blank'])

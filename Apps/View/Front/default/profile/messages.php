@@ -168,9 +168,9 @@ $this->layout('_layouts/default', [
                             itemDom.find('#msg-user-avatar').attr('src', row.user_avatar).removeAttr('id');
                             // set user name
                             if (row.user_block == true) {
-                                itemDom.find('#msg-user-name').html('<s>'+row.user_nick+'</s>').removeAttr('id');
+                                itemDom.find('#msg-user-name').html('<s>'+row.user_name+'</s>').removeAttr('id');
                             } else {
-                                itemDom.find('#msg-user-name').text(row.user_nick).removeAttr('id');
+                                itemDom.find('#msg-user-name').text(row.user_name).removeAttr('id');
                             }
                             // check if new messages inside
                             if (row.message_new === true) {
@@ -196,7 +196,7 @@ $this->layout('_layouts/default', [
                         // set user avatar in title panel
                         dialogDom.find('#msg-user-avatar').attr('src', current_user.user_avatar).removeAttr('id');
                         // set user nickname
-                        dialogDom.find('#msg-user-name').text(current_user.user_nick).removeAttr('id');
+                        dialogDom.find('#msg-user-name').text(current_user.user_name).removeAttr('id');
                         // set user profile link
                         dialogDom.find('#msg-user-link').attr('href', profile_link + '/' + current_user.user_id).removeAttr('id');
                         $('#dialog-user-streak').html(dialogDom.html());
@@ -251,7 +251,7 @@ $this->layout('_layouts/default', [
                         msgDom.find('#msg-text').text(row.message).removeAttr('id');
                         // add target user name from obj cache
                         if (!row.my && user_object[active_dialog_id] != null) {
-                            msgDom.find('#msg-user-nick').text(user_object[active_dialog_id].user_nick);
+                            msgDom.find('#msg-user-nick').text(user_object[active_dialog_id].user_name);
                         }
                         // compile output concat var
                         msgBody += msgDom.html();
@@ -300,7 +300,7 @@ $this->layout('_layouts/default', [
                 // set user avatar in title panel
                 dialogDom.find('#msg-user-avatar').attr('src', current_user.user_avatar).removeAttr('id');
                 // set user nickname
-                dialogDom.find('#msg-user-name').text(current_user.user_nick).removeAttr('id');
+                dialogDom.find('#msg-user-name').text(current_user.user_name).removeAttr('id');
                 // set user profile link
                 dialogDom.find('#msg-user-link').attr('href', profile_link + '/' + current_user.user_id).removeAttr('id');
                 $('#dialog-user-streak').html(dialogDom.html());

@@ -25,12 +25,12 @@ $this->layout('_layouts/default', [
 <div class="row" id="wall-post-<?= $post->id ?>">
     <div class="col-md-2">
         <div class="text-center">
-            <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
+            <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getName() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
         </div>
     </div>
     <div class="col-md-10">
         <h5 style="margin-top: 0;">
-            <i class="fas fa-pencil-alt"></i> <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname()) ?>
+            <i class="fas fa-pencil-alt"></i> <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getName()) ?>
             <small class="float-end"><?= Date::convertToDatetime($post->updated_at, Date::FORMAT_TO_SECONDS); ?></small>
         </h5>
         <div class="wall-post-text">

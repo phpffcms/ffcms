@@ -29,7 +29,7 @@ $this->layout('_layouts/default', [
 
 <?= $form->start() ?>
 
-<?= $form->fieldset()->text('query', null, __('Enter user nickname or part of user nickname, more then 3 characters')) ?>
+<?= $form->fieldset()->text('query', null, __('Enter user name or part of user name, more then 3 characters')) ?>
 <?= $form->button()->submit(__('Search'), ['class' => 'btn btn-primary']) ?>
 
 <?= $form->stop() ?>
@@ -50,7 +50,7 @@ if (!$records || $records->count() < 1) {
         </div>
         <div class="col-md-8">
             <h3>
-                <?= Url::a(['profile/show', [$profile->user_id]], Str::likeEmpty($profile->nick) ? __('No name') : $profile->nick) ?>
+                <?= Url::a(['profile/show', [$profile->user_id]], Str::likeEmpty($profile->name) ? __('No name') : $profile->name) ?>
             </h3>
             <p><?= __('Registered') ?>: <?= Date::convertToDatetime($profile->created_at, Date::FORMAT_TO_DAY) ?></p>
         </div>

@@ -88,7 +88,7 @@ trait ActionListMessageDialog
 
             $response[] = [
                 'user_id' => $user_id,
-                'user_nick' => $identity->profile->getNickname(),
+                'user_name' => $identity->profile->getName(),
                 'user_avatar' => $identity->profile->getAvatarUrl('small'),
                 'message_new' => Arr::in($user_id, $unreadList),
                 'user_block' => !Blacklist::check($user->id, $identity->id)

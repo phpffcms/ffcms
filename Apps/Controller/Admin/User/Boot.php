@@ -33,9 +33,9 @@ trait Boot
             $records->each(function($item) use ($model) {
                 /** @var User $item */
                 $title = $item->email . '(id=' . $item->id . ')';
-                $text = App::$Translate->get('User', 'Email: %email%, nick: %nick%', [
+                $text = App::$Translate->get('User', 'Email: %email%, name: %name%', [
                     'email' => $item->email,
-                    'nick' => $item->profile->nick ?? 'id' . $item->id
+                    'name' => $item->profile->name ?? 'id' . $item->id
                 ]);
 
                 // initialize abstract response pattern

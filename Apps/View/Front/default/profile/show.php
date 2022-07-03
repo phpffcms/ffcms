@@ -18,7 +18,7 @@ use Ffcms\Templex\Url\Url;
 
 // $user is a target profile depended object(not current user!!!)
 
-$name = $user->profile === null ? __('Unknown') : $user->profile->getNickname();
+$name = $user->profile === null ? __('Unknown') : $user->profile->getName();
 
 $this->layout('_layouts/default', [
     'title' => __('Profile') . ': ' . $name,
@@ -208,13 +208,13 @@ $this->layout('_layouts/default', [
                 <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
                     <div class="col-xs-4 col-md-2">
                         <div class="text-center">
-                            <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
+                            <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getName() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
                         </div>
                     </div>
                     <div class="col-xs-8 col-md-10">
                         <div class="h5" style="margin-top: 0;margin-bottom: 5px;">
                             <i class="fas fa-user"></i>
-                            <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
+                            <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getName(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
                             <small class="float-end"><?= Date::humanize($post->updated_at); ?></small>
                         </div>
                         <div class="object-text">
@@ -330,7 +330,7 @@ $this->layout('_layouts/default', [
                         .removeAttr('id');
                     // set user link
                     dom.find('#wall-answer-userlink')
-                        .attr('href', '<?= Url::to('profile/show') ?>/' + row.user_id).text(row.user_nick)
+                        .attr('href', '<?= Url::to('profile/show') ?>/' + row.user_id).text(row.user_name)
                         .attr('style', 'color: '+row.user_color)
                         .removeAttr('id');
                     // set date

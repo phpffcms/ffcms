@@ -30,12 +30,12 @@ $this->layout('_layouts/default', [
         ->head([
             ['text' => '#'],
             ['text' => __('Email')],
-            ['text' => __('Nickname')],
+            ['text' => __('Full name')],
             ['text' => __('Register date')]
         ])->row([
             ['text' => $model->getUser()->id],
             ['text' => $model->getUser()->email],
-            ['text' => $model->getUser()->profile->nick ?? 'id' . $model->getUser()->id],
+            ['text' => $model->getUser()->profile->name ?? 'id' . $model->getUser()->id],
             ['text' => Date::convertToDatetime($model->getUser()->created_at, Date::FORMAT_TO_HOUR)],
         ])->display() ?>
 </div>

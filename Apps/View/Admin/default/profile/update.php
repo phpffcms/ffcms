@@ -29,7 +29,7 @@ $this->layout('_layouts/default', [
 
 <?= $form->start() ?>
 
-<?= $form->fieldset()->text('nick') ?>
+<?= $form->fieldset()->text('name') ?>
 <?= $form->fieldset()->select('sex', ['options' => ['0' => __('Unknown'), '1' => __('Male'), '2' => __('Female')], 'optionsKey' => true]) ?>
 <?= $form->fieldset()->text('birthday', null, __('Birthday date in d.m.Y format')) ?>
 <?= $form->fieldset()->text('city') ?>

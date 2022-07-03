@@ -53,7 +53,7 @@ if (!$records || $records->count() < 1) {
             <h3>
                 <?= Url::a(
                     ['profile/show', [$profile->user_id]],
-                    (Str::likeEmpty($profile->nick) ? __('No name') . '(id' . $profile->user_id . ')' : $profile->nick),
+                    (Str::likeEmpty($profile->name) ? __('No name') . '(id' . $profile->user_id . ')' : $profile->name),
                     ['style' => 'color: ' . $profile->user->role->color]
                 ) ?>
             </h3>

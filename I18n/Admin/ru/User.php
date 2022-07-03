@@ -13,6 +13,7 @@ return [
     'Password' => 'Пароль',
     'Role' => 'Роль',
     'Nickname' => 'Псевдоним',
+    'Full name' => 'ФИО',
     'Register date' => 'Дата регистрации',
     'Actions' => 'Действия',
     'Manage user' => 'Управление пользователем',
@@ -20,7 +21,7 @@ return [
     'New password' => 'Новый пароль',
     'Specify user email' => 'Укажите почтовый ящик пользователя',
     'Specify user login' => 'Укажите логин пользователя',
-    'Specify user nickname' => 'Укажите псевдоним пользователя',
+    'Specify user name' => 'Укажите ФИО пользователя',
     'Specify new user password if you want to change it! Less empty field to save current' => 'Укажите новый пароль для пользователя, если хотите его изменить. Оставьте поле пустым чтобы сохранить прежний пароль',
     'Set if user is approved or not' => 'Укажите, прошел ли пользователь процедуру подтверждения регистрации',
     'Delete users' => 'Удаление пользователей',
@@ -77,6 +78,7 @@ return [
     'Wall posts and answers' => 'Сообщения на пользовательских стенах',
     'Delete all wall posts and answers?' => 'Удалить все записи на стенах пользователей от этого пользователя?',
     'User input data clear successful' => 'Материалы пользователя успешно очищены',
-    'Email: %email%, nick: %nick%' => 'Почта: %email%, псевдоним: %nick%',
-    'Ban access' => 'Запретить доступ'
+    'Email: %email%, name: %nick%' => 'Почта: %email%, ФИО: %nick%',
+    'Ban access' => 'Запретить доступ',
+    'Ban user' => 'Заблокировать пользователя'
 ];

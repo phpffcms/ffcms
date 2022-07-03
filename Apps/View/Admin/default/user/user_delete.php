@@ -36,17 +36,17 @@ $table = $this->table(['class' => 'table'])
     ->head([
         ['text' => '#'],
         ['text' => __('Email')],
-        ['text' => __('Nickname')],
+        ['text' => __('Full name')],
         ['text' => __('Register date')]
     ]);
 
 foreach ($model->users as $user) {
     /** @var \Apps\ActiveRecord\User $user */
-    $nickname = \Ffcms\Core\Helper\Simplify::parseUserNick($user->id);
+    $name = \Ffcms\Core\Helper\Simplify::parseUserName($user->id);
     $table->row([
         ['text' => $user->id],
         ['text' => $user->email],
-        ['text' => $nickname],
+        ['text' => $name],
         ['text' => Date::convertToDatetime($user->created_at, Date::FORMAT_TO_HOUR)]
     ]);
 }

@@ -14,6 +14,7 @@ use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Ffcms\Core\Helper\Text;
 
 /**
  * Trait ActionSendWallAnswer

@@ -34,8 +34,8 @@ $this->layout('_layouts/default', [
 $table = $this->table(['class' => 'table table-striped', 'data-toggle' => 'datatable', 'data-column-defs' => '[{"targets": [2,3,4,5], "orderable": false}]'])
     ->head([
         ['text' => '#'],
-        ['text' => 'email'],
-        ['text' => __('Nickname')],
+        ['text' => __('Email')],
+        ['text' => __('Full name')],
         ['text' => __('Birthday')],
         ['text' => __('Rating')],
         ['text' => __('Actions'), 'properties' => ['class' => 'text-center']]
@@ -45,7 +45,7 @@ foreach ($records as $profile) {
     $table->row([
         ['text' => $profile->id],
         ['text' => $profile->user->email],
-        ['text' => $profile->nick],
+        ['text' => $profile->name],
         ['text' => Str::startsWith('0000-', $profile->birthday) ? __('None') : Date::convertToDatetime($profile->birthday)],
         ['text' => ($profile->rating > 0 ? '+' : null) . $profile->rating],
         ['text' => $this->bootstrap()->btngroup(['class' => 'btn-group btn-group-sm'])

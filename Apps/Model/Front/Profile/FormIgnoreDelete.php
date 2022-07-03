@@ -45,7 +45,7 @@ class FormIgnoreDelete extends Model
     {
         return [
             'id' => __('User ID'),
-            'name' => __('Nickname')
+            'name' => __('Full name')
         ];
     }
 

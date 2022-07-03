@@ -60,7 +60,7 @@ trait ActionShowWallAnswers
             $response[] = [
                 'answer_id' => $answer->id,
                 'user_id' => $answer->user_id,
-                'user_nick' => $answer->user->profile->getNickname(),
+                'user_name' => $answer->user->profile->getName(),
                 'user_avatar' => $answer->user->profile->getAvatarUrl('small'),
                 'user_color' => $answer->user->role->color,
                 'answer_message' => $answer->message,

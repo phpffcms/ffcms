@@ -39,7 +39,7 @@ class User extends ActiveModel implements iUser
     protected $searchable = [
         'columns' => [
             'email' => 3,
-            'nick' => 2
+            'name' => 2
         ],
         'joins' => [
             'profiles' => ['users.id', 'profiles.user_id']

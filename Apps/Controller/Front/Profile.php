@@ -157,7 +157,7 @@ class Profile extends FrontAppController
     public static function buildSitemapSchedule()
     {
         // get not empty user profiles
-        $profiles = ProfileRecords::whereNotNull('nick');
+        $profiles = ProfileRecords::whereNotNull('name');
         if ($profiles->count() < 1) {
             return;
         }
@@ -171,7 +171,7 @@ class Profile extends FrontAppController
         // build sitemap from content items via business model
         $sitemap = new EntityBuildMap($langs);
         foreach ($profiles->get() as $user) {
-            $sitemap->add('profile/show/' . $user->user_id, $user->updated_at, 'weekly', 0.2, $user->nick);
+            $sitemap->add('profile/show/' . $user->user_id, $user->updated_at, 'weekly', 0.2, $user->name);
         }
 
         try {

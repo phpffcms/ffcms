@@ -42,7 +42,7 @@ foreach ($records as $item) {
     $table->row([
         ['text' => $item->id],
         ['text' => Str::sub(\App::$Security->strip_tags($item->message), 0, 50)],
-        ['text' => Url::a(['user/update', [$item->user_id]], Simplify::parseUserNick($item->user_id, $item->guest_name)), 'html' => true],
+        ['text' => Url::a(['user/update', [$item->user_id]], Simplify::parseUserName($item->user_id, $item->guest_name)), 'html' => true],
         ['text' => Date::convertToDatetime($item->created_at, Date::FORMAT_TO_HOUR)]
     ]);
 }

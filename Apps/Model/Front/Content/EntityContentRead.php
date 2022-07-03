@@ -105,7 +105,7 @@ class EntityContentRead extends Model
         // set author user info
         if (App::$User->isExist($this->_content->author_id)) {
             $this->authorId = $this->_content->author_id;
-            $this->authorName = Simplify::parseUserNick($this->authorId);
+            $this->authorName = Simplify::parseUserName($this->authorId);
         }
 
         $this->source = $this->_content->source;

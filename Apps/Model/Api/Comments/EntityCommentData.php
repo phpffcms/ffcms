@@ -56,7 +56,7 @@ class EntityCommentData extends Model
         $userAvatar = App::$Alias->scriptUrl . '/upload/user/avatar/small/default.jpg';
         $userColor = 0;
         if ($this->_record->user && $this->_record->user->id > 0) {
-            $userName = $this->_record->user->profile->getNickname();
+            $userName = $this->_record->user->profile->getName();
             $userAvatar = $this->_record->user->profile->getAvatarUrl('small');
             $userColor = $this->_record->user->role->color;
         } else {

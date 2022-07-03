@@ -16,7 +16,7 @@ use Ffcms\Core\Interfaces\iProfile;
  * @package Apps\ActiveRecord
  * @property int $id
  * @property int $user_id
- * @property string $nick
+ * @property string $name
  * @property int $sex
  * @property string $birthday
  * @property string $city
@@ -34,7 +34,7 @@ class Profile extends ActiveModel implements iProfile
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
-        'nick' => 'string',
+        'name' => 'string',
         'sex' => 'integer', // tinyInteger 0|1|2
         'birthday' => 'string',
         'city' => 'string',
@@ -100,17 +100,17 @@ class Profile extends ActiveModel implements iProfile
     }
 
     /**
-     * Get user nickname. If is empty - return 'id+userId'
+     * Get user full name. If is empty - return 'id+userId'
      * @return string
      */
-    public function getNickname(): ?string
+    public function getName(): ?string
     {
-        $userNick = $this->nick;
-        if (!$userNick || Str::likeEmpty($userNick)) {
-            $userNick = 'id' . $this->id;
+        $userName = $this->name;
+        if (!$userName || Str::likeEmpty($userName)) {
+            $userName = 'id' . $this->id;
         }
 
-        return $userNick;
+        return $userName;
     }
 
     /**

@@ -38,7 +38,7 @@ class ProfileCest
         $userId = $auth->login('test1', 'test1');
 
         $i->amOnPage('/profile/settings');
-        $i->fillField('FormSettings[nick]', 'Codeception 1');
+        $i->fillField('FormSettings[name]', 'Codeception 1');
         $i->selectOption('FormSettings[sex]', 'Male');
         $i->fillField('FormSettings[birthday]', '1.1.1970');
         $i->fillField('FormSettings[city]', 'Moscow');

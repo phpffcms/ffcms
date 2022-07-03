@@ -17,7 +17,7 @@ class install_profile_table extends Migration implements MigrationInterface
         $this->getSchema()->create('profiles', function($table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->unique();
-            $table->string('nick')->nullable();
+            $table->string('name')->nullable();
             $table->tinyInteger('sex')->default(0);
             $table->date('birthday')->nullable();
             $table->string('city')->nullable();

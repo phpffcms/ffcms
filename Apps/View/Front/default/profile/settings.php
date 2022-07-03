@@ -26,7 +26,7 @@ $this->layout('_layouts/default', [
 <?php $form = $this->form($model); ?>
 <?= $form->start() ?>
 
-<?= $form->fieldset()->text('nick', null, __('Enter your nickname or real name')) ?>
+<?= $form->fieldset()->text('name', null, __('Enter your full name identity')) ?>
 <?= $form->fieldset()->select('sex', ['options' => ['0' => __('Unknown'), '1' => __('Male'), '2' => __('Female')], 'optionsKey' => true], __('Choose your gender')) ?>
 <?= $form->fieldset()->text('birthday', null, __('Enter your birthday date in d.m.Y format')) ?>
 <?= $form->fieldset()->text('city', null, __('Enter the name of the city where you live')) ?>

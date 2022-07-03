@@ -282,7 +282,7 @@ class FormContentUpdate extends Model
     }
 
     /**
-     * Get users id->nick+mail list
+     * Get users id->name+mail list
      * @return array|null
      */
     public function getUserIdName(): ?array
@@ -290,7 +290,7 @@ class FormContentUpdate extends Model
         $users = [];
         User::with('profile')->get()->each(function ($user) use (&$users) {
             /** @var User $user */
-            $users[$user->id] = ($user->profile->nick ?? 'id' . $user->id) . ' (' . $user->email . ')';
+            $users[$user->id] = ($user->profile->name ?? 'id' . $user->id) . ' (' . $user->email . ')';
         });
 
         return $users;

@@ -34,7 +34,7 @@ $this->layout('_layouts/default', [
 <div class="card">
     <div class="card-header">
         <?php
-        $author = Simplify::parseUserNick($record->user_id, $record->guest_name);
+        $author = Simplify::parseUserName($record->user_id, $record->guest_name);
         if ($record->user_id > 0) {
             $author = Url::a(['user/update', [$record->user_id]], $author);
         }

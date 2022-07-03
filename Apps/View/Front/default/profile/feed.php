@@ -28,8 +28,8 @@ $this->layout('_layouts/default', [
     <div class="row object-lightborder ml-1" id="wall-post-<?= $post->id ?>">
         <div class="col-xs-4 col-md-2">
             <div class="text-center">
-                <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getNickname(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
-                <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getNickname() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
+                <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getName(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
+                <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getName() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
                 <div class="text-muted"><?= Date::humanize($post->updated_at); ?></div>
             </div>
         </div>
@@ -132,7 +132,7 @@ $this->layout('_layouts/default', [
                         .removeAttr('id');
                     // set user link
                     dom.find('#wall-answer-userlink')
-                        .attr('href', '<?= Url::to('profile/show') ?>/' + row.user_id).text(row.user_nick)
+                        .attr('href', '<?= Url::to('profile/show') ?>/' + row.user_id).text(row.user_name)
                         .attr('style', 'color: '+row.user_color)
                         .removeAttr('id');
                     // set date

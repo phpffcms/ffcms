@@ -38,13 +38,13 @@ $this->layout('_layouts/default', [
 <?= $form->field()->hidden('approve_token') ?>
 <?= $form->fieldset()->boolean('approved', null, __('Set if user is approved or not')) ?>
 
-<?php if ($model->_user->getId() !== null): ?>
+<?php if ((int)$model->_user->getId() > 0): ?>
     <div class="row mt-3">
         <div class="col-md-3">
             <div class="text-right"><strong><?= __('Ban user') ?></strong></div>
         </div>
         <div class="col-md-9">
-            <?= Url::a(['main/banupdate', [], ['user' => $model->_user->id]], __('Ban access'), ['target' => '_blank', 'class' => 'text-danger']) ?>
+            <?= Url::a(['main/banupdate', [], ['user' => 1]], __('Ban access'), ['target' => '_blank', 'class' => 'text-danger']) ?>
         </div>
     </div>
     <div class="row mt-3">

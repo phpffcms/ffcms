@@ -19,7 +19,7 @@ class FormUserSearch extends Model
     public function labels(): array
     {
         return [
-            'query' => __('Nickname')
+            'query' => __('Full name')
         ];
     }
 

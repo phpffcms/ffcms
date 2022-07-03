@@ -83,9 +83,10 @@ $this->layout('_layouts/default', [
                 <?php
                 $uInfo = 'no';
                 if ((int)$record->user_id > 0) {
+                    /** @var Apps\ActiveRecord\User $user */
                     $user = \App::$User->identity($record->user_id);
                     if ($user && $user->getId() > 0) {
-                        $uInfo = Url::a(['user/update', [$user->getId()]], $user->profile->getNickname());
+                        $uInfo = Url::a(['user/update', [$user->getId()]], $user->profile->getName());
                     }
                 }
                 ?>

@@ -111,9 +111,9 @@ class FormSocialAuth extends FormRegister
 
             // get profile object from attr
             $profile = $this->_profileObject;
-            // set nickname from remote service
+            // set name from remote service
             if (!Str::likeEmpty($this->_identity->displayName)) {
-                $profile->nick = $this->_identity->displayName;
+                $profile->name = $this->_identity->displayName;
             }
             // set profile as user website
             $profile->url = $this->_identity->profileURL;
