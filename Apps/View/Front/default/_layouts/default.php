@@ -55,7 +55,7 @@ if (\App::$User->isAuth()) {
     $userId = \App::$User->identity()->getId();
     $navbar->menu('right', ['text' => __('Account') . ' <span class="badge" id="summary-count-block">0</span>', 'dropdown' => [
         ['text' => __('My profile'), 'link' => ['profile/show', [$userId]]],
-        ['text' => __('Messages') . ' <span class="badge" id="pm-count-block">0</span>', 'link' => ['profile/messages'], 'class' => 'dropdown-item', 'html' => true],
+        ['text' => __('Messages') . ' <span class="badge bg-secondary" id="pm-count-block">0</span>', 'link' => ['profile/messages'], 'class' => 'dropdown-item', 'html' => true],
         ['text' => __('Feed'), 'link' => ['profile/feed'], 'class' => 'dropdown-item'],
         ['text' => __('Notifications') . ' <span class="badge" id="notify-count-block">0</span>', 'link' => ['profile/notifications'], 'class' => 'dropdown-item', 'html' => true],
         ['text' => __('Settings'), 'link' => ['profile/settings'], 'class' => 'dropdown-item'],

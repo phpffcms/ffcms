@@ -23,7 +23,7 @@ $this->layout('_layouts/default', [
     __('Delete invite')
 ]]) ?>
 
-<p><?= __('Are you sure to delete invite: %mail%', ['mail' => $record->email]) ?></p>
+<p><?= __('Are you sure to delete invite: %email%', ['email' => $record->email]) ?></p>
 
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>

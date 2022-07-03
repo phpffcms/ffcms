@@ -83,7 +83,7 @@ $this->layout('_layouts/default', [
         if ($isSelf) {
             $userMenu->menu(['link' => ['profile/feed'], 'text' => '<i class="fas fa-rss-square"></i> ' . __('Feed'), 'html' => true]);
             $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fas fa-camera"></i> ' . __('Avatar'), 'html' => true]);
-            $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fas fa-envelope"></i> ' . __('Messages') . ' <span class="badge pm-count-block">0</span>', 'html' => true]);
+            $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fas fa-envelope"></i> ' . __('Messages') . ' <span class="badge bg-secondary pm-count-block">0</span>', 'html' => true]);
             $userMenu->menu(['link' => ['profile/settings'], 'text' => '<i class="fas fa-cogs"></i> ' . __('Settings'), 'html' => true]);
         } else if(\App::$User->isAuth()) {
             $userMenu->menu(['link' => ['profile/messages', null, ['newdialog' => $user->id]], 'text' => __('Write message')]);

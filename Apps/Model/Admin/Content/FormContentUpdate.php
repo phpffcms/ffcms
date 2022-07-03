@@ -311,11 +311,16 @@ class FormContentUpdate extends Model
      */
     public function getComments()
     {
-        if ($this->isNew()) {
-            return null;
-        }
+        return $this->isNew() ? null : $this->_content->commentPosts;
+    }
 
-        return $this->_content->commentPosts;
+    /**
+     * Get content object
+     * @return Content|Illuminate\Database\Eloquent\Builder
+     */
+    public function getContent()
+    {
+        return $this->isNew() ? null : $this->_content;
     }
 
     /**

@@ -62,7 +62,7 @@ return [
     'Valid' => 'Действителен',
     'Send date' => 'Дата отправки',
     'Delete invite' => 'Удаление приглашения',
-    'Are you sure to delete invite: %mail%' => 'Вы уверены, что хотите удалить приглашение для: %email%',
+    'Are you sure to delete invite: %email%' => 'Вы уверены, что хотите удалить приглашение для: %email%',
     'Invite successful removed' => 'Приглашение успешно удалено',
     'No invites recently send' => 'Вы еше не рассылали приглашения',
     'Profile preview' => 'Предпросмотр профиля',

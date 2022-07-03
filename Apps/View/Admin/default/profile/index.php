@@ -31,7 +31,7 @@ $this->layout('_layouts/default', [
 <?= $this->insert('profile/_tabs') ?>
 
 <?php
-$table = $this->table(['class' => 'table table-striped'])
+$table = $this->table(['class' => 'table table-striped', 'data-toggle' => 'datatable', 'data-column-defs' => '[{"targets": [2,3,4,5], "orderable": false}]'])
     ->head([
         ['text' => '#'],
         ['text' => 'email'],

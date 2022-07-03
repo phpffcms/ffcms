@@ -48,7 +48,7 @@ $this->layout('_layouts/default', [
 } ?>
 
 <?php
-$table = $this->table(['class' => 'table table-striped'])
+$table = $this->table(['class' => 'table table-striped', 'data-toggle' => 'datatable', 'data-column-defs' => '[{"targets": [2,4], "orderable": false}]'])
     ->head([
         ['text' => '#'],
         ['text' => __('Email')],

@@ -149,6 +149,16 @@ if (!$model->isNew()) {
 
 echo $menu->display();
 echo $form->button()->submit(__('Save'), ['class' => 'btn btn-primary mt-2']);
+echo $form->button()->cancel(__('Cancel'), ['class' => 'btn btn-secondary mt-2', 'link' => ['content/index']]);
+if (!$model->isNew()) {
+    $frontLink = \App::$Alias->scriptUrl . '/content/read';
+    $content = $model->getContent();
+    if (!Str::likeEmpty($content->category->path)) {
+        $frontLink .= '/' . $content->category->path;
+    }
+    $frontLink .= '/' . $content->path;
+    echo $form->button()->cancel(__('See as user'), ['class' => 'btn btn-info mt-2', 'link' => [$frontLink], 'target' => '_blank']);
+}
 
 ?>
 
