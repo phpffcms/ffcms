@@ -20,7 +20,6 @@ class FormSettings extends Model
     public $baseDomain;
     public $basePath;
     public $timezone;
-    public $adminEmail;
     public $debug;
     public $userCron;
     public $testSuite;
@@ -74,7 +73,6 @@ class FormSettings extends Model
             'baseDomain' => __('Base domain'),
             'baseProto' => __('Base protocol'),
             'basePath' => __('Base path'),
-            'adminEmail' => __('Admin email'),
             'timezone' => __('Timezone'),
             'userCron' => __('User run cron'),
             'debug.all' => __('Debug for all'),
@@ -93,11 +91,8 @@ class FormSettings extends Model
             'database.collation' => __('Collation'),
             'database.prefix' => __('Tables prefix'),
             'mail.enable' => __('Use mail features'),
-            'mail.host' => __('Host'),
-            'mail.port' => __('Port'),
-            'mail.encrypt' => __('Encryption'),
-            'mail.user' => __('User'),
-            'mail.password' => __('Password'),
+            'mail.dsn' => __("DSN connection"),
+            'mail.from' => __('From'),
             'debug.cookie.key' => __('Debug cookie key'),
             'debug.cookie.value' => __('Debug cookie value'),
             'trustedProxy' => __('Proxy list'),
@@ -124,10 +119,8 @@ class FormSettings extends Model
             [['captcha.time', 'captcha.threshold'], 'used'],
             ['mail.enable', 'required'],
             ['mail.enable', 'int'],
-            [['mail.host', 'mail.port', 'mail.user', 'mail.encrypt', 'mail.password'], 'used'],
-            ['mail.user', 'email'],
-            ['mail.port', 'int'],
-            ['mail.encrypt', 'in', ['ssl', 'tls', 'none']],
+            [['mail.from', 'mail.dsn'], 'used'],
+            ['mail.from', 'email'],
             ['timezone', 'string'],
             ['baseProto', 'in', ['http', 'https']],
             [['userCron', 'testSuite'], 'boolean'],

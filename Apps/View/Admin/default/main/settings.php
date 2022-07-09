@@ -43,11 +43,8 @@ $this->layout('_layouts/default', [
     ->menu(['text' => __('Mail'), 'tab' => function() use ($form) {
         return '<p>' . __('Configure sendmail over smtp server. You should set host:port and auth data for your smtp server') . '</p>' .
             $form->fieldset()->boolean('mail.enable', ['options' => [0 => 'Disabled', 1 => 'Enabled'], 'optionsKey' => true], __('Is mailing features enabled?')) .
-            $form->fieldset()->text('mail.host', ['class' => 'form-control'], __('Set SMTP hostname or ip')) .
-            $form->fieldset()->text('mail.port', ['class' => 'form-control'], __('Set SMTP connection port')) .
-            $form->fieldset()->select('mail.encrypt', ['class' => 'form-control', 'options' => ['tls', 'ssl', 'none']], __('Set encryption method for your smtp server. For remote service we are strongly recommend use tls/ssl encryption')) .
-            $form->fieldset()->text('mail.user', ['class' => 'form-control'], __('Set auth user name if required')) .
-            $form->fieldset()->text('mail.password', ['class' => 'form-control'], __('Set auth user password if exist'));
+            $form->fieldset()->text('mail.from', ['class' => 'form-control'], __('Set email from which one users will receive messages. Example: zenn1989@gmail.com')) . 
+            $form->fieldset()->text('mail.dsn', ['class' => 'form-control'], __('Configure DSN connection string to your email provider. See more at Symfony mailer. Example: smtp://user:pass@smtp.example.com:port'));
     }])
     ->menu(['text' => __('Localization'), 'tab' => function() use ($form) {
         return $form->fieldset()->select('singleLanguage', ['class' => 'form-control', 'options' => \App::$Translate->getAvailableLangs()], __('Default language of website')) .
@@ -99,15 +96,15 @@ $this->layout('_layouts/default', [
 
         var status = $('#formAdminConfig-mail-enable').is(':checked');
         if (status !== true) {
-            $('#formAdminConfig-mail-host,#formAdminConfig-mail-port,#formAdminConfig-mail-encrypt,#formAdminConfig-mail-user,#formAdminConfig-mail-password').attr('disabled', 'disabled');
+            $('#formAdminConfig-mail-from,#formAdminConfig-mail-dsn').attr('disabled', 'disabled');
         }
 
         $('#formAdminConfig-mail-enable').change(function(){
             var chk = this.checked;
             if (!chk) {
-                $('#formAdminConfig-mail-host,#formAdminConfig-mail-port,#formAdminConfig-mail-encrypt,#formAdminConfig-mail-user,#formAdminConfig-mail-password').attr('disabled', 'disabled');
+                $('#formAdminConfig-mail-from,#formAdminConfig-mail-dsn').attr('disabled', 'disabled');
             } else {
-                $('#formAdminConfig-mail-host,#formAdminConfig-mail-port,#formAdminConfig-mail-encrypt,#formAdminConfig-mail-user,#formAdminConfig-mail-password').removeAttr('disabled');
+                $('#formAdminConfig-mail-from,#formAdminConfig-mail-dsn').removeAttr('disabled');
             }
         })
     });

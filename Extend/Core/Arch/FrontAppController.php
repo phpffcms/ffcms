@@ -34,7 +34,7 @@ class FrontAppController extends Controller
             $userId = App::$User->identity()->id;
         }
         if (Ban::isBanned(App::$Request->getClientIp(), $userId, false, true)) {
-            throw new ForbiddenException(__("Your account is banned on website! Contact to administrator: %email%", ['email' => App::$Properties->get('adminEmail')]));
+            throw new ForbiddenException(__("Your account is banned on website! Contact to administrator!"));
         }
 
         if (!$this->isEnabled()) {

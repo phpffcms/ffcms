@@ -45,7 +45,7 @@ class FormAnswerAdd extends FrontAnswer
                 'post' => Text::snippet($this->_post->message, 50)
             ]);
         }
-        if (App::$Mailer) {
+        if (App::$Mailer->isEnabled()) {
             // send email notification
             App::$Mailer->tpl('feedback/mail/newanswer', [
                 'record' => $record

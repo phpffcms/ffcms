@@ -44,7 +44,8 @@ class FormRegister extends Model
     {
         $rules = [
             [['password', 'repassword', 'email'], 'required'],
-            ['password', 'length_min', '3'],
+            ['password', 'length_min', '6'],
+            ['password', 'passwordStrong'],
             ['email', 'email'],
             ['repassword', 'equal', $this->getRequest('password', $this->getSubmitMethod())],
             ['captcha', 'used']
@@ -92,11 +93,11 @@ class FormRegister extends Model
         if ($activation) {
             $user->approve_token = Crypt::randomString(mt_rand(32, 128)); // random token for validation url
             // send email
-            if (App::$Mailer) {
+            if (App::$Mailer->isEnabled()) {
                 App::$Mailer->tpl('user/_mail/approve', [
                     'token' => $user->approve_token,
                     'email' => $user->email
-                ])->send($this->email, (new \Swift_Message(App::$Translate->get('Default', 'Registration approve', []))));
+                ])->send($this->email, App::$Translate->get('Default', 'Registration approve', []));
             }
         }
         // save row

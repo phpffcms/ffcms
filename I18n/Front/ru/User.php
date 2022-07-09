@@ -38,6 +38,10 @@ return [
     'We send to you email with instruction to recovery your account' => 'Мы отправили вам письмо с дальнейшими инструкциями по восстановлению доступа',
     'Form validation is failed' => 'Проверка данных в форме завершилась неудачей',
     'Recovery form' => 'Форма восстановления',
+    'Set new password for your account' => 'Укажите ваш новый пароль для аккаунта',
+    'Repeat new password for your account' => 'Повторите ваш новый пароль еще раз',
+    'Reset password' => 'Назначить пароль',
+    'Set / Recovery password' => 'Сброс / восстановление пароля',
     'Your account password is successful changed!' => 'Пароль вашего аккаунта изменен!',
     'Successful authorization from ip: %ip%' => 'Успешная авторизация с адреса %ip%',
     'Password recovery is initialized from: %ip%' => 'Инициировано восстановление пароля с адреса: %ip%',
@@ -60,5 +64,6 @@ return [
     'You are authorized on website, registration not allowed' => 'Вы уже авторизованы на сайте, регистрация запрещена',
     'You are always authorized on website, recovery is rejected' => 'Вы уже авторизованы на сайте, восстановление запрещено',
     'You are not authorized user' => 'Вы не являетесь авторизванным пользователем',
-    'Wrong recovery data' => 'Некорректные данные для восстановления'
+    'Wrong recovery data' => 'Некорректные данные для восстановления',
+    'There are too many recovery requests recieved! Please, wait some time' => 'Для данного пользователя совершено слишком много попыток восстановления пароля. Подождите!'
 ];

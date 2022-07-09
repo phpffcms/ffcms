@@ -4,8 +4,10 @@ namespace Apps\Model\Front\User;
 
 use Apps\ActiveRecord\UserLog;
 use Apps\ActiveRecord\UserRecovery;
+use Exception;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
+use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\SyntaxException;
 use Ffcms\Core\Helper\Crypt;
 use Ffcms\Core\Helper\Date;
@@ -68,9 +70,11 @@ class FormRecovery extends Model
             ->orderBy('id', 'DESC')
             ->first();
 
+        // @todo: fixme!!!
         if ($rows !== null && $rows !== false) {
             // prevent spam of recovery messages
             if (Date::convertToTimestamp($rows->created_at) > time() - self::DELAY) {
+                throw new ForbiddenException(App::$Translate->get("User", "There are too many recovery requests recieved! Please, wait some time"));
                 return;
             }
         }
@@ -91,13 +95,15 @@ class FormRecovery extends Model
         $log->message = __('Password recovery is initialized from: %ip%', ['ip' => App::$Request->getClientIp()]);
         $log->save();
 
-        if (App::$Mailer) {
+        if (App::$Mailer->isEnabled()) {
             // send recovery email
             App::$Mailer->tpl('user/_mail/recovery', [
                 'email' => $this->email,
                 'token' => $token,
                 'id' => $rObject->id
             ])->send($this->email, App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]));
+        } else {
+            App::$Debug->addMessage("Email features are disabled! No message sended!", "warning");
         }
     }
 }

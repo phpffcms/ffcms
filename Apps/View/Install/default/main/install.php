@@ -30,11 +30,9 @@ $form = $this->form($model);
 
 <h2><?= __('SMTP mail configurations') ?></h2>
 <?= $form->fieldset()->boolean('mail.enable', ['options' => [0 => 'Disabled', 1 => 'Enabled'], 'optionsKey' => true], __('Is mailing features enabled?')) ?>
-<?= $form->fieldset()->text('mail.host', ['class' => 'form-control'], __('Set SMTP hostname or ip')) ?>
-<?= $form->fieldset()->text('mail.port', ['class' => 'form-control'], __('Set SMTP connection port')) ?>
-<?= $form->fieldset()->select('mail.encrypt', ['class' => 'form-control', 'options' => ['tls', 'ssl', 'none']], __('Set encryption method for your smtp server. For remote service we are strongly recommend use tls/ssl encryption')); ?>
-<?= $form->fieldset()->text('mail.user', ['class' => 'form-control'], __('Set auth user name if required')); ?>
-<?= $form->fieldset()->text('mail.password', ['class' => 'form-control'], __('Set auth user password if exist')); ?>
+<?= $form->fieldset()->text('mail.from', ['class' => 'form-control'], __('Set "sended from" email address. Example: zenn1989@gmail.com')) ?>
+<?= $form->fieldset()->text('mail.dsn', ['class' => 'form-control'], __('Set DSN format connection string. See symfony/mailer for more. Example: smtp://user:pass@smtp.example.com:port')) ?>
+
 
 <h2><?= __('Administrator account') ?></h2>
 <?= $form->fieldset()->text('user.email', ['class' => 'form-control'], __('Set administrator account email')) ?>
@@ -52,15 +50,15 @@ $form = $this->form($model);
     $(document).ready(function(){
         var status = $('#formInstall-mail-enable').is(':checked');
         if (status !== true) {
-            $('#formInstall-mail-host,#formInstall-mail-port,#formInstall-mail-encrypt,#formInstall-mail-user,#formInstall-mail-password').attr('disabled', 'disabled');
+            $('#formInstall-mail-from,#formInstall-mail-dsn').attr('disabled', 'disabled');
         }
 
         $('#formInstall-mail-enable').change(function(){
             var chk = this.checked;
             if (!chk) {
-                $('#formInstall-mail-host,#formInstall-mail-port,#formInstall-mail-encrypt,#formInstall-mail-user,#formInstall-mail-password').attr('disabled', 'disabled');
+                $('#formInstall-mail-from,#formInstall-mail-dsn').attr('disabled', 'disabled');
             } else {
-                $('#formInstall-mail-host,#formInstall-mail-port,#formInstall-mail-encrypt,#formInstall-mail-user,#formInstall-mail-password').removeAttr('disabled');
+                $('#formInstall-mail-from,#formInstall-mail-dsn').removeAttr('disabled');
             }
         })
 

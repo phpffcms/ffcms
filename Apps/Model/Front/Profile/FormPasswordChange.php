@@ -49,7 +49,8 @@ class FormPasswordChange extends Model
     {
         return [
             [['current', 'new', 'renew'], 'required'],
-            ['new', 'length_min', 4],
+            ['new', 'length_min', 6],
+            ['new', 'passwordStrong'],
             ['current', 'Apps\Model\Front\Profile\FormPasswordChange::passwordCheck'],
             ['new', 'equal', $this->getRequest('renew', $this->getSubmitMethod())]
         ];

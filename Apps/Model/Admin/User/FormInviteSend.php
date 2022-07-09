@@ -62,11 +62,13 @@ class FormInviteSend extends Model
         $invObj->token = $token;
         $invObj->save();
 
-        if (App::$Mailer) {
+        if (App::$Mailer->isEnabled()) {
             return App::$Mailer->tpl('user/_mail/invite', [
                 'invite' => $token,
                 'email' => $this->email
             ])->send($this->email, App::$Translate->get('Default', __('You got registration invite'), []));
+        } else {
+            App::$Debug->addMessage("Email features are disabled! No message sended!", "warning");
         }
 
         return false;

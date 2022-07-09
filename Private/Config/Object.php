@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mime\Email;
 
 // define timezone
 date_default_timezone_set(App::$Properties->get('timezone'));
@@ -70,24 +73,14 @@ return [
     },
     'Mailer' => function () {
         $mCfg = App::$Properties->get('mail');
-        if (!(bool)$mCfg['enable']) {
-            return false;
+        if ($mCfg['enable']) {
+            $transport = Transport::fromDsn($mCfg['dsn']);
+            $mailer = new Mailer($transport);
+        } else {
+            $mailer = new Mailer(Transport::fromDsn('smtp://localhost'));
         }
-        // initialize swiftmailer transporter
-        $transport = (new Swift_SmtpTransport($mCfg['host'], $mCfg['port']))
-            ->setUsername($mCfg['user']);
 
-        // set auth password if exist
-        if ($mCfg['password'] !== null && strlen($mCfg['password']) > 0)
-            $transport->setPassword($mCfg['password']);
-
-        // set encryption method
-        if (\Ffcms\Core\Helper\Type\Arr::in($mCfg['encrypt'], ['tls', 'ssl']))
-            $transport->setEncryption($mCfg['encrypt']);
-
-        // initialize mailer instance
-        $swift = (new Swift_Mailer($transport));
-        return \Ffcms\Core\Helper\Mailer::factory($swift, $mCfg['user']);
+        return \Ffcms\Core\Helper\Mailer::factory($mailer, $mCfg['from']);
     },
     'Captcha' => function () {
         return new Extend\Core\Captcha\Gregwar();

@@ -35,7 +35,6 @@ class MainInstallCommand extends Command
             ->addOption('password', 'password', InputOption::VALUE_OPTIONAL, 'Set password for database user connection')
             ->addOption('dbname', 'dbname', InputOption::VALUE_OPTIONAL, 'Set database name')
             ->addOption('prefix', 'prefix', InputOption::VALUE_OPTIONAL, 'Set database tables constant prefix')
-            ->addOption('email', 'email', InputOption::VALUE_OPTIONAL, 'Set website email')
             ->addOption('domain', 'domain', InputOption::VALUE_OPTIONAL, 'Set website main domain')
             ->addOption('mit', 'mit', InputOption::VALUE_OPTIONAL, 'Set yes if you agree with MIT license requirements in /LICENSE file')
             ->setHelp("This tools help to install ffcms in console. Also this can help to install many copy of ffcms automaticaly. 
@@ -111,7 +110,6 @@ Good luck ;)");
         $system->data = Version::VERSION;
         $system->save();
 
-        $email = $this->optionOrAsk('email', 'Website email', 'root@localhost.ltd');
         $domain = $this->optionOrAsk('domain', 'Website domain', 'localhost.ltd');
 
         // save configurations to /Private/Default.php
@@ -121,7 +119,6 @@ Good luck ;)");
         /** @var array $allCfg */
         $allCfg = Console::$Properties->getAll('default');
         $allCfg['database'] = $dbConf;
-        $allCfg['adminEmail'] = $email;
         $allCfg['baseDomain'] = $domain;
         $output->writeln('Generate security cookies for debug panel');
         $allCfg['debug']['cookie']['key'] = 'fdebug_' . Crypt::randomString(mt_rand(8, 32));

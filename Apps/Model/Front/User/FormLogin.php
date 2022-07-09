@@ -41,7 +41,7 @@ class FormLogin extends Model
         $rules = [
             [['email', 'password'], 'required'],
             ['email', 'length_min', '2'],
-            ['password', 'length_min', '3'],
+            ['password', 'length_min', '6'],
             ['email', 'email'],
             ['captcha', 'used']
         ];

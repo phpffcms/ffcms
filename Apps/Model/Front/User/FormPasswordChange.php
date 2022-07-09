@@ -37,7 +37,8 @@ class FormPasswordChange extends Model
     {
         return [
             [['password', 'repassword'], 'required'],
-            ['password', 'length_min', 3],
+            ['password', 'length_min', 6],
+            ['password', 'passwordStrong'],
             ['repassword', 'equal', $this->getRequest('password', $this->getSubmitMethod())],
             ['captcha', 'App::$Captcha::validate']
         ];

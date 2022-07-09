@@ -108,11 +108,13 @@ class FormFeedbackAdd extends Model
         // save row to db
         $record->save();
 
-        if (App::$Mailer) {
+        if (App::$Mailer->isEnabled()) {
             // send notification to email
             App::$Mailer->tpl('feedback/_mail/created', [
                 'record' => $record
             ])->send($record->email, App::$Translate->get('Feedback', 'Request #%id% is created', ['id' => $record->id]));
+        } else {
+            App::$Debug->addMessage("Email features are disabled! No message sended!", "warning");
         }
 
         return $record;

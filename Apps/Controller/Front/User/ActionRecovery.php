@@ -87,7 +87,7 @@ trait ActionRecovery
                 $this->response->redirect('/'); // session is opened, refresh page
             }
 
-            return $this->view->render('password_recovery', [
+            return $this->view->render('user/password_set', [
                 'model' => $modelPwd
             ]);
         }
