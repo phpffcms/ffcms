@@ -14,7 +14,7 @@ return [
     'Repeat password' => 'Повторите пароль',
     'Enter your username for future use on the site' => 'Укажите логин, который вы будете в дальнейшем использовать на сайте',
     'Enter your e-mail for an account' => 'Укажите ваш почтовый ящик для регистрируемого аккаунта',
-    'Enter a password for your account. It should be longer than 3 characters' => 'Введите пароль для вашей учетной записи. Необходимо более 3х символов',
+    'Enter a password for your account. It should be: longer than 6 chars, contains chars & numbers, contains at least 1 uppercase symbol' => 'Введите пароль для вашей учетной записи. Пароль должен: содержать не менее 6 символов, содержать буквы и цифры и не менее одной заглавной буквы',
     'Repeat your password to be sure it correct' => 'Повторите ваш пароль, чтобы убедиться в его корректности',
     'Register!' => 'Зарегистрироваться!',
     'Registration allowed only if you have invite!' => 'Регистрация доступна только по приглашениям!',
