@@ -17,8 +17,8 @@ $this->layout('_layouts/default', [
 <?php $form = $this->form($model) ?>
 <?= $form->start() ?>
 
-<?= $form->fieldset()->text('password', null, __('Set new password for your account')) ?>
-<?= $form->fieldset()->password('repassword', null, __('Repeat new password for your account')) ?>
+<?= $form->fieldset()->text('password', null, __('Enter new password for account: 8 or more symbols, chars & numbers, at least one uppercase symbol')) ?>
+<?= $form->fieldset()->text('repassword', null, __('Repeat new password for your account')) ?>
 
 <?= $this->insert('_core/form/fieldset/captcha', ['form' => $form]) ?>
 

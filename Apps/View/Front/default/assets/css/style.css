@@ -18,6 +18,10 @@ main.container {
     padding-bottom: 20px;
 }
 
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
 /**
  * Form label right position
  */

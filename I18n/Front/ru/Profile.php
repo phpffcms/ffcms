@@ -89,7 +89,7 @@ return [
     'New password' => 'Новый пароль',
     'Repeat password' => 'Повторите пароль',
     'Enter your current account password' => 'Укажите ваш текущий пароль для аккаунта',
-    'Enter new password for account' => 'Введите новый пароль для вашего аккаунта',
+    'Enter new password for account: 8 or more symbols, chars & numbers, at least one uppercase symbol' => 'Введите новый пароль для вашего аккаунта: не менее 8 символов, буквы и цифры, одна в верхнем регистре',
     'Repeat new password for account' => 'Повторите новый пароль для вашего аккаунта',
     'Update' => 'Обновить',
     'Password is successful changed' => 'Пароль успешно изменен',

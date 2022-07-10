@@ -103,7 +103,9 @@ class FormRecovery extends Model
                 'id' => $rObject->id
             ])->send($this->email, App::$Translate->get('Profile', '%site% - account recovery', ['site' => App::$Request->getHost()]));
         } else {
-            App::$Debug->addMessage("Email features are disabled! No message sended!", "warning");
+            if (App::$Debug) {
+                App::$Debug->addMessage("Email features are disabled! No message sended!", "warning");
+            }
         }
     }
 }

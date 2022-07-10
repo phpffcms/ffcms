@@ -46,10 +46,6 @@ $html = App::$Captcha->get();
             if (captchaFilled)
                 return true;
 
-            // prevent execution before validation passed 'ok'
-            if (typeof validation_status !== 'undefined' && validation_status === false)
-                return true;
-
             var form = $(this);
 
             e.preventDefault();

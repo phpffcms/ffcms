@@ -32,39 +32,3 @@ $this->layout('_layouts/default', [
 <?= $form->stop() ?>
 
 <?= $this->stop() ?>
-
-<?php $this->push('javascript') ?>
-<script src="/vendor/phpffcms/ffcms-assets/node_modules/just-validate/dist/just-validate.production.min.js"></script>
-<script>
-    let validation_status = false;
-    const form_name = '<?= $model->getFormName() ?>' 
-    const jv = new window.JustValidate('#' + form_name, {
-        errorFieldCssClass: 'is-invalid',
-        errorLabelCssClass: 'is-label-invalid',
-        lockForm: true,
-        tooltip: {
-            position: 'top',
-        },
-        errorContainer: '.errors-container',
-    });
-    jv.addField('#' + form_name + '-email', [
-        {
-            rule: 'email',
-            errorMessage: '<?=__('Email has invalid format')?>'
-        }
-    ]).addField('#' + form_name + '-password', [
-        {
-            rule: 'password', 
-            errorMessage: 'Password must contains at least 8 symbols, include chars & numbers and one uppercase symbol'
-        }
-    ]);
-
-    // set trigger status global
-    jv.onSuccess((event)=>{
-        validation_status = true;
-    }).onFail((event)=>{
-        validation_status = false;
-    });
-
-</script>
-<?php $this->stop() ?>

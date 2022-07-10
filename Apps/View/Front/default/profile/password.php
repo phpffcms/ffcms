@@ -26,7 +26,7 @@ $this->layout('_layouts/default', [
 <?= $form->start() ?>
 
 <?= $form->fieldset()->password('current', null, __('Enter your current account password')) ?>
-<?= $form->fieldset()->password('new', null, __('Enter new password for account')) ?>
+<?= $form->fieldset()->password('new', null, __('Enter new password for account: 8 or more symbols, chars & numbers, at least one uppercase symbol')) ?>
 <?= $form->fieldset()->password('renew', null, __('Repeat new password for account')) ?>
 
 <?= $form->button()->submit(__('Update'), ['class' => 'btn btn-primary']) ?>
