@@ -38,6 +38,28 @@ var setNotificationNumber = function (num)
     }
 };
 
+// check if $text is valid email
+var validator_email = function(text) {
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(text);
+}
+// check if pwd is valid
+var validator_pwd = function(text) {
+    let status = true;
+    if (text.length < 8)
+        status = false;
+    
+    if (text.toLowerCase() == text)
+        status = false;
+
+    rx = /[^0-9]/;
+    if (!rx.test(text))
+        status = false;
+    
+    return status;
+}
+
+// @deprecated??
 if (typeof(CKEDITOR) !== 'undefined') {
     CKEDITOR.on('dialogDefinition', function (ev) {
         // Take the dialog name and its definition from the event data.

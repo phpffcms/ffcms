@@ -34,3 +34,13 @@ $this->layout('_layouts/default', [
 <?= $form->stop() ?>
 
 <?php $this->stop() ?>
+
+<?php $this->push('javascript') ?>
+<script>
+$(document).ready(function(){
+    $('input[id*="new"]').on("focusout", function(){
+        validator_pwd($(this).val()) ? $(this).removeClass("bg-danger") : $(this).addClass("bg-danger"); 
+    });
+});  
+</script>
+<?php $this->stop() ?>
