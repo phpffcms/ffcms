@@ -7,5 +7,5 @@ use Ffcms\Templex\Url\Url;
 ?>
 
 <?php foreach ($records as $row) {
-    echo Url::a(['content/tag', [$row['tag']]], $row['tag'], ['class' => 'badge badge-secondary']) . ' ';
+    echo Url::a(['content/tag', [$row['tag']]], $row['tag'], ['class' => 'badge bg-secondary']) . ' ';
 }

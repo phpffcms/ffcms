@@ -68,7 +68,7 @@ $this->layout('_layouts/default', [
                         <div class="col-md-<?= $set ?> col-xs-<?= $set-2 ?>">
                             <?= $row->getLocaled('title') ?>
                             <sup>id: <?= $row->id ?></sup>
-                            <a href="<?= \App::$Alias->scriptUrl . '/content/list/' . $row->path ?>" target="_blank" class="badge badge-secondary">/<?= $row->path ?></a>
+                            <a href="<?= \App::$Alias->scriptUrl . '/content/list/' . $row->path ?>" target="_blank" class="badge bg-secondary">/<?= $row->path ?></a>
                         </div>
                     </div>
                 </td>

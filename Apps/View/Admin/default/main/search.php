@@ -47,7 +47,7 @@ if (!$result || count($result) < 1) {
                     <a href="<?= $item->getUrl() ?>">
                         <?= $model->highlightText($item->getTitle(), 'span', ['class' => 'search-highlight']) ?>
                     </a>
-                    <span class="badge badge-secondary"><?= $item->getMarker() ?></span>
+                    <span class="badge bg-secondary"><?= $item->getMarker() ?></span>
                     <small class="float-end text-secondary"><?= $item->getDate() ?></small>
                 </div>
                 <p class="text-muted"><?= $model->highlightText($item->getSnippet(), 'span', ['class' => 'search-highlight']) ?>...</p>

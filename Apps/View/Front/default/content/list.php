@@ -143,7 +143,7 @@ $this->layout('_layouts/default', [
                     <?php
                     foreach ($item['tags'] as $tag) {
                         $tag = trim($tag);
-                        echo Url::a(['content/tag', [urlencode($tag)]], $tag, ['class' => 'badge badge-secondary']) . "&nbsp;";
+                        echo Url::a(['content/tag', [urlencode($tag)]], $tag, ['class' => 'badge bg-secondary']) . "&nbsp;";
                     }
                     ?>
                 </span>

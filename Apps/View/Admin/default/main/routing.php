@@ -38,9 +38,9 @@ $callbackExist = false;
                 if (Any::isArray($route)) {
                     foreach ($route as $source => $target) {
                         $alias->row([
-                            ['text' => '<span class="badge badge-primary">' . $source . '</span> ' .
+                            ['text' => '<span class="badge bg-primary">' . $source . '</span> ' .
                                 '→ ' .
-                                '<span class="badge badge-secondary">' . $target . '</span>', 'html' => true],
+                                '<span class="badge bg-secondary">' . $target . '</span>', 'html' => true],
                             ['text' => $env],
                             ['text' => Url::a(
                                 ['main/deleteroute', null, ['type' => 'Alias', 'loader' => $env, 'path' => $source]],
@@ -72,9 +72,9 @@ $callbackExist = false;
                 if (Any::isArray($route)) {
                     foreach ($route as $source => $target) {
                         $dynamic->row([
-                            ['text' => '<span class="badge badge-primary">' . $source . '</span> ' .
+                            ['text' => '<span class="badge bg-primary">' . $source . '</span> ' .
                                 '→ ' .
-                                '<span class="badge badge-secondary">' . $target . '</span>', 'html' => true],
+                                '<span class="badge bg-secondary">' . $target . '</span>', 'html' => true],
                             ['text' => $env],
                             ['text' => Url::a(
                                 ['main/deleteroute', null, ['type' => 'Callback', 'loader' => $env, 'path' => $source]],

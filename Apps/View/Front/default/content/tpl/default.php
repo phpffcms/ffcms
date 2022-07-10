@@ -175,7 +175,7 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
                                 echo '<i class="fas fa-tags"></i> ';
                                 foreach ($model->metaKeywords as $tag) {
                                     $tag = trim($tag);
-                                    echo Url::a(['content/tag', [urlencode($tag)]], $tag, ['class' => 'badge badge-secondary']) . "&nbsp;";
+                                    echo Url::a(['content/tag', [urlencode($tag)]], $tag, ['class' => 'badge bg-secondary']) . "&nbsp;";
                                 }
                             }
                             ?>
