@@ -27,7 +27,7 @@ $this->layout('_layouts/default', [
     }
 </style>
 <!-- selectize plugin -->
-<link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/selectize/dist/css/selectize.default.css" />
+<link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@selectize/selectize/dist/css/selectize.bootstrap5.css" />
 <?php $this->stop() ?>
 
 <?php $this->start('body') ?>
@@ -181,7 +181,7 @@ if (!$model->isNew()) {
 <!-- jquery datepicker plugin (over jquery-ui) -->
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery-datepicker/jquery-datepicker.js"></script>
 <!-- selectize plugin -->
-<script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/selectize/dist/js/standalone/selectize.min.js"></script>
+<script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@selectize/selectize/dist/js/standalone/selectize.min.js"></script>
 <script>
 $(document).ready(function(){
     var isChanged = false;

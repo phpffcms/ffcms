@@ -44,7 +44,7 @@ class FormRegister extends Model
     {
         $rules = [
             [['password', 'repassword', 'email'], 'required'],
-            ['password', 'length_min', '6'],
+            ['password', 'length_min', '8'],
             ['password', 'passwordStrong'],
             ['email', 'email'],
             ['repassword', 'equal', $this->getRequest('password', $this->getSubmitMethod())],

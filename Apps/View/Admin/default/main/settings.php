@@ -10,10 +10,6 @@ $this->layout('_layouts/default', [
 ])
 ?>
 
-<?php $this->push('css') ?>
-<link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/selectize/dist/css/selectize.default.css" />
-<?php $this->stop() ?>
-
 <?php $this->start('body') ?>
 <h1><?= __('Settings') ?></h1>
 
@@ -31,7 +27,8 @@ $this->layout('_layouts/default', [
         return $form->fieldset()->text('baseDomain', ['class' => 'form-control'], __('Main domain of website. Use only in console or cron tasks, if domain cannot be defined from request string')) .
             $form->fieldset()->radio('baseProto', ['options' => ['http', 'https']], __('Main website transfer protocol. Use only if request data is not available in console or cron tasks')) .
             $form->fieldset()->text('basePath', ['class' => 'form-control'], __('FFCMS installation sub-directory, used if installed not in root. Example: /subdir/')) .
-            $form->fieldset()->select('timezone', ['class' => 'selectize-select', 'options' => DateTimeZone::listIdentifiers()], __('Define website default timezone id')) .
+            $form->fieldset()->datalist('timezone', ['options' => DateTimeZone::listIdentifiers()]) . 
+            //$form->fieldset()->select('timezone', ['class' => 'selectize-select', 'options' => DateTimeZone::listIdentifiers()], __('Define website default timezone id')) .
             $form->fieldset()->boolean('userCron', null, __('Initialize cron manager when user load website? Enable this option if you are not configured cron tasks in your operation system')) .
             $form->fieldset()->boolean('debug.all', null, __('Enable debug bar panel for all visitors? Recommended only on development environment')) .
             $form->fieldset()->boolean('testSuite', null, __('Enable codeception test suite adapter? Use this option ONLY to run codeception tests! Disable this option on production'));
@@ -84,29 +81,4 @@ $this->layout('_layouts/default', [
 
 <?= $form->stop() ?>
 
-<?php $this->stop() ?>
-
-<?php $this->push('javascript') ?>
-<script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/selectize/dist/js/standalone/selectize.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('.selectize-select').selectize({
-            sortField: 'text'
-        });
-
-        var status = $('#formAdminConfig-mail-enable').is(':checked');
-        if (status !== true) {
-            $('#formAdminConfig-mail-from,#formAdminConfig-mail-dsn').attr('disabled', 'disabled');
-        }
-
-        $('#formAdminConfig-mail-enable').change(function(){
-            var chk = this.checked;
-            if (!chk) {
-                $('#formAdminConfig-mail-from,#formAdminConfig-mail-dsn').attr('disabled', 'disabled');
-            } else {
-                $('#formAdminConfig-mail-from,#formAdminConfig-mail-dsn').removeAttr('disabled');
-            }
-        })
-    });
-</script>
 <?php $this->stop() ?>
