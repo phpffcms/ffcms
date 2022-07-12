@@ -10,6 +10,10 @@ $this->layout('_layouts/default', [
 ])
 ?>
 
+<?php $this->push('css') ?>
+<link rel="stylesheet" href="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@selectize/selectize/dist/css/selectize.bootstrap5.css" />
+<?php $this->stop() ?>
+
 <?php $this->start('body') ?>
 <h1><?= __('Settings') ?></h1>
 
@@ -27,7 +31,7 @@ $this->layout('_layouts/default', [
         return $form->fieldset()->text('baseDomain', ['class' => 'form-control'], __('Main domain of website. Use only in console or cron tasks, if domain cannot be defined from request string')) .
             $form->fieldset()->radio('baseProto', ['options' => ['http', 'https']], __('Main website transfer protocol. Use only if request data is not available in console or cron tasks')) .
             $form->fieldset()->text('basePath', ['class' => 'form-control'], __('FFCMS installation sub-directory, used if installed not in root. Example: /subdir/')) .
-            $form->fieldset()->datalist('timezone', ['options' => DateTimeZone::listIdentifiers()]) . 
+            $form->fieldset()->select('timezone', ['options' => DateTimeZone::listIdentifiers(), 'class' => 'selectize-option']) . 
             //$form->fieldset()->select('timezone', ['class' => 'selectize-select', 'options' => DateTimeZone::listIdentifiers()], __('Define website default timezone id')) .
             $form->fieldset()->boolean('userCron', null, __('Initialize cron manager when user load website? Enable this option if you are not configured cron tasks in your operation system')) .
             $form->fieldset()->boolean('debug.all', null, __('Enable debug bar panel for all visitors? Recommended only on development environment')) .
@@ -80,5 +84,17 @@ $this->layout('_layouts/default', [
 <?= $form->button()->submit(__('Save'), ['class' => 'btn btn-primary']) ?>
 
 <?= $form->stop() ?>
+
+<?php $this->stop() ?>
+
+<?php $this->push('javascript') ?>
+<script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@selectize/selectize/dist/js/standalone/selectize.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.selectize-option').selectize({
+        sortField: 'text'
+    });
+});
+</script>
 
 <?php $this->stop() ?>
