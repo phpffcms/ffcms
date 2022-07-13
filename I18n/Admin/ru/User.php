@@ -53,6 +53,8 @@ return [
     'Only invite' => 'По приглашениям',
     'Email approve' => 'Подтверждение по почте',
     'Full opened' => 'Открытая, без подтверждений',
+    'Email filtering' => 'Фильтр зон email',
+    'Allow registration only from selected email domain zone. If empty - no restrictions applied. Example: @gmail.com, @myorg.com' => 'Разрешить регистрацию только со специфичных доменных зон email? Пустая строка = выключенный фильтр. Пример: @gmail.com, @myorg.com',
     'Profile data' => 'Данные профиля',
     'Edit profile data' => 'Редактировать данные профиля',
     'Delete selected' => 'Удалить выбранных',

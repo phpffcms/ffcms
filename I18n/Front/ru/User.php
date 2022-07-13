@@ -65,5 +65,6 @@ return [
     'You are always authorized on website, recovery is rejected' => 'Вы уже авторизованы на сайте, восстановление запрещено',
     'You are not authorized user' => 'Вы не являетесь авторизванным пользователем',
     'Wrong recovery data' => 'Некорректные данные для восстановления',
-    'There are too many recovery requests recieved! Please, wait some time' => 'Для данного пользователя совершено слишком много попыток восстановления пароля. Подождите!'
+    'There are too many recovery requests recieved! Please, wait some time' => 'Для данного пользователя совершено слишком много попыток восстановления пароля. Подождите!',
+    'Attention! This website allows registration only from followed email zones: %emails%' => 'Внимание! На данном сайте разрешена регистрация только со следующих зон почтовых ящиков: %emails%'
 ];

@@ -13,6 +13,7 @@ class FormUserSettings extends Model
     public $registrationType;
     public $captchaOnLogin;
     public $captchaOnRegister;
+    public $allowedEmails;
 
     private $_config;
 
@@ -50,7 +51,8 @@ class FormUserSettings extends Model
         return [
             'registrationType' => __('Registration type'),
             'captchaOnLogin' => __('Captcha on login'),
-            'captchaOnRegister' => __('Captcha on registration')
+            'captchaOnRegister' => __('Captcha on registration'),
+            'allowedEmails' => __('Email filtering')
         ];
     }
 
@@ -61,7 +63,8 @@ class FormUserSettings extends Model
     public function rules(): array
     {
         return [
-            [['registrationType', 'captchaOnLogin'], 'required']
+            [['registrationType', 'captchaOnLogin', 'captchaOnRegister'], 'required'],
+            ['allowedEmails', 'used']
         ];
     }
 }

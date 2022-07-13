@@ -29,6 +29,7 @@ $this->layout('_layouts/default', [
 <?= $form->fieldset()->select('registrationType', ['options' => ['0' => __('Only invite'), '1' => __('Email approve'), '2' => __('Full opened')], 'optionsKey' => true]) ?>
 <?= $form->fieldset()->boolean('captchaOnLogin', null, __('Show captcha on login form?')) ?>
 <?= $form->fieldset()->boolean('captchaOnRegister', null, __('Show captcha on registration form?')) ?>
+<?= $form->fieldset()->text('allowedEmails', null, __('Allow registration only from selected email domain zone. If empty - no restrictions applied. Example: @gmail.com, @myorg.com')) ?>
 
 <?= $form->button()->submit(__('Save'), ['class' => 'btn btn-primary']) ?>
 

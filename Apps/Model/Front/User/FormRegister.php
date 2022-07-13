@@ -7,6 +7,7 @@ use Apps\ActiveRecord\User;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Crypt;
+use Ffcms\Core\Helper\Type\Str;
 
 /**
  * Class FormRegister. User registration business logic model
@@ -24,14 +25,17 @@ class FormRegister extends Model
     public $_userObject;
     /** @var Profile|null */
     public $_profileObject;
+    /** @var array|null */
+    private $_configs;
 
     /**
      * FormRegister constructor. Build model and set maker if captcha is enabled
-     * @param bool $captcha
+     * @param array|null $configs
      */
-    public function __construct($captcha = false)
+    public function __construct(?array $configs)
     {
-        $this->_captcha = $captcha;
+        $this->_configs = $configs;
+        $this->_captcha = ($configs['captchaOnRegister'] === 1);
         parent::__construct(true);
     }
 
@@ -47,6 +51,7 @@ class FormRegister extends Model
             ['password', 'length_min', '8'],
             ['password', 'passwordStrong'],
             ['email', 'email'],
+            ['email', '\Apps\Model\Front\User\FormRegister::isAllowedZone', $this->_configs['allowedEmails']],
             ['repassword', 'equal', $this->getRequest('password', $this->getSubmitMethod())],
             ['captcha', 'used']
         ];
@@ -56,6 +61,29 @@ class FormRegister extends Model
         }
 
         return $rules;
+    }
+
+    /**
+     * Validate is email from allowedZone if features is enabled
+     * @param string $value
+     * @return bool
+     */
+    public static function isAllowedZone($value = null, $allowed = null): bool
+    {
+        $valid = false;
+        if (Str::contains(',', $allowed)) {
+            $sub = explode(',', $allowed);
+            foreach ($sub as $zone) {
+                $zone = trim($zone);
+                if (Str::endsWith($zone, $value)) {
+                    $valid = true;
+                }
+            }
+        } else {
+            $valid = Str::endsWith($allowed, $value);
+        }
+        
+        return $valid;
     }
 
     /**

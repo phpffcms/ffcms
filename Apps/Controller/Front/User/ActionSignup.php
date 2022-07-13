@@ -39,7 +39,7 @@ trait ActionSignup
         $configs = $this->getConfigs();
 
         // init register model
-        $registerForm = new FormRegister($configs['captchaOnRegister'] === 1);
+        $registerForm = new FormRegister($configs);
 
         // registration based on invite. Check conditions.
         if ($configs['registrationType'] === 0) {

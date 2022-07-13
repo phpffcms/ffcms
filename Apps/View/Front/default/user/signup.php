@@ -1,7 +1,10 @@
 <?php
 
+use \Ffcms\Core\Helper\Type\Str;
+
 /** @var array $notify */
 /** @var bool $useCaptcha */
+/** @var array $config */
 /** @var \Apps\Model\Front\User\FormRegister $model */
 /** @var \Ffcms\Templex\Template\Template $this */
 
@@ -14,6 +17,10 @@ $this->layout('_layouts/default', [
 
 <h1><?= __('Sign up'); ?></h1>
 <?= $this->insert('user/_menu/tabs') ?>
+
+<?php if ($config['allowedEmails'] && !Str::likeEmpty($config['allowedEmails'])): ?>
+    <?= $this->bootstrap()->alert('info', __('Attention! This website allows registration only from followed email zones: %emails%', ['emails' => $config['allowedEmails']])) ?>
+<?php endif ?>
 
 <?php $form = $this->form($model) ?>
 
