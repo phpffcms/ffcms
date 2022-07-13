@@ -24,9 +24,6 @@ use Ffcms\Templex\Url\Url;
  */
 class EntityCategoryList extends Model
 {
-    // page breaker to split short and full content
-    const PAGE_BREAK = '<div style="page-break-after: always">';
-
     // properties to display: content item collection, category data, etc
     public $items;
     public $category;
