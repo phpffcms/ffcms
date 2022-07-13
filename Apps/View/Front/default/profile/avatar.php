@@ -7,11 +7,11 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\Model\Front\Profile\FormAvatarUpload $model */
 
 $this->layout('_layouts/default', [
-    'title' => __('Avatar change'),
+    'title' => __('Photo change'),
     'breadcrumbs' => [
         Url::to('main/index') => __('Home'),
         Url::to('profile/show', [\App::$User->identity()->getId()]) => __('Profile'),
-        __('Avatar settings')
+        __('Photo settings')
     ]
 ]);
 ?>
@@ -20,14 +20,14 @@ $this->layout('_layouts/default', [
 
 <?php $this->insert('profile/menus/settings') ?>
 
-<h1><?= __('Avatar settings') ?></h1>
+<h1><?= __('Photo settings') ?></h1>
 <hr />
 
 <?php $form = $this->form($model, ['enctype' => 'multipart/form-data', 'method' => 'POST']) ?>
 
 <?= $form->start() ?>
 
-<?= $form->fieldset()->file('file', null, __('Select jpg, png or gif avatar')) ?>
+<?= $form->fieldset()->file('file', null, __('Select jpg, png or gif photo')) ?>
 <?= $form->button()->submit(__('Change'), ['class' => 'btn btn-primary']) ?>
 
 <?= $form->stop() ?>

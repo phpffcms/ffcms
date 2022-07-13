@@ -16,7 +16,7 @@ class FormAvatarUpload extends Model
     /** @var \Symfony\Component\HttpFoundation\File\UploadedFile */
     public $file;
 
-    const AVATAR_SIZE = 2097152; // 2mb
+    const AVATAR_SIZE = 600; // 2mb
     const COMPRESS_QUALITY = 90;
 
     /**
@@ -26,7 +26,7 @@ class FormAvatarUpload extends Model
     public function labels(): array
     {
         return [
-            'file' => __('Select avatar')
+            'file' => __('Select photo')
         ];
     }
 

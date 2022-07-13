@@ -40,7 +40,7 @@ $this->layout('_layouts/default', [
     <p class="alert alert-danger"><?= __('You are in blacklist of this user. Your access is limited.') ?></p>
 <?php endif; ?>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-lg-3">
         <img src="<?= $user->profile->getAvatarUrl('big') ?>" class="img-fluid img-thumbnail" />
         <?php if ($ratingOn):
             $rateClass = 'btn-secondary';
@@ -82,7 +82,7 @@ $this->layout('_layouts/default', [
         $userMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs flex-column']);
         if ($isSelf) {
             $userMenu->menu(['link' => ['profile/feed'], 'text' => '<i class="fas fa-rss-square"></i> ' . __('Feed'), 'html' => true]);
-            $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fas fa-camera"></i> ' . __('Avatar'), 'html' => true]);
+            $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fas fa-camera"></i> ' . __('Photo'), 'html' => true]);
             $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fas fa-envelope"></i> ' . __('Messages') . ' <span class="badge bg-secondary pm-count-block">0</span>', 'html' => true]);
             $userMenu->menu(['link' => ['profile/settings'], 'text' => '<i class="fas fa-cogs"></i> ' . __('Settings'), 'html' => true]);
         } else if(\App::$User->isAuth()) {
@@ -92,10 +92,10 @@ $this->layout('_layouts/default', [
         echo $userMenu->display();
         ?>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 col-lg-9">
         <h2><?= __('Profile data'); ?></h2>
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped w-100">
                 <tr>
                     <td><?= __('Group') ?></td>
                     <td><span class="badge bg-secondary" style="background-color: <?= $user->role->color ?>;"><?= $user->role->name ?></span></td>
@@ -208,7 +208,7 @@ $this->layout('_layouts/default', [
                 <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
                     <div class="col-xs-4 col-md-2">
                         <div class="text-center">
-                            <img class="img-fluid img-rounded" alt="Avatar of <?= $post->senderUser->profile->getName() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
+                            <img class="img-fluid img-rounded" alt="Photo <?= $post->senderUser->profile->getName() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
                         </div>
                     </div>
                     <div class="col-xs-8 col-md-10">
@@ -253,7 +253,7 @@ $this->layout('_layouts/default', [
 </div>
 <div id="show-answer-list" class="d-none">
     <div class="row wall-answer">
-        <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="avatar" class="img-fluid img-rounded avatar" /></div>
+        <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="Photo" class="img-fluid img-rounded avatar" /></div>
         <div class="col-md-10 col-xs-8">
             <div class="answer-header">
                 <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
