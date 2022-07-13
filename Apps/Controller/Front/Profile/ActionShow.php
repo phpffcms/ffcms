@@ -91,7 +91,10 @@ trait ActionShow
                 'total' => $wallTotalCount,
                 'page' => $wallPage
             ],
-            'ratingOn' => (int)$cfg['rating'] === 1
+            'ratingOn' => (int)$cfg['rating'] === 1,
+            'wallOn' => (int)$cfg['wallEnable'] === 1,
+            'showGroup' => (int)$cfg['showGroup'] === 1,
+            'showRegdate' => (int)$cfg['showRegdate'] === 1
         ]);
     }
 }

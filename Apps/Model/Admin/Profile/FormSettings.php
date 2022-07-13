@@ -11,12 +11,16 @@ use Ffcms\Core\Arch\Model;
 class FormSettings extends Model
 {
     public $guestView;
+    public $wallEnable;
     public $wallPostOnPage;
     public $wallPostOnFeed;
     public $delayBetweenPost;
     public $rating;
     public $usersOnPage;
     public $ratingDelay;
+
+    public $showGroup;
+    public $showRegdate;
 
     private $_configs;
 
@@ -51,12 +55,15 @@ class FormSettings extends Model
     {
         return [
             'guestView' => __('Guest view'),
+            'wallEnable' => __('Enable wall'),
             'wallPostOnPage' => __('Posts in profile'),
             'wallPostOnFeed' => __('Posts on feed'),
             'delayBetweenPost' => __('Post delay'),
             'rating' => __('Rating'),
             'usersOnPage' => __('User per page'),
-            'ratingDelay' => __('Rating delay')
+            'ratingDelay' => __('Rating delay'),
+            'showGroup' => __("Display user group"),
+            'showRegdate' => __("Display registration date")
         ];
     }
 
@@ -67,9 +74,9 @@ class FormSettings extends Model
     public function rules(): array
     {
         return [
-            [['guestView', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed'], 'required'],
+            [['guestView', 'wallEnable', 'wallPostOnPage', 'delayBetweenPost', 'rating', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed', 'showGroup', 'showRegdate'], 'required'],
             [['wallPostOnPage', 'delayBetweenPost', 'usersOnPage', 'ratingDelay', 'wallPostOnFeed'], 'int'],
-            [['guestView', 'rating'], 'boolean']
+            [['guestView', 'rating', 'wallEnable', 'showGroup', 'showRegdate'], 'boolean']
         ];
     }
 }

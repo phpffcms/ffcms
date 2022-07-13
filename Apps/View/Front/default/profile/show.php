@@ -12,7 +12,10 @@ use Ffcms\Templex\Url\Url;
 /** @var \Apps\Model\Front\Profile\FormWallPost $wall */
 /** @var array $notify */
 /** @var bool $isSelf */
+/** @var bool $wallOn */
 /** @var bool $ratingOn */
+/** @var bool $showGroup */
+/** @var bool $showRegdate */
 /** @var array $pagination */
 /** @var Ffcms\Templex\Template\Template $this */
 
@@ -27,7 +30,7 @@ $this->layout('_layouts/default', [
         __('Profile') . ': ' . $name
     ]
 ]);
-
+App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
 ?>
 <?php $this->start('body') ?>
 <div class="row">
@@ -35,14 +38,14 @@ $this->layout('_layouts/default', [
         <h1><?= $name ?> <sup><small>id: <?= $user->id; ?></small></sup></h1>
     </div>
 </div>
-<hr/>
-<?php if (\App::$User->isAuth() && $user->inBlacklist($viewer->getId())): ?>
+<hr />
+<?php if (\App::$User->isAuth() && $user->inBlacklist($viewer->getId())) : ?>
     <p class="alert alert-danger"><?= __('You are in blacklist of this user. Your access is limited.') ?></p>
 <?php endif; ?>
 <div class="row">
     <div class="col-md-4 col-lg-3">
         <img src="<?= $user->profile->getAvatarUrl('big') ?>" class="img-fluid img-thumbnail" />
-        <?php if ($ratingOn):
+        <?php if ($ratingOn) :
             $rateClass = 'btn-secondary';
             $rateValue = (int)$user->profile->rating;
             if ($user->profile->rating > 0) {
@@ -50,23 +53,23 @@ $this->layout('_layouts/default', [
             } elseif ($user->profile->rating < 0) {
                 $rateClass = 'btn-warning';
             }
-            ?>
-            <?php if ($isSelf): ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="button" href="javascript:void(0);" class="btn w-100 <?= $rateClass ?>">
-                        <?= __('Rating') ?>: <span class="badge"><?= $rateValue ?></span>
-                    </button>
+        ?>
+            <?php if ($isSelf) : ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" href="javascript:void(0);" class="btn w-100 <?= $rateClass ?>">
+                            <?= __('Rating') ?>: <span class="badge"><?= $rateValue ?></span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <?php else: ?>
+            <?php else : ?>
                 <div class="row">
                     <div class="col-md-8" style="padding-right: 0;">
                         <a href="javascript:void(0);" class="btn w-100 <?= $rateClass ?>">
                             <?= __('Rating') ?>:
                             <span class="badge"><?= $rateValue > 0 ? '+' : null ?>
                                 <span id="ratingValue"><?= $rateValue ?></span>
-                        </span>
+                            </span>
                         </a>
                     </div>
                     <div class="col-md-2" style="padding-left: 1px;padding-right: 0;">
@@ -85,7 +88,7 @@ $this->layout('_layouts/default', [
             $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fas fa-camera"></i> ' . __('Photo'), 'html' => true]);
             $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fas fa-envelope"></i> ' . __('Messages') . ' <span class="badge bg-secondary pm-count-block">0</span>', 'html' => true]);
             $userMenu->menu(['link' => ['profile/settings'], 'text' => '<i class="fas fa-cogs"></i> ' . __('Settings'), 'html' => true]);
-        } else if(\App::$User->isAuth()) {
+        } else if (\App::$User->isAuth()) {
             $userMenu->menu(['link' => ['profile/messages', null, ['newdialog' => $user->id]], 'text' => __('Write message')]);
             $userMenu->menu(['link' => ['profile/ignore', null, ['id' => $user->id]], 'text' => __('Block')]);
         }
@@ -93,18 +96,22 @@ $this->layout('_layouts/default', [
         ?>
     </div>
     <div class="col-md-8 col-lg-9">
-        <h2><?= __('Profile data'); ?></h2>
+        <div class="h2"><?= __('Profile data'); ?></div>
         <div class="table-responsive">
             <table class="table table-striped w-100">
+                <?php if ($showGroup): ?>
                 <tr>
                     <td><?= __('Group') ?></td>
                     <td><span class="badge bg-secondary" style="background-color: <?= $user->role->color ?>;"><?= $user->role->name ?></span></td>
                 </tr>
+                <?php endif; ?>
+                <?php if ($showRegdate): ?>
                 <tr>
                     <td><?= __('Join date'); ?></td>
                     <td><?= Date::convertToDatetime($user->created_at, Date::FORMAT_TO_DAY); ?></td>
                 </tr>
-                <?php if ($user->profile->birthday !== null && !Str::startsWith('0000-', $user->profile->birthday)): ?>
+                <?php endif; ?>
+                <?php if ($user->profile->birthday !== null && !Str::startsWith('0000-', $user->profile->birthday)) : ?>
                     <tr>
                         <td><?= __('Birthday'); ?></td>
                         <td>
@@ -130,13 +137,13 @@ $this->layout('_layouts/default', [
                         ?>
                     </td>
                 </tr>
-                <?php if (!Str::likeEmpty($user->profile->phone)): ?>
+                <?php if (!Str::likeEmpty($user->profile->phone)) : ?>
                     <tr>
                         <td><?= __('Phone'); ?></td>
                         <td><?= $user->profile->phone ?></td>
                     </tr>
                 <?php endif; ?>
-                <?php if (!Str::likeEmpty($user->profile->url)): ?>
+                <?php if (!Str::likeEmpty($user->profile->url)) : ?>
                     <tr>
                         <td><?= __('Website'); ?></td>
                         <td>
@@ -144,17 +151,17 @@ $this->layout('_layouts/default', [
                         </td>
                     </tr>
                 <?php endif; ?>
-                <?php if (!Str::likeEmpty($user->profile->city)):
+                <?php if (!Str::likeEmpty($user->profile->city)) :
                     $city = trim($user->profile->city);
-                    ?>
+                ?>
                     <tr>
                         <td><?= __('City') ?></td>
                         <td><?= Url::a(['profile/index', ['city', $city]], $city) ?></td>
                     </tr>
                 <?php endif; ?>
-                <?php if (!Str::likeEmpty($user->profile->hobby)): ?>
+                <?php if (!Str::likeEmpty($user->profile->hobby)) : ?>
                     <tr>
-                        <td><?= __('Interests'); ?></td>
+                        <td><?= __('Skills'); ?></td>
                         <td>
                             <?php
                             $hobbyArray = explode(',', $user->profile->hobby);
@@ -170,9 +177,9 @@ $this->layout('_layouts/default', [
                 <?php endif; ?>
                 <?php
                 $customFields = $user->profile->custom_data;
-                if ($customFields !== null && Any::isArray($customFields) && count($customFields) > 0): ?>
-                    <?php foreach ($customFields as $cid => $value): ?>
-                        <?php if (!Str::likeEmpty($value)): ?>
+                if ($customFields !== null && Any::isArray($customFields) && count($customFields) > 0) : ?>
+                    <?php foreach ($customFields as $cid => $value) : ?>
+                        <?php if (!Str::likeEmpty($value)) : ?>
                             <tr>
                                 <td><?= ProfileField::getNameById($cid) ?></td>
                                 <td>
@@ -190,105 +197,111 @@ $this->layout('_layouts/default', [
                 <?php endif; ?>
             </table>
         </div>
-        <h2><?= __('Wall') ?></h2>
-        <?php if ($wall !== null): ?>
-            <?php $form = $this->form($wall) ?>
-            <?= $form->start() ?>
-            <?= $form->field()->textarea('message', ['class' => 'form-control wysiwyg']) ?>
-            <input type="submit" name="<?= $wall->getFormName() ?>[submit]" value="<?= __('Send') ?>" class="btn btn-primary" />
+        <!-- todo: here -->
+        <?php if ($wallOn) : ?>
+            <h2><?= __('Wall') ?></h2>
+            <?php if ($wall !== null) : ?>
+                <?php $form = $this->form($wall) ?>
+                <?= $form->start() ?>
+                <?= $form->field()->textarea('message', ['class' => 'form-control wysiwyg']) ?>
+                <input type="submit" name="<?= $wall->getFormName() ?>[submit]" value="<?= __('Send') ?>" class="btn btn-primary" />
 
-            <?php //Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysiwyg', 'config' => 'config-small', 'jsConfig' => ['height' => '80']]); ?>
-            <?= $form->stop() ?>
-        <?php endif; ?>
-        <?php
-        if ($wallRecords !== null):
-            foreach ($wallRecords as $post):
-                /** @var \Apps\ActiveRecord\WallPost $post */
+                <?php //Ffcms\Widgets\Ckeditor\Ckeditor::widget(['targetClass' => 'wysiwyg', 'config' => 'config-small', 'jsConfig' => ['height' => '80']]); 
                 ?>
-                <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
-                    <div class="col-xs-4 col-md-2">
-                        <div class="text-center">
-                            <img class="img-fluid img-rounded" alt="Photo <?= $post->senderUser->profile->getName() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
-                        </div>
-                    </div>
-                    <div class="col-xs-8 col-md-10">
-                        <div class="h5" style="margin-top: 0;margin-bottom: 5px;">
-                            <i class="fas fa-user"></i>
-                            <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getName(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
-                            <small class="float-end"><?= Date::humanize($post->updated_at); ?></small>
-                        </div>
-                        <div class="object-text">
-                            <?= $post->message ?>
-                        </div>
-                        <hr style="margin: 5px;" />
-                        <div><i class="fas fa-comment"></i>
-                            <a href="#wall-post-<?= $post->id ?>" id="wall-post-response-<?= $post->id ?>" class="show-wall-response">
-                                <?= __('Answers') ?> (<span id="wall-post-response-count-<?= $post->id ?>">0</span>)
-                            </a>
-                            <?php if ($post->target_id === $viewer->id || $post->sender_id === $viewer->id): ?>
-                                <?= Url::a(['profile/walldelete', [$post->id]], __('Delete'), ['class' => 'float-end']) ?>
-                            <?php endif; ?>
-                        </div>
-                        <div id="wall-answer-dom-<?= $post->id; ?>" class="d-none"></div>
-                    </div>
-                </div>
+                <?= $form->stop() ?>
+            <?php endif; ?>
             <?php
-            endforeach;
-        endif;
-        ?>
-        <?= $this->bootstrap()->pagination(['profile/show', [$user->id]], ['class' => 'pagination justify-content-center'])
-            ->size($pagination['total'], $pagination['page'], $pagination['step'])
-            ->display() ?>
+            if ($wallRecords !== null) :
+                foreach ($wallRecords as $post) :
+                    /** @var \Apps\ActiveRecord\WallPost $post */
+            ?>
+                    <div class="row object-lightborder" id="wall-post-<?= $post->id ?>">
+                        <div class="col-xs-4 col-md-2">
+                            <div class="text-center">
+                                <img class="img-fluid img-rounded" alt="Photo <?= $post->senderUser->profile->getName() ?>" src="<?= $post->senderUser->profile->getAvatarUrl('small') ?>" />
+                            </div>
+                        </div>
+                        <div class="col-xs-8 col-md-10">
+                            <div class="h5" style="margin-top: 0;margin-bottom: 5px;">
+                                <i class="fas fa-user"></i>
+                                <?= Url::a(['profile/show', [$post->sender_id]], $post->senderUser->profile->getName(), ['style' => 'color: ' . $post->senderUser->role->color]) ?>
+                                <small class="float-end"><?= Date::humanize($post->updated_at); ?></small>
+                            </div>
+                            <div class="object-text">
+                                <?= $post->message ?>
+                            </div>
+                            <hr style="margin: 5px;" />
+                            <div><i class="fas fa-comment"></i>
+                                <a href="#wall-post-<?= $post->id ?>" id="wall-post-response-<?= $post->id ?>" class="show-wall-response">
+                                    <?= __('Answers') ?> (<span id="wall-post-response-count-<?= $post->id ?>">0</span>)
+                                </a>
+                                <?php if ($post->target_id === $viewer->id || $post->sender_id === $viewer->id) : ?>
+                                    <?= Url::a(['profile/walldelete', [$post->id]], __('Delete'), ['class' => 'float-end']) ?>
+                                <?php endif; ?>
+                            </div>
+                            <div id="wall-answer-dom-<?= $post->id; ?>" class="d-none"></div>
+                        </div>
+                    </div>
+            <?php
+                endforeach;
+            endif;
+            ?>
+            <?= $this->bootstrap()->pagination(['profile/show', [$user->id]], ['class' => 'pagination justify-content-center'])
+                ->size($pagination['total'], $pagination['page'], $pagination['step'])
+                ->display() ?>
+        <?php endif; ?>
     </div>
 </div>
 
-<!-- add answer dom template -->
-<div id="add-answer-field" class="d-none">
-    <hr style="margin: 5px;"/>
-    <input type="text" id="make-answer" placeHolder="<?= __('Write comment') ?>" class="form-control wall-answer-text" maxlength="200"/>
-    <a style="margin-top: 5px;" href="#wall-post" class="send-wall-answer btn btn-primary btn-sm" id="send-wall">
-        <?= __('Send') ?>
-    </a>
-    <span class="float-end" id="answer-counter">200</span>
-</div>
-<div id="show-answer-list" class="d-none">
-    <div class="row wall-answer">
-        <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="Photo" class="img-fluid img-rounded avatar" /></div>
-        <div class="col-md-10 col-xs-8">
-            <div class="answer-header">
-                <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
-                <small class="float-end"><span id="wall-answer-date">01.01.1970</span>
-                    <a href="#send-wall-object" class="delete-answer d-none" id="delete-answer"><i class="fas fa-trash-alt"></i></a>
-                </small>
+<?php if ($wallOn) : ?>
+    <!-- add answer dom template -->
+    <div id="add-answer-field" class="d-none">
+        <hr style="margin: 5px;" />
+        <input type="text" id="make-answer" placeHolder="<?= __('Write comment') ?>" class="form-control wall-answer-text" maxlength="200" />
+        <a style="margin-top: 5px;" href="#wall-post" class="send-wall-answer btn btn-primary btn-sm" id="send-wall">
+            <?= __('Send') ?>
+        </a>
+        <span class="float-end" id="answer-counter">200</span>
+    </div>
+    <div id="show-answer-list" class="d-none">
+        <div class="row wall-answer">
+            <div class="col-md-2 col-xs-4"><img id="wall-answer-avatar" src="<?= \App::$Alias->scriptUrl ?>/upload/user/avatar/small/default.jpg" alt="Photo" class="img-fluid img-rounded avatar" /></div>
+            <div class="col-md-10 col-xs-8">
+                <div class="answer-header">
+                    <a href="<?= \App::$Alias->baseUrl ?>/profile/index" id="wall-answer-userlink">unknown</a>
+                    <small class="float-end"><span id="wall-answer-date">01.01.1970</span>
+                        <a href="#send-wall-object" class="delete-answer d-none" id="delete-answer"><i class="fas fa-trash-alt"></i></a>
+                    </small>
+                </div>
+                <div id="wall-answer-text"></div>
             </div>
-            <div id="wall-answer-text"></div>
         </div>
     </div>
-</div>
+<?php endif; ?>
 
-
+<?php if ($wallOn): ?>
 <script>
     var hideAnswers = [];
-    $(document).ready(function () {
+    $(document).ready(function() {
         var elements = $('.object-lightborder');
         var viewer_id = 0;
         var target_id = 0;
         var is_self_profile = <?= $isSelf === true ? 'true' : 'false' ?>;
-        <?php if (\App::$User->isAuth()): ?>
-        viewer_id = <?= $viewer->getId() ?>;
+        <?php if (\App::$User->isAuth()) : ?>
+            viewer_id = <?= $viewer->getId() ?>;
         <?php endif; ?>
         target_id = <?= $user->getId() ?>;
         var postIds = [];
-        $.each(elements, function (key, val) {
+        $.each(elements, function(key, val) {
             postIds.push(val.id.replace('wall-post-', ''));
         });
 
         // load answers count via JSON
         if (postIds.length > 0) {
-            $.getJSON(script_url + '/api/profile/wallanswercount/' + postIds.join(',') + '?lang=' + script_lang, function (json) {
+            $.getJSON(script_url + '/api/profile/wallanswercount/' + postIds.join(',') + '?lang=' + script_lang, function(json) {
                 // data is successful loaded, lets parse it and set to exist dom elements as text value
                 if (json.status === 1) {
-                    $.each(json.data, function (key, val) {
+                    $.each(json.data, function(key, val) {
                         $('#wall-post-response-count-' + key).text(val);
                     });
                 }
@@ -296,8 +309,8 @@ $this->layout('_layouts/default', [
         }
 
         // load answers via JSON and add to current DOM
-        loadAnswers = function (postId) {
-            $.getJSON(script_url + '/api/profile/showwallanswers/' + postId + '?lang=' + script_lang, function (json) {
+        loadAnswers = function(postId) {
+            $.getJSON(script_url + '/api/profile/showwallanswers/' + postId + '?lang=' + script_lang, function(json) {
                 if (json.status !== 1) {
                     return null;
                 }
@@ -321,7 +334,7 @@ $this->layout('_layouts/default', [
                 }
 
                 var answers = '';
-                $.each(json.data, function (idx, row) {
+                $.each(json.data, function(idx, row) {
                     // clone general dom element
                     var dom = answerDom.clone();
                     // set avatar src
@@ -331,7 +344,7 @@ $this->layout('_layouts/default', [
                     // set user link
                     dom.find('#wall-answer-userlink')
                         .attr('href', '<?= Url::to('profile/show') ?>/' + row.user_id).text(row.user_name)
-                        .attr('style', 'color: '+row.user_color)
+                        .attr('style', 'color: ' + row.user_color)
                         .removeAttr('id');
                     // set date
                     dom.find('#wall-answer-date').text(row.answer_date).removeAttr('id');
@@ -351,8 +364,10 @@ $this->layout('_layouts/default', [
             })
         };
 
-        addAnswer = function (postId, message) {
-            $.post(script_url + '/api/profile/sendwallanswer/' + postId + '?lang=' + script_lang, {message: message}, function (response) {
+        addAnswer = function(postId, message) {
+            $.post(script_url + '/api/profile/sendwallanswer/' + postId + '?lang=' + script_lang, {
+                message: message
+            }, function(response) {
                 if (response.status === 1) {
                     loadAnswers(postId);
                 } else {
@@ -363,7 +378,7 @@ $this->layout('_layouts/default', [
 
 
         // if clicked on "Answers" - show it and send form
-        $('.show-wall-response').on('click', function () {
+        $('.show-wall-response').on('click', function() {
             var postId = this.id.replace('wall-post-response-', '');
             // control hide-display on clicking to "Answers" link
             if (hideAnswers[postId] === true) {
@@ -379,7 +394,7 @@ $this->layout('_layouts/default', [
         });
 
         // calc entered symbols
-        $(document).on('keyup', '.wall-answer-text', function () {
+        $(document).on('keyup', '.wall-answer-text', function() {
             var postId = this.id.replace('make-answer-', '');
             var msglimit = 200;
             var msglength = $(this).val().length;
@@ -393,15 +408,15 @@ $this->layout('_layouts/default', [
             }
         });
 
-        $(document).on('click', '.delete-answer', function () {
+        $(document).on('click', '.delete-answer', function() {
             var answerIdPostId = this.id.replace('delete-answer-', '').split('-');
-            $.getJSON(script_url + '/api/profile/deleteanswerowner/' + answerIdPostId[0] + '?lang=' + script_lang, function (response) {
+            $.getJSON(script_url + '/api/profile/deleteanswerowner/' + answerIdPostId[0] + '?lang=' + script_lang, function(response) {
                 loadAnswers(answerIdPostId[1]);
             });
         });
 
         // delegate live event simple for add-ed dom element
-        $(document).on('click', '.send-wall-answer', function () {
+        $(document).on('click', '.send-wall-answer', function() {
             var answerToId = this.id.replace('send-wall-', '');
             var message = $('#make-answer-' + answerToId).val();
             if (message == null || message.length < 3) {
@@ -411,15 +426,23 @@ $this->layout('_layouts/default', [
 
             addAnswer(answerToId, message);
         });
+    });
+</script>
+<?php endif; ?>
 
+<script>
+    $(document).ready(function() {
         // work with + and - rating clicks
-        changeRating = function (type) {
+        changeRating = function(type) {
             // prevent some shits
             if (is_self_profile || viewer_id == 0) {
                 return false;
             }
 
-            $.post(script_url + '/api/profile/changerating?lang=' + script_lang, {type: type, target: target_id}, function (resp) {
+            $.post(script_url + '/api/profile/changerating?lang=' + script_lang, {
+                type: type,
+                target: target_id
+            }, function(resp) {
                 if (resp.status === 1) {
                     var rV = parseInt($('#ratingValue').text());
                     if (type == '+') {
@@ -436,12 +459,13 @@ $this->layout('_layouts/default', [
             }, 'json');
         };
 
-        $('#addRating').on('click', function () {
+        $('#addRating').on('click', function() {
             changeRating('+');
         });
-        $('#reduceRating').on('click', function () {
+        $('#reduceRating').on('click', function() {
             changeRating('-');
         });
-    });
+    })
 </script>
+
 <?php $this->stop() ?>

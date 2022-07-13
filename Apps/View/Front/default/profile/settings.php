@@ -14,6 +14,7 @@ $this->layout('_layouts/default', [
         __('Settings')
     ]
 ]);
+App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
 ?>
 
 <?php $this->start('body') ?>
@@ -30,7 +31,7 @@ $this->layout('_layouts/default', [
 <?= $form->fieldset()->select('sex', ['options' => ['0' => __('Unknown'), '1' => __('Male'), '2' => __('Female')], 'optionsKey' => true], __('Choose your gender')) ?>
 <?= $form->fieldset()->text('birthday', null, __('Enter your birthday date in d.m.Y format')) ?>
 <?= $form->fieldset()->text('city', null, __('Enter the name of the city where you live')) ?>
-<?= $form->fieldset()->text('hobby', null, __('Enter your hobbies in comma-separated format')) ?>
+<?= $form->fieldset()->text('hobby', null, __('Enter your skills in comma-separated format')) ?>
 <?= $form->fieldset()->text('phone', null, __('Enter your phone number without spaces, if you want to make it public for other users')) ?>
 <?= $form->fieldset()->text('url', null, __('If you have your own homepage - enter url there')) ?>
 
