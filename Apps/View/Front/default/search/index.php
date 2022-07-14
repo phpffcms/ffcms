@@ -22,11 +22,10 @@ $this->layout('_layouts/default', [
 <hr />
 
 <form method="GET" action="<?= Url::to('search/index') ?>" class="form-inline mb-2">
-    <div class="form-group col-md-9">
-        <label for="search-field" class="sr-only">Query</label>
-        <input name="query" type="text" class="form-control col-md" id="search-field" value="<?= $query ?>" maxlength="100">
+    <div class="input-group mb-4">
+        <input name="query" type="text" class="form-control" id="search-field" value="<?= $query ?>" maxlength="100">
+        <button type="submit" class="btn btn-outline-primary"><?= __('Search') ?></button>
     </div>
-    <button type="submit" class="btn btn-primary col-md"><?= __('Search') ?></button>
 </form>
 
 <?php
