@@ -16,7 +16,7 @@ class FormAvatarUpload extends Model
     /** @var \Symfony\Component\HttpFoundation\File\UploadedFile */
     public $file;
 
-    const AVATAR_SIZE = 600; // 2mb
+    const AVATAR_SIZE = 500 * 1024; // 2mb
     const COMPRESS_QUALITY = 90;
 
     /**
@@ -38,7 +38,7 @@ class FormAvatarUpload extends Model
     {
         return [
             ['file', 'required'],
-            ['file', 'isFile', ['jpg', 'png', 'gif', 'jpeg']],
+            ['file', 'isFile', ['jpg', 'png', 'gif', 'jpeg', 'webp']],
             ['file', 'sizeFile', [1, static::AVATAR_SIZE]]
         ];
     }

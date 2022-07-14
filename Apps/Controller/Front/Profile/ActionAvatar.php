@@ -38,7 +38,7 @@ trait ActionAvatar
         if ($model->send()) {
             if ($model->validate()) {
                 $model->copyFile($user);
-                App::$Session->getFlashBag()->add('success', __('Avatar is successful changed'));
+                App::$Session->getFlashBag()->add('success', __('Photo is successful changed'));
             } else {
                 App::$Session->getFlashBag()->add('error', __('File upload is failed!'));
             }
