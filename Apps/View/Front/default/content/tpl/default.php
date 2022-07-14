@@ -133,16 +133,17 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
             <div class="h3"><?= __('Similar content') ?></div>
             <div class="accordion" id="accordion-similar-group">
             <?php $idx = 1; ?>
+            
             <?php foreach ($search->items as $item): ?>
                 <div class="card">
                     <div class="card-header" id="similar-heading-<?= $item['id'] ?>">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-target="#similar-collapse-<?= $item['id'] ?>" aria-expanded="false" aria-controls="similar-collapse-<?= $item['id'] ?>">
+                            <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#similar-collapse-<?= $item['id'] ?>" aria-expanded="false" aria-controls="similar-collapse-<?= $item['id'] ?>">
                                 <?= $item['title'] ?>
                             </button>
                         </h5>
                     </div>
-                    <div id="similar-collapse-<?= $item['id'] ?>" class="collapse" aria-labelledby="similar-heading-<?= $item['id'] ?>" data-parent="#accordion-similar-group">
+                    <div id="similar-collapse-<?= $item['id'] ?>" class="accordion-collapse collapse" aria-labelledby="similar-heading-<?= $item['id'] ?>" data-parent="#accordion-similar-group">
                         <div class="card-body">
                             <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>">
                                 <?= $item['snippet'] ?>
