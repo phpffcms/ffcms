@@ -65,7 +65,7 @@ trait ActionUpdate
         }
 
         // render view output
-        return $this->view->render('update', [
+        return $this->view->render('content/update', [
             'model' => $model,
             'configs' => $configs
         ]);

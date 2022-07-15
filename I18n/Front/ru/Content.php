@@ -28,9 +28,12 @@ return [
     'My content' => 'Мои материалы',
     'Content edit' => 'Редактирование материала',
     'Content update' => 'Обновление материала',
+    'Here you can add your content to website. After adding content will be sended to pre-moderation.' => 'Вы можете добавить или отредактировать новость на сайт. После добавления или изменения новость будет отправлена на модерацию.',
     'Title' => 'Заголовок',
     'Text' => 'Текст',
     'Path slug' => 'Ярлык пути',
+    'Content text' => 'Содержимое новости',
+    'Upload image poster for content' => 'Загрузите изображение-постер для этой новости',
     'Category' => 'Раздел',
     'Poster' => 'Постер',
     'Save' => 'Сохранить',
@@ -46,5 +49,9 @@ return [
     'Only authorized users can manage content' => 'Только авторизованные пользователи могут управлять контентом',
     'Content successfully updated' => 'Контент успешно обновлен',
     'Page not found' => 'Страница не найдена',
-    'Content of this page is empty!' => 'Содержимое этой страницы пустое!'
+    'Content of this page is empty!' => 'Содержимое этой страницы пустое!',
+    'Cancel' => 'Отмена',
+    'My contents' => 'Мои материалы',
+    'Published' => 'Опубликован?',
+    'Add news' => 'Добавить новость'
 ];

@@ -2,6 +2,7 @@
 
 use Ffcms\Core\Helper\Date;
 use Ffcms\Templex\Url\Url;
+use Ffcms\Templex\Helper\Html\Dom;
 
 /** @var \Ffcms\Templex\Template\Template $this */
 /** @var \Apps\ActiveRecord\Content[] $records */
@@ -29,13 +30,14 @@ if (!$records || $records->count() < 1) {
 ?>
 
 <p><?= __('Remember you can edit content only on moderate stage!') ?></p>
+<?= Url::a(['content/update'], __('Add news'), ['class' => 'btn btn-primary']); ?>
 
 <?php
-$table = $this->table(['class' => 'table'])
+$table = $this->table(['class' => 'table table-striped w-100'])
     ->head([
         ['text' => '#'],
         ['text' => __('Title')],
-        ['text' => 'Published'],
+        ['text' => __('Published')],
         ['text' => __('Date')]
     ]);
 
@@ -45,6 +47,8 @@ foreach ($records as $record) {
     if (!(bool)$record->display) {
         $title = Url::a(['content/update', [$record->id]], $title) . ' <i class="fas fa-pencil-alt"></i>';
     }
+    //$newsLink = \App::$Alias->baseUrl . '/content/read/' . $record->cpath;
+    //$newsLink = rtrim($newsLink, '/') . '/' . $record->path;
 
     $table->row([
         ['text' => $record->id],

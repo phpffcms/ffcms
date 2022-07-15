@@ -79,7 +79,6 @@ class FormNarrowContentUpdate extends Model
             'poster' => 'file',
             'title' => 'post',
             'text' => 'post',
-            'path' => 'post',
             'categoryId' => 'post'
         ];
     }
@@ -93,7 +92,6 @@ class FormNarrowContentUpdate extends Model
         return [
             'title' => __('Title'),
             'text' => __('Text'),
-            'path' => __('Path slug'),
             'categoryId' => __('Category'),
             'poster' => __('Poster')
         ];
@@ -106,13 +104,11 @@ class FormNarrowContentUpdate extends Model
     public function rules(): array
     {
         $r = [
-            [['path', 'categoryId'], 'required'],
+            [['categoryId'], 'required'],
             ['title.' . App::$Request->getLanguage(), 'required'],
             ['text.' . App::$Request->getLanguage(), 'required', null, true, true],
             ['text', 'used', null, true, true],
-            ['path', 'direct_match', '/^[a-zA-Z0-9\-]+$/'],
             ['categoryId', 'in', $this->categoryIds()],
-            ['path', 'Apps\Model\Front\Content\FormNarrowContentUpdate::validatePath'],
             ['poster', 'used'],
             ['poster', 'isFile', ['jpg', 'png', 'gif', 'jpeg']],
             ['poster', 'sizeFile', (int)$this->_configs['gallerySize'] * 1024] // in bytes
@@ -120,8 +116,6 @@ class FormNarrowContentUpdate extends Model
 
         foreach (App::$Properties->get('languages') as $lang) {
             $r[] = ['title.' . $lang, 'length_max', 120, null, true, true];
-            $r[] = ['keywords.' . $lang, 'length_max', 150];
-            $r[] = ['description.' . $lang, 'length_max', 250];
         }
 
         return $r;
