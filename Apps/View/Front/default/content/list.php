@@ -133,10 +133,13 @@ $this->layout('_layouts/default', [
                     'rating' => $item['rating']
                 ]);
             }*/ ?>
-
+            <?php if((int)$catConfigs['showComments'] === 1): ?>
             <span class="spaced"><i class="far fa-comment"></i>
                 <a href="<?= \App::$Alias->baseUrl . $item['uri'] ?>#comments-list"><?= __('Comments') ?>: <span itemprop="commentCount" id="comment-count-<?= $item['id'] ?>">0</span></a>
             </span>
+            <?php else: ?>
+            <span class="spaced">&nbsp;</span>
+            <?php endif; ?>
             <span class="float-end">
             <?php if ((int)$catConfigs['showTags'] === 1 && $item['tags'] !== null && Any::isArray($item['tags'])): ?>
                 <span class="spaced"><i class="fas fa-tags"></i>
