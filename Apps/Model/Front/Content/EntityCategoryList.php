@@ -121,6 +121,13 @@ class EntityCategoryList extends Model
         // get result as object
         $result = $query->get();
 
+        // prevent to select hidden categories
+        foreach ($result as $key => $obj) {
+            if ((int)$obj->configs['showCategory'] !== 1) {
+                unset($result[$key]);
+            }
+        }
+
         // extract ids from result as array by key id
         $this->_catIds = Arr::pluck('id', $result->toArray());
 
