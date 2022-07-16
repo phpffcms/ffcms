@@ -13,7 +13,6 @@ $this->layout('_layouts/default', [
 
 <?php $this->start('body') ?>
 
-<?= $this->insert('profile/_tabs') ?>
 <h1><?= __('Edit user profile') ?></h1>
 
 <?= $this->insert('block/breadcrumb', ['breadcrumbs' => [
