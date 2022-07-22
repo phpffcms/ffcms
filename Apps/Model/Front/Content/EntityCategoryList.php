@@ -35,6 +35,7 @@ class EntityCategoryList extends Model
     private $_page = 0;
     private $_sort;
     private $_contentCount = 0;
+    private $_fulltext = false;
 
     private $_currentCategory;
     private $_allCategories;
@@ -50,12 +51,13 @@ class EntityCategoryList extends Model
      * @param int $offset
      * @param string $sort
      */
-    public function __construct($path, array $configs, $offset = 0, $sort = 'newest')
+    public function __construct($path, array $configs, $offset = 0, $sort = 'newest', $fulltext = false)
     {
         $this->_path = $path;
         $this->_configs = $configs;
         $this->_page = (int)$offset;
         $this->_sort = $sort;
+        $this->_fulltext = $fulltext;
         parent::__construct();
     }
 
@@ -256,7 +258,10 @@ class EntityCategoryList extends Model
             }
 
             // get snippet from full text for current locale
-            $text = Text::snippet($row->getLocaled('text'));
+            $text = $row->getLocaled('text');
+            if (!$this->_fulltext) {
+                $text = Text::snippet($text);
+            }
 
             $itemPath = $this->categories[$row->category_id]->path;
             if (!Str::likeEmpty($itemPath)) {

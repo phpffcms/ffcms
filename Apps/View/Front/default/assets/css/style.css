@@ -293,3 +293,11 @@ footer p > a {
 .card-body a:hover, .card-body a:focus {
     color: #9b4038;
 }
+
+/** legacy bootstrap pagination .active */
+.page-item a.active {
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}

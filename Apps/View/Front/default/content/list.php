@@ -162,7 +162,7 @@ $this->layout('_layouts/default', [
 
 <?php //\App::$View->render('content/_rateJs') ?>
 
-<?= $this->bootstrap()->pagination(['content/my'], ['class' => 'pagination justify-content-center'])
+<?= $this->bootstrap()->pagination($pagination['url'], ['class' => 'pagination justify-content-center'])
     ->size($pagination['total'], $pagination['page'], $pagination['step'])
     ->display(); ?>
 
