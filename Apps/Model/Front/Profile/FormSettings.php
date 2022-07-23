@@ -22,6 +22,7 @@ class FormSettings extends Model
     public $hobby;
     public $phone;
     public $url;
+    public $about;
 
     public $custom_data = [];
 
@@ -72,7 +73,8 @@ class FormSettings extends Model
             'city' => __('City'),
             'hobby' => __('Hobby'),
             'phone' => __('Phone'),
-            'url' => __('Website')
+            'url' => __('Website'),
+            'about' => __('Biography')
         ];
 
         // labels for custom fields
@@ -91,13 +93,14 @@ class FormSettings extends Model
     {
         $rules = [
             ['sex', 'required'],
-            [['city', 'hobby', 'phone', 'url', 'name', 'birthday'], 'used'],
+            [['city', 'hobby', 'phone', 'url', 'name', 'birthday', 'about'], 'used'],
             ['name', 'length_max', '70'],
             ['city', 'length_max', '50'],
             ['sex', 'in', [0, 1, 2]],
             ['hobby', 'length_max', '50'],
             ['phone', 'phone'],
-            ['url', 'url']
+            ['url', 'url'],
+            ['about', 'length_max', 4000]
         ];
 
         // custom profile fields
@@ -117,6 +120,16 @@ class FormSettings extends Model
     }
 
     /**
+     * Input types
+     */
+    public function types(): array
+    {
+        return [
+            'about' => 'html'
+        ];
+    }
+
+    /**
      * Save data after validation
      */
     public function save()
@@ -130,6 +143,7 @@ class FormSettings extends Model
         $profile->phone = $this->phone;
         $profile->url = $this->url;
         $profile->custom_data = $this->custom_data;
+        $profile->about = $this->about;
 
         $profile->save();
     }

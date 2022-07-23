@@ -60,7 +60,7 @@ class MigrationCreateCommand extends Command
         $fullPath = $dir . $name . '-' . $suffix . '.php';
         File::write($fullPath, $classContent);
         // show success msg
-        $output->write('New migration is created: ' . $fullPath);
+        $output->writeln('New migration is created: ' . $fullPath);
 
         return 0;
     }

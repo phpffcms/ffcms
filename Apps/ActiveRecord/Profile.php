@@ -24,6 +24,7 @@ use Ffcms\Core\Interfaces\iProfile;
  * @property int $rating
  * @property string $phone
  * @property string $url
+ * @property string $about
  * @property array $custom_data
  * @property string $created_at
  * @property string $updated_at

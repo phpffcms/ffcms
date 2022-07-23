@@ -116,5 +116,8 @@ return [
     'New answer &laquo;%snippet%&raquo; to your feedback request &laquo;%post%&raquo;' => 'Новый ответ &laquo;%snippet%&raquo; на ваш запрос обратной связи &laquo;%post%&raquo;',
     'Profile stream' => 'Новости пользователей',
     'No user wall post found yet' => 'Пользовательские записи не найдены',
-    'Sorry, but your account was banned!' => 'Извините, ваш доступ был заблокирован!'
+    'Sorry, but your account was banned!' => 'Извините, ваш доступ был заблокирован!',
+    'Open external link' => 'Открыть внешнюю ссылку',
+    'Biography' => 'Биография',
+    'Fill your CV information there' => 'Заполните краткую информацию о себе'
 ];
