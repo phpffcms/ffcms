@@ -30,7 +30,7 @@ $this->layout('_layouts/default', [
 } ?>
 <div class="table-responsive">
 <?php
-    $table = $this->table(['class' => 'table'])
+    $table = $this->table(['class' => 'table w-100'])
         ->head([
             ['text' => '#'],
             ['text' => __('Type')],

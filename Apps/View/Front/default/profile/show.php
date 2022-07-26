@@ -5,6 +5,7 @@ use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Templex\Url\Url;
+use Ffcms\Templex\Helper\Html\Dom;
 
 /** @var Apps\ActiveRecord\User $user Target user object */
 /** @var Apps\ActiveRecord\User $viewer Viewer user object */
@@ -44,7 +45,7 @@ App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
 <?php endif; ?>
 <div class="row">
     <div class="col-md-4 col-lg-3">
-        <img src="<?= $user->profile->getAvatarUrl('big') ?>" class="img-fluid img-thumbnail" />
+        <img src="<?= $user->profile->getAvatarUrl('big') ?>" class="img-fluid mx-auto d-block img-thumbnail" />
         <?php if ($ratingOn) :
             $rateClass = 'btn-secondary';
             $rateValue = (int)$user->profile->rating;
@@ -84,7 +85,9 @@ App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
         <?php
         $userMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs flex-column']);
         if ($isSelf) {
-            $userMenu->menu(['link' => ['profile/feed'], 'text' => '<i class="fas fa-rss-square"></i> ' . __('Feed'), 'html' => true]);
+            if ($wallOn) {
+                $userMenu->menu(['link' => ['profile/feed'], 'text' => '<i class="fas fa-rss-square"></i> ' . __('Feed'), 'html' => true]);
+            }
             $userMenu->menu(['link' => ['profile/avatar'], 'text' => '<i class="fas fa-camera"></i> ' . __('Photo'), 'html' => true]);
             $userMenu->menu(['link' => ['profile/messages'], 'text' => '<i class="fas fa-envelope"></i> ' . __('Messages') . ' <span class="badge bg-secondary pm-count-block">0</span>', 'html' => true]);
             $userMenu->menu(['link' => ['profile/settings'], 'text' => '<i class="fas fa-cogs"></i> ' . __('Settings'), 'html' => true]);
@@ -96,7 +99,7 @@ App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
         ?>
     </div>
     <div class="col-md-8 col-lg-9">
-        <div class="h2"><?= __('Profile data'); ?></div>
+        <h2><?= __('Profile data'); ?></h2>
         <div class="table-responsive">
             <table class="table table-striped w-100">
                 <?php if ($showGroup): ?>
@@ -185,7 +188,9 @@ App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
                                 <td>
                                     <?php
                                     if (ProfileField::getTypeById($cid) === 'link') {
-                                        echo Url::a($value, Str::sub($value, 30));
+                                        echo (new Dom())->a(function() use ($value){
+                                            return __('Open external link');
+                                        }, ['href' => $this->e($value), 'target' => '_blank', 'rel' => 'nofollow']);
                                     } else {
                                         echo \App::$Security->strip_tags($value);
                                     }
@@ -197,6 +202,18 @@ App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
                 <?php endif; ?>
             </table>
         </div>
+        <!-- user biography there -->
+        <?php $bio = $user->profile->about; ?>
+        <?php if($bio && Str::length($bio) > 0): ?>
+        <h2 class="pt-2"><?= __('Biography') ?></h2>
+        <div class="row">
+            <div class="col">
+                <?= $user->profile->about ?>
+            </div>
+        </div>
+        <hr />
+        <?php endif; ?>
+
         <!-- todo: here -->
         <?php if ($wallOn) : ?>
             <h2><?= __('Wall') ?></h2>
@@ -252,6 +269,8 @@ App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
         <?php endif; ?>
     </div>
 </div>
+
+<!-- inject place there -->
 
 <?php if ($wallOn) : ?>
     <!-- add answer dom template -->

@@ -35,6 +35,8 @@ App::$Translate->append(App::$Alias->currentViewPath . '/I18n/default.php');
 <?= $form->fieldset()->text('phone', null, __('Enter your phone number without spaces, if you want to make it public for other users')) ?>
 <?= $form->fieldset()->text('url', null, __('If you have your own homepage - enter url there')) ?>
 
+<?= $form->fieldset()->textarea('about', ['class' => 'form-control wysiwyg', 'html' => true], __('Fill your CV information there')) ?>
+
 <?php
 foreach (ProfileField::all() as $custom) {
     echo $form->fieldset()->text('custom_data.' . $custom->id);
@@ -45,4 +47,10 @@ foreach (ProfileField::all() as $custom) {
 
 <?= $form->stop() ?>
 
+<?php $this->stop() ?>
+
+<?php $this->push('javascript') ?>
+<?= \Widgets\Tinymce\Tinymce::widget([
+    'config' => 'small'
+]); ?>
 <?php $this->stop() ?>
