@@ -330,4 +330,19 @@ class EntityCategoryList extends Model
     {
         return $this->_contentCount;
     }
+
+    /**
+     * Get category template or fallback tpl
+     * @return string
+     */
+    public function getTpl()
+    {
+        // get tpl
+        $tpl = $this->_currentCategory->tpl;
+        if (!File::exist(App::$View->getCurrentPath() . '/content/cattpl/' . $tpl . '.php')) {
+            $tpl = 'default';
+        }
+        
+        return 'content/cattpl/' . $tpl;
+    }
 }

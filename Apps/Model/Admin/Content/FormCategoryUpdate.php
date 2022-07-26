@@ -6,7 +6,9 @@ use Apps\ActiveRecord\ContentCategory;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Exception\SyntaxException;
+use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
+use Ffcms\Core\Helper\Type\Arr;
 use Ffcms\Core\Helper\Type\Str;
 
 /**
@@ -20,6 +22,7 @@ class FormCategoryUpdate extends Model
     public $title = [];
     public $description = [];
     public $configs = [];
+    public $tpl;
     public $dependId = 1;
 
     private $_pathNested;
@@ -96,7 +99,8 @@ class FormCategoryUpdate extends Model
             'configs.showCategory' => __('Show category'),
             'configs.showRss' => __('Show RSS'),
             'configs.showSimilar' => __("Show similar items"),
-            'configs.showTags' => __('Keywords to tags')
+            'configs.showTags' => __('Keywords to tags'),
+            'tpl' => __('Template')
         ];
     }
 
@@ -108,6 +112,7 @@ class FormCategoryUpdate extends Model
     {
         $rules = [
             [['title', 'description', 'configs'], 'used'],
+            ['tpl', 'required'],
             [['configs.showDate', 'configs.showRating', 'configs.showAuthor', 'configs.showViews', 'configs.showComments'], 'boolean'],
             [['configs.showPoster', 'configs.showCategory', 'configs.showRss', 'configs.showSimilar', 'configs.showTags'], 'boolean']
         ];
@@ -122,6 +127,8 @@ class FormCategoryUpdate extends Model
             $rules[] = ['path', 'reverse_match', '/[\/\'~`\!@#\$%\^&\*\(\)+=\{\}\[\]\|;:"\<\>,\?\\\]/'];
         }
 
+        $rules[] = ['tpl', 'Apps\Model\Admin\Content\FormCategoryUpdate::validateTemplate'];
+
         $rules[] = ['title.' . App::$Request->getLanguage(), 'required'];
 
 
@@ -135,6 +142,7 @@ class FormCategoryUpdate extends Model
     {
         $this->_record->title = $this->title;
         $this->_record->description = $this->description;
+        $this->_record->tpl = $this->tpl;
         $savePath = trim($this->_pathNested . '/' . $this->path, '/');
         $this->_record->path = $savePath;
         $this->_record->configs = $this->configs;
@@ -181,5 +189,33 @@ class FormCategoryUpdate extends Model
         }
 
         return $query->count() === 0;
+    }
+
+    /**
+     * Check if template is exist
+     * @return bool
+     */
+    public function validateTemplate(): bool
+    {
+        return Arr::in($this->tpl, $this->getAvailableTemplates());
+    }
+
+    /**
+     * Get available templates for content category in front
+     * @return array
+     */
+    public function getAvailableTemplates(): array
+    {
+        $theme = App::$Properties->get('theme')['Front'] ?? 'default';
+        $dir = File::listFiles('/Apps/View/Front/' . $theme . '/content/cattpl', ['.php'], true);
+        if (!$dir || count($dir) < 1) {
+            $dir = ['default'];
+        }
+
+        foreach ($dir as $idx => $file) {
+            $dir[$idx] = Str::sub($file, 0, strlen($file)-4);
+        }
+
+        return $dir;
     }
 }

@@ -48,7 +48,7 @@ trait ActionList
         ]);
 
         // draw response view
-        return $this->view->render('content/list', [
+        return $this->view->render($model->getTpl(), [
             'model' => $model,
             'pagination' => [
                 'page' => $page,

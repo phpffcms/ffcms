@@ -55,6 +55,8 @@ if ($model->id === 1) { // general category (root) - no remove/rename/etc sh@t
 }
 ?>
 
+<?= $form->fieldset()->select('tpl', ['options' => $model->getAvailableTemplates(), 'optionsKey' => false], __('Select content category default view template')) ?>
+
 <?= $form->fieldset()->boolean('configs.showDate', null, __('Display dates of content in this category?')) ?>
 <?= $form->fieldset()->boolean('configs.showRating', null, __('Display rating for items in this category?'))?>
 <?= $form->fieldset()->boolean('configs.showCategory', null, __('Display current category for content?')) ?>

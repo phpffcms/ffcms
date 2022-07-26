@@ -17,6 +17,7 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property string $path
  * @property string $title
+ * @property string|null $tpl
  * @property string $description
  * @property array $configs
  * @property string $created_at

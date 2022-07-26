@@ -118,7 +118,7 @@ $this->layout('_layouts/default', [
         <div class="row">
             <div class="col-md-12">
                 <?php if ($catConfigs['showPoster'] === true && $item['thumb'] !== null): ?>
-                    <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail d-none d-sm-block" alt="<?= __('Poster for') ?>: <?= Str::lowerCase($item['title']) ?>" />
+                    <img src="<?= \App::$Alias->scriptUrl . $item['thumb'] ?>" class="image_poster img-thumbnail d-none d-sm-block mx-auto" alt="<?= __('Poster for') ?>: <?= Str::lowerCase($item['title']) ?>" />
                 <?php endif; ?>
                 <div itemprop="text articleBody">
                     <?= $item['text'] ?>
