@@ -108,7 +108,7 @@ class EntityContentSearch extends Model
     private function makeSearch()
     {
         $records = new ContentEntity();
-        $records = $records->search($this->_terms, null, static::SEARCH_BY_WORDS_COUNT)
+        $records = ContentEntity::whereFullText(['title', 'text'], $this->_terms)
             ->whereNotIn('id', $this->_skip)
             ->where('display', true);
 
