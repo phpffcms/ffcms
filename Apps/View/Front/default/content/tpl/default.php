@@ -107,7 +107,6 @@ $showPoster = (bool)$model->getCategory()->getProperty('showPoster');
         <div class="row">
             <div class="col-12">
                 <div id="content-text">
-                    <?php var_dump($model->posterFull) ?>
                     <?php if ($showPoster && $model->posterFull && $model->posterThumb): ?>
                         <a href="<?= $model->posterFull ?>" data-fancybox="image">
                             <img alt="<?= __('Poster for') ?>: <?= Str::lowerCase($model->title) ?>" src="<?= \App::$Alias->scriptUrl . $model->posterThumb ?>" class="image_poster img-thumbnail" />
