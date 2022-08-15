@@ -152,7 +152,7 @@ class EntityContentRead extends Model
     private function prepareGallery()
     {
         // get gallery images and poster data
-        $galleryPath = '/upload/gallery/' . $this->_content->id;
+        $galleryPath = '/upload/gallery/' . Date::getYear($this->_content->created_at) . '/' . $this->_content->id;
         // check if gallery folder is exist
         if (Directory::exist($galleryPath)) {
             $originImages = File::listFiles($galleryPath . '/orig/', ['.jpg', '.png', '.gif', '.jpeg', '.bmp', '.webp'], true);

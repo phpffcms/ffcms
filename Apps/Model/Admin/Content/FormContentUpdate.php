@@ -7,6 +7,7 @@ use Apps\ActiveRecord\Content;
 use Apps\ActiveRecord\ContentCategory;
 use Apps\ActiveRecord\ContentTag;
 use Apps\ActiveRecord\User;
+use Exception;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Crypt;
@@ -46,6 +47,7 @@ class FormContentUpdate extends Model
     private $_content;
     private $cloneId;
     private $_new = false;
+    private $_yearOld;
 
     /**
      * FormContentUpdate constructor. Pass content active record inside
@@ -108,6 +110,8 @@ class FormContentUpdate extends Model
             $this->galleryFreeId = $this->_content->id;
             $this->important = $this->_content->important;
             $this->tpl = $this->_content->tpl;
+
+            $this->_yearOld = Date::getYear($this->_content->created_at);
         }
     }
 
@@ -205,7 +209,8 @@ class FormContentUpdate extends Model
         }
 
         // save poster data
-        $posterPath = '/upload/gallery/' . $this->galleryFreeId . '/orig/' . $this->poster;
+        $posterSlug = $this->isNew() ? 'tmp' : Date::getYear($this->_content->created_at);
+        $posterPath = '/upload/gallery/' . $posterSlug . '/' . $this->galleryFreeId . '/orig/' . $this->poster;
         if (File::exist($posterPath)) {
             $this->_content->poster = $this->poster;
         }
@@ -238,9 +243,15 @@ class FormContentUpdate extends Model
         // insert tags
         ContentTag::insert($insertData);
 
-        // move files
-        if ($tmpGalleryId !== $this->_content->id) {
-            Directory::rename('/upload/gallery/' . $tmpGalleryId, $this->_content->id);
+        // move files with current year
+        $date = Date::convertToDatetime($this->_content->created_at, 'd.m.Y');
+        $year = Date::getYear($date);
+        
+        // is new item? move from /tmp/ to /year/ path
+        if ((int)$tmpGalleryId < 1 && $tmpGalleryId !== $this->_content->id) {
+            Directory::move('/upload/gallery/tmp/' . $tmpGalleryId, '/upload/gallery/' . $year . '/' . $this->_content->id);
+        } elseif ($this->_yearOld !== $year) { // year is changed? move to new folder
+            Directory::move('/upload/gallery/' . $this->_yearOld . '/' . $tmpGalleryId, '/upload/gallery/' . $year . '/' . $tmpGalleryId);
         }
     }
 

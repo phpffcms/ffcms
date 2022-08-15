@@ -4,6 +4,7 @@ namespace Apps\ActiveRecord;
 
 use Ffcms\Core\Arch\ActiveModel;
 use Ffcms\Core\Helper\Database\Serialize;
+use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Traits\SearchableTrait;
@@ -147,7 +148,7 @@ class Content extends ActiveModel
         }
 
         // build path and check is file exists on disk
-        $path = '/upload/gallery/' . $this->id . '/orig/' . $pName;
+        $path = '/upload/gallery/' . Date::getYear($this->created_at) . '/' . $this->id . '/orig/' . $pName;
         if (!File::exist($path)) {
             return null;
         }
@@ -168,7 +169,7 @@ class Content extends ActiveModel
 
         // remove extension, thumbs always in jpeg ;D
         $pName = Str::cleanExtension($pName);
-        $path = '/upload/gallery/' . $this->id . '/thumb/' . $pName . '.jpg';
+        $path = '/upload/gallery/' . Date::getYear($this->created_at) . '/' . $this->id . '/thumb/' . $pName . '.jpg';
 
         if (!File::exist($path)) {
             return null;

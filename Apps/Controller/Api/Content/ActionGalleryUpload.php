@@ -2,9 +2,11 @@
 
 namespace Apps\Controller\Api\Content;
 
+use Apps\ActiveRecord\Content;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
+use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\FileSystem\Normalize;
@@ -25,13 +27,14 @@ trait ActionGalleryUpload
 {
     /**
      * Upload new files to content item gallery
+     * @param string $year
      * @param string $id
      * @return string
      * @throws ForbiddenException
      * @throws NativeException
      * @throws \Exception
      */
-    public function galleryUpload(string $id)
+    public function galleryUpload(string $year, string $id)
     {
         $this->setJsonHeader();
 
@@ -46,8 +49,8 @@ trait ActionGalleryUpload
         }
 
         // check if directory exist
-        if (!Directory::exist('/upload/gallery/' . $id)) {
-            Directory::create('/upload/gallery/' . $id);
+        if (!Directory::exist('/upload/gallery/' . $year . '/' . $id)) {
+            Directory::create('/upload/gallery/' . $year . '/' . $id);
         }
 
         // get file object
@@ -68,7 +71,7 @@ trait ActionGalleryUpload
         }
 
         // create origin directory
-        $originPath = '/upload/gallery/' . $id . '/orig/';
+        $originPath = '/upload/gallery/' . $year . '/' . $id . '/orig/';
         if (!Directory::exist($originPath)) {
             Directory::create($originPath);
         }
@@ -84,7 +87,7 @@ trait ActionGalleryUpload
         $file->move(Normalize::diskFullPath($originPath), $fileNewName);
 
         // lets resize preview image for it
-        $thumbPath = '/upload/gallery/' . $id . '/thumb/';
+        $thumbPath = '/upload/gallery/' . $year . '/' . $id . '/thumb/';
         if (!Directory::exist($thumbPath)) {
             Directory::create($thumbPath);
         }
@@ -99,9 +102,10 @@ trait ActionGalleryUpload
             ->save($thumbSaveName, 'jpg', 90);
         $thumb = null;
 
-        return json_encode(['status' => 1, 'file' => [
-            'thumbnailUrl' => '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg',
-            'url' => '/upload/gallery/' . $id . '/orig/' . $fileNewName,
+        return json_encode(['status' => 1, 
+        'file' => [
+            'thumbnailUrl' => '/upload/gallery/' . $year . '/' . $id . '/thumb/' . $fileName . '.jpg',
+            'url' => '/upload/gallery/' . $year . '/' . $id . '/orig/' . $fileNewName,
             'name' => $fileNewName
         ]]);
     }

@@ -6,6 +6,7 @@ use Apps\ActiveRecord\Content as ContentEntity;
 use Apps\Model\Admin\Content\FormContentUpdate;
 use Ffcms\Core\App;
 use Ffcms\Core\Arch\View;
+use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
 
@@ -47,7 +48,8 @@ trait ActionUpdate
 
         // draw response
         return $this->view->render('content/content_update', [
-            'model' => $model
+            'model' => $model,
+            'contentYear' => Date::getYear($model->createdAt)
         ]);
     }
 }

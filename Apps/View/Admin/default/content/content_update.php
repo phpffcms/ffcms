@@ -251,9 +251,10 @@ $(document).ready(function(){
     });
 
     // manual initialize & configure dropzone file uploading
+    var contentYear = '<?= $contentYear ?? 'tmp' ?>';
     var DropzoneFiles = [];
     $('#ffcms-dropzone').dropzone({
-        url: script_url + '/api/content/galleryupload/<?= $model->galleryFreeId ?>?lang=' + script_lang,
+        url: script_url + '/api/content/galleryupload/' + contentYear + '/<?= $model->galleryFreeId ?>?lang=' + script_lang,
         dictDefaultMessage: '<?= __('Drop files here to upload in gallery') . '<br />' . __('(or click here)') ?>',
         acceptedFiles: ".jpeg,.jpg,.png,.gif,.webp",
         addRemoveLinks: true,

@@ -2,6 +2,7 @@
 
 namespace Apps\Controller\Api\Content;
 
+use Apps\ActiveRecord\Content;
 use Ffcms\Core\App;
 use Ffcms\Core\Exception\NativeException;
 use Ffcms\Core\Exception\NotFoundException;
@@ -12,6 +13,7 @@ use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Str;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Ffcms\Core\Helper\Date;
 
 /**
  * Trait ActionGalleryList
@@ -38,7 +40,15 @@ trait ActionGalleryList
             throw new NativeException('Permission denied');
         }
 
-        $thumbDir = Normalize::diskFullPath('/upload/gallery/' . $id . '/orig/');
+        // get news record by id
+        $content = Content::find((int)$id);
+        if (!$content || $content->id < 1) {
+            throw new NativeException(__('Content with id %id% not founded', ['id' => $id]));
+        }
+        // get content year
+        $year = Date::getYear($content->created_at);
+
+        $thumbDir = Normalize::diskFullPath('/upload/gallery/' . $year . '/' . $id . '/orig/');
         if (!Directory::exist($thumbDir)) {
             throw new NotFoundException('Nothing found');
         }
@@ -53,10 +63,10 @@ trait ActionGalleryList
             $fileExt = Str::lastIn($file, '.');
             $fileName = Str::sub($file, 0, -Str::length($fileExt));
             $output[] = [
-                'thumbnailUrl' => '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg',
-                'url' => '/upload/gallery/' . $id . '/orig/' . $file,
+                'thumbnailUrl' => '/upload/gallery/' . $year . '/' . $id . '/thumb/' . $fileName . '.jpg',
+                'url' => '/upload/gallery/' . $year . '/' . $id . '/orig/' . $file,
                 'name' => $file,
-                'size' => File::size('/upload/gallery/' . $id . '/orig/' . $file)
+                'size' => File::size('/upload/gallery/' . $year . '/' . $id . '/orig/' . $file)
             ];
         }
 

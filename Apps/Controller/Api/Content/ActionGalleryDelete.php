@@ -2,8 +2,10 @@
 
 namespace Apps\Controller\Api\Content;
 
+use Apps\ActiveRecord\Content;
 use Ffcms\Core\Exception\ForbiddenException;
 use Ffcms\Core\Exception\NativeException;
+use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Helper\Type\Arr;
@@ -40,6 +42,14 @@ trait ActionGalleryDelete
             throw new NativeException('Wrong input data');
         }
 
+        // get news record by id
+        $content = Content::find((int)$id);
+        if (!$content || $content->id < 1) {
+            throw new NativeException(__('Content with id %id% not founded', ['id' => $id]));
+        }
+        // get content year
+        $year = Date::getYear($content->created_at);
+
         // check passed file extension
         $fileExt = Str::lastIn($file, '.', true);
         $fileName = Str::firstIn($file, '.');
@@ -48,8 +58,8 @@ trait ActionGalleryDelete
         }
 
         // generate path
-        $thumb = '/upload/gallery/' . $id . '/thumb/' . $fileName . '.jpg';
-        $full = '/upload/gallery/' . $id . '/orig/' . $file;
+        $thumb = '/upload/gallery/' . $year . '/' . $id . '/thumb/' . $fileName . '.jpg';
+        $full = '/upload/gallery/' . $year . '/' . $id . '/orig/' . $file;
 
         // check if file exists and remove
         if (File::exist($thumb) || File::exist($full)) {
