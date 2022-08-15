@@ -3,6 +3,7 @@
 namespace Apps\Model\Admin\Content;
 
 use Apps\ActiveRecord\Content;
+use Ffcms\Core\Helper\FileSystem\Directory;
 use Ffcms\Core\Arch\Model;
 use Ffcms\Core\Helper\Date;
 use Illuminate\Database\Eloquent\Collection;
@@ -49,6 +50,9 @@ class FormContentGlobDelete extends Model
     public function make()
     {
         foreach ($this->_records as $record) {
+            // delete allocated files
+            $path = '/upload/gallery/' . Date::getYear($record->created_at) . '/' . $record->id;
+            Directory::remove($path);
             $record->delete();
         }
     }
