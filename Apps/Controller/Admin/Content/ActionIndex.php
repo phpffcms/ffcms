@@ -7,6 +7,7 @@ use Ffcms\Core\Arch\View;
 use Ffcms\Core\Helper\Type\Any;
 use Ffcms\Core\Network\Request;
 use Ffcms\Core\Network\Response;
+use Ffcms\Templex\Url\Url;
 
 /**
  * Trait ActionIndex
@@ -56,7 +57,7 @@ trait ActionIndex
         return $this->view->render('content/index', [
             'records' => $records,
             'pagination' => [
-                'url' => ['content/index', null, null, ['type' => $type]],
+                'url' => ['content/index', null, ['type' => $type]],
                 'page' => $page,
                 'step' => self::ITEM_PER_PAGE,
                 'total' => $total

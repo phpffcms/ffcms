@@ -28,7 +28,7 @@
         "phpffcms/ffcms-tinymce": "1.*",
         "phpffcms/language-flags": "1.*",
         "phpffcms/ffcms-templex": "1.3.*",
-        "phpffcms/ffcms-assets": "1.2.*",
+        "phpffcms/ffcms-assets": "1.3.*",
         "phpffcms/ffcms-yandex": "1.*",
         "studio-42/elfinder": "^2.1.59"
     },
