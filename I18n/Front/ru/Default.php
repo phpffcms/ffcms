@@ -57,4 +57,8 @@ return [
     'Spam protection' => 'Защита от роботов',
     'You need to pass robot protection. Please, fill solution before.' => 'Необходимо выполнить проверку на автоматическое заполнение. Решите задание ниже.',
     'Enter data from security image to prove that you are human. If you can\'t read symbols - click on image to reload' => 'Введите символы с защитного изображения, чтобы доказать что вы человек. Если вы не можете прочесть символы - кликните по картинке для перезагрузки',
+    'Cookie legacy agreement' => 'Уведомление о использовании cookie',
+    'This website is using cookie to perform authorization and other special features. Continuing to use website you are agree with cookie usage notification.' => 'Для функционирования данный сайт использует инструмент хранения cookie в вашем браузере. Со стороны сайта все ваши данные хранятся в соответствии с № 152-ФЗ "О персональных данных" и не передаются третьим лицам.',
+    'Agree' => 'Согласен',
+    'Dismiss' => 'Отклонить'
 ];

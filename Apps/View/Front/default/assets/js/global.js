@@ -1,21 +1,3 @@
-var audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext);
-// use web audio context api to play sound of notification
-var beep = function(duration, frequency, volume, type, callback) {
-    var oscillator = audioCtx.createOscillator();
-    var gainNode = audioCtx.createGain();
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    if (volume){gainNode.gain.value = volume;}
-    if (frequency){oscillator.frequency.value = frequency;}
-    if (type){oscillator.type = type;}
-    if (callback){oscillator.onended = callback;}
-
-    oscillator.start();
-    setTimeout(function(){oscillator.stop()}, (duration ? duration : 500));
-};
-
 /**
  * Show notifications in webpage title
  * @param num int
@@ -59,30 +41,34 @@ var validator_pwd = function(text) {
     return status;
 }
 
-// @deprecated??
-if (typeof(CKEDITOR) !== 'undefined') {
-    CKEDITOR.on('dialogDefinition', function (ev) {
-        // Take the dialog name and its definition from the event data.
-        var dialogName = ev.data.name;
-        var dialogDefinition = ev.data.definition;
+// cookie features - set&get
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
-        // Check if the definition is from the dialog window you are interested in (the "Link" dialog window).
-        if (dialogName == 'link') {
-            // Get a reference to the "Link Info" tab.
-            var infoTab = dialogDefinition.getContents('target');
-
-            // Set the default value for the URL field.
-            var targetField = infoTab.get('linkTargetType');
-            targetField['default'] = '_blank';
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
         }
-    });
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 // jquery features
 $(document).ready(function(){
     // notification function for user pm count block (class="pm-count-block")
     var loadPmInterval = false;
-    var soundPlayed = false;
     var summaryBlock = $('#summary-count-block');
     var msgBlock = $('#pm-count-block');
     var notifyBlock = $('#notify-count-block');
@@ -90,12 +76,6 @@ $(document).ready(function(){
         $.getJSON(script_url+'/api/profile/notifications?lang='+script_lang, function(resp){
             if (resp.status === 1) {
                 if (resp.summary > 0) {
-                    // play sound notification
-                    if (!soundPlayed) {
-                        // todo: code here
-                        beep(150, 150, 0.6, "triangle");
-                        soundPlayed = true;
-                    }
                     summaryBlock.addClass('alert-danger', 1000).text(resp.summary);
                     // set new messages count
                     if (resp.messages > 0) {
@@ -125,11 +105,26 @@ $(document).ready(function(){
 
     // instantly run counter
     ajaxNotify();
+
+    // show cookie toast if cookie not setup
+    if (getCookie('ffcms-cookie').length < 1) {
+        const toastElem = document.getElementById('cookieNotification')
+        const toast = new bootstrap.Toast(toastElem)
+        toast.show();
+    }
+    // if ok - set cookie and close window
+    $('#cookieOk').on('click', function(e){
+        setCookie('ffcms-cookie', 'agree');
+        const toastElem = document.getElementById('cookieNotification')
+        const toast = new bootstrap.Toast(toastElem)
+        toast.hide();
+    });
+
     // make autorefresh every 10 seconds
     loadPmInterval = setInterval(ajaxNotify, 10000);
     var timer = 0;
     // make live search on user keypress in search input
-    $('#search-line').keypress(function(e){
+    $('#searchInput').keypress(function(e){
         // bind key code
         var keycode = ((typeof e.keyCode != 'undefined' && e.keyCode) ? e.keyCode : e.which);
         // check if pressed ESC button to hide dropdown results
@@ -144,7 +139,7 @@ $(document).ready(function(){
         timer = setTimeout(makeSearch, 1000);
     });
     // detect search cancel by pushing esc key
-    $('#search-line').keydown(function(e){
+    $('#searchInput').keydown(function(e){
         e = e || window.event;
         var isCanceled = false;
         // browser 2017 feature for esc key
@@ -162,7 +157,7 @@ $(document).ready(function(){
 
     // execute search query by defined timer
     function makeSearch() {
-        var query = $('#search-line').val();
+        var query = $('#searchInput').val();
         if (query.length < 2) {
             return null;
         }

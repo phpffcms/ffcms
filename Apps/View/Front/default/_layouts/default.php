@@ -173,6 +173,8 @@ echo $navbar->display();
     </div>
 </footer>
 
+<?php $this->insert('blocks/cookie-agree') ?>
+
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script src="<?= \App::$Alias->scriptUrl ?>/vendor/phpffcms/ffcms-assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
