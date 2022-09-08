@@ -137,9 +137,9 @@ class FormContentUpdate extends Model
         ];
 
         foreach (App::$Properties->get('languages') as $lang) {
-            $res[] = ['title.' . $lang, 'length_max', 120, null, true, true];
-            $res[] = ['keywords.' . $lang, 'length_max', 150];
-            $res[] = ['description.' . $lang, 'length_max', 250];
+            $res[] = ['title.' . $lang, 'length_max', 1000, null, true, true];
+            $res[] = ['keywords.' . $lang, 'length_max', 2000];
+            $res[] = ['description.' . $lang, 'length_max', 5000];
         }
 
         return $res;
