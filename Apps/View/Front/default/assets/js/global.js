@@ -129,7 +129,7 @@ $(document).ready(function(){
         var keycode = ((typeof e.keyCode != 'undefined' && e.keyCode) ? e.keyCode : e.which);
         // check if pressed ESC button to hide dropdown results
         if (keycode === 27) {
-            $('#ajax-result-container').addClass('d-none');
+            $('#search-popup').addClass('d-none');
             return;
         }
         // define timer on key press delay to execute
@@ -150,7 +150,7 @@ $(document).ready(function(){
         }
         if (isCanceled) {
             // if escape pushed - remove search results & cleanup search input
-            $('#ajax-result-container').addClass('d-none');
+            $('#search-popup').addClass('d-none');
             $(this).val('');
         }
     });
