@@ -301,3 +301,9 @@ footer p > a {
     background-color: #007bff;
     border-color: #007bff;
 }
+
+.searchbox {
+    position: fixed;
+    z-index: 1;
+    background-color: #fff;
+}

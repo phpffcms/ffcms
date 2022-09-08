@@ -129,14 +129,14 @@ $(document).ready(function(){
         var keycode = ((typeof e.keyCode != 'undefined' && e.keyCode) ? e.keyCode : e.which);
         // check if pressed ESC button to hide dropdown results
         if (keycode === 27) {
-            $('#ajax-result-container').addClass('hidden');
+            $('#ajax-result-container').addClass('d-none');
             return;
         }
         // define timer on key press delay to execute
         if (timer) {
             clearTimeout(timer);
         }
-        timer = setTimeout(makeSearch, 1000);
+        timer = setTimeout(makeSearch, 500);
     });
     // detect search cancel by pushing esc key
     $('#searchInput').keydown(function(e){
@@ -150,9 +150,13 @@ $(document).ready(function(){
         }
         if (isCanceled) {
             // if escape pushed - remove search results & cleanup search input
-            $('#ajax-result-container').addClass('hidden');
+            $('#ajax-result-container').addClass('d-none');
             $(this).val('');
         }
+    });
+    
+    $('#searchInput').focusout(function(e){
+        $('#search-popup').addClass('d-none');
     });
 
     // execute search query by defined timer
@@ -167,16 +171,13 @@ $(document).ready(function(){
         $.getJSON(script_url+'/api/search/index?query='+query+'&lang='+script_lang, function (resp) {
             if (resp.status !== 1 || resp.count < 1)
                 return;
-            var searchHtml = $('#ajax-carcase-item').clone().removeClass('hidden');
-            $.each(resp.data, function(relevance, item) {
-                var searchItem = searchHtml.clone();
-                searchItem.find('#ajax-search-link').attr('href', site_url + item.uri);
-                searchItem.find('#ajax-search-title').text(item.title);
-                searchItem.find('#ajax-search-snippet').text(item.snippet);
-                $('#ajax-result-items').append(searchItem.html());
-                searchItem = null;
+
+            let searchContainer = $('#search-popup');
+            let searchList = searchContainer.find('#search-list').empty();
+            $.each(resp.data, function(id, item) {
+                searchList.append('<a href="' + site_url + item.uri + '" class="list-group-item list-group-item-action">' + item.title + '</a>');
             });
-            $('#ajax-result-container').removeClass('hidden');
+            searchContainer.removeClass('d-none');
         });
     }
 });

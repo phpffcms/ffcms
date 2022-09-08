@@ -84,10 +84,15 @@ echo $navbar->display();
         <div class="col-md-4">
             <form class="align-items-center" action="<?= Url::to('search/index') ?>" method="GET">
                 <div class="row g-0">
-                    <div class="col-8"><input type="text" name="query" class="form-control w-100" id="searchInput" value="<?= isset($query) ? $query : null ?>" placeholder="<?= __('search query...') ?>"></div>
+                    <div class="col-8"><input type="text" name="query" class="form-control w-100" id="searchInput" value="<?= isset($query) ? $query : null ?>" placeholder="<?= __('search query...') ?>" autocomplete="off"></div>
                     <div class="col-4 gx-1"><button type="submit" class="btn btn-primary w-100"><?= __('Find') ?></button></div>
                 </div>
             </form>
+            <div class="searchbox d-none" id="search-popup">
+                <div class="list-group" id="search-list">
+                    <a href="#" class="list-group-item list-group-item-action">test item</a>
+                </div>
+            </div>
         </div>
     </div>
 </header>
