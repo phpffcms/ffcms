@@ -155,9 +155,13 @@ $(document).ready(function(){
         }
     });
     
-    /**$('#searchInput').focusout(function(e){
-        $('#search-popup').addClass('d-none');
-    });*/
+    // on focusout of search - remove searchbox
+    $('#searchInput').focusout(function(e){
+        // set timeout to allow open link if clicked
+        setTimeout(function(){
+            $('#search-popup').addClass('d-none');
+        }, 500);
+    });
 
     // execute search query by defined timer
     function makeSearch() {
