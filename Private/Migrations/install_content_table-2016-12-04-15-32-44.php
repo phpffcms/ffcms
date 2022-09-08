@@ -33,6 +33,9 @@ class install_content_table extends Migration implements MigrationInterface
             $table->string('tpl')->default('default');
             $table->timestamps();
             $table->softDeletes();
+            $table->fullText('text');
+            $table->fullText('title');
+            $table->fullText(['title', 'text']);
         });
         parent::up();
     }

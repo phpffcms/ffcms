@@ -30,17 +30,17 @@ $this->layout('_layouts/default', [
     $table->row([
         ['text' => 'PHP'],
         ['text' => $model->phpVersion],
-        'properties' => ['class' => $model->checkPhpVersion() ? 'alert-success' : 'alert-danger']
+        'properties' => ['class' => $model->checkPhpVersion() ? 'bg-success' : 'bg-danger']
     ]);
     $table->row([
         ['text' => 'PHP::PDO'],
         ['text' => $model->pdo ? 'On' : 'Off'],
-        'properties' => ['class' => $model->pdo ? 'alert-success' : 'alert-danger'],
+        'properties' => ['class' => $model->pdo ? 'bg-success' : 'bg-danger'],
     ]);
     $table->row([
         ['text' => 'PHP::GD'],
         ['text' => $model->gd ? 'On' : 'Off'],
-        'properties' => ['class' => $model->gd ? 'alert-success' : 'alert-danger']
+        'properties' => ['class' => $model->gd ? 'bg-success' : 'bg-danger']
     ])
 ?>
 <div class="table-responsive">
@@ -52,7 +52,7 @@ $this->layout('_layouts/default', [
 $chmodItems = [];
 foreach ($model->chmodCheck as $dir => $status) {
     $chmodItems[] = [
-        ['text' => $dir], ['text' => $status ? 'Ok' : 'Error'], 'properties' => ['class' => $status ? 'alert-success' : 'alert-danger']
+        ['text' => $dir], ['text' => $status ? 'Ok' : 'Error'], 'properties' => ['class' => $status ? 'bg-success' : 'bg-danger']
     ];
 }
 ?>

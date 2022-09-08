@@ -18,6 +18,7 @@ class update_cms_320 extends Migration implements MigrationInterface
         $this->getSchema()->table('contents', function(Blueprint $table){
             $table->fullText('text');
             $table->fullText('title');
+            $table->fullText(['title', 'text']);
         });
 
         parent::up();

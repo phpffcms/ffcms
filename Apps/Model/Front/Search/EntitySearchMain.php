@@ -50,7 +50,9 @@ class EntitySearchMain extends Model
 
     /**
      * Get sorted by relevance search response. Method return result as array: [relevance => [title, snippet, uri, date], ...]
+     * NO MORE SUPPORTED! ONLY NATIVE FULL TEXT FEATURES.
      * @return array
+     * @deprecated
      */
     public function getRelevanceSortedResult()
     {
@@ -70,6 +72,15 @@ class EntitySearchMain extends Model
 
         // return result as array
         return $result;
+    }
+
+    /**
+     * Get search result
+     * @return AbstractSearchResult[]|null
+     */
+    public function getResult()
+    {
+        return $this->results;
     }
 
     /**

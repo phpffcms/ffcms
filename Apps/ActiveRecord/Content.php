@@ -7,7 +7,6 @@ use Ffcms\Core\Helper\Database\Serialize;
 use Ffcms\Core\Helper\Date;
 use Ffcms\Core\Helper\FileSystem\File;
 use Ffcms\Core\Helper\Type\Str;
-use Ffcms\Core\Traits\SearchableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
@@ -41,7 +40,7 @@ use Illuminate\Support\Collection;
  */
 class Content extends ActiveModel
 {
-    use SoftDeletes, SearchableTrait;
+    use SoftDeletes;
 
     protected $searchable = [
         'columns' => [

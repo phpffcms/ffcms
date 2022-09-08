@@ -33,7 +33,7 @@ trait Boot
             }
 
             // relevant search by string query
-            $records = Content::search($model->query)
+            $records = Content::whereFullText(['title', 'text'], $model->query)
                 ->where('display', true)
                 ->take($limit)
                 ->get();
