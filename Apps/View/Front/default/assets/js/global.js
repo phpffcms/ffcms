@@ -155,9 +155,9 @@ $(document).ready(function(){
         }
     });
     
-    $('#searchInput').focusout(function(e){
+    /**$('#searchInput').focusout(function(e){
         $('#search-popup').addClass('d-none');
-    });
+    });*/
 
     // execute search query by defined timer
     function makeSearch() {
