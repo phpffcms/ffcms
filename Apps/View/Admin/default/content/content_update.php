@@ -47,10 +47,10 @@ $this->layout('_layouts/default', [
 $form = $this->form($model);
 echo $form->start();
 
-$menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs mt-2'])
+$menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs'])
     ->menu(['text' => __('General'), 'tab' => function() use ($form) {
         /** @var \Ffcms\Templex\Template\Template $this */
-        $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
+        $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-pills']);
         foreach (\App::$Properties->get('languages') as $lang) {
             $langMenu->menu([
                 'text' => Str::upperCase($lang),
@@ -68,7 +68,7 @@ $menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs mt-2'])
     }, 'tabActive' => true])
     ->menu(['text' => __('Properties'), 'tab' => function() use ($form, $model) {
         /** @var \Ffcms\Templex\Template\Template $this */
-        $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
+        $langMenu = $this->bootstrap()->nav('ul', ['class' => 'nav-pills']);
         $context = $form->fieldset()->text('path', null, __('Slug of URL pathway for this content item'))
             . $form->fieldset()->select('categoryId', ['options' => ContentCategory::getSortedCategories(), 'optionsKey' => true, 'multiple' => null], __('Select content category'))
             . $form->fieldset()->select('tpl', ['options' => $model->getAvailableTemplates()], __('Set template for this content'));

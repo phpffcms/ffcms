@@ -29,7 +29,7 @@ $this->layout('_layouts/default', [
 <?= $form->start() ?>
 
 <?php
-$menu = $this->bootstrap()->nav('ul', ['class' => 'nav-tabs']);
+$menu = $this->bootstrap()->nav('ul', ['class' => 'nav-pills']);
 foreach (\App::$Properties->get('languages') as $lang) {
     $menu->menu([
         'text' => Str::upperCase($lang),
