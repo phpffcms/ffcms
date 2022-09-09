@@ -92,14 +92,14 @@ class FormSettings extends Model
     public function rules(): array
     {
         $rules = [
-            ['sex', 'required'],
-            [['city', 'hobby', 'phone', 'url', 'name', 'birthday', 'about'], 'used'],
-            ['name', 'length_max', '70'],
-            ['city', 'length_max', '50'],
+            [['sex', 'city', 'hobby', 'phone', 'url', 'name', 'birthday', 'about'], 'used'],
+            ['name', 'length_max', '120'],
+            ['city', 'length_max', '70'],
             ['sex', 'in', [0, 1, 2]],
-            ['hobby', 'length_max', '50'],
+            ['hobby', 'length_max', '200'],
             ['phone', 'phone'],
             ['url', 'url'],
+            ['birthday', 'datedmy'],
             ['about', 'length_max', 4000]
         ];
 
